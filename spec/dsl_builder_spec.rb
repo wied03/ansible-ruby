@@ -16,6 +16,7 @@ RUBY
     end
 
     it { is_expected.to be_a Ansible::Ruby::Modules::Copy }
+    it { is_expected.to have_attributes src: '/file1.conf', dest: '/file2.conf' }
   end
 
   context 'not found' do

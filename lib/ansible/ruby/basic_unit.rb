@@ -3,17 +3,17 @@ module Ansible
     class BasicUnit
       def initialize(args={})
         validate args
-        @values = args
+        args.each { |key, value| instance_variable_set "@#{key}".to_sym, value }
       end
 
       def to_h
         attr = Hash[
           self.class.attributes.map do |key, _|
-            value = @values[key]
-            next nil unless value
+            value = self.send key
+            next unless value
             value = value.to_s if value.is_a? Symbol
             [key.to_s, value]
-          end]
+          end.compact]
         {
           self.class.name.downcase => attr
         }
@@ -27,6 +27,7 @@ module Ansible
         def attribute(name, options = {})
           attributes = @attributes ||= {}
           attributes[name] = options
+          attr_reader name
         end
       end
 

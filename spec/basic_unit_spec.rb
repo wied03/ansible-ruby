@@ -15,7 +15,15 @@ describe Ansible::Ruby::BasicUnit do
   context 'valid' do
     let(:instance) { klass.new foo: 123 }
 
-    it { is_expected.to eq({ 'ec2' => { 'foo' => 123 } }) }
+    describe 'hash' do
+      it { is_expected.to eq({ 'ec2' => { 'foo' => 123 } }) }
+    end
+
+    describe 'attributes' do
+      subject { instance }
+
+      it { is_expected.to have_attributes foo: 123 }
+    end
   end
 
   context 'choices' do
