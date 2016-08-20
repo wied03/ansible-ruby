@@ -1,3 +1,5 @@
 require 'ansible/ruby/version'
 require 'ansible/ruby/basic_unit'
 require 'ansible/ruby/serializer'
+require 'ansible/ruby/dsl_builder'
+require 'ansible/ruby/modules/custom/copy'
