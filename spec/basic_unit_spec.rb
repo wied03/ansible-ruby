@@ -20,6 +20,12 @@ describe Ansible::Ruby::BasicUnit do
     end
 
     context 'missing attribute' do
+      subject { lambda { klass.new bar: 123} }
+
+      it { is_expected.to raise_error 'Attribute foo is required'}
+    end
+
+    context 'missing attributes' do
       pending 'write this'
     end
   end
