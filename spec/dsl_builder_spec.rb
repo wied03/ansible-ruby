@@ -20,7 +20,19 @@ RUBY
   end
 
   context 'not found' do
-    pending 'write this'
+    let(:ruby) do
+      <<RUBY
+    # comments
+    foo_copy do
+      src '/file1.conf'
+      dest '/file2.conf'
+    end
+RUBY
+    end
+
+    subject { lambda { builder.evaluate } }
+
+    it { is_expected.to raise_error 'Unknown module foo_copy at line 2!' }
   end
 
   pending 'write it'
