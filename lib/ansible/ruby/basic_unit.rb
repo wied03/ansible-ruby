@@ -1,7 +1,7 @@
 module Ansible
   module Ruby
     class BasicUnit
-      def initialize(args)
+      def initialize(args={})
         supplied_keys = args.keys
         required_keys = self.class
                           .attributes
@@ -9,7 +9,8 @@ module Ansible
                           .map { |key, _| key }
         missing = required_keys - supplied_keys
         if missing.any?
-          raise "Attribute #{missing[0]} is required"
+          raise "Attribute #{missing[0]} is required" unless missing.length > 1
+          raise "Attributes #{missing} are required"
         end
         @values = args
       end
