@@ -16,7 +16,7 @@ describe Ansible::Ruby::BasicUnit do
     context 'valid' do
       let(:instance) { klass.new foo: 123 }
 
-      it { is_expected.to eq({ ec2: { foo: 123 } }) }
+      it { is_expected.to eq({ 'ec2' => { 'foo' => 123 } }) }
     end
 
     context 'missing attribute' do

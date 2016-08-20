@@ -19,10 +19,10 @@ module Ansible
         attr = Hash[
           self.class.attributes.map do |key, _|
             next nil unless @values[key]
-            [key, @values[key]]
+            [key.to_s, @values[key]]
           end]
         {
-          self.class.name.downcase.to_sym => attr
+          self.class.name.downcase => attr
         }
       end
 
