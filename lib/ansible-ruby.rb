@@ -1,2 +1,2 @@
 require 'ansible/ruby/version'
-require 'ansible/ruby/basic_dsl'
+require 'ansible/ruby/basic_unit'

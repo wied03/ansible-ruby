@@ -1,6 +1,6 @@
 module Ansible
   module Ruby
-    class BasicDsl
+    class BasicUnit
     end
   end
 end
