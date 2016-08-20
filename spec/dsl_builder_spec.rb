@@ -3,7 +3,7 @@ require 'ansible-ruby'
 
 describe Ansible::Ruby::DslBuilder do
   let(:builder) { Ansible::Ruby::DslBuilder.new ruby }
-  subject { builder.evaluate }
+  subject(:module_calls) { builder.evaluate }
 
   context 'single module' do
     context 'found' do
@@ -16,8 +16,14 @@ describe Ansible::Ruby::DslBuilder do
         RUBY
       end
 
-      it { is_expected.to be_a Ansible::Ruby::Modules::Copy }
-      it { is_expected.to have_attributes src: '/file1.conf', dest: '/file2.conf' }
+      it { is_expected.to have_attributes length: 1 }
+
+      describe 'only module' do
+        subject { module_calls[0] }
+
+        it { is_expected.to be_a Ansible::Ruby::Modules::Copy }
+        it { is_expected.to have_attributes src: '/file1.conf', dest: '/file2.conf' }
+      end
     end
 
     context 'not found' do
@@ -53,8 +59,10 @@ describe Ansible::Ruby::DslBuilder do
         RUBY
       end
 
-      it { is_expected.to be_a Ansible::Ruby::Modules::Copy }
-      it { is_expected.to have_attributes src: '/file1.conf', dest: '/file2.conf' }
+      it { is_expected.to have_attributes length: 2 }
+      it { is_expected.to include Ansible::Ruby::Modules::Copy, Ansible::Ruby::Modules::Copy }
+      it { is_expected.to include have_attributes(src: '/file1.conf', dest: '/file2.conf'),
+                                  have_attributes(src: '/file3.conf', dest: '/file4.conf') }
     end
 
     context 'not found' do

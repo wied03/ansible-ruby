@@ -5,6 +5,7 @@ module Ansible
         @context = [:task]
         @code = code
         @args = {}
+        @module_calls = []
       end
 
       def method_missing(id, *args, &block)
@@ -14,7 +15,7 @@ module Ansible
           when :task
             process_module id
             do_eval.call
-            @context.pop
+            module_finished
           when :module
             process_args id, args
           else
@@ -30,14 +31,22 @@ module Ansible
             raise "#{our_error.message} at line #{matching_line}!"
           end
         end
+        # Don't leak return values
+        nil
       end
 
       def evaluate
         instance_eval @code
-        @module_klass.new @args
+        @module_calls
       end
 
       private
+
+      def module_finished
+        @module_calls << @module_klass.new(@args)
+        @context.pop
+        @args = {}
+      end
 
       def process_args(id, args)
         @args[id] = args
