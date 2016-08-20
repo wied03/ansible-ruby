@@ -38,9 +38,4 @@ describe Ansible::Ruby::BasicUnit do
       it { is_expected.to raise_error 'Attributes [:foo, :bar] are required' }
     end
   end
-
-  context 'conflicting values' do
-    pending 'write this'
-  end
-  pending 'write this'
 end
