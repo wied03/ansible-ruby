@@ -34,6 +34,4 @@ RUBY
 
     it { is_expected.to raise_error 'Unknown module foo_copy at line 2!' }
   end
-
-  pending 'write it'
 end
