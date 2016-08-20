@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'ansible-ruby'
 
 describe Ansible::Ruby::DslBuilder do
-  let(:builder) { Ansible::Ruby::DslBuilder.new code: ruby }
+  let(:builder) { Ansible::Ruby::DslBuilder.new ruby }
   subject { builder.evaluate }
 
   context 'found' do

@@ -26,6 +26,30 @@ describe Ansible::Ruby::BasicUnit do
     end
   end
 
+  context 'single value via DSL array' do
+    let(:instance) { klass.new foo: [123] }
+
+    it { is_expected.to eq({ 'ec2' => { 'foo' => 123 } }) }
+  end
+
+  context 'array not allowed' do
+    subject { lambda { klass.new foo: [123, 456] } }
+
+    it { is_expected.to raise_error 'Attribute foo cannot be an array' }
+  end
+
+  context 'array allowed' do
+    let(:klass) do
+      Class.new(Ansible::Ruby::BasicUnit) do
+        attribute :foo, required: true, array: true
+      end
+    end
+
+    let(:instance) { klass.new foo: [123, 456] }
+    
+    it { is_expected.to eq({ 'ec2' => { 'foo' => [123, 456] } }) }
+  end
+
   context 'choices' do
     let(:klass) do
       Class.new(Ansible::Ruby::BasicUnit) do
