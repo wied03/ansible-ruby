@@ -1,5 +1,12 @@
 # What the DSL could look like
 
+task 'Copy something' do
+  copy do
+    src '/file1.conf'
+    dest '/file2.conf'
+  end
+end
+
 task 'Atomic host upgrade' do
   command '/usr/bin/atomic host upgrade'
 end
