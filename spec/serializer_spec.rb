@@ -22,8 +22,4 @@ YAML
       end
     end
   end
-
-  context 'nested unit' do
-    pending 'write this'
-  end
 end
