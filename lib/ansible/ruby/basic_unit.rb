@@ -2,24 +2,17 @@ module Ansible
   module Ruby
     class BasicUnit
       def initialize(args={})
-        supplied_keys = args.keys
-        required_keys = self.class
-                          .attributes
-                          .select { |_, opts| opts[:required] }
-                          .map { |key, _| key }
-        missing = required_keys - supplied_keys
-        if missing.any?
-          raise "Attribute #{missing[0]} is required" unless missing.length > 1
-          raise "Attributes #{missing} are required"
-        end
+        validate args
         @values = args
       end
 
       def to_h
         attr = Hash[
           self.class.attributes.map do |key, _|
-            next nil unless @values[key]
-            [key.to_s, @values[key]]
+            value = @values[key]
+            next nil unless value
+            value = value.to_s if value.is_a? Symbol
+            [key.to_s, value]
           end]
         {
           self.class.name.downcase => attr
@@ -35,6 +28,28 @@ module Ansible
           attributes = @attributes ||= {}
           attributes[name] = options
         end
+      end
+
+      private
+
+      def validate(args)
+        supplied_keys = args.keys
+        klass_attr = self.class.attributes
+        required_keys = klass_attr.select { |_, opts| opts[:required] }
+                          .map { |key, _| key }
+        errors = []
+        missing = required_keys - supplied_keys
+        if missing.any?
+          errors << if missing.length > 1
+                      "Attributes #{missing} are required"
+                    else
+                      "Attribute #{missing[0]} is required"
+                    end
+
+        end
+        klass_attr.select { |key, opts| (choice = opts[:choices]) && !choice.include?(args[key]) }
+          .each { |key, opts| errors << "Attribute #{key} can only be #{opts[:choices]}" }
+        raise errors.join("\n") if errors.any?
       end
     end
   end
