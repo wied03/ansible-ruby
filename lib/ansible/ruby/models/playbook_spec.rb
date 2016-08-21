@@ -66,4 +66,8 @@ describe Ansible::Ruby::Models::Playbook do
                         ]
     end
   end
+
+  context 'no plays' do
+    pending 'write this'
+  end
 end
