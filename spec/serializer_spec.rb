@@ -28,14 +28,8 @@ YAML
       end
 
       it do
-        text = <<-YAML
----
-# This is a generated YAML file by ansible-ruby, DO NOT EDIT
-ec2:
-  foo: null
-YAML
-        # Don't expecte a trailing CR
-        is_expected.to eq text.rstrip
+        # both null or empty as Ruby outputs this end up as None in Python
+        is_expected.to eq "---\n# This is a generated YAML file by ansible-ruby, DO NOT EDIT\nec2:\n  foo: "
       end
     end
   end
