@@ -20,7 +20,7 @@ describe Ansible::Ruby::Modules::Base do
 
   it do
     is_expected.to eq(ec2: {
-      foo: 123
-    })
+                        foo: 123
+                      })
   end
 end
