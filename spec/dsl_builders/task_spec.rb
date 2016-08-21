@@ -67,10 +67,6 @@ describe Ansible::Ruby::DslBuilders::Task do
     end
   end
 
-  context 'multiple tasks' do
-    pending 'write this'
-  end
-
   context 'register' do
     context 'changed when' do
       pending 'write this'
