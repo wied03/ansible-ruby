@@ -9,6 +9,7 @@ module Ansible
       attribute :changed_when
       attribute :failed_when
       attribute :when
+      attribute :with_dict
       attribute :notify, array: true
 
       def to_h

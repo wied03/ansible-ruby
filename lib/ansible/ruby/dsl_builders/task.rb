@@ -43,6 +43,10 @@ module Ansible
           @task_args[:when] = clause
         end
 
+        def with_dict(clause)
+          @task_args[:with_dict] = clause
+        end
+
         private
 
         def process_method(id, *args, &block)

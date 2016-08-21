@@ -46,6 +46,7 @@ describe Ansible::Ruby::DslBuilders::Task do
       task 'Copy something' do
           become true
           become_user 'root'
+          with_dict '{{ servers }}'
           copy do
             src '/file1.conf'
             dest '/file2.conf'
@@ -63,7 +64,7 @@ describe Ansible::Ruby::DslBuilders::Task do
     describe 'hash keys' do
       subject { task.to_h.keys }
 
-      it { is_expected.to eq %w(name copy become become_user) }
+      it { is_expected.to eq %w(name copy become become_user with_dict) }
     end
   end
 
