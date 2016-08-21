@@ -30,8 +30,10 @@ describe Ansible::Ruby::DslBuilders::Task do
       RUBY
     end
 
-    it { is_expected.to be_a Ansible::Ruby::Task }
-    it { is_expected.to have_attributes name: 'Copy something', module: be_a(Ansible::Ruby::Modules::Copy) }
+    describe 'task object' do
+      it { is_expected.to be_a Ansible::Ruby::Task }
+      it { is_expected.to have_attributes name: 'Copy something', module: be_a(Ansible::Ruby::Modules::Copy) }
+    end
 
     describe 'hash keys' do
       subject { task.to_h.keys }
@@ -66,12 +68,6 @@ describe Ansible::Ruby::DslBuilders::Task do
                                         poll: 50,
                                         ignore_errors: true,
                                         module: be_a(Ansible::Ruby::Modules::Copy) }
-
-    describe 'hash keys' do
-      subject { task.to_h.keys }
-
-      it { is_expected.to eq %w(name copy become become_user with_dict async poll ignore_errors) }
-    end
   end
 
   context 'register' do
@@ -93,12 +89,6 @@ describe Ansible::Ruby::DslBuilders::Task do
                                           register: 'result_1',
                                           changed_when: "'No upgrade available' not in result_1.stdout",
                                           module: be_a(Ansible::Ruby::Modules::Copy) }
-
-      describe 'hash keys' do
-        subject { task.to_h.keys }
-
-        it { is_expected.to eq %w(name copy register changed_when) }
-      end
     end
 
     context 'syntax error' do
@@ -137,12 +127,6 @@ describe Ansible::Ruby::DslBuilders::Task do
                                           register: 'result_1',
                                           failed_when: "'No upgrade available' not in result_1.stdout",
                                           module: be_a(Ansible::Ruby::Modules::Copy) }
-
-      describe 'hash keys' do
-        subject { task.to_h.keys }
-
-        it { is_expected.to eq %w(name copy register failed_when) }
-      end
     end
 
     context 'ansible_when' do
@@ -163,12 +147,6 @@ describe Ansible::Ruby::DslBuilders::Task do
                                           register: 'result_1',
                                           when: "'No upgrade available' not in result_1.stdout",
                                           module: be_a(Ansible::Ruby::Modules::Copy) }
-
-      describe 'hash keys' do
-        subject { task.to_h.keys }
-
-        it { is_expected.to eq %w(name copy register when) }
-      end
     end
   end
 end
