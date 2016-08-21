@@ -12,8 +12,10 @@ describe Ansible::Ruby::DslBuilders::Play do
 
   before do
     klass = Class.new(Ansible::Ruby::Modules::Base) do
-      attribute :src, required: true
-      attribute :dest, required: true
+      attribute :src
+      validates :src, presence: true
+      attribute :dest
+      validates :dest, presence: true
     end
     stub_const 'Ansible::Ruby::Modules::Copy', klass
   end

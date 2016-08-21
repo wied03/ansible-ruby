@@ -9,8 +9,10 @@ describe Ansible::Ruby::Modules::Base do
 
   let(:module_klass) do
     Class.new(Ansible::Ruby::Modules::Base) do
-      attribute :foo, required: true
-      attribute :bar
+      attribute :src
+      validates :src, presence: true
+      attribute :dest
+      validates :dest, presence: true
     end
   end
 
@@ -20,7 +22,7 @@ describe Ansible::Ruby::Modules::Base do
 
   it do
     is_expected.to eq('ec2' => {
-                        'foo' => 123
-                      })
+      'foo' => 123
+    })
   end
 end

@@ -8,8 +8,10 @@ describe Ansible::Ruby::Task do
 
   let(:module_klass) do
     Class.new(Ansible::Ruby::Modules::Base) do
-      attribute :foo, required: true
-      attribute :bar
+      attribute :src
+      validates :src, presence: true
+      attribute :dest
+      validates :dest, presence: true
     end
   end
 
