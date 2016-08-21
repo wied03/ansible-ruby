@@ -2,8 +2,13 @@ require 'spec_helper'
 require 'ansible-ruby'
 
 describe Ansible::Ruby::DslBuilders::ModuleCalls do
-  let(:builder) { Ansible::Ruby::DslBuilders::ModuleCalls.new ruby }
-  subject(:module_calls) { builder.evaluate }
+  let(:builder) { Ansible::Ruby::DslBuilders::ModuleCalls.new }
+
+  def evaluate
+    builder.evaluate ruby
+  end
+
+  subject(:module_calls) { evaluate }
 
   before do
     klass = Class.new(Ansible::Ruby::BasicUnit) do
@@ -48,7 +53,7 @@ describe Ansible::Ruby::DslBuilders::ModuleCalls do
         RUBY
       end
 
-      subject { lambda { builder.evaluate } }
+      subject { lambda { evaluate } }
 
       it { is_expected.to raise_error 'Attribute dest is required at line 6!' }
     end
@@ -64,7 +69,7 @@ describe Ansible::Ruby::DslBuilders::ModuleCalls do
         RUBY
       end
 
-      subject { lambda { builder.evaluate } }
+      subject { lambda { evaluate } }
 
       it { is_expected.to raise_error 'Unknown module foo_copy at line 2!' }
     end
@@ -134,7 +139,7 @@ describe Ansible::Ruby::DslBuilders::ModuleCalls do
         RUBY
       end
 
-      subject { lambda { builder.evaluate } }
+      subject { lambda { evaluate } }
 
       it { is_expected.to raise_error 'Unknown module foo_copy at line 6!' }
     end

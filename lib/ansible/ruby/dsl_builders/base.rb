@@ -2,6 +2,20 @@ module Ansible
   module Ruby
     module DslBuilders
       class Base
+        def initialize
+          @result = nil
+        end
+
+        def evaluate(*args, &block)
+          if block
+            instance_eval &block
+          else
+            raise 'Expected code as an argument if no block supplied!' unless args.length == 1
+            instance_eval args[0]
+          end
+          @result
+        end
+
         def method_missing(id, *args, &block)
           begin
             process_method id, *args, &block

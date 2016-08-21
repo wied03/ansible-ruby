@@ -4,18 +4,13 @@ module Ansible
   module Ruby
     module DslBuilders
       class Args < Base
-        def initialize(&block)
-          @args = {}
-          @args_block = block
-        end
-
-        def evaluate
-          instance_eval &@args_block
-          @args
+        def initialize
+          super
+          @result = {}
         end
 
         def process_method(id, *args)
-          @args[id] = args
+          @result[id] = args
         end
       end
     end
