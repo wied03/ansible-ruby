@@ -1,4 +1,4 @@
-require 'ansible/ruby/play'
+require 'ansible/ruby/models/play'
 require 'ansible/ruby/dsl_builders/task'
 
 module Ansible
