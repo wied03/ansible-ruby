@@ -3,6 +3,7 @@ module Ansible
     class BasicUnit
       def initialize(args={})
         validate args
+        @set_vars = args.keys
         args.each do |key, value|
           normalized = value.is_a?(Array) && value.length == 1 ? value[0] : value
           instance_variable_set "@#{key}".to_sym, normalized
@@ -11,9 +12,8 @@ module Ansible
 
       def to_h
         Hash[
-          self.class.attributes.map do |key, _|
+          @set_vars.map do |key|
             value = self.send key
-            next unless value
             value = case value
                     when Symbol
                       # leave symbols out of YAML

@@ -14,10 +14,10 @@ module Ansible
           super
           args = {
             module: @module,
-            name: @name
+            name: @name,
           }
-          args[:become] = @become
-          args[:become_user] = @become_user
+          set_ivar args, :become
+          set_ivar args, :become_user
           Ansible::Ruby::Task.new args
         end
 
@@ -30,6 +30,12 @@ module Ansible
         end
 
         private
+
+        def set_ivar(args, key)
+          ivar = "@#{key.to_s}".to_sym
+          # Don't want to set arguments on the class that the user hasn't set
+          args[key] = instance_variable_get ivar if instance_variable_defined? ivar
+        end
 
         def process_method(id, *args, &block)
           module_call_builder = ModuleCall.new

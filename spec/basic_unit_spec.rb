@@ -25,6 +25,12 @@ describe Ansible::Ruby::BasicUnit do
     end
   end
 
+  context 'explicit nil' do
+    let(:instance) { klass.new foo: nil }
+
+    it { is_expected.to eq({ 'foo' => nil }) }
+  end
+
   context 'nested unit' do
     let(:nested_klass) do
       Class.new(Ansible::Ruby::BasicUnit) do
