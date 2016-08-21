@@ -37,6 +37,9 @@ OUTPUT
   end
 
   context 'programmatic' do
+    let(:yaml_file) { 'sample_test.yml' }
+    let(:ruby_file) { 'sample_test.rb' }
+
     before do
       @commands = []
       expect(task).to receive(:sh) do |command, _|
@@ -48,11 +51,9 @@ OUTPUT
     context 'default' do
       let(:task) do
         Ansible::Ruby::Rake::Task.new do |task|
-          task.playbooks = 'sample_test.rb'
+          task.playbooks = ruby_file
         end
       end
-
-      let(:yaml_file) { 'sample_test.yml' }
 
       it 'executed the command' do
         expect(@commands).to include 'ansible-playbook sample_test.yml'
@@ -84,7 +85,21 @@ OUTPUT
     end
 
     context 'options' do
-      pending 'write this'
+      let(:task) do
+        Ansible::Ruby::Rake::Task.new do |task|
+          task.playbooks = ruby_file
+          task.options = '--ansible-option'
+        end
+      end
+
+      it 'executed the command' do
+        expect(@commands).to include 'ansible-playbook --ansible-option sample_test.yml'
+      end
+
+      it 'generates the YAML' do
+        expect(File.exist?(yaml_file)).to be_truthy
+        expect(File.read(yaml_file)).to include 'host1:host2'
+      end
     end
 
     context 'dependent task' do

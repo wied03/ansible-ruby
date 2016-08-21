@@ -16,7 +16,8 @@ module Ansible
           filenames = yaml_filenames([*playbooks])
           deps = [*deps] + filenames
           task name => deps do
-            sh "ansible-playbook #{filenames.join ' '}"
+            flat = options ? options + ' ' : ''
+            sh "ansible-playbook #{flat}#{filenames.join ' '}"
           end
         end
 
