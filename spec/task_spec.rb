@@ -51,8 +51,4 @@ describe Ansible::Ruby::Task do
       it { is_expected.to eq %w(name ec2 become become_user) }
     end
   end
-
-  context 'register' do
-    pending 'write this'
-  end
 end
