@@ -8,6 +8,13 @@ module Ansible
       attribute :become_user
       attribute :changed_when
       attribute :notify, array: true
+
+      def to_h
+        result = super
+        # Module gets referenced by name
+        mod = result.delete 'module'
+        result.merge mod
+      end
     end
   end
 end

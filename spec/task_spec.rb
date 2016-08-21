@@ -7,7 +7,7 @@ describe Ansible::Ruby::Task do
   end
 
   let(:module_klass) do
-    Class.new(Ansible::Ruby::BasicUnit) do
+    Class.new(Ansible::Ruby::Modules::Base) do
       attribute :foo, required: true
       attribute :bar
     end
@@ -21,7 +21,7 @@ describe Ansible::Ruby::Task do
     it { is_expected.to eq({
                              'name' => 'do stuff on EC2',
                              'ec2' => {
-                               'foo' => '123'
+                               'foo' => 123
                              }
                            }) }
   end
