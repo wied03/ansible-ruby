@@ -27,9 +27,9 @@ rule '.yml' => '.rb' do |t|
   puts "Updating #{t.name}"
   require 'ansible-ruby'
   ruby = File.read t.source
-  play_builder = Ansible::Ruby::DslBuilders::Play.new
-  play = play_builder.evaluate ruby
-  yml = Ansible::Ruby::Serializer.serialize play.to_h
+  playbook_builder = Ansible::Ruby::DslBuilders::Playbook.new
+  playbook = playbook_builder.evaluate ruby
+  yml = Ansible::Ruby::Serializer.serialize playbook.to_h
   File.write t.name, yml
 end
 
