@@ -95,7 +95,21 @@ describe Ansible::Ruby::DslBuilders::Task do
     end
 
     context 'syntax error' do
-      pending 'write this'
+      let(:ruby) do
+        <<-RUBY
+        task 'Copy something' do
+          atomic_result = copy do
+            src '/file1.conf'
+            dest '/file2.conf'
+          end
+          changed_when "'No upgrade available' not in \#{atomicc_result.stdout}"
+        end
+        RUBY
+      end
+
+      subject { lambda { evaluate } }
+
+      it { is_expected.to raise_error NameError, /undefined local variable or method `atomicc_result' for.*/ }
     end
 
     context 'failed when' do

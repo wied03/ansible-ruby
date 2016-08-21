@@ -7,6 +7,7 @@ module Ansible
     module DslBuilders
       class Task < Base
         def task(name, &block)
+          @module = nil
           @temp_counter = 0
           @name = name
           @task_args = {}
@@ -37,6 +38,8 @@ module Ansible
         private
 
         def process_method(id, *args, &block)
+          # only 1 module, so don't try and do this again
+          raise "undefined local variable or method `#{id}'" if @module
           module_call_builder = ModuleCall.new
           module_call_builder.send(id, *args, &block)
           @module = module_call_builder.result
