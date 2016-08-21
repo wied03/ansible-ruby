@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'ansible-ruby'
 
-describe Ansible::Ruby::Playbook do
+describe Ansible::Ruby::Play do
   before do
     stub_const('Ansible::Ruby::Modules::Ec2', module_klass)
   end
@@ -18,8 +18,8 @@ describe Ansible::Ruby::Playbook do
   subject(:hash) { instance.to_h }
 
   context 'basic' do
-    let(:instance) { Ansible::Ruby::Playbook.new tasks: [task],
-                                                 hosts: %w(host1 host2) }
+    let(:instance) { Ansible::Ruby::Play.new tasks: [task],
+                                             hosts: %w(host1 host2) }
 
     it do
       is_expected.to eq({
@@ -37,8 +37,8 @@ describe Ansible::Ruby::Playbook do
   end
 
   context 'single host' do
-    let(:instance) { Ansible::Ruby::Playbook.new tasks: [task],
-                                                 hosts: 'host1' }
+    let(:instance) { Ansible::Ruby::Play.new tasks: [task],
+                                             hosts: 'host1' }
 
     it do
       is_expected.to eq({
@@ -58,9 +58,9 @@ describe Ansible::Ruby::Playbook do
   context 'tasks and roles' do
     subject do
       lambda do
-        Ansible::Ruby::Playbook.new tasks: [task],
-                                    hosts: 'host1',
-                                    roles: 'role1'
+        Ansible::Ruby::Play.new tasks: [task],
+                                hosts: 'host1',
+                                roles: 'role1'
       end
     end
 
@@ -69,8 +69,8 @@ describe Ansible::Ruby::Playbook do
 
   context 'role' do
     context 'single' do
-      let(:instance) { Ansible::Ruby::Playbook.new roles: 'role1',
-                                                   hosts: 'host1' }
+      let(:instance) { Ansible::Ruby::Play.new roles: 'role1',
+                                               hosts: 'host1' }
 
       it do
         is_expected.to eq({
@@ -81,8 +81,8 @@ describe Ansible::Ruby::Playbook do
     end
 
     context 'multiple' do
-      let(:instance) { Ansible::Ruby::Playbook.new roles: %w(role1 role2),
-                                                   hosts: 'host1' }
+      let(:instance) { Ansible::Ruby::Play.new roles: %w(role1 role2),
+                                               hosts: 'host1' }
 
       it do
         is_expected.to eq({

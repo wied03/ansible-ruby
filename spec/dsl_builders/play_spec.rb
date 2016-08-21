@@ -1,8 +1,8 @@
 require 'spec_helper'
 require 'ansible-ruby'
 
-describe Ansible::Ruby::DslBuilders::Playbook do
-  let(:builder) { Ansible::Ruby::DslBuilders::Playbook.new }
+describe Ansible::Ruby::DslBuilders::Play do
+  let(:builder) { Ansible::Ruby::DslBuilders::Play.new }
 
   def evaluate
     builder.evaluate ruby
@@ -32,7 +32,7 @@ describe Ansible::Ruby::DslBuilders::Playbook do
       RUBY
     end
 
-    it { is_expected.to be_a Ansible::Ruby::Playbook }
+    it { is_expected.to be_a Ansible::Ruby::Play }
     it { is_expected.to have_attributes tasks: be_a(Ansible::Ruby::Task),
                                         hosts: 'host1' }
 
@@ -51,7 +51,7 @@ describe Ansible::Ruby::DslBuilders::Playbook do
       RUBY
     end
 
-    it { is_expected.to be_a Ansible::Ruby::Playbook }
+    it { is_expected.to be_a Ansible::Ruby::Play }
     it { is_expected.to have_attributes roles: %w(role1 role2),
                                         hosts: 'host1' }
   end
@@ -68,7 +68,7 @@ describe Ansible::Ruby::DslBuilders::Playbook do
       RUBY
     end
 
-    it { is_expected.to be_a Ansible::Ruby::Playbook }
+    it { is_expected.to be_a Ansible::Ruby::Play }
     it { is_expected.to have_attributes roles: %w(role1 role2),
                                         connection: :local,
                                         user: 'centos',

@@ -1,10 +1,10 @@
-require 'ansible/ruby/playbook'
+require 'ansible/ruby/play'
 require 'ansible/ruby/dsl_builders/task'
 
 module Ansible
   module Ruby
     module DslBuilders
-      class Playbook < Base
+      class Play < Base
         def initialize
           @tasks = []
           @playbook_args = {}
@@ -44,7 +44,7 @@ module Ansible
           args = @playbook_args.merge({})
           # Don't want to trigger validation
           args[:tasks] = @tasks if @tasks.any?
-          Ansible::Ruby::Playbook.new args
+          Ansible::Ruby::Play.new args
         end
 
         def process_method(id, *)
