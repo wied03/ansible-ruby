@@ -36,7 +36,7 @@ describe Ansible::Ruby::DslBuilders::Task do
     end
 
     describe 'hash keys' do
-      subject { task.to_h.keys }
+      subject { task.to_h.stringify_keys.keys }
 
       it { is_expected.to eq %w(name copy) }
     end

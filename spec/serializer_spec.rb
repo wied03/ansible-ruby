@@ -7,7 +7,7 @@ describe Ansible::Ruby::Serializer do
 
     context 'standard' do
       let(:hash) do
-        { 'ec2' => { 'foo' => 123 } }
+        { ec2: { foo: 123 } }
       end
 
       it do
@@ -24,7 +24,7 @@ YAML
 
     context 'null' do
       let(:hash) do
-        { 'ec2' => { 'foo' => nil } }
+        { ec2: { foo: nil } }
       end
 
       it do
