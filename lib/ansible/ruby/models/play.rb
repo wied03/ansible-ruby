@@ -1,4 +1,4 @@
-require 'ansible/ruby/base_model'
+require 'ansible/ruby/models/base_model'
 require 'ansible/ruby/models/task'
 
 module Ansible
