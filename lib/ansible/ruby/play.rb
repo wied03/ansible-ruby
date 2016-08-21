@@ -4,14 +4,14 @@ require 'ansible/ruby/task'
 module Ansible
   module Ruby
     class Play < BaseModel
-      attribute :hosts, required: true, type: [Array, String]
-      attribute :name, type: String
-      attribute :tasks, type: [Array, Ansible::Ruby::Task]
-      attribute :roles, type: [Array, String]
-      attribute :connection, choices: [:local, :docker, :ssh]
-      attribute :user, type: String
-      attribute :serial, type: Integer
-      attribute :gather_facts, type: [TrueClass, FalseClass]
+      # attribute :hosts, required: true, type: [Array, String]
+      # attribute :name, type: String
+      # attribute :tasks, type: [Array, Ansible::Ruby::Task]
+      # attribute :roles, type: [Array, String]
+      # attribute :connection, choices: [:local, :docker, :ssh]
+      # attribute :user, type: String
+      # attribute :serial, type: Integer
+      # attribute :gather_facts, type: [TrueClass, FalseClass]
 
       def to_h
         result = super

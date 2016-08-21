@@ -2,11 +2,14 @@ require 'spec_helper'
 require 'ansible-ruby'
 
 describe Ansible::Ruby::BaseModel do
-  subject { instance.to_h }
+  before { stub_const 'Ansible::Ruby::TestModel', klass }
+
+  subject { instance }
 
   let(:klass) do
     Class.new(Ansible::Ruby::BaseModel) do
-      attribute :foo, required: true
+      attribute :foo
+      validates :foo, presence: true
       attribute :bar
     end
   end
@@ -14,27 +17,23 @@ describe Ansible::Ruby::BaseModel do
   context 'valid' do
     let(:instance) { klass.new foo: 123 }
 
-    describe 'hash' do
-      it { is_expected.to eq('foo' => 123) }
-    end
-
-    describe 'attributes' do
-      subject { instance }
-
-      it { is_expected.to have_attributes foo: 123 }
-    end
+    it { is_expected.to be_valid }
+    it { is_expected.to have_hash foo: 123 }
+    it { is_expected.to have_attributes foo: 123 }
   end
 
   context 'explicit nil' do
     let(:klass) do
       Class.new(Ansible::Ruby::BaseModel) do
-        attribute :foo, required: true, type: Integer, nil: true
+        attribute :foo
+        validates :foo, presence: true, allow_nil: true
       end
     end
 
     let(:instance) { klass.new foo: nil }
 
-    it { is_expected.to eq('foo' => nil) }
+    it { is_expected.to be_valid }
+    it { is_expected.to have_hash foo: nil }
   end
 
   context 'nested unit' do
@@ -46,129 +45,100 @@ describe Ansible::Ruby::BaseModel do
 
     let(:instance) { klass.new foo: nested_klass.new(image: 'centos') }
 
-    it { is_expected.to eq('foo' => { 'image' => 'centos' }) }
-  end
-
-  context 'single value via DSL array' do
-    let(:instance) { klass.new foo: [123] }
-
-    it { is_expected.to eq('foo' => 123) }
+    it { is_expected.to have_hash(foo: { image: 'centos' }) }
   end
 
   context 'type validated' do
     let(:klass) do
       Class.new(Ansible::Ruby::BaseModel) do
-        attribute :foo, required: true, type: Integer, nil: true
-        attribute :bar, type: [Integer, Float]
+        attribute :foo
+        validates :foo, presence: true, allow_nil: true, type: Integer
+        attribute :bar
+        validates :bar, type: TypeGeneric.new(Float)
+        attribute :toodles
+        validates :toodles, presence: true, type: TypeGeneric.new(Float)
       end
     end
 
     context 'attribute present' do
-      subject { -> { klass.new foo: 'howdy' } }
+      let(:instance) { klass.new foo: 'howdy', toodles: 40.4 }
 
-      it { is_expected.to raise_error 'Attribute foo expected to be an Integer but was a String' }
+      it { is_expected.to_not be_valid }
+      it { is_expected.to have_errors foo: 'Attribute foo expected to be a Integer but was a String' }
     end
 
     context 'bar attribute not present' do
-      let(:instance) { klass.new foo: [123] }
+      let(:instance) { klass.new foo: 123, toodles: 40.4 }
 
-      it { is_expected.to eq('foo' => 123) }
+      it { is_expected.to be_valid }
+      it { is_expected.to have_hash foo: 123, toodles: 40.4 }
     end
 
     context 'nil value' do
-      let(:instance) { klass.new foo: nil }
+      let(:instance) { klass.new foo: nil, toodles: 40.4 }
 
-      it { is_expected.to eq('foo' => nil) }
+      it { is_expected.to be_valid }
+      it { is_expected.to have_hash foo: nil, toodles: 40.4 }
     end
 
-    context 'multiple types' do
-      let(:instance) { klass.new foo: nil, bar: 45.44 }
+    context 'generic type' do
+      context 'single value' do
+        context 'correct type' do
+          let(:instance) { klass.new foo: nil, bar: 45.44, toodles: 40.4 }
 
-      it { is_expected.to eq('foo' => nil, 'bar' => 45.44) }
-    end
-  end
+          it { is_expected.to be_valid }
+          it { is_expected.to have_hash foo: nil, bar: 45.44, toodles: 40.4 }
+        end
 
-  context 'nil not allowed' do
-    context 'pass' do
-      let(:instance) { klass.new foo: 123 }
+        context 'incorrect type' do
+          let(:instance) { klass.new foo: nil, bar: 'howdy', toodles: 40.4 }
 
-      it { is_expected.to eq('foo' => 123) }
-    end
+          it { is_expected.to_not be_valid }
+        end
 
-    context 'fail' do
-      subject { -> { klass.new foo: nil } }
+        context 'nil' do
+          let(:instance) { klass.new foo: nil, bar: nil, toodles: 40.4 }
 
-      it { is_expected.to raise_error 'Attribute foo cannot be nil' }
-    end
-  end
+          it { is_expected.to be_valid }
+          it { is_expected.to have_hash foo: nil, bar: nil, toodles: 40.4 }
+        end
 
-  context 'array not allowed' do
-    let(:klass) do
-      Class.new(Ansible::Ruby::BaseModel) do
-        attribute :foo, required: true, type: Integer
+        context 'nil not allowed' do
+          let(:instance) { klass.new foo: nil, bar: nil, toodles: nil }
+
+          it { is_expected.to_not be_valid }
+          it { is_expected.to have_errors toodles: "can't be blank" }
+        end
+      end
+
+      context 'mult value' do
+        context 'correct type' do
+          let(:instance) { klass.new foo: nil, bar: [45.44], toodles: 40.4 }
+
+          it { is_expected.to be_valid }
+          it { is_expected.to have_hash foo: nil, bar: [45.44], toodles: 40.4 }
+        end
+
+        context 'empty array' do
+          let(:instance) { klass.new foo: nil, bar: [], toodles: 40.4 }
+
+          it { is_expected.to be_valid }
+          it { is_expected.to have_hash foo: nil, bar: [], toodles: 40.4 }
+        end
+
+        context 'incorrect type' do
+          let(:instance) { klass.new foo: nil, bar: ['howdy'], toodles: 40.4 }
+
+          it { is_expected.to_not be_valid }
+        end
       end
     end
-
-    subject { -> { klass.new foo: [123, 456] } }
-
-    it { is_expected.to raise_error 'Attribute foo expected to be an Integer but was a Array' }
-  end
-
-  context 'array allowed' do
-    let(:klass) do
-      Class.new(Ansible::Ruby::BaseModel) do
-        attribute :foo, required: true, type: Array
-      end
-    end
-
-    let(:instance) { klass.new foo: [123, 456] }
-
-    it { is_expected.to eq('foo' => [123, 456]) }
-  end
-
-  context 'choices' do
-    let(:klass) do
-      Class.new(Ansible::Ruby::BaseModel) do
-        attribute :foo, required: true
-        attribute :bar, choices: [:bob, :sally]
-      end
-    end
-
-    context 'valid' do
-      let(:instance) { klass.new foo: 123, bar: :bob }
-
-      it { is_expected.to eq('foo' => 123, 'bar' => 'bob') }
-    end
-
-    context 'not in list' do
-      subject { -> { klass.new foo: 123, bar: 123 } }
-
-      it { is_expected.to raise_error 'Attribute bar can only be [:bob, :sally]' }
-    end
-  end
-
-  context 'unknown attribute' do
-    subject { -> { klass.new foo: 123, unknown: 123 } }
-
-    it { is_expected.to raise_error 'Attributes [:unknown] are unknown. Valid attributes are [:foo, :bar]' }
   end
 
   context 'missing attribute' do
-    subject { -> { klass.new bar: 123 } }
+    let(:instance) { klass.new bar: 123 }
 
-    it { is_expected.to raise_error 'Attribute foo is required' }
-  end
-
-  context 'missing attributes' do
-    let(:klass) do
-      Class.new(Ansible::Ruby::BaseModel) do
-        attribute :foo, required: true
-        attribute :bar, required: true
-      end
-    end
-
-    subject { -> { klass.new } }
-
-    it { is_expected.to raise_error 'Attributes [:foo, :bar] are required' }
+    it { is_expected.to_not be_valid }
+    it { is_expected.to have_errors foo: "can't be blank" }
   end
 end
