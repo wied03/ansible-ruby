@@ -2,7 +2,7 @@ require 'ansible/ruby/base_dsl_builder'
 
 module Ansible
   module Ruby
-    class DslBuilder < BaseDslBuilder
+    class TaskDslBuilder < BaseDslBuilder
       def initialize(code)
         @context = [:task]
         @code = code
@@ -30,7 +30,7 @@ module Ansible
           raise "Unknown context #{@context}"
         end
       end
-      
+
       def module_finished
         @module_calls << @module_klass.new(@args)
         @context.pop
