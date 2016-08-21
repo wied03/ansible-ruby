@@ -19,8 +19,8 @@ describe Ansible::Ruby::Modules::Base do
   let(:instance) { module_klass.new(foo: 123) }
 
   it do
-    is_expected.to eq('ec2' => {
-      'foo' => 123
+    is_expected.to eq(ec2: {
+      foo: 123
     })
   end
 end
