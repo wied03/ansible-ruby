@@ -1,5 +1,5 @@
 require 'ansible/ruby/version'
 require 'ansible/ruby/basic_unit'
 require 'ansible/ruby/serializer'
-require 'ansible/ruby/dsl_builders/module_call'
+require 'ansible/ruby/dsl_builders/task'
 require 'ansible/ruby/task'

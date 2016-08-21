@@ -11,6 +11,14 @@ task 'Atomic host upgrade' do
   command '/usr/bin/atomic host upgrade'
 end
 
+task 'when case' do
+  atomic_result = command '/usr/bin/atomic host upgrade' do
+    chdir '/foobar'
+  end
+
+  ansible_when atomic_result.stdout.find('No upgrade available') != -1
+end
+
 task 'Another task' do
   atomic_result = command '/usr/bin/atomic host upgrade' do
     chdir '/foobar'

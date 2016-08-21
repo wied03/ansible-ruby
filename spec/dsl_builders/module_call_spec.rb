@@ -8,7 +8,7 @@ describe Ansible::Ruby::DslBuilders::ModuleCall do
     builder.evaluate ruby
   end
 
-  subject(:module_calls) { evaluate }
+  subject { evaluate }
 
   before do
     klass = Class.new(Ansible::Ruby::BasicUnit) do
