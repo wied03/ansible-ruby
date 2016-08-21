@@ -16,11 +16,13 @@ module Ansible
         result = super
         hosts = result.delete 'hosts'
         tasks = result.delete 'tasks'
+        roles = result.delete 'roles'
         # Be consistent with Ansible order
         new_result = {
           'hosts' => [*hosts].join(':'), # Ansible doesn't specify this as an array
-          'tasks' => tasks.is_a?(Array) ? tasks : [tasks] # ensure we have an array
         }
+        new_result['tasks'] = tasks.is_a?(Array) ? tasks : [tasks] if tasks # ensure we have an array
+        new_result['roles'] = [*roles] if roles # ensure we have an array
         result.each do |key, value|
           new_result[key] = value
         end

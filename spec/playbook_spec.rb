@@ -67,7 +67,29 @@ describe Ansible::Ruby::Playbook do
     it { is_expected.to raise_error 'Cannot supply both tasks and roles!' }
   end
 
-  context 'roles only' do
-    pending 'write this'
+  context 'role' do
+    context 'single' do
+      let(:instance) { Ansible::Ruby::Playbook.new roles: 'role1',
+                                                   hosts: 'host1' }
+
+      it do
+        is_expected.to eq({
+                            'hosts' => 'host1',
+                            'roles' => %w(role1)
+                          })
+      end
+    end
+
+    context 'multiple' do
+      let(:instance) { Ansible::Ruby::Playbook.new roles: %w(role1 role2),
+                                                   hosts: 'host1' }
+
+      it do
+        is_expected.to eq({
+                            'hosts' => 'host1',
+                            'roles' => %w(role1 role2)
+                          })
+      end
+    end
   end
 end
