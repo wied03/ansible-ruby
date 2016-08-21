@@ -19,12 +19,15 @@ module Ansible
           @playbook_args[:hosts] = value
         end
 
+        def roles(value)
+          @playbook_args[:roles] = value
+        end
+
         def evaluate(*)
           super
-          args = {
-            tasks: @tasks,
-            hosts: @playbook_args[:hosts]
-          }
+          args = @playbook_args.merge({})
+          # Don't want to trigger validation
+          args[:tasks] = @tasks if @tasks.any?
           Ansible::Ruby::Playbook.new args
         end
 

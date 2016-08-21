@@ -44,7 +44,16 @@ describe Ansible::Ruby::DslBuilders::Playbook do
   end
 
   context 'roles' do
-    pending 'write this'
+    let(:ruby) do
+      <<-RUBY
+      hosts 'host1'
+      roles %w(role1 role2)
+      RUBY
+    end
+
+    it { is_expected.to be_a Ansible::Ruby::Playbook }
+    it { is_expected.to have_attributes roles: %w(role1 role2),
+                                        hosts: 'host1' }
   end
 
   context 'other attributes' do
