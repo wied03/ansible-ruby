@@ -2,7 +2,6 @@ require 'spec_helper'
 require 'ansible-ruby'
 
 describe Ansible::Ruby::BasicUnit do
-  before { stub_const('EC2', klass) }
   subject { instance.to_h }
 
   let(:klass) do
@@ -16,7 +15,7 @@ describe Ansible::Ruby::BasicUnit do
     let(:instance) { klass.new foo: 123 }
 
     describe 'hash' do
-      it { is_expected.to eq({ 'ec2' => { 'foo' => 123 } }) }
+      it { is_expected.to eq({ 'foo' => 123 }) }
     end
 
     describe 'attributes' do
@@ -26,10 +25,22 @@ describe Ansible::Ruby::BasicUnit do
     end
   end
 
+  context 'nested unit' do
+    let(:nested_klass) do
+      Class.new(Ansible::Ruby::BasicUnit) do
+        attribute :image
+      end
+    end
+
+    let(:instance) { klass.new foo: nested_klass.new(image: 'centos') }
+
+    it { is_expected.to eq({ 'foo' => { 'image' => 'centos' } }) }
+  end
+
   context 'single value via DSL array' do
     let(:instance) { klass.new foo: [123] }
 
-    it { is_expected.to eq({ 'ec2' => { 'foo' => 123 } }) }
+    it { is_expected.to eq({ 'foo' => 123 }) }
   end
 
   context 'array not allowed' do
@@ -46,8 +57,8 @@ describe Ansible::Ruby::BasicUnit do
     end
 
     let(:instance) { klass.new foo: [123, 456] }
-    
-    it { is_expected.to eq({ 'ec2' => { 'foo' => [123, 456] } }) }
+
+    it { is_expected.to eq({ 'foo' => [123, 456] }) }
   end
 
   context 'choices' do
@@ -61,7 +72,7 @@ describe Ansible::Ruby::BasicUnit do
     context 'valid' do
       let(:instance) { klass.new foo: 123, bar: :bob }
 
-      it { is_expected.to eq({ 'ec2' => { 'foo' => 123, 'bar' => 'bob' } }) }
+      it { is_expected.to eq({ 'foo' => 123, 'bar' => 'bob' }) }
     end
 
     context 'not in list' do

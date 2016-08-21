@@ -10,16 +10,21 @@ module Ansible
       end
 
       def to_h
-        attr = Hash[
+        Hash[
           self.class.attributes.map do |key, _|
             value = self.send key
             next unless value
-            value = value.to_s if value.is_a? Symbol
+            value = case value
+                    when Symbol
+                      # leave symbols out of YAML
+                      value.to_s
+                    when BasicUnit
+                      value.to_h
+                    else
+                      value
+                    end
             [key.to_s, value]
           end.compact]
-        {
-          self.class.name.downcase => attr
-        }
       end
 
       class << self
