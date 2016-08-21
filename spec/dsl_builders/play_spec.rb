@@ -36,12 +36,12 @@ describe Ansible::Ruby::DslBuilders::Play do
 
     it { is_expected.to be_a Ansible::Ruby::Play }
     it do
-      is_expected.to have_attributes tasks: be_a(Ansible::Ruby::Task),
+      is_expected.to have_attributes tasks: include(be_a(Ansible::Ruby::Task)),
                                      hosts: 'host1'
     end
 
     describe 'hash keys' do
-      subject { playbook.to_h.keys }
+      subject { playbook.to_h.stringify_keys.keys }
 
       it { is_expected.to eq %w(hosts tasks) }
     end
