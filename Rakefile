@@ -6,7 +6,9 @@ require 'reek/rake/task'
 task default: [:spec, :rubocop, :reek]
 
 desc 'Run specs'
-RSpec::Core::RakeTask.new :spec
+RSpec::Core::RakeTask.new :spec do |task|
+  task.pattern = 'lib/**/*_spec.rb'
+end
 
 desc 'Runs Rubocop'
 RuboCop::RakeTask.new do |task|
