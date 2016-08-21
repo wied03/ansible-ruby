@@ -59,6 +59,7 @@ describe Ansible::Ruby::DslBuilders::Play do
   context 'other attributes' do
     let(:ruby) do
       <<-RUBY
+      name 'another play'
       hosts 'host1'
       roles %w(role1 role2)
       connection :local
@@ -73,6 +74,7 @@ describe Ansible::Ruby::DslBuilders::Play do
                                         connection: :local,
                                         user: 'centos',
                                         serial: 1,
+                                        name: 'another play',
                                         gather_facts: true,
                                         hosts: 'host1' }
   end

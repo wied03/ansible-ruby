@@ -36,6 +36,31 @@ describe Ansible::Ruby::Play do
     end
   end
 
+  context 'play name' do
+    let(:instance) { Ansible::Ruby::Play.new tasks: [task],
+                                             name: 'play name',
+                                             hosts: %w(host1 host2) }
+
+    it do
+      is_expected.to eq({
+                          'hosts' => 'host1:host2',
+                          'name' => 'play name',
+                          'tasks' => [
+                            {
+                              'name' => 'do stuff on EC2',
+                              'ec2' => {
+                                'foo' => 123
+                              }
+                            }
+                          ]
+                        })
+    end
+
+    it 'puts the name right after hosts for readability' do
+      expect(hash.keys).to eq %w(hosts name tasks)
+    end
+  end
+
   context 'single host' do
     let(:instance) { Ansible::Ruby::Play.new tasks: [task],
                                              hosts: 'host1' }

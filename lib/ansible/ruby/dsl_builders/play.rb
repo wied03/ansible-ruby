@@ -39,6 +39,10 @@ module Ansible
           @playbook_args[:gather_facts] = value
         end
 
+        def name(value)
+          @playbook_args[:name] = value
+        end
+
         def evaluate(*)
           super
           args = @playbook_args.merge({})
