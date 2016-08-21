@@ -58,14 +58,16 @@ describe Ansible::Ruby::DslBuilders::Task do
     end
 
     it { is_expected.to be_a Ansible::Ruby::Task }
-    it { is_expected.to have_attributes name: 'Copy something',
-                                        become: true,
-                                        become_user: 'root',
-                                        async: 0,
-                                        poll: 50,
-                                        ignore_errors: true,
-                                        notify: 'handler1',
-                                        module: be_a(Ansible::Ruby::Modules::Copy) }
+    it do
+      is_expected.to have_attributes name: 'Copy something',
+                                     become: true,
+                                     become_user: 'root',
+                                     async: 0,
+                                     poll: 50,
+                                     ignore_errors: true,
+                                     notify: 'handler1',
+                                     module: be_a(Ansible::Ruby::Modules::Copy)
+    end
   end
 
   context 'no modules' do
@@ -75,7 +77,7 @@ describe Ansible::Ruby::DslBuilders::Task do
       RUBY
     end
 
-    subject { lambda { evaluate } }
+    subject { -> { evaluate } }
 
     it { is_expected.to raise_error 'You forgot to supply a module to run!' }
   end
@@ -93,10 +95,12 @@ describe Ansible::Ruby::DslBuilders::Task do
     end
 
     it { is_expected.to be_a Ansible::Ruby::Task }
-    it { is_expected.to have_attributes name: 'Copy something',
-                                        become: true,
-                                        ignore_errors: true,
-                                        module: be_a(Ansible::Ruby::Modules::Copy) }
+    it do
+      is_expected.to have_attributes name: 'Copy something',
+                                     become: true,
+                                     ignore_errors: true,
+                                     module: be_a(Ansible::Ruby::Modules::Copy)
+    end
   end
 
   context 'register' do
@@ -112,10 +116,12 @@ describe Ansible::Ruby::DslBuilders::Task do
       end
 
       it { is_expected.to be_a Ansible::Ruby::Task }
-      it { is_expected.to have_attributes name: 'Copy something',
-                                          register: 'result_1',
-                                          changed_when: "'No upgrade available' not in result_1.stdout",
-                                          module: be_a(Ansible::Ruby::Modules::Copy) }
+      it do
+        is_expected.to have_attributes name: 'Copy something',
+                                       register: 'result_1',
+                                       changed_when: "'No upgrade available' not in result_1.stdout",
+                                       module: be_a(Ansible::Ruby::Modules::Copy)
+      end
     end
 
     context 'syntax error' do
@@ -129,7 +135,7 @@ describe Ansible::Ruby::DslBuilders::Task do
         RUBY
       end
 
-      subject { lambda { evaluate } }
+      subject { -> { evaluate } }
 
       it { is_expected.to raise_error NameError, /undefined local variable or method `atomicc_result' for.*/ }
     end
@@ -146,10 +152,12 @@ describe Ansible::Ruby::DslBuilders::Task do
       end
 
       it { is_expected.to be_a Ansible::Ruby::Task }
-      it { is_expected.to have_attributes name: 'Copy something',
-                                          register: 'result_1',
-                                          failed_when: "'No upgrade available' not in result_1.stdout",
-                                          module: be_a(Ansible::Ruby::Modules::Copy) }
+      it do
+        is_expected.to have_attributes name: 'Copy something',
+                                       register: 'result_1',
+                                       failed_when: "'No upgrade available' not in result_1.stdout",
+                                       module: be_a(Ansible::Ruby::Modules::Copy)
+      end
     end
 
     context 'ansible_when' do
@@ -164,10 +172,12 @@ describe Ansible::Ruby::DslBuilders::Task do
       end
 
       it { is_expected.to be_a Ansible::Ruby::Task }
-      it { is_expected.to have_attributes name: 'Copy something',
-                                          register: 'result_1',
-                                          when: "'No upgrade available' not in result_1.stdout",
-                                          module: be_a(Ansible::Ruby::Modules::Copy) }
+      it do
+        is_expected.to have_attributes name: 'Copy something',
+                                       register: 'result_1',
+                                       when: "'No upgrade available' not in result_1.stdout",
+                                       module: be_a(Ansible::Ruby::Modules::Copy)
+      end
     end
   end
 end

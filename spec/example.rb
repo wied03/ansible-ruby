@@ -14,4 +14,3 @@ task 'Copy something over' do
 end
 
 user 'centos'
-

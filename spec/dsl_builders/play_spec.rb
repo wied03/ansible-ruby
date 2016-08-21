@@ -33,8 +33,10 @@ describe Ansible::Ruby::DslBuilders::Play do
     end
 
     it { is_expected.to be_a Ansible::Ruby::Play }
-    it { is_expected.to have_attributes tasks: be_a(Ansible::Ruby::Task),
-                                        hosts: 'host1' }
+    it do
+      is_expected.to have_attributes tasks: be_a(Ansible::Ruby::Task),
+                                     hosts: 'host1'
+    end
 
     describe 'hash keys' do
       subject { playbook.to_h.keys }
@@ -52,8 +54,10 @@ describe Ansible::Ruby::DslBuilders::Play do
     end
 
     it { is_expected.to be_a Ansible::Ruby::Play }
-    it { is_expected.to have_attributes roles: %w(role1 role2),
-                                        hosts: 'host1' }
+    it do
+      is_expected.to have_attributes roles: %w(role1 role2),
+                                     hosts: 'host1'
+    end
   end
 
   context 'other attributes' do
@@ -70,12 +74,14 @@ describe Ansible::Ruby::DslBuilders::Play do
     end
 
     it { is_expected.to be_a Ansible::Ruby::Play }
-    it { is_expected.to have_attributes roles: %w(role1 role2),
-                                        connection: :local,
-                                        user: 'centos',
-                                        serial: 1,
-                                        name: 'another play',
-                                        gather_facts: true,
-                                        hosts: 'host1' }
+    it do
+      is_expected.to have_attributes roles: %w(role1 role2),
+                                     connection: :local,
+                                     user: 'centos',
+                                     serial: 1,
+                                     name: 'another play',
+                                     gather_facts: true,
+                                     hosts: 'host1'
+    end
   end
 end

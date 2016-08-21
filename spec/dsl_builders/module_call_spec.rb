@@ -46,7 +46,7 @@ describe Ansible::Ruby::DslBuilders::ModuleCall do
       RUBY
     end
 
-    subject { lambda { evaluate } }
+    subject { -> { evaluate } }
 
     it { is_expected.to raise_error 'Attribute dest is required at line 6!' }
   end
@@ -62,7 +62,7 @@ describe Ansible::Ruby::DslBuilders::ModuleCall do
       RUBY
     end
 
-    subject { lambda { evaluate } }
+    subject { -> { evaluate } }
 
     it { is_expected.to raise_error 'Unknown module foo_copy at line 2!' }
   end

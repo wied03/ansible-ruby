@@ -3,7 +3,7 @@ require 'rspec/core/rake_task'
 require 'rubocop/rake_task'
 require 'reek/rake/task'
 
-task :default => [:spec, :rubocop, :reek]
+task default: [:spec, :rubocop, :reek]
 
 desc 'Run specs'
 RSpec::Core::RakeTask.new :spec
@@ -23,6 +23,6 @@ rule '.yml' => '.rb' do |t|
   File.write t.name, yml
 end
 
-task :ansible => 'spec/example.yml' do
+task ansible: 'spec/example.yml' do
   puts 'run ansible now'
 end

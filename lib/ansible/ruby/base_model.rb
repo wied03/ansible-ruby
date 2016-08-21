@@ -1,7 +1,7 @@
 module Ansible
   module Ruby
     class BaseModel
-      def initialize(args={})
+      def initialize(args = {})
         validate args
         @set_vars = args.keys
         args.each do |key, value|
@@ -13,7 +13,7 @@ module Ansible
       def to_h
         Hash[
           @set_vars.map do |key|
-            value = self.send key
+            value = send key
             value = case value
                     when Symbol
                       # leave symbols out of YAML
@@ -28,9 +28,7 @@ module Ansible
       end
 
       class << self
-        def attributes
-          @attributes
-        end
+        attr_reader :attributes
 
         def attribute(name, options = {})
           attributes = @attributes ||= {}
@@ -45,7 +43,7 @@ module Ansible
         supplied_keys = args.keys
         klass_attr = self.class.attributes
         required_keys = klass_attr.select { |_, opts| opts[:required] }
-                          .map { |key, _| key }
+                                  .map { |key, _| key }
         errors = []
         valid_attribute_keys = self.class.attributes.keys
         unknown = supplied_keys - valid_attribute_keys
@@ -64,18 +62,15 @@ module Ansible
         klass_attr.each do |key, opts|
           next unless args.include? key
           value = args[key]
-          unless opts[:nil] || value
-            errors << "Attribute #{key} cannot be nil"
-          end
+          errors << "Attribute #{key} cannot be nil" unless opts[:nil] || value
           if (choice = opts[:choices]) && !choice.include?(value)
             errors << "Attribute #{key} can only be #{opts[:choices]}"
           end
           single_value_as_array = !opts[:array] && value.is_a?(Array) && value.length == 1
-          if (type = opts[:type])
-            value_to_use = single_value_as_array ? value[0] : value
-            unless [*type].any? { |t| value_to_use.is_a?(t) } || value_to_use.is_a?(NilClass)
-              errors << "Attribute #{key} expected to be an #{type} but was a #{value_to_use.class}"
-            end
+          next unless (type = opts[:type])
+          value_to_use = single_value_as_array ? value[0] : value
+          unless [*type].any? { |t| value_to_use.is_a?(t) } || value_to_use.is_a?(NilClass)
+            errors << "Attribute #{key} expected to be an #{type} but was a #{value_to_use.class}"
           end
         end
         raise errors.join("\n") if errors.any?

@@ -10,4 +10,3 @@ module Ansible
     end
   end
 end
-

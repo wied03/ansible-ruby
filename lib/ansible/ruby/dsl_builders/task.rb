@@ -19,7 +19,7 @@ module Ansible
           super
           args = {
             module: @module,
-            name: @name,
+            name: @name
           }.merge @task_args
           Ansible::Ruby::Task.new args
         end
@@ -76,10 +76,10 @@ module Ansible
           @module = module_call_builder.result
         end
 
-        def method_missing_return(id, result, *args)
+        def method_missing_return(_id, _result, *_args)
           # method_missing only used for modules here
           @temp_counter += 1
-          Result.new(@temp_counter, lambda { |name| @task_args[:register] = name })
+          Result.new(@temp_counter, ->(name) { @task_args[:register] = name })
         end
       end
     end

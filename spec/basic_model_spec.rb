@@ -15,7 +15,7 @@ describe Ansible::Ruby::BaseModel do
     let(:instance) { klass.new foo: 123 }
 
     describe 'hash' do
-      it { is_expected.to eq({ 'foo' => 123 }) }
+      it { is_expected.to eq('foo' => 123) }
     end
 
     describe 'attributes' do
@@ -34,7 +34,7 @@ describe Ansible::Ruby::BaseModel do
 
     let(:instance) { klass.new foo: nil }
 
-    it { is_expected.to eq({ 'foo' => nil }) }
+    it { is_expected.to eq('foo' => nil) }
   end
 
   context 'nested unit' do
@@ -46,13 +46,13 @@ describe Ansible::Ruby::BaseModel do
 
     let(:instance) { klass.new foo: nested_klass.new(image: 'centos') }
 
-    it { is_expected.to eq({ 'foo' => { 'image' => 'centos' } }) }
+    it { is_expected.to eq('foo' => { 'image' => 'centos' }) }
   end
 
   context 'single value via DSL array' do
     let(:instance) { klass.new foo: [123] }
 
-    it { is_expected.to eq({ 'foo' => 123 }) }
+    it { is_expected.to eq('foo' => 123) }
   end
 
   context 'type validated' do
@@ -64,7 +64,7 @@ describe Ansible::Ruby::BaseModel do
     end
 
     context 'attribute present' do
-      subject { lambda { klass.new foo: 'howdy' } }
+      subject { -> { klass.new foo: 'howdy' } }
 
       it { is_expected.to raise_error 'Attribute foo expected to be an Integer but was a String' }
     end
@@ -72,19 +72,19 @@ describe Ansible::Ruby::BaseModel do
     context 'bar attribute not present' do
       let(:instance) { klass.new foo: [123] }
 
-      it { is_expected.to eq({ 'foo' => 123 }) }
+      it { is_expected.to eq('foo' => 123) }
     end
 
     context 'nil value' do
       let(:instance) { klass.new foo: nil }
 
-      it { is_expected.to eq({ 'foo' => nil }) }
+      it { is_expected.to eq('foo' => nil) }
     end
 
     context 'multiple types' do
       let(:instance) { klass.new foo: nil, bar: 45.44 }
 
-      it { is_expected.to eq({ 'foo' => nil, 'bar' => 45.44 }) }
+      it { is_expected.to eq('foo' => nil, 'bar' => 45.44) }
     end
   end
 
@@ -92,11 +92,11 @@ describe Ansible::Ruby::BaseModel do
     context 'pass' do
       let(:instance) { klass.new foo: 123 }
 
-      it { is_expected.to eq({ 'foo' => 123 }) }
+      it { is_expected.to eq('foo' => 123) }
     end
 
     context 'fail' do
-      subject { lambda { klass.new foo: nil } }
+      subject { -> { klass.new foo: nil } }
 
       it { is_expected.to raise_error 'Attribute foo cannot be nil' }
     end
@@ -109,7 +109,7 @@ describe Ansible::Ruby::BaseModel do
       end
     end
 
-    subject { lambda { klass.new foo: [123, 456] } }
+    subject { -> { klass.new foo: [123, 456] } }
 
     it { is_expected.to raise_error 'Attribute foo expected to be an Integer but was a Array' }
   end
@@ -123,7 +123,7 @@ describe Ansible::Ruby::BaseModel do
 
     let(:instance) { klass.new foo: [123, 456] }
 
-    it { is_expected.to eq({ 'foo' => [123, 456] }) }
+    it { is_expected.to eq('foo' => [123, 456]) }
   end
 
   context 'choices' do
@@ -137,24 +137,24 @@ describe Ansible::Ruby::BaseModel do
     context 'valid' do
       let(:instance) { klass.new foo: 123, bar: :bob }
 
-      it { is_expected.to eq({ 'foo' => 123, 'bar' => 'bob' }) }
+      it { is_expected.to eq('foo' => 123, 'bar' => 'bob') }
     end
 
     context 'not in list' do
-      subject { lambda { klass.new foo: 123, bar: 123 } }
+      subject { -> { klass.new foo: 123, bar: 123 } }
 
       it { is_expected.to raise_error 'Attribute bar can only be [:bob, :sally]' }
     end
   end
 
   context 'unknown attribute' do
-    subject { lambda { klass.new foo: 123, unknown: 123 } }
+    subject { -> { klass.new foo: 123, unknown: 123 } }
 
     it { is_expected.to raise_error 'Attributes [:unknown] are unknown. Valid attributes are [:foo, :bar]' }
   end
 
   context 'missing attribute' do
-    subject { lambda { klass.new bar: 123 } }
+    subject { -> { klass.new bar: 123 } }
 
     it { is_expected.to raise_error 'Attribute foo is required' }
   end
@@ -167,7 +167,7 @@ describe Ansible::Ruby::BaseModel do
       end
     end
 
-    subject { lambda { klass.new } }
+    subject { -> { klass.new } }
 
     it { is_expected.to raise_error 'Attributes [:foo, :bar] are required' }
   end
