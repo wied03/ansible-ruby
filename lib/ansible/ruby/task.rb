@@ -4,7 +4,7 @@ module Ansible
       attr_accessor :name
       validates :name, presence: true, type: String
       attr_accessor :module
-      validates :name, presence: true
+      validates :module, presence: true
       attr_accessor :register
       validates :register, type: String
       attr_accessor :become

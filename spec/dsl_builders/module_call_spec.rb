@@ -50,7 +50,7 @@ describe Ansible::Ruby::DslBuilders::ModuleCall do
 
     subject { -> { evaluate } }
 
-    it { is_expected.to raise_error 'Attribute dest is required at line 6!' }
+    it { is_expected.to raise_error "Validation failed: Dest can't be blank at line 6!" }
   end
 
   context 'not found' do

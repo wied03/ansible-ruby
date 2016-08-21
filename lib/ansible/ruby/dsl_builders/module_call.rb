@@ -26,6 +26,7 @@ module Ansible
           module_builder = Args.new
           args = module_builder.evaluate(&block)
           @result = module_klass.new(args)
+          @result.validate!
         end
       end
     end

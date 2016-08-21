@@ -81,7 +81,7 @@ describe Ansible::Ruby::DslBuilders::Task do
 
     subject { -> { evaluate } }
 
-    it { is_expected.to raise_error 'You forgot to supply a module to run!' }
+    it { is_expected.to raise_error "Validation failed: Module can't be blank" }
   end
 
   context 'implicit bool true' do
