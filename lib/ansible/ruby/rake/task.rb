@@ -25,7 +25,14 @@ module Ansible
         class << self
           def load_rule
             return if @rule_done
-            ::Rake.load_rakefile File.absolute_path(File.join(File.dirname(__FILE__), 'rule.rb'))
+            ::Rake.application.create_rule '.yml' => '.rb' do |t|
+              puts "Updating Ansible file #{t.name} from #{t.source}..."
+              ruby = File.read t.source
+              playbook_builder = Ansible::Ruby::DslBuilders::Playbook.new
+              playbook = playbook_builder.evaluate ruby
+              yml = Ansible::Ruby::Serializer.serialize playbook.to_h
+              File.write t.name, yml
+            end
             @rule_done = true
           end
         end
