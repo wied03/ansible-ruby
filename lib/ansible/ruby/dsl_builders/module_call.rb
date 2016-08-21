@@ -4,11 +4,7 @@ require 'ansible/ruby/dsl_builders/args'
 module Ansible
   module Ruby
     module DslBuilders
-      class ModuleCalls < Base
-        def initialize
-          @result = []
-        end
-
+      class ModuleCall < Base
         private
 
         def process_method(id, *args, &block)
@@ -18,7 +14,7 @@ module Ansible
           module_klass = modules.const_get klass_name
           module_builder = Args.new
           args = module_builder.evaluate &block
-          @result << module_klass.new(args)
+          @result = module_klass.new(args)
         end
       end
     end
