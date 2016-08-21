@@ -11,6 +11,8 @@ module Ansible
       attribute :when, type: String
       attribute :with_dict, type: String
       attribute :notify, type: Array
+      attribute :async, type: Integer
+      attribute :poll, type: Integer
 
       def to_h
         result = super

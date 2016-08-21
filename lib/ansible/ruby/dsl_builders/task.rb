@@ -47,6 +47,14 @@ module Ansible
           @task_args[:with_dict] = clause
         end
 
+        def async(value)
+          @task_args[:async] = value
+        end
+
+        def poll(value)
+          @task_args[:poll] = value
+        end
+
         private
 
         def process_method(id, *args, &block)

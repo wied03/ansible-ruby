@@ -47,6 +47,8 @@ describe Ansible::Ruby::DslBuilders::Task do
           become true
           become_user 'root'
           with_dict '{{ servers }}'
+          async 0
+          poll 50
           copy do
             src '/file1.conf'
             dest '/file2.conf'
@@ -59,12 +61,14 @@ describe Ansible::Ruby::DslBuilders::Task do
     it { is_expected.to have_attributes name: 'Copy something',
                                         become: true,
                                         become_user: 'root',
+                                        async: 0,
+                                        poll: 50,
                                         module: be_a(Ansible::Ruby::Modules::Copy) }
 
     describe 'hash keys' do
       subject { task.to_h.keys }
 
-      it { is_expected.to eq %w(name copy become become_user with_dict) }
+      it { is_expected.to eq %w(name copy become become_user with_dict async poll) }
     end
   end
 
