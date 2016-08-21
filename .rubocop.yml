@@ -1,0 +1,32 @@
+AllCops:
+  Exclude:
+    - 'Gemfile'
+
+# Not that big of a problem
+Metrics/LineLength:
+  Enabled: false
+
+Metrics/ModuleLength:
+  Max: 200
+
+Metrics/ClassLength:
+  Max: 200
+
+Metrics/MethodLength:
+  Max: 30
+
+# 15 seems a bit too noobish
+Metrics/AbcSize:
+  Max: 35
+
+# 6 seems a bit low
+Metrics/CyclomaticComplexity:
+  Max: 8
+
+# kind of pointless here
+Style/Documentation:
+  Enabled: false
+
+# if this is really high, fine but 5 is too small
+Metrics/ParameterLists:
+  Max: 8
