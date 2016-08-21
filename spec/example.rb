@@ -1,31 +1,12 @@
-# What the DSL could look like
+hosts %w(host1 host2)
 
-task 'Copy something' do
-  copy do
+task 'Copy something over' do
+  result = foobar do
     src '/file1.conf'
     dest '/file2.conf'
   end
+
+  changed_when "'no upgrade' in #{result.stdout}"
 end
 
-task 'Atomic host upgrade' do
-  command '/usr/bin/atomic host upgrade'
-end
-
-task 'when case' do
-  atomic_result = command '/usr/bin/atomic host upgrade' do
-    chdir '/foobar'
-  end
-
-  ansible_when atomic_result.stdout.find('No upgrade available') != -1
-end
-
-task 'Another task' do
-  atomic_result = command '/usr/bin/atomic host upgrade' do
-    chdir '/foobar'
-  end
-
-  become
-  become_user 'root'
-
-  changed_when "'No upgrade available' not in #{atomic_result.stdout}"
-end
+user 'centos'
