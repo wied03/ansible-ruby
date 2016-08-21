@@ -6,7 +6,7 @@ module Ansible
     class Playbook < BasicUnit
       attribute :hosts, required: true, type: [Array, String]
       attribute :tasks, type: [Array, Ansible::Ruby::Task]
-      attribute :roles, type: Array
+      attribute :roles, type: [Array, String]
       attribute :connection, choices: [:local, :docker, :ssh]
       attribute :user, type: String
       attribute :serial, type: Integer
@@ -25,6 +25,13 @@ module Ansible
           new_result[key] = value
         end
         new_result
+      end
+
+      private
+
+      def validate(args)
+        super
+        raise 'Cannot supply both tasks and roles!' if args[:roles] && args[:tasks]
       end
     end
   end

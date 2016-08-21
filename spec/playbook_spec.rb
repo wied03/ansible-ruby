@@ -58,10 +58,13 @@ describe Ansible::Ruby::Playbook do
   context 'tasks and roles' do
     subject do
       lambda do
-
+        Ansible::Ruby::Playbook.new tasks: [task],
+                                    hosts: 'host1',
+                                    roles: 'role1'
       end
     end
-    pending 'write this, should be an error'
+
+    it { is_expected.to raise_error 'Cannot supply both tasks and roles!' }
   end
 
   context 'roles only' do
