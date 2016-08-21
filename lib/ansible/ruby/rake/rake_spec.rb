@@ -32,6 +32,7 @@ describe 'Rake task' do
     it do
       is_expected.to eq <<OUTPUT
 rake default  # the ansible task default
+rake stuff    # named ansible task
 OUTPUT
     end
   end
@@ -103,7 +104,29 @@ OUTPUT
     end
 
     context 'dependent task' do
-      pending 'write this'
+      let(:test_file) { 'foobar_test.yml' }
+      let(:task) do
+        ::Rake::Task.define_task :foobar do
+          FileUtils.touch test_file
+        end
+
+        Ansible::Ruby::Rake::Task.new :default => :foobar do |task|
+          task.playbooks = ruby_file
+        end
+      end
+
+      it 'executed the command' do
+        expect(@commands).to include 'ansible-playbook sample_test.yml'
+      end
+
+      it 'generates the YAML' do
+        expect(File.exist?(yaml_file)).to be_truthy
+        expect(File.read(yaml_file)).to include 'host1:host2'
+      end
+
+      it 'executes the dependency' do
+        expect(File.exist?(test_file)).to be_truthy
+      end
     end
 
     context 'no playbook' do
