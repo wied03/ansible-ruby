@@ -10,6 +10,13 @@ module Ansible
         @module_calls = []
       end
 
+      def evaluate
+        instance_eval @code
+        @module_calls
+      end
+
+      private
+
       def process_method(id, *args, &block)
         do_eval = lambda { instance_eval &block if block }
         case @context.last
@@ -23,14 +30,7 @@ module Ansible
           raise "Unknown context #{@context}"
         end
       end
-
-      def evaluate
-        instance_eval @code
-        @module_calls
-      end
-
-      private
-
+      
       def module_finished
         @module_calls << @module_klass.new(@args)
         @context.pop
