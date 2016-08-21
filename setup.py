@@ -10,5 +10,5 @@ setuptools.setup(name='centos_package_cron',
       author_email='support@bswtechconsulting.com',
       url='https://github.com/wied03/ansible-ruby',
       packages=setuptools.find_packages(),
-      setup_requires="ansible-lint",
+      setup_requires=["ansible-lint", "ansible"],
      )

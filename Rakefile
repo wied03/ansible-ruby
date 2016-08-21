@@ -42,6 +42,7 @@ desc 'Runs a check against a generated playbook'
 task ansible_lint: 'spec/example.yml' do
   sh './setup.py build'
   # Grab the first installed egg
-  egg_directory = FileList['.eggs/*.egg'][0]
-  sh "PYTHONPATH=#{egg_directory} #{egg_directory}/EGG-INFO/scripts/ansible-lint -v spec/example.yml"
+  ansible_lint = FileList['.eggs/ansible_lint*.egg'][0]
+  all_eggs = FileList['.eggs/*.egg']
+  sh "PYTHONPATH=#{all_eggs.join(':')} #{ansible_lint}/EGG-INFO/scripts/ansible-lint -v spec/example.yml"
 end
