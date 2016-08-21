@@ -1,8 +1,8 @@
 require 'spec_helper'
 require 'ansible-ruby'
 
-describe Ansible::Ruby::ModuleCallsDslBuilder do
-  let(:builder) { Ansible::Ruby::ModuleCallsDslBuilder.new ruby }
+describe Ansible::Ruby::DslBuilders::ModuleCalls do
+  let(:builder) { Ansible::Ruby::DslBuilders::ModuleCalls.new ruby }
   subject(:module_calls) { builder.evaluate }
 
   before do
