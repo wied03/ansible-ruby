@@ -4,7 +4,7 @@ require 'ansible/ruby/task'
 module Ansible
   module Ruby
     class Playbook < BasicUnit
-      attribute :hosts, required: true, type: Array
+      attribute :hosts, required: true, type: [Array, String]
       attribute :tasks, type: [Array, Ansible::Ruby::Task]
       attribute :roles, type: Array
       attribute :connection, choices: [:local, :docker, :ssh]
@@ -18,7 +18,7 @@ module Ansible
         tasks = result.delete 'tasks'
         # Be consistent with Ansible order
         new_result = {
-          'hosts' => hosts.join(':'), # Ansible doesn't specify this as an array
+          'hosts' => [*hosts].join(':'), # Ansible doesn't specify this as an array
           'tasks' => tasks.is_a?(Array) ? tasks : [tasks] # ensure we have an array
         }
         result.each do |key, value|

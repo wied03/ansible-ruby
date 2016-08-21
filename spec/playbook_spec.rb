@@ -12,11 +12,12 @@ describe Ansible::Ruby::Playbook do
     end
   end
 
+  let(:task) { Ansible::Ruby::Task.new name: 'do stuff on EC2',
+                                       module: module_klass.new(foo: 123) }
+
   subject(:hash) { instance.to_h }
 
   context 'basic' do
-    let(:task) { Ansible::Ruby::Task.new name: 'do stuff on EC2',
-                                         module: module_klass.new(foo: 123) }
     let(:instance) { Ansible::Ruby::Playbook.new tasks: [task],
                                                  hosts: %w(host1 host2) }
 
@@ -35,7 +36,31 @@ describe Ansible::Ruby::Playbook do
     end
   end
 
+  context 'single host' do
+    let(:instance) { Ansible::Ruby::Playbook.new tasks: [task],
+                                                 hosts: 'host1' }
+
+    it do
+      is_expected.to eq({
+                          'hosts' => 'host1',
+                          'tasks' => [
+                            {
+                              'name' => 'do stuff on EC2',
+                              'ec2' => {
+                                'foo' => 123
+                              }
+                            }
+                          ]
+                        })
+    end
+  end
+
   context 'tasks and roles' do
+    subject do
+      lambda do
+
+      end
+    end
     pending 'write this, should be an error'
   end
 
