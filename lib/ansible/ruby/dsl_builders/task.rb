@@ -7,6 +7,7 @@ module Ansible
       class Task < Base
         def task(name, &block)
           @name = name
+          @task_args = {}
           instance_eval &block
         end
 
@@ -15,27 +16,19 @@ module Ansible
           args = {
             module: @module,
             name: @name,
-          }
-          set_ivar args, :become
-          set_ivar args, :become_user
+          }.merge @task_args
           Ansible::Ruby::Task.new args
         end
 
         def become(value)
-          @become = value
+          @task_args[:become] = value
         end
 
         def become_user(value)
-          @become_user = value
+          @task_args[:become_user] = value
         end
 
         private
-
-        def set_ivar(args, key)
-          ivar = "@#{key.to_s}".to_sym
-          # Don't want to set arguments on the class that the user hasn't set
-          args[key] = instance_variable_get ivar if instance_variable_defined? ivar
-        end
 
         def process_method(id, *args, &block)
           module_call_builder = ModuleCall.new
