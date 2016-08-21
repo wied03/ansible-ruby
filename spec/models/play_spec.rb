@@ -15,7 +15,7 @@ describe Ansible::Ruby::Models::Play do
 
   let(:task) do
     Ansible::Ruby::Models::Task.new name: 'do stuff on EC2',
-                            module: module_klass.new(foo: 123)
+                                    module: module_klass.new(foo: 123)
   end
 
   subject(:hash) { instance.to_h }
@@ -23,7 +23,7 @@ describe Ansible::Ruby::Models::Play do
   context 'basic' do
     let(:instance) do
       Ansible::Ruby::Models::Play.new tasks: [task],
-                              hosts: %w(host1 host2)
+                                      hosts: %w(host1 host2)
     end
 
     it do
@@ -42,8 +42,8 @@ describe Ansible::Ruby::Models::Play do
   context 'play name' do
     let(:instance) do
       Ansible::Ruby::Models::Play.new tasks: [task],
-                              name: 'play name',
-                              hosts: %w(host1 host2)
+                                      name: 'play name',
+                                      hosts: %w(host1 host2)
     end
 
     it do
@@ -67,7 +67,7 @@ describe Ansible::Ruby::Models::Play do
   context 'single host' do
     let(:instance) do
       Ansible::Ruby::Models::Play.new tasks: [task],
-                              hosts: 'host1'
+                                      hosts: 'host1'
     end
 
     it do
@@ -88,8 +88,8 @@ describe Ansible::Ruby::Models::Play do
 
     let(:instance) do
       Ansible::Ruby::Models::Play.new tasks: [task],
-                              hosts: 'host1',
-                              roles: 'role1'
+                                      hosts: 'host1',
+                                      roles: 'role1'
     end
 
     it { is_expected.to_not be_valid }
@@ -100,7 +100,7 @@ describe Ansible::Ruby::Models::Play do
     context 'single' do
       let(:instance) do
         Ansible::Ruby::Models::Play.new roles: 'role1',
-                                hosts: 'host1'
+                                        hosts: 'host1'
       end
 
       it do
@@ -112,7 +112,7 @@ describe Ansible::Ruby::Models::Play do
     context 'multiple' do
       let(:instance) do
         Ansible::Ruby::Models::Play.new roles: %w(role1 role2),
-                                hosts: 'host1'
+                                        hosts: 'host1'
       end
 
       it do

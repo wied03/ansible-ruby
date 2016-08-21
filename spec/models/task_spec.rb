@@ -19,7 +19,7 @@ describe Ansible::Ruby::Models::Task do
   context 'basic' do
     let(:instance) do
       Ansible::Ruby::Models::Task.new name: 'do stuff on EC2',
-                              module: module_klass.new(foo: 123)
+                                      module: module_klass.new(foo: 123)
     end
 
     it do
@@ -33,10 +33,10 @@ describe Ansible::Ruby::Models::Task do
   context 'attributes' do
     let(:instance) do
       Ansible::Ruby::Models::Task.new name: 'do stuff on EC2',
-                              become: true,
-                              become_user: 'root',
-                              module: module_klass.new(foo: 123),
-                              notify: %w(handler1 handler2)
+                                      become: true,
+                                      become_user: 'root',
+                                      module: module_klass.new(foo: 123),
+                                      notify: %w(handler1 handler2)
     end
 
     it do
@@ -59,8 +59,8 @@ describe Ansible::Ruby::Models::Task do
   context 'single notify' do
     let(:instance) do
       Ansible::Ruby::Models::Task.new name: 'do stuff on EC2',
-                              module: module_klass.new(foo: 123),
-                              notify: 'handler1'
+                                      module: module_klass.new(foo: 123),
+                                      notify: 'handler1'
     end
 
     it do
