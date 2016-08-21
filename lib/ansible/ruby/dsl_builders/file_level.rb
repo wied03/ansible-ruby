@@ -4,7 +4,7 @@ require 'ansible/ruby/models/playbook'
 module Ansible
   module Ruby
     module DslBuilders
-      class Playbook < Base
+      class FileLevel < Base
         def initialize
           @plays = []
         end

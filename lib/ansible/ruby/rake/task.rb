@@ -32,7 +32,7 @@ module Ansible
             ::Rake.application.create_rule '.yml' => '.rb' do |filename|
               puts "Updating Ansible file #{filename.name} from #{filename.source}..."
               ruby = File.read filename.source
-              playbook_builder = Ansible::Ruby::DslBuilders::Playbook.new
+              playbook_builder = Ansible::Ruby::DslBuilders::FileLevel.new
               playbook = playbook_builder.evaluate ruby
               yml = Ansible::Ruby::Serializer.serialize playbook.to_h
               File.write filename.name, yml

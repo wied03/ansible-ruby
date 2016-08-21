@@ -1,8 +1,8 @@
 require 'spec_helper'
 require 'ansible-ruby'
 
-describe Ansible::Ruby::DslBuilders::Playbook do
-  let(:builder) { Ansible::Ruby::DslBuilders::Playbook.new }
+describe Ansible::Ruby::DslBuilders::FileLevel do
+  let(:builder) { Ansible::Ruby::DslBuilders::FileLevel.new }
 
   def evaluate
     builder.evaluate ruby
