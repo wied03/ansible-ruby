@@ -33,7 +33,8 @@ describe Ansible::Ruby::Task do
     let(:instance) { Ansible::Ruby::Task.new name: 'do stuff on EC2',
                                              become: true,
                                              become_user: 'root',
-                                             module: module_klass.new(foo: 123) }
+                                             module: module_klass.new(foo: 123),
+                                             notify: %w(handler1 handler2) }
 
     it do
       is_expected.to eq({
@@ -42,14 +43,31 @@ describe Ansible::Ruby::Task do
                             'foo' => 123
                           },
                           'become' => true,
-                          'become_user' => 'root'
+                          'become_user' => 'root',
+                          'notify' => %w(handler1 handler2)
                         })
     end
 
     describe 'key order' do
       subject { hash.keys }
 
-      it { is_expected.to eq %w(name ec2 become become_user) }
+      it { is_expected.to eq %w(name ec2 become become_user notify) }
+    end
+  end
+
+  context 'single notify' do
+    let(:instance) { Ansible::Ruby::Task.new name: 'do stuff on EC2',
+                                             module: module_klass.new(foo: 123),
+                                             notify: 'handler1' }
+
+    it do
+      is_expected.to eq({
+                          'name' => 'do stuff on EC2',
+                          'ec2' => {
+                            'foo' => 123
+                          },
+                          'notify' => %w(handler1)
+                        })
     end
   end
 end

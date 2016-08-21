@@ -6,7 +6,10 @@ task 'Copy something over' do
     dest '/file2.conf'
   end
 
+  become
+  notify 'handler1'
   changed_when "'no upgrade' in #{result.stdout}"
 end
 
 user 'centos'
+

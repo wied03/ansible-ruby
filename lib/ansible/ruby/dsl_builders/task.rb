@@ -57,6 +57,10 @@ module Ansible
           @task_args[:poll] = value
         end
 
+        def notify(value)
+          @task_args[:notify] = value
+        end
+
         def ignore_errors(*args)
           value = implicit_bool args
           @task_args[:ignore_errors] = value

@@ -53,6 +53,7 @@ describe Ansible::Ruby::DslBuilders::Task do
         src '/file1.conf'
         dest '/file2.conf'
       end
+      notify 'handler1'
       RUBY
     end
 
@@ -63,6 +64,7 @@ describe Ansible::Ruby::DslBuilders::Task do
                                         async: 0,
                                         poll: 50,
                                         ignore_errors: true,
+                                        notify: 'handler1',
                                         module: be_a(Ansible::Ruby::Modules::Copy) }
   end
 
