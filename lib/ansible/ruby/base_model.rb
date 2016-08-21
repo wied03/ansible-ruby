@@ -24,6 +24,8 @@ module Ansible
           @set_vars.map do |key|
             value = send key
             value = case value
+                    when Array
+                      value.map { |val| val.respond_to?(:to_h) ? val.to_h : val }
                     when BaseModel
                       value.to_h
                     else

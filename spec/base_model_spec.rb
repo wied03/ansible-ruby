@@ -67,6 +67,34 @@ describe Ansible::Ruby::BaseModel do
       it { is_expected.to have_errors foo: 'Attribute foo expected to be a Integer but was a String' }
     end
 
+    context 'multiple' do
+      let(:klass) do
+        Class.new(Ansible::Ruby::BaseModel) do
+          attribute :foo
+          validates :foo, presence: true, allow_nil: true, type: MultipleTypes.new(Float, Integer)
+        end
+      end
+
+      let(:instance) { klass.new foo: foo_value }
+
+      context 'passes' do
+        [45.44, 33].each do |value|
+          context value.class do
+            let(:foo_value) { value }
+
+            it { is_expected.to be_valid }
+          end
+        end
+      end
+
+      context 'fails' do
+        let(:foo_value) { 'howdy' }
+
+        it { is_expected.to_not be_valid }
+        it { is_expected.to have_errors foo: 'Attribute foo expected to be one of [Float, Integer] but was a String' }
+      end
+    end
+
     context 'bar attribute not present' do
       let(:instance) { klass.new foo: 123, toodles: 40.4 }
 

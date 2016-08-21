@@ -1,3 +1,17 @@
+class MultipleTypes
+  def initialize(*klasses)
+    @klasses = klasses
+  end
+
+  def valid?(value)
+    @klasses.any? { |klass| value.is_a? klass }
+  end
+
+  def error(attribute, value)
+    "Attribute #{attribute} expected to be one of #{@klasses} but was a #{value.class}"
+  end
+end
+
 class TypeGeneric
   def initialize(klass)
     @klass = klass
@@ -28,7 +42,8 @@ class TypeValidator < ActiveModel::EachValidator
     return if value.nil?
     expected_type = options[:with]
     record_errors = record.errors[attribute]
-    if expected_type.is_a? TypeGeneric
+    case expected_type
+    when TypeGeneric, MultipleTypes
       unless expected_type.valid? value
         record_errors << expected_type.error(attribute, value)
       end

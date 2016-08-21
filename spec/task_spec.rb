@@ -8,10 +8,9 @@ describe Ansible::Ruby::Task do
 
   let(:module_klass) do
     Class.new(Ansible::Ruby::Modules::Base) do
-      attribute :src
-      validates :src, presence: true
-      attribute :dest
-      validates :dest, presence: true
+      attribute :foo
+      validates :foo, presence: true
+      attribute :bar
     end
   end
 
@@ -24,9 +23,9 @@ describe Ansible::Ruby::Task do
     end
 
     it do
-      is_expected.to eq('name' => 'do stuff on EC2',
-                        'ec2' => {
-                          'foo' => 123
+      is_expected.to eq(name: 'do stuff on EC2',
+                        ec2: {
+                          foo: 123
                         })
     end
   end
@@ -41,17 +40,17 @@ describe Ansible::Ruby::Task do
     end
 
     it do
-      is_expected.to eq('name' => 'do stuff on EC2',
-                        'ec2' => {
-                          'foo' => 123
+      is_expected.to eq(name: 'do stuff on EC2',
+                        ec2: {
+                          foo: 123
                         },
-                        'become' => true,
-                        'become_user' => 'root',
-                        'notify' => %w(handler1 handler2))
+                        become: true,
+                        become_user: 'root',
+                        notify: %w(handler1 handler2))
     end
 
     describe 'key order' do
-      subject { hash.keys }
+      subject { hash.stringify_keys.keys }
 
       it { is_expected.to eq %w(name ec2 become become_user notify) }
     end
@@ -65,11 +64,11 @@ describe Ansible::Ruby::Task do
     end
 
     it do
-      is_expected.to eq('name' => 'do stuff on EC2',
-                        'ec2' => {
-                          'foo' => 123
+      is_expected.to eq(name: 'do stuff on EC2',
+                        ec2: {
+                          foo: 123
                         },
-                        'notify' => %w(handler1))
+                        notify: %w(handler1))
     end
   end
 end

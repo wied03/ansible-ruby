@@ -8,7 +8,8 @@ describe Ansible::Ruby::Play do
 
   let(:module_klass) do
     Class.new(Ansible::Ruby::Modules::Base) do
-      attribute :foo, required: true
+      attr_accessor :foo
+      validates :foo, presence: true
     end
   end
 
@@ -26,12 +27,12 @@ describe Ansible::Ruby::Play do
     end
 
     it do
-      is_expected.to eq('hosts' => 'host1:host2',
-                        'tasks' => [
+      is_expected.to eq(hosts: 'host1:host2',
+                        tasks: [
                           {
-                            'name' => 'do stuff on EC2',
-                            'ec2' => {
-                              'foo' => 123
+                            name: 'do stuff on EC2',
+                            ec2: {
+                              foo: 123
                             }
                           }
                         ])
@@ -46,20 +47,20 @@ describe Ansible::Ruby::Play do
     end
 
     it do
-      is_expected.to eq('hosts' => 'host1:host2',
-                        'name' => 'play name',
-                        'tasks' => [
+      is_expected.to eq(hosts: 'host1:host2',
+                        name: 'play name',
+                        tasks: [
                           {
-                            'name' => 'do stuff on EC2',
-                            'ec2' => {
-                              'foo' => 123
+                            name: 'do stuff on EC2',
+                            ec2: {
+                              foo: 123
                             }
                           }
                         ])
     end
 
     it 'puts the name right after hosts for readability' do
-      expect(hash.keys).to eq %w(hosts name tasks)
+      expect(hash.stringify_keys.keys).to eq %w(hosts name tasks)
     end
   end
 
@@ -70,12 +71,12 @@ describe Ansible::Ruby::Play do
     end
 
     it do
-      is_expected.to eq('hosts' => 'host1',
-                        'tasks' => [
+      is_expected.to eq(hosts: 'host1',
+                        tasks: [
                           {
-                            'name' => 'do stuff on EC2',
-                            'ec2' => {
-                              'foo' => 123
+                            name: 'do stuff on EC2',
+                            ec2: {
+                              foo: 123
                             }
                           }
                         ])
@@ -83,15 +84,16 @@ describe Ansible::Ruby::Play do
   end
 
   context 'tasks and roles' do
-    subject do
-      lambda do
-        Ansible::Ruby::Play.new tasks: [task],
-                                hosts: 'host1',
-                                roles: 'role1'
-      end
+    subject { instance }
+
+    let(:instance) do
+      Ansible::Ruby::Play.new tasks: [task],
+                              hosts: 'host1',
+                              roles: 'role1'
     end
 
-    it { is_expected.to raise_error 'Cannot supply both tasks and roles!' }
+    it { is_expected.to_not be_valid }
+    it { is_expected.to have_errors tasks: 'Cannot supply both tasks and roles!' }
   end
 
   context 'role' do
@@ -102,8 +104,8 @@ describe Ansible::Ruby::Play do
       end
 
       it do
-        is_expected.to eq('hosts' => 'host1',
-                          'roles' => %w(role1))
+        is_expected.to eq(hosts: 'host1',
+                          roles: %w(role1))
       end
     end
 
@@ -114,8 +116,8 @@ describe Ansible::Ruby::Play do
       end
 
       it do
-        is_expected.to eq('hosts' => 'host1',
-                          'roles' => %w(role1 role2))
+        is_expected.to eq(hosts: 'host1',
+                          roles: %w(role1 role2))
       end
     end
   end

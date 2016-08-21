@@ -8,8 +8,7 @@ module Ansible
       attr_accessor :register
       validates :register, type: String
       attr_accessor :become
-      validates :become, type: String
-      # attribute :become, type: [TrueClass, FalseClass]
+      validates :become, type: MultipleTypes.new(TrueClass, FalseClass)
       attr_accessor :become_user
       validates :become_user, type: String
       attr_accessor :changed_when
@@ -27,30 +26,23 @@ module Ansible
       attr_accessor :poll
       validates :poll, type: Integer
       attr_accessor :ignore_errors
-      # attribute :ignore_errors, type: [TrueClass, FalseClass]
+      validates :ignore_errors, type: MultipleTypes.new(TrueClass, FalseClass)
 
       def to_h
         result = super
         # Module gets referenced by name
-        mod = result.delete 'module'
-        notify = result.delete 'notify'
+        mod = result.delete :module
+        notify = result.delete :notify
         # Module traditionally goes right after name, so rebuilding hash
         new_result = {
-          'name' => result.delete('name')
+          name: result.delete(:name)
         }
         new_result.merge! mod
         result.each do |key, value|
           new_result[key] = value
         end
-        new_result['notify'] = [*notify] if notify
+        new_result[:notify] = [*notify] if notify
         new_result
-      end
-
-      private
-
-      def validate(args)
-        raise 'You forgot to supply a module to run!' unless args[:module]
-        super
       end
     end
   end
