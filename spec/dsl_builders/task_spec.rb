@@ -66,6 +66,25 @@ describe Ansible::Ruby::DslBuilders::Task do
                                         module: be_a(Ansible::Ruby::Modules::Copy) }
   end
 
+  context 'implicit bool true' do
+    let(:ruby) do
+      <<-RUBY
+      become
+      ignore_errors
+      copy do
+        src '/file1.conf'
+        dest '/file2.conf'
+      end
+      RUBY
+    end
+
+    it { is_expected.to be_a Ansible::Ruby::Task }
+    it { is_expected.to have_attributes name: 'Copy something',
+                                        become: true,
+                                        ignore_errors: true,
+                                        module: be_a(Ansible::Ruby::Modules::Copy) }
+  end
+
   context 'register' do
     context 'changed when' do
       let(:ruby) do

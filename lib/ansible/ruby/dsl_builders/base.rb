@@ -40,6 +40,10 @@ module Ansible
           # Don't leak return values
           nil
         end
+
+        def implicit_bool(args)
+          args.empty? || args[0]
+        end
       end
     end
   end

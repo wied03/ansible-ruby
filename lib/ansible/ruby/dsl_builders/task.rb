@@ -24,7 +24,8 @@ module Ansible
           Ansible::Ruby::Task.new args
         end
 
-        def become(value)
+        def become(*args)
+          value = implicit_bool args
           @task_args[:become] = value
         end
 
@@ -56,7 +57,8 @@ module Ansible
           @task_args[:poll] = value
         end
 
-        def ignore_errors(value)
+        def ignore_errors(*args)
+          value = implicit_bool args
           @task_args[:ignore_errors] = value
         end
 
