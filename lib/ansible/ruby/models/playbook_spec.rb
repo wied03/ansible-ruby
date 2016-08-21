@@ -18,5 +18,52 @@ describe Ansible::Ruby::Models::Playbook do
                                     module: module_klass.new(foo: 123)
   end
 
-  pending 'write this'
+  let(:play1) do
+    Ansible::Ruby::Models::Play.new tasks: [task],
+                                    name: 'play 1',
+                                    hosts: %w(host1 host2)
+  end
+
+  let(:play2) do
+    Ansible::Ruby::Models::Play.new tasks: [task],
+                                    name: 'play 2',
+                                    hosts: 'host3'
+  end
+
+  subject(:hash) { instance.to_h }
+
+  context 'basic' do
+    let(:instance) do
+      Ansible::Ruby::Models::Playbook.new plays: [play1, play2]
+    end
+
+    it do
+      is_expected.to eq [
+                          {
+                            hosts: 'host1:host2',
+                            name: 'play 1',
+                            tasks: [
+                              {
+                                name: 'do stuff on EC2',
+                                ec2: {
+                                  foo: 123
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            hosts: 'host3',
+                            name: 'play 2',
+                            tasks: [
+                              {
+                                name: 'do stuff on EC2',
+                                ec2: {
+                                  foo: 123
+                                }
+                              }
+                            ]
+                          }
+                        ]
+    end
+  end
 end
