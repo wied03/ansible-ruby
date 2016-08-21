@@ -1,6 +1,7 @@
 AllCops:
   Exclude:
     - 'Gemfile'
+    - 'vendor/**/*'
 
 # Not that big of a problem
 Metrics/LineLength:
