@@ -68,6 +68,22 @@ describe Ansible::Ruby::Models::Playbook do
   end
 
   context 'no plays' do
-    pending 'write this'
+    let(:instance) do
+      Ansible::Ruby::Models::Playbook.new
+    end
+
+    subject { lambda { instance.to_h } }
+
+    it { is_expected.to raise_error "Validation failed: Plays can't be blank" }
+  end
+
+  context 'empty plays' do
+    let(:instance) do
+      Ansible::Ruby::Models::Playbook.new plays: []
+    end
+
+    subject { lambda { instance.to_h } }
+
+    it { is_expected.to raise_error "Validation failed: Plays can't be blank" }
   end
 end
