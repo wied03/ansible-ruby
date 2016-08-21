@@ -34,6 +34,25 @@ describe Ansible::Ruby::DslBuilder do
       end
     end
 
+    context 'attribute missing' do
+      let(:ruby) do
+        <<-RUBY
+      copy do
+        src '/file1.conf'
+        dest '/file2.conf'
+      end
+
+      copy do
+        src '/file1.conf'
+      end
+        RUBY
+      end
+
+      subject { lambda { builder.evaluate } }
+
+      it { is_expected.to raise_error 'Attribute dest is required at line 6!' }
+    end
+
     context 'not found' do
       let(:ruby) do
         <<-RUBY
