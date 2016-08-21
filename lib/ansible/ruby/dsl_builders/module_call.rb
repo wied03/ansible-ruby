@@ -12,6 +12,7 @@ module Ansible
           modules = Ansible::Ruby::Modules
           raise "Unknown module #{id}" unless modules.const_defined? klass_name
           module_klass = modules.const_get klass_name
+          # Delegate everything to the args builder and apply it to the module class we located
           module_builder = Args.new
           args = module_builder.evaluate &block
           @result = module_klass.new(args)

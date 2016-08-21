@@ -57,6 +57,23 @@ describe Ansible::Ruby::DslBuilders::Playbook do
   end
 
   context 'other attributes' do
-    pending 'write it'
+    let(:ruby) do
+      <<-RUBY
+      hosts 'host1'
+      roles %w(role1 role2)
+      connection :local
+      user 'centos'
+      serial 1
+      gather_facts true
+      RUBY
+    end
+
+    it { is_expected.to be_a Ansible::Ruby::Playbook }
+    it { is_expected.to have_attributes roles: %w(role1 role2),
+                                        connection: :local,
+                                        user: 'centos',
+                                        serial: 1,
+                                        gather_facts: true,
+                                        hosts: 'host1' }
   end
 end

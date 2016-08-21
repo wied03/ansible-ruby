@@ -23,6 +23,22 @@ module Ansible
           @playbook_args[:roles] = value
         end
 
+        def connection(value)
+          @playbook_args[:connection] = value
+        end
+
+        def user(value)
+          @playbook_args[:user] = value
+        end
+
+        def serial(value)
+          @playbook_args[:serial] = value
+        end
+
+        def gather_facts(value)
+          @playbook_args[:gather_facts] = value
+        end
+
         def evaluate(*)
           super
           args = @playbook_args.merge({})
