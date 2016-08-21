@@ -41,7 +41,9 @@ OUTPUT
     let(:yaml_file) { 'sample_test.yml' }
     let(:ruby_file) { 'sample_test.rb' }
 
-    before do
+    before { execute_task }
+
+    def execute_task
       @commands = []
       expect(task).to receive(:sh) do |command, _|
         @commands << command
@@ -130,7 +132,13 @@ OUTPUT
     end
 
     context 'no playbook' do
-      pending 'write this'
+      def execute_task
+        # overridding parent so we can test error
+      end
+
+      subject { lambda { Ansible::Ruby::Rake::Task.new } }
+
+      it { is_expected.to raise_error 'You did not supply any playbooks!' }
     end
   end
 end

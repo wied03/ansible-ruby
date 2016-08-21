@@ -12,6 +12,7 @@ module Ansible
           self.class.load_rule
           name, deps = parse_params parameters
           yield self if block_given?
+          raise 'You did not supply any playbooks!' unless playbooks && [*playbooks].any?
           deps ||= []
           filenames = yaml_filenames([*playbooks])
           deps = [*deps] + filenames
