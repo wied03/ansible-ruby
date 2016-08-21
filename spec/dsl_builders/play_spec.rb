@@ -34,9 +34,9 @@ describe Ansible::Ruby::DslBuilders::Play do
       RUBY
     end
 
-    it { is_expected.to be_a Ansible::Ruby::Play }
+    it { is_expected.to be_a Ansible::Ruby::Models::Play }
     it do
-      is_expected.to have_attributes tasks: include(be_a(Ansible::Ruby::Task)),
+      is_expected.to have_attributes tasks: include(be_a(Ansible::Ruby::Models::Task)),
                                      hosts: 'host1'
     end
 
@@ -55,7 +55,7 @@ describe Ansible::Ruby::DslBuilders::Play do
       RUBY
     end
 
-    it { is_expected.to be_a Ansible::Ruby::Play }
+    it { is_expected.to be_a Ansible::Ruby::Models::Play }
     it do
       is_expected.to have_attributes roles: %w(role1 role2),
                                      hosts: 'host1'
@@ -75,7 +75,7 @@ describe Ansible::Ruby::DslBuilders::Play do
       RUBY
     end
 
-    it { is_expected.to be_a Ansible::Ruby::Play }
+    it { is_expected.to be_a Ansible::Ruby::Models::Play }
     it do
       is_expected.to have_attributes roles: %w(role1 role2),
                                      connection: :local,

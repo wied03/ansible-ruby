@@ -11,7 +11,7 @@ describe Ansible::Ruby::DslBuilders::ModuleCall do
   subject { evaluate }
 
   before do
-    klass = Class.new(Ansible::Ruby::BaseModel) do
+    klass = Class.new(Ansible::Ruby::Models::BaseModel) do
       attribute :src
       validates :src, presence: true
       attribute :dest

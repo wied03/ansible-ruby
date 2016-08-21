@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'ansible-ruby'
 
-describe Ansible::Ruby::Task do
+describe Ansible::Ruby::Models::Task do
   before do
     stub_const('Ansible::Ruby::Modules::Ec2', module_klass)
   end
@@ -18,7 +18,7 @@ describe Ansible::Ruby::Task do
 
   context 'basic' do
     let(:instance) do
-      Ansible::Ruby::Task.new name: 'do stuff on EC2',
+      Ansible::Ruby::Models::Task.new name: 'do stuff on EC2',
                               module: module_klass.new(foo: 123)
     end
 
@@ -32,7 +32,7 @@ describe Ansible::Ruby::Task do
 
   context 'attributes' do
     let(:instance) do
-      Ansible::Ruby::Task.new name: 'do stuff on EC2',
+      Ansible::Ruby::Models::Task.new name: 'do stuff on EC2',
                               become: true,
                               become_user: 'root',
                               module: module_klass.new(foo: 123),
@@ -58,7 +58,7 @@ describe Ansible::Ruby::Task do
 
   context 'single notify' do
     let(:instance) do
-      Ansible::Ruby::Task.new name: 'do stuff on EC2',
+      Ansible::Ruby::Models::Task.new name: 'do stuff on EC2',
                               module: module_klass.new(foo: 123),
                               notify: 'handler1'
     end

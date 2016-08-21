@@ -48,7 +48,7 @@ module Ansible
           args = @playbook_args.merge({})
           # Don't want to trigger validation
           args[:tasks] = @tasks if @tasks.any?
-          Ansible::Ruby::Play.new args
+          Models::Play.new args
         end
 
         def process_method(id, *)

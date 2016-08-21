@@ -1,13 +1,13 @@
 require 'spec_helper'
 require 'ansible-ruby'
 
-describe Ansible::Ruby::BaseModel do
+describe Ansible::Ruby::Models::BaseModel do
   before { stub_const 'Ansible::Ruby::TestModel', klass }
 
   subject { instance }
 
   let(:klass) do
-    Class.new(Ansible::Ruby::BaseModel) do
+    Class.new(Ansible::Ruby::Models::BaseModel) do
       attribute :foo
       validates :foo, presence: true
       attribute :bar
@@ -24,7 +24,7 @@ describe Ansible::Ruby::BaseModel do
 
   context 'explicit nil' do
     let(:klass) do
-      Class.new(Ansible::Ruby::BaseModel) do
+      Class.new(Ansible::Ruby::Models::BaseModel) do
         attribute :foo
         validates :foo, presence: true, allow_nil: true
       end
@@ -38,7 +38,7 @@ describe Ansible::Ruby::BaseModel do
 
   context 'nested unit' do
     let(:nested_klass) do
-      Class.new(Ansible::Ruby::BaseModel) do
+      Class.new(Ansible::Ruby::Models::BaseModel) do
         attribute :image
       end
     end
@@ -50,7 +50,7 @@ describe Ansible::Ruby::BaseModel do
 
   context 'type validated' do
     let(:klass) do
-      Class.new(Ansible::Ruby::BaseModel) do
+      Class.new(Ansible::Ruby::Models::BaseModel) do
         attribute :foo
         validates :foo, presence: true, allow_nil: true, type: Integer
         attribute :bar
@@ -69,7 +69,7 @@ describe Ansible::Ruby::BaseModel do
 
     context 'multiple' do
       let(:klass) do
-        Class.new(Ansible::Ruby::BaseModel) do
+        Class.new(Ansible::Ruby::Models::BaseModel) do
           attribute :foo
           validates :foo, presence: true, allow_nil: true, type: MultipleTypes.new(Float, Integer)
         end

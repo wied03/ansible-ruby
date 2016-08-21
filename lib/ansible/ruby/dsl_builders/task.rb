@@ -21,7 +21,7 @@ module Ansible
             module: @module,
             name: @name
           }.merge @task_args
-          task = Ansible::Ruby::Task.new args
+          task = Models::Task.new args
           task.validate!
           task
         end

@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'ansible-ruby'
 
-describe Ansible::Ruby::Play do
+describe Ansible::Ruby::Models::Play do
   before do
     stub_const('Ansible::Ruby::Modules::Ec2', module_klass)
   end
@@ -14,7 +14,7 @@ describe Ansible::Ruby::Play do
   end
 
   let(:task) do
-    Ansible::Ruby::Task.new name: 'do stuff on EC2',
+    Ansible::Ruby::Models::Task.new name: 'do stuff on EC2',
                             module: module_klass.new(foo: 123)
   end
 
@@ -22,7 +22,7 @@ describe Ansible::Ruby::Play do
 
   context 'basic' do
     let(:instance) do
-      Ansible::Ruby::Play.new tasks: [task],
+      Ansible::Ruby::Models::Play.new tasks: [task],
                               hosts: %w(host1 host2)
     end
 
@@ -41,7 +41,7 @@ describe Ansible::Ruby::Play do
 
   context 'play name' do
     let(:instance) do
-      Ansible::Ruby::Play.new tasks: [task],
+      Ansible::Ruby::Models::Play.new tasks: [task],
                               name: 'play name',
                               hosts: %w(host1 host2)
     end
@@ -66,7 +66,7 @@ describe Ansible::Ruby::Play do
 
   context 'single host' do
     let(:instance) do
-      Ansible::Ruby::Play.new tasks: [task],
+      Ansible::Ruby::Models::Play.new tasks: [task],
                               hosts: 'host1'
     end
 
@@ -87,7 +87,7 @@ describe Ansible::Ruby::Play do
     subject { instance }
 
     let(:instance) do
-      Ansible::Ruby::Play.new tasks: [task],
+      Ansible::Ruby::Models::Play.new tasks: [task],
                               hosts: 'host1',
                               roles: 'role1'
     end
@@ -99,7 +99,7 @@ describe Ansible::Ruby::Play do
   context 'role' do
     context 'single' do
       let(:instance) do
-        Ansible::Ruby::Play.new roles: 'role1',
+        Ansible::Ruby::Models::Play.new roles: 'role1',
                                 hosts: 'host1'
       end
 
@@ -111,7 +111,7 @@ describe Ansible::Ruby::Play do
 
     context 'multiple' do
       let(:instance) do
-        Ansible::Ruby::Play.new roles: %w(role1 role2),
+        Ansible::Ruby::Models::Play.new roles: %w(role1 role2),
                                 hosts: 'host1'
       end
 

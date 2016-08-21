@@ -31,7 +31,7 @@ describe Ansible::Ruby::DslBuilders::Task do
     end
 
     describe 'task object' do
-      it { is_expected.to be_a Ansible::Ruby::Task }
+      it { is_expected.to be_a Ansible::Ruby::Models::Task }
       it { is_expected.to have_attributes name: 'Copy something', module: be_a(Ansible::Ruby::Modules::Copy) }
     end
 
@@ -59,7 +59,7 @@ describe Ansible::Ruby::DslBuilders::Task do
       RUBY
     end
 
-    it { is_expected.to be_a Ansible::Ruby::Task }
+    it { is_expected.to be_a Ansible::Ruby::Models::Task }
     it do
       is_expected.to have_attributes name: 'Copy something',
                                      become: true,
@@ -96,7 +96,7 @@ describe Ansible::Ruby::DslBuilders::Task do
       RUBY
     end
 
-    it { is_expected.to be_a Ansible::Ruby::Task }
+    it { is_expected.to be_a Ansible::Ruby::Models::Task }
     it do
       is_expected.to have_attributes name: 'Copy something',
                                      become: true,
@@ -117,7 +117,7 @@ describe Ansible::Ruby::DslBuilders::Task do
         RUBY
       end
 
-      it { is_expected.to be_a Ansible::Ruby::Task }
+      it { is_expected.to be_a Ansible::Ruby::Models::Task }
       it do
         is_expected.to have_attributes name: 'Copy something',
                                        register: 'result_1',
@@ -153,7 +153,7 @@ describe Ansible::Ruby::DslBuilders::Task do
         RUBY
       end
 
-      it { is_expected.to be_a Ansible::Ruby::Task }
+      it { is_expected.to be_a Ansible::Ruby::Models::Task }
       it do
         is_expected.to have_attributes name: 'Copy something',
                                        register: 'result_1',
@@ -173,7 +173,7 @@ describe Ansible::Ruby::DslBuilders::Task do
         RUBY
       end
 
-      it { is_expected.to be_a Ansible::Ruby::Task }
+      it { is_expected.to be_a Ansible::Ruby::Models::Task }
       it do
         is_expected.to have_attributes name: 'Copy something',
                                        register: 'result_1',
