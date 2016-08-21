@@ -23,16 +23,6 @@ Reek::Rake::Task.new do |task|
   task.instance_variable_set :@source_files, files
 end
 
-rule '.yml' => '.rb' do |t|
-  puts "Updating #{t.name}"
-  require 'ansible-ruby'
-  ruby = File.read t.source
-  playbook_builder = Ansible::Ruby::DslBuilders::Playbook.new
-  playbook = playbook_builder.evaluate ruby
-  yml = Ansible::Ruby::Serializer.serialize playbook.to_h
-  File.write t.name, yml
-end
-
 desc 'cleans out generated files'
 task :clean do
   rm_rf FileList['spec/*.yml']

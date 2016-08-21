@@ -6,3 +6,4 @@ example.yml
 /yaml_test.rb
 /pkg
 /.eggs
+*_test.yml
