@@ -1,7 +1,7 @@
 module Ansible
   module Ruby
     module Models
-      class Task < BaseModel
+      class Task < Base
         attribute :name
         validates :name, presence: true, type: String
         attribute :module

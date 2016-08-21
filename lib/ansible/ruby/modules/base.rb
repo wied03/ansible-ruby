@@ -1,9 +1,9 @@
-require 'ansible/ruby/models/base_model'
+require 'ansible/ruby/models/base'
 
 module Ansible
   module Ruby
     module Modules
-      class Base < Models::BaseModel
+      class Base < Models::Base
         def to_h
           {
             self.class.name.split('::').last.downcase.to_sym => super

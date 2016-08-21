@@ -4,7 +4,7 @@ require 'ansible/ruby/type_validator'
 module Ansible
   module Ruby
     module Models
-      class BaseModel
+      class Base
         include ActiveModel::Model
         include ActiveModel::Validations
 
@@ -27,7 +27,7 @@ module Ansible
               value = case value
                       when Array
                         value.map { |val| val.respond_to?(:to_h) ? val.to_h : val }
-                      when BaseModel
+                      when Base
                         value.to_h
                       else
                         value

@@ -1,10 +1,10 @@
-require 'ansible/ruby/models/base_model'
+require 'ansible/ruby/models/base'
 require 'ansible/ruby/models/task'
 
 module Ansible
   module Ruby
     module Models
-      class Play < BaseModel
+      class Play < Base
         attribute :hosts
         validates :hosts, presence: true, type: TypeGeneric.new(String)
         attribute :name
