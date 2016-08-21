@@ -16,7 +16,8 @@ describe Ansible::Ruby::Task do
   subject(:hash) { instance.to_h }
 
   context 'basic' do
-    let(:instance) { Ansible::Ruby::Task.new name: 'do stuff on EC2', module: module_klass.new(foo: 123) }
+    let(:instance) { Ansible::Ruby::Task.new name: 'do stuff on EC2',
+                                             module: module_klass.new(foo: 123) }
 
     it do
       is_expected.to eq({
