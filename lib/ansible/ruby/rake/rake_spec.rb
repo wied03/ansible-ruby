@@ -133,6 +133,30 @@ OUTPUT
       end
     end
 
+    context 'YML and Ruby playbook' do
+      def execute_task
+        File.write 'sample3_test.yml', 'original YML file'
+        super
+      end
+
+      let(:task) do
+        Ansible::Ruby::Rake::Task.new do |task|
+          task.playbooks = %w(sample_test.rb sample3_test.yml)
+        end
+      end
+
+      it 'executed the command' do
+        expect(@commands).to include 'ansible-playbook sample_test.yml sample3_test.yml'
+      end
+
+      it 'generates the YAML' do
+        expect(File.exist?('sample_test.yml')).to be_truthy
+        expect(File.read('sample_test.yml')).to include 'host1:host2'
+        expect(File.exist?('sample3_test.yml')).to be_truthy
+        expect(File.read('sample3_test.yml')).to include 'original YML file'
+      end
+    end
+
     context 'no playbook' do
       def execute_task
         # overridding parent so we can test error
