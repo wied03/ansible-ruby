@@ -7,15 +7,15 @@ module Ansible
   module Ruby
     module DslBuilders
       class Task < Base
-        def task(name, &block)
+        def initialize(name)
+          super()
           @module = nil
           @temp_counter = 0
           @name = name
           @task_args = {}
-          instance_eval &block
         end
 
-        def evaluate(*args, &block)
+        def evaluate(*)
           super
           args = {
             module: @module,

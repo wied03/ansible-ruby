@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'ansible-ruby'
 
 describe Ansible::Ruby::DslBuilders::Task do
-  let(:builder) { Ansible::Ruby::DslBuilders::Task.new }
+  let(:builder) { Ansible::Ruby::DslBuilders::Task.new 'Copy something' }
 
   def evaluate
     builder.evaluate ruby
@@ -21,11 +21,9 @@ describe Ansible::Ruby::DslBuilders::Task do
   context 'single task' do
     let(:ruby) do
       <<-RUBY
-      task 'Copy something' do
-          copy do
-            src '/file1.conf'
-            dest '/file2.conf'
-          end
+      copy do
+        src '/file1.conf'
+        dest '/file2.conf'
       end
       RUBY
     end
@@ -45,17 +43,15 @@ describe Ansible::Ruby::DslBuilders::Task do
   context 'other attributes' do
     let(:ruby) do
       <<-RUBY
-      task 'Copy something' do
-          become true
-          become_user 'root'
-          with_dict '{{ servers }}'
-          async 0
-          poll 50
-          ignore_errors true
-          copy do
-            src '/file1.conf'
-            dest '/file2.conf'
-          end
+      become true
+      become_user 'root'
+      with_dict '{{ servers }}'
+      async 0
+      poll 50
+      ignore_errors true
+      copy do
+        src '/file1.conf'
+        dest '/file2.conf'
       end
       RUBY
     end
@@ -74,13 +70,11 @@ describe Ansible::Ruby::DslBuilders::Task do
     context 'changed when' do
       let(:ruby) do
         <<-RUBY
-        task 'Copy something' do
-          atomic_result = copy do
-            src '/file1.conf'
-            dest '/file2.conf'
-          end
-          changed_when "'No upgrade available' not in \#{atomic_result.stdout}"
+        atomic_result = copy do
+          src '/file1.conf'
+          dest '/file2.conf'
         end
+        changed_when "'No upgrade available' not in \#{atomic_result.stdout}"
         RUBY
       end
 
@@ -94,13 +88,11 @@ describe Ansible::Ruby::DslBuilders::Task do
     context 'syntax error' do
       let(:ruby) do
         <<-RUBY
-        task 'Copy something' do
-          atomic_result = copy do
-            src '/file1.conf'
-            dest '/file2.conf'
-          end
-          changed_when "'No upgrade available' not in \#{atomicc_result.stdout}"
+        atomic_result = copy do
+          src '/file1.conf'
+          dest '/file2.conf'
         end
+        changed_when "'No upgrade available' not in \#{atomicc_result.stdout}"
         RUBY
       end
 
@@ -112,13 +104,11 @@ describe Ansible::Ruby::DslBuilders::Task do
     context 'failed when' do
       let(:ruby) do
         <<-RUBY
-        task 'Copy something' do
-          atomic_result = copy do
-            src '/file1.conf'
-            dest '/file2.conf'
-          end
-          failed_when "'No upgrade available' not in \#{atomic_result.stdout}"
+        atomic_result = copy do
+          src '/file1.conf'
+          dest '/file2.conf'
         end
+        failed_when "'No upgrade available' not in \#{atomic_result.stdout}"
         RUBY
       end
 
@@ -132,13 +122,11 @@ describe Ansible::Ruby::DslBuilders::Task do
     context 'ansible_when' do
       let(:ruby) do
         <<-RUBY
-        task 'Copy something' do
-          atomic_result = copy do
-            src '/file1.conf'
-            dest '/file2.conf'
-          end
-          ansible_when "'No upgrade available' not in \#{atomic_result.stdout}"
+        atomic_result = copy do
+          src '/file1.conf'
+          dest '/file2.conf'
         end
+        ansible_when "'No upgrade available' not in \#{atomic_result.stdout}"
         RUBY
       end
 
