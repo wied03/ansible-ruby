@@ -6,6 +6,8 @@ module Ansible
           @result = nil
         end
 
+        attr_reader :result
+
         def evaluate(*args, &block)
           if block
             instance_eval &block

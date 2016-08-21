@@ -7,7 +7,7 @@ module Ansible
       class ModuleCall < Base
         private
 
-        def process_method(id, *args, &block)
+        def process_method(id, *, &block)
           klass_name = id.to_s.capitalize
           modules = Ansible::Ruby::Modules
           raise "Unknown module #{id}" unless modules.const_defined? klass_name
