@@ -2,6 +2,7 @@ require 'bundler/gem_tasks'
 require 'rspec/core/rake_task'
 require 'rubocop/rake_task'
 require 'reek/rake/task'
+require 'ansible/ruby/rake/task'
 
 task default: [:clean, :spec, :rubocop, :reek, :ansible_lint]
 
@@ -28,6 +29,8 @@ task :clean do
   rm_rf FileList['spec/*.yml']
 end
 
+# Want to use the rule for our lint Rake task
+Ansible::Ruby::Rake::Task.send(:load_rule)
 desc 'Runs a check against a generated playbook'
 task ansible_lint: 'spec/example.yml' do
   sh './setup.py build'

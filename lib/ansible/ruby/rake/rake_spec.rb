@@ -20,7 +20,9 @@ describe 'Rake task' do
   end
 
   describe 'real description' do
-    def rake(task, expect_success=true)
+    # :reek:ControlParameter - just a test
+    # :reek:BooleanParameter - just a test
+    def rake(task, expect_success = true)
       @output = `rake -f Rakefile_test.rb #{task} 2>&1`
       puts @output
       expect($?.success?).to be_truthy if expect_success
@@ -112,7 +114,7 @@ OUTPUT
           FileUtils.touch test_file
         end
 
-        Ansible::Ruby::Rake::Task.new :default => :foobar do |task|
+        Ansible::Ruby::Rake::Task.new default: :foobar do |task|
           task.playbooks = ruby_file
         end
       end
@@ -136,7 +138,7 @@ OUTPUT
         # overridding parent so we can test error
       end
 
-      subject { lambda { Ansible::Ruby::Rake::Task.new } }
+      subject { -> { Ansible::Ruby::Rake::Task.new } }
 
       it { is_expected.to raise_error 'You did not supply any playbooks!' }
     end

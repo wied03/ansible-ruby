@@ -7,6 +7,10 @@ AllCops:
 Metrics/LineLength:
   Enabled: false
 
+# $? rule didn't work
+Style/SpecialGlobalVars:
+  Enabled: false
+
 Metrics/ModuleLength:
   Max: 200
 
