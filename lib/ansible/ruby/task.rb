@@ -27,6 +27,13 @@ module Ansible
         end
         new_result
       end
+
+      private
+
+      def validate(args)
+        raise 'You forgot to supply a module to run!' unless args[:module]
+        super
+      end
     end
   end
 end

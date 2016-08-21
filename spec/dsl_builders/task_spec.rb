@@ -66,6 +66,18 @@ describe Ansible::Ruby::DslBuilders::Task do
                                         module: be_a(Ansible::Ruby::Modules::Copy) }
   end
 
+  context 'no modules' do
+    let(:ruby) do
+      <<-RUBY
+      become
+      RUBY
+    end
+
+    subject { lambda { evaluate } }
+
+    it { is_expected.to raise_error 'You forgot to supply a module to run!' }
+  end
+
   context 'implicit bool true' do
     let(:ruby) do
       <<-RUBY
