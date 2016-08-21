@@ -3,7 +3,7 @@ require 'ansible/ruby/module_args_dsl_builder'
 
 module Ansible
   module Ruby
-    class TaskDslBuilder < BaseDslBuilder
+    class ModuleCallsDslBuilder < BaseDslBuilder
       def initialize(code)
         @code = code
         @module_calls = []
