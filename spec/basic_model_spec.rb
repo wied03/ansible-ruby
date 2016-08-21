@@ -1,11 +1,11 @@
 require 'spec_helper'
 require 'ansible-ruby'
 
-describe Ansible::Ruby::BasicUnit do
+describe Ansible::Ruby::BaseModel do
   subject { instance.to_h }
 
   let(:klass) do
-    Class.new(Ansible::Ruby::BasicUnit) do
+    Class.new(Ansible::Ruby::BaseModel) do
       attribute :foo, required: true
       attribute :bar
     end
@@ -27,7 +27,7 @@ describe Ansible::Ruby::BasicUnit do
 
   context 'explicit nil' do
     let(:klass) do
-      Class.new(Ansible::Ruby::BasicUnit) do
+      Class.new(Ansible::Ruby::BaseModel) do
         attribute :foo, required: true, type: Integer, nil: true
       end
     end
@@ -39,7 +39,7 @@ describe Ansible::Ruby::BasicUnit do
 
   context 'nested unit' do
     let(:nested_klass) do
-      Class.new(Ansible::Ruby::BasicUnit) do
+      Class.new(Ansible::Ruby::BaseModel) do
         attribute :image
       end
     end
@@ -57,7 +57,7 @@ describe Ansible::Ruby::BasicUnit do
 
   context 'type validated' do
     let(:klass) do
-      Class.new(Ansible::Ruby::BasicUnit) do
+      Class.new(Ansible::Ruby::BaseModel) do
         attribute :foo, required: true, type: Integer, nil: true
         attribute :bar, type: [Integer, Float]
       end
@@ -104,7 +104,7 @@ describe Ansible::Ruby::BasicUnit do
 
   context 'array not allowed' do
     let(:klass) do
-      Class.new(Ansible::Ruby::BasicUnit) do
+      Class.new(Ansible::Ruby::BaseModel) do
         attribute :foo, required: true, type: Integer
       end
     end
@@ -116,7 +116,7 @@ describe Ansible::Ruby::BasicUnit do
 
   context 'array allowed' do
     let(:klass) do
-      Class.new(Ansible::Ruby::BasicUnit) do
+      Class.new(Ansible::Ruby::BaseModel) do
         attribute :foo, required: true, type: Array
       end
     end
@@ -128,7 +128,7 @@ describe Ansible::Ruby::BasicUnit do
 
   context 'choices' do
     let(:klass) do
-      Class.new(Ansible::Ruby::BasicUnit) do
+      Class.new(Ansible::Ruby::BaseModel) do
         attribute :foo, required: true
         attribute :bar, choices: [:bob, :sally]
       end
@@ -161,7 +161,7 @@ describe Ansible::Ruby::BasicUnit do
 
   context 'missing attributes' do
     let(:klass) do
-      Class.new(Ansible::Ruby::BasicUnit) do
+      Class.new(Ansible::Ruby::BaseModel) do
         attribute :foo, required: true
         attribute :bar, required: true
       end

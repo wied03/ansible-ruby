@@ -11,7 +11,7 @@ describe Ansible::Ruby::DslBuilders::ModuleCall do
   subject { evaluate }
 
   before do
-    klass = Class.new(Ansible::Ruby::BasicUnit) do
+    klass = Class.new(Ansible::Ruby::BaseModel) do
       attribute :src, required: true
       attribute :dest, required: true
     end

@@ -1,6 +1,6 @@
 module Ansible
   module Ruby
-    class Task < BasicUnit
+    class Task < BaseModel
       attribute :name, required: true, type: String
       attribute :module, required: true
       attribute :register, type: String

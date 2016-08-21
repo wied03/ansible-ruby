@@ -1,6 +1,6 @@
 module Ansible
   module Ruby
-    class BasicUnit
+    class BaseModel
       def initialize(args={})
         validate args
         @set_vars = args.keys
@@ -18,7 +18,7 @@ module Ansible
                     when Symbol
                       # leave symbols out of YAML
                       value.to_s
-                    when BasicUnit
+                    when BaseModel
                       value.to_h
                     else
                       value

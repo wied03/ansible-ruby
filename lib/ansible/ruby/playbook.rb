@@ -1,9 +1,9 @@
-require 'ansible/ruby/basic_unit'
+require 'ansible/ruby/base_model'
 require 'ansible/ruby/task'
 
 module Ansible
   module Ruby
-    class Playbook < BasicUnit
+    class Playbook < BaseModel
       attribute :hosts, required: true, type: [Array, String]
       attribute :tasks, type: [Array, Ansible::Ruby::Task]
       attribute :roles, type: [Array, String]
