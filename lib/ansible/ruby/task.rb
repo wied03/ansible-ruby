@@ -13,6 +13,7 @@ module Ansible
       attribute :notify, type: Array
       attribute :async, type: Integer
       attribute :poll, type: Integer
+      attribute :ignore_errors, type: [TrueClass, FalseClass]
 
       def to_h
         result = super

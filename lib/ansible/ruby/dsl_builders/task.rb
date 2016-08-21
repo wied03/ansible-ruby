@@ -55,6 +55,10 @@ module Ansible
           @task_args[:poll] = value
         end
 
+        def ignore_errors(value)
+          @task_args[:ignore_errors] = value
+        end
+
         private
 
         def process_method(id, *args, &block)

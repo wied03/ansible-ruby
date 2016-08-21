@@ -49,6 +49,7 @@ describe Ansible::Ruby::DslBuilders::Task do
           with_dict '{{ servers }}'
           async 0
           poll 50
+          ignore_errors true
           copy do
             src '/file1.conf'
             dest '/file2.conf'
@@ -63,12 +64,13 @@ describe Ansible::Ruby::DslBuilders::Task do
                                         become_user: 'root',
                                         async: 0,
                                         poll: 50,
+                                        ignore_errors: true,
                                         module: be_a(Ansible::Ruby::Modules::Copy) }
 
     describe 'hash keys' do
       subject { task.to_h.keys }
 
-      it { is_expected.to eq %w(name copy become become_user with_dict async poll) }
+      it { is_expected.to eq %w(name copy become become_user with_dict async poll ignore_errors) }
     end
   end
 
