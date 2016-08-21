@@ -19,5 +19,5 @@ task 'Another task' do
   become
   become_user 'root'
 
-  changed_when "'No upgrade available' not in #{atomic_result}.stdout"
+  changed_when "'No upgrade available' not in #{atomic_result.stdout}"
 end
