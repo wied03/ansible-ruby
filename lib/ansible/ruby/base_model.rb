@@ -12,12 +12,6 @@ module Ansible
         @set_vars = args.keys
       end
 
-      class << self
-        def attribute(name)
-          attr_accessor name
-        end
-      end
-
       def to_h
         validate!
         Hash[

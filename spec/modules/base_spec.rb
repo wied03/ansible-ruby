@@ -9,7 +9,7 @@ describe Ansible::Ruby::Modules::Base do
 
   let(:module_klass) do
     Class.new(Ansible::Ruby::Modules::Base) do
-      attribute :foo
+      attr_accessor :foo
       validates :foo, presence: true
     end
   end

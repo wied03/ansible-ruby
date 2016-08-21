@@ -12,9 +12,9 @@ describe Ansible::Ruby::DslBuilders::Task do
 
   before do
     klass = Class.new(Ansible::Ruby::Modules::Base) do
-      attribute :src
+      attr_accessor :src
       validates :src, presence: true
-      attribute :dest
+      attr_accessor :dest
       validates :dest, presence: true
     end
     stub_const 'Ansible::Ruby::Modules::Copy', klass

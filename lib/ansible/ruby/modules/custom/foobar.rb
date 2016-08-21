@@ -4,8 +4,10 @@ module Ansible
   module Ruby
     module Modules
       class Foobar < Base
-        # attribute :src, required: true
-        # attribute :dest, required: true
+        attr_accessor :src
+        validates :src, presence: true
+        attr_accessor :dest
+        validates :dest, presence: true
       end
     end
   end
