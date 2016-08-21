@@ -1,7 +1,7 @@
 module Ansible
   module Ruby
     module Modules
-      class Copy < BasicUnit
+      class Foobar < BasicUnit
         attribute :src, required: true
         attribute :dest, required: true
       end
