@@ -5,3 +5,4 @@ Gemfile.lock
 example.yml
 /yaml_test.rb
 /pkg
+/.eggs

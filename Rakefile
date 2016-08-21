@@ -3,7 +3,7 @@ require 'rspec/core/rake_task'
 require 'rubocop/rake_task'
 require 'reek/rake/task'
 
-task default: [:spec, :rubocop, :reek]
+task default: [:clean, :spec, :rubocop, :reek, :ansible_lint]
 
 desc 'Run specs'
 RSpec::Core::RakeTask.new :spec do |task|
@@ -33,6 +33,13 @@ rule '.yml' => '.rb' do |t|
   File.write t.name, yml
 end
 
-task ansible: 'spec/example.yml' do
-  puts 'run ansible now'
+desc 'cleans out generated files'
+task :clean do
+  rm_rf FileList['spec/*.yml']
+end
+
+desc 'Runs a check against a generated playbook'
+task ansible_lint: 'spec/example.yml' do
+  sh './setup.py build'
+  sh 'PYTHONPATH=.eggs/ansible_lint-3.3.0rc2-py2.7.egg .eggs/ansible_lint-3.3.0rc2-py2.7.egg/EGG-INFO/scripts/ansible-lint -v spec/example.yml'
 end

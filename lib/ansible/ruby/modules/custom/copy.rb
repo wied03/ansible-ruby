@@ -3,7 +3,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
-      class Foobar < Base
+      class Copy < Base
         attribute :src
         validates :src, presence: true
         attribute :dest
