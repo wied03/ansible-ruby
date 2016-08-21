@@ -66,6 +66,10 @@ module Ansible
           @task_args[:ignore_errors] = value
         end
 
+        def respond_to_missing?(*)
+          !@module
+        end
+
         private
 
         def process_method(id, *args, &block)

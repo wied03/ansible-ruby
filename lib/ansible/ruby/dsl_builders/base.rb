@@ -10,7 +10,7 @@ module Ansible
 
         def evaluate(*args, &block)
           if block
-            instance_eval &block
+            instance_eval(&block)
           else
             raise 'Expected code as an argument if no block supplied!' unless args.length == 1
             instance_eval args[0]
@@ -18,10 +18,14 @@ module Ansible
           @result
         end
 
+        def respond_to_missing?(*)
+          true
+        end
+
         def method_missing(id, *args, &block)
           result = begin
             process_method id, *args, &block
-          rescue Exception => our_error
+          rescue StandardError => our_error
             begin
               super
             rescue NoMethodError => ruby_error
