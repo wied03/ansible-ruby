@@ -88,6 +88,12 @@ describe Ansible::Ruby::BasicUnit do
     end
   end
 
+  context 'unknown attribute' do
+    subject { lambda { klass.new foo: 123, unknown: 123 } }
+
+    it { is_expected.to raise_error 'Attributes [:unknown] are unknown. Valid attributes are [:foo, :bar]' }
+  end
+
   context 'missing attribute' do
     subject { lambda { klass.new bar: 123 } }
 

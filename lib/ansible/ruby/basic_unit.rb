@@ -47,6 +47,11 @@ module Ansible
         required_keys = klass_attr.select { |_, opts| opts[:required] }
                           .map { |key, _| key }
         errors = []
+        valid_attribute_keys = self.class.attributes.keys
+        unknown = supplied_keys - valid_attribute_keys
+        if unknown.any?
+          errors << "Attributes #{unknown} are unknown. Valid attributes are #{valid_attribute_keys}"
+        end
         missing = required_keys - supplied_keys
         if missing.any?
           errors << if missing.length > 1
