@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'ansible-ruby'
 
 describe Ansible::Ruby::DslBuilders::Play do
-  let(:builder) { Ansible::Ruby::DslBuilders::Play.new }
+  let(:builder) { Ansible::Ruby::DslBuilders::Play.new 'another play' }
 
   def evaluate
     builder.evaluate ruby
@@ -43,6 +43,29 @@ describe Ansible::Ruby::DslBuilders::Play do
     describe 'hash keys' do
       subject { playbook.to_h.stringify_keys.keys }
 
+      it { is_expected.to eq %w(hosts name tasks) }
+    end
+  end
+
+  context 'no name provided' do
+    let(:builder) { Ansible::Ruby::DslBuilders::Play.new }
+
+    let(:ruby) do
+      <<-RUBY
+      hosts 'host1'
+
+      task 'Copy something' do
+          copy do
+            src '/file1.conf'
+            dest '/file2.conf'
+          end
+      end
+      RUBY
+    end
+
+    describe 'hash keys' do
+      subject { playbook.to_h.stringify_keys.keys }
+
       it { is_expected.to eq %w(hosts tasks) }
     end
   end
@@ -65,7 +88,6 @@ describe Ansible::Ruby::DslBuilders::Play do
   context 'other attributes' do
     let(:ruby) do
       <<-RUBY
-      name 'another play'
       hosts 'host1'
       roles %w(role1 role2)
       connection :local

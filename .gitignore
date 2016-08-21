@@ -4,3 +4,4 @@ Gemfile.lock
 .rake_t_cache
 example.yml
 /yaml_test.rb
+/pkg

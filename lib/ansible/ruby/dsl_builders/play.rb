@@ -5,9 +5,10 @@ module Ansible
   module Ruby
     module DslBuilders
       class Play < Base
-        def initialize
+        def initialize(name = nil)
           @tasks = []
           @playbook_args = {}
+          @playbook_args[:name] = name
         end
 
         def task(name, &block)
@@ -37,10 +38,6 @@ module Ansible
 
         def gather_facts(value)
           @playbook_args[:gather_facts] = value
-        end
-
-        def name(value)
-          @playbook_args[:name] = value
         end
 
         def evaluate(*)

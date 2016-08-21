@@ -16,7 +16,24 @@ describe Ansible::Ruby::Serializer do
 # This is a generated YAML file by ansible-ruby, DO NOT EDIT
 ec2:
   foo: 123
-YAML
+        YAML
+        # Don't expecte a trailing CR
+        is_expected.to eq text.rstrip
+      end
+    end
+
+    context 'array of plays' do
+      let(:hash) do
+        [{ ec2: { foo: 123 } }]
+      end
+
+      it do
+        text = <<-YAML
+---
+# This is a generated YAML file by ansible-ruby, DO NOT EDIT
+- ec2:
+    foo: 123
+        YAML
         # Don't expecte a trailing CR
         is_expected.to eq text.rstrip
       end

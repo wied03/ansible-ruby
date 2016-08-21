@@ -1,16 +1,16 @@
-hosts %w(host1 host2)
+play 'the play name' do
+  hosts %w(host1 host2)
 
-name 'the play'
+  task 'Copy something over' do
+    result = foobar do
+      src '/file1.conf'
+      dest '/file2.conf'
+    end
 
-task 'Copy something over' do
-  result = foobar do
-    src '/file1.conf'
-    dest '/file2.conf'
+    become
+    notify 'handler1'
+    changed_when "'no upgrade' in #{result.stdout}"
   end
 
-  become
-  notify 'handler1'
-  changed_when "'no upgrade' in #{result.stdout}"
+  user 'centos'
 end
-
-user 'centos'

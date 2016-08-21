@@ -11,6 +11,7 @@ Gem::Specification.new do |s|
   s.homepage = 'https://github.com/wied03/ansible-ruby'
 
   s.files = Dir.glob('lib/**/*.rb')
+               .reject { |file| file.end_with? '_spec.rb' }
 
   s.require_paths = ['lib']
 
