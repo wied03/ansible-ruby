@@ -13,17 +13,39 @@ describe Ansible::Ruby::Task do
     end
   end
 
-  subject { instance.to_h }
+  subject(:hash) { instance.to_h }
 
   context 'basic' do
     let(:instance) { Ansible::Ruby::Task.new name: 'do stuff on EC2', module: module_klass.new(foo: 123) }
 
-    it { is_expected.to eq({
-                             'name' => 'do stuff on EC2',
-                             'ec2' => {
-                               'foo' => 123
-                             }
-                           }) }
+    it do
+      is_expected.to eq({
+                          'name' => 'do stuff on EC2',
+                          'ec2' => {
+                            'foo' => 123
+                          }
+                        })
+    end
+  end
+
+  context 'attributes' do
+    let(:instance) { Ansible::Ruby::Task.new name: 'do stuff on EC2', become: true, module: module_klass.new(foo: 123) }
+
+    it do
+      is_expected.to eq({
+                          'name' => 'do stuff on EC2',
+                          'ec2' => {
+                            'foo' => 123
+                          },
+                          'become' => true
+                        })
+    end
+
+    describe 'key order' do
+      subject { hash.keys }
+
+      it { is_expected.to eq %w(name ec2 become) }
+    end
   end
 
   context 'register' do
