@@ -16,9 +16,14 @@ describe Ansible::Ruby::Task do
   subject { instance.to_h }
 
   context 'basic' do
-    let(:instance) { Ansible::Ruby::Task.new module: module_klass.new(foo: 123) }
+    let(:instance) { Ansible::Ruby::Task.new name: 'do stuff on EC2', module: module_klass.new(foo: 123) }
 
-    pending 'write this'
+    it { is_expected.to eq({
+                             'name' => 'do stuff on EC2',
+                             'ec2' => {
+                               'foo' => '123'
+                             }
+                           }) }
   end
 
   context 'register' do
