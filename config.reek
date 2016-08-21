@@ -18,3 +18,6 @@ UtilityFunction:
 
 DuplicateMethodCall:
   max_calls: 3
+
+FeatureEnvy:
+  enabled: false

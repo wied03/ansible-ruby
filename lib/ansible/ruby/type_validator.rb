@@ -39,7 +39,7 @@ end
 class TypeValidator < ActiveModel::EachValidator
   def validate_each(record, attribute, value)
     # Don't worry about this case, different validator
-    return if value.nil?
+    return if value.is_a? NilClass
     expected_type = options[:with]
     record_errors = record.errors[attribute]
     case expected_type
