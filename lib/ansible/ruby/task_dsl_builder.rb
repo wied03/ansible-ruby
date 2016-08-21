@@ -1,5 +1,5 @@
 require 'ansible/ruby/base_dsl_builder'
-require 'ansible/ruby/module_call_dsl_builder'
+require 'ansible/ruby/module_args_dsl_builder'
 
 module Ansible
   module Ruby
@@ -21,7 +21,7 @@ module Ansible
         modules = Ansible::Ruby::Modules
         raise "Unknown module #{id}" unless modules.const_defined? klass_name
         module_klass = modules.const_get klass_name
-        module_builder = ModuleCallDslBuilder.new &block
+        module_builder = ModuleArgsDslBuilder.new &block
         args = module_builder.evaluate
         @module_calls << module_klass.new(args)
       end

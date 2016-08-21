@@ -2,7 +2,7 @@ require 'ansible/ruby/base_dsl_builder'
 
 module Ansible
   module Ruby
-    class ModuleCallDslBuilder < BaseDslBuilder
+    class ModuleArgsDslBuilder < BaseDslBuilder
       def initialize(&block)
         @args = {}
         @args_block = block
