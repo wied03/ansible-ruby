@@ -62,12 +62,20 @@ module Ansible
 
         end
         klass_attr.each do |key, opts|
+          next unless args.include? key
           value = args[key]
+          unless opts[:nil] || value
+            errors << "Attribute #{key} cannot be nil"
+          end
           if (choice = opts[:choices]) && !choice.include?(value)
             errors << "Attribute #{key} can only be #{opts[:choices]}"
           end
-          unless !value.is_a?(Array) || opts[:array] || value.length == 1
-            errors << "Attribute #{key} cannot be an array"
+          single_value_as_array = !opts[:array] && value.is_a?(Array) && value.length == 1
+          if (type = opts[:type])
+            value_to_use = single_value_as_array ? value[0] : value
+            unless [*type].any? { |t| value_to_use.is_a?(t) } || value_to_use.is_a?(NilClass)
+              errors << "Attribute #{key} expected to be an #{type} but was a #{value_to_use.class}"
+            end
           end
         end
         raise errors.join("\n") if errors.any?

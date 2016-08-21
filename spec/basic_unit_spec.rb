@@ -26,6 +26,12 @@ describe Ansible::Ruby::BasicUnit do
   end
 
   context 'explicit nil' do
+    let(:klass) do
+      Class.new(Ansible::Ruby::BasicUnit) do
+        attribute :foo, required: true, type: Integer, nil: true
+      end
+    end
+
     let(:instance) { klass.new foo: nil }
 
     it { is_expected.to eq({ 'foo' => nil }) }
@@ -49,16 +55,69 @@ describe Ansible::Ruby::BasicUnit do
     it { is_expected.to eq({ 'foo' => 123 }) }
   end
 
+  context 'type validated' do
+    let(:klass) do
+      Class.new(Ansible::Ruby::BasicUnit) do
+        attribute :foo, required: true, type: Integer, nil: true
+        attribute :bar, type: [Integer, Float]
+      end
+    end
+
+    context 'attribute present' do
+      subject { lambda { klass.new foo: 'howdy' } }
+
+      it { is_expected.to raise_error 'Attribute foo expected to be an Integer but was a String' }
+    end
+
+    context 'bar attribute not present' do
+      let(:instance) { klass.new foo: [123] }
+
+      it { is_expected.to eq({ 'foo' => 123 }) }
+    end
+
+    context 'nil value' do
+      let(:instance) { klass.new foo: nil }
+
+      it { is_expected.to eq({ 'foo' => nil }) }
+    end
+
+    context 'multiple types' do
+      let(:instance) { klass.new foo: nil, bar: 45.44 }
+
+      it { is_expected.to eq({ 'foo' => nil, 'bar' => 45.44 }) }
+    end
+  end
+
+  context 'nil not allowed' do
+    context 'pass' do
+      let(:instance) { klass.new foo: 123 }
+
+      it { is_expected.to eq({ 'foo' => 123 }) }
+    end
+
+    context 'fail' do
+      subject { lambda { klass.new foo: nil } }
+
+      it { is_expected.to raise_error 'Attribute foo cannot be nil' }
+    end
+  end
+
   context 'array not allowed' do
+    let(:klass) do
+      Class.new(Ansible::Ruby::BasicUnit) do
+        attribute :foo, required: true, type: Integer
+      end
+    end
+
     subject { lambda { klass.new foo: [123, 456] } }
 
-    it { is_expected.to raise_error 'Attribute foo cannot be an array' }
+    it { is_expected.to raise_error 'Attribute foo expected to be an Integer but was a Array' }
   end
 
   context 'array allowed' do
     let(:klass) do
       Class.new(Ansible::Ruby::BasicUnit) do
-        attribute :foo, required: true, array: true
+        attribute :foo, required: true, type: Array
       end
     end
 

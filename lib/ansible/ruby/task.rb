@@ -1,16 +1,16 @@
 module Ansible
   module Ruby
     class Task < BasicUnit
-      attribute :name, required: true
+      attribute :name, required: true, type: String
       attribute :module, required: true
-      attribute :register
-      attribute :become
-      attribute :become_user
-      attribute :changed_when
-      attribute :failed_when
-      attribute :when
-      attribute :with_dict
-      attribute :notify, array: true
+      attribute :register, type: String
+      attribute :become, type: [TrueClass, FalseClass]
+      attribute :become_user, type: String
+      attribute :changed_when, type: String
+      attribute :failed_when, type: String
+      attribute :when, type: String
+      attribute :with_dict, type: String
+      attribute :notify, type: Array
 
       def to_h
         result = super
