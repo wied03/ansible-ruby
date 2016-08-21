@@ -20,49 +20,51 @@ describe Ansible::Ruby::DslBuilders::FileLevel do
     stub_const 'Ansible::Ruby::Modules::Copy', klass
   end
 
-  context 'named playbook' do
-    let(:ruby) do
-      <<-RUBY
-      play 'the play name' do
-        hosts 'host1'
+  context 'playbook' do
+    context 'named' do
+      let(:ruby) do
+        <<-RUBY
+        play 'the play name' do
+          hosts 'host1'
 
-        task 'Copy something' do
-            copy do
-              src '/file1.conf'
-              dest '/file2.conf'
-            end
+          task 'Copy something' do
+              copy do
+                src '/file1.conf'
+                dest '/file2.conf'
+              end
+          end
         end
+        RUBY
       end
-      RUBY
+
+      it { is_expected.to be_a Ansible::Ruby::Models::Playbook }
+
+      it do
+        is_expected.to have_attributes plays: include(be_a(Ansible::Ruby::Models::Play))
+      end
     end
 
-    it { is_expected.to be_a Ansible::Ruby::Models::Playbook }
+    context 'unnamed' do
+      let(:ruby) do
+        <<-RUBY
+        play do
+          hosts 'host1'
 
-    it do
-      is_expected.to have_attributes plays: include(be_a(Ansible::Ruby::Models::Play))
-    end
-  end
-
-  context 'unnamed playbook' do
-    let(:ruby) do
-      <<-RUBY
-      play do
-        hosts 'host1'
-
-        task 'Copy something' do
-            copy do
-              src '/file1.conf'
-              dest '/file2.conf'
-            end
+          task 'Copy something' do
+              copy do
+                src '/file1.conf'
+                dest '/file2.conf'
+              end
+          end
         end
+        RUBY
       end
-      RUBY
-    end
 
-    it { is_expected.to be_a Ansible::Ruby::Models::Playbook }
+      it { is_expected.to be_a Ansible::Ruby::Models::Playbook }
 
-    it do
-      is_expected.to have_attributes plays: include(be_a(Ansible::Ruby::Models::Play))
+      it do
+        is_expected.to have_attributes plays: include(be_a(Ansible::Ruby::Models::Play))
+      end
     end
   end
 end
