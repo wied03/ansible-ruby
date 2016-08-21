@@ -8,9 +8,9 @@ describe Ansible::Ruby::BaseModel do
 
   let(:klass) do
     Class.new(Ansible::Ruby::BaseModel) do
-      attr_accessor :foo
+      attribute :foo
       validates :foo, presence: true
-      attr_accessor :bar
+      attribute :bar
     end
   end
 
@@ -25,7 +25,7 @@ describe Ansible::Ruby::BaseModel do
   context 'explicit nil' do
     let(:klass) do
       Class.new(Ansible::Ruby::BaseModel) do
-        attr_accessor :foo
+        attribute :foo
         validates :foo, presence: true, allow_nil: true
       end
     end
@@ -39,7 +39,7 @@ describe Ansible::Ruby::BaseModel do
   context 'nested unit' do
     let(:nested_klass) do
       Class.new(Ansible::Ruby::BaseModel) do
-        attr_accessor :image
+        attribute :image
       end
     end
 
@@ -51,11 +51,11 @@ describe Ansible::Ruby::BaseModel do
   context 'type validated' do
     let(:klass) do
       Class.new(Ansible::Ruby::BaseModel) do
-        attr_accessor :foo
+        attribute :foo
         validates :foo, presence: true, allow_nil: true, type: Integer
-        attr_accessor :bar
+        attribute :bar
         validates :bar, type: TypeGeneric.new(Float)
-        attr_accessor :toodles
+        attribute :toodles
         validates :toodles, presence: true, type: TypeGeneric.new(Float)
       end
     end
@@ -70,7 +70,7 @@ describe Ansible::Ruby::BaseModel do
     context 'multiple' do
       let(:klass) do
         Class.new(Ansible::Ruby::BaseModel) do
-          attr_accessor :foo
+          attribute :foo
           validates :foo, presence: true, allow_nil: true, type: MultipleTypes.new(Float, Integer)
         end
       end

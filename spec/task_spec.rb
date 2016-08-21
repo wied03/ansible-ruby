@@ -8,9 +8,9 @@ describe Ansible::Ruby::Task do
 
   let(:module_klass) do
     Class.new(Ansible::Ruby::Modules::Base) do
-      attr_accessor :foo
+      attribute :foo
       validates :foo, presence: true
-      attr_accessor :bar
+      attribute :bar
     end
   end
 

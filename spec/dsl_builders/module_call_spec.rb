@@ -12,9 +12,9 @@ describe Ansible::Ruby::DslBuilders::ModuleCall do
 
   before do
     klass = Class.new(Ansible::Ruby::BaseModel) do
-      attr_accessor :src
+      attribute :src
       validates :src, presence: true
-      attr_accessor :dest
+      attribute :dest
       validates :dest, presence: true
     end
     stub_const 'Ansible::Ruby::Modules::Copy', klass

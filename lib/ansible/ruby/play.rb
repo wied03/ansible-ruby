@@ -4,23 +4,23 @@ require 'ansible/ruby/task'
 module Ansible
   module Ruby
     class Play < BaseModel
-      attr_accessor :hosts
+      attribute :hosts
       validates :hosts, presence: true, type: TypeGeneric.new(String)
-      attr_accessor :name
+      attribute :name
       validates :name, type: String
-      attr_accessor :tasks
+      attribute :tasks
       validates :tasks, type: TypeGeneric.new(Ansible::Ruby::Task)
-      attr_accessor :roles
+      attribute :roles
       validates :roles, type: TypeGeneric.new(String)
-      attr_accessor :connection
+      attribute :connection
       validates :connection,
                 allow_nil: true,
                 inclusion: { in: [:local, :docker, :ssh], message: '%{value} needs to be :local, :docker, or :ssh' }
-      attr_accessor :user
+      attribute :user
       validates :user, type: String
-      attr_accessor :serial
+      attribute :serial
       validates :serial, type: Integer
-      attr_accessor :gather_facts
+      attribute :gather_facts
       validates :gather_facts, type: MultipleTypes.new(TrueClass, FalseClass)
       validate :validate_roles_tasks
 

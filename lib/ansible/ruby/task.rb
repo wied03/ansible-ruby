@@ -1,31 +1,31 @@
 module Ansible
   module Ruby
     class Task < BaseModel
-      attr_accessor :name
+      attribute :name
       validates :name, presence: true, type: String
-      attr_accessor :module
+      attribute :module
       validates :module, presence: true
-      attr_accessor :register
+      attribute :register
       validates :register, type: String
-      attr_accessor :become
+      attribute :become
       validates :become, type: MultipleTypes.new(TrueClass, FalseClass)
-      attr_accessor :become_user
+      attribute :become_user
       validates :become_user, type: String
-      attr_accessor :changed_when
+      attribute :changed_when
       validates :changed_when, type: String
-      attr_accessor :failed_when
+      attribute :failed_when
       validates :failed_when, type: String
-      attr_accessor :when
+      attribute :when
       validates :when, type: String
-      attr_accessor :with_dict
+      attribute :with_dict
       validates :with_dict, type: String
-      attr_accessor :notify
+      attribute :notify
       validates :notify, type: TypeGeneric.new(String)
-      attr_accessor :async
+      attribute :async
       validates :async, type: Integer
-      attr_accessor :poll
+      attribute :poll
       validates :poll, type: Integer
-      attr_accessor :ignore_errors
+      attribute :ignore_errors
       validates :ignore_errors, type: MultipleTypes.new(TrueClass, FalseClass)
 
       def to_h

@@ -8,7 +8,7 @@ describe Ansible::Ruby::Play do
 
   let(:module_klass) do
     Class.new(Ansible::Ruby::Modules::Base) do
-      attr_accessor :foo
+      attribute :foo
       validates :foo, presence: true
     end
   end
