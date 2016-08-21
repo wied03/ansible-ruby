@@ -69,6 +69,32 @@ describe Ansible::Ruby::DslBuilders::Task do
 
   context 'register' do
     context 'changed when' do
+      let(:ruby) do
+        <<-RUBY
+        task 'Copy something' do
+          atomic_result = copy do
+            src '/file1.conf'
+            dest '/file2.conf'
+          end
+          changed_when "'No upgrade available' not in \#{atomic_result.stdout}"
+        end
+        RUBY
+      end
+
+      it { is_expected.to be_a Ansible::Ruby::Task }
+      it { is_expected.to have_attributes name: 'Copy something',
+                                          register: 'result_1',
+                                          changed_when: "'No upgrade available' not in result_1.stdout",
+                                          module: be_a(Ansible::Ruby::Modules::Copy) }
+
+      describe 'hash keys' do
+        subject { task.to_h.keys }
+
+        it { is_expected.to eq %w(name copy register changed_when) }
+      end
+    end
+
+    context 'syntax error' do
       pending 'write this'
     end
 

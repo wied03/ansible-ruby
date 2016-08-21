@@ -19,7 +19,7 @@ module Ansible
         end
 
         def method_missing(id, *args, &block)
-          begin
+          result = begin
             process_method id, *args, &block
           rescue Exception => our_error
             begin
@@ -31,6 +31,12 @@ module Ansible
               raise "#{our_error.message} at line #{matching_line}!"
             end
           end
+          method_missing_return id, result, *args
+        end
+
+        private
+
+        def method_missing_return(*)
           # Don't leak return values
           nil
         end

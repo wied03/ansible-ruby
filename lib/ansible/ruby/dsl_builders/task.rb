@@ -1,11 +1,13 @@
 require 'ansible/ruby/dsl_builders/base'
 require 'ansible/ruby/dsl_builders/module_call'
+require 'ansible/ruby/dsl_builders/result'
 
 module Ansible
   module Ruby
     module DslBuilders
       class Task < Base
         def task(name, &block)
+          @temp_counter = 0
           @name = name
           @task_args = {}
           instance_eval &block
@@ -28,12 +30,22 @@ module Ansible
           @task_args[:become_user] = value
         end
 
+        def changed_when(clause)
+          @task_args[:changed_when] = clause
+        end
+
         private
 
         def process_method(id, *args, &block)
           module_call_builder = ModuleCall.new
           module_call_builder.send(id, *args, &block)
           @module = module_call_builder.result
+        end
+
+        def method_missing_return(id, result, *args)
+          # method_missing only used for modules here
+          @temp_counter += 1
+          Result.new(@temp_counter, lambda { |name| @task_args[:register] = name })
         end
       end
     end
