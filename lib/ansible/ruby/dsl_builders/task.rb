@@ -1,6 +1,7 @@
 require 'ansible/ruby/dsl_builders/base'
 require 'ansible/ruby/dsl_builders/module_call'
 require 'ansible/ruby/dsl_builders/result'
+require 'ansible/ruby/task'
 
 module Ansible
   module Ruby
