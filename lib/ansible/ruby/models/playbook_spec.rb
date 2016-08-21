@@ -39,31 +39,31 @@ describe Ansible::Ruby::Models::Playbook do
 
     it do
       is_expected.to eq [
-                          {
-                            hosts: 'host1:host2',
-                            name: 'play 1',
-                            tasks: [
-                              {
-                                name: 'do stuff on EC2',
-                                ec2: {
-                                  foo: 123
-                                }
-                              }
-                            ]
-                          },
-                          {
-                            hosts: 'host3',
-                            name: 'play 2',
-                            tasks: [
-                              {
-                                name: 'do stuff on EC2',
-                                ec2: {
-                                  foo: 123
-                                }
-                              }
-                            ]
-                          }
-                        ]
+        {
+          hosts: 'host1:host2',
+          name: 'play 1',
+          tasks: [
+            {
+              name: 'do stuff on EC2',
+              ec2: {
+                foo: 123
+              }
+            }
+          ]
+        },
+        {
+          hosts: 'host3',
+          name: 'play 2',
+          tasks: [
+            {
+              name: 'do stuff on EC2',
+              ec2: {
+                foo: 123
+              }
+            }
+          ]
+        }
+      ]
     end
   end
 
@@ -72,7 +72,7 @@ describe Ansible::Ruby::Models::Playbook do
       Ansible::Ruby::Models::Playbook.new
     end
 
-    subject { lambda { instance.to_h } }
+    subject { -> { instance.to_h } }
 
     it { is_expected.to raise_error "Validation failed: Plays can't be blank" }
   end
@@ -82,7 +82,7 @@ describe Ansible::Ruby::Models::Playbook do
       Ansible::Ruby::Models::Playbook.new plays: []
     end
 
-    subject { lambda { instance.to_h } }
+    subject { -> { instance.to_h } }
 
     it { is_expected.to raise_error "Validation failed: Plays can't be blank" }
   end

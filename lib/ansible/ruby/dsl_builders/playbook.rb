@@ -9,7 +9,7 @@ module Ansible
           @plays = []
         end
 
-        def play(name=nil, &block)
+        def play(name = nil, &block)
           play_builder = Play.new name
           @plays << play_builder.evaluate(&block)
         end

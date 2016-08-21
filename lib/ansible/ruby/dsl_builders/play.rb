@@ -5,7 +5,7 @@ module Ansible
   module Ruby
     module DslBuilders
       class Play < Base
-        def initialize(name=nil)
+        def initialize(name = nil)
           @tasks = []
           @playbook_args = {}
           @playbook_args[:name] = name

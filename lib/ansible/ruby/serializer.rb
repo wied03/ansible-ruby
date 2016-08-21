@@ -10,7 +10,7 @@ module Ansible
                   when Hash
                     value.deep_stringify_keys
                   when Array
-                    value.map { |item| item.deep_stringify_keys }
+                    value.map(&:deep_stringify_keys)
                   else
                     raise "Unknown type #{value.class}"
                   end
