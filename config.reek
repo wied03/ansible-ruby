@@ -1,0 +1,20 @@
+# code comments are not always important
+IrresponsibleModule:
+  enabled: false
+
+# rubocop has got these 3 covered
+TooManyStatements:
+  enabled: false
+
+NestedIterators:
+  max_allowed_nesting: 2 # 1 seems a little restrictive
+
+LongParameterList:
+  enabled: false
+
+# good idea in theory, but these 2 are currently too noisy, will discourage chopping up things into methods
+UtilityFunction:
+  enabled: false
+
+DuplicateMethodCall:
+  max_calls: 3

@@ -13,6 +13,13 @@ RuboCop::RakeTask.new do |task|
   task.options = %w(-D -S)
 end
 
+desc 'Runs Reek stuff'
+Reek::Rake::Task.new do |task|
+  # rake task overrides all config.reek exclusions, which is annoying and it won't let us set a FileList directly
+  files = FileList['**/*.rb']
+  task.instance_variable_set :@source_files, files
+end
+
 rule '.yml' => '.rb' do |t|
   puts "Updating #{t.name}"
   require 'ansible-ruby'
