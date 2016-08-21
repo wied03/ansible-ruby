@@ -31,11 +31,7 @@ describe 'Rake task' do
 
     it do
       is_expected.to eq <<OUTPUT
-rake default         # the ansible task default
-rake dependent_task  # dependent task
-rake no_playbook     # no playbook task
-rake with_deps       # task with deps
-rake with_options    # with options task
+rake default  # the ansible task default
 OUTPUT
     end
   end
@@ -87,6 +83,16 @@ OUTPUT
       end
     end
 
-    pending 'write this'
+    context 'options' do
+      pending 'write this'
+    end
+
+    context 'dependent task' do
+      pending 'write this'
+    end
+
+    context 'no playbook' do
+      pending 'write this'
+    end
   end
 end
