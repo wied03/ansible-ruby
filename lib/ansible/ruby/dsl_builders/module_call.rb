@@ -10,7 +10,7 @@ module Ansible
 
         def respond_to_missing?(method_name, _)
           klass_name = klass_name method_name
-          MODULES_MOD.const_defined? klass_name
+          MODULES_MOD.const_defined?(klass_name) || super
         end
 
         private

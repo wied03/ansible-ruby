@@ -67,7 +67,7 @@ module Ansible
         end
 
         def respond_to_missing?(*)
-          !@module
+          !@module || super
         end
 
         private

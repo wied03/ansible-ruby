@@ -19,7 +19,7 @@ module Ansible
         end
 
         def respond_to_missing?(*)
-          true
+          super
         end
 
         def method_missing(id, *args, &block)
