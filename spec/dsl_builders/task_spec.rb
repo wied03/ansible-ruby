@@ -113,11 +113,55 @@ describe Ansible::Ruby::DslBuilders::Task do
     end
 
     context 'failed when' do
-      pending 'write this'
+      let(:ruby) do
+        <<-RUBY
+        task 'Copy something' do
+          atomic_result = copy do
+            src '/file1.conf'
+            dest '/file2.conf'
+          end
+          failed_when "'No upgrade available' not in \#{atomic_result.stdout}"
+        end
+        RUBY
+      end
+
+      it { is_expected.to be_a Ansible::Ruby::Task }
+      it { is_expected.to have_attributes name: 'Copy something',
+                                          register: 'result_1',
+                                          failed_when: "'No upgrade available' not in result_1.stdout",
+                                          module: be_a(Ansible::Ruby::Modules::Copy) }
+
+      describe 'hash keys' do
+        subject { task.to_h.keys }
+
+        it { is_expected.to eq %w(name copy register failed_when) }
+      end
     end
 
     context 'ansible_when' do
-      pending 'write this'
+      let(:ruby) do
+        <<-RUBY
+        task 'Copy something' do
+          atomic_result = copy do
+            src '/file1.conf'
+            dest '/file2.conf'
+          end
+          ansible_when "'No upgrade available' not in \#{atomic_result.stdout}"
+        end
+        RUBY
+      end
+
+      it { is_expected.to be_a Ansible::Ruby::Task }
+      it { is_expected.to have_attributes name: 'Copy something',
+                                          register: 'result_1',
+                                          when: "'No upgrade available' not in result_1.stdout",
+                                          module: be_a(Ansible::Ruby::Modules::Copy) }
+
+      describe 'hash keys' do
+        subject { task.to_h.keys }
+
+        it { is_expected.to eq %w(name copy register when) }
+      end
     end
   end
 end

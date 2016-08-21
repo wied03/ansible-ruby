@@ -7,6 +7,8 @@ module Ansible
       attribute :become
       attribute :become_user
       attribute :changed_when
+      attribute :failed_when
+      attribute :when
       attribute :notify, array: true
 
       def to_h

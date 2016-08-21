@@ -35,6 +35,14 @@ module Ansible
           @task_args[:changed_when] = clause
         end
 
+        def failed_when(clause)
+          @task_args[:failed_when] = clause
+        end
+
+        def ansible_when(clause)
+          @task_args[:when] = clause
+        end
+
         private
 
         def process_method(id, *args, &block)
