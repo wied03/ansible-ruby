@@ -36,7 +36,9 @@ module Ansible
                 value.split ' '
               end.flatten
               value_hash = Hash[key_value_str.map do |pair|
-                pair.split '='
+                equals = pair.split '='
+                # some attributes have data like attr=value=value2, only want attr=value
+                equals[0..1]
               end]
               sample_value = value_hash[attribute]
               sample_value && sample_value.class.name

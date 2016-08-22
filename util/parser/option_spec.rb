@@ -112,8 +112,21 @@ RUBY
       end
 
       context 'multiple equals' do
-        # see apt
-        pending 'write this'
+        let(:name) { 'name' }
+
+        let(:example) do
+          [
+            { "postgresql_db" => "apt: name=foo=1.00 state=present" }
+          ]
+        end
+
+        it do
+          is_expected.to eq <<RUBY
+# @return [String] The username used to authenticate with
+attribute :name
+validates :name, type: String
+RUBY
+        end
       end
 
       context 'quoted' do
