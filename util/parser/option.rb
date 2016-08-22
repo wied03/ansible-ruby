@@ -72,14 +72,24 @@ module Ansible
           end
 
           def process_hash(example)
-            Hash[example.map { |ex| ex.reject { |key, _| key == 'name' } }
-                   .map { |ex| ex.map { |_, value| value } }
-                   .flatten
-                   .map { |hash| hash.map { |key, value| [key, value] } }[0]]
+            first_cut = example.map { |ex| ex.reject { |key, _| key == 'name' } }
+                          .map { |ex| ex.map { |_, value| value } }
+                          .flatten
+            if first_cut.length == 1 && first_cut[0].is_a?(String)
+              split_array_string_vals(first_cut)
+            else
+              Hash[first_cut.map do |hash|
+                hash.map { |key, value| [key, value] }
+              end[0]]
+            end
           end
 
           def process_inline(example)
             value_array = example.map { |ex| ex.values }.flatten
+            split_array_string_vals(value_array)
+          end
+
+          def split_array_string_vals(value_array)
             key_value_str = value_array.map do |value|
               value.split ' '
             end.flatten

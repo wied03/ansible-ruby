@@ -214,6 +214,31 @@ RUBY
         end
       end
 
+      context 'mix of hash and inline' do
+        let(:name) { 'stack_name' }
+
+        let(:example) do
+          [
+            {
+              "name" => 'some task',
+              'cloudformation' => "stack_name=\"ansible-cloudformation\" state=present region=us-east-1 disable_rollback=true template_url=https://s3.amazonaws.com/my-bucket/cloudformation.template"
+            }
+          ]
+        end
+
+        it do
+          is_expected.to eq <<RUBY
+# @return [String] The username used to authenticate with
+attribute :stack_name
+validates :stack_name, type: String
+RUBY
+        end
+      end
+
+      context 'args' do
+        pending 'write this'
+      end
+
       context 'multiple equals' do
         let(:name) { 'name' }
 
