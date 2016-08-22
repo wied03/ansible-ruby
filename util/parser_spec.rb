@@ -1,7 +1,7 @@
 # See LICENSE.txt for license
 require 'spec_helper'
 require 'ansible-ruby'
-require_relative '../../util/parser'
+require_relative './parser'
 
 describe Ansible::Ruby::Parser do
   describe '::from_yaml_string' do
