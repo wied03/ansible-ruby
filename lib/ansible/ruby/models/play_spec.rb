@@ -100,7 +100,12 @@ describe Ansible::Ruby::Models::Play do
   end
 
   context 'no tasks and no roles' do
-    pending 'write this'
+    subject { instance }
+
+    let(:instance) { Ansible::Ruby::Models::Play.new hosts: 'host1' }
+
+    it { is_expected.to_not be_valid }
+    it { is_expected.to have_errors tasks: 'Must supply either task(s) or role(s)!' }
   end
 
   context 'role' do

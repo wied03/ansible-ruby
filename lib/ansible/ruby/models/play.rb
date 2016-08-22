@@ -48,6 +48,7 @@ module Ansible
 
         def validate_roles_tasks
           errors.add :tasks, 'Cannot supply both tasks and roles!' if roles && tasks
+          errors.add :tasks, 'Must supply either task(s) or role(s)!' unless roles || tasks
         end
       end
     end
