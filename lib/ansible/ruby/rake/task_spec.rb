@@ -135,7 +135,7 @@ OUTPUT
 
     context 'role tasks' do
       let(:rake_dir) { 'spec/rake/nested_tasks' }
-      let(:task_yml) { 'roles/role1/tasks/task1.yml' }
+      let(:task_yml) { 'roles/role1/tasks/task1_test.yml' }
 
       let(:task) do
         Ansible::Ruby::Rake::Task.new do |task|
