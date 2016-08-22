@@ -3,7 +3,7 @@ require 'spec_helper'
 require 'ansible-ruby'
 require_relative './option'
 
-fdescribe Ansible::Ruby::Parser::Option do
+describe Ansible::Ruby::Parser::Option do
   describe '::parse' do
     # match the expected multiline string stuff
     subject { Ansible::Ruby::Parser::Option.parse(name, details, example)+"\n" }

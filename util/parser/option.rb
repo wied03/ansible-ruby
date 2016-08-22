@@ -65,7 +65,7 @@ module Ansible
           end
 
           def identify_class_from(value)
-            value = value.is_a?(String) && (unquoted_match = /'(.*)'/.match(value)) ? unquoted_match[1] : value
+            value = unquote_string(value) if value.is_a?(String)
             if is_flat_array? value
               array = value.split ','
               item = array[0]
@@ -80,6 +80,11 @@ module Ansible
             else
               value.class
             end
+          end
+
+          # some sample values are foo='stuff,bar'
+          def unquote_string(string)
+            ((unquoted_match = /'(.*)'/.match(string)) && unquoted_match[1]) || string
           end
 
           def is_integer?(value)
