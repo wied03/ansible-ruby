@@ -7,7 +7,7 @@ Attempts to create a Ruby DSL on top of Ansible's YML files
 
 ## What does it do?
 * Creates a Ruby DSL that compiles .rb files to YML on a file by file basis
-* Assists with basic syntax regarding ```register`
+* Assists with basic syntax regarding `register`
 * Offers a Rake task to assist in easily generating YML files from dependent Ruby files
 
 ## Why does this exist?
@@ -19,23 +19,50 @@ Python is widely installed (probably moreso than Ruby :()) on machines to be man
 ## Example
 Here is a single play:
 ```ruby
-hosts %w(host1 host2)
+play 'the play name' do
+  hosts %w(host1 host2)
 
-name 'the play'
+  task 'Copy something over' do
+    result = copy do
+      src '/file1.conf'
+      dest '/file2.conf'
+    end
 
-task 'Copy something over' do
-  result = foobar do
-    src '/file1.conf'
-    dest '/file2.conf'
+    become
+    notify 'handler1'
+    changed_when "'no upgrade' in #{result.stdout}"
   end
 
-  become
-  notify 'handler1'
-  changed_when "'no upgrade' in #{result.stdout}"
+  user 'centos'
 end
+```
 
-user 'centos'
+This will translate to:
+```yml
+---
+# This is a generated YAML file by ansible-ruby, DO NOT EDIT
+- hosts: host1:host2
+  name: the play name
+  tasks:
+  - name: Copy something over
+    copy:
+      src: "/file1.conf"
+      dest: "/file2.conf"
+    become: true
+    register: result_1
+    changed_when: "'no upgrade' in result_1.stdout"
+    notify:
+    - handler1
+  user: centos
+```
 
+You can invoke all of this via a Rake task. The Rake task will look for any .rb files under roles/role_name/tasks/*.rb and transform those as well:
+
+```ruby
+desc 'named ansible task'
+Ansible::Ruby::Rake::Task.new :stuff do |task|
+  task.playbooks = 'lib/ansible/ruby/rake/sample_test.rb'
+end
 ```
 
 ## License
