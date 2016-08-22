@@ -1,5 +1,6 @@
 require 'ansible/ruby/dsl_builders/play'
 require 'ansible/ruby/models/playbook'
+require 'ansible/ruby/models/tasks'
 
 module Ansible
   module Ruby
@@ -14,8 +15,14 @@ module Ansible
           @plays << play_builder.evaluate(&block)
         end
 
+        def tasks(&block)
+          # TODO: Need to create a tasks builder (can probably refactor the play builder to extend from it)
+        end
+
         def evaluate(*)
           super
+          # TODO: Create a context so we know if we're in a playbook or a tasks file
+          # TODO: Complain if we try and change contexts from an already established context (e.g. playbook->tasks)
           Models::Playbook.new plays: @plays
         end
 
