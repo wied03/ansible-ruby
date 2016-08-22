@@ -76,5 +76,13 @@ RUBY
 
       pending 'write this'
     end
+
+    context 'read types from default' do
+      pending 'write this'
+    end
+
+    context 'read types from example' do
+      pending 'write this'
+    end
   end
 end

@@ -1,16 +1,14 @@
 # See LICENSE.txt for license
+
+require_relative 'parser/option'
+
 module Ansible
   module Ruby
-    class Parser
+    module Parser
       class << self
         def from_yaml_string(yaml)
           raise 'implement'
         end
-      end
-
-      private
-
-      def initialize
       end
     end
   end
