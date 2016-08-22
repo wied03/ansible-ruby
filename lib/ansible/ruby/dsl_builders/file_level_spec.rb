@@ -12,7 +12,7 @@ describe Ansible::Ruby::DslBuilders::FileLevel do
 
   before do
     klass = Class.new(Ansible::Ruby::Modules::Base) do
-       attribute :src
+      attribute :src
       validates :src, presence: true
       attribute :dest
       validates :dest, presence: true
@@ -88,7 +88,14 @@ describe Ansible::Ruby::DslBuilders::FileLevel do
     end
 
     it { is_expected.to be_a Ansible::Ruby::Models::Tasks }
-    it { is_expected.to have_attributes tasks: include(be_a(Ansible::Ruby::Models::Task, Ansible::Ruby::Models::Task)) }
+    it do
+      is_expected.to have_attributes tasks: include(be_a(Ansible::Ruby::Models::Task),
+                                                    be_a(Ansible::Ruby::Models::Task))
+    end
+  end
+
+  context 'tasks with no name' do
+    pending 'write this'
   end
 
   context 'change from play to task' do

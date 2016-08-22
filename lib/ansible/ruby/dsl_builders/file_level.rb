@@ -8,20 +8,33 @@ module Ansible
       class FileLevel < Base
         def initialize
           @plays = []
+          @tasks_builder = nil
+          @context = nil
         end
 
         def play(name = nil, &block)
+          @context = :playbook
           play_builder = Play.new name
           @plays << play_builder.evaluate(&block)
         end
 
-        # def tasks(&block)
-        #   # TODO: Need to create a tasks builder (can probably refactor the play builder to extend from it)
-        # end
+        def task(name, &block)
+          @context = :tasks
+          @tasks_builder ||= Tasks.new
+          @tasks_builder.task name, &block
+        end
 
         def evaluate(*)
           super
-          Models::Playbook.new plays: @plays
+          case @context
+          when :playbook
+            # TODO: Add a playbook DSL and do this like tasks
+            Models::Playbook.new plays: @plays
+          when :tasks
+            @tasks_builder.evaluate {}
+          else
+            raise "Unknown context #{@context}"
+          end
         end
 
         def process_method(id, *)
