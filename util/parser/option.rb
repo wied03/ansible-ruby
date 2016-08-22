@@ -67,10 +67,26 @@ module Ansible
           def identify_class_from(value)
             if is_flat_array? value
               array = value.split ','
-              TypeGeneric.new array[0].class
+              item = array[0]
+              klass = if is_integer?(item)
+                        Integer
+                      elsif is_float?(item)
+                        Float
+                      else
+                        item.class
+                      end
+              TypeGeneric.new klass
             else
               value.class
             end
+          end
+
+          def is_integer?(value)
+            Integer(value) rescue false
+          end
+
+          def is_float?(value)
+            Float(value) rescue false
           end
 
           def is_flat_array?(value)

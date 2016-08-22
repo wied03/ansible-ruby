@@ -96,13 +96,24 @@ RUBY
 
         it do
           is_expected.to eq <<RUBY
-# @return [Array] The username used to authenticate with
+# @return [Array<Integer>] The username used to authenticate with
 attribute :login_user, flat_array: true
-validates :login_user, type: TypeGeneric.new(Fixnum)
+validates :login_user, type: TypeGeneric.new(Integer)
 RUBY
         end
       end
 
+      context 'float' do
+        let(:array_value) { '123.12,456.89' }
+
+        it do
+          is_expected.to eq <<RUBY
+# @return [Array<Float>] The username used to authenticate with
+attribute :login_user, flat_array: true
+validates :login_user, type: TypeGeneric.new(Float)
+RUBY
+        end
+      end
     end
 
     context 'type and required' do
