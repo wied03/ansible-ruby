@@ -61,9 +61,11 @@ task :update_modules => :python_dependencies do
     example = `python util/get_yaml.py #{file} example`
     puts 'Parsing description/example'
     ruby_result = Ansible::Ruby::Parser.from_yaml_string description, example
-    puts 'Writing Ruby code'
-    ruby_path = File.join('lib/ansible/ruby/modules/generated', File.basename(file, '.py'))
-    # TODO: Complain if already processed
+    ruby_path = File.join('lib/ansible/ruby/modules/generated', File.basename(file, '.py')) + '.rb'
+    puts "Writing Ruby code to #{ruby_path}"
+    if already_processed.include? ruby_path
+      raise "We've already processed #{ruby_path}"
+    end
     already_processed << ruby_path
     File.write ruby_path, ruby_result
     puts "-----End file #{file}------"
