@@ -99,6 +99,10 @@ describe Ansible::Ruby::Models::Play do
     it { is_expected.to have_errors tasks: 'Cannot supply both tasks and roles!' }
   end
 
+  context 'no tasks and no roles' do
+    pending 'write this'
+  end
+
   context 'role' do
     context 'single' do
       let(:instance) do

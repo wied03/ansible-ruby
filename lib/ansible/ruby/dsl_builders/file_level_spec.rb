@@ -94,15 +94,47 @@ describe Ansible::Ruby::DslBuilders::FileLevel do
     end
   end
 
-  context 'tasks with no name' do
-    pending 'write this'
-  end
-
   context 'change from play to task' do
-    pending 'write this'
+    subject { lambda { evaluate } }
+
+    let(:ruby) do
+      <<-RUBY
+      play 'the play name' do
+        hosts 'host1'
+        roles %w(role1 role2)
+      end
+
+      task 'Copy something else' do
+        copy do
+          src '/file3.conf'
+          dest '/file4.conf'
+        end
+      end
+      RUBY
+    end
+
+    it { is_expected.to raise_error 'This is a playbook file due to a play coming before this task, cannot use task here!' }
   end
 
   context 'change from task to play' do
-    pending 'write this'
+    subject { lambda { evaluate } }
+
+    let(:ruby) do
+      <<-RUBY
+      task 'Copy something else' do
+        copy do
+          src '/file3.conf'
+          dest '/file4.conf'
+        end
+      end
+
+      play 'the play name' do
+        hosts 'host1'
+        roles %w(role1 role2)
+      end
+      RUBY
+    end
+
+    it { is_expected.to raise_error 'This is a tasks file due to a task coming before this play, cannot use play here!' }
   end
 end

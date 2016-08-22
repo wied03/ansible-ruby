@@ -13,12 +13,18 @@ module Ansible
         end
 
         def play(name = nil, &block)
+          if @context == :tasks
+            raise 'This is a tasks file due to a task coming before this play, cannot use play here!'
+          end
           @context = :playbook
           play_builder = Play.new name
           @plays << play_builder.evaluate(&block)
         end
 
         def task(name, &block)
+          if @context == :playbook
+            raise 'This is a playbook file due to a play coming before this task, cannot use task here!'
+          end
           @context = :tasks
           @tasks_builder ||= Tasks.new
           @tasks_builder.task name, &block
