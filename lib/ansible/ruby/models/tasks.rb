@@ -1,15 +1,16 @@
 require 'ansible/ruby/models/base'
+require 'ansible/ruby/models/task'
 
 module Ansible
   module Ruby
     module Models
-      class Playbook < Base
-        attribute :plays
-        validates :plays, presence: true, type: TypeGeneric.new(Play)
+      class Tasks < Base
+        attribute :tasks
+        validates :tasks, presence: true, type: TypeGeneric.new(Task)
 
         def to_h
           # Don't need to return highest level
-          super[:plays]
+          super[:tasks]
         end
       end
     end

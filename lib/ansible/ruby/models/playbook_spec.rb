@@ -13,19 +13,22 @@ describe Ansible::Ruby::Models::Playbook do
     end
   end
 
+  let(:tasks_model) { Ansible::Ruby::Models::Tasks.new tasks: task_array }
+  let(:task_array) { [task] }
+
   let(:task) do
     Ansible::Ruby::Models::Task.new name: 'do stuff on EC2',
                                     module: module_klass.new(foo: 123)
   end
 
   let(:play1) do
-    Ansible::Ruby::Models::Play.new tasks: [task],
+    Ansible::Ruby::Models::Play.new tasks: tasks_model,
                                     name: 'play 1',
                                     hosts: %w(host1 host2)
   end
 
   let(:play2) do
-    Ansible::Ruby::Models::Play.new tasks: [task],
+    Ansible::Ruby::Models::Play.new tasks: tasks_model,
                                     name: 'play 2',
                                     hosts: 'host3'
   end
