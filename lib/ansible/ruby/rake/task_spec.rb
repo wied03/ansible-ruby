@@ -3,11 +3,11 @@ require 'ansible-ruby'
 require 'ansible/ruby/rake/task'
 
 describe 'Rake task' do
-  let(:rake_dir) { File.dirname(__FILE__) }
+  let(:rake_dir) { 'spec/rake/no_nested_tasks' }
 
   around do |example|
     Dir.chdir rake_dir do
-      FileUtils.rm_rf Dir.glob('*.yml')
+      FileUtils.rm_rf Dir.glob('**/*/*.yml')
       example.run
     end
   end
@@ -133,9 +133,9 @@ OUTPUT
       end
     end
 
-    context 'tasks' do
-      let(:yaml_file) { 'tasks1_test.yml' }
-      let(:ruby_file) { 'tasks1_test.rb' }
+    context 'role tasks' do
+      let(:rake_dir) { 'spec/rake/nested_tasks' }
+      let(:task_yml) { 'roles/role1/tasks/task1.yml' }
 
       let(:task) do
         Ansible::Ruby::Rake::Task.new do |task|
@@ -143,13 +143,17 @@ OUTPUT
         end
       end
 
-      it 'generates the YAML' do
+      it 'generates playbook YAML' do
         expect(File.exist?(yaml_file)).to be_truthy
-        expect(File.read(yaml_file)).to include '- name: Copy something over'
-        expect(File.read(yaml_file)).to include '- name: Copy something else over'
+        expect(File.read(yaml_file)).to include 'host1:host2'
+        expect(File.read(yaml_file)).to include 'roles'
       end
 
-      pending 'need to have something separate that only transforms files and does not try and run them'
+      it 'generates task YAML' do
+        expect(File.exist?(task_yml)).to be_truthy
+        expect(File.read(task_yml)).to include '- name: Copy something over'
+        expect(File.read(task_yml)).to include '- name: Copy something else over'
+      end
     end
 
     context 'YML and Ruby playbook' do

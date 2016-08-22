@@ -1,0 +1,10 @@
+---
+# This is a generated YAML file by ansible-ruby, DO NOT EDIT
+- name: Copy something over
+  copy:
+    src: "/file1.conf"
+    dest: "/file2.conf"
+- name: Copy something else over
+  copy:
+    src: "/file3.conf"
+    dest: "/file4.conf"

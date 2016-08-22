@@ -16,11 +16,12 @@ module Ansible
           yield self if block_given?
           raise 'You did not supply any playbooks!' unless playbooks && [*playbooks].any?
           deps ||= []
-          filenames = yaml_filenames([*playbooks])
-          deps = [*deps] + filenames
+          playbook_yml_files = yaml_filenames([*playbooks])
+          role_task_ymls = yaml_filenames role_task_files
+          deps = deps_with_file_deps deps, (playbook_yml_files+ role_task_ymls)
           task name => deps do
             flat = options ? options + ' ' : ''
-            sh "ansible-playbook #{flat}#{filenames.join ' '}"
+            sh "ansible-playbook #{flat}#{playbook_yml_files.join ' '}"
           end
         end
 
@@ -41,8 +42,16 @@ module Ansible
           end
         end
 
+        def deps_with_file_deps(existing_deps, plybk_yml_filenames)
+          [*existing_deps] + plybk_yml_filenames
+        end
+
         def yaml_filenames(ruby_files)
           ruby_files.map { |file| file.sub(/\.[^.]+\z/, '.yml') }
+        end
+
+        def role_task_files
+          FileList['roles/*/tasks/**/*.rb']
         end
 
         def parse_params(parameters)
