@@ -1,4 +1,5 @@
 require 'ansible/ruby/models/base'
+require 'ansible/ruby/models/task'
 
 module Ansible
   module Ruby

@@ -1,5 +1,5 @@
 require 'ansible/ruby/models/base'
-require 'ansible/ruby/models/task'
+require 'ansible/ruby/models/tasks'
 
 module Ansible
   module Ruby
@@ -10,7 +10,7 @@ module Ansible
         attribute :name
         validates :name, type: String
         attribute :tasks
-        validates :tasks, type: TypeGeneric.new(Task)
+        validates :tasks, type: Tasks
         attribute :roles
         validates :roles, type: TypeGeneric.new(String)
         attribute :connection

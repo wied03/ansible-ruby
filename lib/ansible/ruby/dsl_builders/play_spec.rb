@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'ansible-ruby'
 
-fdescribe Ansible::Ruby::DslBuilders::Play do
+describe Ansible::Ruby::DslBuilders::Play do
   let(:builder) { Ansible::Ruby::DslBuilders::Play.new 'another play' }
 
   def evaluate
@@ -35,9 +35,13 @@ fdescribe Ansible::Ruby::DslBuilders::Play do
     end
 
     it { is_expected.to be_a Ansible::Ruby::Models::Play }
-    it do
-      is_expected.to have_attributes tasks: include(be_a(Ansible::Ruby::Models::Task)),
-                                     hosts: 'host1'
+    it { is_expected.to have_attributes hosts: 'host1' }
+
+    describe 'tasks' do
+      subject { playbook.tasks }
+
+      it { is_expected.to be_a Ansible::Ruby::Models::Tasks }
+      it { is_expected.to have_attributes tasks: include(be_a(Ansible::Ruby::Models::Task)) }
     end
 
     describe 'hash keys' do
@@ -79,6 +83,7 @@ fdescribe Ansible::Ruby::DslBuilders::Play do
     end
 
     it { is_expected.to be_a Ansible::Ruby::Models::Play }
+    it { is_expected.to_not have_attributes tasks: be_truthy }
     it do
       is_expected.to have_attributes roles: %w(role1 role2),
                                      hosts: 'host1'

@@ -39,7 +39,7 @@ module Ansible
           tasks = super
           args = @playbook_args.merge({})
           # Don't want to trigger validation
-          args[:tasks] = tasks if tasks.any?
+          args[:tasks] = tasks if tasks.tasks.any?
           Models::Play.new args
         end
       end

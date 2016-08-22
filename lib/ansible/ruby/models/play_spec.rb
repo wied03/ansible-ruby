@@ -18,11 +18,14 @@ describe Ansible::Ruby::Models::Play do
                                     module: module_klass.new(foo: 123)
   end
 
+  let(:tasks_model) { Ansible::Ruby::Models::Tasks.new(tasks: task_array) }
+  let(:task_array) { [task] }
+
   subject(:hash) { instance.to_h }
 
   context 'basic' do
     let(:instance) do
-      Ansible::Ruby::Models::Play.new tasks: [task],
+      Ansible::Ruby::Models::Play.new tasks: tasks_model,
                                       hosts: %w(host1 host2)
     end
 
@@ -41,7 +44,7 @@ describe Ansible::Ruby::Models::Play do
 
   context 'play name' do
     let(:instance) do
-      Ansible::Ruby::Models::Play.new tasks: [task],
+      Ansible::Ruby::Models::Play.new tasks: tasks_model,
                                       name: 'play name',
                                       hosts: %w(host1 host2)
     end
@@ -66,7 +69,7 @@ describe Ansible::Ruby::Models::Play do
 
   context 'single host' do
     let(:instance) do
-      Ansible::Ruby::Models::Play.new tasks: [task],
+      Ansible::Ruby::Models::Play.new tasks: tasks_model,
                                       hosts: 'host1'
     end
 
@@ -87,7 +90,7 @@ describe Ansible::Ruby::Models::Play do
     subject { instance }
 
     let(:instance) do
-      Ansible::Ruby::Models::Play.new tasks: [task],
+      Ansible::Ruby::Models::Play.new tasks: tasks_model,
                                       hosts: 'host1',
                                       roles: 'role1'
     end
