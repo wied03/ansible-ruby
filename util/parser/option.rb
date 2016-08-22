@@ -62,16 +62,20 @@ module Ansible
               default
             else
               value_hash = if example.any? { |ex| ex['name'] }
-                             Hash[example.map { |ex| ex.reject { |key, _| key == 'name' } }
-                                    .map { |ex| ex.map { |_, value| value } }
-                                    .flatten
-                                    .map { |hash| hash.map { |key, value| [key, value] } }[0]]
+                             process_hash(example)
                            else
                              process_inline(example)
                            end
               sample_value = value_hash[attribute]
               sample_value && sample_value
             end
+          end
+
+          def process_hash(example)
+            Hash[example.map { |ex| ex.reject { |key, _| key == 'name' } }
+                   .map { |ex| ex.map { |_, value| value } }
+                   .flatten
+                   .map { |hash| hash.map { |key, value| [key, value] } }[0]]
           end
 
           def process_inline(example)
