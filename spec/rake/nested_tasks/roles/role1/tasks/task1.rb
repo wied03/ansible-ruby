@@ -11,4 +11,3 @@ task 'Copy something else over' do
     dest '/file4.conf'
   end
 end
-

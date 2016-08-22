@@ -18,7 +18,7 @@ module Ansible
           deps ||= []
           playbook_yml_files = yaml_filenames([*playbooks])
           role_task_ymls = yaml_filenames role_task_files
-          deps = deps_with_file_deps deps, (playbook_yml_files+ role_task_ymls)
+          deps = deps_with_file_deps deps, (playbook_yml_files + role_task_ymls)
           task name => deps do
             flat = options ? options + ' ' : ''
             sh "ansible-playbook #{flat}#{playbook_yml_files.join ' '}"

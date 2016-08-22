@@ -95,7 +95,7 @@ describe Ansible::Ruby::DslBuilders::FileLevel do
   end
 
   context 'change from play to task' do
-    subject { lambda { evaluate } }
+    subject { -> { evaluate } }
 
     let(:ruby) do
       <<-RUBY
@@ -117,7 +117,7 @@ describe Ansible::Ruby::DslBuilders::FileLevel do
   end
 
   context 'change from task to play' do
-    subject { lambda { evaluate } }
+    subject { -> { evaluate } }
 
     let(:ruby) do
       <<-RUBY
