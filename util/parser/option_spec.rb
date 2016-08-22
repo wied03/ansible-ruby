@@ -235,6 +235,32 @@ RUBY
         end
       end
 
+      context 'hash' do
+        let(:name) { 'something' }
+
+        let(:example) do
+          [
+            {
+              "name" => 'some task',
+              'cloudformation' => {
+                'name' => 444.44,
+                'something' => {
+                  'setting1' => true
+                }
+              }
+            }
+          ]
+        end
+
+        it do
+          is_expected.to eq <<RUBY
+# @return [Hash] The username used to authenticate with
+attribute :something
+validates :something, type: Hash
+RUBY
+        end
+      end
+
       context 'args' do
         pending 'write this'
       end
