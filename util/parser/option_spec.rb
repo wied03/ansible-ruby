@@ -189,6 +189,28 @@ RUBY
         end
       end
 
+      # some are more inline, this is how cloudformation is
+      context 'list of tasks' do
+        let(:example) do
+          [
+            {
+              "name" => 'some task',
+              'cloudformation' => {
+                'name' => 444.44
+              }
+            }
+          ]
+        end
+
+        it do
+          is_expected.to eq <<RUBY
+# @return [Float] The username used to authenticate with
+attribute :name
+validates :name, type: Float
+RUBY
+        end
+      end
+
       context 'multiple equals' do
         let(:name) { 'name' }
 
