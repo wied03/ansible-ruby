@@ -20,23 +20,27 @@ module Ansible
           def parse_validations(attribute, details, example)
             validations = {}
             validations[:presence] = true if details[:required]
-            type = if (default = details[:default])
-                     default.class.name
-                   else
-                     value_array = example.map { |ex| ex.values }.flatten
-                     key_value_str = value_array.map do |value|
-                       value.split ' '
-                     end.flatten
-                     value_hash = Hash[key_value_str.map do |pair|
-                       pair.split '='
-                     end]
-                     sample_value = value_hash[attribute]
-                     sample_value && sample_value.class.name
-                   end
+            type = derive_type(attribute, details, example)
             validations[:type] = type if type
 
             return nil unless validations.any?
             "validates :#{attribute}, #{validations.map { |key, value| "#{key}: #{value}" }.join(', ')}"
+          end
+
+          def derive_type(attribute, details, example)
+            if (default = details[:default])
+              default.class.name
+            else
+              value_array = example.map { |ex| ex.values }.flatten
+              key_value_str = value_array.map do |value|
+                value.split ' '
+              end.flatten
+              value_hash = Hash[key_value_str.map do |pair|
+                pair.split '='
+              end]
+              sample_value = value_hash[attribute]
+              sample_value && sample_value.class.name
+            end
           end
         end
       end
