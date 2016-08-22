@@ -20,7 +20,7 @@ desc 'Runs Reek stuff'
 Reek::Rake::Task.new do |task|
   # rake task overrides all config.reek exclusions, which is annoying and it won't let us set a FileList directly
   files = FileList['**/*.rb']
-            .exclude('vendor/**/*') # Travis stuff
+          .exclude('vendor/**/*') # Travis stuff
   task.instance_variable_set :@source_files, files
 end
 
@@ -30,22 +30,16 @@ task :clean do
 end
 
 # Want to use the rule for our lint Rake task
-PLAYBOOKS = %w(example_test.yml role_test.yml)
-TEST_ROOT = 'spec/ansible_lint'
+PLAYBOOKS = %w(example_test.yml role_test.yml).map { |filename| File.join('spec/ansible_lint', filename) }
 Ansible::Ruby::Rake::Task.send(:load_rule)
 
 desc 'Runs a check against generated playbooks'
-task :ansible_lint do
+task ansible_lint: PLAYBOOKS do
   sh './setup.py build'
   # Grab the first installed egg
   ansible_lint = FileList['.eggs/ansible_lint*.egg'][0]
   all_eggs = FileList['.eggs/*.egg']
-  #Dir.chdir TEST_ROOT do
-    PLAYBOOKS.each do |playbook|
-      sh "PYTHONPATH=#{all_eggs.join(':')} #{ansible_lint}/EGG-INFO/scripts/ansible-lint -v #{File.join(TEST_ROOT, playbook)}"
-    end
-  #end
+  PLAYBOOKS.each do |playbook|
+    sh "PYTHONPATH=#{all_eggs.join(':')} #{ansible_lint}/EGG-INFO/scripts/ansible-lint -v #{playbook}"
+  end
 end
-
-# ensure our dependencies are here
-task ansible_lint: PLAYBOOKS.map { |filename| File.join(TEST_ROOT, filename) }
