@@ -22,6 +22,11 @@ describe Ansible::Ruby::Models::Base do
     it { is_expected.to have_attributes foo: 123 }
   end
 
+  context 'serialize array as flat' do
+    # Want array to end up being a quoted, comma delimited value
+    pending 'write this'
+  end
+
   context 'explicit nil' do
     let(:klass) do
       Class.new(Ansible::Ruby::Models::Base) do

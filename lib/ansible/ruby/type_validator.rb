@@ -13,6 +13,8 @@ class MultipleTypes
 end
 
 class TypeGeneric
+  attr_reader :klass
+
   def initialize(klass)
     @klass = klass
   end

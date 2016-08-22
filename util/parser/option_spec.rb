@@ -26,7 +26,7 @@ fdescribe Ansible::Ruby::Parser::Option do
 
       it do
         is_expected.to eq <<RUBY
-# @return [String] The username used to authenticate with
+# @return [Object] The username used to authenticate with
 attribute :login_user
 RUBY
       end
@@ -44,7 +44,7 @@ RUBY
 
       it do
         is_expected.to eq <<RUBY
-# @return [String] The username used to authenticate with
+# @return [Object] The username used to authenticate with
 attribute :login_user
 validates :login_user, presence: true
 RUBY
@@ -63,13 +63,46 @@ RUBY
 
           it do
             is_expected.to eq <<RUBY
-# @return [String] The username used to authenticate with
+# @return [#{type}] The username used to authenticate with
 attribute :login_user
 validates :login_user, type: #{type}
 RUBY
           end
         end
       end
+    end
+
+    context 'array' do
+      let(:details) do
+        {
+          description: ['The username used to authenticate with'],
+          default: array_value
+        }
+      end
+      context 'string' do
+        let(:array_value) { 'hello,there' }
+
+        it do
+          is_expected.to eq <<RUBY
+# @return [Array<String>] The username used to authenticate with
+attribute :login_user, flat_array: true
+validates :login_user, type: TypeGeneric.new(String)
+RUBY
+        end
+      end
+
+      context 'integer' do
+        let(:array_value) { '123,456' }
+
+        it do
+          is_expected.to eq <<RUBY
+# @return [Array] The username used to authenticate with
+attribute :login_user, flat_array: true
+validates :login_user, type: TypeGeneric.new(Fixnum)
+RUBY
+        end
+      end
+
     end
 
     context 'type and required' do
@@ -139,6 +172,10 @@ attribute :template
 validates :template, type: String
 RUBY
         end
+      end
+
+      context 'array' do
+        pending 'write this'
       end
     end
   end
