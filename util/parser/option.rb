@@ -65,6 +65,7 @@ module Ansible
           end
 
           def identify_class_from(value)
+            value = value.is_a?(String) && (unquoted_match = /'(.*)'/.match(value)) ? unquoted_match[1] : value
             if is_flat_array? value
               array = value.split ','
               item = array[0]

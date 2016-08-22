@@ -186,7 +186,21 @@ RUBY
       end
 
       context 'array' do
-        pending 'write this'
+        let(:name) { 'name' }
+
+        let(:example) do
+          [
+            { "postgresql_db" => "apt: name='12,13' state=present" }
+          ]
+        end
+
+        it do
+          is_expected.to eq <<RUBY
+# @return [Array<Integer>] The username used to authenticate with
+attribute :name, flat_array: true
+validates :name, type: TypeGeneric.new(Integer)
+RUBY
+        end
       end
     end
   end
