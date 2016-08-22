@@ -32,10 +32,10 @@ end
 # Want to use the rule for our lint Rake task
 Ansible::Ruby::Rake::Task.send(:load_rule)
 desc 'Runs a check against a generated playbook'
-task ansible_lint: 'spec/example.yml' do
+task ansible_lint: 'spec/ansible_lint/example_test.yml' do
   sh './setup.py build'
   # Grab the first installed egg
   ansible_lint = FileList['.eggs/ansible_lint*.egg'][0]
   all_eggs = FileList['.eggs/*.egg']
-  sh "PYTHONPATH=#{all_eggs.join(':')} #{ansible_lint}/EGG-INFO/scripts/ansible-lint -v spec/example.yml"
+  sh "PYTHONPATH=#{all_eggs.join(':')} #{ansible_lint}/EGG-INFO/scripts/ansible-lint -v spec/ansible_lint/example_test.yml"
 end
