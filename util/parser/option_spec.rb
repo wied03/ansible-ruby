@@ -46,9 +46,27 @@ RUBY
     end
 
     context 'type from default' do
-      [String, Integer, Float].each do |type|
+      { String => 'foo', Fixnum => 1, Float => 1.5 }.each do |type, value|
+        context type do
+          let(:details) do
+            {
+              description: ['The username used to authenticate with'],
+              default: value
+            }
+          end
 
+          it do
+            is_expected.to eq <<RUBY
+# @return [String] The username used to authenticate with
+attribute :login_user
+validates :login_user, type: #{type}
+RUBY
+          end
+        end
       end
+    end
+
+    context 'type and required' do
       pending 'write this'
     end
   end

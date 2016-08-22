@@ -12,8 +12,21 @@ module Ansible
               "# @return [String] #{flat_desc}",
               "attribute #{symbol}"
             ]
-            lines << "validates #{symbol}, presence: true" if details[:required]
-            lines.join "\n"
+            lines << parse_validations(symbol, details)
+            lines.compact.join "\n"
+          end
+
+          private
+
+          def parse_validations(symbol, details)
+            validations = {}
+            validations[:presence] = true if details[:required]
+            if (default = details[:default])
+              validations[:type] = default.class.name
+            end
+
+            return nil unless validations.any?
+            "validates #{symbol}, #{validations.map { |key, value| "#{key}: #{value}" }.join(',')}"
           end
         end
       end
