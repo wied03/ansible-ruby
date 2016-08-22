@@ -30,7 +30,6 @@ describe Ansible::Ruby::Parser::Option do
 attribute :login_user
 RUBY
       end
-
     end
 
     context 'required' do
@@ -48,6 +47,41 @@ RUBY
 attribute :login_user
 validates :login_user, presence: true
 RUBY
+      end
+    end
+
+    context 'choices' do
+      let(:details) do
+        {
+          description: ['The username used to authenticate with'],
+          required: required,
+          default: 'present',
+          choices: %w(present absent)
+        }
+      end
+
+      context 'required' do
+        let(:required) { true }
+
+        it do
+          is_expected.to eq <<RUBY
+# @return [String] The username used to authenticate with
+attribute :login_user
+validates :login_user, presence: true, type: String, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
+RUBY
+        end
+      end
+
+      context 'not required' do
+        let(:required) { false }
+
+        it do
+          is_expected.to eq <<RUBY
+# @return [String] The username used to authenticate with
+attribute :login_user
+validates :login_user, type: String, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+RUBY
+        end
       end
     end
 

@@ -28,13 +28,23 @@ module Ansible
 
           def parse_validations(attribute, details, type)
             validations = {}
-            validations[:presence] = true if details[:required]
+            required = details[:required]
+            # keep code lighter if not required
+            validations[:presence] = true if required
             validations[:type] = case type
                                  when TypeGeneric
                                    "TypeGeneric.new(#{type.klass.name})"
                                  else
                                    type.name
                                  end if type
+            if (choices = details[:choices])
+              symbols = choices.map(&:to_sym)
+              validations[:inclusion] = {
+                in: symbols,
+                message: "%{value} needs to be #{symbols.map { |sym| ":#{sym}" }.join(', ')}"
+              }
+              validations[:allow_nil] = true unless required
+            end
 
             return nil unless validations.any?
             "validates :#{attribute}, #{validations.map { |key, value| "#{key}: #{value}" }.join(', ')}"
