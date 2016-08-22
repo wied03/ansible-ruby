@@ -23,8 +23,16 @@ describe Ansible::Ruby::Models::Base do
   end
 
   context 'serialize array as flat' do
-    # Want array to end up being a quoted, comma delimited value
-    pending 'write this'
+    let(:klass) do
+      Class.new(Ansible::Ruby::Models::Base) do
+        attribute :foo, flat_array: true
+        validates :foo, type: TypeGeneric.new(Integer)
+      end
+    end
+
+    let(:instance) { klass.new foo: [123, 456] }
+
+    it { is_expected.to have_hash foo: '123,456' }
   end
 
   context 'explicit nil' do

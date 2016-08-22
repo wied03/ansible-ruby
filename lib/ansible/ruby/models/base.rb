@@ -14,8 +14,14 @@ module Ansible
         end
 
         class << self
-          def attribute(name)
+          def attribute(name, options = {})
             attr_accessor name
+            @attr_options ||= {}
+            @attr_options[name] = options
+          end
+
+          def attr_options(name)
+            @attr_options[name]
           end
         end
 
@@ -24,13 +30,19 @@ module Ansible
           Hash[
             @set_vars.map do |key|
               value = send key
-              value = case value
-                      when Array
-                        value.map { |val| val.respond_to?(:to_h) ? val.to_h : val }
-                      when Base
-                        value.to_h
+              options = self.class.attr_options(key)
+              value = if options[:flat_array]
+                        # some ansible options are reflected as CSVs
+                        value.join ','
                       else
-                        value
+                        case value
+                        when Array
+                          value.map { |val| val.respond_to?(:to_h) ? val.to_h : val }
+                        when Base
+                          value.to_h
+                        else
+                          value
+                        end
                       end
               [key, value]
             end.compact]
