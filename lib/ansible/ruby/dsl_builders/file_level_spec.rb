@@ -12,7 +12,7 @@ describe Ansible::Ruby::DslBuilders::FileLevel do
 
   before do
     klass = Class.new(Ansible::Ruby::Modules::Base) do
-      attribute :src
+       attribute :src
       validates :src, presence: true
       attribute :dest
       validates :dest, presence: true
@@ -68,21 +68,34 @@ describe Ansible::Ruby::DslBuilders::FileLevel do
     end
   end
 
-  context 'task' do
+  context 'tasks' do
     let(:ruby) do
       <<-RUBY
-      tasks do
-        task 'Copy something' do
-            copy do
-              src '/file1.conf'
-              dest '/file2.conf'
-            end
+      task 'Copy something' do
+        copy do
+          src '/file1.conf'
+          dest '/file2.conf'
+        end
+      end
+
+      task 'Copy something else' do
+        copy do
+          src '/file3.conf'
+          dest '/file4.conf'
         end
       end
       RUBY
     end
 
     it { is_expected.to be_a Ansible::Ruby::Models::Tasks }
-    it { is_expected.to have_attributes tasks: include(be_a(Ansible::Ruby::Models::Task)) }
+    it { is_expected.to have_attributes tasks: include(be_a(Ansible::Ruby::Models::Task, Ansible::Ruby::Models::Task)) }
+  end
+
+  context 'change from play to task' do
+    pending 'write this'
+  end
+
+  context 'change from task to play' do
+    pending 'write this'
   end
 end

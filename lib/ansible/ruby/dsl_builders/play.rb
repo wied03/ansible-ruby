@@ -1,19 +1,14 @@
 require 'ansible/ruby/models/play'
-require 'ansible/ruby/dsl_builders/task'
+require 'ansible/ruby/dsl_builders/tasks'
 
 module Ansible
   module Ruby
     module DslBuilders
-      class Play < Base
+      class Play < Tasks
         def initialize(name = nil)
-          @tasks = []
+          super()
           @playbook_args = {}
           @playbook_args[:name] = name
-        end
-
-        def task(name, &block)
-          task_builder = Task.new name
-          @tasks << task_builder.evaluate(&block)
         end
 
         def hosts(value)
@@ -41,15 +36,11 @@ module Ansible
         end
 
         def evaluate(*)
-          super
+          tasks = super
           args = @playbook_args.merge({})
           # Don't want to trigger validation
-          args[:tasks] = @tasks if @tasks.any?
+          args[:tasks] = tasks if tasks.any?
           Models::Play.new args
-        end
-
-        def process_method(id, *)
-          raise "undefined local variable or method `#{id}'"
         end
       end
     end
