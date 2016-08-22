@@ -28,6 +28,7 @@ module Ansible
         end
 
         def klass(description)
+          puts "working with desc #{description}"
           klass_name = description['module'].capitalize
           <<RUBY
 # See LICENSE.txt at root of repository

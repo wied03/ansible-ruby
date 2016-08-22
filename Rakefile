@@ -48,6 +48,12 @@ task ansible_lint: (PLAYBOOKS << :python_dependencies) do
   end
 end
 
+def get_yaml(file)
+  python = File.read file
+  desc = /DOCUMENTATION.*'''(.*)'''/m.match(python)
+  raise "description is #{desc}"
+end
+
 desc 'Update/generate Ruby modules from Ansible modules'
 task :update_modules => :python_dependencies do
   ansible_dir = `python util/get_ansible.py`.strip
@@ -57,8 +63,7 @@ task :update_modules => :python_dependencies do
   files.each do |file|
     puts "-----Begin file #{file}------"
     puts 'Retrieving description and example'
-    description = `python util/get_yaml.py #{file} description`
-    example = `python util/get_yaml.py #{file} example`
+    description, example = get_yaml file
     puts 'Parsing description/example'
     ruby_result = Ansible::Ruby::Parser.from_yaml_string description, example
     ruby_path = File.join('lib/ansible/ruby/modules/generated', File.basename(file, '.py')) + '.rb'
