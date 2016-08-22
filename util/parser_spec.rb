@@ -6,7 +6,7 @@ require_relative './parser'
 describe Ansible::Ruby::Parser do
   describe '::from_yaml_string' do
     context 'standard' do
-      let(:yaml) do
+      let(:desc_yaml) do
         <<YAML
 ---
 module: postgresql_db
@@ -45,7 +45,22 @@ author: "Ansible Core Team"
 YAML
       end
 
-      subject { Ansible::Ruby::Parser.from_yaml_string yaml }
+      let(:example_yaml) do
+        <<YAML
+# Create a new database with name "acme"
+- postgresql_db: name=acme
+# Create a new database with name "acme" and specific encoding and locale
+# settings. If a template different from "template0" is specified, encoding
+# and locale settings must match those of the template.
+- postgresql_db: name=acme
+                 encoding='UTF-8'
+                 lc_collate='de_DE.UTF-8'
+                 lc_ctype='de_DE.UTF-8'
+                 template='template0'
+YAML
+      end
+
+      subject { Ansible::Ruby::Parser.from_yaml_string desc_yaml, example_yaml }
 
       it do
         is_expected.to eq <<RUBY
@@ -58,13 +73,14 @@ module Ansible
     module Modules
       class Postgresql_db < Base
         attribute :name
-        validates :name, presence: true
+        validates :name, presence: true, type: String
         attribute :login_user
         attribute :port
         validates :port, type: Integer
         attribute :state
         validates :state,
                   allow_nil: true,
+                  type: String,
                   inclusion: { in: [:present, :absent], message: '%{value} needs to be :present, :absent' }
       end
     end
