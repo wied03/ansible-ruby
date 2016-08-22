@@ -262,7 +262,29 @@ RUBY
       end
 
       context 'args' do
-        pending 'write this'
+        let(:name) { 'something' }
+
+        let(:example) do
+          [
+            {
+              "name" => 'some task',
+              'cloudformation' => "stack_name=\"ansible-cloudformation\" state=present region=us-east-1 disable_rollback=true template_url=https://s3.amazonaws.com/my-bucket/cloudformation.template",
+              'args' => {
+                'something' => {
+                  'setting1' => true
+                }
+              }
+            }
+          ]
+        end
+
+        it do
+          is_expected.to eq <<RUBY
+# @return [Hash] The username used to authenticate with
+attribute :something
+validates :something, type: Hash
+RUBY
+        end
       end
 
       context 'multiple equals' do

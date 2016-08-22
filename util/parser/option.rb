@@ -75,29 +75,32 @@ module Ansible
             first_cut = example.map { |ex| ex.reject { |key, _| key == 'name' } }
                           .map { |ex| ex.map { |_, value| value } }
                           .flatten
-            if first_cut.length == 1 && first_cut[0].is_a?(String)
-              split_array_string_vals(first_cut)
-            else
-              Hash[first_cut.map do |hash|
+            kv_array = first_cut.map do |hash|
+              if hash.is_a?(String)
+                split_equal_sign_pairs(hash.split(' '))
+              else
                 hash.map { |key, value| [key, value] }
-              end[0]]
+              end
             end
+            # Only want to get everything on the same level
+            flattened = kv_array.flatten(1)
+            Hash[flattened]
           end
 
           def process_inline(example)
             value_array = example.map { |ex| ex.values }.flatten
-            split_array_string_vals(value_array)
-          end
-
-          def split_array_string_vals(value_array)
             key_value_str = value_array.map do |value|
               value.split ' '
             end.flatten
-            Hash[key_value_str.map do |pair|
+            Hash[split_equal_sign_pairs(key_value_str)]
+          end
+
+          def split_equal_sign_pairs(key_value_str)
+            key_value_str.map do |pair|
               equals = pair.split '='
               # some attributes have data like attr=value=value2, only want attr=value
               equals[0..1]
-            end]
+            end
           end
 
           def identify_class_from(value)
