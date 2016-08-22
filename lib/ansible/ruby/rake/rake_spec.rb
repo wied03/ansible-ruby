@@ -40,8 +40,8 @@ OUTPUT
   end
 
   context 'programmatic' do
-    let(:yaml_file) { 'sample_test.yml' }
-    let(:ruby_file) { 'sample_test.rb' }
+    let(:yaml_file) { 'playbook1_test.yml' }
+    let(:ruby_file) { 'playbook1_test.rb' }
 
     before { execute_task }
 
@@ -61,7 +61,7 @@ OUTPUT
       end
 
       it 'executed the command' do
-        expect(@commands).to include 'ansible-playbook sample_test.yml'
+        expect(@commands).to include 'ansible-playbook playbook1_test.yml'
       end
 
       it 'generates the YAML' do
@@ -73,19 +73,19 @@ OUTPUT
     context 'multiple playbook files' do
       let(:task) do
         Ansible::Ruby::Rake::Task.new do |task|
-          task.playbooks = %w(sample_test.rb sample2_test.rb)
+          task.playbooks = %w(playbook1_test.rb playbook2_test.rb)
         end
       end
 
       it 'executed the command' do
-        expect(@commands).to include 'ansible-playbook sample_test.yml sample2_test.yml'
+        expect(@commands).to include 'ansible-playbook playbook1_test.yml playbook2_test.yml'
       end
 
       it 'generates the YAML' do
-        expect(File.exist?('sample_test.yml')).to be_truthy
-        expect(File.read('sample_test.yml')).to include 'host1:host2'
-        expect(File.exist?('sample2_test.yml')).to be_truthy
-        expect(File.read('sample2_test.yml')).to include 'something else'
+        expect(File.exist?('playbook1_test.yml')).to be_truthy
+        expect(File.read('playbook1_test.yml')).to include 'host1:host2'
+        expect(File.exist?('playbook2_test.yml')).to be_truthy
+        expect(File.read('playbook2_test.yml')).to include 'something else'
       end
     end
 
@@ -98,7 +98,7 @@ OUTPUT
       end
 
       it 'executed the command' do
-        expect(@commands).to include 'ansible-playbook --ansible-option sample_test.yml'
+        expect(@commands).to include 'ansible-playbook --ansible-option playbook1_test.yml'
       end
 
       it 'generates the YAML' do
@@ -120,7 +120,7 @@ OUTPUT
       end
 
       it 'executed the command' do
-        expect(@commands).to include 'ansible-playbook sample_test.yml'
+        expect(@commands).to include 'ansible-playbook playbook1_test.yml'
       end
 
       it 'generates the YAML' do
@@ -141,17 +141,17 @@ OUTPUT
 
       let(:task) do
         Ansible::Ruby::Rake::Task.new do |task|
-          task.playbooks = %w(sample_test.rb sample3_test.yml)
+          task.playbooks = %w(playbook1_test.rb sample3_test.yml)
         end
       end
 
       it 'executed the command' do
-        expect(@commands).to include 'ansible-playbook sample_test.yml sample3_test.yml'
+        expect(@commands).to include 'ansible-playbook playbook1_test.yml sample3_test.yml'
       end
 
       it 'generates the YAML' do
-        expect(File.exist?('sample_test.yml')).to be_truthy
-        expect(File.read('sample_test.yml')).to include 'host1:host2'
+        expect(File.exist?('playbook1_test.yml')).to be_truthy
+        expect(File.read('playbook1_test.yml')).to include 'host1:host2'
         expect(File.exist?('sample3_test.yml')).to be_truthy
         expect(File.read('sample3_test.yml')).to include 'original YML file'
       end
