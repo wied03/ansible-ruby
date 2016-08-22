@@ -133,6 +133,25 @@ OUTPUT
       end
     end
 
+    context 'tasks' do
+      let(:yaml_file) { 'tasks1_test.yml' }
+      let(:ruby_file) { 'tasks1_test.rb' }
+
+      let(:task) do
+        Ansible::Ruby::Rake::Task.new do |task|
+          task.playbooks = ruby_file
+        end
+      end
+
+      it 'generates the YAML' do
+        expect(File.exist?(yaml_file)).to be_truthy
+        expect(File.read(yaml_file)).to include '- name: Copy something over'
+        expect(File.read(yaml_file)).to include '- name: Copy something else over'
+      end
+
+      pending 'need to have something separate that only transforms files and does not try and run them'
+    end
+
     context 'YML and Ruby playbook' do
       def execute_task
         File.write 'sample3_test.yml', 'original YML file'
