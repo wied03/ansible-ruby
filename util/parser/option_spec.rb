@@ -130,7 +130,15 @@ RUBY
       end
 
       context 'quoted' do
-        pending 'write this'
+        let(:name) { 'template' }
+
+        it do
+          is_expected.to eq <<RUBY
+# @return [String] The username used to authenticate with
+attribute :template
+validates :template, type: String
+RUBY
+        end
       end
     end
   end
