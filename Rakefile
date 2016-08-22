@@ -21,7 +21,7 @@ desc 'Runs Reek stuff'
 Reek::Rake::Task.new do |task|
   # rake task overrides all config.reek exclusions, which is annoying and it won't let us set a FileList directly
   files = FileList['**/*.rb']
-          .exclude('vendor/**/*') # Travis stuff
+            .exclude('vendor/**/*') # Travis stuff
   task.instance_variable_set :@source_files, files
 end
 
@@ -34,9 +34,12 @@ end
 PLAYBOOKS = %w(example_test.yml role_test.yml).map { |filename| File.join('spec/ansible_lint', filename) }
 Ansible::Ruby::Rake::Task.send(:load_rule)
 
-desc 'Runs a check against generated playbooks'
-task ansible_lint: PLAYBOOKS do
+task :python_dependencies do
   sh './setup.py build'
+end
+
+desc 'Runs a check against generated playbooks'
+task ansible_lint: (PLAYBOOKS << :python_dependencies) do
   # Grab the first installed egg
   ansible_lint = FileList['.eggs/ansible_lint*.egg'][0]
   all_eggs = FileList['.eggs/*.egg']
@@ -46,12 +49,25 @@ task ansible_lint: PLAYBOOKS do
 end
 
 desc 'Update/generate Ruby modules from Ansible modules'
-task :update_modules do
-  FILES=%w(/usr/local/lib/python2.7/site-packages/ansible/modules/core/database/postgresql/postgresql_db.py)
-  FILES.each do |file|
+task :update_modules => :python_dependencies do
+  ansible_dir = `python util/get_ansible.py`.strip
+  files = FileList[File.join(ansible_dir, 'modules/core/**/*.py')]
+            .exclude('**/*/_*.py')
+  already_processed = []
+  files.each do |file|
+    puts "-----Begin file #{file}------"
+    puts 'Retrieving description and example'
     description = `python util/get_yaml.py #{file} description`
     example = `python util/get_yaml.py #{file} example`
-    result = Ansible::Ruby::Parser.from_yaml_string description, example
-    puts "got #{result}"
+    puts 'Parsing description/example'
+    ruby_result = Ansible::Ruby::Parser.from_yaml_string description, example
+    puts 'Writing Ruby code'
+    ruby_path = File.join('lib/ansible/ruby/modules/generated', File.basename(file, '.py'))
+    # TODO: Complain if already processed
+    already_processed << ruby_path
+    File.write ruby_path, ruby_result
+    puts "-----End file #{file}------"
   end
+
+  # TODO: Create a requires file
 end
