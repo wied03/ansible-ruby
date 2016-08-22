@@ -17,8 +17,8 @@ module Ansible
           raise 'You did not supply any playbooks!' unless playbooks && [*playbooks].any?
           deps ||= []
           playbook_yml_files = yaml_filenames([*playbooks])
-          role_task_ymls = yaml_filenames role_task_files
-          deps = deps_with_file_deps deps, (playbook_yml_files + role_task_ymls)
+          role_task_yaml_files = yaml_filenames role_task_files
+          deps = [*deps] + (playbook_yml_files + role_task_yaml_files)
           task name => deps do
             flat = options ? options + ' ' : ''
             sh "ansible-playbook #{flat}#{playbook_yml_files.join ' '}"
@@ -40,10 +40,6 @@ module Ansible
             end
             @rule_done = true
           end
-        end
-
-        def deps_with_file_deps(existing_deps, plybk_yml_filenames)
-          [*existing_deps] + plybk_yml_filenames
         end
 
         def yaml_filenames(ruby_files)
