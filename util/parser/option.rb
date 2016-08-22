@@ -26,7 +26,7 @@ module Ansible
             end
 
             return nil unless validations.any?
-            "validates #{symbol}, #{validations.map { |key, value| "#{key}: #{value}" }.join(',')}"
+            "validates #{symbol}, #{validations.map { |key, value| "#{key}: #{value}" }.join(', ')}"
           end
         end
       end

@@ -67,7 +67,21 @@ RUBY
     end
 
     context 'type and required' do
-      pending 'write this'
+      let(:details) do
+        {
+          description: ['The username used to authenticate with'],
+          required: true,
+          default: 'foobar'
+        }
+      end
+
+      it do
+        is_expected.to eq <<RUBY
+# @return [String] The username used to authenticate with
+attribute :login_user
+validates :login_user, presence: true, type: String
+RUBY
+      end
     end
   end
 end
