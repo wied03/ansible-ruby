@@ -21,10 +21,10 @@ module Ansible
 
         def options(options, example)
           options.map do |name, detail|
-            Option.parse name, detail, example
-          end.flatten.map do |line|
-            "#{INDENT}#{line}"
-          end.join "\n"
+            lines = Option.parse(name, detail, example).map { |line| "#{INDENT}#{line}" }
+            # separate attributes with a line break
+            lines << ''
+          end.flatten.join "\n"
         end
 
         def klass(description)

@@ -3,6 +3,7 @@ require 'rspec/core/rake_task'
 require 'rubocop/rake_task'
 require 'reek/rake/task'
 require 'ansible/ruby/rake/task'
+require_relative 'util/parser'
 
 task default: [:clean, :spec, :rubocop, :reek, :ansible_lint]
 
@@ -41,5 +42,16 @@ task ansible_lint: PLAYBOOKS do
   all_eggs = FileList['.eggs/*.egg']
   PLAYBOOKS.each do |playbook|
     sh "PYTHONPATH=#{all_eggs.join(':')} #{ansible_lint}/EGG-INFO/scripts/ansible-lint -v #{playbook}"
+  end
+end
+
+desc 'Update/generate Ruby modules from Ansible modules'
+task :update_modules do
+  FILES=%w(/usr/local/lib/python2.7/site-packages/ansible/modules/core/database/postgresql/postgresql_db.py)
+  FILES.each do |file|
+    description = `python util/get_yaml.py #{file} description`
+    example = `python util/get_yaml.py #{file} example`
+    result = Ansible::Ruby::Parser.from_yaml_string description, example
+    puts "got #{result}"
   end
 end
