@@ -6,7 +6,7 @@ require_relative './option'
 describe Ansible::Ruby::Parser::Option do
   describe '::parse' do
     # match the expected multiline string stuff
-    subject { Ansible::Ruby::Parser::Option.parse(name, details, example)+"\n" }
+    subject { Ansible::Ruby::Parser::Option.parse(name, details, example).join("\n")+"\n" }
     let(:name) { 'login_user' }
     let(:example) do
       [

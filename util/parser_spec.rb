@@ -72,33 +72,23 @@ module Ansible
   module Ruby
     module Modules
       class Postgresql_db < Base
+        # @return [String] name of the database to add or remove
         attribute :name
         validates :name, presence: true, type: String
+        # @return [Object] The username used to authenticate with
         attribute :login_user
+        # @return [Fixnum] Database port to connect to.
         attribute :port
-        validates :port, type: Integer
+        validates :port, type: Fixnum
+        # @return [String] The database state
         attribute :state
-        validates :state,
-                  allow_nil: true,
-                  type: String,
-                  inclusion: { in: [:present, :absent], message: '%{value} needs to be :present, :absent' }
+        validates :state, type: String, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end
 end
-
 RUBY
       end
-
-      pending 'write this'
-    end
-
-    context 'read types from default' do
-      pending 'write this'
-    end
-
-    context 'read types from example' do
-      pending 'write this'
     end
   end
 end

@@ -6,6 +6,7 @@ module Ansible
         class << self
           def parse(name, details, example)
             lines = []
+            details = details.symbolize_keys
             # for some reason, description is an array
             flat_desc = details[:description].join ','
             sample_value, type = derive_type name, details, example
@@ -21,7 +22,7 @@ module Ansible
             end.join ', '
             lines << "attribute :#{name}#{flat_attr_args.empty? ? '' : ", #{flat_attr_args}"}"
             lines << parse_validations(name, details, type)
-            lines.compact.join "\n"
+            lines.compact
           end
 
           private
