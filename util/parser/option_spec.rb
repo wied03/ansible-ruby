@@ -189,14 +189,17 @@ RUBY
         end
       end
 
-      # some are more inline, this is how cloudformation is
+      # some are more inline, this is how cloudformation.py is
       context 'list of tasks' do
+        let(:name) { 'name' }
+
         let(:example) do
           [
             {
               "name" => 'some task',
               'cloudformation' => {
-                'name' => 444.44
+                'name' => 444.44,
+                'something' => 'else'
               }
             }
           ]

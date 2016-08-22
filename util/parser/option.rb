@@ -61,18 +61,29 @@ module Ansible
             if (default = details[:default])
               default
             else
-              value_array = example.map { |ex| ex.values }.flatten
-              key_value_str = value_array.map do |value|
-                value.split ' '
-              end.flatten
-              value_hash = Hash[key_value_str.map do |pair|
-                equals = pair.split '='
-                # some attributes have data like attr=value=value2, only want attr=value
-                equals[0..1]
-              end]
+              value_hash = if example.any? { |ex| ex['name'] }
+                             Hash[example.map { |ex| ex.reject { |key, _| key == 'name' } }
+                                    .map { |ex| ex.map { |_, value| value } }
+                                    .flatten
+                                    .map { |hash| hash.map { |key, value| [key, value] } }[0]]
+                           else
+                             process_inline(example)
+                           end
               sample_value = value_hash[attribute]
               sample_value && sample_value
             end
+          end
+
+          def process_inline(example)
+            value_array = example.map { |ex| ex.values }.flatten
+            key_value_str = value_array.map do |value|
+              value.split ' '
+            end.flatten
+            Hash[key_value_str.map do |pair|
+              equals = pair.split '='
+              # some attributes have data like attr=value=value2, only want attr=value
+              equals[0..1]
+            end]
           end
 
           def identify_class_from(value)
