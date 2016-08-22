@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'ansible-ruby'
 
-describe Ansible::Ruby::DslBuilders::Play do
+fdescribe Ansible::Ruby::DslBuilders::Play do
   let(:builder) { Ansible::Ruby::DslBuilders::Play.new 'another play' }
 
   def evaluate
@@ -20,7 +20,7 @@ describe Ansible::Ruby::DslBuilders::Play do
     stub_const 'Ansible::Ruby::Modules::Copy', klass
   end
 
-  context 'task' do
+  context 'with name' do
     let(:ruby) do
       <<-RUBY
       hosts 'host1'

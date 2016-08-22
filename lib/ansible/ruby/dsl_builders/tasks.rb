@@ -5,7 +5,7 @@ module Ansible
   module Ruby
     module DslBuilders
       class Tasks < Base
-        def initialize(name = nil)
+        def initialize
           @tasks = []
         end
 
@@ -16,7 +16,7 @@ module Ansible
 
         def evaluate(*)
           super
-          @tasks
+          Models::Tasks.new tasks: @tasks
         end
 
         def process_method(id, *)
