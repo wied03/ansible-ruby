@@ -4,29 +4,39 @@ module Ansible
     module Parser
       module Option
         class << self
-          def parse(name, details)
+          def parse(name, details, example)
             # for some reason, description is an array
             flat_desc = details[:description].join ','
-            symbol = ":#{name}"
             lines = [
               "# @return [String] #{flat_desc}",
-              "attribute #{symbol}"
+              "attribute :#{name}"
             ]
-            lines << parse_validations(symbol, details)
+            lines << parse_validations(name, details, example)
             lines.compact.join "\n"
           end
 
           private
 
-          def parse_validations(symbol, details)
+          def parse_validations(attribute, details, example)
             validations = {}
             validations[:presence] = true if details[:required]
-            if (default = details[:default])
-              validations[:type] = default.class.name
-            end
+            type = if (default = details[:default])
+                     default.class.name
+                   else
+                     value_array = example.map { |ex| ex.values }.flatten
+                     key_value_str = value_array.map do |value|
+                       value.split ' '
+                     end.flatten
+                     value_hash = Hash[key_value_str.map do |pair|
+                       pair.split '='
+                     end]
+                     sample_value = value_hash[attribute]
+                     sample_value && sample_value.class.name
+                   end
+            validations[:type] = type if type
 
             return nil unless validations.any?
-            "validates #{symbol}, #{validations.map { |key, value| "#{key}: #{value}" }.join(', ')}"
+            "validates :#{attribute}, #{validations.map { |key, value| "#{key}: #{value}" }.join(', ')}"
           end
         end
       end
