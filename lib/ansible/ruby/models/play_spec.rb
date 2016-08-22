@@ -132,9 +132,5 @@ describe Ansible::Ruby::Models::Play do
                           roles: %w(role1 role2))
       end
     end
-
-    context 'role does not exist' do
-      pending 'write this'
-    end
   end
 end
