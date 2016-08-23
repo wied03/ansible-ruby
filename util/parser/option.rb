@@ -1,4 +1,6 @@
 # See LICENSE.txt for license
+require 'json'
+
 module Ansible
   module Ruby
     module Parser
@@ -15,7 +17,7 @@ module Ansible
             formatted_type = format_yard_return_type(type, details)
             lines << "# #{formatted_type} #{flat_desc}"
             attribute_args = {}
-            attribute_args[:flat_array] = true if is_flat_array?(sample_value)
+            attribute_args[:flat_array] = true if flat_array(sample_value)
             flat_attr_args = attribute_args.map do |key, value|
               "#{key}: #{value}"
             end.join ', '
@@ -172,9 +174,9 @@ module Ansible
 
           def identify_non_choice_value(value)
             value = unquote_string(value) if value.is_a?(String) && !is_variable_expression?(value)
-            if is_flat_array? value
-              array = value.split ','
-              item = array[0]
+            flat_array = flat_array value
+            if flat_array
+              item = flat_array[0]
               value = parse_value_into_num item
               klass = handle_fixnum value.class
               TypeGeneric.new klass
@@ -183,13 +185,18 @@ module Ansible
             end
           end
 
+          def is_variable_expression?(value)
+            value.start_with?('{{')
+          end
+
           def handle_fixnum(klass)
             # Integers are more clear
             klass == Fixnum ? Integer : klass
           end
 
           def parse_value_into_num(item)
-            parsed_integer(item) || parsed_float(item) || item
+            return item unless item.is_a?(String)
+            parsed_float(item) || parsed_integer(item) || item
           end
 
           # some sample values are foo='stuff,bar'
@@ -202,16 +209,20 @@ module Ansible
           end
 
           def parsed_float(value)
-            Float(value) rescue false
+            value.include?('.') && Float(value) rescue false
           end
 
-          def is_variable_expression?(value)
-            value.start_with?('{{')
-          end
-
-          def is_flat_array?(value)
-            # Don't want to include Ansible variables in this, can't tell if they're arrays
-            value.is_a?(String) && !is_variable_expression?(value) && value.include?(',')
+          def flat_array(value)
+            return nil unless value.is_a?(String) && value.include?(',') && !is_variable_expression?(value)
+            items = value.split(',').map do |item|
+              item = parse_value_into_num(item)
+              item.inspect
+            end
+            array_str = "[#{items.join(', ')}]"
+            JSON.parse array_str
+          rescue
+            # if we can't parse it with what we did, it's not an array
+            false
           end
         end
       end
