@@ -235,6 +235,10 @@ RUBY
         end
       end
 
+      context 'something like parser fail' do
+        pending 'write this'
+      end
+
       context 'hash' do
         let(:name) { 'something' }
 

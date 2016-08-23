@@ -5,9 +5,10 @@ require_relative './parser'
 
 describe Ansible::Ruby::Parser do
   describe '::from_yaml_string' do
-    context 'standard' do
-      let(:desc_yaml) do
-        <<YAML
+    subject { Ansible::Ruby::Parser.from_yaml_string desc_yaml, example_yaml }
+
+    let(:desc_yaml) do
+      <<YAML
 ---
 module: postgresql_db
 short_description: Add or remove PostgreSQL databases from a remote host.
@@ -43,10 +44,10 @@ notes:
 requirements: [ psycopg2 ]
 author: "Ansible Core Team"
 YAML
-      end
+    end
 
-      let(:example_yaml) do
-        <<YAML
+    let(:example_yaml) do
+      <<YAML
 # Create a new database with name "acme"
 - postgresql_db: name=acme
 # Create a new database with name "acme" and specific encoding and locale
@@ -58,9 +59,57 @@ YAML
                  lc_ctype='de_DE.UTF-8'
                  template='template0'
 YAML
-      end
+    end
+    context 'standard' do
 
-      subject { Ansible::Ruby::Parser.from_yaml_string desc_yaml, example_yaml }
+      it do
+        is_expected.to eq <<RUBY
+# See LICENSE.txt at root of repository
+# GENERATED FILE - DO NOT EDIT!!
+require 'ansible/ruby/modules/base'
+
+module Ansible
+  module Ruby
+    module Modules
+      class Postgresql_db < Base
+        # @return [String] name of the database to add or remove
+        attribute :name
+        validates :name, presence: true, type: String
+
+        # @return [Object] The username used to authenticate with
+        attribute :login_user
+
+        # @return [Fixnum] Database port to connect to.
+        attribute :port
+        validates :port, type: Fixnum
+
+        # @return [String] The database state
+        attribute :state
+        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+
+      end
+    end
+  end
+end
+RUBY
+      end
+    end
+
+    context 'malformed example YAML' do
+      let(:example_yaml) do
+        <<YAML
+- postgresql_db
+    aws_access_key: xxxxxxxxxxxxxxxxxxxxxxx
+    aws_secret_key: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    instance_id: i-xxxxxx
+    wait: yes
+    name: newtest
+    tags:
+      Name: newtest
+      Service: TestService
+  register: instance
+YAML
+      end
 
       it do
         is_expected.to eq <<RUBY

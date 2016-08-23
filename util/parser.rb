@@ -10,14 +10,23 @@ module Ansible
 
       class << self
         def from_yaml_string(desc_yaml, example_yaml)
+          File.write 'debug_desc.yml', desc_yaml
           description = YAML.load desc_yaml
+          mod = description['module']
+          example_yaml = fixed_example mod, example_yaml
+          File.write 'debug_example.yml', example_yaml
           example = YAML.load example_yaml
-          klass description do
+          klass mod do
             options(description['options'], example)
           end
         end
 
         private
+
+        def fixed_example(mod, yaml)
+          # some examples are wrong
+          yaml.gsub "- #{mod}", "- #{mod}:"
+        end
 
         def options(options, example)
           options.map do |name, detail|
@@ -27,8 +36,8 @@ module Ansible
           end.flatten.join "\n"
         end
 
-        def klass(description)
-          klass_name = description['module'].capitalize
+        def klass(mod)
+          klass_name = mod.capitalize
           <<RUBY
 # See LICENSE.txt at root of repository
 # GENERATED FILE - DO NOT EDIT!!
