@@ -6,25 +6,25 @@ module Ansible
   module Ruby
     module Modules
       class Vmware_host < Base
-        # @return [Object] Name of the datacenter to add the host
+        # @return [String] Name of the datacenter to add the host
         attribute :datacenter_name
-        validates :datacenter_name, presence: true
+        validates :datacenter_name, presence: true, type: String
 
-        # @return [Object] Name of the cluster to add the host
+        # @return [String] Name of the cluster to add the host
         attribute :cluster_name
-        validates :cluster_name, presence: true
+        validates :cluster_name, presence: true, type: String
 
-        # @return [Object] ESXi hostname to manage
+        # @return [String] ESXi hostname to manage
         attribute :esxi_hostname
-        validates :esxi_hostname, presence: true
+        validates :esxi_hostname, presence: true, type: String
 
-        # @return [Object] ESXi username
+        # @return [String] ESXi username
         attribute :esxi_username
-        validates :esxi_username, presence: true
+        validates :esxi_username, presence: true, type: String
 
-        # @return [Object] ESXi password
+        # @return [String] ESXi password
         attribute :esxi_password
-        validates :esxi_password, presence: true
+        validates :esxi_password, presence: true, type: String
 
         # @return [String] Add or remove the host
         attribute :state

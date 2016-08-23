@@ -6,17 +6,17 @@ module Ansible
   module Ruby
     module Modules
       class Vmware_portgroup < Base
-        # @return [Object] vSwitch to modify
+        # @return [String] vSwitch to modify
         attribute :switch_name
-        validates :switch_name, presence: true
+        validates :switch_name, presence: true, type: String
 
-        # @return [Object] Portgroup name to add
+        # @return [String] Portgroup name to add
         attribute :portgroup_name
-        validates :portgroup_name, presence: true
+        validates :portgroup_name, presence: true, type: String
 
-        # @return [Object] VLAN ID to assign to portgroup
+        # @return [String] VLAN ID to assign to portgroup
         attribute :vlan_id
-        validates :vlan_id, presence: true
+        validates :vlan_id, presence: true, type: String
       end
     end
   end

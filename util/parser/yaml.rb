@@ -80,7 +80,9 @@ module Ansible
               '    influxdb_database:' => '  influxdb_database:',
               # xenserver_facts - indentation, bad commenting
               '   xenserver:' => '  xenserver:',
-              /TASK: \[Print.*/m => '# commented out'
+              /TASK: \[Print.*/m => '# commented out',
+              # vmware_vswitch
+              /^Example from Ansible playbook$/ => '# Example from Ansible playbook'
             }
             dirty_patterns.inject(yaml) do |fixed_yaml, find_replace|
               fixed_yaml.gsub find_replace[0], find_replace[1]

@@ -6,20 +6,21 @@ module Ansible
   module Ruby
     module Modules
       class Vmware_vswitch < Base
-        # @return [Object] vSwitch name to add
+        # @return [String] vSwitch name to add
         attribute :switch_name
-        validates :switch_name, presence: true
+        validates :switch_name, presence: true, type: String
 
-        # @return [Object] vmnic name to attach to vswitch
+        # @return [String] vmnic name to attach to vswitch
         attribute :nic_name
-        validates :nic_name, presence: true
+        validates :nic_name, presence: true, type: String
 
         # @return [Fixnum] Number of port to configure on vswitch
         attribute :number_of_ports
         validates :number_of_ports, type: Fixnum
 
-        # @return [Object] MTU to configure on vswitch
+        # @return [Fixnum] MTU to configure on vswitch
         attribute :mtu
+        validates :mtu, type: Fixnum
 
         # @return [String] Add or remove the switch
         attribute :state

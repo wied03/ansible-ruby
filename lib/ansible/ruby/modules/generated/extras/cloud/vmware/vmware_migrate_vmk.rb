@@ -6,29 +6,29 @@ module Ansible
   module Ruby
     module Modules
       class Vmware_migrate_vmk < Base
-        # @return [Object] ESXi hostname to be managed
+        # @return [String] ESXi hostname to be managed
         attribute :esxi_hostname
-        validates :esxi_hostname, presence: true
+        validates :esxi_hostname, presence: true, type: String
 
-        # @return [Object] VMK interface name
+        # @return [String] VMK interface name
         attribute :device
-        validates :device, presence: true
+        validates :device, presence: true, type: String
 
-        # @return [Object] Switch VMK interface is currently on
+        # @return [String] Switch VMK interface is currently on
         attribute :current_switch_name
-        validates :current_switch_name, presence: true
+        validates :current_switch_name, presence: true, type: String
 
-        # @return [Object] Portgroup name VMK interface is currently on
+        # @return [String] Portgroup name VMK interface is currently on
         attribute :current_portgroup_name
-        validates :current_portgroup_name, presence: true
+        validates :current_portgroup_name, presence: true, type: String
 
-        # @return [Object] Switch name to migrate VMK interface to
+        # @return [String] Switch name to migrate VMK interface to
         attribute :migrate_switch_name
-        validates :migrate_switch_name, presence: true
+        validates :migrate_switch_name, presence: true, type: String
 
-        # @return [Object] Portgroup name to migrate VMK interface to
+        # @return [String] Portgroup name to migrate VMK interface to
         attribute :migrate_portgroup_name
-        validates :migrate_portgroup_name, presence: true
+        validates :migrate_portgroup_name, presence: true, type: String
       end
     end
   end
