@@ -6,13 +6,13 @@ module Ansible
   module Ruby
     module Modules
       class Clc_blueprint_package < Base
-        # @return [Object] A list of server Ids to deploy the blue print package.
+        # @return [Array] A list of server Ids to deploy the blue print package.
         attribute :server_ids
-        validates :server_ids, presence: true
+        validates :server_ids, presence: true, type: Array
 
-        # @return [Object] The package id of the blue print.
+        # @return [String] The package id of the blue print.
         attribute :package_id
-        validates :package_id, presence: true
+        validates :package_id, presence: true, type: String
 
         # @return [Hash] The dictionary of arguments required to deploy the blue print.
         attribute :package_params
