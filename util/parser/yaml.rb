@@ -37,6 +37,8 @@ module Ansible
               '  filters parameters are Not mutually exclusive)' => '#  filters parameters are Not mutually exclusive)',
               # often before --- in YAML files but not commented out, throws off parser
               /^\$\s*ansible -i.*/ => '# non commented $ansible command removed',
+              # often before --- in YAML files but not commented out, throws off parser
+              /^\s*ansible host.*/ => '# non commented $ansible command removed',
               # win_unzip
               'C:\\Users\\Phil\\' => 'C:\\\\\Users\\\\\Phil\\\\\\',
               # win_iis_website
@@ -94,7 +96,9 @@ module Ansible
               # vca_vapp
               'vapp_name: tower' => 'vapp_name=tower',
               # os_user_facts and os_project_facts - dangling comment
-              /# Gather facts about a previously created (user|project).*with filter/m => '# Gather facts about a previously created \1 in a specific domain with filter'
+              /# Gather facts about a previously created (user|project).*with filter/m => '# Gather facts about a previously created \1 in a specific domain with filter',
+              # virt - mixing hash and array
+              '- virt: name=alpha state=running' => ''
             }
             dirty_patterns.inject(yaml) do |fixed_yaml, find_replace|
               fixed_yaml.gsub find_replace[0], find_replace[1]
