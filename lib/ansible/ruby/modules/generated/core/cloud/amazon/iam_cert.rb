@@ -6,9 +6,9 @@ module Ansible
   module Ruby
     module Modules
       class Iam_cert < Base
-        # @return [Object] Name of certificate to add, update or remove.
+        # @return [String] Name of certificate to add, update or remove.
         attribute :name
-        validates :name, presence: true
+        validates :name, presence: true, type: String
 
         # @return [Object] When present, this will update the name of the cert with the value passed here.
         attribute :new_name
@@ -16,7 +16,7 @@ module Ansible
         # @return [Object] When present, this will update the path of the cert with the value passed here.
         attribute :new_path
 
-        # @return [Object] Whether to create, delete certificate. When present is specified it will attempt to make an update if new_path or new_name is specified.
+        # @return [String] Whether to create, delete certificate. When present is specified it will attempt to make an update if new_path or new_name is specified.
         attribute :state
         validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
 
@@ -24,14 +24,17 @@ module Ansible
         attribute :path
         validates :path, type: String
 
-        # @return [Object] The path to the CA certificate chain in PEM encoded format.
+        # @return [String] The path to the CA certificate chain in PEM encoded format.
         attribute :cert_chain
+        validates :cert_chain, type: String
 
-        # @return [Object] The path to the certificate body in PEM encoded format.
+        # @return [String] The path to the certificate body in PEM encoded format.
         attribute :cert
+        validates :cert, type: String
 
-        # @return [Object] The path to the private key of the certificate in PEM encoded format.
+        # @return [String] The path to the private key of the certificate in PEM encoded format.
         attribute :key
+        validates :key, type: String
 
         # @return [Object] By default the module will not upload a certificate that is already uploaded into AWS. If set to True, it will upload the certificate as long as the name is unique.
         attribute :dup_ok

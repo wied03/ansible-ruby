@@ -219,6 +219,28 @@ RUBY
         end
       end
 
+      context 'list of tasks' do
+        let(:name) { 'username' }
+        let(:example) do
+          {
+            'tasks' => [
+              {
+                'name' => 'create stuff',
+                'action' => 'ejabberd_user username=test host=server password=password'
+              }
+            ]
+          }
+        end
+
+        it do
+          is_expected.to eq <<RUBY
+# @return [String] The username used to authenticate with
+attribute :username
+validates :username, type: String
+RUBY
+        end
+      end
+
       context 'false value/no examples' do
         let(:name) { 'name' }
         let(:example) { false }

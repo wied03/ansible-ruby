@@ -6,25 +6,27 @@ module Ansible
   module Ruby
     module Modules
       class Iam_policy < Base
-        # @return [Object] Type of IAM resource
+        # @return [String] Type of IAM resource
         attribute :iam_type
         validates :iam_type, presence: true, inclusion: {:in=>[:user, :group, :role], :message=>"%{value} needs to be :user, :group, :role"}
 
-        # @return [Object] Name of IAM resource you wish to target for policy actions. In other words, the user name, group name or role name.
+        # @return [String] Name of IAM resource you wish to target for policy actions. In other words, the user name, group name or role name.
         attribute :iam_name
-        validates :iam_name, presence: true
+        validates :iam_name, presence: true, type: String
 
-        # @return [Object] The name label for the policy to create or remove.
+        # @return [String] The name label for the policy to create or remove.
         attribute :policy_name
-        validates :policy_name, presence: true
+        validates :policy_name, presence: true, type: String
 
-        # @return [Object] The path to the properly json formatted policy file (mutually exclusive with C(policy_json))
+        # @return [String] The path to the properly json formatted policy file (mutually exclusive with C(policy_json))
         attribute :policy_document
+        validates :policy_document, type: String
 
-        # @return [Object] A properly json formatted policy as string (mutually exclusive with C(policy_document), see https://github.com/ansible/ansible/issues/7005#issuecomment-42894813 on how to use it properly)
-        attribute :policy_json
+        # @return [Array<String>] A properly json formatted policy as string (mutually exclusive with C(policy_document), see https://github.com/ansible/ansible/issues/7005#issuecomment-42894813 on how to use it properly)
+        attribute :policy_json, flat_array: true
+        validates :policy_json, type: TypeGeneric.new(String)
 
-        # @return [Object] Whether to create or delete the IAM policy.
+        # @return [String] Whether to create or delete the IAM policy.
         attribute :state
         validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
 

@@ -6,13 +6,13 @@ module Ansible
   module Ruby
     module Modules
       class Iam < Base
-        # @return [Object] Type of IAM resource
+        # @return [String] Type of IAM resource
         attribute :iam_type
         validates :iam_type, presence: true, inclusion: {:in=>[:user, :group, :role], :message=>"%{value} needs to be :user, :group, :role"}
 
-        # @return [Array<String>] Name of IAM resource to create or identify
-        attribute :name, flat_array: true
-        validates :name, presence: true, type: TypeGeneric.new(String)
+        # @return [String] Name of IAM resource to create or identify
+        attribute :name
+        validates :name, presence: true, type: String
 
         # @return [Object] When state is update, will replace name with new_name on IAM resource
         attribute :new_name
@@ -20,7 +20,7 @@ module Ansible
         # @return [Object] When state is update, will replace the path with new_path on the IAM resource
         attribute :new_path
 
-        # @return [Object] Whether to create, delete or update the IAM resource. Note, roles cannot be updated.
+        # @return [String] Whether to create, delete or update the IAM resource. Note, roles cannot be updated.
         attribute :state
         validates :state, presence: true, inclusion: {:in=>[:present, :absent, :update], :message=>"%{value} needs to be :present, :absent, :update"}
 
@@ -28,7 +28,7 @@ module Ansible
         attribute :path
         validates :path, type: String
 
-        # @return [Object] When type is user, it creates, removes, deactivates or activates a user's access key(s). Note that actions apply only to keys specified.
+        # @return [String] When type is user, it creates, removes, deactivates or activates a user's access key(s). Note that actions apply only to keys specified.
         attribute :access_key_state
         validates :access_key_state, inclusion: {:in=>[:create, :remove, :active, :inactive], :message=>"%{value} needs to be :create, :remove, :active, :inactive"}, allow_nil: true
 
@@ -39,11 +39,13 @@ module Ansible
         # @return [Object] A list of the keys that you want impacted by the access_key_state paramter.
         attribute :access_key_ids
 
-        # @return [Object] A list of groups the user should belong to. When update, will gracefully remove groups not listed.
+        # @return [String] A list of groups the user should belong to. When update, will gracefully remove groups not listed.
         attribute :groups
+        validates :groups, type: String
 
-        # @return [Object] When type is user and state is present, define the users login password. Also works with update. Note that always returns changed.
+        # @return [String] When type is user and state is present, define the users login password. Also works with update. Note that always returns changed.
         attribute :password
+        validates :password, type: String
 
         # @return [String] C(always) will update passwords if they differ.  C(on_create) will only set the password for newly created users.
         attribute :update_password

@@ -6,16 +6,17 @@ module Ansible
   module Ruby
     module Modules
       class Ec2_win_password < Base
-        # @return [Object] The instance id to get the password data from.
+        # @return [String] The instance id to get the password data from.
         attribute :instance_id
-        validates :instance_id, presence: true
+        validates :instance_id, presence: true, type: String
 
-        # @return [Object] Path to the file containing the key pair used on the instance.
+        # @return [String] Path to the file containing the key pair used on the instance.
         attribute :key_file
-        validates :key_file, presence: true
+        validates :key_file, presence: true, type: String
 
-        # @return [Object] The passphrase for the instance key pair. The key must use DES or 3DES encryption for this module to decrypt it. You can use openssl to convert your password protected keys if they do not use DES or 3DES. ex) openssl rsa -in current_key -out new_key -des3.
+        # @return [String] The passphrase for the instance key pair. The key must use DES or 3DES encryption for this module to decrypt it. You can use openssl to convert your password protected keys if they do not use DES or 3DES. ex) openssl rsa -in current_key -out new_key -des3.
         attribute :key_passphrase
+        validates :key_passphrase, type: String
 
         # @return [String] Whether or not to wait for the password to be available before returning.
         attribute :wait

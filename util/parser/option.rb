@@ -83,6 +83,7 @@ module Ansible
           end
 
           def process_hash(example)
+            example = example['tasks'] if example.is_a?(Hash) && example['tasks']
             first_cut = example.map { |ex| ex.reject { |key, _| key == 'name' } }
                           .map { |ex| ex.map { |_, value| value } }
                           .flatten
