@@ -10,14 +10,22 @@ module Ansible
 
       class << self
         def from_yaml_string(desc_yaml, example_yaml)
-          File.write 'debug_desc.yml', desc_yaml
-          description = YAML.load desc_yaml
+          description = parse_yaml desc_yaml, 'description'
           mod = description['module']
           example_yaml = fixed_example mod, example_yaml
-          File.write 'debug_example.yml', example_yaml
-          example = YAML.load example_yaml
+          example = parse_yaml example_yaml, 'example'
           klass mod do
             options(description['options'], example)
+          end
+        end
+
+        def parse_yaml(yaml, type)
+          begin
+            File.write "debug_#{type}.yml", yaml
+            YAML.load yaml
+          rescue StandardError => e
+            puts "Problem parsing #{type}!"
+            raise
           end
         end
 
