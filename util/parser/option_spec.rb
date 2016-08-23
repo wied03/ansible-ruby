@@ -219,6 +219,18 @@ RUBY
         end
       end
 
+      context 'false value/no examples' do
+        let(:name) { 'name' }
+        let(:example) { false }
+
+        it do
+          is_expected.to eq <<RUBY
+# @return [Object] The username used to authenticate with
+attribute :name
+RUBY
+        end
+      end
+
       # some are more inline, this is how cloudformation.py is
       context 'list of tasks' do
         let(:name) { 'name' }

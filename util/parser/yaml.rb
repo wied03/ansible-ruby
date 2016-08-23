@@ -8,7 +8,7 @@ module Ansible
             yaml_string = remove_middle_comments yaml_string
             yaml_string = fix_missing_hash_entry(yaml_string, module_name) if module_name
             yaml_string = remove_difficult_strings yaml_string
-            File.write "debug_#{description}.yml", yaml_string
+            File.write "debug_#{description}.yml", yaml_string if ENV['DEBUG']
             YAML.load yaml_string
           rescue StandardError
             $stderr << "Problem parsing #{description}!"

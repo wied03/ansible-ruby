@@ -75,6 +75,7 @@ module Ansible
             if (default = details[:default])
               default
             else
+              return nil unless [Hash, Array].include? example.class
               value_hash = process_hash(example)
               sample_value = value_hash[attribute]
               sample_value && sample_value
