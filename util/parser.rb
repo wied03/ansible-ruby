@@ -29,11 +29,14 @@ module Ansible
         end
 
         def options(options, example)
-          options.map do |name, detail|
+          all_lines = options.map do |name, detail|
             lines = Option.parse(name, detail, example).map { |line| "#{INDENT}#{line}" }
             # separate attributes with a line break
             lines << ''
-          end.flatten.join "\n"
+          end.flatten
+          # Get rid of the last extra line
+          all_lines.pop
+          all_lines.join "\n"
         end
 
         def klass(mod)

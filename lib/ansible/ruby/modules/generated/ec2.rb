@@ -134,7 +134,6 @@ module Ansible
         # @return [String] Launch group for spot request, see U(http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/how-spot-instances-work.html#spot-launch-group)
         attribute :spot_launch_group
         validates :spot_launch_group, type: String
-
       end
     end
   end

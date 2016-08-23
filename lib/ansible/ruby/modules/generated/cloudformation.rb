@@ -47,7 +47,6 @@ module Ansible
         # @return [String] For local templates, allows specification of json or yaml format
         attribute :template_format
         validates :template_format, inclusion: {:in=>[:json, :yaml], :message=>"%{value} needs to be :json, :yaml"}, allow_nil: true
-
       end
     end
   end
