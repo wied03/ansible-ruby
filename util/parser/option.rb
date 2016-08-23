@@ -44,6 +44,8 @@ module Ansible
                 in: symbols,
                 message: "%{value} needs to be #{symbols.map { |sym| ":#{sym}" }.join(', ')}"
               }
+              # let this take care of validation, no need for type
+              validations.delete :type
               validations[:allow_nil] = true unless required
             end
 

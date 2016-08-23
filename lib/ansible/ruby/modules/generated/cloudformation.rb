@@ -12,7 +12,7 @@ module Ansible
 
         # @return [String] If a stacks fails to form, rollback will remove the stack
         attribute :disable_rollback
-        validates :disable_rollback, type: String, inclusion: {:in=>[:true, :false], :message=>"%{value} needs to be :true, :false"}, allow_nil: true
+        validates :disable_rollback, inclusion: {:in=>[:true, :false], :message=>"%{value} needs to be :true, :false"}, allow_nil: true
 
         # @return [Hash] a list of hashes of all the template variables for the stack
         attribute :template_parameters
@@ -46,7 +46,7 @@ module Ansible
 
         # @return [String] For local templates, allows specification of json or yaml format
         attribute :template_format
-        validates :template_format, type: String, inclusion: {:in=>[:json, :yaml], :message=>"%{value} needs to be :json, :yaml"}, allow_nil: true
+        validates :template_format, inclusion: {:in=>[:json, :yaml], :message=>"%{value} needs to be :json, :yaml"}, allow_nil: true
 
       end
     end

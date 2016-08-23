@@ -85,7 +85,7 @@ module Ansible
 
         # @return [String] The database state
         attribute :state
-        validates :state, type: String, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
       end
     end

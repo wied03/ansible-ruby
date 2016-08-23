@@ -67,7 +67,7 @@ RUBY
           is_expected.to eq <<RUBY
 # @return [String] The username used to authenticate with
 attribute :login_user
-validates :login_user, presence: true, type: String, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
+validates :login_user, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
 RUBY
         end
       end
@@ -79,7 +79,7 @@ RUBY
           is_expected.to eq <<RUBY
 # @return [String] The username used to authenticate with
 attribute :login_user
-validates :login_user, type: String, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+validates :login_user, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 RUBY
         end
       end
