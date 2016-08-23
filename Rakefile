@@ -54,8 +54,15 @@ def get_yaml(file)
   raise "Unable to find description in #{file}" unless match
   description = match[1]
   match = /^EXAMPLES.*?['"]{3}(.*?)['"]{3}/m.match(python)
-  raise "Unable to find examples in #{file}" unless match
-  [description, match[1]]
+  no_examples_ok = /async_status\.py/
+  examples = if match
+               match[1]
+             else
+               unless no_examples_ok.match(file)
+                 raise "Unable to find examples in #{file}"
+               end
+             end
+  [description, examples]
 end
 
 desc 'Update/generate Ruby modules from Ansible modules'
@@ -67,6 +74,8 @@ task :update_modules => :python_dependencies do
           else
             FileList[File.join(ansible_dir, 'modules/**/*.py')]
               .exclude('**/*/_*.py')
+              .exclude('**/*/include_vars.py')
+              .exclude('**/*/async_wrapper.py')
           end
   already_processed = []
   fails = {}
