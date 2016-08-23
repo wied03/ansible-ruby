@@ -54,8 +54,8 @@ YAML
       end
     end
 
-    context 'text comments in middle of description' do
-      context 'array' do
+    context 'comments' do
+      context 'in middle of array' do
         let(:input_yaml) do
           <<YAML
 - item1:
@@ -88,7 +88,7 @@ YAML
         end
       end
 
-      context 'valid comments' do
+      context 'valid' do
         context 'array' do
           let(:input_yaml) do
             <<YAML
