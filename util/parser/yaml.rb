@@ -29,7 +29,7 @@ module Ansible
               '     - name: Create a network interface with private IP address only (no Public IP)' => '    - name: Create a network interface with private IP address only (no Public IP)',
               "- gc_storage:: bucket=mybucket object=key.txt src=/usr/local/myfile.txt headers='{\"Content-Encoding\": \"gzip\"}'" => "- gc_storage:: 'bucket=mybucket object=key.txt src=/usr/local/myfile.txt headers=''{\"Content-Encoding\": \"gzip\"}'''",
               '  filters parameters are Not mutually exclusive)' => '#  filters parameters are Not mutually exclusive)',
-              '$ ansible -i hosts' => '# $ansible command was here',
+              '$ ansible -i' => '# $ansible command removed',
               'C:\\Users\\Phil\\' => 'C:\\\\\Users\\\\\Phil\\\\\\'
             }
             with_yaml_lines yaml do |line|
