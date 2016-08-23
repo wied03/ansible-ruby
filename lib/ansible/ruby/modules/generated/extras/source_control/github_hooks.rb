@@ -10,13 +10,13 @@ module Ansible
         attribute :user
         validates :user, presence: true, type: String
 
-        # @return [Object] The oauth key provided by github. It can be found/generated on github under "Edit Your Profile" >> "Applications" >> "Personal Access Tokens"
+        # @return [String] The oauth key provided by github. It can be found/generated on github under "Edit Your Profile" >> "Applications" >> "Personal Access Tokens"
         attribute :oauthkey
-        validates :oauthkey, presence: true
+        validates :oauthkey, presence: true, type: String
 
-        # @return [Object] This is the API url for the repository you want to manage hooks for. It should be in the form of: https://api.github.com/repos/user:/repo:. Note this is different than the normal repo url.
+        # @return [String] This is the API url for the repository you want to manage hooks for. It should be in the form of: https://api.github.com/repos/user:/repo:. Note this is different than the normal repo url.
         attribute :repo
-        validates :repo, presence: true
+        validates :repo, presence: true, type: String
 
         # @return [String] When creating a new hook, this is the url that you want github to post to. It is only required when creating a new hook.
         attribute :hookurl

@@ -96,7 +96,11 @@ module Ansible
             end.compact
             # Only want to get everything on the same level
             flattened = kv_array.flatten(1)
-            Hash[flattened]
+            # could get confused with both array/string usages, so simplify this
+            cleaned = flattened.select do |item|
+              item.is_a?(Array) && item.length == 2
+            end
+            Hash[cleaned]
           end
 
           def split_equal_sign_pairs(key_value_str)

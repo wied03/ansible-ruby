@@ -6,8 +6,9 @@ module Ansible
   module Ruby
     module Modules
       class Firewalld < Base
-        # @return [Object] Name of a service to add/remove to/from firewalld - service must be listed in /etc/services.
+        # @return [String] Name of a service to add/remove to/from firewalld - service must be listed in /etc/services.
         attribute :service
+        validates :service, type: String
 
         # @return [String] Name of a port or port range to add/remove to/from firewalld. Must be in the form PORT/PROTOCOL or PORT-PORT/PROTOCOL for port ranges.
         attribute :port
