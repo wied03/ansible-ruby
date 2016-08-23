@@ -6,13 +6,13 @@ module Ansible
   module Ruby
     module Modules
       class Os_server < Base
-        # @return [Object] Name that has to be given to the instance
+        # @return [String] Name that has to be given to the instance
         attribute :name
-        validates :name, presence: true
+        validates :name, presence: true, type: String
 
-        # @return [Object] The name or id of the base image to boot.
+        # @return [String] The name or id of the base image to boot.
         attribute :image
-        validates :image, presence: true
+        validates :image, presence: true, type: String
 
         # @return [Object] Text to use to filter image names, for the case, such as HP, where there are multiple image names matching the common identifying portions. image_exclude is a negative match filter - it is text that may not exist in the image name. Defaults to "(deprecated)"
         attribute :image_exclude

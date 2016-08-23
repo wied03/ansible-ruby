@@ -116,7 +116,9 @@ module Ansible
               'mydb.*:INSERT,UPDATE/anotherdb.*:SELECT/yetanotherdb.*:ALL' => '- mysql_user: priv=mydb.*:INSERT,UPDATE/anotherdb.*:SELECT/yetanotherdb.*:ALL',
               /\[client\].*password=.*y/m => '# Commented out config file',
               # Vsphere guest, complex, pick 1 example
-              /(- vsphere_guest:.*?)^-.*/m => '\1'
+              /(- vsphere_guest:.*?)^-.*/m => '\1',
+              # os_server, complex, pick 1 example
+              /(- os_server:.*?)^-.*/m => '\1'
             }
             dirty_patterns.inject(yaml) do |fixed_yaml, find_replace|
               fixed_yaml.gsub find_replace[0], find_replace[1]
