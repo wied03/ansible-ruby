@@ -89,20 +89,41 @@ YAML
       end
 
       context 'valid comments' do
-        let(:input_yaml) do
-          <<YAML
+        context 'array' do
+          let(:input_yaml) do
+            <<YAML
 - postgresql_db: name=acme
 # Comment
 - postgresql_db: name=acme
                  encoding='UTF-8'
 YAML
+          end
+
+          it do
+            is_expected.to eq [
+                                { 'postgresql_db' => 'name=acme' },
+                                { 'postgresql_db' => "name=acme encoding='UTF-8'" }
+                              ]
+          end
         end
 
-        it do
-          is_expected.to eq [
-                              { 'postgresql_db' => 'name=acme' },
-                              { 'postgresql_db' => "name=acme encoding='UTF-8'" }
-                            ]
+        context 'hash' do
+          let(:input_yaml) do
+            <<YAML
+postgresql_db: name=acme
+# Comment
+postgresql_db2: name=acme
+                encoding='UTF-8'
+YAML
+          end
+
+          it do
+            is_expected.to eq({
+                                'postgresql_db' => 'name=acme',
+                                'postgresql_db2' => "name=acme encoding='UTF-8'"
+                              })
+          end
+
         end
       end
     end
