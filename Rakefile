@@ -61,6 +61,7 @@ end
 desc 'Update/generate Ruby modules from Ansible modules'
 task :update_modules => :python_dependencies do
   ansible_dir = `python util/get_ansible.py`.strip
+  modules_dir = Pathname.new(File.join(ansible_dir, 'modules'))
   files = if ENV['FILE']
             [ENV['FILE']]
           else
@@ -78,7 +79,11 @@ task :update_modules => :python_dependencies do
       description, example = get_yaml file
       for_file << 'Parsing YAML'
       ruby_result = Ansible::Ruby::Parser.from_yaml_string description, example
-      ruby_path = File.join('lib/ansible/ruby/modules/generated', File.basename(file, '.py')) + '.rb'
+      python_dir = File.dirname(file)
+      ruby_filename = File.basename(file, '.py') + '.rb'
+      module_path = Pathname.new(python_dir).relative_path_from(modules_dir)
+      ruby_path = File.join('lib/ansible/ruby/modules/generated', module_path, ruby_filename)
+      mkdir_p File.dirname(ruby_path)
       for_file << "Writing Ruby code to #{ruby_path}"
       if already_processed.include? ruby_path
         raise "We've already processed #{ruby_path}"
