@@ -7,7 +7,7 @@ module Ansible
           def parse(yaml_string, description, module_name=nil)
             yaml_string = remove_middle_comments yaml_string
             yaml_string = fix_missing_hash_entry(yaml_string, module_name) if module_name
-            yaml_string = fix_indents yaml_string
+            yaml_string = remove_difficult_strings yaml_string
             File.write "debug_#{description}.yml", yaml_string
             YAML.load yaml_string
           rescue StandardError
@@ -23,12 +23,14 @@ module Ansible
             end.join "\n"
           end
 
-          def fix_indents(yaml)
+          def remove_difficult_strings(yaml)
             sub = {
               '        azure_rm_networkinterface:' => '      azure_rm_networkinterface:',
               '     - name: Create a network interface with private IP address only (no Public IP)' => '    - name: Create a network interface with private IP address only (no Public IP)',
               "- gc_storage:: bucket=mybucket object=key.txt src=/usr/local/myfile.txt headers='{\"Content-Encoding\": \"gzip\"}'" => "- gc_storage:: 'bucket=mybucket object=key.txt src=/usr/local/myfile.txt headers=''{\"Content-Encoding\": \"gzip\"}'''",
-              '  filters parameters are Not mutually exclusive)' => '#  filters parameters are Not mutually exclusive)'
+              '  filters parameters are Not mutually exclusive)' => '#  filters parameters are Not mutually exclusive)',
+              '$ ansible -i hosts' => '# $ansible command was here',
+              'C:\\Users\\Phil\\' => 'C:\\\\\Users\\\\\Phil\\\\\\'
             }
             with_yaml_lines yaml do |line|
               replacement = sub.find {|old_val, _| line.include? old_val}
