@@ -65,7 +65,7 @@ task :update_modules => :python_dependencies do
             .exclude('**/*/_*.py')
   already_processed = []
   files.each do |file|
-    puts "-----Begin file #{file}------"
+    puts "****** Begin file #{file}"
     puts 'Retrieving description and example'
     description, example = get_yaml file
     puts 'Parsing description/example'
@@ -77,7 +77,7 @@ task :update_modules => :python_dependencies do
     end
     already_processed << ruby_path
     File.write ruby_path, ruby_result
-    puts "-----End file #{file}------"
+    puts "******   End file #{file}"
   end
 
   # TODO: Create a requires file
