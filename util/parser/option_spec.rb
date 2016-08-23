@@ -51,12 +51,14 @@ RUBY
     end
 
     context 'choices' do
+      let(:choices) { %w(present absent) }
+
       let(:details) do
         {
           description: ['The username used to authenticate with'],
           required: required,
           default: 'present',
-          choices: %w(present absent)
+          choices: choices
         }
       end
 
@@ -80,6 +82,20 @@ RUBY
 # @return [String] The username used to authenticate with
 attribute :login_user
 validates :login_user, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+RUBY
+        end
+      end
+
+      context 'no included' do
+        # is really [present, no, yes] in YAML
+        let(:choices) { ['present', true, false] }
+        let(:required) { false }
+
+        it do
+          is_expected.to eq <<RUBY
+# @return [String] The username used to authenticate with
+attribute :login_user
+validates :login_user, inclusion: {:in=>[:present, true, false], :message=>"%{value} needs to be :present, true, false"}, allow_nil: true
 RUBY
         end
       end

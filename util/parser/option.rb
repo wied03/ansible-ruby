@@ -23,6 +23,9 @@ module Ansible
             lines << "attribute :#{name}#{flat_attr_args.empty? ? '' : ", #{flat_attr_args}"}"
             lines << parse_validations(name, details, type)
             lines.compact
+          rescue
+            puts "Problem parsing option #{name}!"
+            raise
           end
 
           private
@@ -39,10 +42,17 @@ module Ansible
                                    type.name
                                  end if type
             if (choices = details[:choices])
-              symbols = choices.map(&:to_sym)
+              symbols = choices.map do |choice|
+                case choice
+                when TrueClass, FalseClass
+                  choice
+                else
+                  choice.to_sym
+                end
+              end
               validations[:inclusion] = {
                 in: symbols,
-                message: "%{value} needs to be #{symbols.map { |sym| ":#{sym}" }.join(', ')}"
+                message: "%{value} needs to be #{symbols.map { |sym| "#{sym.inspect}" }.join(', ')}"
               }
               # let this take care of validation, no need for type
               validations.delete :type
