@@ -102,7 +102,9 @@ module Ansible
               # cs_configuration, extra colon
               '    module: cs_configuration:' => '    module: cs_configuration',
               # clc_blueprint_package, indentation
-              '      clc_blueprint_package:' => '  clc_blueprint_package:'
+              '      clc_blueprint_package:' => '  clc_blueprint_package:',
+              # ops template, indentation
+              '    ops_template:' => '  ops_template:'
             }
             dirty_patterns.inject(yaml) do |fixed_yaml, find_replace|
               fixed_yaml.gsub find_replace[0], find_replace[1]
