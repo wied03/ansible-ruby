@@ -6,17 +6,17 @@ module Ansible
   module Ruby
     module Modules
       class Zabbix_hostmacro < Base
-        # @return [Object] Url of Zabbix server, with protocol (http or https).
+        # @return [String] Url of Zabbix server, with protocol (http or https).
         attribute :server_url
-        validates :server_url, presence: true
+        validates :server_url, presence: true, type: String
 
-        # @return [Object] Zabbix user name.
+        # @return [String] Zabbix user name.
         attribute :login_user
-        validates :login_user, presence: true
+        validates :login_user, presence: true, type: String
 
-        # @return [Object] Zabbix user password.
+        # @return [String] Zabbix user password.
         attribute :login_password
-        validates :login_password, presence: true
+        validates :login_password, presence: true, type: String
 
         # @return [String] Basic Auth login
         attribute :http_login_user
@@ -26,17 +26,17 @@ module Ansible
         attribute :http_login_password
         validates :http_login_password, type: String
 
-        # @return [Object] Name of the host.
+        # @return [String] Name of the host.
         attribute :host_name
-        validates :host_name, presence: true
+        validates :host_name, presence: true, type: String
 
-        # @return [Object] Name of the host macro.
+        # @return [String] Name of the host macro.
         attribute :macro_name
-        validates :macro_name, presence: true
+        validates :macro_name, presence: true, type: String
 
-        # @return [Object] Value of the host macro.
+        # @return [String] Value of the host macro.
         attribute :macro_value
-        validates :macro_value, presence: true
+        validates :macro_value, presence: true, type: String
 
         # @return [String] State of the macro.,On C(present), it will create if macro does not exist or update the macro if the associated data is different.,On C(absent) will remove a macro if it exists.
         attribute :state
