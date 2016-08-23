@@ -9,28 +9,30 @@ module Ansible
 
         class << self
           def parse(name, details, example)
+            puts "handling option #{name}"
             lines = []
             details = details.symbolize_keys
             # for some reason, description is often an array
             flat_desc = [*details[:description]].join ','
-            sample_value, type = derive_type name, details, example
-            formatted_type = format_yard_return_type(type, details)
+            type_details = derive_type name, details, example
+            formatted_type = format_yard_return_type(type_details)
             lines << "# #{formatted_type} #{flat_desc}"
             attribute_args = {}
-            attribute_args[:flat_array] = true if flat_array(sample_value)
+            attribute_args[:flat_array] = true if type_details[:flat_array]
             flat_attr_args = attribute_args.map do |key, value|
               "#{key}: #{value}"
             end.join ', '
             lines << "attribute :#{name}#{flat_attr_args.empty? ? '' : ", #{flat_attr_args}"}"
-            lines << parse_validations(name, details, type)
+            lines << parse_validations(name, type_details)
             lines.compact
           rescue
             $stderr << "Problem parsing option #{name}!"
             raise
           end
 
-          def format_yard_return_type(type, details)
-            types = if (choices = parsed_choices(details))
+          def format_yard_return_type(type_details)
+            type = type_details[:type]
+            types = if (choices = type_details[:choices])
                       if (BOOLEAN_OPTIONS - choices).empty?
                         choices = choices - BOOLEAN_OPTIONS
                         choices << 'Boolean'
@@ -43,7 +45,7 @@ module Ansible
                       type || Object
                     end
             types = [*types]
-            types << nil unless is_required?(details)
+            types << nil unless type_details[:required]
             formatted = [*types].map do |each_type|
               case each_type
               when Class
@@ -61,9 +63,9 @@ module Ansible
 
           private
 
-          def parse_validations(attribute, details, type)
+          def parse_validations(attribute, type_details)
             validations = {}
-            required = is_required? details
+            required = type_details[:required]
             # keep code lighter if not required
             validations[:presence] = true if required
             validations[:type] = case type
@@ -75,7 +77,7 @@ module Ansible
                                  else
                                    type.name
                                  end if type
-            if (choices = parsed_choices(details))
+            if (choices = type_details[:choices])
               validations[:inclusion] = {
                 in: choices,
                 message: "%{value} needs to be #{choices.map { |sym| "#{sym.inspect}" }.join(', ')}"
@@ -89,16 +91,16 @@ module Ansible
             "validates :#{attribute}, #{validations.map { |key, value| "#{key}: #{value}" }.join(', ')}"
           end
 
-          def is_required?(details)
-            details[:required]
-          end
-
           def derive_type(attribute, details, example)
-            sample_value = derive_sample_value attribute, details, example
-            [sample_value, sample_value && identify_non_choice_value(sample_value)]
+            sample_values = find_sample_values attribute, details, example
+            {
+              type: sample_values && identify_non_choice_value(sample_values),
+              required: details[:required],
+              flat_array: flat_array(sample_values)
+            }
           end
 
-          def derive_sample_value(attribute, details, example)
+          def find_sample_values(attribute, details, example)
             union_type = is_union_type? details
             if (default = details[:default]) && !union_type
               default
@@ -108,9 +110,8 @@ module Ansible
               nil
             else
               return nil unless [Hash, Array].include? example.class
-              value_hash = process_hash(example)
-              sample_value = value_hash[attribute]
-              sample_value && sample_value
+              values_by_key = values_by_key(example)
+              values_by_key[attribute]
             end
           end
 
@@ -143,36 +144,42 @@ module Ansible
             klasses && klasses.length != 1
           end
 
-          def process_hash(example)
+          def values_by_key(example)
             example = example['tasks'] if example.is_a?(Hash) && example['tasks']
             first_cut = example.map { |ex| ex.reject { |key, _| key == 'name' } }
                           .map { |ex| ex.map { |_, value| value } }
                           .flatten
-            kv_array = first_cut.map do |value|
+            puts "first cut #{first_cut}"
+            array_of_hashes = first_cut.map do |value|
               if value.is_a?(String)
-                split_equal_sign_pairs(value.split(' '))
+                hash_equal_sign_pairs(value)
               elsif value.is_a? Hash
-                value.map { |key, value| [key, value] }
+                value
               end
             end.compact
-            # Only want to get everything on the same level
-            flattened = kv_array.flatten(1)
-            # could get confused with both array/string usages, so simplify this
-            cleaned = flattened.select do |item|
-              item.is_a?(Array) && item.length == 2
+            puts "array of hashes #{array_of_hashes}"
+            vals_by_key = array_of_hashes.inject({}) do |result, hash|
+              hash.each do |key, value|
+                by_key = result[key] ||= []
+                by_key << value
+                by_key.uniq!
+              end
+              result
             end
-            Hash[cleaned]
+            puts "values by key #{vals_by_key}"
+            vals_by_key
           end
 
-          def split_equal_sign_pairs(key_value_str)
-            key_value_str.map do |pair|
+          def hash_equal_sign_pairs(key_value_str)
+            Hash[key_value_str.split(' ').map do |pair|
               equals = pair.split '='
               # some attributes have data like attr=value=value2, only want attr=value
               equals[0..1]
-            end
+            end]
           end
 
           def identify_non_choice_value(value)
+            puts "ident non choice #{value}"
             value = unquote_string(value) if value.is_a?(String) && !is_variable_expression?(value)
             flat_array = flat_array value
             if flat_array
