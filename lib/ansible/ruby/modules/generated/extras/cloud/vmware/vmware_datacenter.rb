@@ -6,21 +6,21 @@ module Ansible
   module Ruby
     module Modules
       class Vmware_datacenter < Base
-        # @return [Object] The hostname or IP address of the vSphere vCenter API server
+        # @return [String] The hostname or IP address of the vSphere vCenter API server
         attribute :hostname
-        validates :hostname, presence: true
+        validates :hostname, presence: true, type: String
 
-        # @return [Object] The username of the vSphere vCenter
+        # @return [String] The username of the vSphere vCenter
         attribute :username
-        validates :username, presence: true
+        validates :username, presence: true, type: String
 
-        # @return [Object] The password of the vSphere vCenter
+        # @return [String] The password of the vSphere vCenter
         attribute :password
-        validates :password, presence: true
+        validates :password, presence: true, type: String
 
-        # @return [Object] The name of the datacenter the cluster will be created in.
+        # @return [String] The name of the datacenter the cluster will be created in.
         attribute :datacenter_name
-        validates :datacenter_name, presence: true
+        validates :datacenter_name, presence: true, type: String
 
         # @return [String] If the datacenter should be present or absent
         attribute :state

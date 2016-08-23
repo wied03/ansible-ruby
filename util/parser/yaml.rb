@@ -86,7 +86,9 @@ module Ansible
               # vmware_target_canonical_facts - indentation
               /- name: Get Canonical name.*local_action: \>/m => "- name: Get Canonical name\n  local_action: >",
               # vmware_dvs_portgroup
-              /name: Create Management portgroup.*local_action:/m => "name: Create Management portgroup\n     local_action:"
+              /name: Create Management portgroup.*local_action:/m => "name: Create Management portgroup\n     local_action:",
+              # vmware_datacenter - indentation
+              /- name: Create Datacenter.*local_action: \>/m => "- name: Create Datacenter\n  local_action: >",
             }
             dirty_patterns.inject(yaml) do |fixed_yaml, find_replace|
               fixed_yaml.gsub find_replace[0], find_replace[1]
