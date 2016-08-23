@@ -50,6 +50,24 @@ RUBY
       end
     end
 
+    context 'description is a string' do
+      let(:details) do
+        {
+          description: 'The username used to authenticate with',
+          required: true,
+          default: nil
+        }
+      end
+
+      it do
+        is_expected.to eq <<RUBY
+# @return [Object] The username used to authenticate with
+attribute :login_user
+validates :login_user, presence: true
+RUBY
+      end
+    end
+
     context 'choices' do
       let(:choices) { %w(present absent) }
 

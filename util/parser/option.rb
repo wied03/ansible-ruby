@@ -7,8 +7,8 @@ module Ansible
           def parse(name, details, example)
             lines = []
             details = details.symbolize_keys
-            # for some reason, description is an array
-            flat_desc = details[:description].join ','
+            # for some reason, description is often an array
+            flat_desc = [*details[:description]].join ','
             sample_value, type = derive_type name, details, example
             document_return = type || Object
             if document_return.is_a? TypeGeneric
