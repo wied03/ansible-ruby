@@ -61,8 +61,12 @@ end
 desc 'Update/generate Ruby modules from Ansible modules'
 task :update_modules => :python_dependencies do
   ansible_dir = `python util/get_ansible.py`.strip
-  files = FileList[File.join(ansible_dir, 'modules/**/*.py')]
-            .exclude('**/*/_*.py')
+  files = if ENV['FILE']
+            [ENV['FILE']]
+          else
+            FileList[File.join(ansible_dir, 'modules/**/*.py')]
+              .exclude('**/*/_*.py')
+          end
   already_processed = []
   fails = {}
   files.each do |file|
