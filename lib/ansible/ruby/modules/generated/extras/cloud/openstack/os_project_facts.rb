@@ -6,9 +6,9 @@ module Ansible
   module Ruby
     module Modules
       class Os_project_facts < Base
-        # @return [Object] Name or ID of the project
+        # @return [String] Name or ID of the project
         attribute :name
-        validates :name, presence: true
+        validates :name, presence: true, type: String
 
         # @return [String] Name or ID of the domain containing the project if the cloud supports domains
         attribute :domain
