@@ -34,7 +34,9 @@ module Ansible
               /host.*^\}/m => '# Removed invalid YAML', # win_iis_website
               '- name: Remove FullControl AccessRule for IIS_IUSRS' => '-   name: Remove FullControl AccessRule for IIS_IUSRS', # win_acl indentation
               '- name: Deny Deny' => '-   name: Deny Deny', # more win_acl
-              'Example playbook entries using the ejabberd_user module to manage users state.' => '# Example playbook entries using the ejabberd_user module to manage users state.' # ejabberd_user
+              # ejabberd_user
+              'Example playbook entries using the ejabberd_user module to manage users state.' => '# Example playbook entries using the ejabberd_user module to manage users state.',
+              /General explanation, starting with an example folder structure.*The 'releases' folder.*during cleanup./m => '# text was not commented out' # deploy_helper
             }
             dirty_patterns.inject(yaml) do |fixed_yaml, find_replace|
               fixed_yaml.gsub find_replace[0], find_replace[1]
