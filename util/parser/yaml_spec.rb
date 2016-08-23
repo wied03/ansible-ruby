@@ -164,8 +164,38 @@ YAML
                                 'postgresql_db2' => "name=acme encoding='UTF-8'"
                               })
           end
-
         end
+      end
+    end
+
+    context 'too much indenting' do
+      let(:input_yaml) do
+        <<YAML
+    - name: Create a network interface with minimal parameters
+        azure_rm_networkinterface:
+            name: nic001
+
+     - name: Create a network interface with private IP address only (no Public IP)
+        azure_rm_networkinterface:
+            name: nic002
+YAML
+      end
+
+      it do
+        is_expected.to eq [
+                            {
+                              'name' => 'Create a network interface with minimal parameters',
+                              'azure_rm_networkinterface' => {
+                                'name' => 'nic001'
+                              }
+                            },
+                            {
+                              'name' => 'Create a network interface with private IP address only (no Public IP)',
+                              'azure_rm_networkinterface' => {
+                                'name' => 'nic002'
+                              }
+                            }
+                          ]
       end
     end
   end
