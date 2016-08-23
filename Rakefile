@@ -64,21 +64,35 @@ task :update_modules => :python_dependencies do
   files = FileList[File.join(ansible_dir, 'modules/core/**/*.py')]
             .exclude('**/*/_*.py')
   already_processed = []
+  fails = {}
   files.each do |file|
     puts "****** Begin file #{file}"
-    puts 'Retrieving description and example'
-    description, example = get_yaml file
-    puts 'Parsing YAML'
-    ruby_result = Ansible::Ruby::Parser.from_yaml_string description, example
-    ruby_path = File.join('lib/ansible/ruby/modules/generated', File.basename(file, '.py')) + '.rb'
-    puts "Writing Ruby code to #{ruby_path}"
-    if already_processed.include? ruby_path
-      raise "We've already processed #{ruby_path}"
+    begin
+      puts 'Retrieving description and example'
+      description, example = get_yaml file
+      puts 'Parsing YAML'
+      ruby_result = Ansible::Ruby::Parser.from_yaml_string description, example
+      ruby_path = File.join('lib/ansible/ruby/modules/generated', File.basename(file, '.py')) + '.rb'
+      puts "Writing Ruby code to #{ruby_path}"
+      if already_processed.include? ruby_path
+        raise "We've already processed #{ruby_path}"
+      end
+      already_processed << ruby_path
+      File.write ruby_path, ruby_result
+    rescue StandardError => e
+      fails[file] = e
     end
-    already_processed << ruby_path
-    File.write ruby_path, ruby_result
     puts "******   End file #{file}"
   end
 
+  fails.each do |file, exception|
+    puts "Failed file #{file}, exception:"
+    puts exception
+    puts exception.backtrace
+    puts '-----------------------------------'
+  end
+
+  puts "#{already_processed.length} modules successfully processed. #{fails.length} failures"
+  raise '1 or more files failed' if fails.any?
   # TODO: Create a requires file
 end
