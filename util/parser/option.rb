@@ -171,7 +171,7 @@ module Ansible
           end
 
           def identify_non_choice_value(value)
-            value = unquote_string(value) if value.is_a?(String)
+            value = unquote_string(value) if value.is_a?(String) && !is_variable_expression?(value)
             if is_flat_array? value
               array = value.split ','
               item = array[0]
@@ -205,8 +205,13 @@ module Ansible
             Float(value) rescue false
           end
 
+          def is_variable_expression?(value)
+            value.start_with?('{{')
+          end
+
           def is_flat_array?(value)
-            value.is_a?(String) && value.include?(',')
+            # Don't want to include Ansible variables in this, can't tell if they're arrays
+            value.is_a?(String) && !is_variable_expression?(value) && value.include?(',')
           end
         end
       end

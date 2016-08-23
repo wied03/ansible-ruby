@@ -366,6 +366,29 @@ RUBY
         end
       end
 
+      context 'Ansible variable' do
+        let(:name) { 'name' }
+
+        let(:example) do
+          [
+            {
+              "name" => 'some task',
+              'cloudformation' => {
+                'name' => "{{ lookup('file','policy.json') }}",
+              }
+            }
+          ]
+        end
+
+        it do
+          is_expected.to eq <<RUBY
+# @return [String, nil] The username used to authenticate with
+attribute :name
+validates :name, type: String
+RUBY
+        end
+      end
+
       context 'mix of hash and inline' do
         let(:name) { 'stack_name' }
 
