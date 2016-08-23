@@ -6,9 +6,9 @@ module Ansible
   module Ruby
     module Modules
       class Influxdb_database < Base
-        # @return [Object] The hostname or IP address on which InfluxDB server is listening
+        # @return [String] The hostname or IP address on which InfluxDB server is listening
         attribute :hostname
-        validates :hostname, presence: true
+        validates :hostname, presence: true, type: String
 
         # @return [String] Username that will be used to authenticate against InfluxDB server
         attribute :username
@@ -22,9 +22,9 @@ module Ansible
         attribute :port
         validates :port, type: Fixnum
 
-        # @return [Object] Name of the database that will be created/destroyed
+        # @return [String] Name of the database that will be created/destroyed
         attribute :database_name
-        validates :database_name, presence: true
+        validates :database_name, presence: true, type: String
 
         # @return [String] Determines if the database should be created or destroyed
         attribute :state
