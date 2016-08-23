@@ -1,0 +1,93 @@
+# See LICENSE.txt for license
+require 'spec_helper'
+require 'ansible-ruby'
+require_relative './yaml'
+
+describe Ansible::Ruby::Parser::Yaml do
+  describe '::parse' do
+    let(:description) { 'the_file' }
+
+    subject { Ansible::Ruby::Parser::Yaml.parse input_yaml, description }
+
+    context 'standard' do
+      let(:input_yaml) do
+        <<YAML
+  # Create a new database with name "acme"
+  - postgresql_db: name=acme
+  # Create a new database with name "acme" and specific encoding and locale
+  # settings. If a template different from "template0" is specified, encoding
+  # and locale settings must match those of the template.
+  - postgresql_db: name=acme
+                   encoding='UTF-8'
+                   lc_collate='de_DE.UTF-8'
+                   lc_ctype='de_DE.UTF-8'
+                   template='template0'
+YAML
+      end
+
+      it do
+        is_expected.to eq [
+                            { 'postgresql_db' => 'name=acme' },
+                            { 'postgresql_db' => "name=acme encoding='UTF-8' lc_collate='de_DE.UTF-8' lc_ctype='de_DE.UTF-8' template='template0'" },
+                          ]
+      end
+    end
+
+    context 'array item missing colon' do
+      let(:input_yaml) do
+        <<YAML
+- postgresql_db
+    aws_access_key: xxxxxxxxxxxxxxxxxxxxxxx
+  register: instance
+YAML
+      end
+
+      it do
+        is_expected.to eq [
+                            {
+                              'postgresql_db' => {
+                                'aws_access_key' => 'xxxxxxxxxxxxxxxxxxxxxxx'
+                              },
+                              'register' => 'instance'
+                            }
+                          ]
+      end
+    end
+
+    context 'text comments in middle of description' do
+      context 'array' do
+        let(:input_yaml) do
+          <<YAML
+- item1:
+    value: 1
+# A comment here
+Some more
+
+text
+
+here
+
+- item2:
+    value: 2
+YAML
+        end
+
+        it do
+          is_expected.to eq [
+                              {
+                                'item1' => {
+                                  'value' => 1
+                                }
+                              },
+                              {
+                                'item2' => {
+                                  'value' => 2
+                                }
+                              }
+                            ]
+        end
+
+      end
+    end
+  end
+end

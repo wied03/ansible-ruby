@@ -93,53 +93,5 @@ end
 RUBY
       end
     end
-
-    context 'malformed example YAML' do
-      let(:example_yaml) do
-        <<YAML
-- postgresql_db
-    aws_access_key: xxxxxxxxxxxxxxxxxxxxxxx
-    aws_secret_key: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-    instance_id: i-xxxxxx
-    wait: yes
-    name: newtest
-    tags:
-      Name: newtest
-      Service: TestService
-  register: instance
-YAML
-      end
-
-      it do
-        is_expected.to eq <<RUBY
-# See LICENSE.txt at root of repository
-# GENERATED FILE - DO NOT EDIT!!
-require 'ansible/ruby/modules/base'
-
-module Ansible
-  module Ruby
-    module Modules
-      class Postgresql_db < Base
-        # @return [String] name of the database to add or remove
-        attribute :name
-        validates :name, presence: true, type: String
-
-        # @return [Object] The username used to authenticate with
-        attribute :login_user
-
-        # @return [Fixnum] Database port to connect to.
-        attribute :port
-        validates :port, type: Fixnum
-
-        # @return [String] The database state
-        attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
-      end
-    end
-  end
-end
-RUBY
-      end
-    end
   end
 end
