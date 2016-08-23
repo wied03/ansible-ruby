@@ -1,39 +1,34 @@
 # See LICENSE.txt for license
 require 'json'
 
+require_relative './option_data'
+
 module Ansible
   module Ruby
     module Parser
       module Option
-        BOOLEAN_OPTIONS = [true, false]
-
         class << self
           def parse(name, details, example)
             puts "parsing option #{name}"
             details = details.symbolize_keys
             # can be both an array and string
             description = [*details[:description]]
-            type_details = derive_type name, details, example
+            sample_values = find_sample_values name, details, example
+            puts "samples values #{sample_values}"
+            type = derive_type sample_values
+            puts "type is #{type}"
             OptionData.new name: name,
                            description: description,
-                           required: type_details[:required],
-                           type: type_details[:type],
-                           flat_array: type_details[:flat_array]
+                           required: details[:required],
+                           type: type,
+                           flat_array: flat_array(sample_values),
+                           choices: parsed_choices(details)
           rescue
             $stderr << "Problem parsing option #{name}!"
             raise
           end
 
           private
-
-          def derive_type(attribute, details, example)
-            sample_values = find_sample_values attribute, details, example
-            {
-              type: sample_values && identify_non_choice_value(sample_values),
-              required: details[:required],
-              flat_array: flat_array(sample_values)
-            }
-          end
 
           def find_sample_values(attribute, details, example)
             union_type = is_union_type? details
@@ -113,8 +108,8 @@ module Ansible
             end]
           end
 
-          def identify_non_choice_value(value)
-            puts "ident non choice #{value}"
+          def derive_type(value)
+            return nil if value.is_a? NilClass
             value = unquote_string(value) if value.is_a?(String) && !is_variable_expression?(value)
             flat_array = flat_array value
             if flat_array

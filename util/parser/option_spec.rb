@@ -2,11 +2,16 @@
 require 'spec_helper'
 require 'ansible-ruby'
 require_relative './option'
+require_relative '../option_formatter'
 
 describe Ansible::Ruby::Parser::Option do
   describe '::parse' do
     # match the expected multiline string stuff
-    subject { Ansible::Ruby::Parser::Option.parse(name, details, example).join("\n")+"\n" }
+    subject do
+      option_data = Ansible::Ruby::Parser::Option.parse(name, details, example)
+      Ansible::Ruby::OptionFormatter.format(option_data).join("\n")+"\n"
+    end
+
     let(:name) { 'login_user' }
     let(:example) do
       [

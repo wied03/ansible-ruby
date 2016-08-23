@@ -2,6 +2,8 @@
 module Ansible
   module Ruby
     module OptionFormatter
+      BOOLEAN_OPTIONS = [true, false]
+
       class << self
         def format(option_data)
           lines = []
@@ -25,8 +27,8 @@ module Ansible
         private
 
         def format_yard_return_type(option_data)
-          type = option_data[:type]
-          types = if (choices = option_data[:choices])
+          type = option_data.type
+          types = if (choices = option_data.choices)
                     if (BOOLEAN_OPTIONS - choices).empty?
                       choices = choices - BOOLEAN_OPTIONS
                       choices << 'Boolean'
@@ -39,7 +41,7 @@ module Ansible
                     type || Object
                   end
           types = [*types]
-          types << nil unless option_data[:required]
+          types << nil unless option_data.required?
           formatted = [*types].map do |each_type|
             case each_type
             when Class
@@ -57,7 +59,7 @@ module Ansible
 
         def format_validations(option_data)
           validations = {}
-          required = option_data[:required]
+          required = option_data.required?
           type = option_data.type
           # keep code lighter if not required
           validations[:presence] = true if required
@@ -70,7 +72,7 @@ module Ansible
                                else
                                  type.name
                                end if type
-          if (choices = option_data[:choices])
+          if (choices = option_data.choices)
             validations[:inclusion] = {
               in: choices,
               message: "%{value} needs to be #{choices.map { |sym| "#{sym.inspect}" }.join(', ')}"
