@@ -118,7 +118,10 @@ module Ansible
               # Vsphere guest, complex, pick 1 example
               /(- vsphere_guest:.*?)^-.*/m => '\1',
               # os_server, complex, pick 1 example
-              /(- os_server:.*?)^-.*/m => '\1'
+              /(- os_server:.*?)^-.*/m => '\1',
+              # ec2_asg - bad comments
+              /^# Rolling ASG Updates.*?launch configuration\.$/m => '# comments',
+              /^To only replace a couple of instances.*replace_instances":/m => '# comments'
             }
             dirty_patterns.inject(yaml) do |fixed_yaml, find_replace|
               fixed_yaml.gsub find_replace[0], find_replace[1]
