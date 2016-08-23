@@ -50,8 +50,12 @@ end
 
 def get_yaml(file)
   python = File.read file
-  desc = /DOCUMENTATION.*'''(.*)'''/m.match(python)
-  raise "description is #{desc}"
+  match = /^DOCUMENTATION.*?'''(.*?)'''/m.match(python)
+  raise "Unable to find description in #{file}" unless match
+  description = match[1]
+  match = /^EXAMPLES.*?'''(.*?)'''/m.match(python)
+  raise "Unable to find examples in #{file}" unless match
+  [description, match[1]]
 end
 
 desc 'Update/generate Ruby modules from Ansible modules'
