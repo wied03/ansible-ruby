@@ -7,3 +7,4 @@ Gemfile.lock
 /.eggs
 *_test.yml
 /debug_*.yml
+/lib/ansible/ruby/modules/generated
