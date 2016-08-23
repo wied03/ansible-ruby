@@ -84,7 +84,9 @@ module Ansible
               # vmware_vswitch
               /^Example from Ansible playbook$/ => '# Example from Ansible playbook',
               # vmware_target_canonical_facts - indentation
-              /- name: Get Canonical name.*local_action: \>/m => "- name: Get Canonical name\n  local_action: >"
+              /- name: Get Canonical name.*local_action: \>/m => "- name: Get Canonical name\n  local_action: >",
+              # vmware_dvs_portgroup
+              /name: Create Management portgroup.*local_action:/m => "name: Create Management portgroup\n     local_action:"
             }
             dirty_patterns.inject(yaml) do |fixed_yaml, find_replace|
               fixed_yaml.gsub find_replace[0], find_replace[1]

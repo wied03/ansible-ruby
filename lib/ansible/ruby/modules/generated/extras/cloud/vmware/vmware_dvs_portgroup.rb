@@ -6,23 +6,23 @@ module Ansible
   module Ruby
     module Modules
       class Vmware_dvs_portgroup < Base
-        # @return [Object] The name of the portgroup that is to be created or deleted
+        # @return [String] The name of the portgroup that is to be created or deleted
         attribute :portgroup_name
-        validates :portgroup_name, presence: true
+        validates :portgroup_name, presence: true, type: String
 
-        # @return [Object] The name of the distributed vSwitch the port group should be created on.
+        # @return [String] The name of the distributed vSwitch the port group should be created on.
         attribute :switch_name
-        validates :switch_name, presence: true
+        validates :switch_name, presence: true, type: String
 
-        # @return [Object] The VLAN ID that should be configured with the portgroup
+        # @return [Fixnum] The VLAN ID that should be configured with the portgroup
         attribute :vlan_id
-        validates :vlan_id, presence: true
+        validates :vlan_id, presence: true, type: Fixnum
 
-        # @return [Object] The number of ports the portgroup should contain
+        # @return [Fixnum] The number of ports the portgroup should contain
         attribute :num_ports
-        validates :num_ports, presence: true
+        validates :num_ports, presence: true, type: Fixnum
 
-        # @return [Object] See VMware KB 1022312 regarding portgroup types
+        # @return [String] See VMware KB 1022312 regarding portgroup types
         attribute :portgroup_type
         validates :portgroup_type, presence: true, inclusion: {:in=>[:earlyBinding, :lateBinding, :ephemeral], :message=>"%{value} needs to be :earlyBinding, :lateBinding, :ephemeral"}
       end
