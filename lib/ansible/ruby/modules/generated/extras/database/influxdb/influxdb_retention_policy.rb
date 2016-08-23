@@ -6,9 +6,9 @@ module Ansible
   module Ruby
     module Modules
       class Influxdb_retention_policy < Base
-        # @return [Object] The hostname or IP address on which InfluxDB server is listening
+        # @return [String] The hostname or IP address on which InfluxDB server is listening
         attribute :hostname
-        validates :hostname, presence: true
+        validates :hostname, presence: true, type: String
 
         # @return [String] Username that will be used to authenticate against InfluxDB server
         attribute :username
@@ -22,21 +22,21 @@ module Ansible
         attribute :port
         validates :port, type: Fixnum
 
-        # @return [Object] Name of the database where retention policy will be created
+        # @return [String] Name of the database where retention policy will be created
         attribute :database_name
-        validates :database_name, presence: true
+        validates :database_name, presence: true, type: String
 
-        # @return [Object] Name of the retention policy
+        # @return [String] Name of the retention policy
         attribute :policy_name
-        validates :policy_name, presence: true
+        validates :policy_name, presence: true, type: String
 
-        # @return [Object] Determines how long InfluxDB should keep the data
+        # @return [String] Determines how long InfluxDB should keep the data
         attribute :duration
-        validates :duration, presence: true
+        validates :duration, presence: true, type: String
 
-        # @return [Object] Determines how many independent copies of each point are stored in the cluster
+        # @return [Fixnum] Determines how many independent copies of each point are stored in the cluster
         attribute :replication
-        validates :replication, presence: true
+        validates :replication, presence: true, type: Fixnum
 
         # @return [Object] Sets the retention policy as default retention policy
         attribute :default

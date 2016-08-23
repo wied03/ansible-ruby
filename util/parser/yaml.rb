@@ -73,7 +73,9 @@ module Ansible
               # pagerduty
               /- pagerduty_alert:\n\s+name: companyabc/ => "- pagerduty_alert:\n                      name=companyabc",
               # datalog - not escaped properly
-              'query: "datadog.agent.up".over("host:host1").last(2).count_by_status()"' => 'query: "datadog.agent.up"'
+              'query: "datadog.agent.up".over("host:host1").last(2).count_by_status()"' => 'query: "datadog.agent.up"',
+              # influxdb_retention_policy - indentation
+              '    influxdb_retention_policy:' => '  influxdb_retention_policy:'
             }
             dirty_patterns.inject(yaml) do |fixed_yaml, find_replace|
               fixed_yaml.gsub find_replace[0], find_replace[1]
