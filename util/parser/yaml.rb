@@ -21,7 +21,15 @@ module Ansible
           end
 
           def remove_middle_comments(yaml)
-            yaml.gsub /^(#.*?)^-/m, '-'
+            is_array = false
+            index = 0
+            yaml.split("\n").map do |line|
+              # Exclude lines that aren't white space or indentations for arrays
+              next nil if is_array && ![' ', '-'].include?(line[0])
+              is_array = true if line.start_with?('-') && !line.start_with?('---')
+              index += 1
+              line
+            end.join "\n"
           end
         end
       end

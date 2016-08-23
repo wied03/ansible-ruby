@@ -60,8 +60,8 @@ YAML
                  template='template0'
 YAML
     end
-    context 'standard' do
 
+    context 'standard' do
       it do
         is_expected.to eq <<RUBY
 # See LICENSE.txt at root of repository
