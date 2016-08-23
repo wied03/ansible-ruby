@@ -52,7 +52,11 @@ module Ansible
               "gluster_volume: state=present name=test1 options='{performance.cache-size: 256MB}'" => "gluster_volume: 'state=present name=test1 options=''{performance.cache-size: 256MB}'''",
               # postgresql_user
               /"When passing an encrypted password.*/ => 'When passing an encrypted password, the encrypted parameter must also be true, and it must be generated with the format in the Ansible docs',
-              'INSERT,UPDATE/table:SELECT/anothertable:ALL' => '- postgresql_user: priv=INSERT,UPDATE/table:SELECT/anothertable:ALL'
+              'INSERT,UPDATE/table:SELECT/anothertable:ALL' => '- postgresql_user: priv=INSERT,UPDATE/table:SELECT/anothertable:ALL',
+              # get_ent
+              '- getent: database=shadow key=www-data split=:' => "- getent: 'database=shadow key=www-data split=:'",
+              # crypttab
+              "when: '/dev/mapper/luks-' in {{ item.device }}" => "when: \"'/dev/mapper/luks-' in {{ item.device }}\""
             }
             dirty_patterns.inject(yaml) do |fixed_yaml, find_replace|
               fixed_yaml.gsub find_replace[0], find_replace[1]

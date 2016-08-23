@@ -6,11 +6,11 @@ module Ansible
   module Ruby
     module Modules
       class Crypttab < Base
-        # @return [Object] Name of the encrypted block device as it appears in the C(/etc/crypttab) file, or optionaly prefixed with C(/dev/mapper/), as it appears in the filesystem. I(/dev/mapper/) will be stripped from I(name).
+        # @return [String] Name of the encrypted block device as it appears in the C(/etc/crypttab) file, or optionaly prefixed with C(/dev/mapper/), as it appears in the filesystem. I(/dev/mapper/) will be stripped from I(name).
         attribute :name
-        validates :name, presence: true
+        validates :name, presence: true, type: String
 
-        # @return [Object] Use I(present) to add a line to C(/etc/crypttab) or update it's definition if already present. Use I(absent) to remove a line with matching I(name). Use I(opts_present) to add options to those already present; options with different values will be updated. Use I(opts_absent) to remove options from the existing set.
+        # @return [String] Use I(present) to add a line to C(/etc/crypttab) or update it's definition if already present. Use I(absent) to remove a line with matching I(name). Use I(opts_present) to add options to those already present; options with different values will be updated. Use I(opts_absent) to remove options from the existing set.
         attribute :state
         validates :state, presence: true, inclusion: {:in=>[:present, :absent, :opts_present, :opts_absent], :message=>"%{value} needs to be :present, :absent, :opts_present, :opts_absent"}
 
@@ -21,8 +21,9 @@ module Ansible
         attribute :password
         validates :password, type: String
 
-        # @return [Object] A comma-delimited list of options. See C(crypttab(5) ) for details.
+        # @return [String] A comma-delimited list of options. See C(crypttab(5) ) for details.
         attribute :opts
+        validates :opts, type: String
 
         # @return [String] Path to file to use instead of C(/etc/crypttab). This might be useful in a chroot environment.
         attribute :path

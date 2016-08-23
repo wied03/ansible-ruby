@@ -6,9 +6,9 @@ module Ansible
   module Ruby
     module Modules
       class Getent < Base
-        # @return [Object] the name of a getent database supported by the target system (passwd, group, hosts, etc).
+        # @return [String] the name of a getent database supported by the target system (passwd, group, hosts, etc).
         attribute :database
-        validates :database, presence: true
+        validates :database, presence: true, type: String
 
         # @return [String] key from which to return values from the specified database, otherwise the full contents are returned.
         attribute :key
