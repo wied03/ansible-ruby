@@ -10,13 +10,13 @@ module Ansible
       INDENT = Array.new(8, ' ').join ''
 
       class << self
-        def from_yaml_string(desc_yaml, example_yaml)
+        def from_yaml_string(desc_yaml, example_yaml, example_fail_is_ok)
           description = Yaml.parse desc_yaml, 'description'
           mod = description['module']
           example = begin
             Yaml.parse example_yaml, 'example', mod
           rescue
-            raise unless ENV['IGNORE_EXAMPLES']
+            raise unless ENV['IGNORE_EXAMPLES'] || example_fail_is_ok
             nil
           end
           klass mod do

@@ -6,17 +6,17 @@ module Ansible
   module Ruby
     module Modules
       class Pushover < Base
-        # @return [Object] What message you wish to send.
+        # @return [String] What message you wish to send.
         attribute :msg
-        validates :msg, presence: true
+        validates :msg, presence: true, type: String
 
-        # @return [Object] Pushover issued token identifying your pushover app.
+        # @return [String] Pushover issued token identifying your pushover app.
         attribute :app_token
-        validates :app_token, presence: true
+        validates :app_token, presence: true, type: String
 
-        # @return [Object] Pushover issued authentication key for your user.
+        # @return [String] Pushover issued authentication key for your user.
         attribute :user_key
-        validates :user_key, presence: true
+        validates :user_key, presence: true, type: String
 
         # @return [Object] Message priority (see U(https://pushover.net) for details.)
         attribute :pri

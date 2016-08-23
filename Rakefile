@@ -48,19 +48,23 @@ task ansible_lint: (PLAYBOOKS << :python_dependencies) do
   end
 end
 
+no_examples_ok = %w(async_status.py nmcli.py)
+SKIP_EXAMPLES_REGEX = no_examples_ok.map { |text| Regexp.new text }
+
+def skip_example?(file)
+  SKIP_EXAMPLES_REGEX.any? { |regex| regex.match(file) }
+end
+
 def get_yaml(file)
   python = File.read file
   match = /^DOCUMENTATION.*?['"]{3}(.*?)['"]{3}/m.match(python)
   raise "Unable to find description in #{file}" unless match
   description = match[1]
   match = /^EXAMPLES.*?['"]{3}(.*?)['"]{3}/m.match(python)
-  no_examples_ok = /async_status\.py/
   examples = if match
                match[1]
              else
-               unless no_examples_ok.match(file)
-                 raise "Unable to find examples in #{file}"
-               end
+               raise "Unable to find examples in #{file}" unless skip_example?(file)
              end
   [description, examples]
 end
@@ -87,7 +91,8 @@ task :update_modules => :python_dependencies do
       for_file << 'Retrieving description and example'
       description, example = get_yaml file
       for_file << 'Parsing YAML'
-      ruby_result = Ansible::Ruby::Parser.from_yaml_string description, example
+      example_fail_is_ok = skip_example?(file)
+      ruby_result = Ansible::Ruby::Parser.from_yaml_string description, example, example_fail_is_ok
       python_dir = File.dirname(file)
       ruby_filename = File.basename(file, '.py') + '.rb'
       module_path = Pathname.new(python_dir).relative_path_from(modules_dir)

@@ -5,7 +5,8 @@ require_relative './parser'
 
 describe Ansible::Ruby::Parser do
   describe '::from_yaml_string' do
-    subject { Ansible::Ruby::Parser.from_yaml_string desc_yaml, example_yaml }
+    subject { Ansible::Ruby::Parser.from_yaml_string desc_yaml, example_yaml, example_fail_is_ok }
+    let(:example_fail_is_ok) { false }
 
     let(:desc_yaml) do
       <<YAML
