@@ -86,7 +86,24 @@ YAML
                               }
                             ]
         end
+      end
 
+      context 'valid comments' do
+        let(:input_yaml) do
+          <<YAML
+- postgresql_db: name=acme
+# Comment
+- postgresql_db: name=acme
+                 encoding='UTF-8'
+YAML
+        end
+
+        it do
+          is_expected.to eq [
+                              { 'postgresql_db' => 'name=acme' },
+                              { 'postgresql_db' => "name=acme encoding='UTF-8'" }
+                            ]
+        end
       end
     end
   end
