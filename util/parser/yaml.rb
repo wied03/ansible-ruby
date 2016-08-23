@@ -31,7 +31,9 @@ module Ansible
               '  filters parameters are Not mutually exclusive)' => '#  filters parameters are Not mutually exclusive)',
               /^\$\s*ansible -i.*/ => '# non commented $ansible command removed', # often before --- in YAML files but not commented out, throws off parser
               'C:\\Users\\Phil\\' => 'C:\\\\\Users\\\\\Phil\\\\\\', # win_unzip
-              /host.*^\}/m => '# Removed invalid YAML' # win_iis_website
+              /host.*^\}/m => '# Removed invalid YAML', # win_iis_website
+              '- name: Remove FullControl AccessRule for IIS_IUSRS' => '-   name: Remove FullControl AccessRule for IIS_IUSRS', # win_acl indentation
+              '- name: Deny Deny' => '-   name: Deny Deny' # more win_acl
             }
             dirty_patterns.inject(yaml) do |fixed_yaml, find_replace|
               fixed_yaml.gsub find_replace[0], find_replace[1]
