@@ -93,5 +93,41 @@ end
 RUBY
       end
     end
+
+    context 'no options' do
+      let(:desc_yaml) do
+        <<YAML
+---
+module: os_auth
+short_description: Retrieve an auth token
+version_added: "2.0"
+author: "Monty Taylor (@emonty)"
+description:
+    - Retrieve an auth token from an OpenStack Cloud
+requirements:
+    - "python >= 2.6"
+    - "shade"
+extends_documentation_fragment: openstack
+YAML
+      end
+
+      it do
+        is_expected.to eq <<RUBY
+# See LICENSE.txt at root of repository
+# GENERATED FILE - DO NOT EDIT!!
+require 'ansible/ruby/modules/base'
+
+module Ansible
+  module Ruby
+    module Modules
+      class Os_auth < Base
+
+      end
+    end
+  end
+end
+RUBY
+      end
+    end
   end
 end

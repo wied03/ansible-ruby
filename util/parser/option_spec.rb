@@ -99,6 +99,20 @@ validates :login_user, inclusion: {:in=>[:present, true, false], :message=>"%{va
 RUBY
         end
       end
+
+      context 'integers' do
+        let(:choices) { [1, 2, 3] }
+
+        let(:required) { false }
+
+        it do
+          is_expected.to eq <<RUBY
+# @return [String] The username used to authenticate with
+attribute :login_user
+validates :login_user, inclusion: {:in=>[1, 2, 3], :message=>"%{value} needs to be 1, 2, 3"}, allow_nil: true
+RUBY
+        end
+      end
     end
 
     context 'type from default' do

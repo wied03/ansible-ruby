@@ -46,8 +46,10 @@ module Ansible
                 case choice
                 when TrueClass, FalseClass
                   choice
-                else
+                when String
                   choice.to_sym
+                else
+                  choice
                 end
               end
               validations[:inclusion] = {
