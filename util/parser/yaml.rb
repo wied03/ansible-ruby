@@ -104,7 +104,10 @@ module Ansible
               # clc_blueprint_package, indentation
               '      clc_blueprint_package:' => '  clc_blueprint_package:',
               # ops template, indentation
-              '    ops_template:' => '  ops_template:'
+              '    ops_template:' => '  ops_template:',
+              # junos_template
+              /- name: replace config hierarchy\n\s+src: config.j2/ => "-   name: replace config hierarchy\n    src: config.j2",
+              /- name: overwrite the config\n\s+src: config.j2/ => "-   name: overwrite the config\n    src: config.j2"
             }
             dirty_patterns.inject(yaml) do |fixed_yaml, find_replace|
               fixed_yaml.gsub find_replace[0], find_replace[1]

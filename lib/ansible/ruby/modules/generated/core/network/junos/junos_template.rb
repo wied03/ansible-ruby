@@ -6,9 +6,9 @@ module Ansible
   module Ruby
     module Modules
       class Junos_template < Base
-        # @return [Object] The path to the config source.  The source can be either a file with config or a template that will be merged during runtime.  By default the task will search for the source file in role or playbook root folder in templates directory.
+        # @return [String] The path to the config source.  The source can be either a file with config or a template that will be merged during runtime.  By default the task will search for the source file in role or playbook root folder in templates directory.
         attribute :src
-        validates :src, presence: true
+        validates :src, presence: true, type: String
 
         # @return [Object] When this argument is configured true, the module will backup the configuration from the node prior to making any changes. The backup file will be written to backup_{{ hostname }} in the root of the playbook directory.
         attribute :backup
