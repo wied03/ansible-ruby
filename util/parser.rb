@@ -11,7 +11,8 @@ module Ansible
       class << self
         def from_yaml_string(desc_yaml, example_yaml)
           description = Yaml.parse desc_yaml, 'description'
-          example = Yaml.parse example_yaml, 'example'
+          mod = description['module']
+          example = Yaml.parse example_yaml, 'example', mod
           klass mod do
             options(description['options'], example)
           end

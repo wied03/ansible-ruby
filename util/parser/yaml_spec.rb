@@ -6,8 +6,9 @@ require_relative './yaml'
 describe Ansible::Ruby::Parser::Yaml do
   describe '::parse' do
     let(:description) { 'the_file' }
+    let(:module_name) { nil }
 
-    subject { Ansible::Ruby::Parser::Yaml.parse input_yaml, description }
+    subject { Ansible::Ruby::Parser::Yaml.parse input_yaml, description, module_name }
 
     context 'standard' do
       let(:input_yaml) do
@@ -34,6 +35,8 @@ YAML
     end
 
     context 'array item missing colon' do
+      let(:module_name) { 'postgresql_db' }
+
       let(:input_yaml) do
         <<YAML
 - postgresql_db
