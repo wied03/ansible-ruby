@@ -5,7 +5,7 @@ require_relative './yaml'
 
 describe Ansible::Ruby::Parser::Yaml do
   describe '::parse' do
-    let(:description) { 'the_file' }
+    let(:description) { 'unit_test' }
     let(:module_name) { nil }
 
     subject { Ansible::Ruby::Parser::Yaml.parse input_yaml, description, module_name }
@@ -35,26 +35,72 @@ YAML
       end
     end
 
-    context 'array item missing colon' do
-      let(:module_name) { 'postgresql_db' }
+    context 'array item colon issues' do
+      context 'missing' do
+        let(:module_name) { 'postgresql_db' }
 
-      let(:input_yaml) do
-        <<YAML
+        let(:input_yaml) do
+          <<YAML
 ---
 - postgresql_db
     aws_access_key: xxxxxxxxxxxxxxxxxxxxxxx
   register: instance
 YAML
+        end
+
+        it do
+          is_expected.to eq [
+                              {
+                                'postgresql_db' => {
+                                  'aws_access_key' => 'xxxxxxxxxxxxxxxxxxxxxxx'
+                                },
+                                'register' => 'instance'
+                              }
+                            ]
+        end
+      end
+
+      context 'extra space' do
+        let(:module_name) { 'svc' }
+
+        let(:input_yaml) do
+          <<YAML
+
+# Example action to stop svc dnscache, if running
+ - svc: name=dnscache state=stopped
+
+# Example action to kill svc dnscache, in all cases
+ - svc : name=dnscache state=killed
+# Example action to kill svc dnscache, in all cases
+ - svc : name=dnscache state=restarted
+YAML
+        end
+
+        it do
+          is_expected.to eq [
+                              { 'svc' => 'name=dnscache state=stopped' },
+                              { 'svc' => 'name=dnscache state=killed' },
+                              { 'svc' => 'name=dnscache state=restarted' }
+                            ]
+        end
+      end
+    end
+
+    context 'inline keys' do
+      let(:input_yaml) do
+        <<YAML
+# Example action to start svc dnscache, if not running
+ - svc: name=dnscache state=started
+
+# Example action to stop svc dnscache, if running
+ - svc: name=dnscache state=stopped
+YAML
       end
 
       it do
         is_expected.to eq [
-                            {
-                              'postgresql_db' => {
-                                'aws_access_key' => 'xxxxxxxxxxxxxxxxxxxxxxx'
-                              },
-                              'register' => 'instance'
-                            }
+                            { 'svc' => 'name=dnscache state=started' },
+                            { 'svc' => 'name=dnscache state=stopped' }
                           ]
       end
     end

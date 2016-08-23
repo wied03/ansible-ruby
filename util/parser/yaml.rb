@@ -27,7 +27,7 @@ module Ansible
             dirty_patterns = {
               '        azure_rm_networkinterface:' => '      azure_rm_networkinterface:',
               '     - name: Create a network interface with private IP address only (no Public IP)' => '    - name: Create a network interface with private IP address only (no Public IP)',
-              "- gc_storage:: bucket=mybucket object=key.txt src=/usr/local/myfile.txt headers='{\"Content-Encoding\": \"gzip\"}'" => "- gc_storage:: 'bucket=mybucket object=key.txt src=/usr/local/myfile.txt headers=''{\"Content-Encoding\": \"gzip\"}'''",
+              "- gc_storage: bucket=mybucket object=key.txt src=/usr/local/myfile.txt headers='{\"Content-Encoding\": \"gzip\"}'" => "- gc_storage: 'bucket=mybucket object=key.txt src=/usr/local/myfile.txt headers=''{\"Content-Encoding\": \"gzip\"}'''",
               '  filters parameters are Not mutually exclusive)' => '#  filters parameters are Not mutually exclusive)',
               /^\$\s*ansible -i.*/ => '# non commented $ansible command removed', # often before --- in YAML files but not commented out, throws off parser
               'C:\\Users\\Phil\\' => 'C:\\\\\Users\\\\\Phil\\\\\\', # win_unzip
@@ -44,7 +44,11 @@ module Ansible
           end
 
           def fix_missing_hash_entry(yaml, module_name)
-            yaml.gsub "- #{module_name}", "- #{module_name}:"
+            # fix - svc : issues
+            correct_usage = "- #{module_name}:"
+            yaml = yaml.gsub "- #{module_name} :", correct_usage
+            # missing colon entirely
+            yaml.gsub /- #{module_name}(?!\:)/, correct_usage
           end
 
           def remove_middle_comments(yaml)
