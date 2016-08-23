@@ -62,7 +62,9 @@ module Ansible
               # bower
               'description: install bower locally and run from there' => '',
               # pushover
-              /has exploded in flames,.*baa5fe97f2c5ab3ca8f0bb59/m => 'has exploded in flames, It is now time to panic" app_token=wxfdksl user_key=baa5fe97f2c5ab3ca8f0bb59'
+              /has exploded in flames,.*baa5fe97f2c5ab3ca8f0bb59/m => 'has exploded in flames, It is now time to panic" app_token=wxfdksl user_key=baa5fe97f2c5ab3ca8f0bb59',
+              # ha_proxy, invalid YAML hash with array
+              'author: "Ravi Bhure (@ravibhure)"' => '# author: "Ravi Bhure (@ravibhure)"'
             }
             dirty_patterns.inject(yaml) do |fixed_yaml, find_replace|
               fixed_yaml.gsub find_replace[0], find_replace[1]

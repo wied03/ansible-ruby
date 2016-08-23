@@ -48,7 +48,10 @@ task ansible_lint: (PLAYBOOKS << :python_dependencies) do
   end
 end
 
-no_examples_ok = %w(async_status.py nmcli.py)
+no_examples_ok = [
+  'async_status.py', # none exist
+  'nmcli.py' # complex examples
+]
 SKIP_EXAMPLES_REGEX = no_examples_ok.map { |text| Regexp.new text }
 
 def skip_example?(file)
