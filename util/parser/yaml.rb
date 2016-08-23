@@ -107,7 +107,9 @@ module Ansible
               '    ops_template:' => '  ops_template:',
               # junos_template
               /- name: replace config hierarchy\n\s+src: config.j2/ => "-   name: replace config hierarchy\n    src: config.j2",
-              /- name: overwrite the config\n\s+src: config.j2/ => "-   name: overwrite the config\n    src: config.j2"
+              /- name: overwrite the config\n\s+src: config.j2/ => "-   name: overwrite the config\n    src: config.j2",
+              # cl_interface_policy - incorrect comment
+              /^Example playbook entries using the cl_interface_policy module\.$/ => '# Example playbook entries using the cl_interface_policy module.'
             }
             dirty_patterns.inject(yaml) do |fixed_yaml, find_replace|
               fixed_yaml.gsub find_replace[0], find_replace[1]

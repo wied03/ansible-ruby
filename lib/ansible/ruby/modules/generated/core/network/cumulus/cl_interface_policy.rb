@@ -6,8 +6,9 @@ module Ansible
   module Ruby
     module Modules
       class Cl_interface_policy < Base
-        # @return [Object] list of ports to run initial run at 10G
-        attribute :allowed
+        # @return [Array<String>] list of ports to run initial run at 10G
+        attribute :allowed, flat_array: true
+        validates :allowed, type: TypeGeneric.new(String)
 
         # @return [String] folder to store interface files.
         attribute :location
