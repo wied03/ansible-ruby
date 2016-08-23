@@ -6,12 +6,13 @@ module Ansible
   module Ruby
     module Modules
       class Mysql_user < Base
-        # @return [Object] name of the user (role) to add or remove
+        # @return [String] name of the user (role) to add or remove
         attribute :name
-        validates :name, presence: true
+        validates :name, presence: true, type: String
 
-        # @return [Object] set the user's password.
+        # @return [String] set the user's password.
         attribute :password
+        validates :password, type: String
 
         # @return [String] Indicate that the 'password' field is a `mysql_native_password` hash
         attribute :encrypted
@@ -25,8 +26,9 @@ module Ansible
         attribute :host_all
         validates :host_all, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [Object] MySQL privileges string in the format: C(db.table:priv1,priv2)
+        # @return [String] MySQL privileges string in the format: C(db.table:priv1,priv2)
         attribute :priv
+        validates :priv, type: String
 
         # @return [String] Append the privileges defined by priv to the existing ones for this user instead of overwriting existing ones.
         attribute :append_privs
