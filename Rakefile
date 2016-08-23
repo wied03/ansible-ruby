@@ -50,7 +50,8 @@ end
 
 no_examples_ok = [
   'async_status.py', # none exist
-  'nmcli.py' # complex examples
+  'nmcli.py', # complex examples
+  'slurp.py' # no examples that aren't command lines
 ]
 SKIP_EXAMPLES_REGEX = no_examples_ok.map { |text| Regexp.new text }
 
