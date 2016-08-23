@@ -91,6 +91,8 @@ module Ansible
               /- name: Create Datacenter.*local_action: \>/m => "- name: Create Datacenter\n  local_action: >",
               # vmware_cluster - indentation
               /- name: Create Cluster.*local_action: \>/m => "- name: Create Cluster\n  local_action: >",
+              # vca_vapp
+              'vapp_name: tower' => 'vapp_name=tower'
             }
             dirty_patterns.inject(yaml) do |fixed_yaml, find_replace|
               fixed_yaml.gsub find_replace[0], find_replace[1]

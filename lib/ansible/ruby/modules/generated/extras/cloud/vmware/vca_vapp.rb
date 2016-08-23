@@ -6,9 +6,9 @@ module Ansible
   module Ruby
     module Modules
       class Vca_vapp < Base
-        # @return [Object] The name of the vCloud Air vApp instance
+        # @return [String] The name of the vCloud Air vApp instance
         attribute :vapp_name
-        validates :vapp_name, presence: true
+        validates :vapp_name, presence: true, type: String
 
         # @return [String] The name of the vApp template to use to create the vApp instance.  If the I(state) is not `absent` then the I(template_name) value must be provided.  The I(template_name) must be previously uploaded to the catalog specified by I(catalog_name)
         attribute :template_name
