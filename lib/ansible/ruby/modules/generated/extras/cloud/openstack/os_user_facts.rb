@@ -6,9 +6,9 @@ module Ansible
   module Ruby
     module Modules
       class Os_user_facts < Base
-        # @return [Object] Name or ID of the user
+        # @return [String] Name or ID of the user
         attribute :name
-        validates :name, presence: true
+        validates :name, presence: true, type: String
 
         # @return [String] Name or ID of the domain containing the user if the cloud supports domains
         attribute :domain

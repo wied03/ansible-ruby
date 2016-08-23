@@ -92,7 +92,9 @@ module Ansible
               # vmware_cluster - indentation
               /- name: Create Cluster.*local_action: \>/m => "- name: Create Cluster\n  local_action: >",
               # vca_vapp
-              'vapp_name: tower' => 'vapp_name=tower'
+              'vapp_name: tower' => 'vapp_name=tower',
+              # os_user_facts - dangling comment
+              /# Gather facts about a previously created user.*with filter/m => '# Gather facts about a previously created user in a specific domain with filter'
             }
             dirty_patterns.inject(yaml) do |fixed_yaml, find_replace|
               fixed_yaml.gsub find_replace[0], find_replace[1]
