@@ -1,0 +1,50 @@
+# See LICENSE.txt at root of repository
+# GENERATED FILE - DO NOT EDIT!!
+require 'ansible/ruby/modules/base'
+
+module Ansible
+  module Ruby
+    module Modules
+      class Sns < Base
+        # @return [String] Default message to send.
+        attribute :msg
+        validates :msg, presence: true, type: String
+
+        # @return [String] Subject line for email delivery.
+        attribute :subject
+        validates :subject, type: String
+
+        # @return [String] The topic you want to publish to.
+        attribute :topic
+        validates :topic, presence: true, type: String
+
+        # @return [Object] Message to send to email-only subscription
+        attribute :email
+
+        # @return [Object] Message to send to SQS-only subscription
+        attribute :sqs
+
+        # @return [String] Message to send to SMS-only subscription
+        attribute :sms
+        validates :sms, type: String
+
+        # @return [Object] Message to send to HTTP-only subscription
+        attribute :http
+
+        # @return [Object] Message to send to HTTPS-only subscription
+        attribute :https
+
+        # @return [String] AWS secret key. If not set then the value of the AWS_SECRET_KEY environment variable is used.
+        attribute :aws_secret_key
+        validates :aws_secret_key, type: String
+
+        # @return [String] AWS access key. If not set then the value of the AWS_ACCESS_KEY environment variable is used.
+        attribute :aws_access_key
+        validates :aws_access_key, type: String
+
+        # @return [Object] The AWS region to use. If not specified then the value of the EC2_REGION environment variable, if any, is used.
+        attribute :region
+      end
+    end
+  end
+end

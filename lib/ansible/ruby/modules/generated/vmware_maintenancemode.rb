@@ -1,0 +1,31 @@
+# See LICENSE.txt at root of repository
+# GENERATED FILE - DO NOT EDIT!!
+require 'ansible/ruby/modules/base'
+
+module Ansible
+  module Ruby
+    module Modules
+      class Vmware_maintenancemode < Base
+        # @return [String] Name of the host as defined in vCenter
+        attribute :esxi_hostname
+        validates :esxi_hostname, presence: true, type: String
+
+        # @return [Object] Specify which VSAN compliant mode to enter
+        attribute :vsan_mode
+        validates :vsan_mode, inclusion: {:in=>[:ensureObjectAccessibility, :evacuateAllData, :noAction], :message=>"%{value} needs to be :ensureObjectAccessibility, :evacuateAllData, :noAction"}, allow_nil: true
+
+        # @return [TrueClass] If True, evacuate all powered off VMs
+        attribute :evacuate
+        validates :evacuate, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+
+        # @return [Fixnum] Specify a timeout for the operation
+        attribute :timeout
+        validates :timeout, type: Fixnum
+
+        # @return [String] Enter or exit maintenance mode
+        attribute :state
+        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+      end
+    end
+  end
+end

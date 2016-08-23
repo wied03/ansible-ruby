@@ -24,7 +24,7 @@ module Ansible
             lines << parse_validations(name, details, type)
             lines.compact
           rescue
-            puts "Problem parsing option #{name}!"
+            $stderr << "Problem parsing option #{name}!"
             raise
           end
 

@@ -61,32 +61,41 @@ end
 desc 'Update/generate Ruby modules from Ansible modules'
 task :update_modules => :python_dependencies do
   ansible_dir = `python util/get_ansible.py`.strip
-  files = FileList[File.join(ansible_dir, 'modules/core/**/*.py')]
+  files = FileList[File.join(ansible_dir, 'modules/**/*.py')]
             .exclude('**/*/_*.py')
   already_processed = []
   fails = {}
   files.each do |file|
-    puts "****** Begin file #{file}"
+    for_file = []
+    out = StringIO.new
+    $stderr = out
     begin
-      puts 'Retrieving description and example'
+      for_file << 'Retrieving description and example'
       description, example = get_yaml file
-      puts 'Parsing YAML'
+      for_file << 'Parsing YAML'
       ruby_result = Ansible::Ruby::Parser.from_yaml_string description, example
       ruby_path = File.join('lib/ansible/ruby/modules/generated', File.basename(file, '.py')) + '.rb'
-      puts "Writing Ruby code to #{ruby_path}"
+      for_file << "Writing Ruby code to #{ruby_path}"
       if already_processed.include? ruby_path
         raise "We've already processed #{ruby_path}"
       end
       already_processed << ruby_path
       File.write ruby_path, ruby_result
     rescue StandardError => e
-      fails[file] = e
+      for_file << $stderr.string
+      fails[file] = {
+        exception: e,
+        output: for_file.join("\n")
+      }
+    ensure
+      $stderr = STDERR
     end
-    puts "******   End file #{file}"
   end
 
-  fails.each do |file, exception|
-    puts "Failed file #{file}, exception:"
+  fails.each do |file, details|
+    puts "Failed file #{file}"
+    puts details[:output]
+    exception = details[:exception]
     puts exception
     puts exception.backtrace
     puts '-----------------------------------'

@@ -11,7 +11,7 @@ module Ansible
             File.write "debug_#{description}.yml", yaml_string
             YAML.load yaml_string
           rescue StandardError
-            puts "Problem parsing #{description}!"
+            $stderr << "Problem parsing #{description}!"
             raise
           end
 
