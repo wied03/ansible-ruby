@@ -87,7 +87,7 @@ RUBY
 
         it do
           is_expected.to eq <<RUBY
-# @return [Symbol] The username used to authenticate with
+# @return [:present, :absent] The username used to authenticate with
 attribute :login_user
 validates :login_user, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
 RUBY
@@ -99,7 +99,7 @@ RUBY
 
         it do
           is_expected.to eq <<RUBY
-# @return [Symbol] The username used to authenticate with
+# @return [:present, :absent, nil] The username used to authenticate with
 attribute :login_user
 validates :login_user, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 RUBY
@@ -112,7 +112,7 @@ RUBY
 
         it do
           is_expected.to eq <<RUBY
-# @return [Object] The username used to authenticate with
+# @return [1, :abc, nil] The username used to authenticate with
 attribute :login_user
 validates :login_user, inclusion: {:in=>[1, :abc], :message=>"%{value} needs to be 1, :abc"}, allow_nil: true
 RUBY
@@ -124,7 +124,7 @@ RUBY
 
         it do
           is_expected.to eq <<RUBY
-# @return [Symbol] The username used to authenticate with
+# @return [:present, :absent, nil] The username used to authenticate with
 attribute :login_user
 validates :login_user, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 RUBY
@@ -138,7 +138,7 @@ RUBY
 
           it do
             is_expected.to eq <<RUBY
-# @return [Object] The username used to authenticate with
+# @return [:present, Boolean, nil] The username used to authenticate with
 attribute :login_user
 validates :login_user, inclusion: {:in=>[:present, true, false], :message=>"%{value} needs to be :present, true, false"}, allow_nil: true
 RUBY
@@ -151,7 +151,7 @@ RUBY
 
           it do
             is_expected.to eq <<RUBY
-# @return [Boolean] The username used to authenticate with
+# @return [Boolean, nil] The username used to authenticate with
 attribute :login_user
 validates :login_user, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 RUBY
@@ -165,7 +165,7 @@ RUBY
 
         it do
           is_expected.to eq <<RUBY
-# @return [Fixnum] The username used to authenticate with
+# @return [1, 2, 3, nil] The username used to authenticate with
 attribute :login_user
 validates :login_user, inclusion: {:in=>[1, 2, 3], :message=>"%{value} needs to be 1, 2, 3"}, allow_nil: true
 RUBY
