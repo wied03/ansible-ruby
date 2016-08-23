@@ -26,7 +26,8 @@ module Ansible
           def fix_indents(yaml)
             sub = {
               '        azure_rm_networkinterface:' => '      azure_rm_networkinterface:',
-              '     - name: Create a network interface with private IP address only (no Public IP)' => '    - name: Create a network interface with private IP address only (no Public IP)'
+              '     - name: Create a network interface with private IP address only (no Public IP)' => '    - name: Create a network interface with private IP address only (no Public IP)',
+              "- gc_storage:: bucket=mybucket object=key.txt src=/usr/local/myfile.txt headers='{\"Content-Encoding\": \"gzip\"}'" => "- gc_storage:: 'bucket=mybucket object=key.txt src=/usr/local/myfile.txt headers=''{\"Content-Encoding\": \"gzip\"}'''"
             }
             with_yaml_lines yaml do |line|
               replacement = sub.find {|old_val, _| line.include? old_val}
