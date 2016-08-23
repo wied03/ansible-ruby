@@ -63,11 +63,7 @@ module Ansible
             if (default = details[:default])
               default
             else
-              value_hash = if example.any? { |ex| ex['name'] }
-                             process_hash(example)
-                           else
-                             process_inline(example)
-                           end
+              value_hash = process_hash(example)
               sample_value = value_hash[attribute]
               sample_value && sample_value
             end
@@ -87,14 +83,6 @@ module Ansible
             # Only want to get everything on the same level
             flattened = kv_array.flatten(1)
             Hash[flattened]
-          end
-
-          def process_inline(example)
-            value_array = example.map { |ex| ex.values }.flatten
-            key_value_str = value_array.map do |value|
-              value.split ' '
-            end.flatten
-            Hash[split_equal_sign_pairs(key_value_str)]
           end
 
           def split_equal_sign_pairs(key_value_str)

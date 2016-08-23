@@ -236,7 +236,25 @@ RUBY
       end
 
       context 'something like parser fail' do
-        pending 'write this'
+        let(:name) { 'something' }
+
+        let(:example) do
+          [
+            'postgresql_db' => {
+              'something' => 450.4,
+              'name' => 'newtest'
+            },
+            'register' => 'instance'
+          ]
+        end
+
+        it do
+          is_expected.to eq <<RUBY
+# @return [Float] The username used to authenticate with
+attribute :something
+validates :something, type: Float
+RUBY
+        end
       end
 
       context 'hash' do

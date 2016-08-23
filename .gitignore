@@ -6,3 +6,4 @@ Gemfile.lock
 /pkg
 /.eggs
 *_test.yml
+/debug_*.yml
