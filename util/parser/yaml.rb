@@ -24,21 +24,17 @@ module Ansible
           end
 
           def remove_difficult_strings(yaml)
-            sub = {
+            dirty_patterns = {
               '        azure_rm_networkinterface:' => '      azure_rm_networkinterface:',
               '     - name: Create a network interface with private IP address only (no Public IP)' => '    - name: Create a network interface with private IP address only (no Public IP)',
               "- gc_storage:: bucket=mybucket object=key.txt src=/usr/local/myfile.txt headers='{\"Content-Encoding\": \"gzip\"}'" => "- gc_storage:: 'bucket=mybucket object=key.txt src=/usr/local/myfile.txt headers=''{\"Content-Encoding\": \"gzip\"}'''",
               '  filters parameters are Not mutually exclusive)' => '#  filters parameters are Not mutually exclusive)',
               '$ ansible -i' => '# $ansible command removed',
-              'C:\\Users\\Phil\\' => 'C:\\\\\Users\\\\\Phil\\\\\\'
+              'C:\\Users\\Phil\\' => 'C:\\\\\Users\\\\\Phil\\\\\\', # win_unzip
+              /host.*^\}/m => '# Removed invalid YAML' # win_iis_website
             }
-            with_yaml_lines yaml do |line|
-              replacement = sub.find {|old_val, _| line.include? old_val}
-              if replacement
-                line.sub replacement[0], replacement[1]
-              else
-                line
-              end
+            dirty_patterns.inject(yaml) do |fixed_yaml, find_replace|
+              fixed_yaml.gsub find_replace[0], find_replace[1]
             end
           end
 
