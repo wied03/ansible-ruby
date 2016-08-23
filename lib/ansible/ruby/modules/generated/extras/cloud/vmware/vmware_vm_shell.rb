@@ -18,7 +18,7 @@ module Ansible
         attribute :vm_id
         validates :vm_id, presence: true, type: String
 
-        # @return [String] The identification tag for the VM
+        # @return [:uuid, :dns_name, :inventory_path, :vm_name, nil] The identification tag for the VM
         attribute :vm_id_type
         validates :vm_id_type, inclusion: {:in=>[:uuid, :dns_name, :inventory_path, :vm_name], :message=>"%{value} needs to be :uuid, :dns_name, :inventory_path, :vm_name"}, allow_nil: true
 

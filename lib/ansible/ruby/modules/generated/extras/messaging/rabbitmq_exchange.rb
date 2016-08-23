@@ -10,7 +10,7 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [String] Whether the exchange should be present or absent,Only present implemented atm
+        # @return [:present, :absent, nil] Whether the exchange should be present or absent,Only present implemented atm
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
@@ -33,19 +33,19 @@ module Ansible
         attribute :vhost
         validates :vhost, type: String
 
-        # @return [TrueClass] whether exchange is durable or not
+        # @return [:yes, :no, nil] whether exchange is durable or not
         attribute :durable
         validates :durable, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String] type for the exchange
+        # @return [:fanout, :direct, :headers, :topic, nil] type for the exchange
         attribute :exchange_type
         validates :exchange_type, inclusion: {:in=>[:fanout, :direct, :headers, :topic], :message=>"%{value} needs to be :fanout, :direct, :headers, :topic"}, allow_nil: true
 
-        # @return [Object] if the exchange should delete itself after all queues/exchanges unbound from it
+        # @return [:yes, :no, nil] if the exchange should delete itself after all queues/exchanges unbound from it
         attribute :auto_delete
         validates :auto_delete, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [Object] exchange is available only for other exchanges
+        # @return [:yes, :no, nil] exchange is available only for other exchanges
         attribute :internal
         validates :internal, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 

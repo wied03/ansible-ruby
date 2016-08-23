@@ -13,7 +13,7 @@ module Ansible
         # @return [Object] uuid of the exising zone.
         attribute :id
 
-        # @return [String] State of the zone.
+        # @return [:present, :enabled, :disabled, :absent, nil] State of the zone.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :enabled, :disabled, :absent], :message=>"%{value} needs to be :present, :enabled, :disabled, :absent"}, allow_nil: true
 
@@ -23,7 +23,7 @@ module Ansible
         # @return [Object] Network domain for the zone.
         attribute :network_domain
 
-        # @return [String] Network type of the zone.
+        # @return [:basic, :advanced, nil] Network type of the zone.
         attribute :network_type
         validates :network_type, inclusion: {:in=>[:basic, :advanced], :message=>"%{value} needs to be :basic, :advanced"}, allow_nil: true
 

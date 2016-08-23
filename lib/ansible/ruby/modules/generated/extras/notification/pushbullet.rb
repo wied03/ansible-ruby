@@ -18,7 +18,7 @@ module Ansible
         attribute :device
         validates :device, type: String
 
-        # @return [String] Thing you wish to push.
+        # @return [:note, :link, nil] Thing you wish to push.
         attribute :push_type
         validates :push_type, inclusion: {:in=>[:note, :link], :message=>"%{value} needs to be :note, :link"}, allow_nil: true
 

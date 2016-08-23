@@ -10,11 +10,11 @@ module Ansible
         attribute :esxi_hostname
         validates :esxi_hostname, presence: true, type: String
 
-        # @return [Object] Specify which VSAN compliant mode to enter
+        # @return [:ensureObjectAccessibility, :evacuateAllData, :noAction, nil] Specify which VSAN compliant mode to enter
         attribute :vsan_mode
         validates :vsan_mode, inclusion: {:in=>[:ensureObjectAccessibility, :evacuateAllData, :noAction], :message=>"%{value} needs to be :ensureObjectAccessibility, :evacuateAllData, :noAction"}, allow_nil: true
 
-        # @return [TrueClass] If True, evacuate all powered off VMs
+        # @return [Boolean, nil] If True, evacuate all powered off VMs
         attribute :evacuate
         validates :evacuate, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
@@ -22,7 +22,7 @@ module Ansible
         attribute :timeout
         validates :timeout, type: Fixnum
 
-        # @return [String] Enter or exit maintenance mode
+        # @return [:present, :absent, nil] Enter or exit maintenance mode
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end

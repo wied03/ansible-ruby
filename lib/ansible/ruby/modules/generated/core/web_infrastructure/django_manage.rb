@@ -6,7 +6,7 @@ module Ansible
   module Ruby
     module Modules
       class Django_manage < Base
-        # @return [String] The name of the Django management command to run. Built in commands are cleanup, collectstatic, flush, loaddata, migrate, runfcgi, syncdb, test, and validate.,Other commands can be entered, but will fail if they're unknown to Django.  Other commands that may prompt for user input should be run with the I(--noinput) flag.
+        # @return [:cleanup, :collectstatic, :flush, :loaddata, :migrate, :runfcgi, :syncdb, :test, :validate] The name of the Django management command to run. Built in commands are cleanup, collectstatic, flush, loaddata, migrate, runfcgi, syncdb, test, and validate.,Other commands can be entered, but will fail if they're unknown to Django.  Other commands that may prompt for user input should be run with the I(--noinput) flag.
         attribute :command
         validates :command, presence: true, inclusion: {:in=>[:cleanup, :collectstatic, :flush, :loaddata, :migrate, :runfcgi, :syncdb, :test, :validate], :message=>"%{value} needs to be :cleanup, :collectstatic, :flush, :loaddata, :migrate, :runfcgi, :syncdb, :test, :validate"}
 
@@ -36,7 +36,7 @@ module Ansible
         # @return [Object] The database to target. Used by the 'createcachetable', 'flush', 'loaddata', and 'syncdb' commands.
         attribute :database
 
-        # @return [String] Fail the command immediately if a test fails. Used by the 'test' command.
+        # @return [:yes, :no, nil] Fail the command immediately if a test fails. Used by the 'test' command.
         attribute :failfast
         validates :failfast, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 

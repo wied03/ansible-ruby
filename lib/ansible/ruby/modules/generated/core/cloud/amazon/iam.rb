@@ -6,7 +6,7 @@ module Ansible
   module Ruby
     module Modules
       class Iam < Base
-        # @return [String] Type of IAM resource
+        # @return [:user, :group, :role] Type of IAM resource
         attribute :iam_type
         validates :iam_type, presence: true, inclusion: {:in=>[:user, :group, :role], :message=>"%{value} needs to be :user, :group, :role"}
 
@@ -20,7 +20,7 @@ module Ansible
         # @return [Object] When state is update, will replace the path with new_path on the IAM resource
         attribute :new_path
 
-        # @return [String] Whether to create, delete or update the IAM resource. Note, roles cannot be updated.
+        # @return [:present, :absent, :update] Whether to create, delete or update the IAM resource. Note, roles cannot be updated.
         attribute :state
         validates :state, presence: true, inclusion: {:in=>[:present, :absent, :update], :message=>"%{value} needs to be :present, :absent, :update"}
 
@@ -28,7 +28,7 @@ module Ansible
         attribute :path
         validates :path, type: String
 
-        # @return [String] When type is user, it creates, removes, deactivates or activates a user's access key(s). Note that actions apply only to keys specified.
+        # @return [:create, :remove, :active, :inactive, nil] When type is user, it creates, removes, deactivates or activates a user's access key(s). Note that actions apply only to keys specified.
         attribute :access_key_state
         validates :access_key_state, inclusion: {:in=>[:create, :remove, :active, :inactive], :message=>"%{value} needs to be :create, :remove, :active, :inactive"}, allow_nil: true
 
@@ -46,7 +46,7 @@ module Ansible
         attribute :password
         validates :password, type: String
 
-        # @return [String] C(always) will update passwords if they differ.  C(on_create) will only set the password for newly created users.
+        # @return [:always, :on_create, nil] C(always) will update passwords if they differ.  C(on_create) will only set the password for newly created users.
         attribute :update_password
         validates :update_password, inclusion: {:in=>[:always, :on_create], :message=>"%{value} needs to be :always, :on_create"}, allow_nil: true
       end

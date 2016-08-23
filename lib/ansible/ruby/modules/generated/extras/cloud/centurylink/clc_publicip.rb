@@ -6,7 +6,7 @@ module Ansible
   module Ruby
     module Modules
       class Clc_publicip < Base
-        # @return [String] The protocol that the public IP will listen for.
+        # @return [:TCP, :UDP, :ICMP, nil] The protocol that the public IP will listen for.
         attribute :protocol
         validates :protocol, inclusion: {:in=>[:TCP, :UDP, :ICMP], :message=>"%{value} needs to be :TCP, :UDP, :ICMP"}, allow_nil: true
 
@@ -18,11 +18,11 @@ module Ansible
         attribute :server_ids
         validates :server_ids, presence: true
 
-        # @return [String] Determine whether to create or delete public IPs. If present module will not create a second public ip if one already exists.
+        # @return [:present, :absent, nil] Determine whether to create or delete public IPs. If present module will not create a second public ip if one already exists.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [TrueClass] Whether to wait for the tasks to finish before returning.
+        # @return [Boolean, nil] Whether to wait for the tasks to finish before returning.
         attribute :wait
         validates :wait, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
       end

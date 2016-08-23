@@ -6,7 +6,7 @@ module Ansible
   module Ruby
     module Modules
       class Ecs_service < Base
-        # @return [String] The desired state of the service
+        # @return [:present, :absent, :deleting] The desired state of the service
         attribute :state
         validates :state, presence: true, inclusion: {:in=>[:present, :absent, :deleting], :message=>"%{value} needs to be :present, :absent, :deleting"}
 

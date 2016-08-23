@@ -6,7 +6,7 @@ module Ansible
   module Ruby
     module Modules
       class Linode < Base
-        # @return [String] Indicate desired state of the resource
+        # @return [:present, :active, :started, :absent, :deleted, :stopped, :restarted, nil] Indicate desired state of the resource
         attribute :state
         validates :state, inclusion: {:in=>[:present, :active, :started, :absent, :deleted, :stopped, :restarted], :message=>"%{value} needs to be :present, :active, :started, :absent, :deleted, :stopped, :restarted"}, allow_nil: true
 
@@ -26,7 +26,7 @@ module Ansible
         attribute :plan
         validates :plan, type: Fixnum
 
-        # @return [Fixnum] payment term to use for the instance (payment term in months)
+        # @return [1, 12, 24, nil] payment term to use for the instance (payment term in months)
         attribute :payment_term
         validates :payment_term, inclusion: {:in=>[1, 12, 24], :message=>"%{value} needs to be 1, 12, 24"}, allow_nil: true
 
@@ -50,7 +50,7 @@ module Ansible
         attribute :datacenter
         validates :datacenter, type: Fixnum
 
-        # @return [String] wait for the instance to be in state 'running' before returning
+        # @return [:yes, :no, nil] wait for the instance to be in state 'running' before returning
         attribute :wait
         validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 

@@ -6,7 +6,7 @@ module Ansible
   module Ruby
     module Modules
       class Zabbix_maintenance < Base
-        # @return [String] Create or remove a maintenance window.
+        # @return [:present, :absent, nil] Create or remove a maintenance window.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 

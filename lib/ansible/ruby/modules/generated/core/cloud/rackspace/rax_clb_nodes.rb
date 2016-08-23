@@ -10,7 +10,7 @@ module Ansible
         attribute :address
         validates :address, type: String
 
-        # @return [String] Condition for the node, which determines its role within the load balancer
+        # @return [:enabled, :disabled, :draining, nil] Condition for the node, which determines its role within the load balancer
         attribute :condition
         validates :condition, inclusion: {:in=>[:enabled, :disabled, :draining], :message=>"%{value} needs to be :enabled, :disabled, :draining"}, allow_nil: true
 
@@ -26,15 +26,15 @@ module Ansible
         attribute :port
         validates :port, type: Fixnum
 
-        # @return [String] Indicate desired state of the node
+        # @return [:present, :absent, nil] Indicate desired state of the node
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [String] Type of node
+        # @return [:primary, :secondary, nil] Type of node
         attribute :type
         validates :type, inclusion: {:in=>[:primary, :secondary], :message=>"%{value} needs to be :primary, :secondary"}, allow_nil: true
 
-        # @return [String] Wait for the load balancer to become active before returning
+        # @return [:yes, :no, nil] Wait for the load balancer to become active before returning
         attribute :wait
         validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 

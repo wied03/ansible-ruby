@@ -10,11 +10,11 @@ module Ansible
         attribute :key
         validates :key, presence: true, type: String
 
-        # @return [String] Wheather the key will be imported or removed from the rpm db.
+        # @return [:present, :absent, nil] Wheather the key will be imported or removed from the rpm db.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [String] If C(no) and the C(key) is a url starting with https, SSL certificates will not be validated. This should only be used on personally controlled sites using self-signed certificates.
+        # @return [:yes, :no, nil] If C(no) and the C(key) is a url starting with https, SSL certificates will not be validated. This should only be used on personally controlled sites using self-signed certificates.
         attribute :validate_certs
         validates :validate_certs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end

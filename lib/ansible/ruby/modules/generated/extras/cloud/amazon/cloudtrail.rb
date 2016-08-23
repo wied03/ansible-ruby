@@ -6,7 +6,7 @@ module Ansible
   module Ruby
     module Modules
       class Cloudtrail < Base
-        # @return [String] add or remove CloudTrail configuration.
+        # @return [:enabled, :disabled] add or remove CloudTrail configuration.
         attribute :state
         validates :state, presence: true, inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}
 
@@ -21,7 +21,7 @@ module Ansible
         attribute :s3_key_prefix
         validates :s3_key_prefix, type: String
 
-        # @return [Object] record API calls from global services such as IAM and STS?
+        # @return [:true, :false, nil] record API calls from global services such as IAM and STS?
         attribute :include_global_events
         validates :include_global_events, inclusion: {:in=>[:true, :false], :message=>"%{value} needs to be :true, :false"}, allow_nil: true
 

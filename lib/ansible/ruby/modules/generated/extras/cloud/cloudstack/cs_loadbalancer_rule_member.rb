@@ -17,7 +17,7 @@ module Ansible
         attribute :vms
         validates :vms, presence: true, type: Array
 
-        # @return [String] Should the VMs be present or absent from the rule.
+        # @return [:present, :absent, nil] Should the VMs be present or absent from the rule.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 

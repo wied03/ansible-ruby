@@ -22,7 +22,7 @@ module Ansible
         attribute :owner
         validates :owner, type: String
 
-        # @return [String] Whether to create C(present), or drop C(absent) a schema.
+        # @return [:present, :absent, nil] Whether to create C(present), or drop C(absent) a schema.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 

@@ -22,7 +22,7 @@ module Ansible
         attribute :description
         validates :description, type: String
 
-        # @return [String] wait for the copied AMI to be in state 'available' before returning.
+        # @return [:yes, :no, nil] wait for the copied AMI to be in state 'available' before returning.
         attribute :wait
         validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 

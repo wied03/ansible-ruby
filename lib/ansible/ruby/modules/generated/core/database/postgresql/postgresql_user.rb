@@ -18,7 +18,7 @@ module Ansible
         attribute :db
         validates :db, type: String
 
-        # @return [String] if C(yes), fail when user can't be removed. Otherwise just log and continue
+        # @return [:yes, :no, nil] if C(yes), fail when user can't be removed. Otherwise just log and continue
         attribute :fail_on_user
         validates :fail_on_user, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
@@ -44,11 +44,11 @@ module Ansible
         attribute :priv, flat_array: true
         validates :priv, type: TypeGeneric.new(String)
 
-        # @return [String] PostgreSQL role attributes string in the format: CREATEDB,CREATEROLE,SUPERUSER
+        # @return [:"[NO]SUPERUSER", :"[NO]CREATEROLE", :"[NO]CREATEUSER", :"[NO]CREATEDB", :"[NO]INHERIT", :"[NO]LOGIN", :"[NO]REPLICATION", nil] PostgreSQL role attributes string in the format: CREATEDB,CREATEROLE,SUPERUSER
         attribute :role_attr_flags
         validates :role_attr_flags, inclusion: {:in=>[:"[NO]SUPERUSER", :"[NO]CREATEROLE", :"[NO]CREATEUSER", :"[NO]CREATEDB", :"[NO]INHERIT", :"[NO]LOGIN", :"[NO]REPLICATION"], :message=>"%{value} needs to be :\"[NO]SUPERUSER\", :\"[NO]CREATEROLE\", :\"[NO]CREATEUSER\", :\"[NO]CREATEDB\", :\"[NO]INHERIT\", :\"[NO]LOGIN\", :\"[NO]REPLICATION\""}, allow_nil: true
 
-        # @return [String] The user (role) state
+        # @return [:present, :absent, nil] The user (role) state
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
@@ -58,7 +58,7 @@ module Ansible
         # @return [Object] sets the user's password expiration.
         attribute :expires
 
-        # @return [String] if C(yes), don't inspect database for password changes. Effective when C(pg_authid) is not accessible (such as AWS RDS). Otherwise, make password changes as necessary.
+        # @return [:yes, :no, nil] if C(yes), don't inspect database for password changes. Effective when C(pg_authid) is not accessible (such as AWS RDS). Otherwise, make password changes as necessary.
         attribute :no_password_changes
         validates :no_password_changes, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end

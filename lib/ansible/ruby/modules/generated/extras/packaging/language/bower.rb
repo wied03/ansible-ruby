@@ -10,11 +10,11 @@ module Ansible
         attribute :name
         validates :name, type: String
 
-        # @return [Object] Install packages from local cache, if the packages were installed before
+        # @return [:yes, :no, nil] Install packages from local cache, if the packages were installed before
         attribute :offline
         validates :offline, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [Object] Install with --production flag
+        # @return [:yes, :no, nil] Install with --production flag
         attribute :production
         validates :production, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
@@ -26,7 +26,7 @@ module Ansible
         attribute :relative_execpath
         validates :relative_execpath, type: String
 
-        # @return [String] The state of the bower package
+        # @return [:present, :absent, :latest, nil] The state of the bower package
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent, :latest], :message=>"%{value} needs to be :present, :absent, :latest"}, allow_nil: true
 

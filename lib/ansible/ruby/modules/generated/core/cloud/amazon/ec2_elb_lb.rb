@@ -6,7 +6,7 @@ module Ansible
   module Ruby
     module Modules
       class Ec2_elb_lb < Base
-        # @return [String] Create or destroy the ELB
+        # @return [:present, :absent] Create or destroy the ELB
         attribute :state
         validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
 
@@ -66,7 +66,7 @@ module Ansible
         attribute :scheme
         validates :scheme, type: String
 
-        # @return [String] When set to "no", SSL certificates will not be validated for boto versions >= 2.6.0.
+        # @return [:yes, :no, nil] When set to "no", SSL certificates will not be validated for boto versions >= 2.6.0.
         attribute :validate_certs
         validates :validate_certs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
@@ -78,7 +78,7 @@ module Ansible
         attribute :idle_timeout
         validates :idle_timeout, type: Fixnum
 
-        # @return [String] Distribute load across all configured Availability Zones
+        # @return [:yes, :no, nil] Distribute load across all configured Availability Zones
         attribute :cross_az_load_balancing
         validates :cross_az_load_balancing, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
@@ -86,7 +86,7 @@ module Ansible
         attribute :stickiness
         validates :stickiness, type: Hash
 
-        # @return [TrueClass] When specified, Ansible will check the status of the load balancer to ensure it has been successfully removed from AWS.
+        # @return [:yes, :no, nil] When specified, Ansible will check the status of the load balancer to ensure it has been successfully removed from AWS.
         attribute :wait
         validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 

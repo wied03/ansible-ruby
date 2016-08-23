@@ -15,7 +15,7 @@ module Ansible
         # @return [Object] List of file names relative to C(project_src). Overrides docker-compose.yml or docker-compose.yaml.,Files are loaded and merged in the order given.
         attribute :files
 
-        # @return [String] Desired state of the project.,Specifying I(present) is the same as running I(docker-compose up).,Specifying I(absent) is the same as running I(docker-compose down).
+        # @return [:absent, :present, nil] Desired state of the project.,Specifying I(present) is the same as running I(docker-compose up).,Specifying I(absent) is the same as running I(docker-compose down).
         attribute :state
         validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
@@ -35,7 +35,7 @@ module Ansible
         # @return [Object] Whether or not to check the Docker daemon's hostname against the name provided in the client certificate.
         attribute :hostname_check
 
-        # @return [String] By default containers will be recreated when their configuration differs from the service definition.,Setting to I(never) ignores configuration differences and leaves existing containers unchanged.,Setting to I(always) forces recreation of all existing containers.
+        # @return [:always, :never, :smart, nil] By default containers will be recreated when their configuration differs from the service definition.,Setting to I(never) ignores configuration differences and leaves existing containers unchanged.,Setting to I(always) forces recreation of all existing containers.
         attribute :recreate
         validates :recreate, inclusion: {:in=>[:always, :never, :smart], :message=>"%{value} needs to be :always, :never, :smart"}, allow_nil: true
 

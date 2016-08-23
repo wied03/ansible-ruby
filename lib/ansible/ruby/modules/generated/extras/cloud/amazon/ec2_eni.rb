@@ -29,7 +29,7 @@ module Ansible
         # @return [Object] List of security groups associated with the interface. Only used when state=present.
         attribute :security_groups
 
-        # @return [String] Create or delete ENI.
+        # @return [:present, :absent, nil] Create or delete ENI.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 

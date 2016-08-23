@@ -13,7 +13,7 @@ module Ansible
         # @return [Object] The description of the load balancer rule.
         attribute :description
 
-        # @return [String] Load balancer algorithm,Required when using C(state=present).
+        # @return [:source, :roundrobin, :leastconn, nil] Load balancer algorithm,Required when using C(state=present).
         attribute :algorithm
         validates :algorithm, inclusion: {:in=>[:source, :roundrobin, :leastconn], :message=>"%{value} needs to be :source, :roundrobin, :leastconn"}, allow_nil: true
 
@@ -41,7 +41,7 @@ module Ansible
         # @return [Object] Name of the project the load balancer IP address is related to.
         attribute :project
 
-        # @return [String] State of the rule.
+        # @return [:present, :absent] State of the rule.
         attribute :state
         validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
 

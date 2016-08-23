@@ -28,7 +28,7 @@ module Ansible
         # @return [Object] THe ProfitBricks password. Overrides the PB_PASSWORD environement variable.
         attribute :subscription_password
 
-        # @return [String] wait for the operation to complete before returning
+        # @return [:yes, :no, nil] wait for the operation to complete before returning
         attribute :wait
         validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
@@ -36,7 +36,7 @@ module Ansible
         attribute :wait_timeout
         validates :wait_timeout, type: Fixnum
 
-        # @return [String] Indicate desired state of the resource
+        # @return [:present, :absent, nil] Indicate desired state of the resource
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end

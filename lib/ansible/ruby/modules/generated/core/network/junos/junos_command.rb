@@ -26,7 +26,7 @@ module Ansible
         attribute :interval
         validates :interval, type: Fixnum
 
-        # @return [String] Configures the encoding scheme to use when serializing output from the device.  This handles how to properly understand the output and apply the conditionals path to the result set.
+        # @return [:xml, :text, nil] Configures the encoding scheme to use when serializing output from the device.  This handles how to properly understand the output and apply the conditionals path to the result set.
         attribute :format
         validates :format, inclusion: {:in=>[:xml, :text], :message=>"%{value} needs to be :xml, :text"}, allow_nil: true
       end

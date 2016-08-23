@@ -19,7 +19,7 @@ module Ansible
         # @return [Object] Project the instance group is related to.
         attribute :project
 
-        # @return [String] State of the instance group.
+        # @return [:present, :absent, nil] State of the instance group.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end

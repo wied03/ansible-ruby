@@ -21,7 +21,7 @@ module Ansible
         attribute :external
         validates :external, type: TrueClass
 
-        # @return [String] Indicate desired state of the resource.
+        # @return [:present, :absent, nil] Indicate desired state of the resource.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
@@ -29,7 +29,7 @@ module Ansible
         attribute :provider_physical_network
         validates :provider_physical_network, type: String
 
-        # @return [String] The type of physical network that maps to this network resource.
+        # @return [:flat, :vlan, :vxlan, :gre, nil] The type of physical network that maps to this network resource.
         attribute :provider_network_type
         validates :provider_network_type, inclusion: {:in=>[:flat, :vlan, :vxlan, :gre], :message=>"%{value} needs to be :flat, :vlan, :vxlan, :gre"}, allow_nil: true
 

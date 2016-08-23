@@ -6,7 +6,7 @@ module Ansible
   module Ruby
     module Modules
       class Solaris_zone < Base
-        # @return [String] C(present), configure and install the zone.,C(installed), synonym for C(present).,C(running), if the zone already exists, boot it, otherwise, configure and install the zone first, then boot it.,C(started), synonym for C(running).,C(stopped), shutdown a zone.,C(absent), destroy the zone.,C(configured), configure the ready so that it's to be attached.,C(attached), attach a zone, but do not boot it.,C(detached), shutdown and detach a zone
+        # @return [:present, :installed, :started, :running, :stopped, :absent, :configured, :attached, :detached] C(present), configure and install the zone.,C(installed), synonym for C(present).,C(running), if the zone already exists, boot it, otherwise, configure and install the zone first, then boot it.,C(started), synonym for C(running).,C(stopped), shutdown a zone.,C(absent), destroy the zone.,C(configured), configure the ready so that it's to be attached.,C(attached), attach a zone, but do not boot it.,C(detached), shutdown and detach a zone
         attribute :state
         validates :state, presence: true, inclusion: {:in=>[:present, :installed, :started, :running, :stopped, :absent, :configured, :attached, :detached], :message=>"%{value} needs to be :present, :installed, :started, :running, :stopped, :absent, :configured, :attached, :detached"}
 

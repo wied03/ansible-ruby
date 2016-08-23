@@ -10,11 +10,11 @@ module Ansible
         attribute :name
         validates :name, type: String
 
-        # @return [String] Indicates the desired package state. C(latest) ensures that the latest version is installed. C(build-dep) ensures the package build dependencies are installed.
+        # @return [:latest, :absent, :present, :"build-dep", nil] Indicates the desired package state. C(latest) ensures that the latest version is installed. C(build-dep) ensures the package build dependencies are installed.
         attribute :state
         validates :state, inclusion: {:in=>[:latest, :absent, :present, :"build-dep"], :message=>"%{value} needs to be :latest, :absent, :present, :\"build-dep\""}, allow_nil: true
 
-        # @return [String] Run the equivalent of C(apt-get update) before the operation. Can be run as part of the package installation or as a separate step.
+        # @return [:yes, :no, nil] Run the equivalent of C(apt-get update) before the operation. Can be run as part of the package installation or as a separate step.
         attribute :update_cache
         validates :update_cache, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
@@ -22,7 +22,7 @@ module Ansible
         attribute :cache_valid_time
         validates :cache_valid_time, type: String
 
-        # @return [Object] Will force purging of configuration files if the module state is set to I(absent).
+        # @return [:yes, :no, nil] Will force purging of configuration files if the module state is set to I(absent).
         attribute :purge
         validates :purge, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
@@ -30,19 +30,19 @@ module Ansible
         attribute :default_release
         validates :default_release, type: String
 
-        # @return [String] Corresponds to the C(--no-install-recommends) option for I(apt). C(yes) installs recommended packages.  C(no) does not install recommended packages. By default, Ansible will use the same defaults as the operating system. Suggested packages are never installed.
+        # @return [:yes, :no, nil] Corresponds to the C(--no-install-recommends) option for I(apt). C(yes) installs recommended packages.  C(no) does not install recommended packages. By default, Ansible will use the same defaults as the operating system. Suggested packages are never installed.
         attribute :install_recommends
         validates :install_recommends, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String] If C(yes), force installs/removes.
+        # @return [:yes, :no, nil] If C(yes), force installs/removes.
         attribute :force
         validates :force, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String] Ignore if packages cannot be authenticated. This is useful for bootstrapping environments that manage their own apt-key setup.
+        # @return [:yes, :no, nil] Ignore if packages cannot be authenticated. This is useful for bootstrapping environments that manage their own apt-key setup.
         attribute :allow_unauthenticated
         validates :allow_unauthenticated, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String] If yes or safe, performs an aptitude safe-upgrade.,If full, performs an aptitude full-upgrade.,If dist, performs an apt-get dist-upgrade.,Note: This does not upgrade a specific package, use state=latest for that.
+        # @return [:no, :yes, :safe, :full, :dist, nil] If yes or safe, performs an aptitude safe-upgrade.,If full, performs an aptitude full-upgrade.,If dist, performs an apt-get dist-upgrade.,Note: This does not upgrade a specific package, use state=latest for that.
         attribute :upgrade
         validates :upgrade, inclusion: {:in=>[:no, :yes, :safe, :full, :dist], :message=>"%{value} needs to be :no, :yes, :safe, :full, :dist"}, allow_nil: true
 
@@ -54,7 +54,7 @@ module Ansible
         attribute :deb
         validates :deb, type: String
 
-        # @return [Object] If C(yes), remove unused dependency packages for all module states except I(build-dep).
+        # @return [:yes, :no, nil] If C(yes), remove unused dependency packages for all module states except I(build-dep).
         attribute :autoremove
         validates :autoremove, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 

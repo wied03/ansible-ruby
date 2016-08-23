@@ -10,15 +10,15 @@ module Ansible
         attribute :security_group
         validates :security_group, presence: true, type: String
 
-        # @return [String] State of the security group rule.
+        # @return [:present, :absent, nil] State of the security group rule.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [String] Protocol of the security group rule.
+        # @return [:tcp, :udp, :icmp, :ah, :esp, :gre, nil] Protocol of the security group rule.
         attribute :protocol
         validates :protocol, inclusion: {:in=>[:tcp, :udp, :icmp, :ah, :esp, :gre], :message=>"%{value} needs to be :tcp, :udp, :icmp, :ah, :esp, :gre"}, allow_nil: true
 
-        # @return [String] Ingress or egress security group rule.
+        # @return [:ingress, :egress, nil] Ingress or egress security group rule.
         attribute :type
         validates :type, inclusion: {:in=>[:ingress, :egress], :message=>"%{value} needs to be :ingress, :egress"}, allow_nil: true
 

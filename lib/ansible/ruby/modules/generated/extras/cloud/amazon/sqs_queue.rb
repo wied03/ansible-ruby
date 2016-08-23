@@ -6,7 +6,7 @@ module Ansible
   module Ruby
     module Modules
       class Sqs_queue < Base
-        # @return [String] Create or delete the queue
+        # @return [:present, :absent, nil] Create or delete the queue
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 

@@ -19,7 +19,7 @@ module Ansible
         # @return [Object] list of IPv6 addresses  to configure on the interface. use X:X:X::X/YYY syntax
         attribute :ipv6
 
-        # @return [Object] configures the port to use DHCP. To enable this feature use the option 'dhcp'
+        # @return [:dhcp, nil] configures the port to use DHCP. To enable this feature use the option 'dhcp'
         attribute :addr_method
         validates :addr_method, inclusion: {:in=>[:dhcp], :message=>"%{value} needs to be :dhcp"}, allow_nil: true
 

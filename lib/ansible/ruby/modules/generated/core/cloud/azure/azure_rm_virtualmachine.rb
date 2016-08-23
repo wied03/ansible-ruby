@@ -14,7 +14,7 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [String] Assert the state of the virtual machine.,State 'present' will check that the machine exists with the requested configuration. If the configuration of the existing machine does not match, the machine will be updated. Use options started, allocated and restarted to change the machine's power state.,State 'absent' will remove the virtual machine.
+        # @return [:absent, :present, nil] Assert the state of the virtual machine.,State 'present' will check that the machine exists with the requested configuration. If the configuration of the existing machine does not match, the machine will be updated. Use options started, allocated and restarted to change the machine's power state.,State 'absent' will remove the virtual machine.
         attribute :state
         validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
@@ -70,15 +70,15 @@ module Ansible
         # @return [Object] Name fo the storage blob used to hold the VM's OS disk image. If no name is provided, defaults to the VM name + '.vhd'. If you provide a name, it must end with '.vhd'
         attribute :storage_blob_name
 
-        # @return [String] Type of OS disk caching.
+        # @return [:ReadOnly, :ReadWrite, nil] Type of OS disk caching.
         attribute :os_disk_caching
         validates :os_disk_caching, inclusion: {:in=>[:ReadOnly, :ReadWrite], :message=>"%{value} needs to be :ReadOnly, :ReadWrite"}, allow_nil: true
 
-        # @return [Array] Base type of operating system.
+        # @return [:Windows, :Linux, nil] Base type of operating system.
         attribute :os_type
         validates :os_type, inclusion: {:in=>[:Windows, :Linux], :message=>"%{value} needs to be :Windows, :Linux"}, allow_nil: true
 
-        # @return [Array] If a public IP address is created when creating the VM (beacuse a Network Interface was not provided), determines if the public IP address remains permanently associated with the Network Interface. If set to 'Dynamic' the public IP address may change any time the VM is rebooted or power cycled.
+        # @return [:Dynamic, :Static, nil] If a public IP address is created when creating the VM (beacuse a Network Interface was not provided), determines if the public IP address remains permanently associated with the Network Interface. If set to 'Dynamic' the public IP address may change any time the VM is rebooted or power cycled.
         attribute :public_ip_allocation_method
         validates :public_ip_allocation_method, inclusion: {:in=>[:Dynamic, :Static], :message=>"%{value} needs to be :Dynamic, :Static"}, allow_nil: true
 

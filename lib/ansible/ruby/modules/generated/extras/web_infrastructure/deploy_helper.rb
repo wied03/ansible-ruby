@@ -10,7 +10,7 @@ module Ansible
         attribute :path
         validates :path, presence: true, type: String
 
-        # @return [String] the state of the project. C(query) will only gather facts, C(present) will create the project I(root) folder, and in it the I(releases) and I(shared) folders, C(finalize) will remove the unfinished_filename file, create a symlink to the newly deployed release and optionally clean old releases, C(clean) will remove failed & old releases, C(absent) will remove the project folder (synonymous to the M(file) module with C(state=absent))
+        # @return [:present, :finalize, :absent, :clean, :query, nil] the state of the project. C(query) will only gather facts, C(present) will create the project I(root) folder, and in it the I(releases) and I(shared) folders, C(finalize) will remove the unfinished_filename file, create a symlink to the newly deployed release and optionally clean old releases, C(clean) will remove failed & old releases, C(absent) will remove the project folder (synonymous to the M(file) module with C(state=absent))
         attribute :state
         validates :state, inclusion: {:in=>[:present, :finalize, :absent, :clean, :query], :message=>"%{value} needs to be :present, :finalize, :absent, :clean, :query"}, allow_nil: true
 

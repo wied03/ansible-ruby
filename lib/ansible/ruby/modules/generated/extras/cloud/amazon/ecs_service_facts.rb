@@ -6,7 +6,7 @@ module Ansible
   module Ruby
     module Modules
       class Ecs_service_facts < Base
-        # @return [String] Set this to true if you want detailed information about the services.
+        # @return [:true, :false, nil] Set this to true if you want detailed information about the services.
         attribute :details
         validates :details, inclusion: {:in=>[:true, :false], :message=>"%{value} needs to be :true, :false"}, allow_nil: true
 

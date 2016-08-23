@@ -28,7 +28,7 @@ module Ansible
         attribute :name
         validates :name, presence: true
 
-        # @return [Object] The type of policy that will be executed for the current release.
+        # @return [:webhook, :schedule] The type of policy that will be executed for the current release.
         attribute :policy_type
         validates :policy_type, presence: true, inclusion: {:in=>[:webhook, :schedule], :message=>"%{value} needs to be :webhook, :schedule"}
 
@@ -36,7 +36,7 @@ module Ansible
         attribute :scaling_group
         validates :scaling_group, presence: true
 
-        # @return [String] Indicate desired state of the resource
+        # @return [:present, :absent, nil] Indicate desired state of the resource
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end

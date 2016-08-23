@@ -22,7 +22,7 @@ module Ansible
         attribute :num_ports
         validates :num_ports, presence: true, type: Fixnum
 
-        # @return [String] See VMware KB 1022312 regarding portgroup types
+        # @return [:earlyBinding, :lateBinding, :ephemeral] See VMware KB 1022312 regarding portgroup types
         attribute :portgroup_type
         validates :portgroup_type, presence: true, inclusion: {:in=>[:earlyBinding, :lateBinding, :ephemeral], :message=>"%{value} needs to be :earlyBinding, :lateBinding, :ephemeral"}
       end

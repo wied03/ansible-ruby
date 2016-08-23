@@ -10,7 +10,7 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [String] Whether to create or destroy an SNS topic
+        # @return [:absent, :present, nil] Whether to create or destroy an SNS topic
         attribute :state
         validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 

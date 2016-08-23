@@ -18,7 +18,7 @@ module Ansible
         attribute :path
         validates :path, type: String
 
-        # @return [String] I(present) to add the host, I(absent) to remove it.
+        # @return [:present, :absent, nil] I(present) to add the host, I(absent) to remove it.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end

@@ -10,7 +10,7 @@ module Ansible
         attribute :bridge
         validates :bridge, presence: true, type: String
 
-        # @return [String] Whether the bridge should exist
+        # @return [:present, :absent, nil] Whether the bridge should exist
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
@@ -22,7 +22,7 @@ module Ansible
         attribute :external_ids
         validates :external_ids, type: String
 
-        # @return [String] Set bridge fail-mode. The default value (None) is a No-op.
+        # @return [:secure, :standalone, nil] Set bridge fail-mode. The default value (None) is a No-op.
         attribute :fail_mode
         validates :fail_mode, inclusion: {:in=>[:secure, :standalone], :message=>"%{value} needs to be :secure, :standalone"}, allow_nil: true
       end

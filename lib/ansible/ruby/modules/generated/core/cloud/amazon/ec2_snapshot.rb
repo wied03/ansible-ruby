@@ -26,7 +26,7 @@ module Ansible
         attribute :snapshot_tags
         validates :snapshot_tags, type: Hash
 
-        # @return [TrueClass] wait for the snapshot to be ready
+        # @return [:yes, :no, nil] wait for the snapshot to be ready
         attribute :wait
         validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
@@ -34,7 +34,7 @@ module Ansible
         attribute :wait_timeout
         validates :wait_timeout, type: Fixnum
 
-        # @return [String] whether to add or create a snapshot
+        # @return [:absent, :present, nil] whether to add or create a snapshot
         attribute :state
         validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 

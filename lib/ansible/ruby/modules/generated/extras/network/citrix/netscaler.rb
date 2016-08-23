@@ -22,7 +22,7 @@ module Ansible
         attribute :password
         validates :password, presence: true
 
-        # @return [String] the action you want to perform on the entity
+        # @return [:enable, :disable, nil] the action you want to perform on the entity
         attribute :action
         validates :action, inclusion: {:in=>[:enable, :disable], :message=>"%{value} needs to be :enable, :disable"}, allow_nil: true
 
@@ -30,11 +30,11 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [String] type of the entity
+        # @return [:server, :service, nil] type of the entity
         attribute :type
         validates :type, inclusion: {:in=>[:server, :service], :message=>"%{value} needs to be :server, :service"}, allow_nil: true
 
-        # @return [String] If C(no), SSL certificates for the target url will not be validated. This should only be used on personally controlled sites using self-signed certificates.
+        # @return [:yes, :no, nil] If C(no), SSL certificates for the target url will not be validated. This should only be used on personally controlled sites using self-signed certificates.
         attribute :validate_certs
         validates :validate_certs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end

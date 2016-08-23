@@ -17,11 +17,11 @@ module Ansible
         attribute :count
         validates :count, presence: true, type: String
 
-        # @return [String] The type of units in the future to execute the command or script file.
+        # @return [:minutes, :hours, :days, :weeks] The type of units in the future to execute the command or script file.
         attribute :units
         validates :units, presence: true, inclusion: {:in=>[:minutes, :hours, :days, :weeks], :message=>"%{value} needs to be :minutes, :hours, :days, :weeks"}
 
-        # @return [String] The state dictates if the command or script file should be evaluated as present(added) or absent(deleted).
+        # @return [:present, :absent, nil] The state dictates if the command or script file should be evaluated as present(added) or absent(deleted).
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 

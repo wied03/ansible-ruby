@@ -25,15 +25,15 @@ module Ansible
         # @return [Object] Unique identifier for the rule. The value cannot be longer than 255 characters. A unique value for the rule will be generated if no value is provided.
         attribute :rule_id
 
-        # @return [String] Create or remove the lifecycle rule
+        # @return [:present, :absent, nil] Create or remove the lifecycle rule
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [String] If 'enabled', the rule is currently being applied. If 'disabled', the rule is not currently being applied.
+        # @return [:enabled, :disabled, nil] If 'enabled', the rule is currently being applied. If 'disabled', the rule is not currently being applied.
         attribute :status
         validates :status, inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
 
-        # @return [String] The storage class to transition to. Currently there is only one valid value - 'glacier'.
+        # @return [:glacier, nil] The storage class to transition to. Currently there is only one valid value - 'glacier'.
         attribute :storage_class
         validates :storage_class, inclusion: {:in=>[:glacier], :message=>"%{value} needs to be :glacier"}, allow_nil: true
 

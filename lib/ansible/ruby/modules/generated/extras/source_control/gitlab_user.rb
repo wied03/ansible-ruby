@@ -56,7 +56,7 @@ module Ansible
         # @return [Object] The access level to the group. One of the following can be used.,guest,reporter,developer,master,owner
         attribute :access_level
 
-        # @return [String] create or delete group.,Possible values are present and absent.
+        # @return [:present, :absent, nil] create or delete group.,Possible values are present and absent.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end

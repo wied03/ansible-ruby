@@ -10,7 +10,7 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [String] Use I(present) to add a line to C(/etc/crypttab) or update it's definition if already present. Use I(absent) to remove a line with matching I(name). Use I(opts_present) to add options to those already present; options with different values will be updated. Use I(opts_absent) to remove options from the existing set.
+        # @return [:present, :absent, :opts_present, :opts_absent] Use I(present) to add a line to C(/etc/crypttab) or update it's definition if already present. Use I(absent) to remove a line with matching I(name). Use I(opts_present) to add options to those already present; options with different values will be updated. Use I(opts_absent) to remove options from the existing set.
         attribute :state
         validates :state, presence: true, inclusion: {:in=>[:present, :absent, :opts_present, :opts_absent], :message=>"%{value} needs to be :present, :absent, :opts_present, :opts_absent"}
 

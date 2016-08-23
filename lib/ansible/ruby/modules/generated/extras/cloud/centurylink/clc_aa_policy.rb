@@ -14,11 +14,11 @@ module Ansible
         attribute :location
         validates :location, presence: true
 
-        # @return [String] Whether to create or delete the policy.
+        # @return [:present, :absent, nil] Whether to create or delete the policy.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [TrueClass] Whether to wait for the tasks to finish before returning.
+        # @return [Boolean, nil] Whether to wait for the tasks to finish before returning.
         attribute :wait
         validates :wait, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
       end

@@ -6,7 +6,7 @@ module Ansible
   module Ruby
     module Modules
       class Consul_session < Base
-        # @return [String] whether the session should be present i.e. created if it doesn't exist, or absent, removed if present. If created, the ID for the session is returned in the output. If absent, the name or ID is required to remove the session. Info for a single session, all the sessions for a node or all available sessions can be retrieved by specifying info, node or list for the state; for node or info, the node name or session id is required as parameter.
+        # @return [:present, :absent, :info, :node, :list, nil] whether the session should be present i.e. created if it doesn't exist, or absent, removed if present. If created, the ID for the session is returned in the output. If absent, the name or ID is required to remove the session. Info for a single session, all the sessions for a node or all available sessions can be retrieved by specifying info, node or list for the state; for node or info, the node name or session id is required as parameter.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent, :info, :node, :list], :message=>"%{value} needs to be :present, :absent, :info, :node, :list"}, allow_nil: true
 

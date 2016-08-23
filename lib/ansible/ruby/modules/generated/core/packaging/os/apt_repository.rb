@@ -10,7 +10,7 @@ module Ansible
         attribute :repo
         validates :repo, presence: true, type: String
 
-        # @return [String] A source string state.
+        # @return [:absent, :present, nil] A source string state.
         attribute :state
         validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
@@ -18,11 +18,11 @@ module Ansible
         attribute :mode
         validates :mode, type: Fixnum
 
-        # @return [String] Run the equivalent of C(apt-get update) when a change occurs.  Cache updates are run after making changes.
+        # @return [:yes, :no, nil] Run the equivalent of C(apt-get update) when a change occurs.  Cache updates are run after making changes.
         attribute :update_cache
         validates :update_cache, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String] If C(no), SSL certificates for the target repo will not be validated. This should only be used on personally controlled sites using self-signed certificates.
+        # @return [:yes, :no, nil] If C(no), SSL certificates for the target repo will not be validated. This should only be used on personally controlled sites using self-signed certificates.
         attribute :validate_certs
         validates :validate_certs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 

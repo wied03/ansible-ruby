@@ -32,9 +32,9 @@ module Ansible
         attribute :payload
         validates :payload, presence: true, type: String
 
-        # @return [Fixnum] QoS (Quality of Service)
+        # @return [0, 1, 2, nil] QoS (Quality of Service)
         attribute :qos
-        validates :qos, inclusion: {:in=>[:"0", :"1", :"2"], :message=>"%{value} needs to be :\"0\", :\"1\", :\"2\""}, allow_nil: true
+        validates :qos, inclusion: {:in=>[0, 1, 2], :message=>"%{value} needs to be 0, 1, 2"}, allow_nil: true
 
         # @return [String] Setting this flag causes the broker to retain (i.e. keep) the message so that applications that subsequently subscribe to the topic can received the last retained message immediately.
         attribute :retain

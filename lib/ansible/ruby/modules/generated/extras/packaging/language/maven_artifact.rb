@@ -41,11 +41,11 @@ module Ansible
         attribute :dest
         validates :dest, presence: true, type: String
 
-        # @return [String] The desired state of the artifact
+        # @return [:present, :absent] The desired state of the artifact
         attribute :state
         validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
 
-        # @return [String] If C(no), SSL certificates will not be validated. This should only be set to C(no) when no other option exists.
+        # @return [:yes, :no, nil] If C(no), SSL certificates will not be validated. This should only be set to C(no) when no other option exists.
         attribute :validate_certs
         validates :validate_certs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end

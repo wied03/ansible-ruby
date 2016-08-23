@@ -14,7 +14,7 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [String] Assert the state of the network interface. Use 'present' to create or update an interface and 'absent' to delete an interface.
+        # @return [:absent, :present, nil] Assert the state of the network interface. Use 'present' to create or update an interface and 'absent' to delete an interface.
         attribute :state
         validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
@@ -30,14 +30,14 @@ module Ansible
         attribute :subnet_name
         validates :subnet_name, type: String
 
-        # @return [String] Determines any rules to be added to a default security group. When creating a network interface, if no security group name is provided, a default security group will be created. If the os_type is 'Windows', a rule will be added allowing RDP access. If the os_type is 'Linux', a rule allowing SSH access will be added.
+        # @return [:Windows, :Linux, nil] Determines any rules to be added to a default security group. When creating a network interface, if no security group name is provided, a default security group will be created. If the os_type is 'Windows', a rule will be added allowing RDP access. If the os_type is 'Linux', a rule allowing SSH access will be added.
         attribute :os_type
         validates :os_type, inclusion: {:in=>[:Windows, :Linux], :message=>"%{value} needs to be :Windows, :Linux"}, allow_nil: true
 
         # @return [Object] Valid IPv4 address that falls within the specified subnet.
         attribute :private_ip_address
 
-        # @return [String] Specify whether or not the assigned IP address is permanent. NOTE: when creating a network interface specifying a value of 'Static' requires that a private_ip_address value be provided. You can update the allocation method to 'Static' after a dynamic private ip address has been assigned.
+        # @return [:Dynamic, :Static, nil] Specify whether or not the assigned IP address is permanent. NOTE: when creating a network interface specifying a value of 'Static' requires that a private_ip_address value be provided. You can update the allocation method to 'Static' after a dynamic private ip address has been assigned.
         attribute :private_ip_allocation_method
         validates :private_ip_allocation_method, inclusion: {:in=>[:Dynamic, :Static], :message=>"%{value} needs to be :Dynamic, :Static"}, allow_nil: true
 
@@ -49,7 +49,7 @@ module Ansible
         attribute :public_ip_address_name
         validates :public_ip_address_name, type: String
 
-        # @return [String] If a public_ip_address_name is not provided, a default public IP address will be created. The allocation method determines whether or not the public IP address assigned to the network interface is permanent.
+        # @return [:Dynamic, :Static, nil] If a public_ip_address_name is not provided, a default public IP address will be created. The allocation method determines whether or not the public IP address assigned to the network interface is permanent.
         attribute :public_ip_allocation_method
         validates :public_ip_allocation_method, inclusion: {:in=>[:Dynamic, :Static], :message=>"%{value} needs to be :Dynamic, :Static"}, allow_nil: true
 

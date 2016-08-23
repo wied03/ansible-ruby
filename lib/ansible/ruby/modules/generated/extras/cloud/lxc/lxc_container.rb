@@ -10,7 +10,7 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [String] Backend storage type for the container.
+        # @return [:dir, :lvm, :loop, :btrfs, :overlayfs, :zfs, nil] Backend storage type for the container.
         attribute :backing_store
         validates :backing_store, inclusion: {:in=>[:dir, :lvm, :loop, :btrfs, :overlayfs, :zfs], :message=>"%{value} needs to be :dir, :lvm, :loop, :btrfs, :overlayfs, :zfs"}, allow_nil: true
 
@@ -57,11 +57,11 @@ module Ansible
         # @return [Object] Place container under PATH
         attribute :lxc_path
 
-        # @return [TrueClass] Enable a container log for host actions to the container.
+        # @return [Boolean, nil] Enable a container log for host actions to the container.
         attribute :container_log
         validates :container_log, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
-        # @return [String] Set the log level for a container where *container_log* was set.
+        # @return [:INFO, :ERROR, :DEBUG, nil] Set the log level for a container where *container_log* was set.
         attribute :container_log_level
         validates :container_log_level, inclusion: {:in=>[:INFO, :ERROR, :DEBUG], :message=>"%{value} needs to be :INFO, :ERROR, :DEBUG"}, allow_nil: true
 
@@ -69,11 +69,11 @@ module Ansible
         attribute :clone_name
         validates :clone_name, type: String
 
-        # @return [TrueClass] Create a snapshot a container when cloning. This is not supported by all container storage backends. Enabling this may fail if the backing store does not support snapshots.
+        # @return [Boolean, nil] Create a snapshot a container when cloning. This is not supported by all container storage backends. Enabling this may fail if the backing store does not support snapshots.
         attribute :clone_snapshot
         validates :clone_snapshot, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
-        # @return [TrueClass] Create an archive of a container. This will create a tarball of the running container.
+        # @return [Boolean, nil] Create an archive of a container. This will create a tarball of the running container.
         attribute :archive
         validates :archive, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
@@ -81,11 +81,11 @@ module Ansible
         attribute :archive_path
         validates :archive_path, type: String
 
-        # @return [String] Type of compression to use when creating an archive of a running container.
+        # @return [:gzip, :bzip2, :none, nil] Type of compression to use when creating an archive of a running container.
         attribute :archive_compression
         validates :archive_compression, inclusion: {:in=>[:gzip, :bzip2, :none], :message=>"%{value} needs to be :gzip, :bzip2, :none"}, allow_nil: true
 
-        # @return [String] Define the state of a container. If you clone a container using `clone_name` the newly cloned container created in a stopped state. The running container will be stopped while the clone operation is happening and upon completion of the clone the original container state will be restored.
+        # @return [:started, :stopped, :restarted, :absent, :frozen, nil] Define the state of a container. If you clone a container using `clone_name` the newly cloned container created in a stopped state. The running container will be stopped while the clone operation is happening and upon completion of the clone the original container state will be restored.
         attribute :state
         validates :state, inclusion: {:in=>[:started, :stopped, :restarted, :absent, :frozen], :message=>"%{value} needs to be :started, :stopped, :restarted, :absent, :frozen"}, allow_nil: true
 

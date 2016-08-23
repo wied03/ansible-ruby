@@ -10,7 +10,7 @@ module Ansible
         attribute :tap
         validates :tap, presence: true
 
-        # @return [String] state of the repository.
+        # @return [:present, :absent, nil] state of the repository.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end

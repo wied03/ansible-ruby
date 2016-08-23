@@ -13,7 +13,7 @@ module Ansible
         # @return [Object] Description of the group
         attribute :description
 
-        # @return [String] Create or remove the group
+        # @return [:present, :absent, nil] Create or remove the group
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end

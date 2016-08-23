@@ -14,11 +14,11 @@ module Ansible
         attribute :app_key
         validates :app_key, presence: true
 
-        # @return [Object] The designated state of the monitor.
+        # @return [:present, :absent, :muted, :unmuted] The designated state of the monitor.
         attribute :state
         validates :state, presence: true, inclusion: {:in=>[:present, :absent, :muted, :unmuted], :message=>"%{value} needs to be :present, :absent, :muted, :unmuted"}
 
-        # @return [Object] The type of the monitor.,The 'event alert'is available starting at Ansible 2.1
+        # @return [:"metric alert", :"service check", :"event alert", nil] The type of the monitor.,The 'event alert'is available starting at Ansible 2.1
         attribute :type
         validates :type, inclusion: {:in=>[:"metric alert", :"service check", :"event alert"], :message=>"%{value} needs to be :\"metric alert\", :\"service check\", :\"event alert\""}, allow_nil: true
 

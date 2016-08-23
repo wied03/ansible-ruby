@@ -10,11 +10,11 @@ module Ansible
         attribute :vrf
         validates :vrf, presence: true, type: String
 
-        # @return [String] Administrative state of the VRF
+        # @return [:up, :down, nil] Administrative state of the VRF
         attribute :admin_state
         validates :admin_state, inclusion: {:in=>[:up, :down], :message=>"%{value} needs to be :up, :down"}, allow_nil: true
 
-        # @return [String] Manages desired state of the resource
+        # @return [:present, :absent, nil] Manages desired state of the resource
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 

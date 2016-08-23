@@ -10,7 +10,7 @@ module Ansible
         attribute :lang
         validates :lang, presence: true, type: String
 
-        # @return [String] make this language trusted for the selected db
+        # @return [:yes, :no, nil] make this language trusted for the selected db
         attribute :trust
         validates :trust, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
@@ -18,15 +18,15 @@ module Ansible
         attribute :db
         validates :db, type: String
 
-        # @return [String] marks the language as trusted, even if it's marked as untrusted in pg_pltemplate.,use with care!
+        # @return [:yes, :no, nil] marks the language as trusted, even if it's marked as untrusted in pg_pltemplate.,use with care!
         attribute :force_trust
         validates :force_trust, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String] if C(yes), fail when removing a language. Otherwise just log and continue,in some cases, it is not possible to remove a language (used by the db-system). When         dependencies block the removal, consider using C(cascade).
+        # @return [:yes, :no, nil] if C(yes), fail when removing a language. Otherwise just log and continue,in some cases, it is not possible to remove a language (used by the db-system). When         dependencies block the removal, consider using C(cascade).
         attribute :fail_on_drop
         validates :fail_on_drop, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String] when dropping a language, also delete object that depend on this language.,only used when C(state=absent).
+        # @return [:yes, :no, nil] when dropping a language, also delete object that depend on this language.,only used when C(state=absent).
         attribute :cascade
         validates :cascade, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
@@ -45,7 +45,7 @@ module Ansible
         attribute :login_host
         validates :login_host, type: String
 
-        # @return [String] The state of the language for the selected database
+        # @return [:present, :absent, nil] The state of the language for the selected database
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end

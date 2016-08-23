@@ -17,7 +17,7 @@ module Ansible
         attribute :source
         validates :source, type: String
 
-        # @return [String] desired state of the image
+        # @return [:present, :absent, nil] desired state of the image
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 

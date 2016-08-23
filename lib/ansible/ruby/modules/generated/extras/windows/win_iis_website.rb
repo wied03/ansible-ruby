@@ -13,7 +13,7 @@ module Ansible
         # @return [Object] Explicitly set the IIS numeric ID for a site. Note that this value cannot be changed after the website has been created.
         attribute :site_id
 
-        # @return [String] State of the web site
+        # @return [:started, :restarted, :stopped, :absent, nil] State of the web site
         attribute :state
         validates :state, inclusion: {:in=>[:started, :restarted, :stopped, :absent], :message=>"%{value} needs to be :started, :restarted, :stopped, :absent"}, allow_nil: true
 

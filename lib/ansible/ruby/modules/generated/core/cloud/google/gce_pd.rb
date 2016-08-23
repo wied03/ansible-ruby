@@ -6,7 +6,7 @@ module Ansible
   module Ruby
     module Modules
       class Gce_pd < Base
-        # @return [String] do not destroy the disk, merely detach it from an instance
+        # @return [:yes, :no, nil] do not destroy the disk, merely detach it from an instance
         attribute :detach_only
         validates :detach_only, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
@@ -14,7 +14,7 @@ module Ansible
         attribute :instance_name
         validates :instance_name, type: String
 
-        # @return [String] GCE mount mode of disk, READ_ONLY (default) or READ_WRITE
+        # @return [:READ_WRITE, :READ_ONLY, nil] GCE mount mode of disk, READ_ONLY (default) or READ_WRITE
         attribute :mode
         validates :mode, inclusion: {:in=>[:READ_WRITE, :READ_ONLY], :message=>"%{value} needs to be :READ_WRITE, :READ_ONLY"}, allow_nil: true
 
@@ -32,7 +32,7 @@ module Ansible
         # @return [Object] the source snapshot to use for the disk
         attribute :snapshot
 
-        # @return [String] desired state of the persistent disk
+        # @return [:active, :present, :absent, :deleted, nil] desired state of the persistent disk
         attribute :state
         validates :state, inclusion: {:in=>[:active, :present, :absent, :deleted], :message=>"%{value} needs to be :active, :present, :absent, :deleted"}, allow_nil: true
 
@@ -52,7 +52,7 @@ module Ansible
         # @return [Object] your GCE project ID
         attribute :project_id
 
-        # @return [String] type of disk provisioned
+        # @return [:"pd-standard", :"pd-ssd", nil] type of disk provisioned
         attribute :disk_type
         validates :disk_type, inclusion: {:in=>[:"pd-standard", :"pd-ssd"], :message=>"%{value} needs to be :\"pd-standard\", :\"pd-ssd\""}, allow_nil: true
       end

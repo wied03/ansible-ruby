@@ -13,7 +13,7 @@ module Ansible
         # @return [Object] The elastic IP address to associate with the instance.,If absent, allocate a new address
         attribute :public_ip
 
-        # @return [String] If present, associate the IP with the instance.,If absent, disassociate the IP with the instance.
+        # @return [:present, :absent, nil] If present, associate the IP with the instance.,If absent, disassociate the IP with the instance.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 

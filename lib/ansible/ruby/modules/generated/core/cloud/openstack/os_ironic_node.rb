@@ -6,11 +6,11 @@ module Ansible
   module Ruby
     module Modules
       class Os_ironic_node < Base
-        # @return [String] Indicates desired state of the resource
+        # @return [:present, :absent, nil] Indicates desired state of the resource
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [TrueClass] Indicates if the resource should be deployed. Allows for deployment logic to be disengaged and control of the node power or maintenance state to be changed.
+        # @return [:true, :false, nil] Indicates if the resource should be deployed. Allows for deployment logic to be disengaged and control of the node power or maintenance state to be changed.
         attribute :deploy
         validates :deploy, inclusion: {:in=>[:true, :false], :message=>"%{value} needs to be :true, :false"}, allow_nil: true
 
@@ -29,7 +29,7 @@ module Ansible
         # @return [Object] Definition of the instance information which is used to deploy the node.  This information is only required when an instance is set to present.
         attribute :instance_info
 
-        # @return [String] A setting to allow power state to be asserted allowing nodes that are not yet deployed to be powered on, and nodes that are deployed to be powered off.
+        # @return [:present, :absent, nil] A setting to allow power state to be asserted allowing nodes that are not yet deployed to be powered on, and nodes that are deployed to be powered off.
         attribute :power
         validates :power, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 

@@ -21,11 +21,11 @@ module Ansible
         attribute :paths
         validates :paths, presence: true, type: String
 
-        # @return [String] Type of file to select
+        # @return [:file, :directory, nil] Type of file to select
         attribute :file_type
         validates :file_type, inclusion: {:in=>[:file, :directory], :message=>"%{value} needs to be :file, :directory"}, allow_nil: true
 
-        # @return [String] If target is a directory, recursively descend into the directory looking for files.
+        # @return [:yes, :no, nil] If target is a directory, recursively descend into the directory looking for files.
         attribute :recurse
         validates :recurse, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
@@ -33,23 +33,23 @@ module Ansible
         attribute :size
         validates :size, type: String
 
-        # @return [String] Choose the file property against which we compare age. Default is mtime.
+        # @return [:atime, :mtime, :ctime, nil] Choose the file property against which we compare age. Default is mtime.
         attribute :age_stamp
         validates :age_stamp, inclusion: {:in=>[:atime, :mtime, :ctime], :message=>"%{value} needs to be :atime, :mtime, :ctime"}, allow_nil: true
 
-        # @return [String] Set this to true to include hidden files, otherwise they'll be ignored.
+        # @return [Boolean, nil] Set this to true to include hidden files, otherwise they'll be ignored.
         attribute :hidden
         validates :hidden, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
-        # @return [String] Set this to true to follow symlinks in path for systems with python 2.6+
+        # @return [Boolean, nil] Set this to true to follow symlinks in path for systems with python 2.6+
         attribute :follow
         validates :follow, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
-        # @return [String] Set this to true to retrieve a file's sha1 checksum
+        # @return [Boolean, nil] Set this to true to retrieve a file's sha1 checksum
         attribute :get_checksum
         validates :get_checksum, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
-        # @return [String] If false the patterns are file globs (shell) if true they are python regexes
+        # @return [Boolean, nil] If false the patterns are file globs (shell) if true they are python regexes
         attribute :use_regex
         validates :use_regex, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
       end

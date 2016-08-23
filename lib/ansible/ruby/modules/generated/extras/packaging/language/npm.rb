@@ -18,7 +18,7 @@ module Ansible
         attribute :version
         validates :version, type: String
 
-        # @return [String] Install the node.js library globally
+        # @return [:yes, :no, nil] Install the node.js library globally
         attribute :global
         validates :global, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
@@ -26,11 +26,11 @@ module Ansible
         attribute :executable
         validates :executable, type: String
 
-        # @return [Object] Use the --ignore-scripts flag when installing.
+        # @return [:yes, :no, nil] Use the --ignore-scripts flag when installing.
         attribute :ignore_scripts
         validates :ignore_scripts, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [Object] Install dependencies in production mode, excluding devDependencies
+        # @return [:yes, :no, nil] Install dependencies in production mode, excluding devDependencies
         attribute :production
         validates :production, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
@@ -38,7 +38,7 @@ module Ansible
         attribute :registry
         validates :registry, type: String
 
-        # @return [String] The state of the node.js library
+        # @return [:present, :absent, :latest, nil] The state of the node.js library
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent, :latest], :message=>"%{value} needs to be :present, :absent, :latest"}, allow_nil: true
       end

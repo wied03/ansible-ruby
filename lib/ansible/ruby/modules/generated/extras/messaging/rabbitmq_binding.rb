@@ -6,7 +6,7 @@ module Ansible
   module Ruby
     module Modules
       class Rabbitmq_binding < Base
-        # @return [String] Whether the exchange should be present or absent,Only present implemented atm
+        # @return [:present, :absent, nil] Whether the exchange should be present or absent,Only present implemented atm
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
@@ -37,7 +37,7 @@ module Ansible
         attribute :destination
         validates :destination, presence: true, type: String
 
-        # @return [Object] Either queue or exchange
+        # @return [:queue, :exchange] Either queue or exchange
         attribute :destination_type
         validates :destination_type, presence: true, inclusion: {:in=>[:queue, :exchange], :message=>"%{value} needs to be :queue, :exchange"}
 

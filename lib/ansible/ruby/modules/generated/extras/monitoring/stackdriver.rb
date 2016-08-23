@@ -10,7 +10,7 @@ module Ansible
         attribute :key
         validates :key, presence: true, type: String
 
-        # @return [String] The type of event to send, either annotation or deploy
+        # @return [:annotation, :deploy, nil] The type of event to send, either annotation or deploy
         attribute :event
         validates :event, inclusion: {:in=>[:annotation, :deploy], :message=>"%{value} needs to be :annotation, :deploy"}, allow_nil: true
 
@@ -38,7 +38,7 @@ module Ansible
         attribute :annotated_by
         validates :annotated_by, type: String
 
-        # @return [String] one of INFO/WARN/ERROR, defaults to INFO if not supplied.  May affect display.
+        # @return [:INFO, :WARN, :ERROR, nil] one of INFO/WARN/ERROR, defaults to INFO if not supplied.  May affect display.
         attribute :level
         validates :level, inclusion: {:in=>[:INFO, :WARN, :ERROR], :message=>"%{value} needs to be :INFO, :WARN, :ERROR"}, allow_nil: true
 

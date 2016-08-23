@@ -14,11 +14,11 @@ module Ansible
         attribute :dest
         validates :dest, presence: true, type: String
 
-        # @return [String] Makes it fails when the source file is missing.
+        # @return [:yes, :no, nil] Makes it fails when the source file is missing.
         attribute :fail_on_missing
         validates :fail_on_missing, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String] Verify that the source and destination checksums match after the files are fetched.
+        # @return [:yes, :no, nil] Verify that the source and destination checksums match after the files are fetched.
         attribute :validate_checksum
         validates :validate_checksum, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 

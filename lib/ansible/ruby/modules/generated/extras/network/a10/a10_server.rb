@@ -26,7 +26,7 @@ module Ansible
         attribute :server_ip
         validates :server_ip, type: String
 
-        # @return [String] slb virtual server status
+        # @return [:enabled, :disabled, nil] slb virtual server status
         attribute :server_status
         validates :server_status, inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
 
@@ -34,7 +34,7 @@ module Ansible
         attribute :server_ports
         validates :server_ports, type: Array
 
-        # @return [String] create, update or remove slb server
+        # @return [:present, :absent, nil] create, update or remove slb server
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end

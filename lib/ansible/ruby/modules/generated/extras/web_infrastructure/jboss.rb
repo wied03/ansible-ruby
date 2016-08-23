@@ -18,7 +18,7 @@ module Ansible
         attribute :deploy_path
         validates :deploy_path, type: String
 
-        # @return [String] Whether the application should be deployed or undeployed
+        # @return [:present, :absent, nil] Whether the application should be deployed or undeployed
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end

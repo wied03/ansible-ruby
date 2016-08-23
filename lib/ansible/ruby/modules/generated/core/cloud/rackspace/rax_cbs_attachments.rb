@@ -18,11 +18,11 @@ module Ansible
         attribute :server
         validates :server, presence: true
 
-        # @return [String] Indicate desired state of the resource
+        # @return [:present, :absent] Indicate desired state of the resource
         attribute :state
         validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
 
-        # @return [String] wait for the volume to be in 'in-use'/'available' state before returning
+        # @return [:yes, :no, nil] wait for the volume to be in 'in-use'/'available' state before returning
         attribute :wait
         validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 

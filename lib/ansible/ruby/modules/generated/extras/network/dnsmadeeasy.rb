@@ -22,7 +22,7 @@ module Ansible
         attribute :record_name
         validates :record_name, type: String
 
-        # @return [String] Record type.
+        # @return [:A, :AAAA, :CNAME, :HTTPRED, :MX, :NS, :PTR, :SRV, :TXT, nil] Record type.
         attribute :record_type
         validates :record_type, inclusion: {:in=>[:A, :AAAA, :CNAME, :HTTPRED, :MX, :NS, :PTR, :SRV, :TXT], :message=>"%{value} needs to be :A, :AAAA, :CNAME, :HTTPRED, :MX, :NS, :PTR, :SRV, :TXT"}, allow_nil: true
 
@@ -34,11 +34,11 @@ module Ansible
         attribute :record_ttl
         validates :record_ttl, type: Fixnum
 
-        # @return [String] whether the record should exist or not
+        # @return [:present, :absent] whether the record should exist or not
         attribute :state
         validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
 
-        # @return [String] If C(no), SSL certificates will not be validated. This should only be used on personally controlled sites using self-signed certificates.
+        # @return [:yes, :no, nil] If C(no), SSL certificates will not be validated. This should only be used on personally controlled sites using self-signed certificates.
         attribute :validate_certs
         validates :validate_certs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end

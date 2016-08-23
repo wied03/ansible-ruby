@@ -22,7 +22,7 @@ module Ansible
         attribute :virtualenv
         validates :virtualenv, type: String
 
-        # @return [String] Whether the virtual environment will inherit packages from the global site-packages directory.  Note that if this setting is changed on an already existing virtual environment it will not have any effect, the environment must be deleted and newly created.
+        # @return [:yes, :no, nil] Whether the virtual environment will inherit packages from the global site-packages directory.  Note that if this setting is changed on an already existing virtual environment it will not have any effect, the environment must be deleted and newly created.
         attribute :virtualenv_site_packages
         validates :virtualenv_site_packages, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
@@ -33,7 +33,7 @@ module Ansible
         # @return [Object] The Python executable used for creating the virtual environment. For example C(python3.4), C(python2.7). When not specified, the system Python version is used.
         attribute :virtualenv_python
 
-        # @return [String] The state of module,The 'forcereinstall' option is only available in Ansible 2.1 and above.
+        # @return [:present, :absent, :latest, :forcereinstall, nil] The state of module,The 'forcereinstall' option is only available in Ansible 2.1 and above.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent, :latest, :forcereinstall], :message=>"%{value} needs to be :present, :absent, :latest, :forcereinstall"}, allow_nil: true
 

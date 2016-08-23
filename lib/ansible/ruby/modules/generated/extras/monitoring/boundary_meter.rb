@@ -10,7 +10,7 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [TrueClass] Whether to create or remove the client from boundary
+        # @return [:present, :absent, nil] Whether to create or remove the client from boundary
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
@@ -22,7 +22,7 @@ module Ansible
         attribute :apikey
         validates :apikey, presence: true
 
-        # @return [String] If C(no), SSL certificates will not be validated. This should only be used on personally controlled sites using self-signed certificates.
+        # @return [:yes, :no, nil] If C(no), SSL certificates will not be validated. This should only be used on personally controlled sites using self-signed certificates.
         attribute :validate_certs
         validates :validate_certs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end

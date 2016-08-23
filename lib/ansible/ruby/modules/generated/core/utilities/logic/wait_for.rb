@@ -26,7 +26,7 @@ module Ansible
         attribute :port
         validates :port, type: String
 
-        # @return [String] either C(present), C(started), or C(stopped), C(absent), or C(drained),When checking a port C(started) will ensure the port is open, C(stopped) will check that it is closed, C(drained) will check for active connections,When checking for a file or a search string C(present) or C(started) will ensure that the file or string is present before continuing, C(absent) will check that file is absent or removed
+        # @return [:present, :started, :stopped, :absent, :drained, nil] either C(present), C(started), or C(stopped), C(absent), or C(drained),When checking a port C(started) will ensure the port is open, C(stopped) will check that it is closed, C(drained) will check for active connections,When checking for a file or a search string C(present) or C(started) will ensure that the file or string is present before continuing, C(absent) will check that file is absent or removed
         attribute :state
         validates :state, inclusion: {:in=>[:present, :started, :stopped, :absent, :drained], :message=>"%{value} needs to be :present, :started, :stopped, :absent, :drained"}, allow_nil: true
 

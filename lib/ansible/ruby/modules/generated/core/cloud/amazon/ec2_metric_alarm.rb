@@ -6,7 +6,7 @@ module Ansible
   module Ruby
     module Modules
       class Ec2_metric_alarm < Base
-        # @return [String] register or deregister the alarm
+        # @return [:present, :absent] register or deregister the alarm
         attribute :state
         validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
 

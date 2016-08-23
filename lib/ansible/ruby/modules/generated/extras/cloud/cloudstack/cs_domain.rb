@@ -16,7 +16,7 @@ module Ansible
         # @return [Object] Clean up all domain resources like child domains and accounts.,Considered on C(state=absent).
         attribute :clean_up
 
-        # @return [String] State of the domain.
+        # @return [:present, :absent, nil] State of the domain.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 

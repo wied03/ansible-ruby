@@ -10,7 +10,7 @@ module Ansible
         attribute :zone
         validates :zone, presence: true, type: String
 
-        # @return [TrueClass] whether or not the zone should exist or not
+        # @return [:present, :absent, nil] whether or not the zone should exist or not
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 

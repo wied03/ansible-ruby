@@ -14,7 +14,7 @@ module Ansible
         attribute :vhost
         validates :vhost, type: String
 
-        # @return [String] What the policy applies to. Requires RabbitMQ 3.2.0 or later.
+        # @return [:all, :exchanges, :queues, nil] What the policy applies to. Requires RabbitMQ 3.2.0 or later.
         attribute :apply_to
         validates :apply_to, inclusion: {:in=>[:all, :exchanges, :queues], :message=>"%{value} needs to be :all, :exchanges, :queues"}, allow_nil: true
 
@@ -34,7 +34,7 @@ module Ansible
         attribute :node
         validates :node, type: String
 
-        # @return [String] The state of the policy.
+        # @return [:present, :absent, nil] The state of the policy.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end

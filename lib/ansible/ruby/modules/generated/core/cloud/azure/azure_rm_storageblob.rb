@@ -52,11 +52,11 @@ module Ansible
         attribute :src
         validates :src, type: String
 
-        # @return [String] Assert the state of a container or blob.,Use state 'absent' with a container value only to delete a container. Include a blob value to remove a specific blob. A container will not be deleted, if it contains blobs. Use the force option to override, deleting the container and all associated blobs.,Use state 'present' to create or update a container and upload or download a blob. If the container does not exist, it will be created. If it exists, it will be updated with configuration options. Provide a blob name and either src or dest to upload or download. Provide a src path to upload and a dest path to download. If a blob (uploading) or a file (downloading) already exists, it will not be overwritten unless the force parameter is true.
+        # @return [:absent, :present, nil] Assert the state of a container or blob.,Use state 'absent' with a container value only to delete a container. Include a blob value to remove a specific blob. A container will not be deleted, if it contains blobs. Use the force option to override, deleting the container and all associated blobs.,Use state 'present' to create or update a container and upload or download a blob. If the container does not exist, it will be created. If it exists, it will be updated with configuration options. Provide a blob name and either src or dest to upload or download. Provide a src path to upload and a dest path to download. If a blob (uploading) or a file (downloading) already exists, it will not be overwritten unless the force parameter is true.
         attribute :state
         validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
-        # @return [String] Determine a container's level of public access. By default containers are private. Can only be set at time of container creation.
+        # @return [:container, :blob, nil] Determine a container's level of public access. By default containers are private. Can only be set at time of container creation.
         attribute :public_access
         validates :public_access, inclusion: {:in=>[:container, :blob], :message=>"%{value} needs to be :container, :blob"}, allow_nil: true
       end

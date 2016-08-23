@@ -6,7 +6,7 @@ module Ansible
   module Ruby
     module Modules
       class Ec2_scaling_policy < Base
-        # @return [String] register or deregister the policy
+        # @return [:present, :absent] register or deregister the policy
         attribute :state
         validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
 
@@ -18,7 +18,7 @@ module Ansible
         attribute :asg_name
         validates :asg_name, presence: true, type: String
 
-        # @return [String] The type of change in capacity of the autoscaling group
+        # @return [:ChangeInCapacity, :ExactCapacity, :PercentChangeInCapacity, nil] The type of change in capacity of the autoscaling group
         attribute :adjustment_type
         validates :adjustment_type, inclusion: {:in=>[:ChangeInCapacity, :ExactCapacity, :PercentChangeInCapacity], :message=>"%{value} needs to be :ChangeInCapacity, :ExactCapacity, :PercentChangeInCapacity"}, allow_nil: true
 

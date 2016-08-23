@@ -104,7 +104,7 @@ module Ansible
         attribute :links
         validates :links, type: Array
 
-        # @return [String] Specify the logging driver.
+        # @return [:"json-file", :syslog, :journald, :gelf, :fluentd, :awslogs, :splunk, nil] Specify the logging driver.
         attribute :log_driver
         validates :log_driver, inclusion: {:in=>[:"json-file", :syslog, :journald, :gelf, :fluentd, :awslogs, :splunk], :message=>"%{value} needs to be :\"json-file\", :syslog, :journald, :gelf, :fluentd, :awslogs, :splunk"}, allow_nil: true
 
@@ -135,7 +135,7 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [Object] Connect the container to a network.
+        # @return [:bridge, :"container:<name|id>", :host, :none, nil] Connect the container to a network.
         attribute :network_mode
         validates :network_mode, inclusion: {:in=>[:bridge, :"container:<name|id>", :host, :none], :message=>"%{value} needs to be :bridge, :\"container:<name|id>\", :host, :none"}, allow_nil: true
 
@@ -176,7 +176,7 @@ module Ansible
         attribute :restart
         validates :restart, type: TrueClass
 
-        # @return [String] Container restart policy. Place quotes around I(no) option.
+        # @return [:always, false, :"on-failure", :"unless-stopped", nil] Container restart policy. Place quotes around I(no) option.
         attribute :restart_policy
         validates :restart_policy, inclusion: {:in=>[:always, false, :"on-failure", :"unless-stopped"], :message=>"%{value} needs to be :always, false, :\"on-failure\", :\"unless-stopped\""}, allow_nil: true
 
@@ -190,7 +190,7 @@ module Ansible
         # @return [Object] List of security options in the form of C("label:user:User")
         attribute :security_opts
 
-        # @return [String] I(absent) - A container matching the specified name will be stopped and removed. Use force_kill to kill the container rather than stopping it. Use keep_volumes to retain volumes associated with the removed container.,I(present)" - Asserts the existence of a container matching the name and any provided configuration parameters. If no container matches the name, a container will be created. If a container matches the name but the provided configuration does not match, the container will be updated, if it can be. If it cannot be updated, it will be removed and re-created with the requested config. Image version will be taken into account when comparing configuration. To ignore image version use the ignore_image option. Use the recreate option to force the re-creation of the matching container. Use force_kill to kill the container rather than stopping it. Use keep_volumes to retain volumes associated with a removed container.,I(started) - Asserts there is a running container matching the name and any provided configuration. If no container matches the name, a container will be created and started. If a container matching the name is found but the configuration does not match, the container will be updated, if it can be. If it cannot be updated, it will be removed and a new container will be created with the requested configuration and started. Image version will be taken into account when comparing configuration. To ignore image version use the ignore_image option. Use recreate to always re-create a matching container, even if it is running. Use restart to force a matching container to be stopped and restarted. Use force_kill to kill a container rather than stopping it. Use keep_volumes to retain volumes associated with a removed container.,I(stopped) - Asserts that the container is first I(present), and then if the container is running moves it to a stopped state. Use force_kill to kill a container rather than stopping it.
+        # @return [:absent, :present, :stopped, :started, nil] I(absent) - A container matching the specified name will be stopped and removed. Use force_kill to kill the container rather than stopping it. Use keep_volumes to retain volumes associated with the removed container.,I(present)" - Asserts the existence of a container matching the name and any provided configuration parameters. If no container matches the name, a container will be created. If a container matches the name but the provided configuration does not match, the container will be updated, if it can be. If it cannot be updated, it will be removed and re-created with the requested config. Image version will be taken into account when comparing configuration. To ignore image version use the ignore_image option. Use the recreate option to force the re-creation of the matching container. Use force_kill to kill the container rather than stopping it. Use keep_volumes to retain volumes associated with a removed container.,I(started) - Asserts there is a running container matching the name and any provided configuration. If no container matches the name, a container will be created and started. If a container matching the name is found but the configuration does not match, the container will be updated, if it can be. If it cannot be updated, it will be removed and a new container will be created with the requested configuration and started. Image version will be taken into account when comparing configuration. To ignore image version use the ignore_image option. Use recreate to always re-create a matching container, even if it is running. Use restart to force a matching container to be stopped and restarted. Use force_kill to kill a container rather than stopping it. Use keep_volumes to retain volumes associated with a removed container.,I(stopped) - Asserts that the container is first I(present), and then if the container is running moves it to a stopped state. Use force_kill to kill a container rather than stopping it.
         attribute :state
         validates :state, inclusion: {:in=>[:absent, :present, :stopped, :started], :message=>"%{value} needs to be :absent, :present, :stopped, :started"}, allow_nil: true
 

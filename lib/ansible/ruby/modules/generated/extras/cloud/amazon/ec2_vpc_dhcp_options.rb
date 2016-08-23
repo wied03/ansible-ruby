@@ -46,7 +46,7 @@ module Ansible
         attribute :dhcp_options_id
         validates :dhcp_options_id, type: String
 
-        # @return [String] create/assign or remove the DHCP options. If state is set to absent, then a DHCP options set matched either by id, or tags and options will be removed if possible.
+        # @return [:absent, :present, nil] create/assign or remove the DHCP options. If state is set to absent, then a DHCP options set matched either by id, or tags and options will be removed if possible.
         attribute :state
         validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
       end

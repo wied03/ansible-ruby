@@ -25,23 +25,23 @@ module Ansible
         attribute :body
         validates :body, type: String
 
-        # @return [String] The serialization format of the body. When set to json, encodes the body argument, if needed, and automatically sets the Content-Type header accordingly.
+        # @return [:raw, :json, nil] The serialization format of the body. When set to json, encodes the body argument, if needed, and automatically sets the Content-Type header accordingly.
         attribute :body_format
         validates :body_format, inclusion: {:in=>[:raw, :json], :message=>"%{value} needs to be :raw, :json"}, allow_nil: true
 
-        # @return [String] The HTTP method of the request or response. It MUST be uppercase.
+        # @return [:GET, :POST, :PUT, :HEAD, :DELETE, :OPTIONS, :PATCH, :TRACE, :CONNECT, :REFRESH, nil] The HTTP method of the request or response. It MUST be uppercase.
         attribute :method
         validates :method, inclusion: {:in=>[:GET, :POST, :PUT, :HEAD, :DELETE, :OPTIONS, :PATCH, :TRACE, :CONNECT, :REFRESH], :message=>"%{value} needs to be :GET, :POST, :PUT, :HEAD, :DELETE, :OPTIONS, :PATCH, :TRACE, :CONNECT, :REFRESH"}, allow_nil: true
 
-        # @return [String] Whether or not to return the body of the request as a "content" key in the dictionary result. If the reported Content-type is "application/json", then the JSON is additionally loaded into a key called C(json) in the dictionary results.
+        # @return [:yes, :no, nil] Whether or not to return the body of the request as a "content" key in the dictionary result. If the reported Content-type is "application/json", then the JSON is additionally loaded into a key called C(json) in the dictionary results.
         attribute :return_content
         validates :return_content, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String] The library used by the uri module only sends authentication information when a webservice responds to an initial request with a 401 status. Since some basic auth services do not properly send a 401, logins will fail. This option forces the sending of the Basic authentication header upon initial request.
+        # @return [:yes, :no, nil] The library used by the uri module only sends authentication information when a webservice responds to an initial request with a 401 status. Since some basic auth services do not properly send a 401, logins will fail. This option forces the sending of the Basic authentication header upon initial request.
         attribute :force_basic_auth
         validates :force_basic_auth, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String] Whether or not the URI module should follow redirects. C(all) will follow all redirects. C(safe) will follow only "safe" redirects, where "safe" means that the client is only doing a GET or HEAD on the URI to which it is being redirected. C(none) will not follow any redirects. Note that C(yes) and C(no) choices are accepted for backwards compatibility, where C(yes) is the equivalent of C(all) and C(no) is the equivalent of C(safe). C(yes) and C(no) are deprecated and will be removed in some future version of Ansible.
+        # @return [:all, :safe, :none, nil] Whether or not the URI module should follow redirects. C(all) will follow all redirects. C(safe) will follow only "safe" redirects, where "safe" means that the client is only doing a GET or HEAD on the URI to which it is being redirected. C(none) will not follow any redirects. Note that C(yes) and C(no) choices are accepted for backwards compatibility, where C(yes) is the equivalent of C(all) and C(no) is the equivalent of C(safe). C(yes) and C(no) are deprecated and will be removed in some future version of Ansible.
         attribute :follow_redirects
         validates :follow_redirects, inclusion: {:in=>[:all, :safe, :none], :message=>"%{value} needs to be :all, :safe, :none"}, allow_nil: true
 
@@ -68,7 +68,7 @@ module Ansible
         # @return [Object] all arguments accepted by the M(file) module also work here
         attribute :others
 
-        # @return [String] If C(no), SSL certificates will not be validated.  This should only set to C(no) used on personally controlled sites using self-signed certificates.  Prior to 1.9.2 the code defaulted to C(no).
+        # @return [:yes, :no, nil] If C(no), SSL certificates will not be validated.  This should only set to C(no) used on personally controlled sites using self-signed certificates.  Prior to 1.9.2 the code defaulted to C(no).
         attribute :validate_certs
         validates :validate_certs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end

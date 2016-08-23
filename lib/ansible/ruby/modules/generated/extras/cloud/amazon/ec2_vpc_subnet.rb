@@ -16,7 +16,7 @@ module Ansible
         # @return [Object] A dict of tags to apply to the subnet. Any tags currently applied to the subnet and not present here will be removed.
         attribute :tags
 
-        # @return [String] Create or remove the subnet
+        # @return [:present, :absent, nil] Create or remove the subnet
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 

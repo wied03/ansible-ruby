@@ -30,7 +30,7 @@ module Ansible
         attribute :passno
         validates :passno, type: Fixnum
 
-        # @return [String] If C(mounted) or C(unmounted), the device will be actively mounted or unmounted as needed and appropriately configured in I(fstab).,C(absent) and C(present) only deal with I(fstab) but will not affect current mounting.,If specifying C(mounted) and the mount point is not present, the mount point will be created. Similarly.,Specifying C(absent) will remove the mount point directory.
+        # @return [:present, :absent, :mounted, :unmounted] If C(mounted) or C(unmounted), the device will be actively mounted or unmounted as needed and appropriately configured in I(fstab).,C(absent) and C(present) only deal with I(fstab) but will not affect current mounting.,If specifying C(mounted) and the mount point is not present, the mount point will be created. Similarly.,Specifying C(absent) will remove the mount point directory.
         attribute :state
         validates :state, presence: true, inclusion: {:in=>[:present, :absent, :mounted, :unmounted], :message=>"%{value} needs to be :present, :absent, :mounted, :unmounted"}
 

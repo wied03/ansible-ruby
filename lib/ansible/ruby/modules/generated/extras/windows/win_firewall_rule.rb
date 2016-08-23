@@ -6,11 +6,11 @@ module Ansible
   module Ruby
     module Modules
       class Win_firewall_rule < Base
-        # @return [TrueClass] is this firewall rule enabled or disabled
+        # @return [:yes, :no, nil] is this firewall rule enabled or disabled
         attribute :enable
         validates :enable, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String] should this rule be added or removed
+        # @return [:present, :absent] should this rule be added or removed
         attribute :state
         validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
 
@@ -18,11 +18,11 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [String] is this rule for inbound or outbound trafic
+        # @return [:In, :Out] is this rule for inbound or outbound trafic
         attribute :direction
         validates :direction, presence: true, inclusion: {:in=>[:In, :Out], :message=>"%{value} needs to be :In, :Out"}
 
-        # @return [String] what to do with the items this rule is for
+        # @return [:allow, :block] what to do with the items this rule is for
         attribute :action
         validates :action, presence: true, inclusion: {:in=>[:allow, :block], :message=>"%{value} needs to be :allow, :block"}
 

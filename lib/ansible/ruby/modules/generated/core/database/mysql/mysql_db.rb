@@ -10,7 +10,7 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [String] The database state
+        # @return [:present, :absent, :dump, :import, nil] The database state
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent, :dump, :import], :message=>"%{value} needs to be :present, :absent, :dump, :import"}, allow_nil: true
 

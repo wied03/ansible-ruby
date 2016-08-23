@@ -22,15 +22,15 @@ module Ansible
         attribute :uplink_quantity
         validates :uplink_quantity, presence: true, type: Fixnum
 
-        # @return [String] Link discovery protocol between Cisco and Link Layer discovery
+        # @return [:cdp, :lldp] Link discovery protocol between Cisco and Link Layer discovery
         attribute :discovery_proto
         validates :discovery_proto, presence: true, inclusion: {:in=>[:cdp, :lldp], :message=>"%{value} needs to be :cdp, :lldp"}
 
-        # @return [String] Select the discovery operation
+        # @return [:both, :none, :advertise, :listen, nil] Select the discovery operation
         attribute :discovery_operation
         validates :discovery_operation, inclusion: {:in=>[:both, :none, :advertise, :listen], :message=>"%{value} needs to be :both, :none, :advertise, :listen"}, allow_nil: true
 
-        # @return [String] Create or remove dvSwitch
+        # @return [:present, :absent, nil] Create or remove dvSwitch
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end

@@ -34,7 +34,7 @@ module Ansible
         attribute :path
         validates :path, presence: true, type: String
 
-        # @return [String] If C(no), SSL certificates will not be validated. This should only be set to C(no) when no other option exists.
+        # @return [:yes, :no, nil] If C(no), SSL certificates will not be validated. This should only be set to C(no) when no other option exists.
         attribute :validate_certs
         validates :validate_certs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end

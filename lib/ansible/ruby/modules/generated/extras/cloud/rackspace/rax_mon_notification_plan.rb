@@ -6,7 +6,7 @@ module Ansible
   module Ruby
     module Modules
       class Rax_mon_notification_plan < Base
-        # @return [Object] Ensure that the notification plan with this C(label) exists or does not exist.
+        # @return [:present, :absent, nil] Ensure that the notification plan with this C(label) exists or does not exist.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 

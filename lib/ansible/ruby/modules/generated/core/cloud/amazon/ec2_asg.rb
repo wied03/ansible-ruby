@@ -6,7 +6,7 @@ module Ansible
   module Ruby
     module Modules
       class Ec2_asg < Base
-        # @return [Object] register or deregister the instance
+        # @return [:present, :absent] register or deregister the instance
         attribute :state
         validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
 
@@ -66,7 +66,7 @@ module Ansible
         attribute :health_check_period
         validates :health_check_period, type: String
 
-        # @return [String] The service you want the health status from, Amazon EC2 or Elastic Load Balancer.
+        # @return [:EC2, :ELB, nil] The service you want the health status from, Amazon EC2 or Elastic Load Balancer.
         attribute :health_check_type
         validates :health_check_type, inclusion: {:in=>[:EC2, :ELB], :message=>"%{value} needs to be :EC2, :ELB"}, allow_nil: true
 
@@ -82,7 +82,7 @@ module Ansible
         attribute :wait_for_instances
         validates :wait_for_instances, type: TrueClass
 
-        # @return [String] An ordered list of criteria used for selecting instances to be removed from the Auto Scaling group when reducing capacity.,For 'Default', when used to create a new autoscaling group, the "Default" value is used. When used to change an existent autoscaling group, the current termination policies are mantained
+        # @return [:OldestInstance, :NewestInstance, :OldestLaunchConfiguration, :ClosestToNextInstanceHour, :Default, nil] An ordered list of criteria used for selecting instances to be removed from the Auto Scaling group when reducing capacity.,For 'Default', when used to create a new autoscaling group, the "Default" value is used. When used to change an existent autoscaling group, the current termination policies are mantained
         attribute :termination_policies
         validates :termination_policies, inclusion: {:in=>[:OldestInstance, :NewestInstance, :OldestLaunchConfiguration, :ClosestToNextInstanceHour, :Default], :message=>"%{value} needs to be :OldestInstance, :NewestInstance, :OldestLaunchConfiguration, :ClosestToNextInstanceHour, :Default"}, allow_nil: true
       end

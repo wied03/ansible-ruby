@@ -22,15 +22,15 @@ module Ansible
         attribute :location
         validates :location, presence: true
 
-        # @return [String] -The balancing method for the load balancer pool
+        # @return [:leastConnection, :roundRobin, nil] -The balancing method for the load balancer pool
         attribute :method
         validates :method, inclusion: {:in=>[:leastConnection, :roundRobin], :message=>"%{value} needs to be :leastConnection, :roundRobin"}, allow_nil: true
 
-        # @return [String] The persistence method for the load balancer
+        # @return [:standard, :sticky, nil] The persistence method for the load balancer
         attribute :persistence
         validates :persistence, inclusion: {:in=>[:standard, :sticky], :message=>"%{value} needs to be :standard, :sticky"}, allow_nil: true
 
-        # @return [String] Port to configure on the public-facing side of the load balancer pool
+        # @return [80, 443, nil] Port to configure on the public-facing side of the load balancer pool
         attribute :port
         validates :port, inclusion: {:in=>[80, 443], :message=>"%{value} needs to be 80, 443"}, allow_nil: true
 
@@ -38,11 +38,11 @@ module Ansible
         attribute :nodes
         validates :nodes, type: Array
 
-        # @return [String] The status of the loadbalancer
+        # @return [:enabled, :disabled, nil] The status of the loadbalancer
         attribute :status
         validates :status, inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
 
-        # @return [String] Whether to create or delete the load balancer pool
+        # @return [:present, :absent, :port_absent, :nodes_present, :nodes_absent, nil] Whether to create or delete the load balancer pool
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent, :port_absent, :nodes_present, :nodes_absent], :message=>"%{value} needs to be :present, :absent, :port_absent, :nodes_present, :nodes_absent"}, allow_nil: true
       end

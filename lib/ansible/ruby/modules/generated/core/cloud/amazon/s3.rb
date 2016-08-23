@@ -43,7 +43,7 @@ module Ansible
         attribute :metadata
         validates :metadata, type: String
 
-        # @return [String] Switches the module behaviour between put (upload), get (download), geturl (return download url, Ansible 1.3+), getstr (download object as string (1.3+)), list (list keys, Ansible 2.0+), create (bucket), delete (bucket), and delobj (delete object, Ansible 2.0+).
+        # @return [:get, :put, :delete, :create, :geturl, :getstr, :delobj, :list] Switches the module behaviour between put (upload), get (download), geturl (return download url, Ansible 1.3+), getstr (download object as string (1.3+)), list (list keys, Ansible 2.0+), create (bucket), delete (bucket), and delobj (delete object, Ansible 2.0+).
         attribute :mode
         validates :mode, presence: true, inclusion: {:in=>[:get, :put, :delete, :create, :geturl, :getstr, :delobj, :list], :message=>"%{value} needs to be :get, :put, :delete, :create, :geturl, :getstr, :delobj, :list"}
 

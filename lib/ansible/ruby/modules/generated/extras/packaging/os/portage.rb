@@ -10,63 +10,63 @@ module Ansible
         attribute :package
         validates :package, type: String
 
-        # @return [String] State of the package atom
+        # @return [:present, :installed, :emerged, :absent, :removed, :unmerged, nil] State of the package atom
         attribute :state
         validates :state, inclusion: {:in=>[:present, :installed, :emerged, :absent, :removed, :unmerged], :message=>"%{value} needs to be :present, :installed, :emerged, :absent, :removed, :unmerged"}, allow_nil: true
 
-        # @return [String] Update packages to the best version available (--update)
+        # @return [:yes, nil] Update packages to the best version available (--update)
         attribute :update
         validates :update, inclusion: {:in=>[:yes], :message=>"%{value} needs to be :yes"}, allow_nil: true
 
-        # @return [String] Consider the entire dependency tree of packages (--deep)
+        # @return [:yes, nil] Consider the entire dependency tree of packages (--deep)
         attribute :deep
         validates :deep, inclusion: {:in=>[:yes], :message=>"%{value} needs to be :yes"}, allow_nil: true
 
-        # @return [Object] Include installed packages where USE flags have changed (--newuse)
+        # @return [:yes, nil] Include installed packages where USE flags have changed (--newuse)
         attribute :newuse
         validates :newuse, inclusion: {:in=>[:yes], :message=>"%{value} needs to be :yes"}, allow_nil: true
 
-        # @return [Object] Include installed packages where USE flags have changed, except when,flags that the user has not enabled are added or removed,(--changed-use)
+        # @return [:yes, nil] Include installed packages where USE flags have changed, except when,flags that the user has not enabled are added or removed,(--changed-use)
         attribute :changed_use
         validates :changed_use, inclusion: {:in=>[:yes], :message=>"%{value} needs to be :yes"}, allow_nil: true
 
-        # @return [Object] Do not add the packages to the world file (--oneshot)
+        # @return [:yes, :no, nil] Do not add the packages to the world file (--oneshot)
         attribute :oneshot
         validates :oneshot, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [Object] Do not re-emerge installed packages (--noreplace)
+        # @return [:yes, :no, nil] Do not re-emerge installed packages (--noreplace)
         attribute :noreplace
         validates :noreplace, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [Object] Only merge packages but not their dependencies (--nodeps)
+        # @return [:yes, :no, nil] Only merge packages but not their dependencies (--nodeps)
         attribute :nodeps
         validates :nodeps, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [Object] Only merge packages' dependencies but not the packages (--onlydeps)
+        # @return [:yes, :no, nil] Only merge packages' dependencies but not the packages (--onlydeps)
         attribute :onlydeps
         validates :onlydeps, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String] Remove packages not needed by explicitly merged packages (--depclean),If no package is specified, clean up the world's dependencies,Otherwise, --depclean serves as a dependency aware version of --unmerge
+        # @return [:yes, :no, nil] Remove packages not needed by explicitly merged packages (--depclean),If no package is specified, clean up the world's dependencies,Otherwise, --depclean serves as a dependency aware version of --unmerge
         attribute :depclean
         validates :depclean, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [Object] Run emerge in quiet mode (--quiet)
+        # @return [:yes, :no, nil] Run emerge in quiet mode (--quiet)
         attribute :quiet
         validates :quiet, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [Object] Run emerge in verbose mode (--verbose)
+        # @return [:yes, :no, nil] Run emerge in verbose mode (--verbose)
         attribute :verbose
         validates :verbose, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String] Sync package repositories first,If yes, perform "emerge --sync",If web, perform "emerge-webrsync"
+        # @return [:yes, :web, :no, nil] Sync package repositories first,If yes, perform "emerge --sync",If web, perform "emerge-webrsync"
         attribute :sync
         validates :sync, inclusion: {:in=>[:yes, :web, :no], :message=>"%{value} needs to be :yes, :web, :no"}, allow_nil: true
 
-        # @return [String] Prefer packages specified at PORTAGE_BINHOST in make.conf
+        # @return [:yes, :no, nil] Prefer packages specified at PORTAGE_BINHOST in make.conf
         attribute :getbinpkg
         validates :getbinpkg, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String] Merge only binaries (no compiling). This sets getbinpkg=yes.
+        # @return [:yes, :no, nil] Merge only binaries (no compiling). This sets getbinpkg=yes.
         attribute :usepkgonly
         validates :usepkgonly, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end

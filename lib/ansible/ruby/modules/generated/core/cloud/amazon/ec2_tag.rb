@@ -10,7 +10,7 @@ module Ansible
         attribute :resource
         validates :resource, presence: true, type: String
 
-        # @return [String] Whether the tags should be present or absent on the resource. Use list to interrogate the tags of an instance.
+        # @return [:present, :absent, :list, nil] Whether the tags should be present or absent on the resource. Use list to interrogate the tags of an instance.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent, :list], :message=>"%{value} needs to be :present, :absent, :list"}, allow_nil: true
 

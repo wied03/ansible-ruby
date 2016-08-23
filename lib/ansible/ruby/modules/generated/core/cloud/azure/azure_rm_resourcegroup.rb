@@ -17,7 +17,7 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [String] Assert the state of the resource group. Use 'present' to create or update and 'absent' to delete. When 'absent' a resource group containing resources will not be removed unless the force option is used.
+        # @return [:absent, :present, nil] Assert the state of the resource group. Use 'present' to create or update and 'absent' to delete. When 'absent' a resource group containing resources will not be removed unless the force option is used.
         attribute :state
         validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
       end

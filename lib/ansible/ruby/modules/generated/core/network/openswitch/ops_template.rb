@@ -10,11 +10,11 @@ module Ansible
         attribute :src
         validates :src, presence: true, type: String
 
-        # @return [Object] The force argument instructs the module to not consider the current devices running-config.  When set to true, this will cause the module to push the contents of I(src) into the device without first checking if already configured.
+        # @return [:yes, :no, nil] The force argument instructs the module to not consider the current devices running-config.  When set to true, this will cause the module to push the contents of I(src) into the device without first checking if already configured.
         attribute :force
         validates :force, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [TrueClass] When this argument is configured true, the module will backup the running-config from the node prior to making any changes. The backup file will be written to backups/ in the root of the playbook directory.
+        # @return [:yes, :no, nil] When this argument is configured true, the module will backup the running-config from the node prior to making any changes. The backup file will be written to backups/ in the root of the playbook directory.
         attribute :backup
         validates :backup, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 

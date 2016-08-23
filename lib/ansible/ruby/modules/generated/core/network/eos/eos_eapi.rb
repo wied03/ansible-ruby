@@ -6,7 +6,7 @@ module Ansible
   module Ruby
     module Modules
       class Eos_eapi < Base
-        # @return [String] Set to started or stopped. A state of started will enable EAPI access, and a state of stopped will disable or shutdown all EAPI access.
+        # @return [:started, :stopped, nil] Set to started or stopped. A state of started will enable EAPI access, and a state of stopped will disable or shutdown all EAPI access.
         attribute :state
         validates :state, inclusion: {:in=>[:started, :stopped], :message=>"%{value} needs to be :started, :stopped"}, allow_nil: true
 

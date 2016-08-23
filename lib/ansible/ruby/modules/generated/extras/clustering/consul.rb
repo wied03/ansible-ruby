@@ -6,7 +6,7 @@ module Ansible
   module Ruby
     module Modules
       class Consul < Base
-        # @return [String] register or deregister the consul service, defaults to present
+        # @return [:present, :absent] register or deregister the consul service, defaults to present
         attribute :state
         validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
 

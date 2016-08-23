@@ -10,7 +10,7 @@ module Ansible
         attribute :location
         validates :location, presence: true
 
-        # @return [String] Whether to create or delete the firewall policy
+        # @return [:present, :absent, nil] Whether to create or delete the firewall policy
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
@@ -22,7 +22,7 @@ module Ansible
         attribute :destination
         validates :destination, type: String
 
-        # @return [String] The list of ports associated with the policy. TCP and UDP can take in single ports or port ranges.
+        # @return [:any, :icmp, :"TCP/123", :"UDP/123", :"TCP/123-456", :"UDP/123-456", nil] The list of ports associated with the policy. TCP and UDP can take in single ports or port ranges.
         attribute :ports
         validates :ports, inclusion: {:in=>[:any, :icmp, :"TCP/123", :"UDP/123", :"TCP/123-456", :"UDP/123-456"], :message=>"%{value} needs to be :any, :icmp, :\"TCP/123\", :\"UDP/123\", :\"TCP/123-456\", :\"UDP/123-456\""}, allow_nil: true
 
@@ -38,11 +38,11 @@ module Ansible
         attribute :destination_account_alias
         validates :destination_account_alias, type: String
 
-        # @return [TrueClass] Whether to wait for the provisioning tasks to finish before returning.
+        # @return [Boolean, nil] Whether to wait for the provisioning tasks to finish before returning.
         attribute :wait
         validates :wait, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
-        # @return [TrueClass] Whether the firewall policy is enabled or disabled
+        # @return [Boolean, nil] Whether the firewall policy is enabled or disabled
         attribute :enabled
         validates :enabled, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
       end

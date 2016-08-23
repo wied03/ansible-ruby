@@ -22,19 +22,19 @@ module Ansible
         attribute :msg
         validates :msg, presence: true, type: String
 
-        # @return [String] Background color for the message. Default is yellow.
+        # @return [:yellow, :red, :green, :purple, :gray, :random, nil] Background color for the message. Default is yellow.
         attribute :color
         validates :color, inclusion: {:in=>[:yellow, :red, :green, :purple, :gray, :random], :message=>"%{value} needs to be :yellow, :red, :green, :purple, :gray, :random"}, allow_nil: true
 
-        # @return [String] message format. html or text. Default is text.
+        # @return [:text, :html, nil] message format. html or text. Default is text.
         attribute :msg_format
         validates :msg_format, inclusion: {:in=>[:text, :html], :message=>"%{value} needs to be :text, :html"}, allow_nil: true
 
-        # @return [String] notify or not (change the tab color, play a sound, etc)
+        # @return [:yes, :no, nil] notify or not (change the tab color, play a sound, etc)
         attribute :notify
         validates :notify, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String] If C(no), SSL certificates will not be validated. This should only be used on personally controlled sites using self-signed certificates.
+        # @return [:yes, :no, nil] If C(no), SSL certificates will not be validated. This should only be used on personally controlled sites using self-signed certificates.
         attribute :validate_certs
         validates :validate_certs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 

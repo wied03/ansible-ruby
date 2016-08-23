@@ -22,7 +22,7 @@ module Ansible
         attribute :socket
         validates :socket, type: String
 
-        # @return [String] Desired state of the provided backend host.
+        # @return [:enabled, :disabled] Desired state of the provided backend host.
         attribute :state
         validates :state, presence: true, inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}
 

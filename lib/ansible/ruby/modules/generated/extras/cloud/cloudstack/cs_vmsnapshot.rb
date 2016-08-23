@@ -27,7 +27,7 @@ module Ansible
         # @return [Object] Name of the project the VM is assigned to.
         attribute :project
 
-        # @return [String] State of the snapshot.
+        # @return [:present, :absent, :revert, nil] State of the snapshot.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent, :revert], :message=>"%{value} needs to be :present, :absent, :revert"}, allow_nil: true
 

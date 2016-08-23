@@ -18,7 +18,7 @@ module Ansible
         attribute :uid
         validates :uid, type: String
 
-        # @return [String] Optionally when used with the -u option, this option allows to change the user ID to a non-unique value.
+        # @return [:yes, :no, nil] Optionally when used with the -u option, this option allows to change the user ID to a non-unique value.
         attribute :non_unique
         validates :non_unique, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
@@ -33,7 +33,7 @@ module Ansible
         attribute :groups
         validates :groups, type: String
 
-        # @return [String] If C(yes), will only add groups, not set them to just the list in I(groups).
+        # @return [:yes, :no, nil] If C(yes), will only add groups, not set them to just the list in I(groups).
         attribute :append
         validates :append, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
@@ -50,34 +50,34 @@ module Ansible
         # @return [Object] Optionally set the user's password to this crypted value.  See the user example in the github examples directory for what this looks like in a playbook. See U(http://docs.ansible.com/ansible/faq.html#how-do-i-generate-crypted-passwords-for-the-user-module) for details on various ways to generate these password values. Note on Darwin system, this value has to be cleartext. Beware of security issues.
         attribute :password
 
-        # @return [String] Whether the account should exist or not, taking action if the state is different from what is stated.
+        # @return [:present, :absent, nil] Whether the account should exist or not, taking action if the state is different from what is stated.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [String] Unless set to C(no), a home directory will be made for the user when the account is created or if the home directory does not exist.
+        # @return [:yes, :no, nil] Unless set to C(no), a home directory will be made for the user when the account is created or if the home directory does not exist.
         attribute :createhome
         validates :createhome, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String] If set to C(yes) when used with C(home=), attempt to move the user's home directory to the specified directory if it isn't there already.
+        # @return [:yes, :no, nil] If set to C(yes) when used with C(home=), attempt to move the user's home directory to the specified directory if it isn't there already.
         attribute :move_home
         validates :move_home, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String] When creating an account, setting this to C(yes) makes the user a system account.  This setting cannot be changed on existing users.
+        # @return [:yes, :no, nil] When creating an account, setting this to C(yes) makes the user a system account.  This setting cannot be changed on existing users.
         attribute :system
         validates :system, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String] When used with C(state=absent), behavior is as with C(userdel --force).
+        # @return [:yes, :no, nil] When used with C(state=absent), behavior is as with C(userdel --force).
         attribute :force
         validates :force, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object] Optionally sets the user's login class for FreeBSD, OpenBSD and NetBSD systems.
         attribute :login_class
 
-        # @return [String] When used with C(state=absent), behavior is as with C(userdel --remove).
+        # @return [:yes, :no, nil] When used with C(state=absent), behavior is as with C(userdel --remove).
         attribute :remove
         validates :remove, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String] Whether to generate a SSH key for the user in question. This will B(not) overwrite an existing SSH key.
+        # @return [:yes, :no, nil] Whether to generate a SSH key for the user in question. This will B(not) overwrite an existing SSH key.
         attribute :generate_ssh_key
         validates :generate_ssh_key, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
@@ -100,7 +100,7 @@ module Ansible
         # @return [Object] Set a passphrase for the SSH key.  If no passphrase is provided, the SSH key will default to having no passphrase.
         attribute :ssh_key_passphrase
 
-        # @return [String] C(always) will update passwords if they differ.  C(on_create) will only set the password for newly created users.
+        # @return [:always, :on_create, nil] C(always) will update passwords if they differ.  C(on_create) will only set the password for newly created users.
         attribute :update_password
         validates :update_password, inclusion: {:in=>[:always, :on_create], :message=>"%{value} needs to be :always, :on_create"}, allow_nil: true
 

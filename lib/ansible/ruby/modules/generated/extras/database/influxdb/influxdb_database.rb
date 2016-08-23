@@ -26,7 +26,7 @@ module Ansible
         attribute :database_name
         validates :database_name, presence: true, type: String
 
-        # @return [String] Determines if the database should be created or destroyed
+        # @return [:present, :absent, nil] Determines if the database should be created or destroyed
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end

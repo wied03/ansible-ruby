@@ -38,7 +38,7 @@ module Ansible
         attribute :macro_value
         validates :macro_value, presence: true, type: String
 
-        # @return [String] State of the macro.,On C(present), it will create if macro does not exist or update the macro if the associated data is different.,On C(absent) will remove a macro if it exists.
+        # @return [:present, :absent, nil] State of the macro.,On C(present), it will create if macro does not exist or update the macro if the associated data is different.,On C(absent) will remove a macro if it exists.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 

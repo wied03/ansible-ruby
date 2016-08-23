@@ -6,7 +6,7 @@ module Ansible
   module Ruby
     module Modules
       class Os_subnet < Base
-        # @return [String] Indicate desired state of the resource
+        # @return [:present, :absent, nil] Indicate desired state of the resource
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
@@ -50,11 +50,11 @@ module Ansible
         attribute :host_routes
         validates :host_routes, type: String
 
-        # @return [String] IPv6 router advertisement mode
+        # @return [:"dhcpv6-stateful", :"dhcpv6-stateless", :slaac, nil] IPv6 router advertisement mode
         attribute :ipv6_ra_mode
         validates :ipv6_ra_mode, inclusion: {:in=>[:"dhcpv6-stateful", :"dhcpv6-stateless", :slaac], :message=>"%{value} needs to be :\"dhcpv6-stateful\", :\"dhcpv6-stateless\", :slaac"}, allow_nil: true
 
-        # @return [String] IPv6 address mode
+        # @return [:"dhcpv6-stateful", :"dhcpv6-stateless", :slaac, nil] IPv6 address mode
         attribute :ipv6_address_mode
         validates :ipv6_address_mode, inclusion: {:in=>[:"dhcpv6-stateful", :"dhcpv6-stateless", :slaac], :message=>"%{value} needs to be :\"dhcpv6-stateful\", :\"dhcpv6-stateless\", :slaac"}, allow_nil: true
 

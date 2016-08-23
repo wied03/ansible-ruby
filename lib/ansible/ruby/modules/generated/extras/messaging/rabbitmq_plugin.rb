@@ -10,11 +10,11 @@ module Ansible
         attribute :names
         validates :names, presence: true, type: String
 
-        # @return [String] Only enable missing plugins,Does not disable plugins that are not in the names list
+        # @return [:yes, :no, nil] Only enable missing plugins,Does not disable plugins that are not in the names list
         attribute :new_only
         validates :new_only, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String] Specify if plugins are to be enabled or disabled
+        # @return [:enabled, :disabled, nil] Specify if plugins are to be enabled or disabled
         attribute :state
         validates :state, inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
 

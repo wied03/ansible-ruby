@@ -10,7 +10,7 @@ module Ansible
         attribute :policy
         validates :policy, type: String
 
-        # @return [String] The SELinux mode
+        # @return [:enforcing, :permissive, :disabled] The SELinux mode
         attribute :state
         validates :state, presence: true, inclusion: {:in=>[:enforcing, :permissive, :disabled], :message=>"%{value} needs to be :enforcing, :permissive, :disabled"}
 

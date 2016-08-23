@@ -6,11 +6,11 @@ module Ansible
   module Ruby
     module Modules
       class Nmcli < Base
-        # @return [Object] Whether the device should exist or not, taking action if the state is different from what is stated.
+        # @return [:present, :absent] Whether the device should exist or not, taking action if the state is different from what is stated.
         attribute :state
         validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
 
-        # @return [String] Whether the connection should start on boot.,Whether the connection profile can be automatically activated
+        # @return [:yes, :no, nil] Whether the connection should start on boot.,Whether the connection profile can be automatically activated
         attribute :autoconnect
         validates :autoconnect, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
@@ -22,11 +22,11 @@ module Ansible
         attribute :ifname
         validates :ifname, type: String
 
-        # @return [Object] This is the type of device or network connection that you wish to create.
+        # @return [:ethernet, :team, :"team-slave", :bond, :"bond-slave", :bridge, :vlan, nil] This is the type of device or network connection that you wish to create.
         attribute :type
         validates :type, inclusion: {:in=>[:ethernet, :team, :"team-slave", :bond, :"bond-slave", :bridge, :vlan], :message=>"%{value} needs to be :ethernet, :team, :\"team-slave\", :bond, :\"bond-slave\", :bridge, :vlan"}, allow_nil: true
 
-        # @return [String] This is the type of device or network connection that you wish to create for a bond, team or bridge.
+        # @return [:"balance-rr", :"active-backup", :"balance-xor", :broadcast, :"802.3ad", :"balance-tlb", :"balance-alb", nil] This is the type of device or network connection that you wish to create for a bond, team or bridge.
         attribute :mode
         validates :mode, inclusion: {:in=>[:"balance-rr", :"active-backup", :"balance-xor", :broadcast, :"802.3ad", :"balance-tlb", :"balance-alb"], :message=>"%{value} needs to be :\"balance-rr\", :\"active-backup\", :\"balance-xor\", :broadcast, :\"802.3ad\", :\"balance-tlb\", :\"balance-alb\""}, allow_nil: true
 

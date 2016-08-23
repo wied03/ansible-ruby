@@ -6,7 +6,7 @@ module Ansible
   module Ruby
     module Modules
       class Ecs_taskdefinition < Base
-        # @return [String] State whether the task definition should exist or be deleted
+        # @return [:present, :absent] State whether the task definition should exist or be deleted
         attribute :state
         validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
 

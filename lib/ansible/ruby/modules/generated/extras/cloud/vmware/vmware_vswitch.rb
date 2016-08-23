@@ -22,7 +22,7 @@ module Ansible
         attribute :mtu
         validates :mtu, type: Fixnum
 
-        # @return [String] Add or remove the switch
+        # @return [:present, :absent, nil] Add or remove the switch
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end

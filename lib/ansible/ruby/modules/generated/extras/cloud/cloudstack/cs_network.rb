@@ -55,7 +55,7 @@ module Ansible
         attribute :clean_up
         validates :clean_up, type: TrueClass
 
-        # @return [String] Access control type.,Only considered on create.
+        # @return [:account, :domain, nil] Access control type.,Only considered on create.
         attribute :acl_type
         validates :acl_type, inclusion: {:in=>[:account, :domain], :message=>"%{value} needs to be :account, :domain"}, allow_nil: true
 
@@ -63,7 +63,7 @@ module Ansible
         attribute :network_domain
         validates :network_domain, type: String
 
-        # @return [String] State of the network.
+        # @return [:present, :absent, :restarted, nil] State of the network.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent, :restarted], :message=>"%{value} needs to be :present, :absent, :restarted"}, allow_nil: true
 

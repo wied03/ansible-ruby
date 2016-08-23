@@ -6,7 +6,7 @@ module Ansible
   module Ruby
     module Modules
       class Dynamodb_table < Base
-        # @return [String] Create or delete the table
+        # @return [:present, :absent, nil] Create or delete the table
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
@@ -18,7 +18,7 @@ module Ansible
         attribute :hash_key_name
         validates :hash_key_name, type: String
 
-        # @return [String] Type of the hash key.
+        # @return [:STRING, :NUMBER, :BINARY, nil] Type of the hash key.
         attribute :hash_key_type
         validates :hash_key_type, inclusion: {:in=>[:STRING, :NUMBER, :BINARY], :message=>"%{value} needs to be :STRING, :NUMBER, :BINARY"}, allow_nil: true
 
@@ -26,7 +26,7 @@ module Ansible
         attribute :range_key_name
         validates :range_key_name, type: String
 
-        # @return [String] Type of the range key.
+        # @return [:STRING, :NUMBER, :BINARY, nil] Type of the range key.
         attribute :range_key_type
         validates :range_key_type, inclusion: {:in=>[:STRING, :NUMBER, :BINARY], :message=>"%{value} needs to be :STRING, :NUMBER, :BINARY"}, allow_nil: true
 

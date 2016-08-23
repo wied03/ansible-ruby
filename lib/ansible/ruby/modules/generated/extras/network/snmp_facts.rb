@@ -10,7 +10,7 @@ module Ansible
         attribute :host
         validates :host, presence: true, type: String
 
-        # @return [String] SNMP Version to use, v2/v2c or v3
+        # @return [:v2, :v2c, :v3] SNMP Version to use, v2/v2c or v3
         attribute :version
         validates :version, presence: true, inclusion: {:in=>[:v2, :v2c, :v3], :message=>"%{value} needs to be :v2, :v2c, :v3"}
 
@@ -18,7 +18,7 @@ module Ansible
         attribute :community
         validates :community, type: String
 
-        # @return [String] Authentication level, required if version is v3
+        # @return [:authPriv, :authNoPriv, nil] Authentication level, required if version is v3
         attribute :level
         validates :level, inclusion: {:in=>[:authPriv, :authNoPriv], :message=>"%{value} needs to be :authPriv, :authNoPriv"}, allow_nil: true
 
@@ -26,7 +26,7 @@ module Ansible
         attribute :username
         validates :username, type: String
 
-        # @return [String] Hashing algoritm, required if version is v3
+        # @return [:md5, :sha, nil] Hashing algoritm, required if version is v3
         attribute :integrity
         validates :integrity, inclusion: {:in=>[:md5, :sha], :message=>"%{value} needs to be :md5, :sha"}, allow_nil: true
 
@@ -34,7 +34,7 @@ module Ansible
         attribute :authkey
         validates :authkey, type: String
 
-        # @return [String] Encryption algoritm, required if level is authPriv
+        # @return [:des, :aes, nil] Encryption algoritm, required if level is authPriv
         attribute :privacy
         validates :privacy, inclusion: {:in=>[:des, :aes], :message=>"%{value} needs to be :des, :aes"}, allow_nil: true
 

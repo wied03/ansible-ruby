@@ -10,7 +10,7 @@ module Ansible
         attribute :additional_disks
         validates :additional_disks, type: Array
 
-        # @return [Object] Whether to add a public ip to the server
+        # @return [Boolean, nil] Whether to add a public ip to the server
         attribute :add_public_ip
         validates :add_public_ip, inclusion: {:in=>[false, true], :message=>"%{value} needs to be false, true"}, allow_nil: true
 
@@ -74,7 +74,7 @@ module Ansible
         attribute :location
         validates :location, type: String
 
-        # @return [Object] Whether to create the server as 'Managed' or not.
+        # @return [Boolean, nil] Whether to create the server as 'Managed' or not.
         attribute :managed_os
         validates :managed_os, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
@@ -102,7 +102,7 @@ module Ansible
         attribute :primary_dns
         validates :primary_dns, type: String
 
-        # @return [String] The protocol to use for the public ip if add_public_ip is set to True.
+        # @return [:TCP, :UDP, :ICMP, nil] The protocol to use for the public ip if add_public_ip is set to True.
         attribute :public_ip_protocol
         validates :public_ip_protocol, inclusion: {:in=>[:TCP, :UDP, :ICMP], :message=>"%{value} needs to be :TCP, :UDP, :ICMP"}, allow_nil: true
 
@@ -122,11 +122,11 @@ module Ansible
         attribute :source_server_password
         validates :source_server_password, type: String
 
-        # @return [String] The state to insure that the provided resources are in.
+        # @return [:present, :absent, :started, :stopped, nil] The state to insure that the provided resources are in.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent, :started, :stopped], :message=>"%{value} needs to be :present, :absent, :started, :stopped"}, allow_nil: true
 
-        # @return [String] The type of storage to attach to the server.
+        # @return [:standard, :hyperscale, nil] The type of storage to attach to the server.
         attribute :storage_type
         validates :storage_type, inclusion: {:in=>[:standard, :hyperscale], :message=>"%{value} needs to be :standard, :hyperscale"}, allow_nil: true
 
@@ -138,7 +138,7 @@ module Ansible
         attribute :ttl
         validates :ttl, type: String
 
-        # @return [String] The type of server to create.
+        # @return [:standard, :hyperscale, :bareMetal, nil] The type of server to create.
         attribute :type
         validates :type, inclusion: {:in=>[:standard, :hyperscale, :bareMetal], :message=>"%{value} needs to be :standard, :hyperscale, :bareMetal"}, allow_nil: true
 
@@ -146,11 +146,11 @@ module Ansible
         attribute :configuration_id
         validates :configuration_id, type: String
 
-        # @return [String] Only required for bare metal servers. Specifies the OS to provision with the bare metal server.
+        # @return [:redHat6_64Bit, :centOS6_64Bit, :windows2012R2Standard_64Bit, :ubuntu14_64Bit, nil] Only required for bare metal servers. Specifies the OS to provision with the bare metal server.
         attribute :os_type
         validates :os_type, inclusion: {:in=>[:redHat6_64Bit, :centOS6_64Bit, :windows2012R2Standard_64Bit, :ubuntu14_64Bit], :message=>"%{value} needs to be :redHat6_64Bit, :centOS6_64Bit, :windows2012R2Standard_64Bit, :ubuntu14_64Bit"}, allow_nil: true
 
-        # @return [TrueClass] Whether to wait for the provisioning tasks to finish before returning.
+        # @return [Boolean, nil] Whether to wait for the provisioning tasks to finish before returning.
         attribute :wait
         validates :wait, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
       end

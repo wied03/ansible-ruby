@@ -10,7 +10,7 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [String] The desired state of the gem. C(latest) ensures that the latest version is installed.
+        # @return [:present, :absent, :latest, nil] The desired state of the gem. C(latest) ensures that the latest version is installed.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent, :latest], :message=>"%{value} needs to be :present, :absent, :latest"}, allow_nil: true
 
@@ -18,7 +18,7 @@ module Ansible
         attribute :gem_source
         validates :gem_source, type: String
 
-        # @return [String] Whether to include dependencies or not.
+        # @return [:yes, :no, nil] Whether to include dependencies or not.
         attribute :include_dependencies
         validates :include_dependencies, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 

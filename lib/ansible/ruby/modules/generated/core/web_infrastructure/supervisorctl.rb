@@ -26,7 +26,7 @@ module Ansible
         attribute :password
         validates :password, type: String
 
-        # @return [String] The desired state of program/group.
+        # @return [:present, :started, :stopped, :restarted, :absent] The desired state of program/group.
         attribute :state
         validates :state, presence: true, inclusion: {:in=>[:present, :started, :stopped, :restarted, :absent], :message=>"%{value} needs to be :present, :started, :stopped, :restarted, :absent"}
 

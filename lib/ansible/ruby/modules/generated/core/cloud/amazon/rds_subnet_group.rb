@@ -6,7 +6,7 @@ module Ansible
   module Ruby
     module Modules
       class Rds_subnet_group < Base
-        # @return [String] Specifies whether the subnet should be present or absent.
+        # @return [:present, :absent] Specifies whether the subnet should be present or absent.
         attribute :state
         validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
 

@@ -6,7 +6,7 @@ module Ansible
   module Ruby
     module Modules
       class Cs_resourcelimit < Base
-        # @return [Object] Type of the resource.
+        # @return [:instance, :ip_address, :volume, :snapshot, :template, :network, :vpc, :cpu, :memory, :primary_storage, :secondary_storage] Type of the resource.
         attribute :resource_type
         validates :resource_type, presence: true, inclusion: {:in=>[:instance, :ip_address, :volume, :snapshot, :template, :network, :vpc, :cpu, :memory, :primary_storage, :secondary_storage], :message=>"%{value} needs to be :instance, :ip_address, :volume, :snapshot, :template, :network, :vpc, :cpu, :memory, :primary_storage, :secondary_storage"}
 

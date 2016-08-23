@@ -18,7 +18,7 @@ module Ansible
         attribute :password
         validates :password, presence: true, type: String
 
-        # @return [String] LB method of wide ip
+        # @return [:return_to_dns, :null, :round_robin, :ratio, :topology, :static_persist, :global_availability, :vs_capacity, :least_conn, :lowest_rtt, :lowest_hops, :packet_rate, :cpu, :hit_ratio, :qos, :bps, :drop_packet, :explicit_ip, :connection_rate, :vs_score] LB method of wide ip
         attribute :lb_method
         validates :lb_method, presence: true, inclusion: {:in=>[:return_to_dns, :null, :round_robin, :ratio, :topology, :static_persist, :global_availability, :vs_capacity, :least_conn, :lowest_rtt, :lowest_hops, :packet_rate, :cpu, :hit_ratio, :qos, :bps, :drop_packet, :explicit_ip, :connection_rate, :vs_score], :message=>"%{value} needs to be :return_to_dns, :null, :round_robin, :ratio, :topology, :static_persist, :global_availability, :vs_capacity, :least_conn, :lowest_rtt, :lowest_hops, :packet_rate, :cpu, :hit_ratio, :qos, :bps, :drop_packet, :explicit_ip, :connection_rate, :vs_score"}
 

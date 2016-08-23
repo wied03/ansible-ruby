@@ -33,7 +33,7 @@ module Ansible
         attribute :template
         validates :template, type: String
 
-        # @return [String] content type,required only for C(state=present)
+        # @return [:vztmpl, :iso, nil] content type,required only for C(state=present)
         attribute :content_type
         validates :content_type, inclusion: {:in=>[:vztmpl, :iso], :message=>"%{value} needs to be :vztmpl, :iso"}, allow_nil: true
 
@@ -49,7 +49,7 @@ module Ansible
         attribute :force
         validates :force, type: String
 
-        # @return [String] Indicate desired state of the template
+        # @return [:present, :absent, nil] Indicate desired state of the template
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end

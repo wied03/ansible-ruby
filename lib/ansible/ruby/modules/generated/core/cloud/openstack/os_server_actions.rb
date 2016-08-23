@@ -18,7 +18,7 @@ module Ansible
         attribute :timeout
         validates :timeout, type: Fixnum
 
-        # @return [String] Perform the given action. The lock and unlock actions always return changed as the servers API does not provide lock status.
+        # @return [:stop, :start, :pause, :unpause, :lock, :unlock, :suspend, :resume, nil] Perform the given action. The lock and unlock actions always return changed as the servers API does not provide lock status.
         attribute :action
         validates :action, inclusion: {:in=>[:stop, :start, :pause, :unpause, :lock, :unlock, :suspend, :resume], :message=>"%{value} needs to be :stop, :start, :pause, :unpause, :lock, :unlock, :suspend, :resume"}, allow_nil: true
       end

@@ -17,11 +17,11 @@ module Ansible
         # @return [Object] Registry Value Data.  Binary data should be expressed a yaml byte array or as comma separated hex values.  An easy way to generate this is to run C(regedit.exe) and use the I(Export) option to save the registry values to a file.  In the exported file binary values will look like C(hex:be,ef,be,ef).  The C(hex:) prefix is optional.
         attribute :data
 
-        # @return [String] Registry Value Data Type
+        # @return [:binary, :dword, :expandstring, :multistring, :string, :qword, nil] Registry Value Data Type
         attribute :datatype
         validates :datatype, inclusion: {:in=>[:binary, :dword, :expandstring, :multistring, :string, :qword], :message=>"%{value} needs to be :binary, :dword, :expandstring, :multistring, :string, :qword"}, allow_nil: true
 
-        # @return [String] State of Registry Value
+        # @return [:present, :absent, nil] State of Registry Value
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end

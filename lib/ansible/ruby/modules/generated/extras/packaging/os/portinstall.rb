@@ -10,11 +10,11 @@ module Ansible
         attribute :name, flat_array: true
         validates :name, presence: true, type: TypeGeneric.new(String)
 
-        # @return [String] state of the package
+        # @return [:present, :absent, nil] state of the package
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [TrueClass] use packages instead of ports whenever available
+        # @return [:yes, :no, nil] use packages instead of ports whenever available
         attribute :use_packages
         validates :use_packages, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end

@@ -10,15 +10,15 @@ module Ansible
         attribute :src
         validates :src, type: String
 
-        # @return [TrueClass] The force argument instructs the module to not consider the current devices running-config.  When set to true, this will cause the module to push the contents of I(src) into the device without first checking if already configured.
+        # @return [:true, :false, nil] The force argument instructs the module to not consider the current devices running-config.  When set to true, this will cause the module to push the contents of I(src) into the device without first checking if already configured.
         attribute :force
         validates :force, inclusion: {:in=>[:true, :false], :message=>"%{value} needs to be :true, :false"}, allow_nil: true
 
-        # @return [Object] The module, by default, will collect the current device running-config to use as a base for comparision to the commands in I(src).  Setting this value to true will cause the module to issue the command `show running-config all` to include all device settings.
+        # @return [:true, :false, nil] The module, by default, will collect the current device running-config to use as a base for comparision to the commands in I(src).  Setting this value to true will cause the module to issue the command `show running-config all` to include all device settings.
         attribute :include_defaults
         validates :include_defaults, inclusion: {:in=>[:true, :false], :message=>"%{value} needs to be :true, :false"}, allow_nil: true
 
-        # @return [Object] When this argument is configured true, the module will backup the running-config from the node prior to making any changes. The backup file will be written to backup_{{ hostname }} in the root of the playbook directory.
+        # @return [:true, :false, nil] When this argument is configured true, the module will backup the running-config from the node prior to making any changes. The backup file will be written to backup_{{ hostname }} in the root of the playbook directory.
         attribute :backup
         validates :backup, inclusion: {:in=>[:true, :false], :message=>"%{value} needs to be :true, :false"}, allow_nil: true
 

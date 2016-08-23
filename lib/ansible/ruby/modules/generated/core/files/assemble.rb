@@ -14,7 +14,7 @@ module Ansible
         attribute :dest
         validates :dest, presence: true, type: String
 
-        # @return [String] Create a backup file (if C(yes)), including the timestamp information so you can get the original file back if you somehow clobbered it incorrectly.
+        # @return [:yes, :no, nil] Create a backup file (if C(yes)), including the timestamp information so you can get the original file back if you somehow clobbered it incorrectly.
         attribute :backup
         validates :backup, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
@@ -22,7 +22,7 @@ module Ansible
         attribute :delimiter
         validates :delimiter, type: String
 
-        # @return [String] If False, it will search for src at originating/master machine, if True it will go to the remote/target machine for the src. Default is True.
+        # @return [:True, :False, nil] If False, it will search for src at originating/master machine, if True it will go to the remote/target machine for the src. Default is True.
         attribute :remote_src
         validates :remote_src, inclusion: {:in=>[:True, :False], :message=>"%{value} needs to be :True, :False"}, allow_nil: true
 

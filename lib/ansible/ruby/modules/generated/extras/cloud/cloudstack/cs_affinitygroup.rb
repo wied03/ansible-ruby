@@ -17,7 +17,7 @@ module Ansible
         # @return [Object] Description of the affinity group.
         attribute :description
 
-        # @return [String] State of the affinity group.
+        # @return [:present, :absent, nil] State of the affinity group.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 

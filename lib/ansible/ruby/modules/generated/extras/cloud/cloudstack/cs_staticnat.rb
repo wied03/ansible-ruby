@@ -17,7 +17,7 @@ module Ansible
         # @return [Object] VM guest NIC secondary IP address for the static NAT.
         attribute :vm_guest_ip
 
-        # @return [String] State of the static NAT.
+        # @return [:present, :absent, nil] State of the static NAT.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 

@@ -18,14 +18,14 @@ module Ansible
         attribute :replace
         validates :replace, type: String
 
-        # @return [String] Create a backup file including the timestamp information so you can get the original file back if you somehow clobbered it incorrectly.
+        # @return [:yes, :no, nil] Create a backup file including the timestamp information so you can get the original file back if you somehow clobbered it incorrectly.
         attribute :backup
         validates :backup, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object] All arguments accepted by the M(file) module also work here.
         attribute :others
 
-        # @return [String] This flag indicates that filesystem links, if they exist, should be followed.
+        # @return [:yes, :no, nil] This flag indicates that filesystem links, if they exist, should be followed.
         attribute :follow
         validates :follow, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end

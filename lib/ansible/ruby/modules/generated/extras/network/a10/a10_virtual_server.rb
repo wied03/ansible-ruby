@@ -6,27 +6,27 @@ module Ansible
   module Ruby
     module Modules
       class A10_virtual_server < Base
-        # @return [String] hostname or ip of your A10 Networks device
+        # @return [] hostname or ip of your A10 Networks device
         attribute :host
         validates :host, presence: true, inclusion: {:in=>[], :message=>"%{value} needs to be "}
 
-        # @return [String] admin account of your A10 Networks device
+        # @return [] admin account of your A10 Networks device
         attribute :username
         validates :username, presence: true, inclusion: {:in=>[], :message=>"%{value} needs to be "}
 
-        # @return [String] admin password of your A10 Networks device
+        # @return [] admin password of your A10 Networks device
         attribute :password
         validates :password, presence: true, inclusion: {:in=>[], :message=>"%{value} needs to be "}
 
-        # @return [String] slb virtual server name
+        # @return [] slb virtual server name
         attribute :virtual_server
         validates :virtual_server, presence: true, inclusion: {:in=>[], :message=>"%{value} needs to be "}
 
-        # @return [String] slb virtual server ip address
+        # @return [nil] slb virtual server ip address
         attribute :virtual_server_ip
         validates :virtual_server_ip, inclusion: {:in=>[], :message=>"%{value} needs to be "}, allow_nil: true
 
-        # @return [String] slb virtual server status
+        # @return [:enabled, :disabled, nil] slb virtual server status
         attribute :virtual_server_status
         validates :virtual_server_status, inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
 
@@ -34,11 +34,11 @@ module Ansible
         attribute :virtual_server_ports
         validates :virtual_server_ports, type: Array
 
-        # @return [String] If C(yes), any changes will cause a write of the running configuration to non-volatile memory. This will save I(all) configuration changes, including those that may have been made manually or through other modules, so care should be taken when specifying C(yes).
+        # @return [:yes, :no, nil] If C(yes), any changes will cause a write of the running configuration to non-volatile memory. This will save I(all) configuration changes, including those that may have been made manually or through other modules, so care should be taken when specifying C(yes).
         attribute :write_config
         validates :write_config, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String] If C(no), SSL certificates will not be validated. This should only be used on personally controlled devices using self-signed certificates.
+        # @return [:yes, :no, nil] If C(no), SSL certificates will not be validated. This should only be used on personally controlled devices using self-signed certificates.
         attribute :validate_certs
         validates :validate_certs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end

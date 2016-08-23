@@ -6,7 +6,7 @@ module Ansible
   module Ruby
     module Modules
       class Ec2_elb < Base
-        # @return [Object] register or deregister the instance
+        # @return [:present, :absent] register or deregister the instance
         attribute :state
         validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
 
@@ -18,15 +18,15 @@ module Ansible
         attribute :ec2_elbs
         validates :ec2_elbs, type: String
 
-        # @return [TrueClass] Whether to enable the availability zone of the instance on the target ELB if the availability zone has not already been enabled. If set to no, the task will fail if the availability zone is not enabled on the ELB.
+        # @return [:yes, :no, nil] Whether to enable the availability zone of the instance on the target ELB if the availability zone has not already been enabled. If set to no, the task will fail if the availability zone is not enabled on the ELB.
         attribute :enable_availability_zone
         validates :enable_availability_zone, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [TrueClass] Wait for instance registration or deregistration to complete successfully before returning.
+        # @return [:yes, :no, nil] Wait for instance registration or deregistration to complete successfully before returning.
         attribute :wait
         validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String] When set to "no", SSL certificates will not be validated for boto versions >= 2.6.0.
+        # @return [:yes, :no, nil] When set to "no", SSL certificates will not be validated for boto versions >= 2.6.0.
         attribute :validate_certs
         validates :validate_certs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 

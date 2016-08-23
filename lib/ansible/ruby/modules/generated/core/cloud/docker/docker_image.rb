@@ -43,7 +43,7 @@ module Ansible
         attribute :repository
         validates :repository, type: String
 
-        # @return [String] Make assertions about the state of an image.,When 'absent' an image will be removed. Use the force option to un-tag and remove all images matching the provided name.,When 'present' check if an image exists using the provided name and tag. If the image is not found or the force option is used, the image will either be pulled, built or loaded. By default the image will be pulled from Docker Hub. To build the image, provide a path value set to a directory containing a context and Dockerfile. To load an image, specify load_path to provide a path to an archive file. To tag an image to a repository, provide a repository path. If the name contains a repository path, it will be pushed.,NOTE: 'build' is DEPRECATED. Specifying 'build' will behave the same as 'present'.
+        # @return [:absent, :present, :"build (DEPRECATED)", nil] Make assertions about the state of an image.,When 'absent' an image will be removed. Use the force option to un-tag and remove all images matching the provided name.,When 'present' check if an image exists using the provided name and tag. If the image is not found or the force option is used, the image will either be pulled, built or loaded. By default the image will be pulled from Docker Hub. To build the image, provide a path value set to a directory containing a context and Dockerfile. To load an image, specify load_path to provide a path to an archive file. To tag an image to a repository, provide a repository path. If the name contains a repository path, it will be pushed.,NOTE: 'build' is DEPRECATED. Specifying 'build' will behave the same as 'present'.
         attribute :state
         validates :state, inclusion: {:in=>[:absent, :present, :"build (DEPRECATED)"], :message=>"%{value} needs to be :absent, :present, :\"build (DEPRECATED)\""}, allow_nil: true
 
@@ -54,7 +54,7 @@ module Ansible
         # @return [Object] A dictionary of limits applied to each container created by the build process.
         attribute :container_limits
 
-        # @return [Object] DEPRECATED. Whether to use tls to connect to the docker server. Set to 'no' when TLS will not be used. Set to 'encrypt' to use TLS. And set to 'verify' to use TLS and verify that the server's certificate is valid for the server. NOTE: If you specify this option, it will set the value of the tls or tls_verify parameters.
+        # @return [false, :encrypt, :verify, nil] DEPRECATED. Whether to use tls to connect to the docker server. Set to 'no' when TLS will not be used. Set to 'encrypt' to use TLS. And set to 'verify' to use TLS and verify that the server's certificate is valid for the server. NOTE: If you specify this option, it will set the value of the tls or tls_verify parameters.
         attribute :use_tls
         validates :use_tls, inclusion: {:in=>[false, :encrypt, :verify], :message=>"%{value} needs to be false, :encrypt, :verify"}, allow_nil: true
       end

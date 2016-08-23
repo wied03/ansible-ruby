@@ -10,11 +10,11 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [String] state of the package
+        # @return [:present, :absent, :active, :inactive, nil] state of the package
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent, :active, :inactive], :message=>"%{value} needs to be :present, :absent, :active, :inactive"}, allow_nil: true
 
-        # @return [String] update the package db first
+        # @return [:yes, :no, nil] update the package db first
         attribute :update_cache
         validates :update_cache, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end

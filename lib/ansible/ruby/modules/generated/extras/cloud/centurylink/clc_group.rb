@@ -19,11 +19,11 @@ module Ansible
         # @return [Object] Datacenter to create the group in. If location is not provided, the group gets created in the default datacenter associated with the account
         attribute :location
 
-        # @return [String] Whether to create or delete the group
+        # @return [:present, :absent, nil] Whether to create or delete the group
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [TrueClass] Whether to wait for the tasks to finish before returning.
+        # @return [Boolean, nil] Whether to wait for the tasks to finish before returning.
         attribute :wait
         validates :wait, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
       end

@@ -10,15 +10,15 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [String] defines whether the ACL should be present or not.  The C(query) state gets the current acl without changing it, for use in 'register' operations.
+        # @return [:query, :present, :absent, nil] defines whether the ACL should be present or not.  The C(query) state gets the current acl without changing it, for use in 'register' operations.
         attribute :state
         validates :state, inclusion: {:in=>[:query, :present, :absent], :message=>"%{value} needs to be :query, :present, :absent"}, allow_nil: true
 
-        # @return [TrueClass] whether to follow symlinks on the path if a symlink is encountered.
+        # @return [:yes, :no, nil] whether to follow symlinks on the path if a symlink is encountered.
         attribute :follow
         validates :follow, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String] if the target is a directory, setting this to yes will make it the default acl for entities created inside the directory. It causes an error if name is a file.
+        # @return [:yes, :no, nil] if the target is a directory, setting this to yes will make it the default acl for entities created inside the directory. It causes an error if name is a file.
         attribute :default
         validates :default, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
@@ -26,7 +26,7 @@ module Ansible
         attribute :entity
         validates :entity, type: String
 
-        # @return [String] the entity type of the ACL to apply, see setfacl documentation for more info.
+        # @return [:user, :group, :mask, :other, nil] the entity type of the ACL to apply, see setfacl documentation for more info.
         attribute :etype
         validates :etype, inclusion: {:in=>[:user, :group, :mask, :other], :message=>"%{value} needs to be :user, :group, :mask, :other"}, allow_nil: true
 
@@ -38,7 +38,7 @@ module Ansible
         attribute :entry
         validates :entry, type: String
 
-        # @return [Object] Recursively sets the specified ACL (added in Ansible 2.0). Incompatible with C(state=query).
+        # @return [:yes, :no, nil] Recursively sets the specified ACL (added in Ansible 2.0). Incompatible with C(state=query).
         attribute :recursive
         validates :recursive, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end

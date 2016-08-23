@@ -6,7 +6,7 @@ module Ansible
   module Ruby
     module Modules
       class Digital_ocean_sshkey < Base
-        # @return [String] Indicate desired state of the target.
+        # @return [:present, :absent, nil] Indicate desired state of the target.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 

@@ -14,7 +14,7 @@ module Ansible
         attribute :tags, flat_array: true
         validates :tags, presence: true, type: TypeGeneric.new(String)
 
-        # @return [String] desired state of the tags
+        # @return [:present, :absent, nil] desired state of the tags
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 

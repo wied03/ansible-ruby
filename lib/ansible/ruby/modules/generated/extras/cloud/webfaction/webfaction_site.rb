@@ -10,7 +10,7 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [String] Whether the website should exist
+        # @return [:present, :absent, nil] Whether the website should exist
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
@@ -18,7 +18,7 @@ module Ansible
         attribute :host
         validates :host, presence: true, type: String
 
-        # @return [String] Whether or not to use HTTPS
+        # @return [Boolean, nil] Whether or not to use HTTPS
         attribute :https
         validates :https, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 

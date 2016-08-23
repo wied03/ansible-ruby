@@ -46,7 +46,7 @@ module Ansible
         attribute :lc_ctype
         validates :lc_ctype, type: String
 
-        # @return [String] The database state
+        # @return [:present, :absent, nil] The database state
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end

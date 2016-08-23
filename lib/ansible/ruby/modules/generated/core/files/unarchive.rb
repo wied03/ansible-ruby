@@ -14,14 +14,14 @@ module Ansible
         attribute :dest
         validates :dest, presence: true, type: String
 
-        # @return [String] If true, the file is copied from local 'master' to the target machine, otherwise, the plugin will look for src archive at the target machine.
+        # @return [:yes, :no, nil] If true, the file is copied from local 'master' to the target machine, otherwise, the plugin will look for src archive at the target machine.
         attribute :copy
         validates :copy, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object] a filename, when it already exists, this step will B(not) be run.
         attribute :creates
 
-        # @return [String] If set to True, return the list of files that are contained in the tarball.
+        # @return [:yes, :no, nil] If set to True, return the list of files that are contained in the tarball.
         attribute :list_files
         validates :list_files, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 

@@ -6,7 +6,7 @@ module Ansible
   module Ruby
     module Modules
       class Nxos_nxapi < Base
-        # @return [String] Set to started or stopped. A state of started will enable NXAPI access, and a state of stopped will disable or shutdown all NXAPI access.
+        # @return [:started, :stopped, nil] Set to started or stopped. A state of started will enable NXAPI access, and a state of stopped will disable or shutdown all NXAPI access.
         attribute :state
         validates :state, inclusion: {:in=>[:started, :stopped], :message=>"%{value} needs to be :started, :stopped"}, allow_nil: true
 

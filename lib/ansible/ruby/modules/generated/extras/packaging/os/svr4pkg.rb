@@ -10,7 +10,7 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [String] Whether to install (C(present)), or remove (C(absent)) a package.,If the package is to be installed, then I(src) is required.,The SVR4 package system doesn't provide an upgrade operation. You need to uninstall the old, then install the new package.
+        # @return [:present, :absent] Whether to install (C(present)), or remove (C(absent)) a package.,If the package is to be installed, then I(src) is required.,The SVR4 package system doesn't provide an upgrade operation. You need to uninstall the old, then install the new package.
         attribute :state
         validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
 
@@ -25,11 +25,11 @@ module Ansible
         attribute :response_file
         validates :response_file, type: String
 
-        # @return [String] Whether to install the package only in the current zone, or install it into all zones.,The installation into all zones works only if you are working with the global zone.
+        # @return [:current, :all, nil] Whether to install the package only in the current zone, or install it into all zones.,The installation into all zones works only if you are working with the global zone.
         attribute :zone
         validates :zone, inclusion: {:in=>[:current, :all], :message=>"%{value} needs to be :current, :all"}, allow_nil: true
 
-        # @return [String] Install/Remove category instead of a single package.
+        # @return [:true, :false, nil] Install/Remove category instead of a single package.
         attribute :category
         validates :category, inclusion: {:in=>[:true, :false], :message=>"%{value} needs to be :true, :false"}, allow_nil: true
       end

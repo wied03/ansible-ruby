@@ -18,11 +18,11 @@ module Ansible
         attribute :key
         validates :key, presence: true, type: String
 
-        # @return [String] The type of value to write.
+        # @return [:array, :bool, :boolean, :date, :float, :int, :integer, :string, nil] The type of value to write.
         attribute :type
         validates :type, inclusion: {:in=>[:array, :bool, :boolean, :date, :float, :int, :integer, :string], :message=>"%{value} needs to be :array, :bool, :boolean, :date, :float, :int, :integer, :string"}, allow_nil: true
 
-        # @return [Object] Add new elements to the array for a key which has an array as its value.
+        # @return [:true, :false, nil] Add new elements to the array for a key which has an array as its value.
         attribute :array_add
         validates :array_add, inclusion: {:in=>[:true, :false], :message=>"%{value} needs to be :true, :false"}, allow_nil: true
 
@@ -30,7 +30,7 @@ module Ansible
         attribute :value
         validates :value, type: Array
 
-        # @return [String] The state of the user defaults
+        # @return [:present, :absent, nil] The state of the user defaults
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end

@@ -14,7 +14,7 @@ module Ansible
         attribute :site
         validates :site, presence: true
 
-        # @return [Object] State of the web application
+        # @return [:present, :absent, nil] State of the web application
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 

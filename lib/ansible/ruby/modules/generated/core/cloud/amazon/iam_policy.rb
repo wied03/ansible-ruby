@@ -6,7 +6,7 @@ module Ansible
   module Ruby
     module Modules
       class Iam_policy < Base
-        # @return [String] Type of IAM resource
+        # @return [:user, :group, :role] Type of IAM resource
         attribute :iam_type
         validates :iam_type, presence: true, inclusion: {:in=>[:user, :group, :role], :message=>"%{value} needs to be :user, :group, :role"}
 
@@ -25,7 +25,7 @@ module Ansible
         attribute :policy_json, flat_array: true
         validates :policy_json, type: TypeGeneric.new(String)
 
-        # @return [String] Whether to create or delete the IAM policy.
+        # @return [:present, :absent] Whether to create or delete the IAM policy.
         attribute :state
         validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
 

@@ -14,11 +14,11 @@ module Ansible
         attribute :dest
         validates :dest, presence: true, type: String
 
-        # @return [Object] Remove the zip file, after unzipping
+        # @return [Boolean, nil] Remove the zip file, after unzipping
         attribute :rm
         validates :rm, inclusion: {:in=>[true, false, true, false], :message=>"%{value} needs to be true, false, true, false"}, allow_nil: true
 
-        # @return [Object] Recursively expand zipped files within the src file.
+        # @return [Boolean, nil] Recursively expand zipped files within the src file.
         attribute :recurse
         validates :recurse, inclusion: {:in=>[true, false, true, false], :message=>"%{value} needs to be true, false, true, false"}, allow_nil: true
 

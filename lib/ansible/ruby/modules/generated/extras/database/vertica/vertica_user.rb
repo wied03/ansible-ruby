@@ -31,7 +31,7 @@ module Ansible
         attribute :roles
         validates :roles, type: String
 
-        # @return [String] Whether to create C(present), drop C(absent) or lock C(locked) a user.
+        # @return [:present, :absent, :locked, nil] Whether to create C(present), drop C(absent) or lock C(locked) a user.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent, :locked], :message=>"%{value} needs to be :present, :absent, :locked"}, allow_nil: true
 

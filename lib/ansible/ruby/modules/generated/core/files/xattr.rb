@@ -18,11 +18,11 @@ module Ansible
         attribute :value
         validates :value, type: String
 
-        # @return [String] defines which state you want to do. C(read) retrieves the current value for a C(key) (default) C(present) sets C(name) to C(value), default if value is set C(all) dumps all data C(keys) retrieves all keys C(absent) deletes the key
+        # @return [:read, :present, :all, :keys, :absent, nil] defines which state you want to do. C(read) retrieves the current value for a C(key) (default) C(present) sets C(name) to C(value), default if value is set C(all) dumps all data C(keys) retrieves all keys C(absent) deletes the key
         attribute :state
         validates :state, inclusion: {:in=>[:read, :present, :all, :keys, :absent], :message=>"%{value} needs to be :read, :present, :all, :keys, :absent"}, allow_nil: true
 
-        # @return [TrueClass] if yes, dereferences symlinks and sets/gets attributes on symlink target, otherwise acts on symlink itself.
+        # @return [:yes, :no, nil] if yes, dereferences symlinks and sets/gets attributes on symlink target, otherwise acts on symlink itself.
         attribute :follow
         validates :follow, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end

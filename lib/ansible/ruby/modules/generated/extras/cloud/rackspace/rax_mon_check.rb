@@ -6,7 +6,7 @@ module Ansible
   module Ruby
     module Modules
       class Rax_mon_check < Base
-        # @return [Object] Ensure that a check with this C(label) exists or does not exist.
+        # @return [:present, :absent, nil] Ensure that a check with this C(label) exists or does not exist.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
@@ -18,7 +18,7 @@ module Ansible
         attribute :label
         validates :label, presence: true
 
-        # @return [Object] The type of check to create. C(remote.) checks may be created on any rax_mon_entity. C(agent.) checks may only be created on rax_mon_entities that have a non-null C(agent_id).
+        # @return [:"remote.dns", :"remote.ftp-banner", :"remote.http", :"remote.imap-banner", :"remote.mssql-banner", :"remote.mysql-banner", :"remote.ping", :"remote.pop3-banner", :"remote.postgresql-banner", :"remote.smtp-banner", :"remote.smtp", :"remote.ssh", :"remote.tcp", :"remote.telnet-banner", :"agent.filesystem", :"agent.memory", :"agent.load_average", :"agent.cpu", :"agent.disk", :"agent.network", :"agent.plugin"] The type of check to create. C(remote.) checks may be created on any rax_mon_entity. C(agent.) checks may only be created on rax_mon_entities that have a non-null C(agent_id).
         attribute :check_type
         validates :check_type, presence: true, inclusion: {:in=>[:"remote.dns", :"remote.ftp-banner", :"remote.http", :"remote.imap-banner", :"remote.mssql-banner", :"remote.mysql-banner", :"remote.ping", :"remote.pop3-banner", :"remote.postgresql-banner", :"remote.smtp-banner", :"remote.smtp", :"remote.ssh", :"remote.tcp", :"remote.telnet-banner", :"agent.filesystem", :"agent.memory", :"agent.load_average", :"agent.cpu", :"agent.disk", :"agent.network", :"agent.plugin"], :message=>"%{value} needs to be :\"remote.dns\", :\"remote.ftp-banner\", :\"remote.http\", :\"remote.imap-banner\", :\"remote.mssql-banner\", :\"remote.mysql-banner\", :\"remote.ping\", :\"remote.pop3-banner\", :\"remote.postgresql-banner\", :\"remote.smtp-banner\", :\"remote.smtp\", :\"remote.ssh\", :\"remote.tcp\", :\"remote.telnet-banner\", :\"agent.filesystem\", :\"agent.memory\", :\"agent.load_average\", :\"agent.cpu\", :\"agent.disk\", :\"agent.network\", :\"agent.plugin\""}
 
@@ -34,7 +34,7 @@ module Ansible
         # @return [Object] Additional details specific to the check type. Must be a hash of strings between 1 and 255 characters long, or an array or object containing 0 to 256 items.
         attribute :details
 
-        # @return [Object] If "yes", ensure the check is created, but don't actually use it yet.
+        # @return [:yes, :no, nil] If "yes", ensure the check is created, but don't actually use it yet.
         attribute :disabled
         validates :disabled, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 

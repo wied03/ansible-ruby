@@ -18,11 +18,11 @@ module Ansible
         attribute :password
         validates :password, presence: true, type: String
 
-        # @return [String] If C(no), SSL certificates will not be validated. This should only be used on personally controlled sites.  Prior to 2.0, this module would always validate on python >= 2.7.9 and never validate on python <= 2.7.8
+        # @return [:yes, :no, nil] If C(no), SSL certificates will not be validated. This should only be used on personally controlled sites.  Prior to 2.0, this module would always validate on python >= 2.7.9 and never validate on python <= 2.7.8
         attribute :validate_certs
         validates :validate_certs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String] Monitor state
+        # @return [:present, :absent, nil] Monitor state
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
@@ -34,11 +34,11 @@ module Ansible
         attribute :partition
         validates :partition, type: String
 
-        # @return [String] The template type of this monitor template
+        # @return [:TTYPE_TCP, :TTYPE_TCP_ECHO, :TTYPE_TCP_HALF_OPEN, nil] The template type of this monitor template
         attribute :type
         validates :type, inclusion: {:in=>[:TTYPE_TCP, :TTYPE_TCP_ECHO, :TTYPE_TCP_HALF_OPEN], :message=>"%{value} needs to be :TTYPE_TCP, :TTYPE_TCP_ECHO, :TTYPE_TCP_HALF_OPEN"}, allow_nil: true
 
-        # @return [String] The parent template of this monitor template
+        # @return [:tcp, :tcp_echo, :tcp_half_open, nil] The parent template of this monitor template
         attribute :parent
         validates :parent, inclusion: {:in=>[:tcp, :tcp_echo, :tcp_half_open], :message=>"%{value} needs to be :tcp, :tcp_echo, :tcp_half_open"}, allow_nil: true
 

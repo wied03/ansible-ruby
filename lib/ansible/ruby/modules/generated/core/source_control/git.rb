@@ -18,7 +18,7 @@ module Ansible
         attribute :version
         validates :version, type: String
 
-        # @return [String] if C(yes), adds the hostkey for the repo url if not already added. If ssh_opts contains "-o StrictHostKeyChecking=no", this parameter is ignored.
+        # @return [:yes, :no, nil] if C(yes), adds the hostkey for the repo url if not already added. If ssh_opts contains "-o StrictHostKeyChecking=no", this parameter is ignored.
         attribute :accept_hostkey
         validates :accept_hostkey, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
@@ -41,37 +41,37 @@ module Ansible
         attribute :refspec
         validates :refspec, type: String
 
-        # @return [String] If C(yes), any modified files in the working repository will be discarded.  Prior to 0.7, this was always 'yes' and could not be disabled.  Prior to 1.9, the default was `yes`
+        # @return [:yes, :no, nil] If C(yes), any modified files in the working repository will be discarded.  Prior to 0.7, this was always 'yes' and could not be disabled.  Prior to 1.9, the default was `yes`
         attribute :force
         validates :force, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object] Create a shallow clone with a history truncated to the specified number or revisions. The minimum possible value is C(1), otherwise ignored. Needs I(git>=1.9.1) to work correctly.
         attribute :depth
 
-        # @return [String] If C(no), do not clone the repository if it does not exist locally
+        # @return [:yes, :no, nil] If C(no), do not clone the repository if it does not exist locally
         attribute :clone
         validates :clone, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String] If C(no), do not retrieve new revisions from the origin repository
+        # @return [:yes, :no, nil] If C(no), do not retrieve new revisions from the origin repository
         attribute :update
         validates :update, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object] Path to git executable to use. If not supplied, the normal mechanism for resolving binary paths will be used.
         attribute :executable
 
-        # @return [String] if C(yes), repository will be created as a bare repo, otherwise it will be a standard repo with a workspace.
+        # @return [:yes, :no, nil] if C(yes), repository will be created as a bare repo, otherwise it will be a standard repo with a workspace.
         attribute :bare
         validates :bare, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String] if C(no), repository will be cloned without the --recursive option, skipping sub-modules.
+        # @return [:yes, :no, nil] if C(no), repository will be cloned without the --recursive option, skipping sub-modules.
         attribute :recursive
         validates :recursive, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String] if C(yes), submodules will track the latest commit on their master branch (or other branch specified in .gitmodules).  If C(no), submodules will be kept at the revision specified by the main project. This is equivalent to specifying the --remote flag to git submodule update.
+        # @return [:yes, :no, nil] if C(yes), submodules will track the latest commit on their master branch (or other branch specified in .gitmodules).  If C(no), submodules will be kept at the revision specified by the main project. This is equivalent to specifying the --remote flag to git submodule update.
         attribute :track_submodules
         validates :track_submodules, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String] if C(yes), when cloning or checking out a C(version) verify the signature of a GPG signed commit. This requires C(git) version>=2.1.0 to be installed. The commit MUST be signed and the public key MUST be trusted in the GPG trustdb.
+        # @return [:yes, :no, nil] if C(yes), when cloning or checking out a C(version) verify the signature of a GPG signed commit. This requires C(git) version>=2.1.0 to be installed. The commit MUST be signed and the public key MUST be trusted in the GPG trustdb.
         attribute :verify_commit
         validates :verify_commit, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end

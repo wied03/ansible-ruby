@@ -26,7 +26,7 @@ module Ansible
         attribute :node
         validates :node, type: String
 
-        # @return [String] Specify if user is to be added or removed
+        # @return [:present, :absent, nil] Specify if user is to be added or removed
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end

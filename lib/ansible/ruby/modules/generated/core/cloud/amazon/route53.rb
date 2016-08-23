@@ -6,7 +6,7 @@ module Ansible
   module Ruby
     module Modules
       class Route53 < Base
-        # @return [String] Specifies the action to take.
+        # @return [:get, :create, :delete] Specifies the action to take.
         attribute :command
         validates :command, presence: true, inclusion: {:in=>[:get, :create, :delete], :message=>"%{value} needs to be :get, :create, :delete"}
 
@@ -26,11 +26,11 @@ module Ansible
         attribute :ttl
         validates :ttl, type: String
 
-        # @return [String] The type of DNS record to create
+        # @return [:A, :CNAME, :MX, :AAAA, :TXT, :PTR, :SRV, :SPF, :NS, :SOA] The type of DNS record to create
         attribute :type
         validates :type, presence: true, inclusion: {:in=>[:A, :CNAME, :MX, :AAAA, :TXT, :PTR, :SRV, :SPF, :NS, :SOA], :message=>"%{value} needs to be :A, :CNAME, :MX, :AAAA, :TXT, :PTR, :SRV, :SPF, :NS, :SOA"}
 
-        # @return [String] Indicates if this is an alias record.
+        # @return [:True, :False, nil] Indicates if this is an alias record.
         attribute :alias
         validates :alias, inclusion: {:in=>[:True, :False], :message=>"%{value} needs to be :True, :False"}, allow_nil: true
 

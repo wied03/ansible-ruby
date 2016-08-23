@@ -6,7 +6,7 @@ module Ansible
   module Ruby
     module Modules
       class Profitbricks < Base
-        # @return [TrueClass] Whether or not to increment a single number in the name for created virtual machines.
+        # @return [:yes, :no, nil] Whether or not to increment a single number in the name for created virtual machines.
         attribute :auto_increment
         validates :auto_increment, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
@@ -34,7 +34,7 @@ module Ansible
         attribute :volume_size
         validates :volume_size, type: Fixnum
 
-        # @return [String] The bus type for the volume.
+        # @return [:IDE, :VIRTIO, nil] The bus type for the volume.
         attribute :bus
         validates :bus, inclusion: {:in=>[:IDE, :VIRTIO], :message=>"%{value} needs to be :IDE, :VIRTIO"}, allow_nil: true
 
@@ -46,7 +46,7 @@ module Ansible
         attribute :count
         validates :count, type: Fixnum
 
-        # @return [String] The datacenter location. Use only if you want to create the Datacenter or else this value is ignored.
+        # @return [:"us/las", :"us/lasdev", :"de/fra", :"de/fkb", nil] The datacenter location. Use only if you want to create the Datacenter or else this value is ignored.
         attribute :location
         validates :location, inclusion: {:in=>[:"us/las", :"us/lasdev", :"de/fra", :"de/fkb"], :message=>"%{value} needs to be :\"us/las\", :\"us/lasdev\", :\"de/fra\", :\"de/fkb\""}, allow_nil: true
 
@@ -64,7 +64,7 @@ module Ansible
         # @return [Object] THe ProfitBricks password. Overrides the PB_PASSWORD environement variable.
         attribute :subscription_password
 
-        # @return [String] wait for the instance to be in state 'running' before returning
+        # @return [:yes, :no, nil] wait for the instance to be in state 'running' before returning
         attribute :wait
         validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
@@ -72,11 +72,11 @@ module Ansible
         attribute :wait_timeout
         validates :wait_timeout, type: Fixnum
 
-        # @return [String] remove the bootVolume of the virtual machine you're destroying.
+        # @return [:yes, :no, nil] remove the bootVolume of the virtual machine you're destroying.
         attribute :remove_boot_volume
         validates :remove_boot_volume, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String] create or terminate instances
+        # @return [:running, :stopped, :absent, :present, nil] create or terminate instances
         attribute :state
         validates :state, inclusion: {:in=>[:running, :stopped, :absent, :present], :message=>"%{value} needs to be :running, :stopped, :absent, :present"}, allow_nil: true
       end

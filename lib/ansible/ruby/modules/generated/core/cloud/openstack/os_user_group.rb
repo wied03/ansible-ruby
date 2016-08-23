@@ -14,7 +14,7 @@ module Ansible
         attribute :group
         validates :group, presence: true
 
-        # @return [String] Should the user be present or absent in the group
+        # @return [:present, :absent, nil] Should the user be present or absent in the group
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end

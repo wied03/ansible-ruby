@@ -25,7 +25,7 @@ module Ansible
         attribute :domain
         validates :domain, type: String
 
-        # @return [String] Should the roles be present or absent on the user.
+        # @return [:present, :absent, nil] Should the roles be present or absent on the user.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end

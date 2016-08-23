@@ -10,7 +10,7 @@ module Ansible
         attribute :token
         validates :token, presence: true, type: String
 
-        # @return [String] Whether to post to 'inbox' or 'chat'
+        # @return [:inbox, :chat] Whether to post to 'inbox' or 'chat'
         attribute :type
         validates :type, presence: true, inclusion: {:in=>[:inbox, :chat], :message=>"%{value} needs to be :inbox, :chat"}
 
@@ -50,7 +50,7 @@ module Ansible
         # @return [Object] (inbox only) Link associated with the message. This will be used to link the message subject in Team Inbox.
         attribute :link
 
-        # @return [String] If C(no), SSL certificates will not be validated. This should only be used on personally controlled sites using self-signed certificates.
+        # @return [:yes, :no, nil] If C(no), SSL certificates will not be validated. This should only be used on personally controlled sites using self-signed certificates.
         attribute :validate_certs
         validates :validate_certs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end

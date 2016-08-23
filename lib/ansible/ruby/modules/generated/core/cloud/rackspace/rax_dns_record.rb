@@ -33,7 +33,7 @@ module Ansible
         # @return [Object] Server ID to create a PTR record for. Only used with type=PTR
         attribute :server
 
-        # @return [String] Indicate desired state of the resource
+        # @return [:present, :absent, nil] Indicate desired state of the resource
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
@@ -41,7 +41,7 @@ module Ansible
         attribute :ttl
         validates :ttl, type: Fixnum
 
-        # @return [Object] DNS record type
+        # @return [:A, :AAAA, :CNAME, :MX, :NS, :SRV, :TXT, :PTR] DNS record type
         attribute :type
         validates :type, presence: true, inclusion: {:in=>[:A, :AAAA, :CNAME, :MX, :NS, :SRV, :TXT, :PTR], :message=>"%{value} needs to be :A, :AAAA, :CNAME, :MX, :NS, :SRV, :TXT, :PTR"}
       end

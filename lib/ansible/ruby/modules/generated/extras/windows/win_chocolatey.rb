@@ -10,15 +10,15 @@ module Ansible
         attribute :name
         validates :name, presence: true
 
-        # @return [String] State of the package on the system
+        # @return [:present, :absent, nil] State of the package on the system
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [Object] Forces install of the package (even if it already exists). Using Force will cause ansible to always report that a change was made
+        # @return [Boolean, nil] Forces install of the package (even if it already exists). Using Force will cause ansible to always report that a change was made
         attribute :force
         validates :force, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
-        # @return [Object] If package is already installed it, try to upgrade to the latest version or to the specified version
+        # @return [Boolean, nil] If package is already installed it, try to upgrade to the latest version or to the specified version
         attribute :upgrade
         validates :upgrade, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 

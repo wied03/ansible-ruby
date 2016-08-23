@@ -17,7 +17,7 @@ module Ansible
         # @return [Object] The passphrase for the instance key pair. The key must use DES or 3DES encryption for this module to decrypt it. You can use openssl to convert your password protected keys if they do not use DES or 3DES. ex) openssl rsa -in current_key -out new_key -des3.
         attribute :key_passphrase
 
-        # @return [String] Whether or not to wait for the password to be available before returning.
+        # @return [:yes, :no, nil] Whether or not to wait for the password to be available before returning.
         attribute :wait
         validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 

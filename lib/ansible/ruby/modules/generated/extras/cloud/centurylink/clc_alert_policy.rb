@@ -22,7 +22,7 @@ module Ansible
         attribute :alert_recipients
         validates :alert_recipients, type: String
 
-        # @return [String] The metric on which to measure the condition that will trigger the alert. This is required for state 'present'
+        # @return [:cpu, :memory, :disk, nil] The metric on which to measure the condition that will trigger the alert. This is required for state 'present'
         attribute :metric
         validates :metric, inclusion: {:in=>[:cpu, :memory, :disk], :message=>"%{value} needs to be :cpu, :memory, :disk"}, allow_nil: true
 
@@ -34,7 +34,7 @@ module Ansible
         attribute :threshold
         validates :threshold, type: String
 
-        # @return [String] Whether to create or delete the policy.
+        # @return [:present, :absent, nil] Whether to create or delete the policy.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end

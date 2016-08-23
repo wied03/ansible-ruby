@@ -22,14 +22,14 @@ module Ansible
         attribute :value
         validates :value, type: String
 
-        # @return [String] Create a backup file including the timestamp information so you can get the original file back if you somehow clobbered it incorrectly.
+        # @return [:yes, :no, nil] Create a backup file including the timestamp information so you can get the original file back if you somehow clobbered it incorrectly.
         attribute :backup
         validates :backup, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object] all arguments accepted by the M(file) module also work here
         attribute :others
 
-        # @return [String] If set to C(absent) the option or section will be removed if present instead of created.
+        # @return [:present, :absent, nil] If set to C(absent) the option or section will be removed if present instead of created.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 

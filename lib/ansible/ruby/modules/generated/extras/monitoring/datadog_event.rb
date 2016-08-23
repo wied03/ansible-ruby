@@ -22,21 +22,21 @@ module Ansible
         attribute :date_happened
         validates :date_happened, type: String
 
-        # @return [String] The priority of the event.
+        # @return [:normal, :low, nil] The priority of the event.
         attribute :priority
         validates :priority, inclusion: {:in=>[:normal, :low], :message=>"%{value} needs to be :normal, :low"}, allow_nil: true
 
         # @return [Object] Comma separated list of tags to apply to the event.
         attribute :tags
 
-        # @return [String] Type of alert.
+        # @return [:error, :warning, :info, :success, nil] Type of alert.
         attribute :alert_type
         validates :alert_type, inclusion: {:in=>[:error, :warning, :info, :success], :message=>"%{value} needs to be :error, :warning, :info, :success"}, allow_nil: true
 
         # @return [Object] An arbitrary string to use for aggregation.
         attribute :aggregation_key
 
-        # @return [String] If C(no), SSL certificates will not be validated. This should only be used on personally controlled sites using self-signed certificates.
+        # @return [:yes, :no, nil] If C(no), SSL certificates will not be validated. This should only be used on personally controlled sites using self-signed certificates.
         attribute :validate_certs
         validates :validate_certs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end

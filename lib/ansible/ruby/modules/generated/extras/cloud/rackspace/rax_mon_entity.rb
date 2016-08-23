@@ -10,7 +10,7 @@ module Ansible
         attribute :label
         validates :label, presence: true
 
-        # @return [Object] Ensure that an entity with this C(name) exists or does not exist.
+        # @return [:present, :absent, nil] Ensure that an entity with this C(name) exists or does not exist.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 

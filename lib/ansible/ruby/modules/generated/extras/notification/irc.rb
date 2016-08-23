@@ -25,7 +25,7 @@ module Ansible
         # @return [Object] Set the channel topic
         attribute :topic
 
-        # @return [String] Text color for the message. ("none" is a valid option in 1.6 or later, in 1.6 and prior, the default color is black, not "none"). Added 11 more colors in version 2.0.
+        # @return [:none, :white, :black, :blue, :green, :red, :brown, :purple, :orange, :yellow, :light_green, :teal, :light_cyan, :light_blue, :pink, :gray, :light_gray, nil] Text color for the message. ("none" is a valid option in 1.6 or later, in 1.6 and prior, the default color is black, not "none"). Added 11 more colors in version 2.0.
         attribute :color
         validates :color, inclusion: {:in=>[:none, :white, :black, :blue, :green, :red, :brown, :purple, :orange, :yellow, :light_green, :teal, :light_cyan, :light_blue, :pink, :gray, :light_gray], :message=>"%{value} needs to be :none, :white, :black, :blue, :green, :red, :brown, :purple, :orange, :yellow, :light_green, :teal, :light_cyan, :light_blue, :pink, :gray, :light_gray"}, allow_nil: true
 
@@ -54,7 +54,7 @@ module Ansible
         attribute :part
         validates :part, type: TrueClass
 
-        # @return [String] Text style for the message. Note italic does not work on some clients
+        # @return [:bold, :underline, :reverse, :italic, nil] Text style for the message. Note italic does not work on some clients
         attribute :style
         validates :style, inclusion: {:in=>[:bold, :underline, :reverse, :italic], :message=>"%{value} needs to be :bold, :underline, :reverse, :italic"}, allow_nil: true
       end

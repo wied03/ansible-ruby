@@ -10,7 +10,7 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [String] State of the binding
+        # @return [:absent, :stopped, :started, :restarted, nil] State of the binding
         attribute :state
         validates :state, inclusion: {:in=>[:absent, :stopped, :started, :restarted], :message=>"%{value} needs to be :absent, :stopped, :started, :restarted"}, allow_nil: true
 

@@ -41,11 +41,11 @@ module Ansible
         attribute :read_priv
         validates :read_priv, type: String
 
-        # @return [String] Deletes and recreates the user.
+        # @return [:yes, :no, nil] Deletes and recreates the user.
         attribute :force
         validates :force, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String] Specify if user is to be added or removed
+        # @return [:present, :absent, nil] Specify if user is to be added or removed
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end

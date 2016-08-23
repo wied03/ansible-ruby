@@ -34,7 +34,7 @@ module Ansible
         attribute :path
         validates :path, type: String
 
-        # @return [String] create or delete group.,Possible values are present and absent.
+        # @return [:present, :absent, nil] create or delete group.,Possible values are present and absent.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end

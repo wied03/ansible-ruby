@@ -14,7 +14,7 @@ module Ansible
         attribute :service_key
         validates :service_key, presence: true, type: String
 
-        # @return [String] Type of event to be sent.
+        # @return [:triggered, :acknowledged, :resolved] Type of event to be sent.
         attribute :state
         validates :state, presence: true, inclusion: {:in=>[:triggered, :acknowledged, :resolved], :message=>"%{value} needs to be :triggered, :acknowledged, :resolved"}
 

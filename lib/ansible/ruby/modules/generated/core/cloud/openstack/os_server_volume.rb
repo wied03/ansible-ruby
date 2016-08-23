@@ -6,7 +6,7 @@ module Ansible
   module Ruby
     module Modules
       class Os_server_volume < Base
-        # @return [String] Should the resource be present or absent.
+        # @return [:present, :absent, nil] Should the resource be present or absent.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 

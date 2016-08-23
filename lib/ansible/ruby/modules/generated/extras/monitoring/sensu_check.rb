@@ -10,7 +10,7 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [String] Whether the check should be present or not
+        # @return [:present, :absent, nil] Whether the check should be present or not
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
@@ -18,7 +18,7 @@ module Ansible
         attribute :path
         validates :path, type: String
 
-        # @return [Object] Create a backup file (if yes), including the timestamp information so,you can get the original file back if you somehow clobbered it incorrectly.
+        # @return [:yes, :no, nil] Create a backup file (if yes), including the timestamp information so,you can get the original file back if you somehow clobbered it incorrectly.
         attribute :backup
         validates :backup, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
@@ -42,7 +42,7 @@ module Ansible
         attribute :timeout
         validates :timeout, type: Fixnum
 
-        # @return [TrueClass] Whether the check should be handled or not
+        # @return [:yes, :no, nil] Whether the check should be handled or not
         attribute :handle
         validates :handle, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
@@ -56,15 +56,15 @@ module Ansible
         attribute :dependencies
         validates :dependencies, type: Array
 
-        # @return [String] Whether the check is a metric
+        # @return [:yes, :no, nil] Whether the check is a metric
         attribute :metric
         validates :metric, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [Object] Whether the check should be scheduled by the sensu client or server,This option obviates the need for specifying the I(subscribers) option
+        # @return [:yes, :no, nil] Whether the check should be scheduled by the sensu client or server,This option obviates the need for specifying the I(subscribers) option
         attribute :standalone
         validates :standalone, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [TrueClass] Whether the check should be scheduled at all.,You can still issue it via the sensu api
+        # @return [:yes, :no, nil] Whether the check should be scheduled at all.,You can still issue it via the sensu api
         attribute :publish
         validates :publish, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
@@ -75,7 +75,7 @@ module Ansible
         # @return [Object] Number of seconds handlers should wait before taking second action
         attribute :refresh
 
-        # @return [Object] Classifies the check as an aggregate check,,making it available via the aggregate API
+        # @return [:yes, :no, nil] Classifies the check as an aggregate check,,making it available via the aggregate API
         attribute :aggregate
         validates :aggregate, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 

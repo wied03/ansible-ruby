@@ -14,11 +14,11 @@ module Ansible
         attribute :dev
         validates :dev, presence: true, type: String
 
-        # @return [String] If yes, allows to create new filesystem on devices that already has filesystem.
+        # @return [:yes, :no, nil] If yes, allows to create new filesystem on devices that already has filesystem.
         attribute :force
         validates :force, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String] If yes, if the block device and filessytem size differ, grow the filesystem into the space. Note, XFS Will only grow if mounted.
+        # @return [:yes, :no, nil] If yes, if the block device and filessytem size differ, grow the filesystem into the space. Note, XFS Will only grow if mounted.
         attribute :resizefs
         validates :resizefs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 

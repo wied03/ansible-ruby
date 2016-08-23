@@ -10,7 +10,7 @@ module Ansible
         attribute :loadbalancer
         validates :loadbalancer, presence: true, type: String
 
-        # @return [String] If set to "present", SSL termination will be added to this load balancer.,If "absent", SSL termination will be removed instead.
+        # @return [:present, :absent, nil] If set to "present", SSL termination will be added to this load balancer.,If "absent", SSL termination will be removed instead.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 

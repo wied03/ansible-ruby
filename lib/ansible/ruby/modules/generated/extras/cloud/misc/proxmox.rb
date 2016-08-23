@@ -89,7 +89,7 @@ module Ansible
         attribute :force
         validates :force, type: String
 
-        # @return [String] Indicate desired state of the instance
+        # @return [:present, :started, :absent, :stopped, :restarted, nil] Indicate desired state of the instance
         attribute :state
         validates :state, inclusion: {:in=>[:present, :started, :absent, :stopped, :restarted], :message=>"%{value} needs to be :present, :started, :absent, :stopped, :restarted"}, allow_nil: true
       end

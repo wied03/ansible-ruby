@@ -6,7 +6,7 @@ module Ansible
   module Ruby
     module Modules
       class Rax_mon_notification < Base
-        # @return [Object] Ensure that the notification with this C(label) exists or does not exist.
+        # @return [:present, :absent, nil] Ensure that the notification with this C(label) exists or does not exist.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
@@ -14,7 +14,7 @@ module Ansible
         attribute :label
         validates :label, presence: true
 
-        # @return [Object] A supported notification type.
+        # @return [:webhook, :email, :pagerduty] A supported notification type.
         attribute :notification_type
         validates :notification_type, presence: true, inclusion: {:in=>[:webhook, :email, :pagerduty], :message=>"%{value} needs to be :webhook, :email, :pagerduty"}
 

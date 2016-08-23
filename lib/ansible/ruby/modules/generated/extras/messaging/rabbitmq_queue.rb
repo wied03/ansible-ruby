@@ -10,7 +10,7 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [String] Whether the queue should be present or absent,Only present implemented atm
+        # @return [:present, :absent, nil] Whether the queue should be present or absent,Only present implemented atm
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
@@ -34,11 +34,11 @@ module Ansible
         attribute :vhost
         validates :vhost, type: String
 
-        # @return [TrueClass] whether queue is durable or not
+        # @return [:yes, :no, nil] whether queue is durable or not
         attribute :durable
         validates :durable, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [Object] if the queue should delete itself after all queues/queues unbound from it
+        # @return [:yes, :no, nil] if the queue should delete itself after all queues/queues unbound from it
         attribute :auto_delete
         validates :auto_delete, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 

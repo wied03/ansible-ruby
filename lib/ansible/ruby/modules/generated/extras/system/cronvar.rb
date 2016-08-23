@@ -20,7 +20,7 @@ module Ansible
         # @return [Object] Used with C(state=present). If specified, the variable will be inserted just before the variable specified.
         attribute :insertbefore
 
-        # @return [String] Whether to ensure that the variable is present or absent.
+        # @return [:present, :absent, nil] Whether to ensure that the variable is present or absent.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 

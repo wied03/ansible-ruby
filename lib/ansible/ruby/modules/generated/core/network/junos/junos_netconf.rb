@@ -10,7 +10,7 @@ module Ansible
         attribute :listens_on
         validates :listens_on, presence: true, type: Fixnum
 
-        # @return [String] Specifies the state of the M(junos_netconf) resource on the remote device.  If the O(state) argument is set to I(present) the netconf service will be configured.  If the O(state) argument is set to I(absent) the netconf service will be removed from the configuration.
+        # @return [:present, :absent] Specifies the state of the M(junos_netconf) resource on the remote device.  If the O(state) argument is set to I(present) the netconf service will be configured.  If the O(state) argument is set to I(absent) the netconf service will be removed from the configuration.
         attribute :state
         validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
       end

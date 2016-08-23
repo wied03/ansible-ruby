@@ -30,11 +30,11 @@ module Ansible
         attribute :keyserver
         validates :keyserver, type: String
 
-        # @return [String] used to specify if key is being added or revoked
+        # @return [:absent, :present, nil] used to specify if key is being added or revoked
         attribute :state
         validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
-        # @return [String] If C(no), SSL certificates for the target url will not be validated. This should only be used on personally controlled sites using self-signed certificates.
+        # @return [:yes, :no, nil] If C(no), SSL certificates for the target url will not be validated. This should only be used on personally controlled sites using self-signed certificates.
         attribute :validate_certs
         validates :validate_certs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end

@@ -6,7 +6,7 @@ module Ansible
   module Ruby
     module Modules
       class Mysql_replication < Base
-        # @return [String] module operating mode. Could be getslave (SHOW SLAVE STATUS), getmaster (SHOW MASTER STATUS), changemaster (CHANGE MASTER TO), startslave (START SLAVE), stopslave (STOP SLAVE), resetslave (RESET SLAVE), resetslaveall (RESET SLAVE ALL)
+        # @return [:getslave, :getmaster, :changemaster, :stopslave, :startslave, :resetslave, :resetslaveall, nil] module operating mode. Could be getslave (SHOW SLAVE STATUS), getmaster (SHOW MASTER STATUS), changemaster (CHANGE MASTER TO), startslave (START SLAVE), stopslave (STOP SLAVE), resetslave (RESET SLAVE), resetslaveall (RESET SLAVE ALL)
         attribute :mode
         validates :mode, inclusion: {:in=>[:getslave, :getmaster, :changemaster, :stopslave, :startslave, :resetslave, :resetslaveall], :message=>"%{value} needs to be :getslave, :getmaster, :changemaster, :stopslave, :startslave, :resetslave, :resetslaveall"}, allow_nil: true
 
@@ -40,7 +40,7 @@ module Ansible
         # @return [Object] same as mysql variable
         attribute :relay_log_pos
 
-        # @return [Object] same as mysql variable
+        # @return [0, 1, nil] same as mysql variable
         attribute :master_ssl
         validates :master_ssl, inclusion: {:in=>[0, 1], :message=>"%{value} needs to be 0, 1"}, allow_nil: true
 

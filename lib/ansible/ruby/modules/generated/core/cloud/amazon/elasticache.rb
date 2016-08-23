@@ -6,7 +6,7 @@ module Ansible
   module Ruby
     module Modules
       class Elasticache < Base
-        # @return [String] C(absent) or C(present) are idempotent actions that will create or destroy a cache cluster as needed. C(rebooted) will reboot the cluster, resulting in a momentary outage.
+        # @return [:present, :absent, :rebooted] C(absent) or C(present) are idempotent actions that will create or destroy a cache cluster as needed. C(rebooted) will reboot the cluster, resulting in a momentary outage.
         attribute :state
         validates :state, presence: true, inclusion: {:in=>[:present, :absent, :rebooted], :message=>"%{value} needs to be :present, :absent, :rebooted"}
 
@@ -14,7 +14,7 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [String] Name of the cache engine to be used.
+        # @return [:redis, :memcached, nil] Name of the cache engine to be used.
         attribute :engine
         validates :engine, inclusion: {:in=>[:redis, :memcached], :message=>"%{value} needs to be :redis, :memcached"}, allow_nil: true
 
@@ -54,11 +54,11 @@ module Ansible
         attribute :zone
         validates :zone, type: String
 
-        # @return [TrueClass] Wait for cache cluster result before returning
+        # @return [:yes, :no, nil] Wait for cache cluster result before returning
         attribute :wait
         validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [Object] Whether to destroy and recreate an existing cache cluster if necessary in order to modify its state
+        # @return [:yes, :no, nil] Whether to destroy and recreate an existing cache cluster if necessary in order to modify its state
         attribute :hard_modify
         validates :hard_modify, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end

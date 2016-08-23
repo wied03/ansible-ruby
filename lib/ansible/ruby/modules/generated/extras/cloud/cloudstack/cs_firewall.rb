@@ -14,15 +14,15 @@ module Ansible
         attribute :network
         validates :network, type: String
 
-        # @return [String] State of the firewall rule.
+        # @return [:present, :absent, nil] State of the firewall rule.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [String] Type of the firewall rule.
+        # @return [:ingress, :egress, nil] Type of the firewall rule.
         attribute :type
         validates :type, inclusion: {:in=>[:ingress, :egress], :message=>"%{value} needs to be :ingress, :egress"}, allow_nil: true
 
-        # @return [String] Protocol of the firewall rule.,C(all) is only available if C(type=egress)
+        # @return [:tcp, :udp, :icmp, :all, nil] Protocol of the firewall rule.,C(all) is only available if C(type=egress)
         attribute :protocol
         validates :protocol, inclusion: {:in=>[:tcp, :udp, :icmp, :all], :message=>"%{value} needs to be :tcp, :udp, :icmp, :all"}, allow_nil: true
 

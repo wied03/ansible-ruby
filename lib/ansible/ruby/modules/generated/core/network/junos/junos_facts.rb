@@ -10,7 +10,7 @@ module Ansible
         attribute :config
         validates :config, type: TrueClass
 
-        # @return [String] The C(config_format) argument is used to specify the desired format of the configuration file.  Devices support three configuration file formats.  By default, the configuration from the device is returned as text.  The other options include set and xml.  If the xml option is choosen, the configuration file is returned as both xml and json.
+        # @return [:xml, :text, :set, nil] The C(config_format) argument is used to specify the desired format of the configuration file.  Devices support three configuration file formats.  By default, the configuration from the device is returned as text.  The other options include set and xml.  If the xml option is choosen, the configuration file is returned as both xml and json.
         attribute :config_format
         validates :config_format, inclusion: {:in=>[:xml, :text, :set], :message=>"%{value} needs to be :xml, :text, :set"}, allow_nil: true
       end

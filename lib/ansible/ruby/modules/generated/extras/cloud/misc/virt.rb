@@ -10,11 +10,11 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [String] Note that there may be some lag for state requests like C(shutdown) since these refer only to VM states. After starting a guest, it may not be immediately accessible.
+        # @return [:running, :shutdown, :destroyed, :paused, nil] Note that there may be some lag for state requests like C(shutdown) since these refer only to VM states. After starting a guest, it may not be immediately accessible.
         attribute :state
         validates :state, inclusion: {:in=>[:running, :shutdown, :destroyed, :paused], :message=>"%{value} needs to be :running, :shutdown, :destroyed, :paused"}, allow_nil: true
 
-        # @return [String] in addition to state management, various non-idempotent commands are available. See examples
+        # @return [:create, :status, :start, :stop, :pause, :unpause, :shutdown, :undefine, :destroy, :get_xml, :autostart, :freemem, :list_vms, :info, :nodeinfo, :virttype, :define, nil] in addition to state management, various non-idempotent commands are available. See examples
         attribute :command
         validates :command, inclusion: {:in=>[:create, :status, :start, :stop, :pause, :unpause, :shutdown, :undefine, :destroy, :get_xml, :autostart, :freemem, :list_vms, :info, :nodeinfo, :virttype, :define], :message=>"%{value} needs to be :create, :status, :start, :stop, :pause, :unpause, :shutdown, :undefine, :destroy, :get_xml, :autostart, :freemem, :list_vms, :info, :nodeinfo, :virttype, :define"}, allow_nil: true
 

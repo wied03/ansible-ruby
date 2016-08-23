@@ -10,7 +10,7 @@ module Ansible
         attribute :name
         validates :name, presence: true
 
-        # @return [String] Whether to add or remove the specified virtual directory
+        # @return [:absent, :present, nil] Whether to add or remove the specified virtual directory
         attribute :state
         validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 

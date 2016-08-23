@@ -30,7 +30,7 @@ module Ansible
         attribute :environment
         validates :environment, type: String
 
-        # @return [String] Where the puppet logs should go, if puppet apply is being used
+        # @return [:stdout, :syslog, nil] Where the puppet logs should go, if puppet apply is being used
         attribute :logdest
         validates :logdest, inclusion: {:in=>[:stdout, :syslog], :message=>"%{value} needs to be :stdout, :syslog"}, allow_nil: true
 

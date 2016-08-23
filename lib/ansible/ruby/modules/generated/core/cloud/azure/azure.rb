@@ -53,7 +53,7 @@ module Ansible
         # @return [Object] hostname to write /etc/hostname. Defaults to <name>.cloudapp.net.
         attribute :hostname
 
-        # @return [String] wait for the instance to be in state 'running' before returning
+        # @return [:yes, :no, nil] wait for the instance to be in state 'running' before returning
         attribute :wait
         validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
@@ -69,15 +69,15 @@ module Ansible
         attribute :state
         validates :state, type: String
 
-        # @return [String] Enable Auto Updates on Windows Machines
+        # @return [:yes, :no, nil] Enable Auto Updates on Windows Machines
         attribute :auto_updates
         validates :auto_updates, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String] Enable winrm on Windows Machines
+        # @return [:yes, :no, nil] Enable winrm on Windows Machines
         attribute :enable_winrm
         validates :enable_winrm, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String] The type of the os that is gettings provisioned
+        # @return [:windows, :linux, nil] The type of the os that is gettings provisioned
         attribute :os_type
         validates :os_type, inclusion: {:in=>[:windows, :linux], :message=>"%{value} needs to be :windows, :linux"}, allow_nil: true
       end

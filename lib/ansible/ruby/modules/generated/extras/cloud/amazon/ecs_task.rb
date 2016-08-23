@@ -6,7 +6,7 @@ module Ansible
   module Ruby
     module Modules
       class Ecs_task < Base
-        # @return [String] Which task operation to execute
+        # @return [:run, :start, :stop] Which task operation to execute
         attribute :operation
         validates :operation, presence: true, inclusion: {:in=>[:run, :start, :stop], :message=>"%{value} needs to be :run, :start, :stop"}
 

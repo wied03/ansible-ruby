@@ -32,7 +32,7 @@ module Ansible
         attribute :domain
         validates :domain, type: String
 
-        # @return [String] State of the user.,C(unlocked) is an alias for C(enabled).
+        # @return [:present, :absent, :enabled, :disabled, :locked, :unlocked, nil] State of the user.,C(unlocked) is an alias for C(enabled).
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent, :enabled, :disabled, :locked, :unlocked], :message=>"%{value} needs to be :present, :absent, :enabled, :disabled, :locked, :unlocked"}, allow_nil: true
 

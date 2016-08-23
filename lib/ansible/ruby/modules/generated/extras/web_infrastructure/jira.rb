@@ -10,7 +10,7 @@ module Ansible
         attribute :uri
         validates :uri, presence: true, type: String
 
-        # @return [String] The operation to perform.
+        # @return [:create, :comment, :edit, :fetch, :transition] The operation to perform.
         attribute :operation
         validates :operation, presence: true, inclusion: {:in=>[:create, :comment, :edit, :fetch, :transition], :message=>"%{value} needs to be :create, :comment, :edit, :fetch, :transition"}
 

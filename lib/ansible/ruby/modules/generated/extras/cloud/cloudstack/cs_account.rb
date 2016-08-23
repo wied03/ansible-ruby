@@ -31,7 +31,7 @@ module Ansible
         # @return [Object] Network domain of the account.
         attribute :network_domain
 
-        # @return [String] Type of the account.
+        # @return [:user, :root_admin, :domain_admin, nil] Type of the account.
         attribute :account_type
         validates :account_type, inclusion: {:in=>[:user, :root_admin, :domain_admin], :message=>"%{value} needs to be :user, :root_admin, :domain_admin"}, allow_nil: true
 
@@ -39,7 +39,7 @@ module Ansible
         attribute :domain
         validates :domain, type: String
 
-        # @return [String] State of the account.,C(unlocked) is an alias for C(enabled).
+        # @return [:present, :absent, :enabled, :disabled, :locked, :unlocked, nil] State of the account.,C(unlocked) is an alias for C(enabled).
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent, :enabled, :disabled, :locked, :unlocked], :message=>"%{value} needs to be :present, :absent, :enabled, :disabled, :locked, :unlocked"}, allow_nil: true
 

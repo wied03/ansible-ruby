@@ -6,14 +6,14 @@ module Ansible
   module Ruby
     module Modules
       class Rax_scaling_group < Base
-        # @return [Object] Attach read-only configuration drive to server as label config-2
+        # @return [:yes, :no, nil] Attach read-only configuration drive to server as label config-2
         attribute :config_drive
         validates :config_drive, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object] The period of time, in seconds, that must pass before any scaling can occur after the previous scaling. Must be an integer between 0 and 86400 (24 hrs).
         attribute :cooldown
 
-        # @return [String] Disk partitioning strategy
+        # @return [:auto, :manual, nil] Disk partitioning strategy
         attribute :disk_config
         validates :disk_config, inclusion: {:in=>[:auto, :manual], :message=>"%{value} needs to be :auto, :manual"}, allow_nil: true
 
@@ -57,14 +57,14 @@ module Ansible
         attribute :server_name
         validates :server_name, presence: true
 
-        # @return [String] Indicate desired state of the resource
+        # @return [:present, :absent, nil] Indicate desired state of the resource
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [Object] Data to be uploaded to the servers config drive. This option implies I(config_drive). Can be a file path or a string
         attribute :user_data
 
-        # @return [String] wait for the scaling group to finish provisioning the minimum amount of servers
+        # @return [:yes, :no, nil] wait for the scaling group to finish provisioning the minimum amount of servers
         attribute :wait
         validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 

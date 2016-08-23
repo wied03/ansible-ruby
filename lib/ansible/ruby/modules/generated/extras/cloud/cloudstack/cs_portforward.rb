@@ -14,11 +14,11 @@ module Ansible
         attribute :vm
         validates :vm, type: String
 
-        # @return [String] State of the port forwarding rule.
+        # @return [:present, :absent, nil] State of the port forwarding rule.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [String] Protocol of the port forwarding rule.
+        # @return [:tcp, :udp, nil] Protocol of the port forwarding rule.
         attribute :protocol
         validates :protocol, inclusion: {:in=>[:tcp, :udp], :message=>"%{value} needs to be :tcp, :udp"}, allow_nil: true
 

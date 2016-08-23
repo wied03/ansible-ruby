@@ -32,7 +32,7 @@ module Ansible
         # @return [Object] Use with state present to remove existing DNS servers, reverting to default Azure servers. Mutually exclusive with dns_servers.
         attribute :purge_dns_servers
 
-        # @return [String] Assert the state of the virtual network. Use 'present' to create or update and 'absent' to delete.
+        # @return [:absent, :present, nil] Assert the state of the virtual network. Use 'present' to create or update and 'absent' to delete.
         attribute :state
         validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
       end

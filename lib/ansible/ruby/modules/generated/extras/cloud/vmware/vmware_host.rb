@@ -26,7 +26,7 @@ module Ansible
         attribute :esxi_password
         validates :esxi_password, presence: true, type: String
 
-        # @return [String] Add or remove the host
+        # @return [:present, :absent, nil] Add or remove the host
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end

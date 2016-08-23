@@ -14,7 +14,7 @@ module Ansible
         attribute :description
         validates :description, type: String
 
-        # @return [String] State of the security group.
+        # @return [:present, :absent, nil] State of the security group.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 

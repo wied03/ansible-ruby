@@ -13,7 +13,7 @@ module Ansible
         # @return [Object] A debconf configuration setting
         attribute :question
 
-        # @return [Object] The type of the value supplied
+        # @return [:string, :password, :boolean, :select, :multiselect, :note, :error, :title, :text, nil] The type of the value supplied
         attribute :vtype
         validates :vtype, inclusion: {:in=>[:string, :password, :boolean, :select, :multiselect, :note, :error, :title, :text], :message=>"%{value} needs to be :string, :password, :boolean, :select, :multiselect, :note, :error, :title, :text"}, allow_nil: true
 

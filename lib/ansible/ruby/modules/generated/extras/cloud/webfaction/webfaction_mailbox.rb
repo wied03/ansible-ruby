@@ -14,7 +14,7 @@ module Ansible
         attribute :mailbox_password
         validates :mailbox_password, presence: true, type: String
 
-        # @return [String] Whether the mailbox should exist
+        # @return [:present, :absent, nil] Whether the mailbox should exist
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 

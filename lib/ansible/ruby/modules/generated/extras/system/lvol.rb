@@ -18,11 +18,11 @@ module Ansible
         attribute :size
         validates :size, type: String
 
-        # @return [String] Control if the logical volume exists. If C(present) the C(size) option is required.
+        # @return [:present, :absent, nil] Control if the logical volume exists. If C(present) the C(size) option is required.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [String] Shrink or remove operations of volumes requires this switch. Ensures that that filesystems get never corrupted/destroyed by mistake.
+        # @return [:yes, :no, nil] Shrink or remove operations of volumes requires this switch. Ensures that that filesystems get never corrupted/destroyed by mistake.
         attribute :force
         validates :force, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 

@@ -6,7 +6,7 @@ module Ansible
   module Ruby
     module Modules
       class Rds_param_group < Base
-        # @return [String] Specifies whether the group should be present or absent.
+        # @return [:present, :absent] Specifies whether the group should be present or absent.
         attribute :state
         validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
 
@@ -18,7 +18,7 @@ module Ansible
         attribute :description
         validates :description, type: String
 
-        # @return [String] The type of database for this group. Required for state=present.
+        # @return [:"aurora5.6", :"mariadb10.0", :"mysql5.1", :"mysql5.5", :"mysql5.6", :"oracle-ee-11.2", :"oracle-ee-12.1", :"oracle-se-11.2", :"oracle-se-12.1", :"oracle-se1-11.2", :"oracle-se1-12.1", :"postgres9.3", :"postgres9.4", :"sqlserver-ee-10.5", :"sqlserver-ee-11.0", :"sqlserver-ex-10.5", :"sqlserver-ex-11.0", :"sqlserver-ex-12.0", :"sqlserver-se-10.5", :"sqlserver-se-11.0", :"sqlserver-se-12.0", :"sqlserver-web-10.5", :"sqlserver-web-11.0", :"sqlserver-web-12.0", nil] The type of database for this group. Required for state=present.
         attribute :engine
         validates :engine, inclusion: {:in=>[:"aurora5.6", :"mariadb10.0", :"mysql5.1", :"mysql5.5", :"mysql5.6", :"oracle-ee-11.2", :"oracle-ee-12.1", :"oracle-se-11.2", :"oracle-se-12.1", :"oracle-se1-11.2", :"oracle-se1-12.1", :"postgres9.3", :"postgres9.4", :"sqlserver-ee-10.5", :"sqlserver-ee-11.0", :"sqlserver-ex-10.5", :"sqlserver-ex-11.0", :"sqlserver-ex-12.0", :"sqlserver-se-10.5", :"sqlserver-se-11.0", :"sqlserver-se-12.0", :"sqlserver-web-10.5", :"sqlserver-web-11.0", :"sqlserver-web-12.0"], :message=>"%{value} needs to be :\"aurora5.6\", :\"mariadb10.0\", :\"mysql5.1\", :\"mysql5.5\", :\"mysql5.6\", :\"oracle-ee-11.2\", :\"oracle-ee-12.1\", :\"oracle-se-11.2\", :\"oracle-se-12.1\", :\"oracle-se1-11.2\", :\"oracle-se1-12.1\", :\"postgres9.3\", :\"postgres9.4\", :\"sqlserver-ee-10.5\", :\"sqlserver-ee-11.0\", :\"sqlserver-ex-10.5\", :\"sqlserver-ex-11.0\", :\"sqlserver-ex-12.0\", :\"sqlserver-se-10.5\", :\"sqlserver-se-11.0\", :\"sqlserver-se-12.0\", :\"sqlserver-web-10.5\", :\"sqlserver-web-11.0\", :\"sqlserver-web-12.0\""}, allow_nil: true
 

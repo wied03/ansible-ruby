@@ -19,7 +19,7 @@ module Ansible
         # @return [Object] Name of the project the public key to be registered in.
         attribute :project
 
-        # @return [String] State of the public key.
+        # @return [:present, :absent, nil] State of the public key.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 

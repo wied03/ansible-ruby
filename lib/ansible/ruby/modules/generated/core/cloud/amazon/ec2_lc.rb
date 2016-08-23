@@ -6,7 +6,7 @@ module Ansible
   module Ruby
     module Modules
       class Ec2_lc < Base
-        # @return [Object] register or deregister the instance
+        # @return [:present, :absent] register or deregister the instance
         attribute :state
         validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
 

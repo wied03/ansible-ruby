@@ -37,7 +37,7 @@ module Ansible
         # @return [Object] Time limit (in seconds) for the URL generated and returned by GCA when performing a mode=put or mode=get_url operation. This url is only available when public-read is the acl for the object.
         attribute :expiration
 
-        # @return [String] Switches the module behaviour between upload, download, get_url (return download url) , get_str (download object as string), create (bucket) and delete (bucket).
+        # @return [:get, :put, :get_url, :get_str, :delete, :create] Switches the module behaviour between upload, download, get_url (return download url) , get_str (download object as string), create (bucket) and delete (bucket).
         attribute :mode
         validates :mode, presence: true, inclusion: {:in=>[:get, :put, :get_url, :get_str, :delete, :create], :message=>"%{value} needs to be :get, :put, :get_url, :get_str, :delete, :create"}
 

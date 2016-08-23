@@ -32,7 +32,7 @@ module Ansible
         attribute :rules
         validates :rules, type: Array
 
-        # @return [String] Assert the state of the security group. Set to 'present' to create or update a security group. Set to 'absent' to remove a security group.
+        # @return [:absent, :present, nil] Assert the state of the security group. Set to 'present' to create or update a security group. Set to 'absent' to remove a security group.
         attribute :state
         validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
       end

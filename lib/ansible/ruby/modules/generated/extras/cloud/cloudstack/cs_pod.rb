@@ -32,7 +32,7 @@ module Ansible
         attribute :zone
         validates :zone, type: String
 
-        # @return [String] State of the pod.
+        # @return [:present, :enabled, :disabled, :absent, nil] State of the pod.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :enabled, :disabled, :absent], :message=>"%{value} needs to be :present, :enabled, :disabled, :absent"}, allow_nil: true
       end

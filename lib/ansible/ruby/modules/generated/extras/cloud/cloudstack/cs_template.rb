@@ -46,7 +46,7 @@ module Ansible
         attribute :cross_zones
         validates :cross_zones, type: TrueClass
 
-        # @return [String] Mode for the template extraction.,Only used if C(state=extracted).
+        # @return [:http_download, :ftp_upload, nil] Mode for the template extraction.,Only used if C(state=extracted).
         attribute :mode
         validates :mode, inclusion: {:in=>[:http_download, :ftp_upload], :message=>"%{value} needs to be :http_download, :ftp_upload"}, allow_nil: true
 
@@ -63,11 +63,11 @@ module Ansible
         attribute :zone
         validates :zone, type: String
 
-        # @return [String] Name of the filter used to search for the template.
+        # @return [:featured, :self, :selfexecutable, :sharedexecutable, :executable, :community, nil] Name of the filter used to search for the template.
         attribute :template_filter
         validates :template_filter, inclusion: {:in=>[:featured, :self, :selfexecutable, :sharedexecutable, :executable, :community], :message=>"%{value} needs to be :featured, :self, :selfexecutable, :sharedexecutable, :executable, :community"}, allow_nil: true
 
-        # @return [String] Name the hypervisor to be used for creating the new template.,Relevant when using C(state=present).
+        # @return [:KVM, :VMware, :BareMetal, :XenServer, :LXC, :HyperV, :UCS, :OVM, nil] Name the hypervisor to be used for creating the new template.,Relevant when using C(state=present).
         attribute :hypervisor
         validates :hypervisor, inclusion: {:in=>[:KVM, :VMware, :BareMetal, :XenServer, :LXC, :HyperV, :UCS, :OVM], :message=>"%{value} needs to be :KVM, :VMware, :BareMetal, :XenServer, :LXC, :HyperV, :UCS, :OVM"}, allow_nil: true
 
@@ -87,7 +87,7 @@ module Ansible
         # @return [Object] True if the template type is routing i.e., if template is used to deploy router.,Only considered if C(url) is used.
         attribute :is_routing
 
-        # @return [String] The format for the template.,Relevant when using C(state=present).
+        # @return [:QCOW2, :RAW, :VHD, :OVA, nil] The format for the template.,Relevant when using C(state=present).
         attribute :format
         validates :format, inclusion: {:in=>[:QCOW2, :RAW, :VHD, :OVA], :message=>"%{value} needs to be :QCOW2, :RAW, :VHD, :OVA"}, allow_nil: true
 
@@ -104,7 +104,7 @@ module Ansible
         # @return [Object] Display text of the template.
         attribute :display_text
 
-        # @return [String] State of the template.
+        # @return [:present, :absent, :extacted, nil] State of the template.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent, :extacted], :message=>"%{value} needs to be :present, :absent, :extacted"}, allow_nil: true
 

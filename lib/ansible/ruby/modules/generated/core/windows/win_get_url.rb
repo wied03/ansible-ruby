@@ -14,7 +14,7 @@ module Ansible
         attribute :dest
         validates :dest, presence: true, type: String
 
-        # @return [TrueClass] If C(yes), will always download the file.  If C(no), will only download the file if it does not exist or the remote file has been modified more recently than the local file.
+        # @return [:yes, :no, nil] If C(yes), will always download the file.  If C(no), will only download the file if it does not exist or the remote file has been modified more recently than the local file.
         attribute :force
         validates :force, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 

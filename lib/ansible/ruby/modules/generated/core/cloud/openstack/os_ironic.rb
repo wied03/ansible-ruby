@@ -6,7 +6,7 @@ module Ansible
   module Ruby
     module Modules
       class Os_ironic < Base
-        # @return [String] Indicates desired state of the resource
+        # @return [:present, :absent, nil] Indicates desired state of the resource
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 

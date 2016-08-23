@@ -18,11 +18,11 @@ module Ansible
         attribute :password
         validates :password, presence: true, type: String
 
-        # @return [String] If C(no), SSL certificates will not be validated. This should only be used on personally controlled sites using self-signed certificates.
+        # @return [:yes, :no, nil] If C(no), SSL certificates will not be validated. This should only be used on personally controlled sites using self-signed certificates.
         attribute :validate_certs
         validates :validate_certs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String] Virtual Server state,Absent, delete the VS if present,present (and its synonym enabled), create if needed the VS and set state to enabled,disabled, create if needed the VS and set state to disabled
+        # @return [:present, :absent, :enabled, :disabled, nil] Virtual Server state,Absent, delete the VS if present,present (and its synonym enabled), create if needed the VS and set state to enabled,disabled, create if needed the VS and set state to disabled
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent, :enabled, :disabled], :message=>"%{value} needs to be :present, :absent, :enabled, :disabled"}, allow_nil: true
 

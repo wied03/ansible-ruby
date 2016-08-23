@@ -21,7 +21,7 @@ module Ansible
         # @return [Object] Certificate Authority data for Kubernetes server. Should be in either standard PEM format or base64 encoded PEM data. Note that certificate verification is broken until ansible supports a version of 'match_hostname' that can match the IP address against the CA data.
         attribute :certificate_authority_data
 
-        # @return [String] The desired action to take on the Kubernetes data.
+        # @return [:present, :absent, :update, :replace] The desired action to take on the Kubernetes data.
         attribute :state
         validates :state, presence: true, inclusion: {:in=>[:present, :absent, :update, :replace], :message=>"%{value} needs to be :present, :absent, :update, :replace"}
 

@@ -14,7 +14,7 @@ module Ansible
         attribute :capability
         validates :capability, presence: true, type: String
 
-        # @return [String] Whether the entry should be present or absent in the file's capabilities.
+        # @return [:present, :absent, nil] Whether the entry should be present or absent in the file's capabilities.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end

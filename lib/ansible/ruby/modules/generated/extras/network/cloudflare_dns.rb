@@ -22,7 +22,7 @@ module Ansible
         attribute :priority
         validates :priority, type: String
 
-        # @return [String] Service protocol. Required for C(type=SRV)
+        # @return [:tcp, :udp, nil] Service protocol. Required for C(type=SRV)
         attribute :proto
         validates :proto, inclusion: {:in=>[:tcp, :udp], :message=>"%{value} needs to be :tcp, :udp"}, allow_nil: true
 
@@ -38,7 +38,7 @@ module Ansible
         attribute :solo
         validates :solo, type: TrueClass
 
-        # @return [String] Whether the record(s) should exist or not
+        # @return [:present, :absent, nil] Whether the record(s) should exist or not
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
@@ -50,7 +50,7 @@ module Ansible
         attribute :ttl
         validates :ttl, type: String
 
-        # @return [String] The type of DNS record to create. Required if C(state=present)
+        # @return [:A, :AAAA, :CNAME, :TXT, :SRV, :MX, :NS, :SPF, nil] The type of DNS record to create. Required if C(state=present)
         attribute :type
         validates :type, inclusion: {:in=>[:A, :AAAA, :CNAME, :TXT, :SRV, :MX, :NS, :SPF], :message=>"%{value} needs to be :A, :AAAA, :CNAME, :TXT, :SRV, :MX, :NS, :SPF"}, allow_nil: true
 

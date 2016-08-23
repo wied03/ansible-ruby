@@ -6,7 +6,7 @@ module Ansible
   module Ruby
     module Modules
       class Rax_files < Base
-        # @return [String] Optionally clear existing metadata when applying metadata to existing containers. Selecting this option is only appropriate when setting type=meta
+        # @return [:yes, :no, nil] Optionally clear existing metadata when applying metadata to existing containers. Selecting this option is only appropriate when setting type=meta
         attribute :clear_meta
         validates :clear_meta, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
@@ -27,14 +27,14 @@ module Ansible
         attribute :region
         validates :region, type: String
 
-        # @return [String] Indicate desired state of the resource
+        # @return [:present, :absent, nil] Indicate desired state of the resource
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [Object] In seconds, set a container-wide TTL for all objects cached on CDN edge nodes. Setting a TTL is only appropriate for containers that are public
         attribute :ttl
 
-        # @return [String] Type of object to do work on, i.e. metadata object or a container object
+        # @return [:file, :meta, nil] Type of object to do work on, i.e. metadata object or a container object
         attribute :type
         validates :type, inclusion: {:in=>[:file, :meta], :message=>"%{value} needs to be :file, :meta"}, allow_nil: true
 

@@ -10,7 +10,7 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [String] C(started)/C(stopped) are idempotent actions that will not run commands unless necessary.  C(restarted) will always bounce the service.  C(reloaded) will always reload. B(At least one of state and enabled are required.)
+        # @return [:started, :stopped, :restarted, :reloaded, nil] C(started)/C(stopped) are idempotent actions that will not run commands unless necessary.  C(restarted) will always bounce the service.  C(reloaded) will always reload. B(At least one of state and enabled are required.)
         attribute :state
         validates :state, inclusion: {:in=>[:started, :stopped, :restarted, :reloaded], :message=>"%{value} needs to be :started, :stopped, :restarted, :reloaded"}, allow_nil: true
 
@@ -21,7 +21,7 @@ module Ansible
         attribute :pattern
         validates :pattern, type: String
 
-        # @return [String] Whether the service should start on boot. B(At least one of state and enabled are required.)
+        # @return [:yes, :no, nil] Whether the service should start on boot. B(At least one of state and enabled are required.)
         attribute :enabled
         validates :enabled, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 

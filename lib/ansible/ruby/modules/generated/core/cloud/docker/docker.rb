@@ -14,7 +14,7 @@ module Ansible
         attribute :image
         validates :image, presence: true, type: String
 
-        # @return [String] Control when container images are updated from the C(docker_url) registry. If "missing," images will be pulled only when missing from the host; if '"always," the registry will be checked for a newer version of the image' each time the task executes.
+        # @return [:missing, :always, nil] Control when container images are updated from the C(docker_url) registry. If "missing," images will be pulled only when missing from the host; if '"always," the registry will be checked for a newer version of the image' each time the task executes.
         attribute :pull
         validates :pull, inclusion: {:in=>[:missing, :always], :message=>"%{value} needs to be :missing, :always"}, allow_nil: true
 
@@ -56,7 +56,7 @@ module Ansible
         attribute :devices
         validates :devices, type: Array
 
-        # @return [String] You can specify a different logging driver for the container than for the daemon. "json-file" Default logging driver for Docker. Writes JSON messages to file. docker logs command is available only for this logging driver. "none" disables any logging for the container. "syslog" Syslog logging driver for Docker. Writes log messages to syslog. docker logs command is not available for this logging driver. "journald" Journald logging driver for Docker. Writes log messages to "journald". "gelf" Graylog Extended Log Format (GELF) logging driver for Docker. Writes log messages to a GELF endpoint likeGraylog or Logstash. "fluentd" Fluentd logging driver for Docker. Writes log messages to "fluentd" (forward input). "awslogs" (added in 2.1) Awslogs logging driver for Docker. Writes log messages to AWS Cloudwatch Logs. If not defined explicitly, the Docker daemon's default ("json-file") will apply. Requires docker >= 1.6.0.
+        # @return [:"json-file", :none, :syslog, :journald, :gelf, :fluentd, :awslogs, nil] You can specify a different logging driver for the container than for the daemon. "json-file" Default logging driver for Docker. Writes JSON messages to file. docker logs command is available only for this logging driver. "none" disables any logging for the container. "syslog" Syslog logging driver for Docker. Writes log messages to syslog. docker logs command is not available for this logging driver. "journald" Journald logging driver for Docker. Writes log messages to "journald". "gelf" Graylog Extended Log Format (GELF) logging driver for Docker. Writes log messages to a GELF endpoint likeGraylog or Logstash. "fluentd" Fluentd logging driver for Docker. Writes log messages to "fluentd" (forward input). "awslogs" (added in 2.1) Awslogs logging driver for Docker. Writes log messages to AWS Cloudwatch Logs. If not defined explicitly, the Docker daemon's default ("json-file") will apply. Requires docker >= 1.6.0.
         attribute :log_driver
         validates :log_driver, inclusion: {:in=>[:"json-file", :none, :syslog, :journald, :gelf, :fluentd, :awslogs], :message=>"%{value} needs to be :\"json-file\", :none, :syslog, :journald, :gelf, :fluentd, :awslogs"}, allow_nil: true
 
@@ -72,7 +72,7 @@ module Ansible
         attribute :docker_url
         validates :docker_url, type: String
 
-        # @return [Object] Whether to use tls to connect to the docker server.  "no" means not to use tls (and ignore any other tls related parameters). "encrypt" means to use tls to encrypt the connection to the server.  "verify" means to also verify that the server's certificate is valid for the server (this both verifies the certificate against the CA and that the certificate was issued for that host. If this is unspecified, tls will only be used if one of the other tls options require it.
+        # @return [:no, :encrypt, :verify, nil] Whether to use tls to connect to the docker server.  "no" means not to use tls (and ignore any other tls related parameters). "encrypt" means to use tls to encrypt the connection to the server.  "verify" means to also verify that the server's certificate is valid for the server (this both verifies the certificate against the CA and that the certificate was issued for that host. If this is unspecified, tls will only be used if one of the other tls options require it.
         attribute :use_tls
         validates :use_tls, inclusion: {:in=>[:no, :encrypt, :verify], :message=>"%{value} needs to be :no, :encrypt, :verify"}, allow_nil: true
 
@@ -132,7 +132,7 @@ module Ansible
         attribute :signal
         validates :signal, type: String
 
-        # @return [String] Assert the container's desired state. "present" only asserts that the matching containers exist. "started" asserts that the matching containers both exist and are running, but takes no action if any configuration has changed. "reloaded" (added in Ansible 1.9) asserts that all matching containers are running and restarts any that have any images or configuration out of date. "restarted" unconditionally restarts (or starts) the matching containers. "stopped" and '"killed" stop and kill all matching containers. "absent" stops and then' removes any matching containers.
+        # @return [:present, :started, :reloaded, :restarted, :stopped, :killed, :absent, nil] Assert the container's desired state. "present" only asserts that the matching containers exist. "started" asserts that the matching containers both exist and are running, but takes no action if any configuration has changed. "reloaded" (added in Ansible 1.9) asserts that all matching containers are running and restarts any that have any images or configuration out of date. "restarted" unconditionally restarts (or starts) the matching containers. "stopped" and '"killed" stop and kill all matching containers. "absent" stops and then' removes any matching containers.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :started, :reloaded, :restarted, :stopped, :killed, :absent], :message=>"%{value} needs to be :present, :started, :reloaded, :restarted, :stopped, :killed, :absent"}, allow_nil: true
 
@@ -162,7 +162,7 @@ module Ansible
         # @return [Object] Mount the container's root filesystem as read only
         attribute :read_only
 
-        # @return [Object] Container restart policy.,The 'unless-stopped' choice is only available starting in Ansible 2.1 and for Docker 1.9 and above.
+        # @return [:no, :"on-failure", :always, :"unless-stopped", nil] Container restart policy.,The 'unless-stopped' choice is only available starting in Ansible 2.1 and for Docker 1.9 and above.
         attribute :restart_policy
         validates :restart_policy, inclusion: {:in=>[:no, :"on-failure", :always, :"unless-stopped"], :message=>"%{value} needs to be :no, :\"on-failure\", :always, :\"unless-stopped\""}, allow_nil: true
 

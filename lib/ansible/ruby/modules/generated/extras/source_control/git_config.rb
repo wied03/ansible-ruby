@@ -6,7 +6,7 @@ module Ansible
   module Ruby
     module Modules
       class Git_config < Base
-        # @return [String] List all settings (optionally limited to a given I(scope))
+        # @return [:yes, :no, nil] List all settings (optionally limited to a given I(scope))
         attribute :list_all
         validates :list_all, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
@@ -18,7 +18,7 @@ module Ansible
         attribute :repo
         validates :repo, type: String
 
-        # @return [String] Specify which scope to read/set values from. This is required when setting config values. If this is set to local, you must also specify the repo parameter. It defaults to system only when not using I(list_all)=yes.
+        # @return [:local, :global, :system, nil] Specify which scope to read/set values from. This is required when setting config values. If this is set to local, you must also specify the repo parameter. It defaults to system only when not using I(list_all)=yes.
         attribute :scope
         validates :scope, inclusion: {:in=>[:local, :global, :system], :message=>"%{value} needs to be :local, :global, :system"}, allow_nil: true
 

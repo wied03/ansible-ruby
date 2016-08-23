@@ -14,7 +14,7 @@ module Ansible
         attribute :path
         validates :path, presence: true, type: String
 
-        # @return [String] Specify whether to add C(present) or remove C(absent) the specified share
+        # @return [:present, :absent, nil] Specify whether to add C(present) or remove C(absent) the specified share
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
@@ -22,7 +22,7 @@ module Ansible
         attribute :description
         validates :description, type: String
 
-        # @return [String] Specify whether to allow or deny file listing, in case user got no permission on share
+        # @return [Boolean, nil] Specify whether to allow or deny file listing, in case user got no permission on share
         attribute :list
         validates :list, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 

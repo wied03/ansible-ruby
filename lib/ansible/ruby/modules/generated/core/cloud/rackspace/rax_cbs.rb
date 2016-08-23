@@ -26,15 +26,15 @@ module Ansible
         # @return [Object] The id of the snapshot to create the volume from
         attribute :snapshot_id
 
-        # @return [String] Indicate desired state of the resource
+        # @return [:present, :absent] Indicate desired state of the resource
         attribute :state
         validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
 
-        # @return [String] Type of the volume being created
+        # @return [:SATA, :SSD] Type of the volume being created
         attribute :volume_type
         validates :volume_type, presence: true, inclusion: {:in=>[:SATA, :SSD], :message=>"%{value} needs to be :SATA, :SSD"}
 
-        # @return [String] wait for the volume to be in state 'available' before returning
+        # @return [:yes, :no, nil] wait for the volume to be in state 'available' before returning
         attribute :wait
         validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 

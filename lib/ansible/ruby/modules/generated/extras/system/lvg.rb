@@ -21,11 +21,11 @@ module Ansible
         # @return [Object] Additional options to pass to C(vgcreate) when creating the volume group.
         attribute :vg_options
 
-        # @return [String] Control if the volume group exists.
+        # @return [:present, :absent, nil] Control if the volume group exists.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [String] If yes, allows to remove volume group with logical volumes.
+        # @return [:yes, :no, nil] If yes, allows to remove volume group with logical volumes.
         attribute :force
         validates :force, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end

@@ -18,7 +18,7 @@ module Ansible
         attribute :version
         validates :version, type: String
 
-        # @return [String] If C(yes), any modified files in the working tree will be discarded.  Before 1.9 the default value was "yes".
+        # @return [:yes, :no, nil] If C(yes), any modified files in the working tree will be discarded.  Before 1.9 the default value was "yes".
         attribute :force
         validates :force, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 

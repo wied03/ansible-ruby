@@ -10,7 +10,7 @@ module Ansible
         attribute :ports, flat_array: true
         validates :ports, presence: true, type: TypeGeneric.new(String)
 
-        # @return [String] Protocol for the specified port.
+        # @return [:tcp, :udp] Protocol for the specified port.
         attribute :proto
         validates :proto, presence: true, inclusion: {:in=>[:tcp, :udp], :message=>"%{value} needs to be :tcp, :udp"}
 
@@ -18,7 +18,7 @@ module Ansible
         attribute :setype
         validates :setype, presence: true, type: String
 
-        # @return [String] Desired boolean value.
+        # @return [:present, :absent] Desired boolean value.
         attribute :state
         validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
 

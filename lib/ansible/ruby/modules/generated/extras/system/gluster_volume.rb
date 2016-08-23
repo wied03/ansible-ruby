@@ -10,7 +10,7 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [String] Use present/absent ensure if a volume exists or not, use started/stopped to control it's availability.
+        # @return [:present, :absent, :started, :stopped] Use present/absent ensure if a volume exists or not, use started/stopped to control it's availability.
         attribute :state
         validates :state, presence: true, inclusion: {:in=>[:present, :absent, :started, :stopped], :message=>"%{value} needs to be :present, :absent, :started, :stopped"}
 
@@ -27,7 +27,7 @@ module Ansible
         # @return [Object] Stripe count for volume
         attribute :stripes
 
-        # @return [String] Transport type for volume
+        # @return [:tcp, :rdma, :"tcp,rdma", nil] Transport type for volume
         attribute :transport
         validates :transport, inclusion: {:in=>[:tcp, :rdma, :"tcp,rdma"], :message=>"%{value} needs to be :tcp, :rdma, :\"tcp,rdma\""}, allow_nil: true
 
@@ -35,11 +35,11 @@ module Ansible
         attribute :bricks, flat_array: true
         validates :bricks, type: TypeGeneric.new(String)
 
-        # @return [String] Controls whether the volume is started after creation or not, defaults to yes
+        # @return [:yes, :no, nil] Controls whether the volume is started after creation or not, defaults to yes
         attribute :start_on_create
         validates :start_on_create, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String] Controls whether the cluster is rebalanced after changes
+        # @return [:yes, :no, nil] Controls whether the cluster is rebalanced after changes
         attribute :rebalance
         validates :rebalance, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 

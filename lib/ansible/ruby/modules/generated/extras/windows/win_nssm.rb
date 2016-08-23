@@ -10,7 +10,7 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [String] State of the service on the system,Note that NSSM actions like "pause", "continue", "rotate" do not fit the declarative style of ansible, so these should be implemented via the ansible command module
+        # @return [:present, :started, :stopped, :restarted, :absent, nil] State of the service on the system,Note that NSSM actions like "pause", "continue", "rotate" do not fit the declarative style of ansible, so these should be implemented via the ansible command module
         attribute :state
         validates :state, inclusion: {:in=>[:present, :started, :stopped, :restarted, :absent], :message=>"%{value} needs to be :present, :started, :stopped, :restarted, :absent"}, allow_nil: true
 
@@ -42,7 +42,7 @@ module Ansible
         attribute :password
         validates :password, type: String
 
-        # @return [String] If C(auto) is selected, the service will start at bootup. C(manual) means that the service will start only when another service needs it. C(disabled) means that the service will stay off, regardless if it is needed or not.
+        # @return [:auto, :manual, :disabled] If C(auto) is selected, the service will start at bootup. C(manual) means that the service will start only when another service needs it. C(disabled) means that the service will stay off, regardless if it is needed or not.
         attribute :start_mode
         validates :start_mode, presence: true, inclusion: {:in=>[:auto, :manual, :disabled], :message=>"%{value} needs to be :auto, :manual, :disabled"}
       end

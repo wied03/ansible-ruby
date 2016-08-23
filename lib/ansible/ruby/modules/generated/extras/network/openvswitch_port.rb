@@ -14,7 +14,7 @@ module Ansible
         attribute :port
         validates :port, presence: true, type: String
 
-        # @return [String] Whether the port should exist
+        # @return [:present, :absent, nil] Whether the port should exist
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 

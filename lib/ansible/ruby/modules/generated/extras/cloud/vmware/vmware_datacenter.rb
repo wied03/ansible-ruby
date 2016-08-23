@@ -22,7 +22,7 @@ module Ansible
         attribute :datacenter_name
         validates :datacenter_name, presence: true, type: String
 
-        # @return [String] If the datacenter should be present or absent
+        # @return [:present, :absent, nil] If the datacenter should be present or absent
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end

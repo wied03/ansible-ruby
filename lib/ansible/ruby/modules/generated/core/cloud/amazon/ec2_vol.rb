@@ -37,7 +37,7 @@ module Ansible
         attribute :device_name
         validates :device_name, type: String
 
-        # @return [String] When set to "yes", the volume will be deleted upon instance termination.
+        # @return [:yes, :no, nil] When set to "yes", the volume will be deleted upon instance termination.
         attribute :delete_on_termination
         validates :delete_on_termination, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
@@ -49,11 +49,11 @@ module Ansible
         attribute :snapshot
         validates :snapshot, type: String
 
-        # @return [String] When set to "no", SSL certificates will not be validated for boto versions >= 2.6.0.
+        # @return [:yes, :no, nil] When set to "no", SSL certificates will not be validated for boto versions >= 2.6.0.
         attribute :validate_certs
         validates :validate_certs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String] whether to ensure the volume is present or absent, or to list existing volumes (The C(list) option was added in version 1.8).
+        # @return [:absent, :present, :list, nil] whether to ensure the volume is present or absent, or to list existing volumes (The C(list) option was added in version 1.8).
         attribute :state
         validates :state, inclusion: {:in=>[:absent, :present, :list], :message=>"%{value} needs to be :absent, :present, :list"}, allow_nil: true
       end

@@ -6,7 +6,7 @@ module Ansible
   module Ruby
     module Modules
       class Nagios < Base
-        # @return [String] Action to take.,servicegroup options were added in 2.0.
+        # @return [:downtime, :enable_alerts, :disable_alerts, :silence, :unsilence, :silence_nagios, :unsilence_nagios, :command, :servicegroup_service_downtime, :servicegroup_host_downtime] Action to take.,servicegroup options were added in 2.0.
         attribute :action
         validates :action, presence: true, inclusion: {:in=>[:downtime, :enable_alerts, :disable_alerts, :silence, :unsilence, :silence_nagios, :unsilence_nagios, :command, :servicegroup_service_downtime, :servicegroup_host_downtime], :message=>"%{value} needs to be :downtime, :enable_alerts, :disable_alerts, :silence, :unsilence, :silence_nagios, :unsilence_nagios, :command, :servicegroup_service_downtime, :servicegroup_host_downtime"}
 

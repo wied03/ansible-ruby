@@ -26,7 +26,7 @@ module Ansible
         attribute :record_ids
         validates :record_ids, type: String
 
-        # @return [String] The type of DNS record to create
+        # @return [:A, :ALIAS, :CNAME, :MX, :SPF, :URL, :TXT, :NS, :SRV, :NAPTR, :PTR, :AAAA, :SSHFP, :HINFO, :POOL, nil] The type of DNS record to create
         attribute :type
         validates :type, inclusion: {:in=>[:A, :ALIAS, :CNAME, :MX, :SPF, :URL, :TXT, :NS, :SRV, :NAPTR, :PTR, :AAAA, :SSHFP, :HINFO, :POOL], :message=>"%{value} needs to be :A, :ALIAS, :CNAME, :MX, :SPF, :URL, :TXT, :NS, :SRV, :NAPTR, :PTR, :AAAA, :SSHFP, :HINFO, :POOL"}, allow_nil: true
 
@@ -41,7 +41,7 @@ module Ansible
         # @return [Object] Record priority
         attribute :priority
 
-        # @return [String] whether the record should exist or not
+        # @return [:present, :absent, nil] whether the record should exist or not
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 

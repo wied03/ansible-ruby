@@ -6,7 +6,7 @@ module Ansible
   module Ruby
     module Modules
       class Riak < Base
-        # @return [String] The command you would like to perform against the cluster.
+        # @return [:ping, :kv_test, :join, :plan, :commit, nil] The command you would like to perform against the cluster.
         attribute :command
         validates :command, inclusion: {:in=>[:ping, :kv_test, :join, :plan, :commit], :message=>"%{value} needs to be :ping, :kv_test, :join, :plan, :commit"}, allow_nil: true
 
@@ -29,11 +29,11 @@ module Ansible
         # @return [Object] Number of seconds to wait for all nodes to agree on the ring.
         attribute :wait_for_ring
 
-        # @return [String] Waits for a riak service to come online before continuing.
+        # @return [:kv, nil] Waits for a riak service to come online before continuing.
         attribute :wait_for_service
         validates :wait_for_service, inclusion: {:in=>[:kv], :message=>"%{value} needs to be :kv"}, allow_nil: true
 
-        # @return [String] If C(no), SSL certificates will not be validated. This should only be used on personally controlled sites using self-signed certificates.
+        # @return [:yes, :no, nil] If C(no), SSL certificates will not be validated. This should only be used on personally controlled sites using self-signed certificates.
         attribute :validate_certs
         validates :validate_certs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end

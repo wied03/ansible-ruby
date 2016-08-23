@@ -6,7 +6,7 @@ module Ansible
   module Ruby
     module Modules
       class Rds < Base
-        # @return [String] Specifies the action to take. The 'reboot' option is available starting at version 2.0
+        # @return [:create, :replicate, :delete, :facts, :modify, :promote, :snapshot, :reboot, :restore] Specifies the action to take. The 'reboot' option is available starting at version 2.0
         attribute :command
         validates :command, presence: true, inclusion: {:in=>[:create, :replicate, :delete, :facts, :modify, :promote, :snapshot, :reboot, :restore], :message=>"%{value} needs to be :create, :replicate, :delete, :facts, :modify, :promote, :snapshot, :reboot, :restore"}
 
@@ -18,7 +18,7 @@ module Ansible
         attribute :source_instance
         validates :source_instance, type: String
 
-        # @return [String] The type of database.  Used only when command=create.
+        # @return [:MySQL, :"oracle-se1", :"oracle-se", :"oracle-ee", :"sqlserver-ee", :"sqlserver-se", :"sqlserver-ex", :"sqlserver-web", :postgres, nil] The type of database.  Used only when command=create.
         attribute :db_engine
         validates :db_engine, inclusion: {:in=>[:MySQL, :"oracle-se1", :"oracle-se", :"oracle-ee", :"sqlserver-ee", :"sqlserver-se", :"sqlserver-ex", :"sqlserver-web", :postgres], :message=>"%{value} needs to be :MySQL, :\"oracle-se1\", :\"oracle-se\", :\"oracle-ee\", :\"sqlserver-ee\", :\"sqlserver-se\", :\"sqlserver-ex\", :\"sqlserver-web\", :postgres"}, allow_nil: true
 
@@ -51,11 +51,11 @@ module Ansible
         # @return [Object] Name of the DB parameter group to associate with this instance.  If omitted then the RDS default DBParameterGroup will be used. Used only when command=create or command=modify.
         attribute :parameter_group
 
-        # @return [Object] The license model for this DB instance. Used only when command=create or command=restore.
+        # @return [:"license-included", :"bring-your-own-license", :"general-public-license", :"postgresql-license", nil] The license model for this DB instance. Used only when command=create or command=restore.
         attribute :license_model
         validates :license_model, inclusion: {:in=>[:"license-included", :"bring-your-own-license", :"general-public-license", :"postgresql-license"], :message=>"%{value} needs to be :\"license-included\", :\"bring-your-own-license\", :\"general-public-license\", :\"postgresql-license\""}, allow_nil: true
 
-        # @return [Object] Specifies if this is a Multi-availability-zone deployment. Can not be used in conjunction with zone parameter. Used only when command=create or command=modify.
+        # @return [:yes, :no, nil] Specifies if this is a Multi-availability-zone deployment. Can not be used in conjunction with zone parameter. Used only when command=create or command=modify.
         attribute :multi_zone
         validates :multi_zone, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
@@ -73,7 +73,7 @@ module Ansible
         attribute :port, flat_array: true
         validates :port, type: TypeGeneric.new(String)
 
-        # @return [Object] Indicates that minor version upgrades should be applied automatically. Used only when command=create or command=replicate.
+        # @return [:yes, :no, nil] Indicates that minor version upgrades should be applied automatically. Used only when command=create or command=replicate.
         attribute :upgrade
         validates :upgrade, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
@@ -107,7 +107,7 @@ module Ansible
         # @return [Object] AWS access key. If not set then the value of the AWS_ACCESS_KEY environment variable is used.
         attribute :aws_access_key
 
-        # @return [String] When command=create, replicate, modify or restore then wait for the database to enter the 'available' state.  When command=delete wait for the database to be terminated.
+        # @return [:yes, :no, nil] When command=create, replicate, modify or restore then wait for the database to enter the 'available' state.  When command=delete wait for the database to be terminated.
         attribute :wait
         validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
@@ -115,11 +115,11 @@ module Ansible
         attribute :wait_timeout
         validates :wait_timeout, type: Fixnum
 
-        # @return [Object] Used only when command=modify.  If enabled, the modifications will be applied as soon as possible rather than waiting for the next preferred maintenance window.
+        # @return [:yes, :no, nil] Used only when command=modify.  If enabled, the modifications will be applied as soon as possible rather than waiting for the next preferred maintenance window.
         attribute :apply_immediately
         validates :apply_immediately, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String] Used only when command=reboot.  If enabled, the reboot is done using a MultiAZ failover.
+        # @return [:yes, :no, nil] Used only when command=reboot.  If enabled, the reboot is done using a MultiAZ failover.
         attribute :force_failover
         validates :force_failover, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 

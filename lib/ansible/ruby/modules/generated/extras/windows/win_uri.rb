@@ -10,7 +10,7 @@ module Ansible
         attribute :url
         validates :url, type: String
 
-        # @return [String] The HTTP Method of the request or response.
+        # @return [:GET, :POST, :PUT, :HEAD, :DELETE, :OPTIONS, :PATCH, :TRACE, :CONNECT, :REFRESH, nil] The HTTP Method of the request or response.
         attribute :method
         validates :method, inclusion: {:in=>[:GET, :POST, :PUT, :HEAD, :DELETE, :OPTIONS, :PATCH, :TRACE, :CONNECT, :REFRESH], :message=>"%{value} needs to be :GET, :POST, :PUT, :HEAD, :DELETE, :OPTIONS, :PATCH, :TRACE, :CONNECT, :REFRESH"}, allow_nil: true
 
@@ -23,7 +23,7 @@ module Ansible
         # @return [Object] Key Value pairs for headers. Example "Host: www.somesite.com"
         attribute :headers
 
-        # @return [TrueClass] This module relies upon 'Invoke-WebRequest', which by default uses the Internet Explorer Engine to parse a webpage. There's an edge-case where if a user hasn't run IE before, this will fail. The only advantage to using the Internet Explorer praser is that you can traverse the DOM in a powershell script. That isn't useful for Ansible, so by default we toggle 'UseBasicParsing'. However, you can toggle that off here.
+        # @return [Boolean, nil] This module relies upon 'Invoke-WebRequest', which by default uses the Internet Explorer Engine to parse a webpage. There's an edge-case where if a user hasn't run IE before, this will fail. The only advantage to using the Internet Explorer praser is that you can traverse the DOM in a powershell script. That isn't useful for Ansible, so by default we toggle 'UseBasicParsing'. However, you can toggle that off here.
         attribute :use_basic_parsing
         validates :use_basic_parsing, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
       end

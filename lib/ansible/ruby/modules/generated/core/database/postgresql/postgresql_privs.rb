@@ -10,7 +10,7 @@ module Ansible
         attribute :database
         validates :database, presence: true, type: String
 
-        # @return [String] If C(present), the specified privileges are granted, if C(absent) they are revoked.
+        # @return [:present, :absent, nil] If C(present), the specified privileges are granted, if C(absent) they are revoked.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
@@ -18,7 +18,7 @@ module Ansible
         attribute :privs
         validates :privs, type: String
 
-        # @return [String] Type of database object to set privileges on.
+        # @return [:table, :sequence, :function, :database, :schema, :language, :tablespace, :group, nil] Type of database object to set privileges on.
         attribute :type
         validates :type, inclusion: {:in=>[:table, :sequence, :function, :database, :schema, :language, :tablespace, :group], :message=>"%{value} needs to be :table, :sequence, :function, :database, :schema, :language, :tablespace, :group"}, allow_nil: true
 
@@ -34,7 +34,7 @@ module Ansible
         attribute :roles, flat_array: true
         validates :roles, presence: true, type: TypeGeneric.new(String)
 
-        # @return [String] Whether C(role) may grant/revoke the specified privileges/group memberships to others.,Set to C(no) to revoke GRANT OPTION, leave unspecified to make no changes.,I(grant_option) only has an effect if I(state) is C(present).,Alias: I(admin_option)
+        # @return [:yes, :no, nil] Whether C(role) may grant/revoke the specified privileges/group memberships to others.,Set to C(no) to revoke GRANT OPTION, leave unspecified to make no changes.,I(grant_option) only has an effect if I(state) is C(present).,Alias: I(admin_option)
         attribute :grant_option
         validates :grant_option, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 

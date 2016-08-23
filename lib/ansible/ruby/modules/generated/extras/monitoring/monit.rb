@@ -10,7 +10,7 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [String] The state of service
+        # @return [:present, :started, :stopped, :restarted, :monitored, :unmonitored, :reloaded] The state of service
         attribute :state
         validates :state, presence: true, inclusion: {:in=>[:present, :started, :stopped, :restarted, :monitored, :unmonitored, :reloaded], :message=>"%{value} needs to be :present, :started, :stopped, :restarted, :monitored, :unmonitored, :reloaded"}
 

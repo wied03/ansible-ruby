@@ -29,7 +29,7 @@ module Ansible
         attribute :instance_type
         validates :instance_type, presence: true, type: String
 
-        # @return [String] An instance with a tenancy of "dedicated" runs on single-tenant hardware and can only be launched into a VPC. Note that to use dedicated tenancy you MUST specify a vpc_subnet_id as well. Dedicated tenancy is not available for EC2 "micro" instances.
+        # @return [:default, :dedicated, nil] An instance with a tenancy of "dedicated" runs on single-tenant hardware and can only be launched into a VPC. Note that to use dedicated tenancy you MUST specify a vpc_subnet_id as well. Dedicated tenancy is not available for EC2 "micro" instances.
         attribute :tenancy
         validates :tenancy, inclusion: {:in=>[:default, :dedicated], :message=>"%{value} needs to be :default, :dedicated"}, allow_nil: true
 
@@ -37,7 +37,7 @@ module Ansible
         attribute :spot_price
         validates :spot_price, type: Float
 
-        # @return [String] Type of spot request; one of "one-time" or "persistent". Defaults to "one-time" if not supplied.
+        # @return [:"one-time", :persistent, nil] Type of spot request; one of "one-time" or "persistent". Defaults to "one-time" if not supplied.
         attribute :spot_type
         validates :spot_type, inclusion: {:in=>[:"one-time", :persistent], :message=>"%{value} needs to be :\"one-time\", :persistent"}, allow_nil: true
 
@@ -51,7 +51,7 @@ module Ansible
         # @return [Object] ramdisk I(eri) to use for the instance
         attribute :ramdisk
 
-        # @return [String] wait for the instance to be 'running' before returning.  Does not wait for SSH, see 'wait_for' example for details.
+        # @return [:yes, :no, nil] wait for the instance to be 'running' before returning.  Does not wait for SSH, see 'wait_for' example for details.
         attribute :wait
         validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
@@ -67,7 +67,7 @@ module Ansible
         attribute :count
         validates :count, type: Fixnum
 
-        # @return [TrueClass] enable detailed monitoring (CloudWatch) for instance
+        # @return [:yes, :no, nil] enable detailed monitoring (CloudWatch) for instance
         attribute :monitoring
         validates :monitoring, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
@@ -85,7 +85,7 @@ module Ansible
         attribute :vpc_subnet_id
         validates :vpc_subnet_id, type: String
 
-        # @return [TrueClass] when provisioning within vpc, assign a public IP address. Boto library must be 2.13.0+
+        # @return [:yes, :no, nil] when provisioning within vpc, assign a public IP address. Boto library must be 2.13.0+
         attribute :assign_public_ip
         validates :assign_public_ip, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
@@ -99,15 +99,15 @@ module Ansible
         attribute :instance_ids
         validates :instance_ids, type: Array
 
-        # @return [TrueClass] Enable or Disable the Source/Destination checks (for NAT instances and Virtual Routers)
+        # @return [:yes, :no, nil] Enable or Disable the Source/Destination checks (for NAT instances and Virtual Routers)
         attribute :source_dest_check
         validates :source_dest_check, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [Object] Enable or Disable the Termination Protection
+        # @return [:yes, :no, nil] Enable or Disable the Termination Protection
         attribute :termination_protection
         validates :termination_protection, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String] create or terminate instances
+        # @return [:present, :absent, :running, :stopped, nil] create or terminate instances
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent, :running, :stopped], :message=>"%{value} needs to be :present, :absent, :running, :stopped"}, allow_nil: true
 

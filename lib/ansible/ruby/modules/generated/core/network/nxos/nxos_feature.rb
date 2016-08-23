@@ -10,7 +10,7 @@ module Ansible
         attribute :feature
         validates :feature, presence: true, type: String
 
-        # @return [String] Desired state of the feature
+        # @return [:enabled, :disabled, nil] Desired state of the feature
         attribute :state
         validates :state, inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
       end

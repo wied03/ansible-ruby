@@ -10,7 +10,7 @@ module Ansible
         attribute :path
         validates :path, presence: true, type: String
 
-        # @return [String] following state of the log
+        # @return [:present, :absent, nil] following state of the log
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 

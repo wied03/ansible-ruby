@@ -26,7 +26,7 @@ module Ansible
         attribute :rules_egress
         validates :rules_egress, type: Array
 
-        # @return [String] Create or delete a security group
+        # @return [:present, :absent, nil] Create or delete a security group
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 

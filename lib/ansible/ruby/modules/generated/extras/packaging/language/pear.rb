@@ -10,7 +10,7 @@ module Ansible
         attribute :name, flat_array: true
         validates :name, presence: true, type: TypeGeneric.new(String)
 
-        # @return [String] Desired state of the package.
+        # @return [:present, :absent, :latest, nil] Desired state of the package.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent, :latest], :message=>"%{value} needs to be :present, :absent, :latest"}, allow_nil: true
       end

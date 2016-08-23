@@ -10,7 +10,7 @@ module Ansible
         attribute :stack_name
         validates :stack_name, presence: true, type: String
 
-        # @return [String] If a stacks fails to form, rollback will remove the stack
+        # @return [:true, :false, nil] If a stacks fails to form, rollback will remove the stack
         attribute :disable_rollback
         validates :disable_rollback, inclusion: {:in=>[:true, :false], :message=>"%{value} needs to be :true, :false"}, allow_nil: true
 
@@ -44,7 +44,7 @@ module Ansible
         attribute :template_url
         validates :template_url, type: String
 
-        # @return [String] For local templates, allows specification of json or yaml format
+        # @return [:json, :yaml, nil] For local templates, allows specification of json or yaml format
         attribute :template_format
         validates :template_format, inclusion: {:in=>[:json, :yaml], :message=>"%{value} needs to be :json, :yaml"}, allow_nil: true
       end

@@ -6,7 +6,7 @@ module Ansible
   module Ruby
     module Modules
       class Redhat_subscription < Base
-        # @return [String] whether to register and subscribe (C(present)), or unregister (C(absent)) a system
+        # @return [:present, :absent, nil] whether to register and subscribe (C(present)), or unregister (C(absent)) a system
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 

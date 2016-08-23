@@ -18,7 +18,7 @@ module Ansible
         attribute :vmnics
         validates :vmnics, presence: true, type: Array
 
-        # @return [String] If the host should be present or absent attached to the vSwitch
+        # @return [:present, :absent] If the host should be present or absent attached to the vSwitch
         attribute :state
         validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
       end

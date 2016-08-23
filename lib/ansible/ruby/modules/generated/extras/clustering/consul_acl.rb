@@ -10,11 +10,11 @@ module Ansible
         attribute :mgmt_token
         validates :mgmt_token, type: String
 
-        # @return [String] whether the ACL pair should be present or absent, defaults to present
+        # @return [:present, :absent, nil] whether the ACL pair should be present or absent, defaults to present
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [Object] the type of token that should be created, either management or client, defaults to client
+        # @return [:client, :management, nil] the type of token that should be created, either management or client, defaults to client
         attribute :type
         validates :type, inclusion: {:in=>[:client, :management], :message=>"%{value} needs to be :client, :management"}, allow_nil: true
 

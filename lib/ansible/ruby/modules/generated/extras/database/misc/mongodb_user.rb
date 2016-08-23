@@ -49,11 +49,11 @@ module Ansible
         attribute :roles
         validates :roles, type: String
 
-        # @return [String] The database user state
+        # @return [:present, :absent, nil] The database user state
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [String] C(always) will update passwords if they differ.  C(on_create) will only set the password for newly created users.
+        # @return [:always, :on_create, nil] C(always) will update passwords if they differ.  C(on_create) will only set the password for newly created users.
         attribute :update_password
         validates :update_password, inclusion: {:in=>[:always, :on_create], :message=>"%{value} needs to be :always, :on_create"}, allow_nil: true
       end

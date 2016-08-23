@@ -18,7 +18,7 @@ module Ansible
         attribute :mask
         validates :mask, type: String
 
-        # @return [String] Specify desired state of the resource
+        # @return [:present, :absent, nil] Specify desired state of the resource
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end

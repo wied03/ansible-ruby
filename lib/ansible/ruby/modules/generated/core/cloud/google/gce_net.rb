@@ -32,7 +32,7 @@ module Ansible
         # @return [Object] the target instance tags for creating a firewall rule
         attribute :target_tags
 
-        # @return [String] desired state of the network or firewall
+        # @return [:active, :present, :absent, :deleted, nil] desired state of the network or firewall
         attribute :state
         validates :state, inclusion: {:in=>[:active, :present, :absent, :deleted], :message=>"%{value} needs to be :active, :present, :absent, :deleted"}, allow_nil: true
 

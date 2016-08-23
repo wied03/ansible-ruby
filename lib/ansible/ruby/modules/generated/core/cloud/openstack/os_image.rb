@@ -50,7 +50,7 @@ module Ansible
         attribute :properties
         validates :properties, type: Hash
 
-        # @return [String] Should the resource be present or absent.
+        # @return [:present, :absent, nil] Should the resource be present or absent.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end

@@ -14,7 +14,7 @@ module Ansible
         attribute :display_text
         validates :display_text, type: String
 
-        # @return [String] State of the project.
+        # @return [:present, :absent, :active, :suspended, nil] State of the project.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent, :active, :suspended], :message=>"%{value} needs to be :present, :absent, :active, :suspended"}, allow_nil: true
 

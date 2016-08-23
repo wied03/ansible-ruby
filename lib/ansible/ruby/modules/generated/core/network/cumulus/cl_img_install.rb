@@ -13,7 +13,7 @@ module Ansible
         # @return [Object] inform the module of the exact version one is installing. This overrides the automatic check of version in the file name. For example, if the binary file name is called CumulusLinux-2.2.3.bin, and version is set to '2.5.0', then the module will assume it is installing '2.5.0' not '2.2.3'. If version is not included, then the module will assume '2.2.3' is the version to install.
         attribute :version
 
-        # @return [String] Switch slots after installing the image. To run the installed code, reboot the switch
+        # @return [:yes, :no, nil] Switch slots after installing the image. To run the installed code, reboot the switch
         attribute :switch_slot
         validates :switch_slot, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end

@@ -6,15 +6,15 @@ module Ansible
   module Ruby
     module Modules
       class Iptables < Base
-        # @return [String] This option specifies the packet matching table which the command should operate on. If the kernel is configured with automatic module loading, an attempt will be made to load the appropriate module for that table if it is not already there.
+        # @return [:filter, :nat, :mangle, :raw, :security, nil] This option specifies the packet matching table which the command should operate on. If the kernel is configured with automatic module loading, an attempt will be made to load the appropriate module for that table if it is not already there.
         attribute :table
         validates :table, inclusion: {:in=>[:filter, :nat, :mangle, :raw, :security], :message=>"%{value} needs to be :filter, :nat, :mangle, :raw, :security"}, allow_nil: true
 
-        # @return [String] Whether the rule should be absent or present.
+        # @return [:present, :absent, nil] Whether the rule should be absent or present.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [String] Which version of the IP protocol this rule should apply to.
+        # @return [:ipv4, :ipv6, nil] Which version of the IP protocol this rule should apply to.
         attribute :ip_version
         validates :ip_version, inclusion: {:in=>[:ipv4, :ipv6], :message=>"%{value} needs to be :ipv4, :ipv6"}, allow_nil: true
 

@@ -10,7 +10,7 @@ module Ansible
         attribute :vpc_id
         validates :vpc_id, presence: true
 
-        # @return [String] Create or terminate the IGW
+        # @return [:present, :absent, nil] Create or terminate the IGW
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end

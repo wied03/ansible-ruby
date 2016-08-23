@@ -10,7 +10,7 @@ module Ansible
         attribute :src
         validates :src, presence: true, type: String
 
-        # @return [Object] When this argument is configured true, the module will backup the configuration from the node prior to making any changes. The backup file will be written to backup_{{ hostname }} in the root of the playbook directory.
+        # @return [:true, :false, nil] When this argument is configured true, the module will backup the configuration from the node prior to making any changes. The backup file will be written to backup_{{ hostname }} in the root of the playbook directory.
         attribute :backup
         validates :backup, inclusion: {:in=>[:true, :false], :message=>"%{value} needs to be :true, :false"}, allow_nil: true
 
@@ -22,11 +22,11 @@ module Ansible
         attribute :comment
         validates :comment, type: String
 
-        # @return [String] The C(action) argument specifies how the module will apply changes.
+        # @return [:merge, :overwrite, :replace, nil] The C(action) argument specifies how the module will apply changes.
         attribute :action
         validates :action, inclusion: {:in=>[:merge, :overwrite, :replace], :message=>"%{value} needs to be :merge, :overwrite, :replace"}, allow_nil: true
 
-        # @return [Object] The C(format) argument specifies the format of the configuration template specified in C(src).  If the format argument is not specified, the module will attempt to infer the configuration format based of file extension.  Files that end in I(xml) will set the format to xml.  Files that end in I(set) will set the format to set and all other files will default the format to text.
+        # @return [:text, :xml, :set, nil] The C(format) argument specifies the format of the configuration template specified in C(src).  If the format argument is not specified, the module will attempt to infer the configuration format based of file extension.  Files that end in I(xml) will set the format to xml.  Files that end in I(set) will set the format to set and all other files will default the format to text.
         attribute :config_format
         validates :config_format, inclusion: {:in=>[:text, :xml, :set], :message=>"%{value} needs to be :text, :xml, :set"}, allow_nil: true
       end

@@ -6,7 +6,7 @@ module Ansible
   module Ruby
     module Modules
       class Ec2_vpc_route_table < Base
-        # @return [String] Look up route table by either tags or by route table ID. Non-unique tag lookup will fail. If no tags are specifed then no lookup for an existing route table is performed and a new route table will be created. To change tags of a route table, you must look up by id.
+        # @return [:tag, :id, nil] Look up route table by either tags or by route table ID. Non-unique tag lookup will fail. If no tags are specifed then no lookup for an existing route table is performed and a new route table will be created. To change tags of a route table, you must look up by id.
         attribute :lookup
         validates :lookup, inclusion: {:in=>[:tag, :id], :message=>"%{value} needs to be :tag, :id"}, allow_nil: true
 
@@ -21,7 +21,7 @@ module Ansible
         attribute :routes
         validates :routes, presence: true, type: Array
 
-        # @return [String] Create or destroy the VPC route table
+        # @return [:present, :absent, nil] Create or destroy the VPC route table
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 

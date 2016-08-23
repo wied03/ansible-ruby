@@ -17,7 +17,7 @@ module Ansible
         # @return [Object] Group in where the new instance should be in.
         attribute :group
 
-        # @return [String] State of the instance.
+        # @return [:deployed, :started, :stopped, :restarted, :restored, :destroyed, :expunged, :present, :absent, nil] State of the instance.
         attribute :state
         validates :state, inclusion: {:in=>[:deployed, :started, :stopped, :restarted, :restored, :destroyed, :expunged, :present, :absent], :message=>"%{value} needs to be :deployed, :started, :stopped, :restarted, :restored, :destroyed, :expunged, :present, :absent"}, allow_nil: true
 
@@ -42,15 +42,15 @@ module Ansible
         attribute :iso
         validates :iso, type: String
 
-        # @return [String] Name of the filter used to search for the template or iso.,Used for params C(iso) or C(template) on C(state=present).
+        # @return [:featured, :self, :selfexecutable, :sharedexecutable, :executable, :community, nil] Name of the filter used to search for the template or iso.,Used for params C(iso) or C(template) on C(state=present).
         attribute :template_filter
         validates :template_filter, inclusion: {:in=>[:featured, :self, :selfexecutable, :sharedexecutable, :executable, :community], :message=>"%{value} needs to be :featured, :self, :selfexecutable, :sharedexecutable, :executable, :community"}, allow_nil: true
 
-        # @return [String] Name the hypervisor to be used for creating the new instance.,Relevant when using C(state=present), but only considered if not set on ISO/template.,If not set or found on ISO/template, first found hypervisor will be used.
+        # @return [:KVM, :VMware, :BareMetal, :XenServer, :LXC, :HyperV, :UCS, :OVM, nil] Name the hypervisor to be used for creating the new instance.,Relevant when using C(state=present), but only considered if not set on ISO/template.,If not set or found on ISO/template, first found hypervisor will be used.
         attribute :hypervisor
         validates :hypervisor, inclusion: {:in=>[:KVM, :VMware, :BareMetal, :XenServer, :LXC, :HyperV, :UCS, :OVM], :message=>"%{value} needs to be :KVM, :VMware, :BareMetal, :XenServer, :LXC, :HyperV, :UCS, :OVM"}, allow_nil: true
 
-        # @return [Object] Keyboard device type for the instance.
+        # @return [:de, :"de-ch", :es, :fi, :fr, :"fr-be", :"fr-ch", :is, :it, :jp, :"nl-be", :no, :pt, :uk, :us, nil] Keyboard device type for the instance.
         attribute :keyboard
         validates :keyboard, inclusion: {:in=>[:de, :"de-ch", :es, :fi, :fr, :"fr-be", :"fr-ch", :is, :it, :jp, :"nl-be", :no, :pt, :uk, :us], :message=>"%{value} needs to be :de, :\"de-ch\", :es, :fi, :fr, :\"fr-be\", :\"fr-ch\", :is, :it, :jp, :\"nl-be\", :no, :pt, :uk, :us"}, allow_nil: true
 

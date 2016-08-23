@@ -41,7 +41,7 @@ module Ansible
         attribute :name
         validates :name, type: String
 
-        # @return [String] the protocol used for the load-balancer packet forwarding, tcp or udp
+        # @return [:tcp, :udp, nil] the protocol used for the load-balancer packet forwarding, tcp or udp
         attribute :protocol
         validates :protocol, inclusion: {:in=>[:tcp, :udp], :message=>"%{value} needs to be :tcp, :udp"}, allow_nil: true
 
@@ -59,7 +59,7 @@ module Ansible
         attribute :members
         validates :members, type: Array
 
-        # @return [String] desired state of the LB
+        # @return [:active, :present, :absent, :deleted, nil] desired state of the LB
         attribute :state
         validates :state, inclusion: {:in=>[:active, :present, :absent, :deleted], :message=>"%{value} needs to be :active, :present, :absent, :deleted"}, allow_nil: true
 

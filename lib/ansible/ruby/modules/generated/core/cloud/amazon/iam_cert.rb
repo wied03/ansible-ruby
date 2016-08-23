@@ -16,7 +16,7 @@ module Ansible
         # @return [Object] When present, this will update the path of the cert with the value passed here.
         attribute :new_path
 
-        # @return [String] Whether to create, delete certificate. When present is specified it will attempt to make an update if new_path or new_name is specified.
+        # @return [:present, :absent] Whether to create, delete certificate. When present is specified it will attempt to make an update if new_path or new_name is specified.
         attribute :state
         validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
 

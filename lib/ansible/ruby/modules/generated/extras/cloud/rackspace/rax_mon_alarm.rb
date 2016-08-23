@@ -6,7 +6,7 @@ module Ansible
   module Ruby
     module Modules
       class Rax_mon_alarm < Base
-        # @return [String] Ensure that the alarm with this C(label) exists or does not exist.
+        # @return [:present, :absent, nil] Ensure that the alarm with this C(label) exists or does not exist.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
@@ -29,7 +29,7 @@ module Ansible
         # @return [Object] Alarm DSL that describes alerting conditions and their output states. Must be between 1 and 16384 characters long. See http://docs.rackspace.com/cm/api/v1.0/cm-devguide/content/alerts-language.html for a reference on the alerting language.
         attribute :criteria
 
-        # @return [Object] If yes, create this alarm, but leave it in an inactive state. Defaults to no.
+        # @return [:yes, :no, nil] If yes, create this alarm, but leave it in an inactive state. Defaults to no.
         attribute :disabled
         validates :disabled, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 

@@ -14,15 +14,15 @@ module Ansible
         attribute :path
         validates :path, type: String
 
-        # @return [String] state of the package
+        # @return [:head, :latest, :present, :absent, :linked, :unlinked, nil] state of the package
         attribute :state
         validates :state, inclusion: {:in=>[:head, :latest, :present, :absent, :linked, :unlinked], :message=>"%{value} needs to be :head, :latest, :present, :absent, :linked, :unlinked"}, allow_nil: true
 
-        # @return [String] update homebrew itself first
+        # @return [:yes, :no, nil] update homebrew itself first
         attribute :update_homebrew
         validates :update_homebrew, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String] upgrade all homebrew packages
+        # @return [:yes, :no, nil] upgrade all homebrew packages
         attribute :upgrade_all
         validates :upgrade_all, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 

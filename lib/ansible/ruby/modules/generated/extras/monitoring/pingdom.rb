@@ -6,23 +6,23 @@ module Ansible
   module Ruby
     module Modules
       class Pingdom < Base
-        # @return [String] Define whether or not the check should be running or paused.
+        # @return [:running, :paused] Define whether or not the check should be running or paused.
         attribute :state
         validates :state, presence: true, inclusion: {:in=>[:running, :paused], :message=>"%{value} needs to be :running, :paused"}
 
-        # @return [String] Pingdom ID of the check.
+        # @return [] Pingdom ID of the check.
         attribute :checkid
         validates :checkid, presence: true, inclusion: {:in=>[], :message=>"%{value} needs to be "}
 
-        # @return [String] Pingdom user ID.
+        # @return [] Pingdom user ID.
         attribute :uid
         validates :uid, presence: true, inclusion: {:in=>[], :message=>"%{value} needs to be "}
 
-        # @return [String] Pingdom user password.
+        # @return [] Pingdom user password.
         attribute :passwd
         validates :passwd, presence: true, inclusion: {:in=>[], :message=>"%{value} needs to be "}
 
-        # @return [String] Pingdom API key.
+        # @return [] Pingdom API key.
         attribute :key
         validates :key, presence: true, inclusion: {:in=>[], :message=>"%{value} needs to be "}
       end

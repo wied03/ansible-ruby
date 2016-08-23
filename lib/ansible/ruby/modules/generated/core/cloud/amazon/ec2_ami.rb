@@ -14,7 +14,7 @@ module Ansible
         attribute :name
         validates :name, type: String
 
-        # @return [String] wait for the AMI to be in state 'available' before returning.
+        # @return [:yes, :no, nil] wait for the AMI to be in state 'available' before returning.
         attribute :wait
         validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
@@ -29,7 +29,7 @@ module Ansible
         # @return [Object] An optional human-readable string describing the contents and purpose of the AMI.
         attribute :description
 
-        # @return [Object] An optional flag indicating that the bundling process should not attempt to shutdown the instance before bundling. If this flag is True, the responsibility of maintaining file system integrity is left to the owner of the instance. The default choice is "no".
+        # @return [:yes, :no, nil] An optional flag indicating that the bundling process should not attempt to shutdown the instance before bundling. If this flag is True, the responsibility of maintaining file system integrity is left to the owner of the instance. The default choice is "no".
         attribute :no_reboot
         validates :no_reboot, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
@@ -41,7 +41,7 @@ module Ansible
         attribute :device_mapping
         validates :device_mapping, type: Array
 
-        # @return [String] Whether or not to delete snapshots when deregistering AMI.
+        # @return [:yes, :no, nil] Whether or not to delete snapshots when deregistering AMI.
         attribute :delete_snapshot
         validates :delete_snapshot, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 

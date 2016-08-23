@@ -13,7 +13,7 @@ module Ansible
         # @return [Object] Various (non-idempotent) commands for usage with C(/usr/bin/ansible) and I(not) playbooks. See examples.
         attribute :list
 
-        # @return [String] Whether to install (C(present), C(latest)), or remove (C(absent)) a package.
+        # @return [:present, :latest, :absent, nil] Whether to install (C(present), C(latest)), or remove (C(absent)) a package.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :latest, :absent], :message=>"%{value} needs to be :present, :latest, :absent"}, allow_nil: true
 
@@ -27,7 +27,7 @@ module Ansible
         # @return [Object] The remote dnf configuration file to use for the transaction.
         attribute :conf_file
 
-        # @return [String] Whether to disable the GPG checking of signatures of packages being installed. Has an effect only if state is I(present) or I(latest).
+        # @return [:yes, :no, nil] Whether to disable the GPG checking of signatures of packages being installed. Has an effect only if state is I(present) or I(latest).
         attribute :disable_gpg_check
         validates :disable_gpg_check, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end

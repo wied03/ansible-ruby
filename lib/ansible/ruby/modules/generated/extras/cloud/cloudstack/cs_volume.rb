@@ -58,7 +58,7 @@ module Ansible
         attribute :zone
         validates :zone, type: String
 
-        # @return [String] State of the volume.
+        # @return [:present, :absent, :attached, :detached, nil] State of the volume.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent, :attached, :detached], :message=>"%{value} needs to be :present, :absent, :attached, :detached"}, allow_nil: true
 

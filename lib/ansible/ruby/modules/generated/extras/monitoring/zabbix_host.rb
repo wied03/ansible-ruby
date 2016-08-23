@@ -38,15 +38,15 @@ module Ansible
         attribute :link_templates
         validates :link_templates, type: String
 
-        # @return [String] Configure the inventory mode.
+        # @return [:automatic, :manual, :disabled, nil] Configure the inventory mode.
         attribute :inventory_mode
         validates :inventory_mode, inclusion: {:in=>[:automatic, :manual, :disabled], :message=>"%{value} needs to be :automatic, :manual, :disabled"}, allow_nil: true
 
-        # @return [String] Monitoring status of the host.
+        # @return [:enabled, :disabled, nil] Monitoring status of the host.
         attribute :status
         validates :status, inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
 
-        # @return [String] State of the host.,On C(present), it will create if host does not exist or update the host if the associated data is different.,On C(absent) will remove a host if it exists.
+        # @return [:present, :absent, nil] State of the host.,On C(present), it will create if host does not exist or update the host if the associated data is different.,On C(absent) will remove a host if it exists.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
@@ -62,7 +62,7 @@ module Ansible
         attribute :interfaces
         validates :interfaces, type: Array
 
-        # @return [String] Overwrite the host configuration, even if already present
+        # @return [:yes, :no, nil] Overwrite the host configuration, even if already present
         attribute :force
         validates :force, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end

@@ -18,15 +18,15 @@ module Ansible
         attribute :revision
         validates :revision, type: String
 
-        # @return [String] Discards uncommitted changes. Runs C(hg update -C).  Prior to 1.9, the default was `yes`.
+        # @return [:yes, :no, nil] Discards uncommitted changes. Runs C(hg update -C).  Prior to 1.9, the default was `yes`.
         attribute :force
         validates :force, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String] Deletes untracked files. Runs C(hg purge).
+        # @return [:yes, :no, nil] Deletes untracked files. Runs C(hg purge).
         attribute :purge
         validates :purge, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String] If C(no), do not retrieve new revisions from the origin repository
+        # @return [:yes, :no, nil] If C(no), do not retrieve new revisions from the origin repository
         attribute :update
         validates :update, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 

@@ -13,11 +13,11 @@ module Ansible
         # @return [Object] The description for the scheduled task
         attribute :description
 
-        # @return [TrueClass] Enable/disable the task
+        # @return [Boolean, nil] Enable/disable the task
         attribute :enabled
         validates :enabled, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
-        # @return [Object] State that the task should become
+        # @return [:present, :absent] State that the task should become
         attribute :state
         validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
 
@@ -30,7 +30,7 @@ module Ansible
         # @return [Object] Arguments to provide scheduled task action
         attribute :argument
 
-        # @return [Object] The frequency of the command, not idempotent
+        # @return [:daily, :weekly, nil] The frequency of the command, not idempotent
         attribute :frequency
         validates :frequency, inclusion: {:in=>[:daily, :weekly], :message=>"%{value} needs to be :daily, :weekly"}, allow_nil: true
 

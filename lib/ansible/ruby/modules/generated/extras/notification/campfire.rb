@@ -22,7 +22,7 @@ module Ansible
         attribute :msg
         validates :msg, presence: true, type: String
 
-        # @return [String] Send a notification sound before the message.
+        # @return [:"56k", :bell, :bezos, :bueller, :clowntown, :cottoneyejoe, :crickets, :dadgummit, :dangerzone, :danielsan, :deeper, :drama, :greatjob, :greyjoy, :guarantee, :heygirl, :horn, :horror, :inconceivable, :live, :loggins, :makeitso, :noooo, :nyan, :ohmy, :ohyeah, :pushit, :rimshot, :rollout, :rumble, :sax, :secret, :sexyback, :story, :tada, :tmyk, :trololo, :trombone, :unix, :vuvuzela, :what, :whoomp, :yeah, :yodel, nil] Send a notification sound before the message.
         attribute :notify
         validates :notify, inclusion: {:in=>[:"56k", :bell, :bezos, :bueller, :clowntown, :cottoneyejoe, :crickets, :dadgummit, :dangerzone, :danielsan, :deeper, :drama, :greatjob, :greyjoy, :guarantee, :heygirl, :horn, :horror, :inconceivable, :live, :loggins, :makeitso, :noooo, :nyan, :ohmy, :ohyeah, :pushit, :rimshot, :rollout, :rumble, :sax, :secret, :sexyback, :story, :tada, :tmyk, :trololo, :trombone, :unix, :vuvuzela, :what, :whoomp, :yeah, :yodel], :message=>"%{value} needs to be :\"56k\", :bell, :bezos, :bueller, :clowntown, :cottoneyejoe, :crickets, :dadgummit, :dangerzone, :danielsan, :deeper, :drama, :greatjob, :greyjoy, :guarantee, :heygirl, :horn, :horror, :inconceivable, :live, :loggins, :makeitso, :noooo, :nyan, :ohmy, :ohyeah, :pushit, :rimshot, :rollout, :rumble, :sax, :secret, :sexyback, :story, :tada, :tmyk, :trololo, :trombone, :unix, :vuvuzela, :what, :whoomp, :yeah, :yodel"}, allow_nil: true
       end

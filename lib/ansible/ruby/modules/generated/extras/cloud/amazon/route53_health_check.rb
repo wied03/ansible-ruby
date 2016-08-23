@@ -6,7 +6,7 @@ module Ansible
   module Ruby
     module Modules
       class Route53_health_check < Base
-        # @return [String] Specifies the action to take.
+        # @return [:present, :absent] Specifies the action to take.
         attribute :state
         validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
 
@@ -16,7 +16,7 @@ module Ansible
         # @return [Object] The port on the endpoint on which you want Amazon Route 53 to perform health checks. Required for TCP checks.
         attribute :port
 
-        # @return [String] The type of health check that you want to create, which indicates how Amazon Route 53 determines whether an endpoint is healthy.
+        # @return [:HTTP, :HTTPS, :HTTP_STR_MATCH, :HTTPS_STR_MATCH, :TCP] The type of health check that you want to create, which indicates how Amazon Route 53 determines whether an endpoint is healthy.
         attribute :type
         validates :type, presence: true, inclusion: {:in=>[:HTTP, :HTTPS, :HTTP_STR_MATCH, :HTTPS_STR_MATCH, :TCP], :message=>"%{value} needs to be :HTTP, :HTTPS, :HTTP_STR_MATCH, :HTTPS_STR_MATCH, :TCP"}
 
@@ -32,11 +32,11 @@ module Ansible
         attribute :string_match
         validates :string_match, type: String
 
-        # @return [Fixnum] The number of seconds between the time that Amazon Route 53 gets a response from your endpoint and the time that it sends the next health-check request.
+        # @return [10, 30] The number of seconds between the time that Amazon Route 53 gets a response from your endpoint and the time that it sends the next health-check request.
         attribute :request_interval
         validates :request_interval, presence: true, inclusion: {:in=>[10, 30], :message=>"%{value} needs to be 10, 30"}
 
-        # @return [Fixnum] The number of consecutive health checks that an endpoint must pass or fail for Amazon Route 53 to change the current status of the endpoint from unhealthy to healthy or vice versa.
+        # @return [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] The number of consecutive health checks that an endpoint must pass or fail for Amazon Route 53 to change the current status of the endpoint from unhealthy to healthy or vice versa.
         attribute :failure_threshold
         validates :failure_threshold, presence: true, inclusion: {:in=>[1, 2, 3, 4, 5, 6, 7, 8, 9, 10], :message=>"%{value} needs to be 1, 2, 3, 4, 5, 6, 7, 8, 9, 10"}
       end

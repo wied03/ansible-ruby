@@ -14,15 +14,15 @@ module Ansible
         attribute :cidr_block
         validates :cidr_block, presence: true, type: String
 
-        # @return [String] Whether to be default or dedicated tenancy. This cannot be changed after the VPC has been created.
+        # @return [:default, :dedicated, nil] Whether to be default or dedicated tenancy. This cannot be changed after the VPC has been created.
         attribute :tenancy
         validates :tenancy, inclusion: {:in=>[:default, :dedicated], :message=>"%{value} needs to be :default, :dedicated"}, allow_nil: true
 
-        # @return [TrueClass] Whether to enable AWS DNS support.
+        # @return [:yes, :no, nil] Whether to enable AWS DNS support.
         attribute :dns_support
         validates :dns_support, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [TrueClass] Whether to enable AWS hostname support.
+        # @return [:yes, :no, nil] Whether to enable AWS hostname support.
         attribute :dns_hostnames
         validates :dns_hostnames, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
@@ -33,7 +33,7 @@ module Ansible
         attribute :tags
         validates :tags, type: String
 
-        # @return [String] The state of the VPC. Either absent or present.
+        # @return [:present, :absent, nil] The state of the VPC. Either absent or present.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 

@@ -6,7 +6,7 @@ module Ansible
   module Ruby
     module Modules
       class Ecs_cluster < Base
-        # @return [String] The desired state of the cluster
+        # @return [:present, :absent, :has_instances] The desired state of the cluster
         attribute :state
         validates :state, presence: true, inclusion: {:in=>[:present, :absent, :has_instances], :message=>"%{value} needs to be :present, :absent, :has_instances"}
 

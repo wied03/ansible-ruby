@@ -25,7 +25,7 @@ module Ansible
         # @return [Object] template to use for the instance
         attribute :image
 
-        # @return [Object] whether you want to deploy an image or create an instance from scratch.
+        # @return [:new, :template, nil] whether you want to deploy an image or create an instance from scratch.
         attribute :resource_type
         validates :resource_type, inclusion: {:in=>[:new, :template], :message=>"%{value} needs to be :new, :template"}, allow_nil: true
 
@@ -49,15 +49,15 @@ module Ansible
         # @return [Object] the instance's amount of memory in MB
         attribute :instance_mem
 
-        # @return [String] define if the instance is a server or desktop
+        # @return [:server, :desktop, nil] define if the instance is a server or desktop
         attribute :instance_type
         validates :instance_type, inclusion: {:in=>[:server, :desktop], :message=>"%{value} needs to be :server, :desktop"}, allow_nil: true
 
-        # @return [String] define if disk is thin or preallocated
+        # @return [:thin, :preallocated, nil] define if disk is thin or preallocated
         attribute :disk_alloc
         validates :disk_alloc, inclusion: {:in=>[:thin, :preallocated], :message=>"%{value} needs to be :thin, :preallocated"}, allow_nil: true
 
-        # @return [String] interface type of the disk
+        # @return [:virtio, :ide, nil] interface type of the disk
         attribute :disk_int
         validates :disk_int, inclusion: {:in=>[:virtio, :ide], :message=>"%{value} needs to be :virtio, :ide"}, allow_nil: true
 
@@ -95,7 +95,7 @@ module Ansible
         # @return [Object] define the instance's Authorized key
         attribute :instance_key
 
-        # @return [String] create, terminate or remove instances
+        # @return [:present, :absent, :shutdown, :started, :restarted, nil] create, terminate or remove instances
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent, :shutdown, :started, :restarted], :message=>"%{value} needs to be :present, :absent, :shutdown, :started, :restarted"}, allow_nil: true
       end

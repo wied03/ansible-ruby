@@ -10,15 +10,15 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [String] state of the package
+        # @return [:present, :absent, nil] state of the package
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [String] opkg --force parameter used
+        # @return [:"", :depends, :maintainer, :reinstall, :overwrite, :downgrade, :space, :postinstall, :remove, :checksum, :"removal-of-dependent-packages", nil] opkg --force parameter used
         attribute :force
         validates :force, inclusion: {:in=>[:"", :depends, :maintainer, :reinstall, :overwrite, :downgrade, :space, :postinstall, :remove, :checksum, :"removal-of-dependent-packages"], :message=>"%{value} needs to be :\"\", :depends, :maintainer, :reinstall, :overwrite, :downgrade, :space, :postinstall, :remove, :checksum, :\"removal-of-dependent-packages\""}, allow_nil: true
 
-        # @return [String] update the package db first
+        # @return [:yes, :no, nil] update the package db first
         attribute :update_cache
         validates :update_cache, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end

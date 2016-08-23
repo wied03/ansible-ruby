@@ -26,7 +26,7 @@ module Ansible
         attribute :http_login_password
         validates :http_login_password, type: String
 
-        # @return [String] Create or delete host group.
+        # @return [:present, :absent, nil] Create or delete host group.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 

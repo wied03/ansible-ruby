@@ -18,7 +18,7 @@ module Ansible
         attribute :network_name
         validates :network_name, type: String
 
-        # @return [String] Configures the mode of the network connection.
+        # @return [:pool, :dhcp, :static, nil] Configures the mode of the network connection.
         attribute :network_mode
         validates :network_mode, inclusion: {:in=>[:pool, :dhcp, :static], :message=>"%{value} needs to be :pool, :dhcp, :static"}, allow_nil: true
 
@@ -34,11 +34,11 @@ module Ansible
         attribute :vm_memory
         validates :vm_memory, type: String
 
-        # @return [String] Specifies an operation to be performed on the vApp.
+        # @return [:noop, :poweron, :poweroff, :suspend, :shutdown, :reboot, :reset, nil] Specifies an operation to be performed on the vApp.
         attribute :operation
         validates :operation, inclusion: {:in=>[:noop, :poweron, :poweroff, :suspend, :shutdown, :reboot, :reset], :message=>"%{value} needs to be :noop, :poweron, :poweroff, :suspend, :shutdown, :reboot, :reset"}, allow_nil: true
 
-        # @return [String] Configures the state of the vApp.
+        # @return [:present, :absent, :deployed, :undeployed, nil] Configures the state of the vApp.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent, :deployed, :undeployed], :message=>"%{value} needs to be :present, :absent, :deployed, :undeployed"}, allow_nil: true
 
@@ -66,7 +66,7 @@ module Ansible
         attribute :api_version
         validates :api_version, type: String
 
-        # @return [String] The type of service we are authenticating against
+        # @return [:vca, :vchs, :vcd, nil] The type of service we are authenticating against
         attribute :service_type
         validates :service_type, inclusion: {:in=>[:vca, :vchs, :vcd], :message=>"%{value} needs to be :vca, :vchs, :vcd"}, allow_nil: true
 

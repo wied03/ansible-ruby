@@ -26,7 +26,7 @@ module Ansible
         attribute :interface
         validates :interface, type: String
 
-        # @return [String] The firewalld zone to add/remove to/from (NOTE: default zone can be configured per system but "public" is default from upstream. Available choices can be extended based on per-system configs, listed here are "out of the box" defaults).
+        # @return [:work, :drop, :internal, :external, :trusted, :home, :dmz, :public, :block, nil] The firewalld zone to add/remove to/from (NOTE: default zone can be configured per system but "public" is default from upstream. Available choices can be extended based on per-system configs, listed here are "out of the box" defaults).
         attribute :zone
         validates :zone, inclusion: {:in=>[:work, :drop, :internal, :external, :trusted, :home, :dmz, :public, :block], :message=>"%{value} needs to be :work, :drop, :internal, :external, :trusted, :home, :dmz, :public, :block"}, allow_nil: true
 
@@ -37,7 +37,7 @@ module Ansible
         # @return [Object] Should this configuration be applied immediately, if set as permanent
         attribute :immediate
 
-        # @return [String] Should this port accept(enabled) or reject(disabled) connections.
+        # @return [:enabled, :disabled] Should this port accept(enabled) or reject(disabled) connections.
         attribute :state
         validates :state, presence: true, inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}
 

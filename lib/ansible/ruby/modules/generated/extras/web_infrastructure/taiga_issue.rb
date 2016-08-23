@@ -50,7 +50,7 @@ module Ansible
         attribute :tags
         validates :tags, type: Array
 
-        # @return [String] Whether the issue should be present or not.
+        # @return [:present, :absent, nil] Whether the issue should be present or not.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end

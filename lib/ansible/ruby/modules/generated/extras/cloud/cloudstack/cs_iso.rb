@@ -50,11 +50,11 @@ module Ansible
         # @return [Object] Name of the zone you wish the ISO to be registered or deleted from. If not specified, first zone found will be used.
         attribute :zone
 
-        # @return [String] Name of the filter used to search for the ISO.
+        # @return [:featured, :self, :selfexecutable, :sharedexecutable, :executable, :community, nil] Name of the filter used to search for the ISO.
         attribute :iso_filter
         validates :iso_filter, inclusion: {:in=>[:featured, :self, :selfexecutable, :sharedexecutable, :executable, :community], :message=>"%{value} needs to be :featured, :self, :selfexecutable, :sharedexecutable, :executable, :community"}, allow_nil: true
 
-        # @return [String] State of the ISO.
+        # @return [:present, :absent, nil] State of the ISO.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end

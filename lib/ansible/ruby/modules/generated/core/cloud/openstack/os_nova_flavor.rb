@@ -6,7 +6,7 @@ module Ansible
   module Ruby
     module Modules
       class Os_nova_flavor < Base
-        # @return [String] Indicate desired state of the resource. When I(state) is 'present', then I(ram), I(vcpus), and I(disk) are all required. There are no default values for those parameters.
+        # @return [:present, :absent, nil] Indicate desired state of the resource. When I(state) is 'present', then I(ram), I(vcpus), and I(disk) are all required. There are no default values for those parameters.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 

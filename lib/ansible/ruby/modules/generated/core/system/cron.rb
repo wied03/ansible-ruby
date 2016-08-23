@@ -18,7 +18,7 @@ module Ansible
         attribute :job
         validates :job, type: String
 
-        # @return [String] Whether to ensure the job or environment variable is present or absent.
+        # @return [:present, :absent, nil] Whether to ensure the job or environment variable is present or absent.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
@@ -26,7 +26,7 @@ module Ansible
         attribute :cron_file
         validates :cron_file, type: String
 
-        # @return [Object] If set, create a backup of the crontab before it is modified. The location of the backup is returned in the C(backup_file) variable by this module.
+        # @return [:yes, :no, nil] If set, create a backup of the crontab before it is modified. The location of the backup is returned in the C(backup_file) variable by this module.
         attribute :backup
         validates :backup, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
@@ -50,18 +50,18 @@ module Ansible
         attribute :weekday
         validates :weekday, type: String
 
-        # @return [String] If the job should be run at reboot. This option is deprecated. Users should use special_time.
+        # @return [:yes, :no, nil] If the job should be run at reboot. This option is deprecated. Users should use special_time.
         attribute :reboot
         validates :reboot, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String] Special time specification nickname.
+        # @return [:reboot, :yearly, :annually, :monthly, :weekly, :daily, :hourly, nil] Special time specification nickname.
         attribute :special_time
         validates :special_time, inclusion: {:in=>[:reboot, :yearly, :annually, :monthly, :weekly, :daily, :hourly], :message=>"%{value} needs to be :reboot, :yearly, :annually, :monthly, :weekly, :daily, :hourly"}, allow_nil: true
 
         # @return [Object] If the job should be disabled (commented out) in the crontab. Only has effect if state=present
         attribute :disabled
 
-        # @return [String] If set, manages a crontab's environment variable. New variables are added on top of crontab. "name" and "value" paramenters are the name and the value of environment variable.
+        # @return [:yes, :no, nil] If set, manages a crontab's environment variable. New variables are added on top of crontab. "name" and "value" paramenters are the name and the value of environment variable.
         attribute :env
         validates :env, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 

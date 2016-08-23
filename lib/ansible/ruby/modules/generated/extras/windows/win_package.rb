@@ -21,7 +21,7 @@ module Ansible
         # @return [Object] Any arguments the installer needs
         attribute :arguments
 
-        # @return [String] Install or Uninstall
+        # @return [:present, :absent, nil] Install or Uninstall
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 

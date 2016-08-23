@@ -6,11 +6,11 @@ module Ansible
   module Ruby
     module Modules
       class Digital_ocean < Base
-        # @return [String] Which target you want to operate on.
+        # @return [:droplet, :ssh, nil] Which target you want to operate on.
         attribute :command
         validates :command, inclusion: {:in=>[:droplet, :ssh], :message=>"%{value} needs to be :droplet, :ssh"}, allow_nil: true
 
-        # @return [String] Indicate desired state of the target.
+        # @return [:present, :active, :absent, :deleted, nil] Indicate desired state of the target.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :active, :absent, :deleted], :message=>"%{value} needs to be :present, :active, :absent, :deleted"}, allow_nil: true
 
@@ -26,7 +26,7 @@ module Ansible
         attribute :name
         validates :name, type: String
 
-        # @return [String] Bool, require unique hostnames.  By default, DigitalOcean allows multiple hosts with the same name.  Setting this to "yes" allows only one host per name.  Useful for idempotence.
+        # @return [:yes, :no, nil] Bool, require unique hostnames.  By default, DigitalOcean allows multiple hosts with the same name.  Setting this to "yes" allows only one host per name.  Useful for idempotence.
         attribute :unique_name
         validates :unique_name, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
@@ -46,15 +46,15 @@ module Ansible
         attribute :ssh_key_ids
         validates :ssh_key_ids, type: Fixnum
 
-        # @return [String] Bool, turn on virtio driver in droplet for improved network and storage I/O.
+        # @return [:yes, :no, nil] Bool, turn on virtio driver in droplet for improved network and storage I/O.
         attribute :virtio
         validates :virtio, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String] Bool, add an additional, private network interface to droplet for inter-droplet communication.
+        # @return [:yes, :no, nil] Bool, add an additional, private network interface to droplet for inter-droplet communication.
         attribute :private_networking
         validates :private_networking, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String] Optional, Boolean, enables backups for your droplet.
+        # @return [:yes, :no, nil] Optional, Boolean, enables backups for your droplet.
         attribute :backups_enabled
         validates :backups_enabled, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
@@ -62,7 +62,7 @@ module Ansible
         attribute :user_data
         validates :user_data, type: String
 
-        # @return [String] Wait for the droplet to be in state 'running' before returning.  If wait is "no" an ip_address may not be returned.
+        # @return [:yes, :no, nil] Wait for the droplet to be in state 'running' before returning.  If wait is "no" an ip_address may not be returned.
         attribute :wait
         validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 

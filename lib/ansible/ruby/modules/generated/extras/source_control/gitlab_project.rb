@@ -67,7 +67,7 @@ module Ansible
         attribute :import_url
         validates :import_url, type: String
 
-        # @return [String] create or delete project.,Possible values are present and absent.
+        # @return [:present, :absent, nil] create or delete project.,Possible values are present and absent.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end

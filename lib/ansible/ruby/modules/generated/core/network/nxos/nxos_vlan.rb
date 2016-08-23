@@ -18,15 +18,15 @@ module Ansible
         attribute :name
         validates :name, type: String
 
-        # @return [String] Manage the vlan operational state of the VLAN (equivalent to state {active | suspend} command
+        # @return [:active, :suspend, nil] Manage the vlan operational state of the VLAN (equivalent to state {active | suspend} command
         attribute :vlan_state
         validates :vlan_state, inclusion: {:in=>[:active, :suspend], :message=>"%{value} needs to be :active, :suspend"}, allow_nil: true
 
-        # @return [String] Manage the vlan admin state of the VLAN equivalent to shut/no shut in vlan config mode
+        # @return [:up, :down, nil] Manage the vlan admin state of the VLAN equivalent to shut/no shut in vlan config mode
         attribute :admin_state
         validates :admin_state, inclusion: {:in=>[:up, :down], :message=>"%{value} needs to be :up, :down"}, allow_nil: true
 
-        # @return [String] Manage the state of the resource
+        # @return [:present, :absent, nil] Manage the state of the resource
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end

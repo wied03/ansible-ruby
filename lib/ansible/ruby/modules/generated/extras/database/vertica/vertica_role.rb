@@ -13,7 +13,7 @@ module Ansible
         # @return [Object] Comma separated list of roles to assign to the role.
         attribute :assigned_roles
 
-        # @return [String] Whether to create C(present), drop C(absent) or lock C(locked) a role.
+        # @return [:present, :absent, nil] Whether to create C(present), drop C(absent) or lock C(locked) a role.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 

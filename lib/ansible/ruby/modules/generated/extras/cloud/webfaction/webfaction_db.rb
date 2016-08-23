@@ -10,11 +10,11 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [String] Whether the database should exist
+        # @return [:present, :absent, nil] Whether the database should exist
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [String] The type of database to create.
+        # @return [:mysql, :postgresql] The type of database to create.
         attribute :type
         validates :type, presence: true, inclusion: {:in=>[:mysql, :postgresql], :message=>"%{value} needs to be :mysql, :postgresql"}
 
