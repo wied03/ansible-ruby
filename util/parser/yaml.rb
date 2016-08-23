@@ -29,14 +29,21 @@ module Ansible
               '     - name: Create a network interface with private IP address only (no Public IP)' => '    - name: Create a network interface with private IP address only (no Public IP)',
               "- gc_storage: bucket=mybucket object=key.txt src=/usr/local/myfile.txt headers='{\"Content-Encoding\": \"gzip\"}'" => "- gc_storage: 'bucket=mybucket object=key.txt src=/usr/local/myfile.txt headers=''{\"Content-Encoding\": \"gzip\"}'''",
               '  filters parameters are Not mutually exclusive)' => '#  filters parameters are Not mutually exclusive)',
-              /^\$\s*ansible -i.*/ => '# non commented $ansible command removed', # often before --- in YAML files but not commented out, throws off parser
-              'C:\\Users\\Phil\\' => 'C:\\\\\Users\\\\\Phil\\\\\\', # win_unzip
-              /host.*^\}/m => '# Removed invalid YAML', # win_iis_website
-              '- name: Remove FullControl AccessRule for IIS_IUSRS' => '-   name: Remove FullControl AccessRule for IIS_IUSRS', # win_acl indentation
-              '- name: Deny Deny' => '-   name: Deny Deny', # more win_acl
+              # often before --- in YAML files but not commented out, throws off parser
+              /^\$\s*ansible -i.*/ => '# non commented $ansible command removed',
+              # win_unzip
+              'C:\\Users\\Phil\\' => 'C:\\\\\Users\\\\\Phil\\\\\\',
+              # win_iis_website
+              /host.*^\}/m => '# Removed invalid YAML',
+              # win_acl indentation
+              '- name: Remove FullControl AccessRule for IIS_IUSRS' => '-   name: Remove FullControl AccessRule for IIS_IUSRS',
+              # more win_acl
+              '- name: Deny Deny' => '-   name: Deny Deny',
               # ejabberd_user
               'Example playbook entries using the ejabberd_user module to manage users state.' => '# Example playbook entries using the ejabberd_user module to manage users state.',
-              /General explanation, starting with an example folder structure.*The 'releases' folder.*during cleanup./m => '# text was not commented out' # deploy_helper
+              # deploy_helper
+              /General explanation, starting with an example folder structure.*The 'releases' folder.*during cleanup./m => '# text was not commented out',
+              "gluster_volume: state=present name=test1 options='{performance.cache-size: 256MB}'" => "gluster_volume: 'state=present name=test1 options=''{performance.cache-size: 256MB}'''"
             }
             dirty_patterns.inject(yaml) do |fixed_yaml, find_replace|
               fixed_yaml.gsub find_replace[0], find_replace[1]
