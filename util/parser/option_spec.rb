@@ -228,7 +228,8 @@ RUBY
           default: array_value
         }
       end
-      context 'string' do
+
+      context 'flat array' do
         let(:array_value) { 'hello,there' }
 
         it do
@@ -544,7 +545,7 @@ RUBY
         end
       end
 
-      context 'array' do
+      context 'flat array' do
         let(:name) { 'name' }
 
         let(:example) do
@@ -559,6 +560,60 @@ RUBY
 attribute :name, flat_array: true
 validates :name, type: TypeGeneric.new(Integer)
 RUBY
+        end
+      end
+
+      context 'example has array' do
+        let(:name) { 'lines' }
+
+        context 'array comes before non-array value' do
+          let(:example) do
+            [
+              {
+                "postgresql_db" => {
+                  'lines' => %w(hello there dude)
+                }
+              },
+              {
+                "postgresql_db" => {
+                  'lines' => 'howdy'
+                }
+              }
+            ]
+          end
+
+          it do
+            is_expected.to eq <<RUBY
+# @return [Array<String>, nil] The username used to authenticate with
+attribute :lines
+validates :lines, type: TypeGeneric.new(String)
+RUBY
+          end
+        end
+
+        context 'array comes after non-array value' do
+          let(:example) do
+            [
+              {
+                "postgresql_db" => {
+                  'lines' => 'howdy'
+                }
+              },
+              {
+                "postgresql_db" => {
+                  'lines' => %w(hello there dude)
+                }
+              }
+            ]
+          end
+
+          it do
+            is_expected.to eq <<RUBY
+# @return [Array<String>, nil] The username used to authenticate with
+attribute :lines
+validates :lines, type: TypeGeneric.new(String)
+RUBY
+          end
         end
       end
 
