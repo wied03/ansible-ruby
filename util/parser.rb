@@ -1,6 +1,7 @@
 # See LICENSE.txt for license
 
 require_relative 'parser/option'
+require_relative 'parser/yaml'
 require 'yaml'
 
 module Ansible
