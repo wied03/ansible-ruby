@@ -75,13 +75,13 @@ module Ansible
             first_cut = example.map { |ex| ex.reject { |key, _| key == 'name' } }
                           .map { |ex| ex.map { |_, value| value } }
                           .flatten
-            kv_array = first_cut.map do |hash|
-              if hash.is_a?(String)
-                split_equal_sign_pairs(hash.split(' '))
-              else
-                hash.map { |key, value| [key, value] }
+            kv_array = first_cut.map do |value|
+              if value.is_a?(String)
+                split_equal_sign_pairs(value.split(' '))
+              elsif value.is_a? Hash
+                value.map { |key, value| [key, value] }
               end
-            end
+            end.compact
             # Only want to get everything on the same level
             flattened = kv_array.flatten(1)
             Hash[flattened]

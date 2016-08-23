@@ -287,6 +287,36 @@ RUBY
         end
       end
 
+      context 'playbook' do
+        let(:name) { 'something' }
+
+        let(:example) do
+          [
+            {
+              "name" => 'some task',
+              'cloudformation' => {
+                'name' => 444.44,
+                'something' => 'else'
+              }
+            },
+            {
+              "name" => 'some task',
+              'become' => true,
+              'gather_facts' => true,
+              'roles' => %w(role1 role2)
+            }
+          ]
+        end
+
+        it do
+          is_expected.to eq <<RUBY
+# @return [String] The username used to authenticate with
+attribute :something
+validates :something, type: String
+RUBY
+        end
+      end
+
       context 'multiple equals' do
         let(:name) { 'name' }
 
