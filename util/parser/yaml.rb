@@ -98,7 +98,9 @@ module Ansible
               # os_user_facts and os_project_facts - dangling comment
               /# Gather facts about a previously created (user|project).*with filter/m => '# Gather facts about a previously created \1 in a specific domain with filter',
               # virt - mixing hash and array
-              '- virt: name=alpha state=running' => ''
+              '- virt: name=alpha state=running' => '',
+              # cs_configuration, extra colon
+              '    module: cs_configuration:' => '    module: cs_configuration'
             }
             dirty_patterns.inject(yaml) do |fixed_yaml, find_replace|
               fixed_yaml.gsub find_replace[0], find_replace[1]
