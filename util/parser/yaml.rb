@@ -64,7 +64,9 @@ module Ansible
               # pushover
               /has exploded in flames,.*baa5fe97f2c5ab3ca8f0bb59/m => 'has exploded in flames, It is now time to panic" app_token=wxfdksl user_key=baa5fe97f2c5ab3ca8f0bb59',
               # ha_proxy, invalid YAML hash with array
-              'author: "Ravi Bhure (@ravibhure)"' => '# author: "Ravi Bhure (@ravibhure)"'
+              'author: "Ravi Bhure (@ravibhure)"' => '# author: "Ravi Bhure (@ravibhure)"',
+              # dnsimple, missing colon
+              '- local_action dnsimple' => '- local_action: dnsimple'
             }
             dirty_patterns.inject(yaml) do |fixed_yaml, find_replace|
               fixed_yaml.gsub find_replace[0], find_replace[1]
