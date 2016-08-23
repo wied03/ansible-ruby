@@ -6,9 +6,9 @@ module Ansible
   module Ruby
     module Modules
       class Vmware_target_canonical_facts < Base
-        # @return [Object] The target id based on order of scsi device
+        # @return [String] The target id based on order of scsi device
         attribute :target_id
-        validates :target_id, presence: true
+        validates :target_id, presence: true, type: String
       end
     end
   end
