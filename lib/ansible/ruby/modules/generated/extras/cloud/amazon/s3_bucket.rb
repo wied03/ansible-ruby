@@ -14,9 +14,9 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [Array<String>, nil] The JSON policy as a string.
-        attribute :policy, flat_array: true
-        validates :policy, type: TypeGeneric.new(String)
+        # @return [String, nil] The JSON policy as a string.
+        attribute :policy
+        validates :policy, type: String
 
         # @return [Object, nil] S3 URL endpoint for usage with Eucalypus, fakes3, etc.  Otherwise assumes AWS
         attribute :s3_url

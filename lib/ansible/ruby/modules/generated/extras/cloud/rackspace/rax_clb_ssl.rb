@@ -18,17 +18,17 @@ module Ansible
         attribute :enabled
         validates :enabled, type: TrueClass
 
-        # @return [Array<String>, nil] The private SSL key as a string in PEM format.
-        attribute :private_key, flat_array: true
-        validates :private_key, type: TypeGeneric.new(String)
+        # @return [String, nil] The private SSL key as a string in PEM format.
+        attribute :private_key
+        validates :private_key, type: String
 
-        # @return [Array<String>, nil] The public SSL certificates as a string in PEM format.
-        attribute :certificate, flat_array: true
-        validates :certificate, type: TypeGeneric.new(String)
+        # @return [String, nil] The public SSL certificates as a string in PEM format.
+        attribute :certificate
+        validates :certificate, type: String
 
-        # @return [Array<String>, nil] One or more intermediate certificate authorities as a string in PEM,format, concatenated into a single string.
-        attribute :intermediate_certificate, flat_array: true
-        validates :intermediate_certificate, type: TypeGeneric.new(String)
+        # @return [String, nil] One or more intermediate certificate authorities as a string in PEM,format, concatenated into a single string.
+        attribute :intermediate_certificate
+        validates :intermediate_certificate, type: String
 
         # @return [Integer, nil] The port to listen for secure traffic.
         attribute :secure_port
