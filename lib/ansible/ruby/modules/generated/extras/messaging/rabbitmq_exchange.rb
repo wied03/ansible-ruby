@@ -14,22 +14,22 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [String] rabbitMQ user for connection
+        # @return [String, nil] rabbitMQ user for connection
         attribute :login_user
         validates :login_user, type: String
 
-        # @return [Object] rabbitMQ password for connection
+        # @return [Object, nil] rabbitMQ password for connection
         attribute :login_password
 
-        # @return [String] rabbitMQ host for connection
+        # @return [String, nil] rabbitMQ host for connection
         attribute :login_host
         validates :login_host, type: String
 
-        # @return [Fixnum] rabbitMQ management api port
+        # @return [Integer, nil] rabbitMQ management api port
         attribute :login_port
-        validates :login_port, type: Fixnum
+        validates :login_port, type: Integer
 
-        # @return [String] rabbitMQ virtual host
+        # @return [String, nil] rabbitMQ virtual host
         attribute :vhost
         validates :vhost, type: String
 
@@ -49,7 +49,7 @@ module Ansible
         attribute :internal
         validates :internal, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [Hash] extra arguments for exchange. If defined this argument is a key/value dictionary
+        # @return [Hash, nil] extra arguments for exchange. If defined this argument is a key/value dictionary
         attribute :arguments
         validates :arguments, type: Hash
       end

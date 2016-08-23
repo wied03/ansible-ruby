@@ -10,7 +10,7 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [String] A dictionary of meta data to use for further filtering.  Elements of this dictionary may be additional dictionaries.
+        # @return [String, nil] A dictionary of meta data to use for further filtering.  Elements of this dictionary may be additional dictionaries.
         attribute :filters
         validates :filters, type: String
       end

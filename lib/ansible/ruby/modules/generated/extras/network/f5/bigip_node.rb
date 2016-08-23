@@ -6,17 +6,17 @@ module Ansible
   module Ruby
     module Modules
       class Bigip_node < Base
-        # @return [] BIG-IP host
+        # @return [Object] BIG-IP host
         attribute :server
-        validates :server, presence: true, inclusion: {:in=>[], :message=>"%{value} needs to be "}
+        validates :server, presence: true
 
-        # @return [] BIG-IP username
+        # @return [Object] BIG-IP username
         attribute :user
-        validates :user, presence: true, inclusion: {:in=>[], :message=>"%{value} needs to be "}
+        validates :user, presence: true
 
-        # @return [] BIG-IP password
+        # @return [Object] BIG-IP password
         attribute :password
-        validates :password, presence: true, inclusion: {:in=>[], :message=>"%{value} needs to be "}
+        validates :password, presence: true
 
         # @return [:yes, :no, nil] If C(no), SSL certificates will not be validated. This should only be used on personally controlled sites.  Prior to 2.0, this module would always validate on python >= 2.7.9 and never validate on python <= 2.7.8
         attribute :validate_certs
@@ -34,21 +34,20 @@ module Ansible
         attribute :monitor_state
         validates :monitor_state, inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
 
-        # @return [nil] Partition
+        # @return [String, nil] Partition
         attribute :partition
-        validates :partition, inclusion: {:in=>[], :message=>"%{value} needs to be "}, allow_nil: true
+        validates :partition, type: String
 
-        # @return [nil] Node name
+        # @return [String, nil] Node name
         attribute :name
-        validates :name, inclusion: {:in=>[], :message=>"%{value} needs to be "}, allow_nil: true
+        validates :name, type: String
 
-        # @return [] Node IP. Required when state=present and node does not exist. Error when state=absent.
+        # @return [Object] Node IP. Required when state=present and node does not exist. Error when state=absent.
         attribute :host
-        validates :host, presence: true, inclusion: {:in=>[], :message=>"%{value} needs to be "}
+        validates :host, presence: true
 
-        # @return [nil] Node description.
+        # @return [Object, nil] Node description.
         attribute :description
-        validates :description, inclusion: {:in=>[], :message=>"%{value} needs to be "}, allow_nil: true
       end
     end
   end

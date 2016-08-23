@@ -10,19 +10,19 @@ module Ansible
         attribute :server_url
         validates :server_url, presence: true, type: String
 
-        # @return [TrueClass] When using https if SSL certificate needs to be verified.
+        # @return [TrueClass, nil] When using https if SSL certificate needs to be verified.
         attribute :validate_certs
         validates :validate_certs, type: TrueClass
 
-        # @return [String] Gitlab user name.
+        # @return [String, nil] Gitlab user name.
         attribute :login_user
         validates :login_user, type: String
 
-        # @return [String] Gitlab password for login_user
+        # @return [String, nil] Gitlab password for login_user
         attribute :login_password
         validates :login_password, type: String
 
-        # @return [String] Gitlab token for logging in.
+        # @return [String, nil] Gitlab token for logging in.
         attribute :login_token
         validates :login_token, type: String
 
@@ -42,18 +42,18 @@ module Ansible
         attribute :email
         validates :email, presence: true, type: String
 
-        # @return [String] The name of the sshkey
+        # @return [String, nil] The name of the sshkey
         attribute :sshkey_name
         validates :sshkey_name, type: String
 
-        # @return [String] The ssh key itself.
+        # @return [String, nil] The ssh key itself.
         attribute :sshkey_file
         validates :sshkey_file, type: String
 
-        # @return [Object] Add user as an member to this group.
+        # @return [Object, nil] Add user as an member to this group.
         attribute :group
 
-        # @return [Object] The access level to the group. One of the following can be used.,guest,reporter,developer,master,owner
+        # @return [Object, nil] The access level to the group. One of the following can be used.,guest,reporter,developer,master,owner
         attribute :access_level
 
         # @return [:present, :absent, nil] create or delete group.,Possible values are present and absent.

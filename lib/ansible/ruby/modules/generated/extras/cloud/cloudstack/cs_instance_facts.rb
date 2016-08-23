@@ -10,13 +10,13 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [Object] Domain the instance is related to.
+        # @return [Object, nil] Domain the instance is related to.
         attribute :domain
 
-        # @return [Object] Account the instance is related to.
+        # @return [Object, nil] Account the instance is related to.
         attribute :account
 
-        # @return [Object] Project the instance is related to.
+        # @return [Object, nil] Project the instance is related to.
         attribute :project
       end
     end

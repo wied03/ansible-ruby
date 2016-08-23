@@ -10,7 +10,7 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [String] Long description of the purpose of the security group
+        # @return [String, nil] Long description of the purpose of the security group
         attribute :description
         validates :description, type: String
 

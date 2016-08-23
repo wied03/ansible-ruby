@@ -14,7 +14,7 @@ module Ansible
         attribute :dest
         validates :dest, presence: true, type: String
 
-        # @return [String] What version of the branch to clone.  This can be the bzr revno or revid.
+        # @return [String, nil] What version of the branch to clone.  This can be the bzr revno or revid.
         attribute :version
         validates :version, type: String
 
@@ -22,7 +22,7 @@ module Ansible
         attribute :force
         validates :force, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [Object] Path to bzr executable to use. If not supplied, the normal mechanism for resolving binary paths will be used.
+        # @return [Object, nil] Path to bzr executable to use. If not supplied, the normal mechanism for resolving binary paths will be used.
         attribute :executable
       end
     end

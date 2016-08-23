@@ -10,13 +10,13 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [Object] A description of the Server Group
+        # @return [Object, nil] A description of the Server Group
         attribute :description
 
-        # @return [Object] The parent group of the server group. If parent is not provided, it creates the group at top level.
+        # @return [Object, nil] The parent group of the server group. If parent is not provided, it creates the group at top level.
         attribute :parent
 
-        # @return [Object] Datacenter to create the group in. If location is not provided, the group gets created in the default datacenter associated with the account
+        # @return [Object, nil] Datacenter to create the group in. If location is not provided, the group gets created in the default datacenter associated with the account
         attribute :location
 
         # @return [:present, :absent, nil] Whether to create or delete the group

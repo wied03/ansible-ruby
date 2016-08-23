@@ -10,11 +10,11 @@ module Ansible
         attribute :container
         validates :container, presence: true, type: String
 
-        # @return [String] Name to be give to the object. If omitted, operations will be on the entire container
+        # @return [String, nil] Name to be give to the object. If omitted, operations will be on the entire container
         attribute :name
         validates :name, type: String
 
-        # @return [String] Path to local file to be uploaded.
+        # @return [String, nil] Path to local file to be uploaded.
         attribute :filename
         validates :filename, type: String
 

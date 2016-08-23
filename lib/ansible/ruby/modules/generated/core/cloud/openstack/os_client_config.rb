@@ -6,7 +6,7 @@ module Ansible
   module Ruby
     module Modules
       class Os_client_config < Base
-        # @return [Array] List of clouds to limit the return list to. No value means return information on all configured clouds
+        # @return [Array, nil] List of clouds to limit the return list to. No value means return information on all configured clouds
         attribute :clouds
         validates :clouds, type: Array
       end

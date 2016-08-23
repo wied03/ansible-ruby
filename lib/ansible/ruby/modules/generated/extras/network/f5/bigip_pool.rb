@@ -6,17 +6,17 @@ module Ansible
   module Ruby
     module Modules
       class Bigip_pool < Base
-        # @return [] BIG-IP host
+        # @return [Object] BIG-IP host
         attribute :server
-        validates :server, presence: true, inclusion: {:in=>[], :message=>"%{value} needs to be "}
+        validates :server, presence: true
 
-        # @return [] BIG-IP username
+        # @return [Object] BIG-IP username
         attribute :user
-        validates :user, presence: true, inclusion: {:in=>[], :message=>"%{value} needs to be "}
+        validates :user, presence: true
 
-        # @return [] BIG-IP password
+        # @return [Object] BIG-IP password
         attribute :password
-        validates :password, presence: true, inclusion: {:in=>[], :message=>"%{value} needs to be "}
+        validates :password, presence: true
 
         # @return [:yes, :no, nil] If C(no), SSL certificates will not be validated. This should only be used on personally controlled sites.  Prior to 2.0, this module would always validate on python >= 2.7.9 and never validate on python <= 2.7.8
         attribute :validate_certs
@@ -26,13 +26,13 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [] Pool name
+        # @return [String] Pool name
         attribute :name
-        validates :name, presence: true, inclusion: {:in=>[], :message=>"%{value} needs to be "}
+        validates :name, presence: true, type: String
 
-        # @return [nil] Partition of pool/pool member
+        # @return [String, nil] Partition of pool/pool member
         attribute :partition
-        validates :partition, inclusion: {:in=>[], :message=>"%{value} needs to be "}, allow_nil: true
+        validates :partition, type: String
 
         # @return [:round_robin, :ratio_member, :least_connection_member, :observed_member, :predictive_member, :ratio_node_address, :least_connection_node_address, :fastest_node_address, :observed_node_address, :predictive_node_address, :dynamic_ratio, :fastest_app_response, :least_sessions, :dynamic_ratio_member, :l3_addr, :unknown, :weighted_least_connection_member, :weighted_least_connection_node_address, :ratio_session, :ratio_least_connection_member, :ratio_least_connection_node_address, nil] Load balancing method
         attribute :lb_method
@@ -42,29 +42,24 @@ module Ansible
         attribute :monitor_type
         validates :monitor_type, inclusion: {:in=>[:and_list, :m_of_n], :message=>"%{value} needs to be :and_list, :m_of_n"}, allow_nil: true
 
-        # @return [nil] Monitor quorum value when monitor_type is m_of_n
+        # @return [Object, nil] Monitor quorum value when monitor_type is m_of_n
         attribute :quorum
-        validates :quorum, inclusion: {:in=>[], :message=>"%{value} needs to be "}, allow_nil: true
 
-        # @return [nil] Monitor template name list. Always use the full path to the monitor.
+        # @return [Object, nil] Monitor template name list. Always use the full path to the monitor.
         attribute :monitors
-        validates :monitors, inclusion: {:in=>[], :message=>"%{value} needs to be "}, allow_nil: true
 
-        # @return [nil] Sets the ramp-up time (in seconds) to gradually ramp up the load on newly added or freshly detected up pool members
+        # @return [Object, nil] Sets the ramp-up time (in seconds) to gradually ramp up the load on newly added or freshly detected up pool members
         attribute :slow_ramp_time
-        validates :slow_ramp_time, inclusion: {:in=>[], :message=>"%{value} needs to be "}, allow_nil: true
 
         # @return [:none, :reset, :drop, :reselect, nil] Sets the action to take when node goes down in pool
         attribute :service_down_action
         validates :service_down_action, inclusion: {:in=>[:none, :reset, :drop, :reselect], :message=>"%{value} needs to be :none, :reset, :drop, :reselect"}, allow_nil: true
 
-        # @return [nil] Pool member IP
+        # @return [Object, nil] Pool member IP
         attribute :host
-        validates :host, inclusion: {:in=>[], :message=>"%{value} needs to be "}, allow_nil: true
 
-        # @return [nil] Pool member port
+        # @return [Object, nil] Pool member port
         attribute :port
-        validates :port, inclusion: {:in=>[], :message=>"%{value} needs to be "}, allow_nil: true
       end
     end
   end

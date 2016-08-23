@@ -10,11 +10,11 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [String] globally unique identifier (UUID) to be given to the resource. Will be auto-generated if not specified, and name is specified.,Definition of a UUID will always take precedence to a name value.
+        # @return [String, nil] globally unique identifier (UUID) to be given to the resource. Will be auto-generated if not specified, and name is specified.,Definition of a UUID will always take precedence to a name value.
         attribute :uuid
         validates :uuid, type: String
 
-        # @return [String] unique name identifier to be given to the resource.
+        # @return [String, nil] unique name identifier to be given to the resource.
         attribute :name
         validates :name, type: String
 
@@ -22,15 +22,15 @@ module Ansible
         attribute :driver
         validates :driver, presence: true, type: String
 
-        # @return [String] Associate the node with a pre-defined chassis.
+        # @return [String, nil] Associate the node with a pre-defined chassis.
         attribute :chassis_uuid
         validates :chassis_uuid, type: String
 
-        # @return [String] If noauth mode is utilized, this is required to be set to the endpoint URL for the Ironic API.  Use with "auth" and "auth_type" settings set to None.
+        # @return [String, nil] If noauth mode is utilized, this is required to be set to the endpoint URL for the Ironic API.  Use with "auth" and "auth_type" settings set to None.
         attribute :ironic_url
         validates :ironic_url, type: String
 
-        # @return [Hash] Information for this server's driver. Will vary based on which driver is in use. Any sub-field which is populated will be validated during creation.
+        # @return [Hash, nil] Information for this server's driver. Will vary based on which driver is in use. Any sub-field which is populated will be validated during creation.
         attribute :driver_info
         validates :driver_info, type: Hash
 
@@ -38,11 +38,11 @@ module Ansible
         attribute :nics
         validates :nics, presence: true, type: Array
 
-        # @return [Hash] Definition of the physical characteristics of this server, used for scheduling purposes
+        # @return [Hash, nil] Definition of the physical characteristics of this server, used for scheduling purposes
         attribute :properties
         validates :properties, type: Hash
 
-        # @return [Object] Allows the code that would assert changes to nodes to skip the update if the change is a single line consisting of the password field.  As of Kilo, by default, passwords are always masked to API requests, which means the logic as a result always attempts to re-assert the password field.
+        # @return [Object, nil] Allows the code that would assert changes to nodes to skip the update if the change is a single line consisting of the password field.  As of Kilo, by default, passwords are always masked to API requests, which means the logic as a result always attempts to re-assert the password field.
         attribute :skip_update_of_driver_password
       end
     end

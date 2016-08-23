@@ -10,19 +10,19 @@ module Ansible
         attribute :server_url
         validates :server_url, presence: true, type: String
 
-        # @return [TrueClass] When using https if SSL certificate needs to be verified.
+        # @return [TrueClass, nil] When using https if SSL certificate needs to be verified.
         attribute :validate_certs
         validates :validate_certs, type: TrueClass
 
-        # @return [String] Gitlab user name.
+        # @return [String, nil] Gitlab user name.
         attribute :login_user
         validates :login_user, type: String
 
-        # @return [String] Gitlab password for login_user
+        # @return [String, nil] Gitlab password for login_user
         attribute :login_password
         validates :login_password, type: String
 
-        # @return [String] Gitlab token for logging in.
+        # @return [String, nil] Gitlab token for logging in.
         attribute :login_token
         validates :login_token, type: String
 
@@ -30,7 +30,7 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [String] The path of the group you want to create, this will be server_url/group_path,If not supplied, the group_name will be used.
+        # @return [String, nil] The path of the group you want to create, this will be server_url/group_path,If not supplied, the group_name will be used.
         attribute :path
         validates :path, type: String
 

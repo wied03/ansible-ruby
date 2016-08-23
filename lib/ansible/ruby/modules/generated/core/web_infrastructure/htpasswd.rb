@@ -14,7 +14,7 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [String] Password associated with user.,Must be specified if user does not exist yet.
+        # @return [String, nil] Password associated with user.,Must be specified if user does not exist yet.
         attribute :password
         validates :password, type: String
 

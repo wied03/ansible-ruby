@@ -18,24 +18,24 @@ module Ansible
         attribute :force
         validates :force, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [Object] Basic authentication username
+        # @return [Object, nil] Basic authentication username
         attribute :username
 
-        # @return [Object] Basic authentication password
+        # @return [Object, nil] Basic authentication password
         attribute :password
 
-        # @return [Object] Skip SSL certificate validation if true
+        # @return [Object, nil] Skip SSL certificate validation if true
         attribute :skip_certificate_validation
 
-        # @return [String] The full URL of the proxy server to download through.
+        # @return [String, nil] The full URL of the proxy server to download through.
         attribute :proxy_url
         validates :proxy_url, type: String
 
-        # @return [String] Proxy authentication username
+        # @return [String, nil] Proxy authentication username
         attribute :proxy_username
         validates :proxy_username, type: String
 
-        # @return [String] Proxy authentication password
+        # @return [String, nil] Proxy authentication password
         attribute :proxy_password
         validates :proxy_password, type: String
       end

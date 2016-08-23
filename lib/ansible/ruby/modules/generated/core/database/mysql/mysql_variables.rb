@@ -10,7 +10,7 @@ module Ansible
         attribute :variable
         validates :variable, presence: true, type: String
 
-        # @return [String] If set, then sets variable value to this
+        # @return [String, nil] If set, then sets variable value to this
         attribute :value
         validates :value, type: String
       end

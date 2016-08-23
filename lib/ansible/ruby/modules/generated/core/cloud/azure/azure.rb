@@ -14,10 +14,10 @@ module Ansible
         attribute :location
         validates :location, presence: true, type: String
 
-        # @return [Object] azure subscription id. Overrides the AZURE_SUBSCRIPTION_ID environment variable.
+        # @return [Object, nil] azure subscription id. Overrides the AZURE_SUBSCRIPTION_ID environment variable.
         attribute :subscription_id
 
-        # @return [Object] path to an azure management certificate associated with the subscription id. Overrides the AZURE_CERT_PATH environment variable.
+        # @return [Object, nil] path to an azure management certificate associated with the subscription id. Overrides the AZURE_CERT_PATH environment variable.
         attribute :management_cert_path
 
         # @return [String] the azure storage account in which to store the data disks.
@@ -28,44 +28,44 @@ module Ansible
         attribute :image
         validates :image, presence: true, type: String
 
-        # @return [String] azure role size for the new virtual machine (e.g., Small, ExtraLarge, A6). You have to pay attention to the fact that instances of type G and DS are not available in all regions (locations). Make sure if you selected the size and type of instance available in your chosen location.
+        # @return [String, nil] azure role size for the new virtual machine (e.g., Small, ExtraLarge, A6). You have to pay attention to the fact that instances of type G and DS are not available in all regions (locations). Make sure if you selected the size and type of instance available in your chosen location.
         attribute :role_size
         validates :role_size, type: String
 
-        # @return [Fixnum] a comma-separated list of TCP ports to expose on the virtual machine (e.g., "22,80")
+        # @return [Integer, nil] a comma-separated list of TCP ports to expose on the virtual machine (e.g., "22,80")
         attribute :endpoints
-        validates :endpoints, type: Fixnum
+        validates :endpoints, type: Integer
 
-        # @return [String] the unix username for the new virtual machine.
+        # @return [String, nil] the unix username for the new virtual machine.
         attribute :user
         validates :user, type: String
 
-        # @return [Object] the unix password for the new virtual machine.
+        # @return [Object, nil] the unix password for the new virtual machine.
         attribute :password
 
-        # @return [String] path to an X509 certificate containing the public ssh key to install in the virtual machine. See http://www.windowsazure.com/en-us/manage/linux/tutorials/intro-to-linux/ for more details.,if this option is specified, password-based ssh authentication will be disabled.
+        # @return [String, nil] path to an X509 certificate containing the public ssh key to install in the virtual machine. See http://www.windowsazure.com/en-us/manage/linux/tutorials/intro-to-linux/ for more details.,if this option is specified, password-based ssh authentication will be disabled.
         attribute :ssh_cert_path
         validates :ssh_cert_path, type: String
 
-        # @return [Object] Name of virtual network.
+        # @return [Object, nil] Name of virtual network.
         attribute :virtual_network_name
 
-        # @return [Object] hostname to write /etc/hostname. Defaults to <name>.cloudapp.net.
+        # @return [Object, nil] hostname to write /etc/hostname. Defaults to <name>.cloudapp.net.
         attribute :hostname
 
         # @return [:yes, :no, nil] wait for the instance to be in state 'running' before returning
         attribute :wait
         validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [Fixnum] how long before wait gives up, in seconds
+        # @return [Integer, nil] how long before wait gives up, in seconds
         attribute :wait_timeout
-        validates :wait_timeout, type: Fixnum
+        validates :wait_timeout, type: Integer
 
-        # @return [Fixnum] how long before wait gives up for redirects, in seconds
+        # @return [Integer, nil] how long before wait gives up for redirects, in seconds
         attribute :wait_timeout_redirects
-        validates :wait_timeout_redirects, type: Fixnum
+        validates :wait_timeout_redirects, type: Integer
 
-        # @return [String] create or terminate instances
+        # @return [String, nil] create or terminate instances
         attribute :state
         validates :state, type: String
 

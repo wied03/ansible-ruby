@@ -10,21 +10,21 @@ module Ansible
         attribute :state
         validates :state, presence: true, inclusion: {:in=>[:running, :paused], :message=>"%{value} needs to be :running, :paused"}
 
-        # @return [] Pingdom ID of the check.
+        # @return [String] Pingdom ID of the check.
         attribute :checkid
-        validates :checkid, presence: true, inclusion: {:in=>[], :message=>"%{value} needs to be "}
+        validates :checkid, presence: true, type: String
 
-        # @return [] Pingdom user ID.
+        # @return [String] Pingdom user ID.
         attribute :uid
-        validates :uid, presence: true, inclusion: {:in=>[], :message=>"%{value} needs to be "}
+        validates :uid, presence: true, type: String
 
-        # @return [] Pingdom user password.
+        # @return [String] Pingdom user password.
         attribute :passwd
-        validates :passwd, presence: true, inclusion: {:in=>[], :message=>"%{value} needs to be "}
+        validates :passwd, presence: true, type: String
 
-        # @return [] Pingdom API key.
+        # @return [String] Pingdom API key.
         attribute :key
-        validates :key, presence: true, inclusion: {:in=>[], :message=>"%{value} needs to be "}
+        validates :key, presence: true, type: String
       end
     end
   end

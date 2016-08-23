@@ -18,7 +18,7 @@ module Ansible
         attribute :domain
         validates :domain, presence: true, type: String
 
-        # @return [String] Record name to get/create/delete/update. If record_name is not specified; all records for the domain will be returned in "result" regardless of the state argument.
+        # @return [String, nil] Record name to get/create/delete/update. If record_name is not specified; all records for the domain will be returned in "result" regardless of the state argument.
         attribute :record_name
         validates :record_name, type: String
 
@@ -26,13 +26,13 @@ module Ansible
         attribute :record_type
         validates :record_type, inclusion: {:in=>[:A, :AAAA, :CNAME, :HTTPRED, :MX, :NS, :PTR, :SRV, :TXT], :message=>"%{value} needs to be :A, :AAAA, :CNAME, :HTTPRED, :MX, :NS, :PTR, :SRV, :TXT"}, allow_nil: true
 
-        # @return [String] Record value. HTTPRED: <redirection URL>, MX: <priority> <target name>, NS: <name server>, PTR: <target name>, SRV: <priority> <weight> <port> <target name>, TXT: <text value>,If record_value is not specified; no changes will be made and the record will be returned in 'result' (in other words, this module can be used to fetch a record's current id, type, and ttl)
+        # @return [String, nil] Record value. HTTPRED: <redirection URL>, MX: <priority> <target name>, NS: <name server>, PTR: <target name>, SRV: <priority> <weight> <port> <target name>, TXT: <text value>,If record_value is not specified; no changes will be made and the record will be returned in 'result' (in other words, this module can be used to fetch a record's current id, type, and ttl)
         attribute :record_value
         validates :record_value, type: String
 
-        # @return [Fixnum] record's "Time to live".  Number of seconds the record remains cached in DNS servers.
+        # @return [Integer, nil] record's "Time to live".  Number of seconds the record remains cached in DNS servers.
         attribute :record_ttl
-        validates :record_ttl, type: Fixnum
+        validates :record_ttl, type: Integer
 
         # @return [:present, :absent] whether the record should exist or not
         attribute :state

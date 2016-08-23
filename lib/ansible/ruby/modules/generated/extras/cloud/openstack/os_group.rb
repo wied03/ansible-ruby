@@ -10,7 +10,7 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [String] Group description
+        # @return [String, nil] Group description
         attribute :description
         validates :description, type: String
 

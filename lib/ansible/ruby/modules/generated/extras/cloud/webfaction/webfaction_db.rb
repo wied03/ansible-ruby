@@ -18,7 +18,7 @@ module Ansible
         attribute :type
         validates :type, presence: true, inclusion: {:in=>[:mysql, :postgresql], :message=>"%{value} needs to be :mysql, :postgresql"}
 
-        # @return [String] The password for the new database user.
+        # @return [String, nil] The password for the new database user.
         attribute :password
         validates :password, type: String
 
@@ -30,7 +30,7 @@ module Ansible
         attribute :login_password
         validates :login_password, presence: true, type: String
 
-        # @return [String] The machine name to use (optional for accounts with only one machine)
+        # @return [String, nil] The machine name to use (optional for accounts with only one machine)
         attribute :machine
         validates :machine, type: String
       end

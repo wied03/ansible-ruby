@@ -6,11 +6,11 @@ module Ansible
   module Ruby
     module Modules
       class Cs_firewall < Base
-        # @return [String] Public IP address the ingress rule is assigned to.,Required if C(type=ingress).
+        # @return [String, nil] Public IP address the ingress rule is assigned to.,Required if C(type=ingress).
         attribute :ip_address
         validates :ip_address, type: String
 
-        # @return [String] Network the egress rule is related to.,Required if C(type=egress).
+        # @return [String, nil] Network the egress rule is related to.,Required if C(type=egress).
         attribute :network
         validates :network, type: String
 
@@ -26,37 +26,37 @@ module Ansible
         attribute :protocol
         validates :protocol, inclusion: {:in=>[:tcp, :udp, :icmp, :all], :message=>"%{value} needs to be :tcp, :udp, :icmp, :all"}, allow_nil: true
 
-        # @return [String] CIDR (full notation) to be used for firewall rule.
+        # @return [String, nil] CIDR (full notation) to be used for firewall rule.
         attribute :cidr
         validates :cidr, type: String
 
-        # @return [Fixnum] Start port for this rule. Considered if C(protocol=tcp) or C(protocol=udp).
+        # @return [Integer, nil] Start port for this rule. Considered if C(protocol=tcp) or C(protocol=udp).
         attribute :start_port
-        validates :start_port, type: Fixnum
+        validates :start_port, type: Integer
 
-        # @return [Fixnum] End port for this rule. Considered if C(protocol=tcp) or C(protocol=udp). If not specified, equal C(start_port).
+        # @return [Integer, nil] End port for this rule. Considered if C(protocol=tcp) or C(protocol=udp). If not specified, equal C(start_port).
         attribute :end_port
-        validates :end_port, type: Fixnum
+        validates :end_port, type: Integer
 
-        # @return [Object] Type of the icmp message being sent. Considered if C(protocol=icmp).
+        # @return [Object, nil] Type of the icmp message being sent. Considered if C(protocol=icmp).
         attribute :icmp_type
 
-        # @return [Object] Error code for this icmp message. Considered if C(protocol=icmp).
+        # @return [Object, nil] Error code for this icmp message. Considered if C(protocol=icmp).
         attribute :icmp_code
 
-        # @return [Object] Domain the firewall rule is related to.
+        # @return [Object, nil] Domain the firewall rule is related to.
         attribute :domain
 
-        # @return [Object] Account the firewall rule is related to.
+        # @return [Object, nil] Account the firewall rule is related to.
         attribute :account
 
-        # @return [Object] Name of the project the firewall rule is related to.
+        # @return [Object, nil] Name of the project the firewall rule is related to.
         attribute :project
 
-        # @return [Object] Name of the zone in which the virtual machine is in.,If not set, default zone is used.
+        # @return [Object, nil] Name of the zone in which the virtual machine is in.,If not set, default zone is used.
         attribute :zone
 
-        # @return [TrueClass] Poll async jobs until job has finished.
+        # @return [TrueClass, nil] Poll async jobs until job has finished.
         attribute :poll_async
         validates :poll_async, type: TrueClass
       end

@@ -6,15 +6,15 @@ module Ansible
   module Ruby
     module Modules
       class Irc < Base
-        # @return [String] IRC server name/address
+        # @return [String, nil] IRC server name/address
         attribute :server
         validates :server, type: String
 
-        # @return [Fixnum] IRC server port number
+        # @return [Integer, nil] IRC server port number
         attribute :port
-        validates :port, type: Fixnum
+        validates :port, type: Integer
 
-        # @return [String] Nickname to send the message from. May be shortened, depending on server's NICKLEN setting.
+        # @return [String, nil] Nickname to send the message from. May be shortened, depending on server's NICKLEN setting.
         attribute :nick
         validates :nick, type: String
 
@@ -22,7 +22,7 @@ module Ansible
         attribute :msg
         validates :msg, presence: true, type: String
 
-        # @return [Object] Set the channel topic
+        # @return [Object, nil] Set the channel topic
         attribute :topic
 
         # @return [:none, :white, :black, :blue, :green, :red, :brown, :purple, :orange, :yellow, :light_green, :teal, :light_cyan, :light_blue, :pink, :gray, :light_gray, nil] Text color for the message. ("none" is a valid option in 1.6 or later, in 1.6 and prior, the default color is black, not "none"). Added 11 more colors in version 2.0.
@@ -33,24 +33,24 @@ module Ansible
         attribute :channel
         validates :channel, presence: true, type: String
 
-        # @return [Array<String>] A list of nicknames to send the message to. One of nick_to or channel needs to be set.  When both are defined, the message will be sent to both of them.
+        # @return [Array<String>, nil] A list of nicknames to send the message to. One of nick_to or channel needs to be set.  When both are defined, the message will be sent to both of them.
         attribute :nick_to, flat_array: true
         validates :nick_to, type: TypeGeneric.new(String)
 
-        # @return [Object] Channel key
+        # @return [Object, nil] Channel key
         attribute :key
 
-        # @return [Object] Server password
+        # @return [Object, nil] Server password
         attribute :passwd
 
-        # @return [Fixnum] Timeout to use while waiting for successful registration and join messages, this is to prevent an endless loop
+        # @return [Integer, nil] Timeout to use while waiting for successful registration and join messages, this is to prevent an endless loop
         attribute :timeout
-        validates :timeout, type: Fixnum
+        validates :timeout, type: Integer
 
-        # @return [Object] Designates whether TLS/SSL should be used when connecting to the IRC server
+        # @return [Object, nil] Designates whether TLS/SSL should be used when connecting to the IRC server
         attribute :use_ssl
 
-        # @return [TrueClass] Designates whether user should part from channel after sending message or not. Useful for when using a faux bot and not wanting join/parts between messages.
+        # @return [TrueClass, nil] Designates whether user should part from channel after sending message or not. Useful for when using a faux bot and not wanting join/parts between messages.
         attribute :part
         validates :part, type: TrueClass
 

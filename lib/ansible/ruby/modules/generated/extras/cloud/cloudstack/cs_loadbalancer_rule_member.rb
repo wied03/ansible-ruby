@@ -10,7 +10,7 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [Object] Public IP address from where the network traffic will be load balanced from.,Only needed to find the rule if C(name) is not unique.
+        # @return [Object, nil] Public IP address from where the network traffic will be load balanced from.,Only needed to find the rule if C(name) is not unique.
         attribute :ip_address
 
         # @return [Array] List of VMs to assign to or remove from the rule.
@@ -21,16 +21,16 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [Object] Name of the project the firewall rule is related to.
+        # @return [Object, nil] Name of the project the firewall rule is related to.
         attribute :project
 
-        # @return [Object] Domain the rule is related to.
+        # @return [Object, nil] Domain the rule is related to.
         attribute :domain
 
-        # @return [Object] Account the rule is related to.
+        # @return [Object, nil] Account the rule is related to.
         attribute :account
 
-        # @return [Object] Name of the zone in which the rule should be located.,If not set, default zone is used.
+        # @return [Object, nil] Name of the zone in which the rule should be located.,If not set, default zone is used.
         attribute :zone
       end
     end

@@ -10,21 +10,21 @@ module Ansible
         attribute :state
         validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
 
-        # @return [Object] The arn of the task description to delete
+        # @return [Object, nil] The arn of the task description to delete
         attribute :arn
 
-        # @return [String] A Name that would be given to the task definition
+        # @return [String, nil] A Name that would be given to the task definition
         attribute :family
         validates :family, type: String
 
-        # @return [Object] A revision number for the task definition
+        # @return [Object, nil] A revision number for the task definition
         attribute :revision
 
-        # @return [Array] A list of containers definitions
+        # @return [Array, nil] A list of containers definitions
         attribute :containers
         validates :containers, type: Array
 
-        # @return [Array] A list of names of volumes to be attached
+        # @return [Array, nil] A list of names of volumes to be attached
         attribute :volumes
         validates :volumes, type: Array
       end

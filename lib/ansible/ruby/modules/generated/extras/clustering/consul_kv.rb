@@ -14,42 +14,42 @@ module Ansible
         attribute :key
         validates :key, presence: true, type: String
 
-        # @return [Fixnum] the value should be associated with the given key, required if state is present
+        # @return [Integer] the value should be associated with the given key, required if state is present
         attribute :value
-        validates :value, presence: true, type: Fixnum
+        validates :value, presence: true, type: Integer
 
-        # @return [Object] if the key represents a prefix, each entry with the prefix can be retrieved by setting this to true.
+        # @return [Object, nil] if the key represents a prefix, each entry with the prefix can be retrieved by setting this to true.
         attribute :recurse
 
-        # @return [String] the session that should be used to acquire or release a lock associated with a key/value pair
+        # @return [String, nil] the session that should be used to acquire or release a lock associated with a key/value pair
         attribute :session
         validates :session, type: String
 
-        # @return [String] the token key indentifying an ACL rule set that controls access to the key value pair
+        # @return [String, nil] the token key indentifying an ACL rule set that controls access to the key value pair
         attribute :token
         validates :token, type: String
 
-        # @return [String] used when acquiring a lock with a session. If the cas is 0, then Consul will only put the key if it does not already exist. If the cas value is non-zero, then the key is only set if the index matches the ModifyIndex of that key.
+        # @return [String, nil] used when acquiring a lock with a session. If the cas is 0, then Consul will only put the key if it does not already exist. If the cas value is non-zero, then the key is only set if the index matches the ModifyIndex of that key.
         attribute :cas
         validates :cas, type: String
 
-        # @return [String] opaque integer value that can be passed when setting a value.
+        # @return [String, nil] opaque integer value that can be passed when setting a value.
         attribute :flags
         validates :flags, type: String
 
-        # @return [String] host of the consul agent defaults to localhost
+        # @return [String, nil] host of the consul agent defaults to localhost
         attribute :host
         validates :host, type: String
 
-        # @return [Fixnum] the port on which the consul agent is running
+        # @return [Integer, nil] the port on which the consul agent is running
         attribute :port
-        validates :port, type: Fixnum
+        validates :port, type: Integer
 
-        # @return [String] the protocol scheme on which the consul agent is running
+        # @return [String, nil] the protocol scheme on which the consul agent is running
         attribute :scheme
         validates :scheme, type: String
 
-        # @return [TrueClass] whether to verify the tls certificate of the consul agent
+        # @return [TrueClass, nil] whether to verify the tls certificate of the consul agent
         attribute :validate_certs
         validates :validate_certs, type: TrueClass
       end

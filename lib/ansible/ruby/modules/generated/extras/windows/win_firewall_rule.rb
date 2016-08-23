@@ -26,36 +26,36 @@ module Ansible
         attribute :action
         validates :action, presence: true, inclusion: {:in=>[:allow, :block], :message=>"%{value} needs to be :allow, :block"}
 
-        # @return [Object] description for the firewall rule
+        # @return [Object, nil] description for the firewall rule
         attribute :description
 
-        # @return [Object] the local ip address this rule applies to
+        # @return [Object, nil] the local ip address this rule applies to
         attribute :localip
 
-        # @return [Object] the remote ip address/range this rule applies to
+        # @return [Object, nil] the remote ip address/range this rule applies to
         attribute :remoteip
 
-        # @return [Fixnum] the local port this rule applies to
+        # @return [Integer, nil] the local port this rule applies to
         attribute :localport
-        validates :localport, type: Fixnum
+        validates :localport, type: Integer
 
-        # @return [Object] the remote port this rule applies to
+        # @return [Object, nil] the remote port this rule applies to
         attribute :remoteport
 
-        # @return [Object] the program this rule applies to
+        # @return [Object, nil] the program this rule applies to
         attribute :program
 
-        # @return [Object] the service this rule applies to
+        # @return [Object, nil] the service this rule applies to
         attribute :service
 
-        # @return [String] the protocol this rule applies to
+        # @return [String, nil] the protocol this rule applies to
         attribute :protocol
         validates :protocol, type: String
 
-        # @return [Object] the profile this rule applies to
+        # @return [Object, nil] the profile this rule applies to
         attribute :profile
 
-        # @return [Object] Enforces the change if a rule with different values exists
+        # @return [Object, nil] Enforces the change if a rule with different values exists
         attribute :force
       end
     end

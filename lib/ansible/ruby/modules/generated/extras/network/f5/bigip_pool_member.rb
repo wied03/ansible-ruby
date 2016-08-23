@@ -38,7 +38,7 @@ module Ansible
         attribute :pool
         validates :pool, presence: true
 
-        # @return [String] Partition
+        # @return [String, nil] Partition
         attribute :partition
         validates :partition, type: String
 
@@ -50,16 +50,16 @@ module Ansible
         attribute :port
         validates :port, presence: true
 
-        # @return [Object] Pool member connection limit. Setting this to 0 disables the limit.
+        # @return [Object, nil] Pool member connection limit. Setting this to 0 disables the limit.
         attribute :connection_limit
 
-        # @return [Object] Pool member description
+        # @return [Object, nil] Pool member description
         attribute :description
 
-        # @return [Object] Pool member rate limit (connections-per-second). Setting this to 0 disables the limit.
+        # @return [Object, nil] Pool member rate limit (connections-per-second). Setting this to 0 disables the limit.
         attribute :rate_limit
 
-        # @return [Object] Pool member ratio weight. Valid values range from 1 through 100. New pool members -- unless overriden with this value -- default to 1.
+        # @return [Object, nil] Pool member ratio weight. Valid values range from 1 through 100. New pool members -- unless overriden with this value -- default to 1.
         attribute :ratio
 
         # @return [:yes, :no, nil] When state is absent and the pool member is no longer referenced in other pools, the default behavior removes the unused node object. Setting this to 'yes' disables this behavior.

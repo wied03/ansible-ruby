@@ -6,15 +6,15 @@ module Ansible
   module Ruby
     module Modules
       class Npm < Base
-        # @return [String] The name of a node.js library to install
+        # @return [String, nil] The name of a node.js library to install
         attribute :name
         validates :name, type: String
 
-        # @return [String] The base path where to install the node.js libraries
+        # @return [String, nil] The base path where to install the node.js libraries
         attribute :path
         validates :path, type: String
 
-        # @return [String] The version to be installed
+        # @return [String, nil] The version to be installed
         attribute :version
         validates :version, type: String
 
@@ -22,7 +22,7 @@ module Ansible
         attribute :global
         validates :global, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String] The executable location for npm.,This is useful if you are using a version manager, such as nvm
+        # @return [String, nil] The executable location for npm.,This is useful if you are using a version manager, such as nvm
         attribute :executable
         validates :executable, type: String
 
@@ -34,7 +34,7 @@ module Ansible
         attribute :production
         validates :production, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String] The registry to install modules from.
+        # @return [String, nil] The registry to install modules from.
         attribute :registry
         validates :registry, type: String
 

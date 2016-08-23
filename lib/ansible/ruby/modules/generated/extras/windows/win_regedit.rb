@@ -14,7 +14,7 @@ module Ansible
         attribute :value
         validates :value, presence: true
 
-        # @return [Object] Registry Value Data.  Binary data should be expressed a yaml byte array or as comma separated hex values.  An easy way to generate this is to run C(regedit.exe) and use the I(Export) option to save the registry values to a file.  In the exported file binary values will look like C(hex:be,ef,be,ef).  The C(hex:) prefix is optional.
+        # @return [Object, nil] Registry Value Data.  Binary data should be expressed a yaml byte array or as comma separated hex values.  An easy way to generate this is to run C(regedit.exe) and use the I(Export) option to save the registry values to a file.  In the exported file binary values will look like C(hex:be,ef,be,ef).  The C(hex:) prefix is optional.
         attribute :data
 
         # @return [:binary, :dword, :expandstring, :multistring, :string, :qword, nil] Registry Value Data Type

@@ -10,11 +10,11 @@ module Ansible
         attribute :interface
         validates :interface, presence: true, type: String
 
-        # @return [String] IPv4 or IPv6 Address
+        # @return [String, nil] IPv4 or IPv6 Address
         attribute :addr
         validates :addr, type: String
 
-        # @return [String] Subnet mask for IPv4 or IPv6 Address in decimal format
+        # @return [String, nil] Subnet mask for IPv4 or IPv6 Address in decimal format
         attribute :mask
         validates :mask, type: String
 

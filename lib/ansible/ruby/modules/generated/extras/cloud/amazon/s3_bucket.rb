@@ -14,11 +14,11 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [Array<String>] The JSON policy as a string.
+        # @return [Array<String>, nil] The JSON policy as a string.
         attribute :policy, flat_array: true
         validates :policy, type: TypeGeneric.new(String)
 
-        # @return [Object] S3 URL endpoint for usage with Eucalypus, fakes3, etc.  Otherwise assumes AWS
+        # @return [Object, nil] S3 URL endpoint for usage with Eucalypus, fakes3, etc.  Otherwise assumes AWS
         attribute :s3_url
 
         # @return [:yes, :no, nil] With Requester Pays buckets, the requester instead of the bucket owner pays the cost of the request and the data download from the bucket.
@@ -29,7 +29,7 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [Hash] tags dict to apply to bucket
+        # @return [Hash, nil] tags dict to apply to bucket
         attribute :tags
         validates :tags, type: Hash
 

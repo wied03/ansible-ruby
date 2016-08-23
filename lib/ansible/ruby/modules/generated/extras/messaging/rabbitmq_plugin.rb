@@ -18,7 +18,7 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
 
-        # @return [Object] Specify a custom install prefix to a Rabbit
+        # @return [Object, nil] Specify a custom install prefix to a Rabbit
         attribute :prefix
       end
     end

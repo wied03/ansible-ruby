@@ -18,7 +18,7 @@ module Ansible
         attribute :build
         validates :build, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
-        # @return [String] When used in combination with the 'build' option, allows overriding the default ports source directory.
+        # @return [String, nil] When used in combination with the 'build' option, allows overriding the default ports source directory.
         attribute :ports_dir
         validates :ports_dir, type: String
       end

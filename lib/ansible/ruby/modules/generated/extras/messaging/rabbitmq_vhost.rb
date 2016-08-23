@@ -10,7 +10,7 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [String] erlang node name of the rabbit we wish to configure
+        # @return [String, nil] erlang node name of the rabbit we wish to configure
         attribute :node
         validates :node, type: String
 

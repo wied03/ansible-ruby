@@ -6,20 +6,20 @@ module Ansible
   module Ruby
     module Modules
       class Rax_cdb_user < Base
-        # @return [Object] The databases server UUID
+        # @return [Object, nil] The databases server UUID
         attribute :cdb_id
 
-        # @return [Object] Name of the database user
+        # @return [Object, nil] Name of the database user
         attribute :db_username
 
-        # @return [Object] Database user password
+        # @return [Object, nil] Database user password
         attribute :db_password
 
-        # @return [Array] Name of the databases that the user can access
+        # @return [Array, nil] Name of the databases that the user can access
         attribute :databases
         validates :databases, type: Array
 
-        # @return [String] Specifies the host from which a user is allowed to connect to the database. Possible values are a string containing an IPv4 address or "%" to allow connecting from any host
+        # @return [String, nil] Specifies the host from which a user is allowed to connect to the database. Possible values are a string containing an IPv4 address or "%" to allow connecting from any host
         attribute :host
         validates :host, type: String
 

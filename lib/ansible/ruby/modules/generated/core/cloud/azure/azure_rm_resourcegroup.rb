@@ -6,10 +6,10 @@ module Ansible
   module Ruby
     module Modules
       class Azure_rm_resourcegroup < Base
-        # @return [Object] Remove a resource group and all associated resources. Use with state 'absent' to delete a resource group that contains resources.
+        # @return [Object, nil] Remove a resource group and all associated resources. Use with state 'absent' to delete a resource group that contains resources.
         attribute :force
 
-        # @return [String] Azure location for the resource group. Required when creating a new resource group. Cannot be changed once resource group is created.
+        # @return [String, nil] Azure location for the resource group. Required when creating a new resource group. Cannot be changed once resource group is created.
         attribute :location
         validates :location, type: String
 

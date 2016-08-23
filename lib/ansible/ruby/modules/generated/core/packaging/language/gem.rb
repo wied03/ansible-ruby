@@ -14,7 +14,7 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent, :latest], :message=>"%{value} needs to be :present, :absent, :latest"}, allow_nil: true
 
-        # @return [String] The path to a local gem used as installation source.
+        # @return [String, nil] The path to a local gem used as installation source.
         attribute :gem_source
         validates :gem_source, type: String
 
@@ -22,29 +22,29 @@ module Ansible
         attribute :include_dependencies
         validates :include_dependencies, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [Object] The repository from which the gem will be installed
+        # @return [Object, nil] The repository from which the gem will be installed
         attribute :repository
 
-        # @return [String] Install gem in user's local gems cache or for all users
+        # @return [String, nil] Install gem in user's local gems cache or for all users
         attribute :user_install
         validates :user_install, type: String
 
-        # @return [Object] Override the path to the gem executable
+        # @return [Object, nil] Override the path to the gem executable
         attribute :executable
 
-        # @return [String] Version of the gem to be installed/removed.
+        # @return [String, nil] Version of the gem to be installed/removed.
         attribute :version
         validates :version, type: String
 
-        # @return [String] Allow installation of pre-release versions of the gem.
+        # @return [String, nil] Allow installation of pre-release versions of the gem.
         attribute :pre_release
         validates :pre_release, type: String
 
-        # @return [String] Install with or without docs.
+        # @return [String, nil] Install with or without docs.
         attribute :include_doc
         validates :include_doc, type: String
 
-        # @return [Object] Allow adding build flags for gem compilation
+        # @return [Object, nil] Allow adding build flags for gem compilation
         attribute :build_flags
       end
     end

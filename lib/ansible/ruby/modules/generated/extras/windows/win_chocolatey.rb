@@ -22,19 +22,19 @@ module Ansible
         attribute :upgrade
         validates :upgrade, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
-        # @return [Object] Specific version of the package to be installed,Ignored when state == 'absent'
+        # @return [Object, nil] Specific version of the package to be installed,Ignored when state == 'absent'
         attribute :version
 
-        # @return [Object] Specify source rather than using default chocolatey repository
+        # @return [Object, nil] Specify source rather than using default chocolatey repository
         attribute :source
 
-        # @return [Object] Arguments to pass to the native installer
+        # @return [Object, nil] Arguments to pass to the native installer
         attribute :install_args
 
-        # @return [Object] Parameters to pass to the package
+        # @return [Object, nil] Parameters to pass to the package
         attribute :params
 
-        # @return [Object] Ignore dependencies, only install/upgrade the package itself
+        # @return [Object, nil] Ignore dependencies, only install/upgrade the package itself
         attribute :ignore_dependencies
       end
     end

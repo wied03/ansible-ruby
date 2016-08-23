@@ -10,22 +10,22 @@ module Ansible
         attribute :free_form
         validates :free_form, presence: true
 
-        # @return [String] a filename, when it already exists, this step will B(not) be run.
+        # @return [String, nil] a filename, when it already exists, this step will B(not) be run.
         attribute :creates
         validates :creates, type: String
 
-        # @return [Object] a filename, when it does not exist, this step will B(not) be run.
+        # @return [Object, nil] a filename, when it does not exist, this step will B(not) be run.
         attribute :removes
 
-        # @return [String] cd into this directory before running the command
+        # @return [String, nil] cd into this directory before running the command
         attribute :chdir
         validates :chdir, type: String
 
-        # @return [String] change the shell used to execute the command. Should be an absolute path to the executable.
+        # @return [String, nil] change the shell used to execute the command. Should be an absolute path to the executable.
         attribute :executable
         validates :executable, type: String
 
-        # @return [TrueClass] if command warnings are on in ansible.cfg, do not warn about this particular line if set to no/false.
+        # @return [TrueClass, nil] if command warnings are on in ansible.cfg, do not warn about this particular line if set to no/false.
         attribute :warn
         validates :warn, type: TrueClass
       end

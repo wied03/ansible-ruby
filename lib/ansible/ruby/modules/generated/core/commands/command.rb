@@ -10,21 +10,21 @@ module Ansible
         attribute :free_form
         validates :free_form, presence: true
 
-        # @return [String] a filename or (since 2.0) glob pattern, when it already exists, this step will B(not) be run.
+        # @return [String, nil] a filename or (since 2.0) glob pattern, when it already exists, this step will B(not) be run.
         attribute :creates
         validates :creates, type: String
 
-        # @return [Object] a filename or (since 2.0) glob pattern, when it does not exist, this step will B(not) be run.
+        # @return [Object, nil] a filename or (since 2.0) glob pattern, when it does not exist, this step will B(not) be run.
         attribute :removes
 
-        # @return [String] cd into this directory before running the command
+        # @return [String, nil] cd into this directory before running the command
         attribute :chdir
         validates :chdir, type: String
 
-        # @return [Object] change the shell used to execute the command. Should be an absolute path to the executable.
+        # @return [Object, nil] change the shell used to execute the command. Should be an absolute path to the executable.
         attribute :executable
 
-        # @return [TrueClass] if command warnings are on in ansible.cfg, do not warn about this particular line if set to no/false.
+        # @return [TrueClass, nil] if command warnings are on in ansible.cfg, do not warn about this particular line if set to no/false.
         attribute :warn
         validates :warn, type: TrueClass
       end

@@ -18,7 +18,7 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [String] Share description
+        # @return [String, nil] Share description
         attribute :description
         validates :description, type: String
 
@@ -26,19 +26,19 @@ module Ansible
         attribute :list
         validates :list, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
-        # @return [String] Specify user list that should get read access on share, separated by comma.
+        # @return [String, nil] Specify user list that should get read access on share, separated by comma.
         attribute :read
         validates :read, type: String
 
-        # @return [String] Specify user list that should get read and write access on share, separated by comma.
+        # @return [String, nil] Specify user list that should get read and write access on share, separated by comma.
         attribute :change
         validates :change, type: String
 
-        # @return [String] Specify user list that should get full access on share, separated by comma.
+        # @return [String, nil] Specify user list that should get full access on share, separated by comma.
         attribute :full
         validates :full, type: String
 
-        # @return [String] Specify user list that should get no access, regardless of implied access on share, separated by comma.
+        # @return [String, nil] Specify user list that should get no access, regardless of implied access on share, separated by comma.
         attribute :deny
         validates :deny, type: String
       end

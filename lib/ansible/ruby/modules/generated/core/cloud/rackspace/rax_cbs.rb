@@ -6,24 +6,24 @@ module Ansible
   module Ruby
     module Modules
       class Rax_cbs < Base
-        # @return [Object] Description to give the volume being created
+        # @return [Object, nil] Description to give the volume being created
         attribute :description
 
-        # @return [Object] image to use for bootable volumes. Can be an C(id), C(human_id) or C(name). This option requires C(pyrax>=1.9.3)
+        # @return [Object, nil] image to use for bootable volumes. Can be an C(id), C(human_id) or C(name). This option requires C(pyrax>=1.9.3)
         attribute :image
 
-        # @return [Object] A hash of metadata to associate with the volume
+        # @return [Object, nil] A hash of metadata to associate with the volume
         attribute :meta
 
         # @return [String] Name to give the volume being created
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [Fixnum] Size of the volume to create in Gigabytes
+        # @return [Integer] Size of the volume to create in Gigabytes
         attribute :size
-        validates :size, presence: true, type: Fixnum
+        validates :size, presence: true, type: Integer
 
-        # @return [Object] The id of the snapshot to create the volume from
+        # @return [Object, nil] The id of the snapshot to create the volume from
         attribute :snapshot_id
 
         # @return [:present, :absent] Indicate desired state of the resource
@@ -38,9 +38,9 @@ module Ansible
         attribute :wait
         validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [Fixnum] how long before wait gives up, in seconds
+        # @return [Integer, nil] how long before wait gives up, in seconds
         attribute :wait_timeout
-        validates :wait_timeout, type: Fixnum
+        validates :wait_timeout, type: Integer
       end
     end
   end

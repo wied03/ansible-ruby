@@ -14,35 +14,35 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [String] Amount of memory, in MB.
+        # @return [String, nil] Amount of memory, in MB.
         attribute :ram
         validates :ram, type: String
 
-        # @return [String] Number of virtual CPUs.
+        # @return [String, nil] Number of virtual CPUs.
         attribute :vcpus
         validates :vcpus, type: String
 
-        # @return [String] Size of local disk, in GB.
+        # @return [String, nil] Size of local disk, in GB.
         attribute :disk
         validates :disk, type: String
 
-        # @return [Fixnum] Ephemeral space size, in GB.
+        # @return [Integer, nil] Ephemeral space size, in GB.
         attribute :ephemeral
-        validates :ephemeral, type: Fixnum
+        validates :ephemeral, type: Integer
 
-        # @return [Fixnum] Swap space size, in MB.
+        # @return [Integer, nil] Swap space size, in MB.
         attribute :swap
-        validates :swap, type: Fixnum
+        validates :swap, type: Integer
 
-        # @return [Float] RX/TX factor.
+        # @return [Float, nil] RX/TX factor.
         attribute :rxtx_factor
         validates :rxtx_factor, type: Float
 
-        # @return [TrueClass] Make flavor accessible to the public.
+        # @return [TrueClass, nil] Make flavor accessible to the public.
         attribute :is_public
         validates :is_public, type: TrueClass
 
-        # @return [String] ID for the flavor. This is optional as a unique UUID will be assigned if a value is not specified.
+        # @return [String, nil] ID for the flavor. This is optional as a unique UUID will be assigned if a value is not specified.
         attribute :flavorid
         validates :flavorid, type: String
       end

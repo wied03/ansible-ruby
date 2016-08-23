@@ -6,7 +6,7 @@ module Ansible
   module Ruby
     module Modules
       class Docker_login < Base
-        # @return [String] The registry URL.
+        # @return [String, nil] The registry URL.
         attribute :registry_url
         validates :registry_url, type: String
 
@@ -18,15 +18,15 @@ module Ansible
         attribute :password
         validates :password, presence: true, type: String
 
-        # @return [String] The email address for the registry account. NOTE: private registries may not require this, but Docker Hub requires it.
+        # @return [String, nil] The email address for the registry account. NOTE: private registries may not require this, but Docker Hub requires it.
         attribute :email
         validates :email, type: String
 
-        # @return [TrueClass] Refresh exiting authentication found in the configuration file.
+        # @return [TrueClass, nil] Refresh exiting authentication found in the configuration file.
         attribute :reauthorize
         validates :reauthorize, type: TrueClass
 
-        # @return [String] Custom path to the Docker CLI configuration file.
+        # @return [String, nil] Custom path to the Docker CLI configuration file.
         attribute :config_path
         validates :config_path, type: String
       end

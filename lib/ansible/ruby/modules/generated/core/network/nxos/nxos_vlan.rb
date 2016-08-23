@@ -6,15 +6,15 @@ module Ansible
   module Ruby
     module Modules
       class Nxos_vlan < Base
-        # @return [String] single vlan id
+        # @return [String, nil] single vlan id
         attribute :vlan_id
         validates :vlan_id, type: String
 
-        # @return [Array<String>] range of VLANs such as 2-10 or 2,5,10-15, etc.
+        # @return [Array<String>, nil] range of VLANs such as 2-10 or 2,5,10-15, etc.
         attribute :vlan_range, flat_array: true
         validates :vlan_range, type: TypeGeneric.new(String)
 
-        # @return [String] name of VLAN
+        # @return [String, nil] name of VLAN
         attribute :name
         validates :name, type: String
 

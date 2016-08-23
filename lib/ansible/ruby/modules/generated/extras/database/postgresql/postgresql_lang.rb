@@ -14,7 +14,7 @@ module Ansible
         attribute :trust
         validates :trust, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String] name of database where the language will be added, removed or changed
+        # @return [String, nil] name of database where the language will be added, removed or changed
         attribute :db
         validates :db, type: String
 
@@ -30,18 +30,18 @@ module Ansible
         attribute :cascade
         validates :cascade, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [Fixnum] Database port to connect to.
+        # @return [Integer, nil] Database port to connect to.
         attribute :port
-        validates :port, type: Fixnum
+        validates :port, type: Integer
 
-        # @return [String] User used to authenticate with PostgreSQL
+        # @return [String, nil] User used to authenticate with PostgreSQL
         attribute :login_user
         validates :login_user, type: String
 
-        # @return [Object] Password used to authenticate with PostgreSQL (must match C(login_user))
+        # @return [Object, nil] Password used to authenticate with PostgreSQL (must match C(login_user))
         attribute :login_password
 
-        # @return [String] Host running PostgreSQL where you want to execute the actions.
+        # @return [String, nil] Host running PostgreSQL where you want to execute the actions.
         attribute :login_host
         validates :login_host, type: String
 

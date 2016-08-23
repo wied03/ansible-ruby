@@ -14,7 +14,7 @@ module Ansible
         attribute :sysname
         validates :sysname, presence: true, type: String
 
-        # @return [String] whether the channel should be present or not
+        # @return [String, nil] whether the channel should be present or not
         attribute :state
         validates :state, type: String
 

@@ -14,27 +14,27 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [Fixnum] The default visibility timeout in seconds.
+        # @return [Integer, nil] The default visibility timeout in seconds.
         attribute :default_visibility_timeout
-        validates :default_visibility_timeout, type: Fixnum
+        validates :default_visibility_timeout, type: Integer
 
-        # @return [Fixnum] The message retention period in seconds.
+        # @return [Integer, nil] The message retention period in seconds.
         attribute :message_retention_period
-        validates :message_retention_period, type: Fixnum
+        validates :message_retention_period, type: Integer
 
-        # @return [Fixnum] The maximum message size in bytes.
+        # @return [Integer, nil] The maximum message size in bytes.
         attribute :maximum_message_size
-        validates :maximum_message_size, type: Fixnum
+        validates :maximum_message_size, type: Integer
 
-        # @return [Fixnum] The delivery delay in seconds.
+        # @return [Integer, nil] The delivery delay in seconds.
         attribute :delivery_delay
-        validates :delivery_delay, type: Fixnum
+        validates :delivery_delay, type: Integer
 
-        # @return [Fixnum] The receive message wait time in seconds.
+        # @return [Integer, nil] The receive message wait time in seconds.
         attribute :receive_message_wait_time
-        validates :receive_message_wait_time, type: Fixnum
+        validates :receive_message_wait_time, type: Integer
 
-        # @return [String] The json dict policy to attach to queue
+        # @return [String, nil] The json dict policy to attach to queue
         attribute :policy
         validates :policy, type: String
       end

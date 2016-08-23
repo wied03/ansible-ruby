@@ -22,7 +22,7 @@ module Ansible
         attribute :state
         validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
 
-        # @return [TrueClass] Reload SELinux policy after commit.
+        # @return [TrueClass, nil] Reload SELinux policy after commit.
         attribute :reload
         validates :reload, type: TrueClass
       end

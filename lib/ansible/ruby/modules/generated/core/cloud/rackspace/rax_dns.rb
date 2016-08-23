@@ -6,13 +6,13 @@ module Ansible
   module Ruby
     module Modules
       class Rax_dns < Base
-        # @return [Object] Brief description of the domain. Maximum length of 160 characters
+        # @return [Object, nil] Brief description of the domain. Maximum length of 160 characters
         attribute :comment
 
-        # @return [Object] Email address of the domain administrator
+        # @return [Object, nil] Email address of the domain administrator
         attribute :email
 
-        # @return [String] Domain name to create
+        # @return [String, nil] Domain name to create
         attribute :name
         validates :name, type: String
 
@@ -20,9 +20,9 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [Fixnum] Time to live of domain in seconds
+        # @return [Integer, nil] Time to live of domain in seconds
         attribute :ttl
-        validates :ttl, type: Fixnum
+        validates :ttl, type: Integer
       end
     end
   end

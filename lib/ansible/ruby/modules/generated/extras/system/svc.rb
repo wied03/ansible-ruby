@@ -22,11 +22,11 @@ module Ansible
         attribute :enabled
         validates :enabled, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String] directory svscan watches for services
+        # @return [String, nil] directory svscan watches for services
         attribute :service_dir
         validates :service_dir, type: String
 
-        # @return [Object] directory where services are defined, the source of symlinks to service_dir.
+        # @return [Object, nil] directory where services are defined, the source of symlinks to service_dir.
         attribute :service_src
       end
     end

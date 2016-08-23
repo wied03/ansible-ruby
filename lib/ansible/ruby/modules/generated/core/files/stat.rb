@@ -10,14 +10,14 @@ module Ansible
         attribute :path
         validates :path, presence: true, type: String
 
-        # @return [Object] Whether to follow symlinks
+        # @return [Object, nil] Whether to follow symlinks
         attribute :follow
 
-        # @return [TrueClass] Whether to return the md5 sum of the file.  Will return None if we're unable to use md5 (Common for FIPS-140 compliant systems)
+        # @return [TrueClass, nil] Whether to return the md5 sum of the file.  Will return None if we're unable to use md5 (Common for FIPS-140 compliant systems)
         attribute :get_md5
         validates :get_md5, type: TrueClass
 
-        # @return [TrueClass] Whether to return a checksum of the file (default sha1)
+        # @return [TrueClass, nil] Whether to return a checksum of the file (default sha1)
         attribute :get_checksum
         validates :get_checksum, type: TrueClass
 

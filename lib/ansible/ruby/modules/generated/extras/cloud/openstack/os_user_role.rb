@@ -10,18 +10,18 @@ module Ansible
         attribute :role
         validates :role, presence: true, type: String
 
-        # @return [String] Name or ID for the user. If I(user) is not specified, then I(group) is required. Both may not be specified.
+        # @return [String, nil] Name or ID for the user. If I(user) is not specified, then I(group) is required. Both may not be specified.
         attribute :user
         validates :user, type: String
 
-        # @return [Object] Name or ID for the group. Valid only with keystone version 3. If I(group) is not specified, then I(user) is required. Both may not be specified.
+        # @return [Object, nil] Name or ID for the group. Valid only with keystone version 3. If I(group) is not specified, then I(user) is required. Both may not be specified.
         attribute :group
 
-        # @return [String] Name or ID of the project to scope the role assocation to. If you are using keystone version 2, then this value is required.
+        # @return [String, nil] Name or ID of the project to scope the role assocation to. If you are using keystone version 2, then this value is required.
         attribute :project
         validates :project, type: String
 
-        # @return [String] ID of the domain to scope the role association to. Valid only with keystone version 3, and required if I(project) is not specified.
+        # @return [String, nil] ID of the domain to scope the role association to. Valid only with keystone version 3, and required if I(project) is not specified.
         attribute :domain
         validates :domain, type: String
 

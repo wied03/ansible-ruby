@@ -6,7 +6,7 @@ module Ansible
   module Ruby
     module Modules
       class Win_uri < Base
-        # @return [String] HTTP or HTTPS URL in the form of (http|https)://host.domain:port/path
+        # @return [String, nil] HTTP or HTTPS URL in the form of (http|https)://host.domain:port/path
         attribute :url
         validates :url, type: String
 
@@ -14,13 +14,13 @@ module Ansible
         attribute :method
         validates :method, inclusion: {:in=>[:GET, :POST, :PUT, :HEAD, :DELETE, :OPTIONS, :PATCH, :TRACE, :CONNECT, :REFRESH], :message=>"%{value} needs to be :GET, :POST, :PUT, :HEAD, :DELETE, :OPTIONS, :PATCH, :TRACE, :CONNECT, :REFRESH"}, allow_nil: true
 
-        # @return [Object] Sets the "Content-Type" header.
+        # @return [Object, nil] Sets the "Content-Type" header.
         attribute :content_type
 
-        # @return [Object] The body of the HTTP request/response to the web service.
+        # @return [Object, nil] The body of the HTTP request/response to the web service.
         attribute :body
 
-        # @return [Object] Key Value pairs for headers. Example "Host: www.somesite.com"
+        # @return [Object, nil] Key Value pairs for headers. Example "Host: www.somesite.com"
         attribute :headers
 
         # @return [Boolean, nil] This module relies upon 'Invoke-WebRequest', which by default uses the Internet Explorer Engine to parse a webpage. There's an edge-case where if a user hasn't run IE before, this will fail. The only advantage to using the Internet Explorer praser is that you can traverse the DOM in a powershell script. That isn't useful for Ansible, so by default we toggle 'UseBasicParsing'. However, you can toggle that off here.

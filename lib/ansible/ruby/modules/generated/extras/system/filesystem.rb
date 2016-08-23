@@ -22,7 +22,7 @@ module Ansible
         attribute :resizefs
         validates :resizefs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String] List of options to be passed to mkfs command.
+        # @return [String, nil] List of options to be passed to mkfs command.
         attribute :opts
         validates :opts, type: String
       end

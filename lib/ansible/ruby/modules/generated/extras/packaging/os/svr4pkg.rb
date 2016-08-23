@@ -14,14 +14,14 @@ module Ansible
         attribute :state
         validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
 
-        # @return [String] Specifies the location to install the package from. Required when C(state=present).,Can be any path acceptable to the C(pkgadd) command's C(-d) option. e.g.: C(somefile.pkg), C(/dir/with/pkgs), C(http:/server/mypkgs.pkg).,If using a file or directory, they must already be accessible by the host. See the M(copy) module for a way to get them there.
+        # @return [String, nil] Specifies the location to install the package from. Required when C(state=present).,Can be any path acceptable to the C(pkgadd) command's C(-d) option. e.g.: C(somefile.pkg), C(/dir/with/pkgs), C(http:/server/mypkgs.pkg).,If using a file or directory, they must already be accessible by the host. See the M(copy) module for a way to get them there.
         attribute :src
         validates :src, type: String
 
-        # @return [Object] HTTP[s] proxy to be used if C(src) is a URL.
+        # @return [Object, nil] HTTP[s] proxy to be used if C(src) is a URL.
         attribute :proxy
 
-        # @return [String] Specifies the location of a response file to be used if package expects input on install. (added in Ansible 1.4)
+        # @return [String, nil] Specifies the location of a response file to be used if package expects input on install. (added in Ansible 1.4)
         attribute :response_file
         validates :response_file, type: String
 

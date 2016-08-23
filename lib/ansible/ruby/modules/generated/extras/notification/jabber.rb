@@ -22,15 +22,15 @@ module Ansible
         attribute :msg
         validates :msg, presence: true, type: String
 
-        # @return [String] host to connect, overrides user info
+        # @return [String, nil] host to connect, overrides user info
         attribute :host
         validates :host, type: String
 
-        # @return [Fixnum] port to connect to, overrides default
+        # @return [Integer, nil] port to connect to, overrides default
         attribute :port
-        validates :port, type: Fixnum
+        validates :port, type: Integer
 
-        # @return [Object] message encoding
+        # @return [Object, nil] message encoding
         attribute :encoding
       end
     end

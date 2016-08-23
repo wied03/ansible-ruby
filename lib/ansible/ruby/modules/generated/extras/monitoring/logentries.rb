@@ -14,11 +14,11 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [String] name of the log
+        # @return [String, nil] name of the log
         attribute :name
         validates :name, type: String
 
-        # @return [Object] type of the log
+        # @return [Object, nil] type of the log
         attribute :logtype
       end
     end

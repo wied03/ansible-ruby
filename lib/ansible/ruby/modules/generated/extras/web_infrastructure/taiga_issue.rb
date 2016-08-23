@@ -6,7 +6,7 @@ module Ansible
   module Ruby
     module Modules
       class Taiga_issue < Base
-        # @return [String] The hostname of the Taiga instance.
+        # @return [String, nil] The hostname of the Taiga instance.
         attribute :taiga_host
         validates :taiga_host, type: String
 
@@ -22,31 +22,31 @@ module Ansible
         attribute :issue_type
         validates :issue_type, presence: true, type: String
 
-        # @return [String] The issue priority. Must exist previously.
+        # @return [String, nil] The issue priority. Must exist previously.
         attribute :priority
         validates :priority, type: String
 
-        # @return [String] The issue status. Must exist previously.
+        # @return [String, nil] The issue status. Must exist previously.
         attribute :status
         validates :status, type: String
 
-        # @return [String] The issue severity. Must exist previously.
+        # @return [String, nil] The issue severity. Must exist previously.
         attribute :severity
         validates :severity, type: String
 
-        # @return [String] The issue description.
+        # @return [String, nil] The issue description.
         attribute :description
         validates :description, type: String
 
-        # @return [String] Path to a file to be attached to the issue.
+        # @return [String, nil] Path to a file to be attached to the issue.
         attribute :attachment
         validates :attachment, type: String
 
-        # @return [String] A string describing the file to be attached to the issue.
+        # @return [String, nil] A string describing the file to be attached to the issue.
         attribute :attachment_description
         validates :attachment_description, type: String
 
-        # @return [Array] A lists of tags to be assigned to the issue.
+        # @return [Array, nil] A lists of tags to be assigned to the issue.
         attribute :tags
         validates :tags, type: Array
 

@@ -22,34 +22,34 @@ module Ansible
         attribute :type
         validates :type, inclusion: {:in=>[:ingress, :egress], :message=>"%{value} needs to be :ingress, :egress"}, allow_nil: true
 
-        # @return [String] CIDR (full notation) to be used for security group rule.
+        # @return [String, nil] CIDR (full notation) to be used for security group rule.
         attribute :cidr
         validates :cidr, type: String
 
-        # @return [String] Security group this rule is based of.
+        # @return [String, nil] Security group this rule is based of.
         attribute :user_security_group
         validates :user_security_group, type: String
 
-        # @return [Fixnum] Start port for this rule. Required if C(protocol=tcp) or C(protocol=udp).
+        # @return [Integer, nil] Start port for this rule. Required if C(protocol=tcp) or C(protocol=udp).
         attribute :start_port
-        validates :start_port, type: Fixnum
+        validates :start_port, type: Integer
 
-        # @return [Fixnum] End port for this rule. Required if C(protocol=tcp) or C(protocol=udp), but C(start_port) will be used if not set.
+        # @return [Integer, nil] End port for this rule. Required if C(protocol=tcp) or C(protocol=udp), but C(start_port) will be used if not set.
         attribute :end_port
-        validates :end_port, type: Fixnum
+        validates :end_port, type: Integer
 
-        # @return [Fixnum] Type of the icmp message being sent. Required if C(protocol=icmp).
+        # @return [Integer, nil] Type of the icmp message being sent. Required if C(protocol=icmp).
         attribute :icmp_type
-        validates :icmp_type, type: Fixnum
+        validates :icmp_type, type: Integer
 
-        # @return [Fixnum] Error code for this icmp message. Required if C(protocol=icmp).
+        # @return [Integer, nil] Error code for this icmp message. Required if C(protocol=icmp).
         attribute :icmp_code
-        validates :icmp_code, type: Fixnum
+        validates :icmp_code, type: Integer
 
-        # @return [Object] Name of the project the security group to be created in.
+        # @return [Object, nil] Name of the project the security group to be created in.
         attribute :project
 
-        # @return [TrueClass] Poll async jobs until job has finished.
+        # @return [TrueClass, nil] Poll async jobs until job has finished.
         attribute :poll_async
         validates :poll_async, type: TrueClass
       end

@@ -10,7 +10,7 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [String] The name of the vhost to apply to.
+        # @return [String, nil] The name of the vhost to apply to.
         attribute :vhost
         validates :vhost, type: String
 
@@ -26,11 +26,11 @@ module Ansible
         attribute :tags
         validates :tags, presence: true, type: String
 
-        # @return [Fixnum] The priority of the policy.
+        # @return [Integer, nil] The priority of the policy.
         attribute :priority
-        validates :priority, type: Fixnum
+        validates :priority, type: Integer
 
-        # @return [String] Erlang node name of the rabbit we wish to configure.
+        # @return [String, nil] Erlang node name of the rabbit we wish to configure.
         attribute :node
         validates :node, type: String
 

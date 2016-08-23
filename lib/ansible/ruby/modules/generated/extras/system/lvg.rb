@@ -10,15 +10,15 @@ module Ansible
         attribute :vg
         validates :vg, presence: true, type: String
 
-        # @return [Array<String>] List of comma-separated devices to use as physical devices in this volume group. Required when creating or resizing volume group.,The module will take care of running pvcreate if needed.
+        # @return [Array<String>, nil] List of comma-separated devices to use as physical devices in this volume group. Required when creating or resizing volume group.,The module will take care of running pvcreate if needed.
         attribute :pvs, flat_array: true
         validates :pvs, type: TypeGeneric.new(String)
 
-        # @return [Fixnum] The size of the physical extent in megabytes. Must be a power of 2.
+        # @return [Integer, nil] The size of the physical extent in megabytes. Must be a power of 2.
         attribute :pesize
-        validates :pesize, type: Fixnum
+        validates :pesize, type: Integer
 
-        # @return [Object] Additional options to pass to C(vgcreate) when creating the volume group.
+        # @return [Object, nil] Additional options to pass to C(vgcreate) when creating the volume group.
         attribute :vg_options
 
         # @return [:present, :absent, nil] Control if the volume group exists.

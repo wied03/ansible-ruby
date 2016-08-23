@@ -18,36 +18,36 @@ module Ansible
         attribute :msg
         validates :msg, presence: true, type: String
 
-        # @return [Array<String>] tags of the message, separated by commas
+        # @return [Array<String>, nil] tags of the message, separated by commas
         attribute :tags, flat_array: true
         validates :tags, type: TypeGeneric.new(String)
 
-        # @return [String] (chat only - required) Name of the "user" sending the message
+        # @return [String, nil] (chat only - required) Name of the "user" sending the message
         attribute :external_user_name
         validates :external_user_name, type: String
 
-        # @return [String] (inbox only - required) Email address of the message sender
+        # @return [String, nil] (inbox only - required) Email address of the message sender
         attribute :from_address
         validates :from_address, type: String
 
-        # @return [String] (inbox only - required) Human readable identifier of the application that uses the Flowdock API
+        # @return [String, nil] (inbox only - required) Human readable identifier of the application that uses the Flowdock API
         attribute :source
         validates :source, type: String
 
-        # @return [String] (inbox only - required) Subject line of the message
+        # @return [String, nil] (inbox only - required) Subject line of the message
         attribute :subject
         validates :subject, type: String
 
-        # @return [Object] (inbox only) Name of the message sender
+        # @return [Object, nil] (inbox only) Name of the message sender
         attribute :from_name
 
-        # @return [Object] (inbox only) Email address for replies
+        # @return [Object, nil] (inbox only) Email address for replies
         attribute :reply_to
 
-        # @return [Object] (inbox only) Human readable identifier for more detailed message categorization
+        # @return [Object, nil] (inbox only) Human readable identifier for more detailed message categorization
         attribute :project
 
-        # @return [Object] (inbox only) Link associated with the message. This will be used to link the message subject in Team Inbox.
+        # @return [Object, nil] (inbox only) Link associated with the message. This will be used to link the message subject in Team Inbox.
         attribute :link
 
         # @return [:yes, :no, nil] If C(no), SSL certificates will not be validated. This should only be used on personally controlled sites using self-signed certificates.

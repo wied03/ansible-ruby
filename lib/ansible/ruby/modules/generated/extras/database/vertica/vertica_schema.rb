@@ -10,15 +10,15 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [Array<String>] Comma separated list of roles to create and grant usage access to the schema.
+        # @return [Array<String>, nil] Comma separated list of roles to create and grant usage access to the schema.
         attribute :usage_roles, flat_array: true
         validates :usage_roles, type: TypeGeneric.new(String)
 
-        # @return [String] Comma separated list of roles to create and grant usage and create access to the schema.
+        # @return [String, nil] Comma separated list of roles to create and grant usage and create access to the schema.
         attribute :create_roles
         validates :create_roles, type: String
 
-        # @return [String] Name of the user to set as owner of the schema.
+        # @return [String, nil] Name of the user to set as owner of the schema.
         attribute :owner
         validates :owner, type: String
 
@@ -26,23 +26,23 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [String] Name of the Vertica database.
+        # @return [String, nil] Name of the Vertica database.
         attribute :db
         validates :db, type: String
 
-        # @return [String] Name of the Vertica cluster.
+        # @return [String, nil] Name of the Vertica cluster.
         attribute :cluster
         validates :cluster, type: String
 
-        # @return [Fixnum] Vertica cluster port to connect to.
+        # @return [Integer, nil] Vertica cluster port to connect to.
         attribute :port
-        validates :port, type: Fixnum
+        validates :port, type: Integer
 
-        # @return [String] The username used to authenticate with.
+        # @return [String, nil] The username used to authenticate with.
         attribute :login_user
         validates :login_user, type: String
 
-        # @return [Object] The password used to authenticate with.
+        # @return [Object, nil] The password used to authenticate with.
         attribute :login_password
       end
     end

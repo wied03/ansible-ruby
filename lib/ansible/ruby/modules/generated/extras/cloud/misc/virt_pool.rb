@@ -6,7 +6,7 @@ module Ansible
   module Ruby
     module Modules
       class Virt_pool < Base
-        # @return [String] name of the storage pool being managed. Note that pool must be previously defined with xml.
+        # @return [String, nil] name of the storage pool being managed. Note that pool must be previously defined with xml.
         attribute :name
         validates :name, type: String
 
@@ -22,11 +22,11 @@ module Ansible
         attribute :autostart
         validates :autostart, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String] I(libvirt) connection uri.
+        # @return [String, nil] I(libvirt) connection uri.
         attribute :uri
         validates :uri, type: String
 
-        # @return [String] XML document used with the define command.
+        # @return [String, nil] XML document used with the define command.
         attribute :xml
         validates :xml, type: String
 

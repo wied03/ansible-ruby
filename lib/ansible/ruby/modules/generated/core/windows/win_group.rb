@@ -10,7 +10,7 @@ module Ansible
         attribute :name
         validates :name, presence: true
 
-        # @return [Object] Description of the group
+        # @return [Object, nil] Description of the group
         attribute :description
 
         # @return [:present, :absent, nil] Create or remove the group

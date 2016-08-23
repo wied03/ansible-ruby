@@ -14,18 +14,18 @@ module Ansible
         attribute :state
         validates :state, presence: true, inclusion: {:in=>[:present, :absent, :opts_present, :opts_absent], :message=>"%{value} needs to be :present, :absent, :opts_present, :opts_absent"}
 
-        # @return [Object] Path to the underlying block device or file, or the UUID of a block-device prefixed with I(UUID=)
+        # @return [Object, nil] Path to the underlying block device or file, or the UUID of a block-device prefixed with I(UUID=)
         attribute :backing_device
 
-        # @return [String] Encryption password, the path to a file containing the pasword, or 'none' or '-' if the password should be entered at boot.
+        # @return [String, nil] Encryption password, the path to a file containing the pasword, or 'none' or '-' if the password should be entered at boot.
         attribute :password
         validates :password, type: String
 
-        # @return [String] A comma-delimited list of options. See C(crypttab(5) ) for details.
+        # @return [String, nil] A comma-delimited list of options. See C(crypttab(5) ) for details.
         attribute :opts
         validates :opts, type: String
 
-        # @return [String] Path to file to use instead of C(/etc/crypttab). This might be useful in a chroot environment.
+        # @return [String, nil] Path to file to use instead of C(/etc/crypttab). This might be useful in a chroot environment.
         attribute :path
         validates :path, type: String
       end

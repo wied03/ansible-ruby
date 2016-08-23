@@ -14,7 +14,7 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [String] The value to store in the environment variable. Can be omitted for state=absent
+        # @return [String, nil] The value to store in the environment variable. Can be omitted for state=absent
         attribute :value
         validates :value, type: String
 

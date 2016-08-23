@@ -6,7 +6,7 @@ module Ansible
   module Ruby
     module Modules
       class Rax_clb_nodes < Base
-        # @return [String] IP address or domain name of the node
+        # @return [String, nil] IP address or domain name of the node
         attribute :address
         validates :address, type: String
 
@@ -14,17 +14,17 @@ module Ansible
         attribute :condition
         validates :condition, inclusion: {:in=>[:enabled, :disabled, :draining], :message=>"%{value} needs to be :enabled, :disabled, :draining"}, allow_nil: true
 
-        # @return [Fixnum] Load balancer id
+        # @return [Integer] Load balancer id
         attribute :load_balancer_id
-        validates :load_balancer_id, presence: true, type: Fixnum
+        validates :load_balancer_id, presence: true, type: Integer
 
-        # @return [Fixnum] Node id
+        # @return [Integer, nil] Node id
         attribute :node_id
-        validates :node_id, type: Fixnum
+        validates :node_id, type: Integer
 
-        # @return [Fixnum] Port number of the load balanced service on the node
+        # @return [Integer, nil] Port number of the load balanced service on the node
         attribute :port
-        validates :port, type: Fixnum
+        validates :port, type: Integer
 
         # @return [:present, :absent, nil] Indicate desired state of the node
         attribute :state
@@ -38,11 +38,11 @@ module Ansible
         attribute :wait
         validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [Fixnum] How long to wait before giving up and returning an error
+        # @return [Integer, nil] How long to wait before giving up and returning an error
         attribute :wait_timeout
-        validates :wait_timeout, type: Fixnum
+        validates :wait_timeout, type: Integer
 
-        # @return [Object] Weight of node
+        # @return [Object, nil] Weight of node
         attribute :weight
       end
     end

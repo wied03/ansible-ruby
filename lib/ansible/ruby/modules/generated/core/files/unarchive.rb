@@ -18,21 +18,21 @@ module Ansible
         attribute :copy
         validates :copy, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [Object] a filename, when it already exists, this step will B(not) be run.
+        # @return [Object, nil] a filename, when it already exists, this step will B(not) be run.
         attribute :creates
 
         # @return [:yes, :no, nil] If set to True, return the list of files that are contained in the tarball.
         attribute :list_files
         validates :list_files, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [Array] List the directory and file entries that you would like to exclude from the unarchive action.
+        # @return [Array, nil] List the directory and file entries that you would like to exclude from the unarchive action.
         attribute :exclude
         validates :exclude, type: Array
 
-        # @return [Object] Do not replace existing files that are newer than files from the archive.
+        # @return [Object, nil] Do not replace existing files that are newer than files from the archive.
         attribute :keep_newer
 
-        # @return [Object] Specify additional options by passing in an array.
+        # @return [Object, nil] Specify additional options by passing in an array.
         attribute :extra_opts
       end
     end

@@ -10,13 +10,13 @@ module Ansible
         attribute :server
         validates :server, presence: true, type: String
 
-        # @return [String] If the module should wait for the instance action to be performed.
+        # @return [String, nil] If the module should wait for the instance action to be performed.
         attribute :wait
         validates :wait, type: String
 
-        # @return [Fixnum] The amount of time the module should wait for the instance to perform the requested action.
+        # @return [Integer, nil] The amount of time the module should wait for the instance to perform the requested action.
         attribute :timeout
-        validates :timeout, type: Fixnum
+        validates :timeout, type: Integer
 
         # @return [:stop, :start, :pause, :unpause, :lock, :unlock, :suspend, :resume, nil] Perform the given action. The lock and unlock actions always return changed as the servers API does not provide lock status.
         attribute :action

@@ -14,7 +14,7 @@ module Ansible
         attribute :admin_state
         validates :admin_state, inclusion: {:in=>[:up, :down], :message=>"%{value} needs to be :up, :down"}, allow_nil: true
 
-        # @return [String] Interface description
+        # @return [String, nil] Interface description
         attribute :description
         validates :description, type: String
 

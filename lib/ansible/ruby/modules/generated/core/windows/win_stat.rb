@@ -10,11 +10,11 @@ module Ansible
         attribute :path
         validates :path, presence: true, type: String
 
-        # @return [TrueClass] Whether to return the checksum sum of the file. As of Ansible 1.9 this is no longer a MD5, but a SHA1 instead.
+        # @return [TrueClass, nil] Whether to return the checksum sum of the file. As of Ansible 1.9 this is no longer a MD5, but a SHA1 instead.
         attribute :get_md5
         validates :get_md5, type: TrueClass
 
-        # @return [TrueClass] Whether to return a checksum of the file (only sha1 currently supported)
+        # @return [TrueClass, nil] Whether to return a checksum of the file (only sha1 currently supported)
         attribute :get_checksum
         validates :get_checksum, type: TrueClass
       end

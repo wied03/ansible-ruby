@@ -10,43 +10,43 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [String] The format of the disk that is getting uploaded
+        # @return [String, nil] The format of the disk that is getting uploaded
         attribute :disk_format
         validates :disk_format, type: String
 
-        # @return [String] The format of the container
+        # @return [String, nil] The format of the container
         attribute :container_format
         validates :container_format, type: String
 
-        # @return [String] The owner of the image
+        # @return [String, nil] The owner of the image
         attribute :owner
         validates :owner, type: String
 
-        # @return [String] The minimum disk space (in GB) required to boot this image
+        # @return [String, nil] The minimum disk space (in GB) required to boot this image
         attribute :min_disk
         validates :min_disk, type: String
 
-        # @return [String] The minimum ram (in MB) required to boot this image
+        # @return [String, nil] The minimum ram (in MB) required to boot this image
         attribute :min_ram
         validates :min_ram, type: String
 
-        # @return [String] Whether the image can be accessed publicly. Note that publicizing an image requires admin role by default.
+        # @return [String, nil] Whether the image can be accessed publicly. Note that publicizing an image requires admin role by default.
         attribute :is_public
         validates :is_public, type: String
 
-        # @return [String] The path to the file which has to be uploaded
+        # @return [String, nil] The path to the file which has to be uploaded
         attribute :filename
         validates :filename, type: String
 
-        # @return [String] The name of an existing ramdisk image that will be associated with this image
+        # @return [String, nil] The name of an existing ramdisk image that will be associated with this image
         attribute :ramdisk
         validates :ramdisk, type: String
 
-        # @return [String] The name of an existing kernel image that will be associated with this image
+        # @return [String, nil] The name of an existing kernel image that will be associated with this image
         attribute :kernel
         validates :kernel, type: String
 
-        # @return [Hash] Additional properties to be associated with this image
+        # @return [Hash, nil] Additional properties to be associated with this image
         attribute :properties
         validates :properties, type: Hash
 

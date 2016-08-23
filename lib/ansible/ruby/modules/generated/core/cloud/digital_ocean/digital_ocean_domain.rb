@@ -10,17 +10,17 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [Object] DigitalOcean api token.
+        # @return [Object, nil] DigitalOcean api token.
         attribute :api_token
 
-        # @return [Object] Numeric, the droplet id you want to operate on.
+        # @return [Object, nil] Numeric, the droplet id you want to operate on.
         attribute :id
 
-        # @return [String] String, this is the name of the droplet - must be formatted by hostname rules, or the name of a SSH key, or the name of a domain.
+        # @return [String, nil] String, this is the name of the droplet - must be formatted by hostname rules, or the name of a SSH key, or the name of a domain.
         attribute :name
         validates :name, type: String
 
-        # @return [String] The IP address to point a domain at.
+        # @return [String, nil] The IP address to point a domain at.
         attribute :ip
         validates :ip, type: String
       end

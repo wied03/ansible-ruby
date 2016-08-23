@@ -10,7 +10,7 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [String] A description for the loadbalancer
+        # @return [String, nil] A description for the loadbalancer
         attribute :description
         validates :description, type: String
 
@@ -34,7 +34,7 @@ module Ansible
         attribute :port
         validates :port, inclusion: {:in=>[80, 443], :message=>"%{value} needs to be 80, 443"}, allow_nil: true
 
-        # @return [Array] A list of nodes that needs to be added to the load balancer pool
+        # @return [Array, nil] A list of nodes that needs to be added to the load balancer pool
         attribute :nodes
         validates :nodes, type: Array
 

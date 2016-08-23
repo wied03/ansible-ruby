@@ -18,14 +18,14 @@ module Ansible
         attribute :type
         validates :type, presence: true, type: String
 
-        # @return [String] Whether the app should restart with an autostart.cgi script
+        # @return [String, nil] Whether the app should restart with an autostart.cgi script
         attribute :autostart
         validates :autostart, type: String
 
-        # @return [Object] Any extra parameters required by the app
+        # @return [Object, nil] Any extra parameters required by the app
         attribute :extra_info
 
-        # @return [Object] IF the port should be opened
+        # @return [Object, nil] IF the port should be opened
         attribute :port_open
 
         # @return [String] The webfaction account to use
@@ -36,7 +36,7 @@ module Ansible
         attribute :login_password
         validates :login_password, presence: true, type: String
 
-        # @return [String] The machine name to use (optional for accounts with only one machine)
+        # @return [String, nil] The machine name to use (optional for accounts with only one machine)
         attribute :machine
         validates :machine, type: String
       end

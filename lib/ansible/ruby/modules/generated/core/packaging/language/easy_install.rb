@@ -10,7 +10,7 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [String] an optional I(virtualenv) directory path to install into. If the I(virtualenv) does not exist, it is created automatically
+        # @return [String, nil] an optional I(virtualenv) directory path to install into. If the I(virtualenv) does not exist, it is created automatically
         attribute :virtualenv
         validates :virtualenv, type: String
 
@@ -18,11 +18,11 @@ module Ansible
         attribute :virtualenv_site_packages
         validates :virtualenv_site_packages, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String] The command to create the virtual environment with. For example C(pyvenv), C(virtualenv), C(virtualenv2).
+        # @return [String, nil] The command to create the virtual environment with. For example C(pyvenv), C(virtualenv), C(virtualenv2).
         attribute :virtualenv_command
         validates :virtualenv_command, type: String
 
-        # @return [Object] The explicit executable or a pathname to the executable to be used to run easy_install for a specific version of Python installed in the system. For example C(easy_install-3.3), if there are both Python 2.7 and 3.3 installations in the system and you want to run easy_install for the Python 3.3 installation.
+        # @return [Object, nil] The explicit executable or a pathname to the executable to be used to run easy_install for a specific version of Python installed in the system. For example C(easy_install-3.3), if there are both Python 2.7 and 3.3 installations in the system and you want to run easy_install for the Python 3.3 installation.
         attribute :executable
 
         # @return [:present, :latest, nil] The desired state of the library. C(latest) ensures that the latest version is installed.

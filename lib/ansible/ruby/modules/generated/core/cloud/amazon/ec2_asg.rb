@@ -14,11 +14,11 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [Array] List of ELB names to use for the group
+        # @return [Array, nil] List of ELB names to use for the group
         attribute :load_balancers
         validates :load_balancers, type: Array
 
-        # @return [Array] List of availability zone names in which to create the group.  Defaults to all the availability zones in the region if vpc_zone_identifier is not set.
+        # @return [Array, nil] List of availability zone names in which to create the group.  Defaults to all the availability zones in the region if vpc_zone_identifier is not set.
         attribute :availability_zones
         validates :availability_zones, type: Array
 
@@ -26,43 +26,43 @@ module Ansible
         attribute :launch_config_name
         validates :launch_config_name, presence: true, type: String
 
-        # @return [Fixnum] Minimum number of instances in group, if unspecified then the current group value will be used.
+        # @return [Integer, nil] Minimum number of instances in group, if unspecified then the current group value will be used.
         attribute :min_size
-        validates :min_size, type: Fixnum
+        validates :min_size, type: Integer
 
-        # @return [Fixnum] Maximum number of instances in group, if unspecified then the current group value will be used.
+        # @return [Integer, nil] Maximum number of instances in group, if unspecified then the current group value will be used.
         attribute :max_size
-        validates :max_size, type: Fixnum
+        validates :max_size, type: Integer
 
-        # @return [Fixnum] Desired number of instances in group, if unspecified then the current group value will be used.
+        # @return [Integer, nil] Desired number of instances in group, if unspecified then the current group value will be used.
         attribute :desired_capacity
-        validates :desired_capacity, type: Fixnum
+        validates :desired_capacity, type: Integer
 
-        # @return [TrueClass] In a rolling fashion, replace all instances with an old launch configuration with one from the current launch configuration.
+        # @return [TrueClass, nil] In a rolling fashion, replace all instances with an old launch configuration with one from the current launch configuration.
         attribute :replace_all_instances
         validates :replace_all_instances, type: TrueClass
 
-        # @return [Fixnum] Number of instances you'd like to replace at a time.  Used with replace_all_instances.
+        # @return [Integer, nil] Number of instances you'd like to replace at a time.  Used with replace_all_instances.
         attribute :replace_batch_size
-        validates :replace_batch_size, type: Fixnum
+        validates :replace_batch_size, type: Integer
 
-        # @return [String] List of instance_ids belonging to the named ASG that you would like to terminate and be replaced with instances matching the current launch configuration.
+        # @return [String, nil] List of instance_ids belonging to the named ASG that you would like to terminate and be replaced with instances matching the current launch configuration.
         attribute :replace_instances
         validates :replace_instances, type: String
 
-        # @return [TrueClass] Check to make sure instances that are being replaced with replace_instances do not aready have the current launch_config.
+        # @return [TrueClass, nil] Check to make sure instances that are being replaced with replace_instances do not aready have the current launch_config.
         attribute :lc_check
         validates :lc_check, type: TrueClass
 
-        # @return [String] List of VPC subnets to use
+        # @return [String, nil] List of VPC subnets to use
         attribute :vpc_zone_identifier
         validates :vpc_zone_identifier, type: String
 
-        # @return [String] A list of tags to add to the Auto Scale Group. Optional key is 'propagate_at_launch', which defaults to true.
+        # @return [String, nil] A list of tags to add to the Auto Scale Group. Optional key is 'propagate_at_launch', which defaults to true.
         attribute :tags
         validates :tags, type: String
 
-        # @return [String] Length of time in seconds after a new EC2 instance comes into service that Auto Scaling starts checking its health.
+        # @return [String, nil] Length of time in seconds after a new EC2 instance comes into service that Auto Scaling starts checking its health.
         attribute :health_check_period
         validates :health_check_period, type: String
 
@@ -70,15 +70,15 @@ module Ansible
         attribute :health_check_type
         validates :health_check_type, inclusion: {:in=>[:EC2, :ELB], :message=>"%{value} needs to be :EC2, :ELB"}, allow_nil: true
 
-        # @return [String] The number of seconds after a scaling activity completes before another can begin.
+        # @return [String, nil] The number of seconds after a scaling activity completes before another can begin.
         attribute :default_cooldown
         validates :default_cooldown, type: String
 
-        # @return [Fixnum] how long before wait instances to become viable when replaced.  Used in concjunction with instance_ids option.
+        # @return [Integer, nil] how long before wait instances to become viable when replaced.  Used in concjunction with instance_ids option.
         attribute :wait_timeout
-        validates :wait_timeout, type: Fixnum
+        validates :wait_timeout, type: Integer
 
-        # @return [TrueClass] Wait for the ASG instances to be in a ready state before exiting.  If instances are behind an ELB, it will wait until the ELB determines all instances have a lifecycle_state of  "InService" and  a health_status of "Healthy".
+        # @return [TrueClass, nil] Wait for the ASG instances to be in a ready state before exiting.  If instances are behind an ELB, it will wait until the ELB determines all instances have a lifecycle_state of  "InService" and  a health_status of "Healthy".
         attribute :wait_for_instances
         validates :wait_for_instances, type: TrueClass
 

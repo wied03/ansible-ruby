@@ -14,23 +14,23 @@ module Ansible
         attribute :value
         validates :value, presence: true
 
-        # @return [String] Ensure the value for corresponding account.
+        # @return [String, nil] Ensure the value for corresponding account.
         attribute :account
         validates :account, type: String
 
-        # @return [String] Domain the account is related to.,Only considered if C(account) is used.
+        # @return [String, nil] Domain the account is related to.,Only considered if C(account) is used.
         attribute :domain
         validates :domain, type: String
 
-        # @return [String] Ensure the value for corresponding zone.
+        # @return [String, nil] Ensure the value for corresponding zone.
         attribute :zone
         validates :zone, type: String
 
-        # @return [String] Ensure the value for corresponding storage pool.
+        # @return [String, nil] Ensure the value for corresponding storage pool.
         attribute :storage
         validates :storage, type: String
 
-        # @return [Object] Ensure the value for corresponding cluster.
+        # @return [Object, nil] Ensure the value for corresponding cluster.
         attribute :cluster
       end
     end

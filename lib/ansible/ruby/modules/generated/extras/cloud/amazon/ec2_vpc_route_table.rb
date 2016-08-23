@@ -10,11 +10,11 @@ module Ansible
         attribute :lookup
         validates :lookup, inclusion: {:in=>[:tag, :id], :message=>"%{value} needs to be :tag, :id"}, allow_nil: true
 
-        # @return [String] Enable route propagation from virtual gateways specified by ID.
+        # @return [String, nil] Enable route propagation from virtual gateways specified by ID.
         attribute :propagating_vgw_ids
         validates :propagating_vgw_ids, type: String
 
-        # @return [Object] The ID of the route table to update or delete.
+        # @return [Object, nil] The ID of the route table to update or delete.
         attribute :route_table_id
 
         # @return [Array] List of routes in the route table. Routes are specified as dicts containing the keys 'dest' and one of 'gateway_id', 'instance_id', 'interface_id', or 'vpc_peering_connection_id'. If 'gateway_id' is specified, you can refer to the VPC's IGW by using the value 'igw'.
@@ -29,7 +29,7 @@ module Ansible
         attribute :subnets
         validates :subnets, presence: true, type: Array
 
-        # @return [Hash] A dictionary of resource tags of the form: { tag1: value1, tag2: value2 }. Tags are used to uniquely identify route tables within a VPC when the route_table_id is not supplied.
+        # @return [Hash, nil] A dictionary of resource tags of the form: { tag1: value1, tag2: value2 }. Tags are used to uniquely identify route tables within a VPC when the route_table_id is not supplied.
         attribute :tags
         validates :tags, type: Hash
 

@@ -14,19 +14,19 @@ module Ansible
         attribute :protocol
         validates :protocol, inclusion: {:in=>[:tcp, :udp, :icmp, :None], :message=>"%{value} needs to be :tcp, :udp, :icmp, :None"}, allow_nil: true
 
-        # @return [String] Starting port
+        # @return [String, nil] Starting port
         attribute :port_range_min
         validates :port_range_min, type: String
 
-        # @return [String] Ending port
+        # @return [String, nil] Ending port
         attribute :port_range_max
         validates :port_range_max, type: String
 
-        # @return [String] Source IP address(es) in CIDR notation (exclusive with remote_group)
+        # @return [String, nil] Source IP address(es) in CIDR notation (exclusive with remote_group)
         attribute :remote_ip_prefix
         validates :remote_ip_prefix, type: String
 
-        # @return [Object] Name or ID of the Security group to link (exclusive with remote_ip_prefix)
+        # @return [Object, nil] Name or ID of the Security group to link (exclusive with remote_ip_prefix)
         attribute :remote_group
 
         # @return [:IPv4, :IPv6, nil] Must be IPv4 or IPv6, and addresses represented in CIDR must match the ingress or egress rules. Not all providers support IPv6.

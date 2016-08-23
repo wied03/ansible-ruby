@@ -10,7 +10,7 @@ module Ansible
         attribute :nsc_host
         validates :nsc_host, presence: true
 
-        # @return [String] protocol used to access netscaler
+        # @return [String, nil] protocol used to access netscaler
         attribute :nsc_protocol
         validates :nsc_protocol, type: String
 

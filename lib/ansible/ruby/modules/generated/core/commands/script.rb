@@ -10,11 +10,11 @@ module Ansible
         attribute :free_form
         validates :free_form, presence: true
 
-        # @return [String] a filename, when it already exists, this step will B(not) be run.
+        # @return [String, nil] a filename, when it already exists, this step will B(not) be run.
         attribute :creates
         validates :creates, type: String
 
-        # @return [String] a filename, when it does not exist, this step will B(not) be run.
+        # @return [String, nil] a filename, when it does not exist, this step will B(not) be run.
         attribute :removes
         validates :removes, type: String
       end

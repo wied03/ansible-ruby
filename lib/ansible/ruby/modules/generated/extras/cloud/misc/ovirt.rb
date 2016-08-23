@@ -22,31 +22,31 @@ module Ansible
         attribute :password
         validates :password, presence: true
 
-        # @return [Object] template to use for the instance
+        # @return [Object, nil] template to use for the instance
         attribute :image
 
         # @return [:new, :template, nil] whether you want to deploy an image or create an instance from scratch.
         attribute :resource_type
         validates :resource_type, inclusion: {:in=>[:new, :template], :message=>"%{value} needs to be :new, :template"}, allow_nil: true
 
-        # @return [Object] deploy the image to this oVirt cluster
+        # @return [Object, nil] deploy the image to this oVirt cluster
         attribute :zone
 
-        # @return [Object] size of the instance's disk in GB
+        # @return [Object, nil] size of the instance's disk in GB
         attribute :instance_disksize
 
-        # @return [Fixnum] the instance's number of cpu's
+        # @return [Integer, nil] the instance's number of cpu's
         attribute :instance_cpus
-        validates :instance_cpus, type: Fixnum
+        validates :instance_cpus, type: Integer
 
-        # @return [Object] name of the network interface in oVirt/RHEV
+        # @return [Object, nil] name of the network interface in oVirt/RHEV
         attribute :instance_nic
 
-        # @return [String] the logical network the machine should belong to
+        # @return [String, nil] the logical network the machine should belong to
         attribute :instance_network
         validates :instance_network, type: String
 
-        # @return [Object] the instance's amount of memory in MB
+        # @return [Object, nil] the instance's amount of memory in MB
         attribute :instance_mem
 
         # @return [:server, :desktop, nil] define if the instance is a server or desktop
@@ -61,38 +61,38 @@ module Ansible
         attribute :disk_int
         validates :disk_int, inclusion: {:in=>[:virtio, :ide], :message=>"%{value} needs to be :virtio, :ide"}, allow_nil: true
 
-        # @return [Object] type of Operating System
+        # @return [Object, nil] type of Operating System
         attribute :instance_os
 
-        # @return [Fixnum] define the instance's number of cores
+        # @return [Integer, nil] define the instance's number of cores
         attribute :instance_cores
-        validates :instance_cores, type: Fixnum
+        validates :instance_cores, type: Integer
 
-        # @return [Object] the Storage Domain where you want to create the instance's disk on.
+        # @return [Object, nil] the Storage Domain where you want to create the instance's disk on.
         attribute :sdomain
 
-        # @return [Object] the oVirt/RHEV datacenter where you want to deploy to
+        # @return [Object, nil] the oVirt/RHEV datacenter where you want to deploy to
         attribute :region
 
-        # @return [Object] define the instance's Primary DNS server
+        # @return [Object, nil] define the instance's Primary DNS server
         attribute :instance_dns
 
-        # @return [Object] define the instance's Domain
+        # @return [Object, nil] define the instance's Domain
         attribute :instance_domain
 
-        # @return [Object] define the instance's Hostname
+        # @return [Object, nil] define the instance's Hostname
         attribute :instance_hostname
 
-        # @return [Object] define the instance's IP
+        # @return [Object, nil] define the instance's IP
         attribute :instance_ip
 
-        # @return [Object] define the instance's Netmask
+        # @return [Object, nil] define the instance's Netmask
         attribute :instance_netmask
 
-        # @return [Object] define the instance's Root password
+        # @return [Object, nil] define the instance's Root password
         attribute :instance_rootpw
 
-        # @return [Object] define the instance's Authorized key
+        # @return [Object, nil] define the instance's Authorized key
         attribute :instance_key
 
         # @return [:present, :absent, :shutdown, :started, :restarted, nil] create, terminate or remove instances

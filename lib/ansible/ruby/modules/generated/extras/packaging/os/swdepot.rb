@@ -6,17 +6,17 @@ module Ansible
   module Ruby
     module Modules
       class Swdepot < Base
-        # @return [] package name.
+        # @return [String] package name.
         attribute :name
-        validates :name, presence: true, inclusion: {:in=>[], :message=>"%{value} needs to be "}
+        validates :name, presence: true, type: String
 
         # @return [:present, :latest, :absent] whether to install (C(present), C(latest)), or remove (C(absent)) a package.
         attribute :state
         validates :state, presence: true, inclusion: {:in=>[:present, :latest, :absent], :message=>"%{value} needs to be :present, :latest, :absent"}
 
-        # @return [nil] The source repository from which install or upgrade a package.
+        # @return [String, nil] The source repository from which install or upgrade a package.
         attribute :depot
-        validates :depot, inclusion: {:in=>[], :message=>"%{value} needs to be "}, allow_nil: true
+        validates :depot, type: String
       end
     end
   end

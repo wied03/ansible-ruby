@@ -10,17 +10,17 @@ module Ansible
         attribute :path
         validates :path, presence: true
 
-        # @return [Object] Network domain for networks in the domain.
+        # @return [Object, nil] Network domain for networks in the domain.
         attribute :network_domain
 
-        # @return [Object] Clean up all domain resources like child domains and accounts.,Considered on C(state=absent).
+        # @return [Object, nil] Clean up all domain resources like child domains and accounts.,Considered on C(state=absent).
         attribute :clean_up
 
         # @return [:present, :absent, nil] State of the domain.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [TrueClass] Poll async jobs until job has finished.
+        # @return [TrueClass, nil] Poll async jobs until job has finished.
         attribute :poll_async
         validates :poll_async, type: TrueClass
       end

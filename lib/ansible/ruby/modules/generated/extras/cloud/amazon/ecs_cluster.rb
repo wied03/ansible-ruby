@@ -14,13 +14,13 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [Fixnum] Number of seconds to wait
+        # @return [Integer, nil] Number of seconds to wait
         attribute :delay
-        validates :delay, type: Fixnum
+        validates :delay, type: Integer
 
-        # @return [Fixnum] The number of times to wait for the cluster to have an instance
+        # @return [Integer, nil] The number of times to wait for the cluster to have an instance
         attribute :repeat
-        validates :repeat, type: Fixnum
+        validates :repeat, type: Integer
       end
     end
   end

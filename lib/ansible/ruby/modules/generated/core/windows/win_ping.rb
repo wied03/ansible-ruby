@@ -6,7 +6,7 @@ module Ansible
   module Ruby
     module Modules
       class Win_ping < Base
-        # @return [String] Alternate data to return instead of 'pong'
+        # @return [String, nil] Alternate data to return instead of 'pong'
         attribute :data
         validates :data, type: String
       end

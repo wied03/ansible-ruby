@@ -6,7 +6,7 @@ module Ansible
   module Ruby
     module Modules
       class Slack < Base
-        # @return [String] Slack (sub)domain for your environment without protocol. (i.e. C(future500.slack.com)) In 1.8 and beyond, this is deprecated and may be ignored.  See token documentation for information.
+        # @return [String, nil] Slack (sub)domain for your environment without protocol. (i.e. C(future500.slack.com)) In 1.8 and beyond, this is deprecated and may be ignored.  See token documentation for information.
         attribute :domain
         validates :domain, type: String
 
@@ -14,23 +14,23 @@ module Ansible
         attribute :token
         validates :token, presence: true, type: String
 
-        # @return [String] Message to send.
+        # @return [String, nil] Message to send.
         attribute :msg
         validates :msg, type: String
 
-        # @return [String] Channel to send the message to. If absent, the message goes to the channel selected for the I(token).
+        # @return [String, nil] Channel to send the message to. If absent, the message goes to the channel selected for the I(token).
         attribute :channel
         validates :channel, type: String
 
-        # @return [String] This is the sender of the message.
+        # @return [String, nil] This is the sender of the message.
         attribute :username
         validates :username, type: String
 
-        # @return [String] Url for the message sender's icon (default C(http://www.ansible.com/favicon.ico))
+        # @return [String, nil] Url for the message sender's icon (default C(http://www.ansible.com/favicon.ico))
         attribute :icon_url
         validates :icon_url, type: String
 
-        # @return [String] Emoji for the message sender. See Slack documentation for options. (if I(icon_emoji) is set, I(icon_url) will not be used)
+        # @return [String, nil] Emoji for the message sender. See Slack documentation for options. (if I(icon_emoji) is set, I(icon_url) will not be used)
         attribute :icon_emoji
         validates :icon_emoji, type: String
 
@@ -50,7 +50,7 @@ module Ansible
         attribute :color
         validates :color, inclusion: {:in=>[:normal, :good, :warning, :danger], :message=>"%{value} needs to be :normal, :good, :warning, :danger"}, allow_nil: true
 
-        # @return [String] Define a list of attachments. This list mirrors the Slack JSON API. For more information, see https://api.slack.com/docs/attachments
+        # @return [String, nil] Define a list of attachments. This list mirrors the Slack JSON API. For more information, see https://api.slack.com/docs/attachments
         attribute :attachments
         validates :attachments, type: String
       end

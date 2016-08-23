@@ -18,7 +18,7 @@ module Ansible
         attribute :volume
         validates :volume, presence: true
 
-        # @return [String] Device you want to attach. Defaults to auto finding a device name.
+        # @return [String, nil] Device you want to attach. Defaults to auto finding a device name.
         attribute :device
         validates :device, type: String
       end

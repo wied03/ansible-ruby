@@ -14,54 +14,54 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [String] Name of the monitored metric (e.g. CPUUtilization),Metric must already exist
+        # @return [String, nil] Name of the monitored metric (e.g. CPUUtilization),Metric must already exist
         attribute :metric
         validates :metric, type: String
 
-        # @return [String] Name of the appropriate namespace ('AWS/EC2', 'System/Linux', etc.), which determines the category it will appear under in cloudwatch
+        # @return [String, nil] Name of the appropriate namespace ('AWS/EC2', 'System/Linux', etc.), which determines the category it will appear under in cloudwatch
         attribute :namespace
         validates :namespace, type: String
 
-        # @return [String] Operation applied to the metric,Works in conjunction with period and evaluation_periods to determine the comparison value
+        # @return [String, nil] Operation applied to the metric,Works in conjunction with period and evaluation_periods to determine the comparison value
         attribute :statistic
         validates :statistic, type: String
 
-        # @return [String] Determines how the threshold value is compared
+        # @return [String, nil] Determines how the threshold value is compared
         attribute :comparison
         validates :comparison, type: String
 
-        # @return [Float] Sets the min/max bound for triggering the alarm
+        # @return [Float, nil] Sets the min/max bound for triggering the alarm
         attribute :threshold
         validates :threshold, type: Float
 
-        # @return [Fixnum] The time (in seconds) between metric evaluations
+        # @return [Integer, nil] The time (in seconds) between metric evaluations
         attribute :period
-        validates :period, type: Fixnum
+        validates :period, type: Integer
 
-        # @return [Fixnum] The number of times in which the metric is evaluated before final calculation
+        # @return [Integer, nil] The number of times in which the metric is evaluated before final calculation
         attribute :evaluation_periods
-        validates :evaluation_periods, type: Fixnum
+        validates :evaluation_periods, type: Integer
 
-        # @return [String] The threshold's unit of measurement
+        # @return [String, nil] The threshold's unit of measurement
         attribute :unit
         validates :unit, type: String
 
-        # @return [String] A longer description of the alarm
+        # @return [String, nil] A longer description of the alarm
         attribute :description
         validates :description, type: String
 
-        # @return [Hash] Describes to what the alarm is applied
+        # @return [Hash, nil] Describes to what the alarm is applied
         attribute :dimensions
         validates :dimensions, type: Hash
 
-        # @return [Array] A list of the names action(s) taken when the alarm is in the 'alarm' status
+        # @return [Array, nil] A list of the names action(s) taken when the alarm is in the 'alarm' status
         attribute :alarm_actions
         validates :alarm_actions, type: Array
 
-        # @return [Object] A list of the names of action(s) to take when the alarm is in the 'insufficient_data' status
+        # @return [Object, nil] A list of the names of action(s) to take when the alarm is in the 'insufficient_data' status
         attribute :insufficient_data_actions
 
-        # @return [Object] A list of the names of action(s) to take when the alarm is in the 'ok' status
+        # @return [Object, nil] A list of the names of action(s) to take when the alarm is in the 'ok' status
         attribute :ok_actions
       end
     end

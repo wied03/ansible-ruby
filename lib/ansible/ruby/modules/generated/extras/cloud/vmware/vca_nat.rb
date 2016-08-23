@@ -6,7 +6,7 @@ module Ansible
   module Ruby
     module Modules
       class Vca_nat < Base
-        # @return [Object] If set to true, it will delete all rules in the gateway that are not given as paramter to this module.
+        # @return [Object, nil] If set to true, it will delete all rules in the gateway that are not given as paramter to this module.
         attribute :purge_rules
 
         # @return [Object] A list of rules to be added to the gateway, Please see examples on valid entries

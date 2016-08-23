@@ -6,7 +6,7 @@ module Ansible
   module Ruby
     module Modules
       class Pacman < Base
-        # @return [String] Name of the package to install, upgrade, or remove.
+        # @return [String, nil] Name of the package to install, upgrade, or remove.
         attribute :name
         validates :name, type: String
 

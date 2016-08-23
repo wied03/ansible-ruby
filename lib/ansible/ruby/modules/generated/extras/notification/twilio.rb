@@ -26,7 +26,7 @@ module Ansible
         attribute :from_number
         validates :from_number, presence: true, type: String
 
-        # @return [String] a URL with a picture, video or sound clip to send with an MMS (multimedia message) instead of a plain SMS
+        # @return [String, nil] a URL with a picture, video or sound clip to send with an MMS (multimedia message) instead of a plain SMS
         attribute :media_url
         validates :media_url, type: String
       end

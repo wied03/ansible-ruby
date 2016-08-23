@@ -10,7 +10,7 @@ module Ansible
         attribute :detach_only
         validates :detach_only, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String] instance name if you wish to attach or detach the disk
+        # @return [String, nil] instance name if you wish to attach or detach the disk
         attribute :instance_name
         validates :instance_name, type: String
 
@@ -22,34 +22,34 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [Fixnum] whole integer size of disk (in GB) to create, default is 10 GB
+        # @return [Integer, nil] whole integer size of disk (in GB) to create, default is 10 GB
         attribute :size_gb
-        validates :size_gb, type: Fixnum
+        validates :size_gb, type: Integer
 
-        # @return [Object] the source image to use for the disk
+        # @return [Object, nil] the source image to use for the disk
         attribute :image
 
-        # @return [Object] the source snapshot to use for the disk
+        # @return [Object, nil] the source snapshot to use for the disk
         attribute :snapshot
 
         # @return [:active, :present, :absent, :deleted, nil] desired state of the persistent disk
         attribute :state
         validates :state, inclusion: {:in=>[:active, :present, :absent, :deleted], :message=>"%{value} needs to be :active, :present, :absent, :deleted"}, allow_nil: true
 
-        # @return [String] zone in which to create the disk
+        # @return [String, nil] zone in which to create the disk
         attribute :zone
         validates :zone, type: String
 
-        # @return [Object] service account email
+        # @return [Object, nil] service account email
         attribute :service_account_email
 
-        # @return [Object] path to the pem file associated with the service account email This option is deprecated. Use 'credentials_file'.
+        # @return [Object, nil] path to the pem file associated with the service account email This option is deprecated. Use 'credentials_file'.
         attribute :pem_file
 
-        # @return [Object] path to the JSON file associated with the service account email
+        # @return [Object, nil] path to the JSON file associated with the service account email
         attribute :credentials_file
 
-        # @return [Object] your GCE project ID
+        # @return [Object, nil] your GCE project ID
         attribute :project_id
 
         # @return [:"pd-standard", :"pd-ssd", nil] type of disk provisioned

@@ -30,15 +30,15 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [String] Partition for the monitor
+        # @return [String, nil] Partition for the monitor
         attribute :partition
         validates :partition, type: String
 
-        # @return [String] The parent template of this monitor template
+        # @return [String, nil] The parent template of this monitor template
         attribute :parent
         validates :parent, type: String
 
-        # @return [String] Partition for the parent monitor
+        # @return [String, nil] Partition for the parent monitor
         attribute :parent_partition
         validates :parent_partition, type: String
 
@@ -54,23 +54,23 @@ module Ansible
         attribute :receive_disable
         validates :receive_disable, presence: true, type: String
 
-        # @return [String] IP address part of the ipport definition. The default API setting is "0.0.0.0".
+        # @return [String, nil] IP address part of the ipport definition. The default API setting is "0.0.0.0".
         attribute :ip
         validates :ip, type: String
 
-        # @return [String] port address part op the ipport definition. The default API setting is 0.
+        # @return [String, nil] port address part op the ipport definition. The default API setting is 0.
         attribute :port
         validates :port, type: String
 
-        # @return [String] The interval specifying how frequently the monitor instance of this template will run. By default, this interval is used for up and down states. The default API setting is 5.
+        # @return [String, nil] The interval specifying how frequently the monitor instance of this template will run. By default, this interval is used for up and down states. The default API setting is 5.
         attribute :interval
         validates :interval, type: String
 
-        # @return [String] The number of seconds in which the node or service must respond to the monitor request. If the target responds within the set time period, it is considered up. If the target does not respond within the set time period, it is considered down. You can change this number to any number you want, however, it should be 3 times the interval number of seconds plus 1 second. The default API setting is 16.
+        # @return [String, nil] The number of seconds in which the node or service must respond to the monitor request. If the target responds within the set time period, it is considered up. If the target does not respond within the set time period, it is considered down. You can change this number to any number you want, however, it should be 3 times the interval number of seconds plus 1 second. The default API setting is 16.
         attribute :timeout
         validates :timeout, type: String
 
-        # @return [String] Specifies the amount of time in seconds after the first successful response before a node will be marked up. A value of 0 will cause a node to be marked up immediately after a valid response is received from the node. The default API setting is 0.
+        # @return [String, nil] Specifies the amount of time in seconds after the first successful response before a node will be marked up. A value of 0 will cause a node to be marked up immediately after a valid response is received from the node. The default API setting is 0.
         attribute :time_until_up
         validates :time_until_up, type: String
       end

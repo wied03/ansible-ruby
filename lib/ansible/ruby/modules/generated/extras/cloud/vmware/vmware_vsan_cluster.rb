@@ -6,7 +6,7 @@ module Ansible
   module Ruby
     module Modules
       class Vmware_vsan_cluster < Base
-        # @return [Object] Desired cluster UUID
+        # @return [Object, nil] Desired cluster UUID
         attribute :cluster_uuid
       end
     end

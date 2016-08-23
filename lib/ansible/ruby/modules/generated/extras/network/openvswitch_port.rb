@@ -18,15 +18,15 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [Fixnum] How long to wait for ovs-vswitchd to respond
+        # @return [Integer, nil] How long to wait for ovs-vswitchd to respond
         attribute :timeout
-        validates :timeout, type: Fixnum
+        validates :timeout, type: Integer
 
-        # @return [Hash] Dictionary of external_ids applied to a port.
+        # @return [Hash, nil] Dictionary of external_ids applied to a port.
         attribute :external_ids
         validates :external_ids, type: Hash
 
-        # @return [String] Set a single property on a port.
+        # @return [String, nil] Set a single property on a port.
         attribute :set
         validates :set, type: String
       end

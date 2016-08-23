@@ -10,14 +10,14 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [Object] Whether this network is shared or not.
+        # @return [Object, nil] Whether this network is shared or not.
         attribute :shared
 
-        # @return [TrueClass] Whether the state should be marked as up or down.
+        # @return [TrueClass, nil] Whether the state should be marked as up or down.
         attribute :admin_state_up
         validates :admin_state_up, type: TrueClass
 
-        # @return [TrueClass] Whether this network is externally accessible.
+        # @return [TrueClass, nil] Whether this network is externally accessible.
         attribute :external
         validates :external, type: TrueClass
 
@@ -25,7 +25,7 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [String] The physical network where this network object is implemented.
+        # @return [String, nil] The physical network where this network object is implemented.
         attribute :provider_physical_network
         validates :provider_physical_network, type: String
 
@@ -33,11 +33,11 @@ module Ansible
         attribute :provider_network_type
         validates :provider_network_type, inclusion: {:in=>[:flat, :vlan, :vxlan, :gre], :message=>"%{value} needs to be :flat, :vlan, :vxlan, :gre"}, allow_nil: true
 
-        # @return [String] An isolated segment on the physical network. The I(network_type) attribute defines the segmentation model. For example, if the I(network_type) value is vlan, this ID is a vlan identifier. If the I(network_type) value is gre, this ID is a gre key.
+        # @return [String, nil] An isolated segment on the physical network. The I(network_type) attribute defines the segmentation model. For example, if the I(network_type) value is vlan, this ID is a vlan identifier. If the I(network_type) value is gre, this ID is a gre key.
         attribute :provider_segmentation_id
         validates :provider_segmentation_id, type: String
 
-        # @return [String] Project name or ID containing the network (name admin-only)
+        # @return [String, nil] Project name or ID containing the network (name admin-only)
         attribute :project
         validates :project, type: String
       end

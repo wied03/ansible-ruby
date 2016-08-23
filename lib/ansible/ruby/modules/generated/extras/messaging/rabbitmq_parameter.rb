@@ -14,15 +14,15 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [String] Value of the parameter, as a JSON term
+        # @return [String, nil] Value of the parameter, as a JSON term
         attribute :value
         validates :value, type: String
 
-        # @return [String] vhost to apply access privileges.
+        # @return [String, nil] vhost to apply access privileges.
         attribute :vhost
         validates :vhost, type: String
 
-        # @return [String] erlang node name of the rabbit we wish to configure
+        # @return [String, nil] erlang node name of the rabbit we wish to configure
         attribute :node
         validates :node, type: String
 

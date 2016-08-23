@@ -14,11 +14,11 @@ module Ansible
         attribute :account_email
         validates :account_email, presence: true, type: String
 
-        # @return [Fixnum] Service port. Required for C(type=SRV)
+        # @return [Integer, nil] Service port. Required for C(type=SRV)
         attribute :port
-        validates :port, type: Fixnum
+        validates :port, type: Integer
 
-        # @return [String] Record priority. Required for C(type=MX) and C(type=SRV)
+        # @return [String, nil] Record priority. Required for C(type=MX) and C(type=SRV)
         attribute :priority
         validates :priority, type: String
 
@@ -26,15 +26,15 @@ module Ansible
         attribute :proto
         validates :proto, inclusion: {:in=>[:tcp, :udp], :message=>"%{value} needs to be :tcp, :udp"}, allow_nil: true
 
-        # @return [String] Record to add. Required if C(state=present). Default is C(@) (e.g. the zone name)
+        # @return [String, nil] Record to add. Required if C(state=present). Default is C(@) (e.g. the zone name)
         attribute :record
         validates :record, type: String
 
-        # @return [String] Record service. Required for C(type=SRV)
+        # @return [String, nil] Record service. Required for C(type=SRV)
         attribute :service
         validates :service, type: String
 
-        # @return [TrueClass] Whether the record should be the only one for that record type and record name. Only use with C(state=present),This will delete all other records with the same record name and type.
+        # @return [TrueClass, nil] Whether the record should be the only one for that record type and record name. Only use with C(state=present),This will delete all other records with the same record name and type.
         attribute :solo
         validates :solo, type: TrueClass
 
@@ -42,11 +42,11 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [Fixnum] Timeout for Cloudflare API calls
+        # @return [Integer, nil] Timeout for Cloudflare API calls
         attribute :timeout
-        validates :timeout, type: Fixnum
+        validates :timeout, type: Integer
 
-        # @return [String] The TTL to give the new record. Min 1 (automatic), max 2147483647
+        # @return [String, nil] The TTL to give the new record. Min 1 (automatic), max 2147483647
         attribute :ttl
         validates :ttl, type: String
 
@@ -54,11 +54,11 @@ module Ansible
         attribute :type
         validates :type, inclusion: {:in=>[:A, :AAAA, :CNAME, :TXT, :SRV, :MX, :NS, :SPF], :message=>"%{value} needs to be :A, :AAAA, :CNAME, :TXT, :SRV, :MX, :NS, :SPF"}, allow_nil: true
 
-        # @return [String] The record value. Required for C(state=present)
+        # @return [String, nil] The record value. Required for C(state=present)
         attribute :value
         validates :value, type: String
 
-        # @return [String] Service weight. Required for C(type=SRV)
+        # @return [String, nil] Service weight. Required for C(type=SRV)
         attribute :weight
         validates :weight, type: String
 

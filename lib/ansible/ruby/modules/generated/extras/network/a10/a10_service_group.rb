@@ -6,21 +6,21 @@ module Ansible
   module Ruby
     module Modules
       class A10_service_group < Base
-        # @return [] hostname or ip of your A10 Networks device
+        # @return [String] hostname or ip of your A10 Networks device
         attribute :host
-        validates :host, presence: true, inclusion: {:in=>[], :message=>"%{value} needs to be "}
+        validates :host, presence: true, type: String
 
-        # @return [] admin account of your A10 Networks device
+        # @return [String] admin account of your A10 Networks device
         attribute :username
-        validates :username, presence: true, inclusion: {:in=>[], :message=>"%{value} needs to be "}
+        validates :username, presence: true, type: String
 
-        # @return [] admin password of your A10 Networks device
+        # @return [String] admin password of your A10 Networks device
         attribute :password
-        validates :password, presence: true, inclusion: {:in=>[], :message=>"%{value} needs to be "}
+        validates :password, presence: true, type: String
 
-        # @return [] slb service-group name
+        # @return [String] slb service-group name
         attribute :service_group
-        validates :service_group, presence: true, inclusion: {:in=>[], :message=>"%{value} needs to be "}
+        validates :service_group, presence: true, type: String
 
         # @return [:tcp, :udp, nil] slb service-group protocol
         attribute :service_group_protocol
@@ -30,9 +30,9 @@ module Ansible
         attribute :service_group_method
         validates :service_group_method, inclusion: {:in=>[:"round-robin", :"weighted-rr", :"least-connection", :"weighted-least-connection", :"service-least-connection", :"service-weighted-least-connection", :"fastest-response", :"least-request", :"round-robin-strict", :"src-ip-only-hash", :"src-ip-hash"], :message=>"%{value} needs to be :\"round-robin\", :\"weighted-rr\", :\"least-connection\", :\"weighted-least-connection\", :\"service-least-connection\", :\"service-weighted-least-connection\", :\"fastest-response\", :\"least-request\", :\"round-robin-strict\", :\"src-ip-only-hash\", :\"src-ip-hash\""}, allow_nil: true
 
-        # @return [nil] A list of servers to add to the service group. Each list item should be a dictionary which specifies the C(server:) and C(port:), but can also optionally specify the C(status:). See the examples below for details.
+        # @return [Array, nil] A list of servers to add to the service group. Each list item should be a dictionary which specifies the C(server:) and C(port:), but can also optionally specify the C(status:). See the examples below for details.
         attribute :servers
-        validates :servers, inclusion: {:in=>[], :message=>"%{value} needs to be "}, allow_nil: true
+        validates :servers, type: Array
 
         # @return [:yes, :no, nil] If C(yes), any changes will cause a write of the running configuration to non-volatile memory. This will save I(all) configuration changes, including those that may have been made manually or through other modules, so care should be taken when specifying C(yes).
         attribute :write_config

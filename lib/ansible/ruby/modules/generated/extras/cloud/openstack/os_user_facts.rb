@@ -10,11 +10,11 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [String] Name or ID of the domain containing the user if the cloud supports domains
+        # @return [String, nil] Name or ID of the domain containing the user if the cloud supports domains
         attribute :domain
         validates :domain, type: String
 
-        # @return [String] A dictionary of meta data to use for further filtering.  Elements of this dictionary may be additional dictionaries.
+        # @return [String, nil] A dictionary of meta data to use for further filtering.  Elements of this dictionary may be additional dictionaries.
         attribute :filters
         validates :filters, type: String
       end

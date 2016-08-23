@@ -10,11 +10,11 @@ module Ansible
         attribute :details
         validates :details, inclusion: {:in=>[:true, :false], :message=>"%{value} needs to be :true, :false"}, allow_nil: true
 
-        # @return [String] The cluster ARNS in which to list the services.
+        # @return [String, nil] The cluster ARNS in which to list the services.
         attribute :cluster
         validates :cluster, type: String
 
-        # @return [String] The service to get details for (required if details is true)
+        # @return [String, nil] The service to get details for (required if details is true)
         attribute :service
         validates :service, type: String
       end

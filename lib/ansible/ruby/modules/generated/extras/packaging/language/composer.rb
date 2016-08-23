@@ -6,11 +6,11 @@ module Ansible
   module Ruby
     module Modules
       class Composer < Base
-        # @return [String] Composer command like "install", "update" and so on
+        # @return [String, nil] Composer command like "install", "update" and so on
         attribute :command
         validates :command, type: String
 
-        # @return [String] Composer arguments like required package, version and so on
+        # @return [String, nil] Composer arguments like required package, version and so on
         attribute :arguments
         validates :arguments, type: String
 

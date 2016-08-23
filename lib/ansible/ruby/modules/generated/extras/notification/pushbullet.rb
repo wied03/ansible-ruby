@@ -10,11 +10,11 @@ module Ansible
         attribute :api_key
         validates :api_key, presence: true, type: String
 
-        # @return [String] The channel TAG you wish to broadcast a push notification, as seen on the "My Channels" > "Edit your channel" at Pushbullet page.
+        # @return [String, nil] The channel TAG you wish to broadcast a push notification, as seen on the "My Channels" > "Edit your channel" at Pushbullet page.
         attribute :channel
         validates :channel, type: String
 
-        # @return [String] The device NAME you wish to send a push notification, as seen on the Pushbullet main page.
+        # @return [String, nil] The device NAME you wish to send a push notification, as seen on the Pushbullet main page.
         attribute :device
         validates :device, type: String
 
@@ -26,7 +26,7 @@ module Ansible
         attribute :title
         validates :title, presence: true, type: String
 
-        # @return [String] Body of the notification, e.g. Details of the fault you're alerting.
+        # @return [String, nil] Body of the notification, e.g. Details of the fault you're alerting.
         attribute :body
         validates :body, type: String
       end

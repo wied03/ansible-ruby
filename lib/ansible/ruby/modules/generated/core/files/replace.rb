@@ -14,7 +14,7 @@ module Ansible
         attribute :regexp
         validates :regexp, presence: true, type: String
 
-        # @return [String] The string to replace regexp matches. May contain backreferences that will get expanded with the regexp capture groups if the regexp matches. If not set, matches are removed entirely.
+        # @return [String, nil] The string to replace regexp matches. May contain backreferences that will get expanded with the regexp capture groups if the regexp matches. If not set, matches are removed entirely.
         attribute :replace
         validates :replace, type: String
 
@@ -22,7 +22,7 @@ module Ansible
         attribute :backup
         validates :backup, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [Object] All arguments accepted by the M(file) module also work here.
+        # @return [Object, nil] All arguments accepted by the M(file) module also work here.
         attribute :others
 
         # @return [:yes, :no, nil] This flag indicates that filesystem links, if they exist, should be followed.

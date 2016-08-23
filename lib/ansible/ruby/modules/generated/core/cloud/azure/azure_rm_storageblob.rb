@@ -10,7 +10,7 @@ module Ansible
         attribute :storage_account_name
         validates :storage_account_name, presence: true, type: String
 
-        # @return [String] Name of a blob object within the container.
+        # @return [String, nil] Name of a blob object within the container.
         attribute :blob
         validates :blob, type: String
 
@@ -18,37 +18,37 @@ module Ansible
         attribute :container
         validates :container, presence: true, type: String
 
-        # @return [String] Set the blob content-type header. For example, 'image/png'.
+        # @return [String, nil] Set the blob content-type header. For example, 'image/png'.
         attribute :content_type
         validates :content_type, type: String
 
-        # @return [Object] Set the blob cache-control header.
+        # @return [Object, nil] Set the blob cache-control header.
         attribute :cache_control
 
-        # @return [Object] Set the blob content-disposition header.
+        # @return [Object, nil] Set the blob content-disposition header.
         attribute :content_disposition
 
-        # @return [Object] Set the blob encoding header.
+        # @return [Object, nil] Set the blob encoding header.
         attribute :content_encoding
 
-        # @return [Object] Set the blob content-language header.
+        # @return [Object, nil] Set the blob content-language header.
         attribute :content_language
 
-        # @return [Object] Set the blob md5 hash value.
+        # @return [Object, nil] Set the blob md5 hash value.
         attribute :content_md5
 
-        # @return [String] Destination file path. Use with state 'present' to download a blob.
+        # @return [String, nil] Destination file path. Use with state 'present' to download a blob.
         attribute :dest
         validates :dest, type: String
 
-        # @return [Object] Overwrite existing blob or file when uploading or downloading. Force deletion of a container that contains blobs.
+        # @return [Object, nil] Overwrite existing blob or file when uploading or downloading. Force deletion of a container that contains blobs.
         attribute :force
 
         # @return [String] Name of the resource group to use.
         attribute :resource_group
         validates :resource_group, presence: true, type: String
 
-        # @return [String] Source file path. Use with state 'present' to upload a blob.
+        # @return [String, nil] Source file path. Use with state 'present' to upload a blob.
         attribute :src
         validates :src, type: String
 

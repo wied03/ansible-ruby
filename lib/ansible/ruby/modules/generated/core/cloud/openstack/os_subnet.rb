@@ -10,7 +10,7 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [String] Name of the network to which the subnet should be attached,requried when I(state) is 'present'
+        # @return [String, nil] Name of the network to which the subnet should be attached,requried when I(state) is 'present'
         attribute :network_name
         validates :network_name, type: String
 
@@ -18,35 +18,35 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [String] The CIDR representation of the subnet that should be assigned to the subnet. Required when I(state) is 'present'
+        # @return [String, nil] The CIDR representation of the subnet that should be assigned to the subnet. Required when I(state) is 'present'
         attribute :cidr
         validates :cidr, type: String
 
-        # @return [Fixnum] The IP version of the subnet 4 or 6
+        # @return [Integer, nil] The IP version of the subnet 4 or 6
         attribute :ip_version
-        validates :ip_version, type: Fixnum
+        validates :ip_version, type: Integer
 
-        # @return [TrueClass] Whether DHCP should be enabled for this subnet.
+        # @return [TrueClass, nil] Whether DHCP should be enabled for this subnet.
         attribute :enable_dhcp
         validates :enable_dhcp, type: TrueClass
 
-        # @return [String] The ip that would be assigned to the gateway for this subnet
+        # @return [String, nil] The ip that would be assigned to the gateway for this subnet
         attribute :gateway_ip
         validates :gateway_ip, type: String
 
-        # @return [String] List of DNS nameservers for this subnet.
+        # @return [String, nil] List of DNS nameservers for this subnet.
         attribute :dns_nameservers
         validates :dns_nameservers, type: String
 
-        # @return [String] From the subnet pool the starting address from which the IP should be allocated.
+        # @return [String, nil] From the subnet pool the starting address from which the IP should be allocated.
         attribute :allocation_pool_start
         validates :allocation_pool_start, type: String
 
-        # @return [String] From the subnet pool the last IP that should be assigned to the virtual machines.
+        # @return [String, nil] From the subnet pool the last IP that should be assigned to the virtual machines.
         attribute :allocation_pool_end
         validates :allocation_pool_end, type: String
 
-        # @return [String] A list of host route dictionaries for the subnet.
+        # @return [String, nil] A list of host route dictionaries for the subnet.
         attribute :host_routes
         validates :host_routes, type: String
 
@@ -58,7 +58,7 @@ module Ansible
         attribute :ipv6_address_mode
         validates :ipv6_address_mode, inclusion: {:in=>[:"dhcpv6-stateful", :"dhcpv6-stateless", :slaac], :message=>"%{value} needs to be :\"dhcpv6-stateful\", :\"dhcpv6-stateless\", :slaac"}, allow_nil: true
 
-        # @return [String] Project name or ID containing the subnet (name admin-only)
+        # @return [String, nil] Project name or ID containing the subnet (name admin-only)
         attribute :project
         validates :project, type: String
       end

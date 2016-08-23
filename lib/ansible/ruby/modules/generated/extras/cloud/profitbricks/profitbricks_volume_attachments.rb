@@ -18,19 +18,19 @@ module Ansible
         attribute :volume
         validates :volume, presence: true, type: String
 
-        # @return [Object] The ProfitBricks username. Overrides the PB_SUBSCRIPTION_ID environement variable.
+        # @return [Object, nil] The ProfitBricks username. Overrides the PB_SUBSCRIPTION_ID environement variable.
         attribute :subscription_user
 
-        # @return [Object] THe ProfitBricks password. Overrides the PB_PASSWORD environement variable.
+        # @return [Object, nil] THe ProfitBricks password. Overrides the PB_PASSWORD environement variable.
         attribute :subscription_password
 
         # @return [:yes, :no, nil] wait for the operation to complete before returning
         attribute :wait
         validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [Fixnum] how long before wait gives up, in seconds
+        # @return [Integer, nil] how long before wait gives up, in seconds
         attribute :wait_timeout
-        validates :wait_timeout, type: Fixnum
+        validates :wait_timeout, type: Integer
 
         # @return [:present, :absent, nil] Indicate desired state of the resource
         attribute :state

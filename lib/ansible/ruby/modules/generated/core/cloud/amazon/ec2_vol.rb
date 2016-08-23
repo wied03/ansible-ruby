@@ -6,34 +6,34 @@ module Ansible
   module Ruby
     module Modules
       class Ec2_vol < Base
-        # @return [String] instance ID if you wish to attach the volume. Since 1.9 you can set to None to detach.
+        # @return [String, nil] instance ID if you wish to attach the volume. Since 1.9 you can set to None to detach.
         attribute :instance
         validates :instance, type: String
 
-        # @return [String] volume Name tag if you wish to attach an existing volume (requires instance)
+        # @return [String, nil] volume Name tag if you wish to attach an existing volume (requires instance)
         attribute :name
         validates :name, type: String
 
-        # @return [String] volume id if you wish to attach an existing volume (requires instance) or remove an existing volume
+        # @return [String, nil] volume id if you wish to attach an existing volume (requires instance) or remove an existing volume
         attribute :id
         validates :id, type: String
 
-        # @return [Fixnum] size of volume (in GB) to create.
+        # @return [Integer, nil] size of volume (in GB) to create.
         attribute :volume_size
-        validates :volume_size, type: Fixnum
+        validates :volume_size, type: Integer
 
-        # @return [String] Type of EBS volume; standard (magnetic), gp2 (SSD), io1 (Provisioned IOPS). "Standard" is the old EBS default and continues to remain the Ansible default for backwards compatibility.
+        # @return [String, nil] Type of EBS volume; standard (magnetic), gp2 (SSD), io1 (Provisioned IOPS). "Standard" is the old EBS default and continues to remain the Ansible default for backwards compatibility.
         attribute :volume_type
         validates :volume_type, type: String
 
-        # @return [Fixnum] the provisioned IOPs you want to associate with this volume (integer).
+        # @return [Integer, nil] the provisioned IOPs you want to associate with this volume (integer).
         attribute :iops
-        validates :iops, type: Fixnum
+        validates :iops, type: Integer
 
-        # @return [Object] Enable encryption at rest for this volume.
+        # @return [Object, nil] Enable encryption at rest for this volume.
         attribute :encrypted
 
-        # @return [String] device id to override device mapping. Assumes /dev/sdf for Linux/UNIX and /dev/xvdf for Windows.
+        # @return [String, nil] device id to override device mapping. Assumes /dev/sdf for Linux/UNIX and /dev/xvdf for Windows.
         attribute :device_name
         validates :device_name, type: String
 
@@ -41,11 +41,11 @@ module Ansible
         attribute :delete_on_termination
         validates :delete_on_termination, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String] zone in which to create the volume, if unset uses the zone the instance is in (if set)
+        # @return [String, nil] zone in which to create the volume, if unset uses the zone the instance is in (if set)
         attribute :zone
         validates :zone, type: String
 
-        # @return [String] snapshot ID on which to base the volume
+        # @return [String, nil] snapshot ID on which to base the volume
         attribute :snapshot
         validates :snapshot, type: String
 

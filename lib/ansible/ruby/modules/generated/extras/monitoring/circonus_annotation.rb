@@ -22,15 +22,15 @@ module Ansible
         attribute :title
         validates :title, presence: true, type: String
 
-        # @return [Object] Unix timestamp of event start, defaults to now
+        # @return [Object, nil] Unix timestamp of event start, defaults to now
         attribute :start
 
-        # @return [Object] Unix timestamp of event end, defaults to now + duration
+        # @return [Object, nil] Unix timestamp of event end, defaults to now + duration
         attribute :stop
 
-        # @return [Fixnum] Duration in seconds of annotation, defaults to 0
+        # @return [Integer, nil] Duration in seconds of annotation, defaults to 0
         attribute :duration
-        validates :duration, type: Fixnum
+        validates :duration, type: Integer
       end
     end
   end

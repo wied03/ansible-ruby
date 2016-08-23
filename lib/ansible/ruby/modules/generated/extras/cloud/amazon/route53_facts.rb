@@ -10,38 +10,38 @@ module Ansible
         attribute :query
         validates :query, presence: true, inclusion: {:in=>[:change, :checker_ip_range, :health_check, :hosted_zone, :record_sets, :reusable_delegation_set], :message=>"%{value} needs to be :change, :checker_ip_range, :health_check, :hosted_zone, :record_sets, :reusable_delegation_set"}
 
-        # @return [Object] The ID of the change batch request. The value that you specify here is the value that ChangeResourceRecordSets returned in the Id element when you submitted the request.
+        # @return [Object, nil] The ID of the change batch request. The value that you specify here is the value that ChangeResourceRecordSets returned in the Id element when you submitted the request.
         attribute :change_id
 
-        # @return [String] The Hosted Zone ID of the DNS zone
+        # @return [String, nil] The Hosted Zone ID of the DNS zone
         attribute :hosted_zone_id
         validates :hosted_zone_id, type: String
 
-        # @return [Fixnum] Maximum number of items to return for various get/list requests
+        # @return [Integer, nil] Maximum number of items to return for various get/list requests
         attribute :max_items
-        validates :max_items, type: Fixnum
+        validates :max_items, type: Integer
 
-        # @return [Object] Some requests such as list_command: hosted_zones will return a maximum number of entries - EG 100. If the number of entries exceeds this maximum another request can be sent using the NextMarker entry from the first response to get the next page of results
+        # @return [Object, nil] Some requests such as list_command: hosted_zones will return a maximum number of entries - EG 100. If the number of entries exceeds this maximum another request can be sent using the NextMarker entry from the first response to get the next page of results
         attribute :next_marker
 
-        # @return [String] The DNS Zone delegation set ID
+        # @return [String, nil] The DNS Zone delegation set ID
         attribute :delegation_set_id
         validates :delegation_set_id, type: String
 
-        # @return [Object] The first name in the lexicographic ordering of domain names that you want the list_command: record_sets to start listing from
+        # @return [Object, nil] The first name in the lexicographic ordering of domain names that you want the list_command: record_sets to start listing from
         attribute :start_record_name
 
         # @return [:A, :CNAME, :MX, :AAAA, :TXT, :PTR, :SRV, :SPF, :NS, nil] The type of DNS record
         attribute :type
         validates :type, inclusion: {:in=>[:A, :CNAME, :MX, :AAAA, :TXT, :PTR, :SRV, :SPF, :NS], :message=>"%{value} needs to be :A, :CNAME, :MX, :AAAA, :TXT, :PTR, :SRV, :SPF, :NS"}, allow_nil: true
 
-        # @return [Object] The first name in the lexicographic ordering of domain names that you want the list_command to start listing from
+        # @return [Object, nil] The first name in the lexicographic ordering of domain names that you want the list_command to start listing from
         attribute :dns_name
 
-        # @return [Object] The ID/s of the specified resource/s
+        # @return [Object, nil] The ID/s of the specified resource/s
         attribute :resource_id
 
-        # @return [String] The ID of the health check
+        # @return [String, nil] The ID of the health check
         attribute :health_check_id
         validates :health_check_id, type: String
 

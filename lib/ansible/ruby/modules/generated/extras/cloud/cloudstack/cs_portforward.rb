@@ -10,7 +10,7 @@ module Ansible
         attribute :ip_address
         validates :ip_address, presence: true, type: String
 
-        # @return [String] Name of virtual machine which we make the port forwarding rule for.,Required if C(state=present).
+        # @return [String, nil] Name of virtual machine which we make the port forwarding rule for.,Required if C(state=present).
         attribute :vm
         validates :vm, type: String
 
@@ -22,40 +22,40 @@ module Ansible
         attribute :protocol
         validates :protocol, inclusion: {:in=>[:tcp, :udp], :message=>"%{value} needs to be :tcp, :udp"}, allow_nil: true
 
-        # @return [Fixnum] Start public port for this rule.
+        # @return [Integer] Start public port for this rule.
         attribute :public_port
-        validates :public_port, presence: true, type: Fixnum
+        validates :public_port, presence: true, type: Integer
 
-        # @return [Object] End public port for this rule.,If not specified equal C(public_port).
+        # @return [Object, nil] End public port for this rule.,If not specified equal C(public_port).
         attribute :public_end_port
 
-        # @return [Fixnum] Start private port for this rule.
+        # @return [Integer] Start private port for this rule.
         attribute :private_port
-        validates :private_port, presence: true, type: Fixnum
+        validates :private_port, presence: true, type: Integer
 
-        # @return [Object] End private port for this rule.,If not specified equal C(private_port).
+        # @return [Object, nil] End private port for this rule.,If not specified equal C(private_port).
         attribute :private_end_port
 
-        # @return [TrueClass] Whether the firewall rule for public port should be created, while creating the new rule.,Use M(cs_firewall) for managing firewall rules.
+        # @return [TrueClass, nil] Whether the firewall rule for public port should be created, while creating the new rule.,Use M(cs_firewall) for managing firewall rules.
         attribute :open_firewall
         validates :open_firewall, type: TrueClass
 
-        # @return [Object] VM guest NIC secondary IP address for the port forwarding rule.
+        # @return [Object, nil] VM guest NIC secondary IP address for the port forwarding rule.
         attribute :vm_guest_ip
 
-        # @return [Object] Domain the C(vm) is related to.
+        # @return [Object, nil] Domain the C(vm) is related to.
         attribute :domain
 
-        # @return [Object] Account the C(vm) is related to.
+        # @return [Object, nil] Account the C(vm) is related to.
         attribute :account
 
-        # @return [Object] Name of the project the C(vm) is located in.
+        # @return [Object, nil] Name of the project the C(vm) is located in.
         attribute :project
 
-        # @return [Object] Name of the zone in which the virtual machine is in.,If not set, default zone is used.
+        # @return [Object, nil] Name of the zone in which the virtual machine is in.,If not set, default zone is used.
         attribute :zone
 
-        # @return [TrueClass] Poll async jobs until job has finished.
+        # @return [TrueClass, nil] Poll async jobs until job has finished.
         attribute :poll_async
         validates :poll_async, type: TrueClass
       end

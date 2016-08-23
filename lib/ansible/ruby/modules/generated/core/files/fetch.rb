@@ -22,7 +22,7 @@ module Ansible
         attribute :validate_checksum
         validates :validate_checksum, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String] Allows you to override the default behavior of appending hostname/path/to/file to the destination.  If dest ends with '/', it will use the basename of the source file, similar to the copy module. Obviously this is only handy if the filenames are unique.
+        # @return [String, nil] Allows you to override the default behavior of appending hostname/path/to/file to the destination.  If dest ends with '/', it will use the basename of the source file, similar to the copy module. Obviously this is only handy if the filenames are unique.
         attribute :flat
         validates :flat, type: String
       end

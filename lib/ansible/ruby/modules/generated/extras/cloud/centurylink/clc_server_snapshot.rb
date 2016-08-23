@@ -10,9 +10,9 @@ module Ansible
         attribute :server_ids
         validates :server_ids, presence: true, type: Array
 
-        # @return [Fixnum] The number of days to keep the server snapshot before it expires.
+        # @return [Integer, nil] The number of days to keep the server snapshot before it expires.
         attribute :expiration_days
-        validates :expiration_days, type: Fixnum
+        validates :expiration_days, type: Integer
 
         # @return [:present, :absent, :restore, nil] The state to insure that the provided resources are in.
         attribute :state

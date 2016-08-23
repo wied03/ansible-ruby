@@ -18,17 +18,17 @@ module Ansible
         attribute :cached
         validates :cached, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String] a comma-separated list of keyvalue-pairs of the form <+/-/:><key>[=<value>]. A '+' denotes adding an annotation, a '-' denotes removing an annotation, and ':' denotes modifying an annotation. If setting or modifying annotations, a value must be provided.
+        # @return [String, nil] a comma-separated list of keyvalue-pairs of the form <+/-/:><key>[=<value>]. A '+' denotes adding an annotation, a '-' denotes removing an annotation, and ':' denotes modifying an annotation. If setting or modifying annotations, a value must be provided.
         attribute :annotation
         validates :annotation, type: String
 
-        # @return [Object] for pkgng versions before 1.1.4, specify packagesite to use for downloading packages, if not specified, use settings from /usr/local/etc/pkg.conf for newer pkgng versions, specify a the name of a repository configured in /usr/local/etc/pkg/repos
+        # @return [Object, nil] for pkgng versions before 1.1.4, specify packagesite to use for downloading packages, if not specified, use settings from /usr/local/etc/pkg.conf for newer pkgng versions, specify a the name of a repository configured in /usr/local/etc/pkg/repos
         attribute :pkgsite
 
-        # @return [Object] for pkgng versions 1.5 and later, pkg will install all packages within the specified root directory,can not be used together with 'chroot' option
+        # @return [Object, nil] for pkgng versions 1.5 and later, pkg will install all packages within the specified root directory,can not be used together with 'chroot' option
         attribute :rootdir
 
-        # @return [Object] pkg will chroot in the specified environment,can not be used together with 'rootdir' option
+        # @return [Object, nil] pkg will chroot in the specified environment,can not be used together with 'rootdir' option
         attribute :chroot
       end
     end

@@ -6,11 +6,11 @@ module Ansible
   module Ruby
     module Modules
       class Os_server_facts < Base
-        # @return [String] restrict results to servers with names matching this glob expression (e.g., C<web*>).
+        # @return [String, nil] restrict results to servers with names matching this glob expression (e.g., C<web*>).
         attribute :server
         validates :server, type: String
 
-        # @return [Object] when true, return additional detail about servers at the expense of additional API calls.
+        # @return [Object, nil] when true, return additional detail about servers at the expense of additional API calls.
         attribute :detailed
       end
     end

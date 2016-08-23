@@ -10,7 +10,7 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [String] set the user's password.
+        # @return [String, nil] set the user's password.
         attribute :password
         validates :password, type: String
 
@@ -18,7 +18,7 @@ module Ansible
         attribute :encrypted
         validates :encrypted, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String] the 'host' part of the MySQL username
+        # @return [String, nil] the 'host' part of the MySQL username
         attribute :host
         validates :host, type: String
 
@@ -26,7 +26,7 @@ module Ansible
         attribute :host_all
         validates :host_all, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String] MySQL privileges string in the format: C(db.table:priv1,priv2)
+        # @return [String, nil] MySQL privileges string in the format: C(db.table:priv1,priv2)
         attribute :priv
         validates :priv, type: String
 

@@ -22,7 +22,7 @@ module Ansible
         attribute :default
         validates :default, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String] actual user or group that the ACL applies to when matching entity types user or group are selected.
+        # @return [String, nil] actual user or group that the ACL applies to when matching entity types user or group are selected.
         attribute :entity
         validates :entity, type: String
 
@@ -30,11 +30,11 @@ module Ansible
         attribute :etype
         validates :etype, inclusion: {:in=>[:user, :group, :mask, :other], :message=>"%{value} needs to be :user, :group, :mask, :other"}, allow_nil: true
 
-        # @return [String] Permissions to apply/remove can be any combination of r, w and  x (read, write and execute respectively)
+        # @return [String, nil] Permissions to apply/remove can be any combination of r, w and  x (read, write and execute respectively)
         attribute :permissions
         validates :permissions, type: String
 
-        # @return [String] DEPRECATED. The acl to set or remove.  This must always be quoted in the form of '<etype>:<qualifier>:<perms>'.  The qualifier may be empty for some types, but the type and perms are always requried. '-' can be used as placeholder when you do not care about permissions. This is now superseded by entity, type and permissions fields.
+        # @return [String, nil] DEPRECATED. The acl to set or remove.  This must always be quoted in the form of '<etype>:<qualifier>:<perms>'.  The qualifier may be empty for some types, but the type and perms are always requried. '-' can be used as placeholder when you do not care about permissions. This is now superseded by entity, type and permissions fields.
         attribute :entry
         validates :entry, type: String
 

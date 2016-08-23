@@ -10,31 +10,31 @@ module Ansible
         attribute :bucket
         validates :bucket, presence: true, type: String
 
-        # @return [String] Keyname of the object inside the bucket. Can be also be used to create "virtual directories" (see examples).
+        # @return [String, nil] Keyname of the object inside the bucket. Can be also be used to create "virtual directories" (see examples).
         attribute :object
         validates :object, type: String
 
-        # @return [String] The source file path when performing a PUT operation.
+        # @return [String, nil] The source file path when performing a PUT operation.
         attribute :src
         validates :src, type: String
 
-        # @return [String] The destination file path when downloading an object/key with a GET operation.
+        # @return [String, nil] The destination file path when downloading an object/key with a GET operation.
         attribute :dest
         validates :dest, type: String
 
-        # @return [TrueClass] Forces an overwrite either locally on the filesystem or remotely with the object/key. Used with PUT and GET operations.
+        # @return [TrueClass, nil] Forces an overwrite either locally on the filesystem or remotely with the object/key. Used with PUT and GET operations.
         attribute :force
         validates :force, type: TrueClass
 
-        # @return [String] This option let's the user set the canned permissions on the object/bucket that are created. The permissions that can be set are 'private', 'public-read', 'authenticated-read'.
+        # @return [String, nil] This option let's the user set the canned permissions on the object/bucket that are created. The permissions that can be set are 'private', 'public-read', 'authenticated-read'.
         attribute :permission
         validates :permission, type: String
 
-        # @return [String] Headers to attach to object.
+        # @return [String, nil] Headers to attach to object.
         attribute :headers
         validates :headers, type: String
 
-        # @return [Object] Time limit (in seconds) for the URL generated and returned by GCA when performing a mode=put or mode=get_url operation. This url is only available when public-read is the acl for the object.
+        # @return [Object, nil] Time limit (in seconds) for the URL generated and returned by GCA when performing a mode=put or mode=get_url operation. This url is only available when public-read is the acl for the object.
         attribute :expiration
 
         # @return [:get, :put, :get_url, :get_str, :delete, :create] Switches the module behaviour between upload, download, get_url (return download url) , get_str (download object as string), create (bucket) and delete (bucket).

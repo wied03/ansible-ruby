@@ -10,17 +10,17 @@ module Ansible
         attribute :resource_type
         validates :resource_type, presence: true, inclusion: {:in=>[:instance, :ip_address, :volume, :snapshot, :template, :network, :vpc, :cpu, :memory, :primary_storage, :secondary_storage], :message=>"%{value} needs to be :instance, :ip_address, :volume, :snapshot, :template, :network, :vpc, :cpu, :memory, :primary_storage, :secondary_storage"}
 
-        # @return [Fixnum] Maximum number of the resource.,Default is unlimited C(-1).
+        # @return [Integer, nil] Maximum number of the resource.,Default is unlimited C(-1).
         attribute :limit
-        validates :limit, type: Fixnum
+        validates :limit, type: Integer
 
-        # @return [Object] Domain the resource is related to.
+        # @return [Object, nil] Domain the resource is related to.
         attribute :domain
 
-        # @return [Object] Account the resource is related to.
+        # @return [Object, nil] Account the resource is related to.
         attribute :account
 
-        # @return [Object] Name of the project the resource is related to.
+        # @return [Object, nil] Name of the project the resource is related to.
         attribute :project
       end
     end

@@ -14,7 +14,7 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [String] Modules parameters.
+        # @return [String, nil] Modules parameters.
         attribute :params
         validates :params, type: String
       end

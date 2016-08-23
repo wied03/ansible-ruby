@@ -14,19 +14,19 @@ module Ansible
         attribute :db
         validates :db, presence: true, type: String
 
-        # @return [Object] The username used to authenticate with
+        # @return [Object, nil] The username used to authenticate with
         attribute :login_user
 
-        # @return [Object] The password used to authenticate with
+        # @return [Object, nil] The password used to authenticate with
         attribute :login_password
 
-        # @return [String] Host running the database
+        # @return [String, nil] Host running the database
         attribute :login_host
         validates :login_host, type: String
 
-        # @return [Fixnum] Database port to connect to.
+        # @return [Integer, nil] Database port to connect to.
         attribute :port
-        validates :port, type: Fixnum
+        validates :port, type: Integer
 
         # @return [:present, :absent, nil] The database extension state
         attribute :state

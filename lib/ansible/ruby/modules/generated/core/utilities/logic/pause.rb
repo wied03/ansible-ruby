@@ -6,14 +6,14 @@ module Ansible
   module Ruby
     module Modules
       class Pause < Base
-        # @return [String] Number of minutes to pause for.
+        # @return [String, nil] Number of minutes to pause for.
         attribute :minutes
         validates :minutes, type: String
 
-        # @return [Object] Number of seconds to pause for.
+        # @return [Object, nil] Number of seconds to pause for.
         attribute :seconds
 
-        # @return [String] Optional text to use for the prompt message.
+        # @return [String, nil] Optional text to use for the prompt message.
         attribute :prompt
         validates :prompt, type: String
       end

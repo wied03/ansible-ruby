@@ -14,13 +14,13 @@ module Ansible
         attribute :label
         validates :label, presence: true
 
-        # @return [Object] Notification list to use when the alarm state is CRITICAL. Must be an array of valid rax_mon_notification ids.
+        # @return [Object, nil] Notification list to use when the alarm state is CRITICAL. Must be an array of valid rax_mon_notification ids.
         attribute :critical_state
 
-        # @return [Object] Notification list to use when the alarm state is WARNING. Must be an array of valid rax_mon_notification ids.
+        # @return [Object, nil] Notification list to use when the alarm state is WARNING. Must be an array of valid rax_mon_notification ids.
         attribute :warning_state
 
-        # @return [Object] Notification list to use when the alarm state is OK. Must be an array of valid rax_mon_notification ids.
+        # @return [Object, nil] Notification list to use when the alarm state is OK. Must be an array of valid rax_mon_notification ids.
         attribute :ok_state
       end
     end

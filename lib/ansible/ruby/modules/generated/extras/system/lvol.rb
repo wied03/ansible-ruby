@@ -14,7 +14,7 @@ module Ansible
         attribute :lv
         validates :lv, presence: true, type: String
 
-        # @return [String] The size of the logical volume, according to lvcreate(8) --size, by default in megabytes or optionally with one of [bBsSkKmMgGtTpPeE] units; or according to lvcreate(8) --extents as a percentage of [VG|PVS|FREE]; Float values must begin with a digit. Resizing using percentage values was not supported prior to 2.1.
+        # @return [String, nil] The size of the logical volume, according to lvcreate(8) --size, by default in megabytes or optionally with one of [bBsSkKmMgGtTpPeE] units; or according to lvcreate(8) --extents as a percentage of [VG|PVS|FREE]; Float values must begin with a digit. Resizing using percentage values was not supported prior to 2.1.
         attribute :size
         validates :size, type: String
 
@@ -26,11 +26,11 @@ module Ansible
         attribute :force
         validates :force, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String] Free-form options to be passed to the lvcreate command
+        # @return [String, nil] Free-form options to be passed to the lvcreate command
         attribute :opts
         validates :opts, type: String
 
-        # @return [String] The name of the snapshot volume
+        # @return [String, nil] The name of the snapshot volume
         attribute :snapshot
         validates :snapshot, type: String
       end

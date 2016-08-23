@@ -18,10 +18,10 @@ module Ansible
         attribute :policy_name
         validates :policy_name, presence: true, type: String
 
-        # @return [Object] The path to the properly json formatted policy file (mutually exclusive with C(policy_json))
+        # @return [Object, nil] The path to the properly json formatted policy file (mutually exclusive with C(policy_json))
         attribute :policy_document
 
-        # @return [Array<String>] A properly json formatted policy as string (mutually exclusive with C(policy_document), see https://github.com/ansible/ansible/issues/7005#issuecomment-42894813 on how to use it properly)
+        # @return [Array<String>, nil] A properly json formatted policy as string (mutually exclusive with C(policy_document), see https://github.com/ansible/ansible/issues/7005#issuecomment-42894813 on how to use it properly)
         attribute :policy_json, flat_array: true
         validates :policy_json, type: TypeGeneric.new(String)
 
@@ -29,7 +29,7 @@ module Ansible
         attribute :state
         validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
 
-        # @return [String] By default the module looks for any policies that match the document you pass in, if there is a match it will not make a new policy object with the same rules. You can override this by specifying false which would allow for two policy objects with different names but same rules.
+        # @return [String, nil] By default the module looks for any policies that match the document you pass in, if there is a match it will not make a new policy object with the same rules. You can override this by specifying false which would allow for two policy objects with different names but same rules.
         attribute :skip_duplicates
         validates :skip_duplicates, type: String
       end

@@ -6,19 +6,19 @@ module Ansible
   module Ruby
     module Modules
       class Rax_cdb < Base
-        # @return [String] Name of the databases server instance
+        # @return [String, nil] Name of the databases server instance
         attribute :name
         validates :name, type: String
 
-        # @return [Fixnum] flavor to use for the instance 1 to 6 (i.e. 512MB to 16GB)
+        # @return [Integer, nil] flavor to use for the instance 1 to 6 (i.e. 512MB to 16GB)
         attribute :flavor
-        validates :flavor, type: Fixnum
+        validates :flavor, type: Integer
 
-        # @return [Fixnum] Volume size of the database 1-150GB
+        # @return [Integer, nil] Volume size of the database 1-150GB
         attribute :volume
-        validates :volume, type: Fixnum
+        validates :volume, type: Integer
 
-        # @return [String] type of instance (i.e. MySQL, MariaDB, Percona)
+        # @return [String, nil] type of instance (i.e. MySQL, MariaDB, Percona)
         attribute :cdb_type
         validates :cdb_type, type: String
 
@@ -34,9 +34,9 @@ module Ansible
         attribute :wait
         validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [Fixnum] how long before wait gives up, in seconds
+        # @return [Integer, nil] how long before wait gives up, in seconds
         attribute :wait_timeout
-        validates :wait_timeout, type: Fixnum
+        validates :wait_timeout, type: Integer
       end
     end
   end

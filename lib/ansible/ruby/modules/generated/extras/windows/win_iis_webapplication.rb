@@ -18,10 +18,10 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [Object] The physical path on the remote host to use for the new applicatiojn. The specified folder must already exist.
+        # @return [Object, nil] The physical path on the remote host to use for the new applicatiojn. The specified folder must already exist.
         attribute :physical_path
 
-        # @return [Object] The application pool in which the new site executes.
+        # @return [Object, nil] The application pool in which the new site executes.
         attribute :application_pool
       end
     end

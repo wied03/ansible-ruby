@@ -10,11 +10,11 @@ module Ansible
         attribute :deployment
         validates :deployment, presence: true, type: String
 
-        # @return [String] The remote path of the application ear or war to deploy
+        # @return [String, nil] The remote path of the application ear or war to deploy
         attribute :src
         validates :src, type: String
 
-        # @return [String] The location in the filesystem where the deployment scanner listens
+        # @return [String, nil] The location in the filesystem where the deployment scanner listens
         attribute :deploy_path
         validates :deploy_path, type: String
 

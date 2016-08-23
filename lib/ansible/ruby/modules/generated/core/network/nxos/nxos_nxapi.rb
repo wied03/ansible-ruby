@@ -10,23 +10,23 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:started, :stopped], :message=>"%{value} needs to be :started, :stopped"}, allow_nil: true
 
-        # @return [Fixnum] Port on which the HTTP server will listen.
+        # @return [Integer, nil] Port on which the HTTP server will listen.
         attribute :http_port
-        validates :http_port, type: Fixnum
+        validates :http_port, type: Integer
 
-        # @return [Fixnum] Port on which the HTTPS server will listen.
+        # @return [Integer, nil] Port on which the HTTPS server will listen.
         attribute :https_port
-        validates :https_port, type: Fixnum
+        validates :https_port, type: Integer
 
-        # @return [TrueClass] Enable/disable HTTP server.
+        # @return [TrueClass, nil] Enable/disable HTTP server.
         attribute :http
         validates :http, type: TrueClass
 
-        # @return [TrueClass] Enable/disable HTTPS server.
+        # @return [TrueClass, nil] Enable/disable HTTPS server.
         attribute :https
         validates :https, type: TrueClass
 
-        # @return [TrueClass] Enable/disable NXAPI web based UI for entering commands.
+        # @return [TrueClass, nil] Enable/disable NXAPI web based UI for entering commands.
         attribute :sandbox
         validates :sandbox, type: TrueClass
       end

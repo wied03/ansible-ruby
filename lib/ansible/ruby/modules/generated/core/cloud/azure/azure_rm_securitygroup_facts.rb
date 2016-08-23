@@ -6,7 +6,7 @@ module Ansible
   module Ruby
     module Modules
       class Azure_rm_securitygroup_facts < Base
-        # @return [String] Only show results for a specific security group.
+        # @return [String, nil] Only show results for a specific security group.
         attribute :name
         validates :name, type: String
 
@@ -14,7 +14,7 @@ module Ansible
         attribute :resource_group
         validates :resource_group, presence: true, type: String
 
-        # @return [Object] Limit results by providing a list of tags. Format tags as 'key' or 'key:value'.
+        # @return [Object, nil] Limit results by providing a list of tags. Format tags as 'key' or 'key:value'.
         attribute :tags
       end
     end

@@ -6,23 +6,23 @@ module Ansible
   module Ruby
     module Modules
       class Vertica_facts < Base
-        # @return [String] Name of the cluster running the schema.
+        # @return [String, nil] Name of the cluster running the schema.
         attribute :cluster
         validates :cluster, type: String
 
-        # @return [Fixnum] Database port to connect to.
+        # @return [Integer, nil] Database port to connect to.
         attribute :port
-        validates :port, type: Fixnum
+        validates :port, type: Integer
 
-        # @return [String] Name of the database running the schema.
+        # @return [String, nil] Name of the database running the schema.
         attribute :db
         validates :db, type: String
 
-        # @return [String] The username used to authenticate with.
+        # @return [String, nil] The username used to authenticate with.
         attribute :login_user
         validates :login_user, type: String
 
-        # @return [Object] The password used to authenticate with.
+        # @return [Object, nil] The password used to authenticate with.
         attribute :login_password
       end
     end

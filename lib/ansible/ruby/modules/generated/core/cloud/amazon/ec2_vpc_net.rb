@@ -26,10 +26,10 @@ module Ansible
         attribute :dns_hostnames
         validates :dns_hostnames, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [Object] the id of the DHCP options to use for this vpc
+        # @return [Object, nil] the id of the DHCP options to use for this vpc
         attribute :dhcp_opts_id
 
-        # @return [String] The tags you want attached to the VPC. This is independent of the name value, note if you pass a 'Name' key it would override the Name of the VPC if it's different.
+        # @return [String, nil] The tags you want attached to the VPC. This is independent of the name value, note if you pass a 'Name' key it would override the Name of the VPC if it's different.
         attribute :tags
         validates :tags, type: String
 
@@ -37,7 +37,7 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [Object] By default the module will not create another VPC if there is another VPC with the same name and CIDR block. Specify this as true if you want duplicate VPCs created.
+        # @return [Object, nil] By default the module will not create another VPC if there is another VPC with the same name and CIDR block. Specify this as true if you want duplicate VPCs created.
         attribute :multi_ok
       end
     end

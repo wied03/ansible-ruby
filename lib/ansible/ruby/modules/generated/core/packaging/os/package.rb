@@ -14,7 +14,7 @@ module Ansible
         attribute :state
         validates :state, presence: true, type: String
 
-        # @return [String] The required package manager module to use (yum, apt, etc). The default 'auto' will use existing facts or try to autodetect it.,You should only use this field if the automatic selection is not working for some reason.
+        # @return [String, nil] The required package manager module to use (yum, apt, etc). The default 'auto' will use existing facts or try to autodetect it.,You should only use this field if the automatic selection is not working for some reason.
         attribute :use
         validates :use, type: String
       end

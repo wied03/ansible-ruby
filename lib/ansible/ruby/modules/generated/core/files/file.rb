@@ -14,7 +14,7 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:file, :link, :directory, :hard, :touch, :absent], :message=>"%{value} needs to be :file, :link, :directory, :hard, :touch, :absent"}, allow_nil: true
 
-        # @return [String] path of the file to link to (applies only to C(state=link)). Will accept absolute, relative and nonexisting paths. Relative paths are not expanded.
+        # @return [String, nil] path of the file to link to (applies only to C(state=link)). Will accept absolute, relative and nonexisting paths. Relative paths are not expanded.
         attribute :src
         validates :src, type: String
 

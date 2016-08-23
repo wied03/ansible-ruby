@@ -10,11 +10,11 @@ module Ansible
         attribute :list_all
         validates :list_all, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String] The name of the setting. If no value is supplied, the value will be read from the config if it has been set.
+        # @return [String, nil] The name of the setting. If no value is supplied, the value will be read from the config if it has been set.
         attribute :name
         validates :name, type: String
 
-        # @return [String] Path to a git repository for reading and writing values from a specific repo.
+        # @return [String, nil] Path to a git repository for reading and writing values from a specific repo.
         attribute :repo
         validates :repo, type: String
 
@@ -22,7 +22,7 @@ module Ansible
         attribute :scope
         validates :scope, inclusion: {:in=>[:local, :global, :system], :message=>"%{value} needs to be :local, :global, :system"}, allow_nil: true
 
-        # @return [String] When specifying the name of a single setting, supply a value to set that setting to the given value.
+        # @return [String, nil] When specifying the name of a single setting, supply a value to set that setting to the given value.
         attribute :value
         validates :value, type: String
       end

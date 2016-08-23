@@ -14,7 +14,7 @@ module Ansible
         attribute :instance_id
         validates :instance_id, presence: true
 
-        # @return [String] List of ELB names, required for registration. The ec2_elbs fact should be used if there was a previous de-register.
+        # @return [String, nil] List of ELB names, required for registration. The ec2_elbs fact should be used if there was a previous de-register.
         attribute :ec2_elbs
         validates :ec2_elbs, type: String
 
@@ -30,9 +30,9 @@ module Ansible
         attribute :validate_certs
         validates :validate_certs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [Fixnum] Number of seconds to wait for an instance to change state. If 0 then this module may return an error if a transient error occurs. If non-zero then any transient errors are ignored until the timeout is reached. Ignored when wait=no.
+        # @return [Integer, nil] Number of seconds to wait for an instance to change state. If 0 then this module may return an error if a transient error occurs. If non-zero then any transient errors are ignored until the timeout is reached. Ignored when wait=no.
         attribute :wait_timeout
-        validates :wait_timeout, type: Fixnum
+        validates :wait_timeout, type: Integer
       end
     end
   end

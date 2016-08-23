@@ -14,23 +14,23 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [String] The value assigned to the znode.
+        # @return [String, nil] The value assigned to the znode.
         attribute :value
         validates :value, type: String
 
-        # @return [String] An operation to perform. Mutually exclusive with state.
+        # @return [String, nil] An operation to perform. Mutually exclusive with state.
         attribute :op
         validates :op, type: String
 
-        # @return [String] The state to enforce. Mutually exclusive with op.
+        # @return [String, nil] The state to enforce. Mutually exclusive with op.
         attribute :state
         validates :state, type: String
 
-        # @return [Fixnum] The amount of time to wait for a node to appear.
+        # @return [Integer, nil] The amount of time to wait for a node to appear.
         attribute :timeout
-        validates :timeout, type: Fixnum
+        validates :timeout, type: Integer
 
-        # @return [Object] Recursively delete node and all its children.
+        # @return [Object, nil] Recursively delete node and all its children.
         attribute :recursive
       end
     end

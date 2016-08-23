@@ -10,7 +10,7 @@ module Ansible
         attribute :src
         validates :src, presence: true, type: String
 
-        # @return [Object] The O(version) argument can be used to explicitly specify the version of the package that should be installed on the remote device.  If the O(version) argument is not specified, then the version is extracts from the O(src) filename
+        # @return [Object, nil] The O(version) argument can be used to explicitly specify the version of the package that should be installed on the remote device.  If the O(version) argument is not specified, then the version is extracts from the O(src) filename
         attribute :version
 
         # @return [:true, :false] In order for a package to take effect, the remote device must be restarted.  When enabled, this argument will instruct the module to reboot the device once the updated package has been installed. If disabled or the remote package does not need to be changed, the device will not be started.

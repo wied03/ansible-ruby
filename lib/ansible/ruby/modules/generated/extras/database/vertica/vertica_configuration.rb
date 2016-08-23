@@ -14,22 +14,22 @@ module Ansible
         attribute :value
         validates :value, presence: true, type: String
 
-        # @return [Object] Name of the Vertica database.
+        # @return [Object, nil] Name of the Vertica database.
         attribute :db
 
-        # @return [String] Name of the Vertica cluster.
+        # @return [String, nil] Name of the Vertica cluster.
         attribute :cluster
         validates :cluster, type: String
 
-        # @return [Fixnum] Vertica cluster port to connect to.
+        # @return [Integer, nil] Vertica cluster port to connect to.
         attribute :port
-        validates :port, type: Fixnum
+        validates :port, type: Integer
 
-        # @return [String] The username used to authenticate with.
+        # @return [String, nil] The username used to authenticate with.
         attribute :login_user
         validates :login_user, type: String
 
-        # @return [Object] The password used to authenticate with.
+        # @return [Object, nil] The password used to authenticate with.
         attribute :login_password
       end
     end

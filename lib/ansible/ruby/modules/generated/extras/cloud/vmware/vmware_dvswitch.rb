@@ -14,13 +14,13 @@ module Ansible
         attribute :switch_name
         validates :switch_name, presence: true, type: String
 
-        # @return [Fixnum] The switch maximum transmission unit
+        # @return [Integer] The switch maximum transmission unit
         attribute :mtu
-        validates :mtu, presence: true, type: Fixnum
+        validates :mtu, presence: true, type: Integer
 
-        # @return [Fixnum] Quantity of uplink per ESXi host added to the switch
+        # @return [Integer] Quantity of uplink per ESXi host added to the switch
         attribute :uplink_quantity
-        validates :uplink_quantity, presence: true, type: Fixnum
+        validates :uplink_quantity, presence: true, type: Integer
 
         # @return [:cdp, :lldp] Link discovery protocol between Cisco and Link Layer discovery
         attribute :discovery_proto

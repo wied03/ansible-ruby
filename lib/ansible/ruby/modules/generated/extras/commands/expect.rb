@@ -10,24 +10,24 @@ module Ansible
         attribute :command
         validates :command, presence: true, type: String
 
-        # @return [Object] a filename, when it already exists, this step will B(not) be run.
+        # @return [Object, nil] a filename, when it already exists, this step will B(not) be run.
         attribute :creates
 
-        # @return [Object] a filename, when it does not exist, this step will B(not) be run.
+        # @return [Object, nil] a filename, when it does not exist, this step will B(not) be run.
         attribute :removes
 
-        # @return [Object] cd into this directory before running the command
+        # @return [Object, nil] cd into this directory before running the command
         attribute :chdir
 
         # @return [Hash] Mapping of expected string/regex and string to respond with. If the response is a list, successive matches return successive responses. List functionality is new in 2.1.
         attribute :responses
         validates :responses, presence: true, type: Hash
 
-        # @return [Fixnum] Amount of time in seconds to wait for the expected strings
+        # @return [Integer, nil] Amount of time in seconds to wait for the expected strings
         attribute :timeout
-        validates :timeout, type: Fixnum
+        validates :timeout, type: Integer
 
-        # @return [Object] Whether or not to echo out your response strings
+        # @return [Object, nil] Whether or not to echo out your response strings
         attribute :echo
       end
     end

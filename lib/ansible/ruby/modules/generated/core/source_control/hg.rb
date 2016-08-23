@@ -14,7 +14,7 @@ module Ansible
         attribute :dest
         validates :dest, presence: true, type: String
 
-        # @return [String] Equivalent C(-r) option in hg command which could be the changeset, revision number, branch name or even tag.
+        # @return [String, nil] Equivalent C(-r) option in hg command which could be the changeset, revision number, branch name or even tag.
         attribute :revision
         validates :revision, type: String
 
@@ -30,7 +30,7 @@ module Ansible
         attribute :update
         validates :update, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [Object] Path to hg executable to use. If not supplied, the normal mechanism for resolving binary paths will be used.
+        # @return [Object, nil] Path to hg executable to use. If not supplied, the normal mechanism for resolving binary paths will be used.
         attribute :executable
       end
     end

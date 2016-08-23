@@ -10,7 +10,7 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [String] Description of the security group.
+        # @return [String, nil] Description of the security group.
         attribute :description
         validates :description, type: String
 
@@ -18,13 +18,13 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [Object] Domain the security group is related to.
+        # @return [Object, nil] Domain the security group is related to.
         attribute :domain
 
-        # @return [Object] Account the security group is related to.
+        # @return [Object, nil] Account the security group is related to.
         attribute :account
 
-        # @return [Object] Name of the project the security group to be created in.
+        # @return [Object, nil] Name of the project the security group to be created in.
         attribute :project
       end
     end

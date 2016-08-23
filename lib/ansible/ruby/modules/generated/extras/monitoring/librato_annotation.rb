@@ -14,7 +14,7 @@ module Ansible
         attribute :api_key
         validates :api_key, presence: true, type: String
 
-        # @return [String] The annotation stream name,If the annotation stream does not exist, it will be created automatically
+        # @return [String, nil] The annotation stream name,If the annotation stream does not exist, it will be created automatically
         attribute :name
         validates :name, type: String
 
@@ -22,21 +22,21 @@ module Ansible
         attribute :title
         validates :title, presence: true, type: String
 
-        # @return [String] A string which describes the originating source of an annotation when that annotation is tracked across multiple members of a population
+        # @return [String, nil] A string which describes the originating source of an annotation when that annotation is tracked across multiple members of a population
         attribute :source
         validates :source, type: String
 
-        # @return [String] The description contains extra meta-data about a particular annotation,The description should contain specifics on the individual annotation e.g. Deployed 9b562b2 shipped new feature foo!
+        # @return [String, nil] The description contains extra meta-data about a particular annotation,The description should contain specifics on the individual annotation e.g. Deployed 9b562b2 shipped new feature foo!
         attribute :description
         validates :description, type: String
 
-        # @return [Fixnum] The unix timestamp indicating the the time at which the event referenced by this annotation started
+        # @return [Integer, nil] The unix timestamp indicating the the time at which the event referenced by this annotation started
         attribute :start_time
-        validates :start_time, type: Fixnum
+        validates :start_time, type: Integer
 
-        # @return [Fixnum] The unix timestamp indicating the the time at which the event referenced by this annotation ended,For events that have a duration, this is a useful way to annotate the duration of the event
+        # @return [Integer, nil] The unix timestamp indicating the the time at which the event referenced by this annotation ended,For events that have a duration, this is a useful way to annotate the duration of the event
         attribute :end_time
-        validates :end_time, type: Fixnum
+        validates :end_time, type: Integer
 
         # @return [Array] See examples
         attribute :links

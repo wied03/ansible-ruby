@@ -10,19 +10,19 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [String] The supervisor configuration file path
+        # @return [String, nil] The supervisor configuration file path
         attribute :config
         validates :config, type: String
 
-        # @return [String] URL on which supervisord server is listening
+        # @return [String, nil] URL on which supervisord server is listening
         attribute :server_url
         validates :server_url, type: String
 
-        # @return [String] username to use for authentication
+        # @return [String, nil] username to use for authentication
         attribute :username
         validates :username, type: String
 
-        # @return [String] password to use for authentication
+        # @return [String, nil] password to use for authentication
         attribute :password
         validates :password, type: String
 
@@ -30,7 +30,7 @@ module Ansible
         attribute :state
         validates :state, presence: true, inclusion: {:in=>[:present, :started, :stopped, :restarted, :absent], :message=>"%{value} needs to be :present, :started, :stopped, :restarted, :absent"}
 
-        # @return [Object] path to supervisorctl executable
+        # @return [Object, nil] path to supervisorctl executable
         attribute :supervisorctl_path
       end
     end

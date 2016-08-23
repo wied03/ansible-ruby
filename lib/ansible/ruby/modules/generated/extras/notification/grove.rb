@@ -10,7 +10,7 @@ module Ansible
         attribute :channel_token
         validates :channel_token, presence: true, type: String
 
-        # @return [String] Name of the service (displayed as the "user" in the message)
+        # @return [String, nil] Name of the service (displayed as the "user" in the message)
         attribute :service
         validates :service, type: String
 
@@ -18,10 +18,10 @@ module Ansible
         attribute :message
         validates :message, presence: true, type: String
 
-        # @return [Object] Service URL for the web client
+        # @return [Object, nil] Service URL for the web client
         attribute :url
 
-        # @return [Object] Icon for the service
+        # @return [Object, nil] Icon for the service
         attribute :icon_url
 
         # @return [:yes, :no, nil] If C(no), SSL certificates will not be validated. This should only be used on personally controlled sites using self-signed certificates.

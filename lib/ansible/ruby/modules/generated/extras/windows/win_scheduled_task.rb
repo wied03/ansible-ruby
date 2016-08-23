@@ -10,7 +10,7 @@ module Ansible
         attribute :name
         validates :name, presence: true
 
-        # @return [Object] The description for the scheduled task
+        # @return [Object, nil] The description for the scheduled task
         attribute :description
 
         # @return [Boolean, nil] Enable/disable the task
@@ -21,26 +21,26 @@ module Ansible
         attribute :state
         validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
 
-        # @return [Object] User to run scheduled task as
+        # @return [Object, nil] User to run scheduled task as
         attribute :user
 
-        # @return [Object] Command the scheduled task should execute
+        # @return [Object, nil] Command the scheduled task should execute
         attribute :execute
 
-        # @return [Object] Arguments to provide scheduled task action
+        # @return [Object, nil] Arguments to provide scheduled task action
         attribute :argument
 
         # @return [:daily, :weekly, nil] The frequency of the command, not idempotent
         attribute :frequency
         validates :frequency, inclusion: {:in=>[:daily, :weekly], :message=>"%{value} needs to be :daily, :weekly"}, allow_nil: true
 
-        # @return [Object] Time to execute scheduled task, not idempotent
+        # @return [Object, nil] Time to execute scheduled task, not idempotent
         attribute :time
 
-        # @return [Object] Days of the week to run a weekly task, not idempotent
+        # @return [Object, nil] Days of the week to run a weekly task, not idempotent
         attribute :days_of_week
 
-        # @return [String] Folder path of scheduled task
+        # @return [String, nil] Folder path of scheduled task
         attribute :path
         validates :path, type: String
       end

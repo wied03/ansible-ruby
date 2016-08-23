@@ -10,23 +10,23 @@ module Ansible
         attribute :command
         validates :command, inclusion: {:in=>[:ping, :kv_test, :join, :plan, :commit], :message=>"%{value} needs to be :ping, :kv_test, :join, :plan, :commit"}, allow_nil: true
 
-        # @return [String] The path to the riak configuration directory
+        # @return [String, nil] The path to the riak configuration directory
         attribute :config_dir
         validates :config_dir, type: String
 
-        # @return [String] The ip address and port that is listening for Riak HTTP queries
+        # @return [String, nil] The ip address and port that is listening for Riak HTTP queries
         attribute :http_conn
         validates :http_conn, type: String
 
-        # @return [String] The target node for certain operations (join, ping)
+        # @return [String, nil] The target node for certain operations (join, ping)
         attribute :target_node
         validates :target_node, type: String
 
-        # @return [String] Number of seconds to wait for handoffs to complete.
+        # @return [String, nil] Number of seconds to wait for handoffs to complete.
         attribute :wait_for_handoffs
         validates :wait_for_handoffs, type: String
 
-        # @return [Object] Number of seconds to wait for all nodes to agree on the ring.
+        # @return [Object, nil] Number of seconds to wait for all nodes to agree on the ring.
         attribute :wait_for_ring
 
         # @return [:kv, nil] Waits for a riak service to come online before continuing.

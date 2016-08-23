@@ -6,11 +6,11 @@ module Ansible
   module Ruby
     module Modules
       class Os_networks_facts < Base
-        # @return [String] Name or ID of the Network
+        # @return [String, nil] Name or ID of the Network
         attribute :name
         validates :name, type: String
 
-        # @return [Hash] A dictionary of meta data to use for further filtering.  Elements of this dictionary may be additional dictionaries.
+        # @return [Hash, nil] A dictionary of meta data to use for further filtering.  Elements of this dictionary may be additional dictionaries.
         attribute :filters
         validates :filters, type: Hash
       end

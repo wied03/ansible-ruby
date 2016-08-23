@@ -6,40 +6,40 @@ module Ansible
   module Ruby
     module Modules
       class Docker_image < Base
-        # @return [String] Use with state 'present' to archive an image to a .tar file.
+        # @return [String, nil] Use with state 'present' to archive an image to a .tar file.
         attribute :archive_path
         validates :archive_path, type: String
 
-        # @return [String] Use with state 'present' to provide an alternate name for the Dockerfile to use when building an image.
+        # @return [String, nil] Use with state 'present' to provide an alternate name for the Dockerfile to use when building an image.
         attribute :dockerfile
         validates :dockerfile, type: String
 
-        # @return [Object] Use with absent state to un-tag and remove all images matching the specified name. Use with states 'present' and 'tagged' to take action even when an image already exists.
+        # @return [Object, nil] Use with absent state to un-tag and remove all images matching the specified name. Use with states 'present' and 'tagged' to take action even when an image already exists.
         attribute :force
 
-        # @return [Object] Timeout for HTTP requests during the image build operation. Provide a positive integer value for the number of seconds.
+        # @return [Object, nil] Timeout for HTTP requests during the image build operation. Provide a positive integer value for the number of seconds.
         attribute :http_timeout
 
         # @return [String] Image name. Name format will be one of: name, repository/name, registry_server:port/name. When pushing or pulling an image the name can optionally include the tag by appending ':tag_name'.
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [String] Use with state 'present' to build an image. Will be the path to a directory containing the context and Dockerfile for building an image.
+        # @return [String, nil] Use with state 'present' to build an image. Will be the path to a directory containing the context and Dockerfile for building an image.
         attribute :path
         validates :path, type: String
 
-        # @return [TrueClass] When building an image downloads any updates to the FROM image in Dockerfile.
+        # @return [TrueClass, nil] When building an image downloads any updates to the FROM image in Dockerfile.
         attribute :pull
         validates :pull, type: TrueClass
 
-        # @return [TrueClass] Remove intermediate containers after build.
+        # @return [TrueClass, nil] Remove intermediate containers after build.
         attribute :rm
         validates :rm, type: TrueClass
 
-        # @return [Object] Do not use cache when building an image.
+        # @return [Object, nil] Do not use cache when building an image.
         attribute :nocache
 
-        # @return [String] Full path to a repository. Use with state 'present' to tag the image into the repository.
+        # @return [String, nil] Full path to a repository. Use with state 'present' to tag the image into the repository.
         attribute :repository
         validates :repository, type: String
 
@@ -47,11 +47,11 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:absent, :present, :"build (DEPRECATED)"], :message=>"%{value} needs to be :absent, :present, :\"build (DEPRECATED)\""}, allow_nil: true
 
-        # @return [String] Used to select an image when pulling. Will be added to the image when pushing, tagging or building. Defaults to 'latest' when pulling an image.
+        # @return [String, nil] Used to select an image when pulling. Will be added to the image when pushing, tagging or building. Defaults to 'latest' when pulling an image.
         attribute :tag
         validates :tag, type: String
 
-        # @return [Object] A dictionary of limits applied to each container created by the build process.
+        # @return [Object, nil] A dictionary of limits applied to each container created by the build process.
         attribute :container_limits
 
         # @return [false, :encrypt, :verify, nil] DEPRECATED. Whether to use tls to connect to the docker server. Set to 'no' when TLS will not be used. Set to 'encrypt' to use TLS. And set to 'verify' to use TLS and verify that the server's certificate is valid for the server. NOTE: If you specify this option, it will set the value of the tls or tls_verify parameters.

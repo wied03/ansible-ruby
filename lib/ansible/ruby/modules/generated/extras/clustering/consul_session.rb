@@ -10,39 +10,39 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent, :info, :node, :list], :message=>"%{value} needs to be :present, :absent, :info, :node, :list"}, allow_nil: true
 
-        # @return [String] the name that should be associated with the session. This is opaque to Consul and not required.
+        # @return [String, nil] the name that should be associated with the session. This is opaque to Consul and not required.
         attribute :name
         validates :name, type: String
 
-        # @return [String] the optional lock delay that can be attached to the session when it is created. Locks for invalidated sessions ar blocked from being acquired until this delay has expired. Valid units for delays include 'ns', 'us', 'ms', 's', 'm', 'h'
+        # @return [String, nil] the optional lock delay that can be attached to the session when it is created. Locks for invalidated sessions ar blocked from being acquired until this delay has expired. Valid units for delays include 'ns', 'us', 'ms', 's', 'm', 'h'
         attribute :delay
         validates :delay, type: String
 
-        # @return [String] the name of the node that with which the session will be associated. by default this is the name of the agent.
+        # @return [String, nil] the name of the node that with which the session will be associated. by default this is the name of the agent.
         attribute :node
         validates :node, type: String
 
-        # @return [String] name of the datacenter in which the session exists or should be created.
+        # @return [String, nil] name of the datacenter in which the session exists or should be created.
         attribute :datacenter
         validates :datacenter, type: String
 
-        # @return [String] a list of checks that will be used to verify the session health. If all the checks fail, the session will be invalidated and any locks associated with the session will be release and can be acquired once the associated lock delay has expired.
+        # @return [String, nil] a list of checks that will be used to verify the session health. If all the checks fail, the session will be invalidated and any locks associated with the session will be release and can be acquired once the associated lock delay has expired.
         attribute :checks
         validates :checks, type: String
 
-        # @return [String] host of the consul agent defaults to localhost
+        # @return [String, nil] host of the consul agent defaults to localhost
         attribute :host
         validates :host, type: String
 
-        # @return [Fixnum] the port on which the consul agent is running
+        # @return [Integer, nil] the port on which the consul agent is running
         attribute :port
-        validates :port, type: Fixnum
+        validates :port, type: Integer
 
-        # @return [String] the protocol scheme on which the consul agent is running
+        # @return [String, nil] the protocol scheme on which the consul agent is running
         attribute :scheme
         validates :scheme, type: String
 
-        # @return [TrueClass] whether to verify the tls certificate of the consul agent
+        # @return [TrueClass, nil] whether to verify the tls certificate of the consul agent
         attribute :validate_certs
         validates :validate_certs, type: TrueClass
       end

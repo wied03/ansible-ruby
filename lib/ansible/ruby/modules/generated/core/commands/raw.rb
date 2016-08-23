@@ -10,7 +10,7 @@ module Ansible
         attribute :free_form
         validates :free_form, presence: true
 
-        # @return [String] change the shell used to execute the command. Should be an absolute path to the executable.,when using privilege escalation (C(become)), a default shell will be assigned if one is not provided as privilege escalation requires a shell.
+        # @return [String, nil] change the shell used to execute the command. Should be an absolute path to the executable.,when using privilege escalation (C(become)), a default shell will be assigned if one is not provided as privilege escalation requires a shell.
         attribute :executable
         validates :executable, type: String
       end

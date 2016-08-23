@@ -10,7 +10,7 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [String] Desired value of the sysctl key.
+        # @return [String, nil] Desired value of the sysctl key.
         attribute :value
         validates :value, type: String
 
@@ -26,7 +26,7 @@ module Ansible
         attribute :reload
         validates :reload, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String] Specifies the absolute path to C(sysctl.conf), if not C(/etc/sysctl.conf).
+        # @return [String, nil] Specifies the absolute path to C(sysctl.conf), if not C(/etc/sysctl.conf).
         attribute :sysctl_file
         validates :sysctl_file, type: String
 

@@ -18,9 +18,9 @@ module Ansible
         attribute :evacuate
         validates :evacuate, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
-        # @return [Fixnum] Specify a timeout for the operation
+        # @return [Integer, nil] Specify a timeout for the operation
         attribute :timeout
-        validates :timeout, type: Fixnum
+        validates :timeout, type: Integer
 
         # @return [:present, :absent, nil] Enter or exit maintenance mode
         attribute :state

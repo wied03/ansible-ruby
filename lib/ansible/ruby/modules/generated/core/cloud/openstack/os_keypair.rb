@@ -10,11 +10,11 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [String] The public key that would be uploaded to nova and injected into VMs upon creation.
+        # @return [String, nil] The public key that would be uploaded to nova and injected into VMs upon creation.
         attribute :public_key
         validates :public_key, type: String
 
-        # @return [String] Path to local file containing ssh public key. Mutually exclusive with public_key.
+        # @return [String, nil] Path to local file containing ssh public key. Mutually exclusive with public_key.
         attribute :public_key_file
         validates :public_key_file, type: String
 

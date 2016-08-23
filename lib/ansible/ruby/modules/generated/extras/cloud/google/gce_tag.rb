@@ -18,17 +18,17 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [String] the zone of the disk specified by source
+        # @return [String, nil] the zone of the disk specified by source
         attribute :zone
         validates :zone, type: String
 
-        # @return [Object] service account email
+        # @return [Object, nil] service account email
         attribute :service_account_email
 
-        # @return [Object] path to the pem file associated with the service account email
+        # @return [Object, nil] path to the pem file associated with the service account email
         attribute :pem_file
 
-        # @return [Object] your GCE project ID
+        # @return [Object, nil] your GCE project ID
         attribute :project_id
       end
     end

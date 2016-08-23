@@ -14,18 +14,18 @@ module Ansible
         attribute :environment
         validates :environment, presence: true, type: String
 
-        # @return [String] The username of the person doing the deployment
+        # @return [String, nil] The username of the person doing the deployment
         attribute :user
         validates :user, type: String
 
-        # @return [Object] URL of the project repository
+        # @return [Object, nil] URL of the project repository
         attribute :repo
 
-        # @return [String] A hash, number, tag, or other identifier showing what revision was deployed
+        # @return [String, nil] A hash, number, tag, or other identifier showing what revision was deployed
         attribute :revision
         validates :revision, type: String
 
-        # @return [String] Optional URL to submit the notification to. Use to send notifications to Airbrake-compliant tools like Errbit.
+        # @return [String, nil] Optional URL to submit the notification to. Use to send notifications to Airbrake-compliant tools like Errbit.
         attribute :url
         validates :url, type: String
 

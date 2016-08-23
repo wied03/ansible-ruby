@@ -22,20 +22,20 @@ module Ansible
         attribute :state
         validates :state, presence: true, inclusion: {:in=>[:started, :finished, :failed], :message=>"%{value} needs to be :started, :finished, :failed"}
 
-        # @return [String] Name of affected host name. Can be a list.
+        # @return [String, nil] Name of affected host name. Can be a list.
         attribute :hosts
         validates :hosts, type: String
 
-        # @return [Object] The environment name, typically 'production', 'staging', etc.
+        # @return [Object, nil] The environment name, typically 'production', 'staging', etc.
         attribute :env
 
-        # @return [Object] The person responsible for the deployment.
+        # @return [Object, nil] The person responsible for the deployment.
         attribute :owner
 
-        # @return [Object] Free text description of the deployment.
+        # @return [Object, nil] Free text description of the deployment.
         attribute :description
 
-        # @return [String] Base URL of the API server.
+        # @return [String, nil] Base URL of the API server.
         attribute :url
         validates :url, type: String
 

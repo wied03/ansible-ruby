@@ -6,23 +6,23 @@ module Ansible
   module Ruby
     module Modules
       class Firewalld < Base
-        # @return [String] Name of a service to add/remove to/from firewalld - service must be listed in /etc/services.
+        # @return [String, nil] Name of a service to add/remove to/from firewalld - service must be listed in /etc/services.
         attribute :service
         validates :service, type: String
 
-        # @return [String] Name of a port or port range to add/remove to/from firewalld. Must be in the form PORT/PROTOCOL or PORT-PORT/PROTOCOL for port ranges.
+        # @return [String, nil] Name of a port or port range to add/remove to/from firewalld. Must be in the form PORT/PROTOCOL or PORT-PORT/PROTOCOL for port ranges.
         attribute :port
         validates :port, type: String
 
-        # @return [String] Rich rule to add/remove to/from firewalld.
+        # @return [String, nil] Rich rule to add/remove to/from firewalld.
         attribute :rich_rule
         validates :rich_rule, type: String
 
-        # @return [String] The source/network you would like to add/remove to/from firewalld
+        # @return [String, nil] The source/network you would like to add/remove to/from firewalld
         attribute :source
         validates :source, type: String
 
-        # @return [String] The interface you would like to add/remove to/from a zone in firewalld
+        # @return [String, nil] The interface you would like to add/remove to/from a zone in firewalld
         attribute :interface
         validates :interface, type: String
 
@@ -30,22 +30,22 @@ module Ansible
         attribute :zone
         validates :zone, inclusion: {:in=>[:work, :drop, :internal, :external, :trusted, :home, :dmz, :public, :block], :message=>"%{value} needs to be :work, :drop, :internal, :external, :trusted, :home, :dmz, :public, :block"}, allow_nil: true
 
-        # @return [String] Should this configuration be in the running firewalld configuration or persist across reboots.
+        # @return [String, nil] Should this configuration be in the running firewalld configuration or persist across reboots.
         attribute :permanent
         validates :permanent, type: String
 
-        # @return [Object] Should this configuration be applied immediately, if set as permanent
+        # @return [Object, nil] Should this configuration be applied immediately, if set as permanent
         attribute :immediate
 
         # @return [:enabled, :disabled] Should this port accept(enabled) or reject(disabled) connections.
         attribute :state
         validates :state, presence: true, inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}
 
-        # @return [Fixnum] The amount of time the rule should be in effect for when non-permanent.
+        # @return [Integer, nil] The amount of time the rule should be in effect for when non-permanent.
         attribute :timeout
-        validates :timeout, type: Fixnum
+        validates :timeout, type: Integer
 
-        # @return [String] The masquerade setting you would like to enable/disable to/from zones within firewalld
+        # @return [String, nil] The masquerade setting you would like to enable/disable to/from zones within firewalld
         attribute :masquerade
         validates :masquerade, type: String
       end

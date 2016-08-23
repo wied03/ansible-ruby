@@ -14,22 +14,22 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [String] rabbitMQ user for connection
+        # @return [String, nil] rabbitMQ user for connection
         attribute :login_user
         validates :login_user, type: String
 
-        # @return [Object] rabbitMQ password for connection
+        # @return [Object, nil] rabbitMQ password for connection
         attribute :login_password
 
-        # @return [String] rabbitMQ host for connection
+        # @return [String, nil] rabbitMQ host for connection
         attribute :login_host
         validates :login_host, type: String
 
-        # @return [Fixnum] rabbitMQ management api port
+        # @return [Integer, nil] rabbitMQ management api port
         attribute :login_port
-        validates :login_port, type: Fixnum
+        validates :login_port, type: Integer
 
-        # @return [String] rabbitMQ virtual host,default vhost is /
+        # @return [String, nil] rabbitMQ virtual host,default vhost is /
         attribute :vhost
         validates :vhost, type: String
 
@@ -41,11 +41,11 @@ module Ansible
         attribute :destination_type
         validates :destination_type, presence: true, inclusion: {:in=>[:queue, :exchange], :message=>"%{value} needs to be :queue, :exchange"}
 
-        # @return [String] routing key for the binding,default is
+        # @return [String, nil] routing key for the binding,default is
         attribute :routing_key
         validates :routing_key, type: String
 
-        # @return [Hash] extra arguments for exchange. If defined this argument is a key/value dictionary
+        # @return [Hash, nil] extra arguments for exchange. If defined this argument is a key/value dictionary
         attribute :arguments
         validates :arguments, type: Hash
       end

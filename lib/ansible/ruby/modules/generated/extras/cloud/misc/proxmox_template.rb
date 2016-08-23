@@ -14,22 +14,22 @@ module Ansible
         attribute :api_user
         validates :api_user, presence: true, type: String
 
-        # @return [String] the password to authenticate with,you can use PROXMOX_PASSWORD environment variable
+        # @return [String, nil] the password to authenticate with,you can use PROXMOX_PASSWORD environment variable
         attribute :api_password
         validates :api_password, type: String
 
-        # @return [Object] enable / disable https certificate verification
+        # @return [Object, nil] enable / disable https certificate verification
         attribute :validate_certs
 
         # @return [String] Proxmox VE node, when you will operate with template
         attribute :node
         validates :node, presence: true, type: String
 
-        # @return [String] path to uploaded file,required only for C(state=present)
+        # @return [String, nil] path to uploaded file,required only for C(state=present)
         attribute :src
         validates :src, type: String
 
-        # @return [String] the template name,required only for states C(absent), C(info)
+        # @return [String, nil] the template name,required only for states C(absent), C(info)
         attribute :template
         validates :template, type: String
 
@@ -37,15 +37,15 @@ module Ansible
         attribute :content_type
         validates :content_type, inclusion: {:in=>[:vztmpl, :iso], :message=>"%{value} needs to be :vztmpl, :iso"}, allow_nil: true
 
-        # @return [String] target storage
+        # @return [String, nil] target storage
         attribute :storage
         validates :storage, type: String
 
-        # @return [Fixnum] timeout for operations
+        # @return [Integer, nil] timeout for operations
         attribute :timeout
-        validates :timeout, type: Fixnum
+        validates :timeout, type: Integer
 
-        # @return [String] can be used only with C(state=present), exists template will be overwritten
+        # @return [String, nil] can be used only with C(state=present), exists template will be overwritten
         attribute :force
         validates :force, type: String
 

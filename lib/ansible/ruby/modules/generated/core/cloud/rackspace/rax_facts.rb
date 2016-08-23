@@ -6,13 +6,13 @@ module Ansible
   module Ruby
     module Modules
       class Rax_facts < Base
-        # @return [Object] Server IP address to retrieve facts for, will match any IP assigned to the server
+        # @return [Object, nil] Server IP address to retrieve facts for, will match any IP assigned to the server
         attribute :address
 
-        # @return [Object] Server ID to retrieve facts for
+        # @return [Object, nil] Server ID to retrieve facts for
         attribute :id
 
-        # @return [String] Server name to retrieve facts for
+        # @return [String, nil] Server name to retrieve facts for
         attribute :name
         validates :name, type: String
       end

@@ -14,20 +14,20 @@ module Ansible
         attribute :container
         validates :container, presence: true
 
-        # @return [Object] The destination of a "get" operation; i.e. a local directory, "/home/user/myfolder". Used to specify the destination of an operation on a remote object; i.e. a file name, "file1", or a comma-separated list of remote objects, "file1,file2,file17"
+        # @return [Object, nil] The destination of a "get" operation; i.e. a local directory, "/home/user/myfolder". Used to specify the destination of an operation on a remote object; i.e. a file name, "file1", or a comma-separated list of remote objects, "file1,file2,file17"
         attribute :dest
 
-        # @return [Object] Used to set an expiration on a file or folder uploaded to Cloud Files. Requires an integer, specifying expiration in seconds
+        # @return [Object, nil] Used to set an expiration on a file or folder uploaded to Cloud Files. Requires an integer, specifying expiration in seconds
         attribute :expires
 
-        # @return [Object] A hash of items to set as metadata values on an uploaded file or folder
+        # @return [Object, nil] A hash of items to set as metadata values on an uploaded file or folder
         attribute :meta
 
         # @return [:get, :put, :delete, nil] The method of operation to be performed.  For example, put to upload files to Cloud Files, get to download files from Cloud Files or delete to delete remote objects in Cloud Files
         attribute :method
         validates :method, inclusion: {:in=>[:get, :put, :delete], :message=>"%{value} needs to be :get, :put, :delete"}, allow_nil: true
 
-        # @return [Object] Source from which to upload files.  Used to specify a remote object as a source for an operation, i.e. a file name, "file1", or a comma-separated list of remote objects, "file1,file2,file17".  src and dest are mutually exclusive on remote-only object operations
+        # @return [Object, nil] Source from which to upload files.  Used to specify a remote object as a source for an operation, i.e. a file name, "file1", or a comma-separated list of remote objects, "file1,file2,file17".  src and dest are mutually exclusive on remote-only object operations
         attribute :src
 
         # @return [true, :no, nil] Used to specify whether to maintain nested directory structure when downloading objects from Cloud Files.  Setting to false downloads the contents of a container to a single, flat directory

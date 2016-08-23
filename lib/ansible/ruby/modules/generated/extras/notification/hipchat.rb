@@ -14,7 +14,7 @@ module Ansible
         attribute :room
         validates :room, presence: true, type: String
 
-        # @return [String] Name the message will appear be sent from. max 15 characters. Over 15, will be shorten.
+        # @return [String, nil] Name the message will appear be sent from. max 15 characters. Over 15, will be shorten.
         attribute :from
         validates :from, type: String
 
@@ -38,7 +38,7 @@ module Ansible
         attribute :validate_certs
         validates :validate_certs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String] API url if using a self-hosted hipchat server. For hipchat api version 2 use C(/v2) path in URI
+        # @return [String, nil] API url if using a self-hosted hipchat server. For hipchat api version 2 use C(/v2) path in URI
         attribute :api
         validates :api, type: String
       end

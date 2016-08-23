@@ -14,15 +14,15 @@ module Ansible
         attribute :description
         validates :description, presence: true, type: String
 
-        # @return [Fixnum] ID of the VPC to create the group in.
+        # @return [Integer, nil] ID of the VPC to create the group in.
         attribute :vpc_id
-        validates :vpc_id, type: Fixnum
+        validates :vpc_id, type: Integer
 
-        # @return [Array] List of firewall inbound rules to enforce in this group (see example). If none are supplied, a default all-out rule is assumed. If an empty list is supplied, no inbound rules will be enabled.
+        # @return [Array, nil] List of firewall inbound rules to enforce in this group (see example). If none are supplied, a default all-out rule is assumed. If an empty list is supplied, no inbound rules will be enabled.
         attribute :rules
         validates :rules, type: Array
 
-        # @return [Array] List of firewall outbound rules to enforce in this group (see example). If none are supplied, a default all-out rule is assumed. If an empty list is supplied, no outbound rules will be enabled.
+        # @return [Array, nil] List of firewall outbound rules to enforce in this group (see example). If none are supplied, a default all-out rule is assumed. If an empty list is supplied, no outbound rules will be enabled.
         attribute :rules_egress
         validates :rules_egress, type: Array
 
@@ -30,11 +30,11 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [String] Purge existing rules on security group that are not found in rules
+        # @return [String, nil] Purge existing rules on security group that are not found in rules
         attribute :purge_rules
         validates :purge_rules, type: String
 
-        # @return [String] Purge existing rules_egress on security group that are not found in rules_egress
+        # @return [String, nil] Purge existing rules_egress on security group that are not found in rules_egress
         attribute :purge_rules_egress
         validates :purge_rules_egress, type: String
       end

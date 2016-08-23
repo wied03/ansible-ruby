@@ -10,13 +10,13 @@ module Ansible
         attribute :state
         validates :state, presence: true, inclusion: {:in=>[:started, :paused], :message=>"%{value} needs to be :started, :paused"}
 
-        # @return [] ID of the monitor to check.
+        # @return [String] ID of the monitor to check.
         attribute :monitorid
-        validates :monitorid, presence: true, inclusion: {:in=>[], :message=>"%{value} needs to be "}
+        validates :monitorid, presence: true, type: String
 
-        # @return [] Uptime Robot API key.
+        # @return [String] Uptime Robot API key.
         attribute :apikey
-        validates :apikey, presence: true, inclusion: {:in=>[], :message=>"%{value} needs to be "}
+        validates :apikey, presence: true, type: String
       end
     end
   end

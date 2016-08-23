@@ -10,30 +10,30 @@ module Ansible
         attribute :ip_address
         validates :ip_address, presence: true, type: String
 
-        # @return [String] Name of virtual machine which we make the static NAT for.,Required if C(state=present).
+        # @return [String, nil] Name of virtual machine which we make the static NAT for.,Required if C(state=present).
         attribute :vm
         validates :vm, type: String
 
-        # @return [Object] VM guest NIC secondary IP address for the static NAT.
+        # @return [Object, nil] VM guest NIC secondary IP address for the static NAT.
         attribute :vm_guest_ip
 
         # @return [:present, :absent, nil] State of the static NAT.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [Object] Domain the static NAT is related to.
+        # @return [Object, nil] Domain the static NAT is related to.
         attribute :domain
 
-        # @return [Object] Account the static NAT is related to.
+        # @return [Object, nil] Account the static NAT is related to.
         attribute :account
 
-        # @return [Object] Name of the project the static NAT is related to.
+        # @return [Object, nil] Name of the project the static NAT is related to.
         attribute :project
 
-        # @return [Object] Name of the zone in which the virtual machine is in.,If not set, default zone is used.
+        # @return [Object, nil] Name of the zone in which the virtual machine is in.,If not set, default zone is used.
         attribute :zone
 
-        # @return [TrueClass] Poll async jobs until job has finished.
+        # @return [TrueClass, nil] Poll async jobs until job has finished.
         attribute :poll_async
         validates :poll_async, type: TrueClass
       end

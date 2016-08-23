@@ -10,7 +10,7 @@ module Ansible
         attribute :resource_group
         validates :resource_group, presence: true, type: String
 
-        # @return [String] Name of the storage account to update or create.
+        # @return [String, nil] Name of the storage account to update or create.
         attribute :name
         validates :name, type: String
 
@@ -18,7 +18,7 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
-        # @return [String] Valid azure location. Defaults to location of the resource group.
+        # @return [String, nil] Valid azure location. Defaults to location of the resource group.
         attribute :location
         validates :location, type: String
 
@@ -26,7 +26,7 @@ module Ansible
         attribute :account_type
         validates :account_type, inclusion: {:in=>[:Premium_LRS, :Standard_GRS, :Standard_LRS, :Standard_RAGRS, :Standard_ZRS], :message=>"%{value} needs to be :Premium_LRS, :Standard_GRS, :Standard_LRS, :Standard_RAGRS, :Standard_ZRS"}, allow_nil: true
 
-        # @return [Object] User domain assigned to the storage account. Must be a dictionary with 'name' and 'use_sub_domain' keys where 'name' is the CNAME source. Only one custom domain is supported per storage account at this time. To clear the existing custom domain, use an empty string for the custom domain name property.,Can be added to an existing storage account. Will be ignored during storage account creation.
+        # @return [Object, nil] User domain assigned to the storage account. Must be a dictionary with 'name' and 'use_sub_domain' keys where 'name' is the CNAME source. Only one custom domain is supported per storage account at this time. To clear the existing custom domain, use an empty string for the custom domain name property.,Can be added to an existing storage account. Will be ignored during storage account creation.
         attribute :custom_domain
 
         # @return [:Storage, :StorageBlob, nil] The 'kind' of storage.

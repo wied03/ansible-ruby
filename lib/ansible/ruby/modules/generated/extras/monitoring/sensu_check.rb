@@ -14,7 +14,7 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [String] Path to the json file of the check to be added/removed.,Will be created if it does not exist (unless I(state=absent)).,The parent folders need to exist when I(state=present), otherwise an error will be thrown
+        # @return [String, nil] Path to the json file of the check to be added/removed.,Will be created if it does not exist (unless I(state=absent)).,The parent folders need to exist when I(state=present), otherwise an error will be thrown
         attribute :path
         validates :path, type: String
 
@@ -26,33 +26,33 @@ module Ansible
         attribute :command
         validates :command, presence: true, type: String
 
-        # @return [Array] List of handlers to notify when the check fails
+        # @return [Array, nil] List of handlers to notify when the check fails
         attribute :handlers
         validates :handlers, type: Array
 
-        # @return [Array] List of subscribers/channels this check should run for,See sensu_subscribers to subscribe a machine to a channel
+        # @return [Array, nil] List of subscribers/channels this check should run for,See sensu_subscribers to subscribe a machine to a channel
         attribute :subscribers
         validates :subscribers, type: Array
 
-        # @return [String] Check interval in seconds
+        # @return [String, nil] Check interval in seconds
         attribute :interval
         validates :interval, type: String
 
-        # @return [Fixnum] Timeout for the check
+        # @return [Integer, nil] Timeout for the check
         attribute :timeout
-        validates :timeout, type: Fixnum
+        validates :timeout, type: Integer
 
         # @return [:yes, :no, nil] Whether the check should be handled or not
         attribute :handle
         validates :handle, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [Object] When to disable handling of check failures
+        # @return [Object, nil] When to disable handling of check failures
         attribute :subdue_begin
 
-        # @return [Object] When to enable handling of check failures
+        # @return [Object, nil] When to enable handling of check failures
         attribute :subdue_end
 
-        # @return [Array] Other checks this check depends on, if dependencies fail,,handling of this check will be disabled
+        # @return [Array, nil] Other checks this check depends on, if dependencies fail,,handling of this check will be disabled
         attribute :dependencies
         validates :dependencies, type: Array
 
@@ -68,28 +68,28 @@ module Ansible
         attribute :publish
         validates :publish, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [Fixnum] Number of event occurrences before the handler should take action
+        # @return [Integer, nil] Number of event occurrences before the handler should take action
         attribute :occurrences
-        validates :occurrences, type: Fixnum
+        validates :occurrences, type: Integer
 
-        # @return [Object] Number of seconds handlers should wait before taking second action
+        # @return [Object, nil] Number of seconds handlers should wait before taking second action
         attribute :refresh
 
         # @return [:yes, :no, nil] Classifies the check as an aggregate check,,making it available via the aggregate API
         attribute :aggregate
         validates :aggregate, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [Object] The low threshhold for flap detection
+        # @return [Object, nil] The low threshhold for flap detection
         attribute :low_flap_threshold
 
-        # @return [Object] The low threshhold for flap detection
+        # @return [Object, nil] The low threshhold for flap detection
         attribute :high_flap_threshold
 
-        # @return [Hash] A hash/dictionary of custom parameters for mixing to the configuration.,You can't rewrite others module parameters using this
+        # @return [Hash, nil] A hash/dictionary of custom parameters for mixing to the configuration.,You can't rewrite others module parameters using this
         attribute :custom
         validates :custom, type: Hash
 
-        # @return [Object] The check source, used to create a JIT Sensu client for an external resource (e.g. a network switch).
+        # @return [Object, nil] The check source, used to create a JIT Sensu client for an external resource (e.g. a network switch).
         attribute :source
       end
     end

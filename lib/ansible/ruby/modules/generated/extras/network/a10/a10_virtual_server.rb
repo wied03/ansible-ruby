@@ -6,31 +6,31 @@ module Ansible
   module Ruby
     module Modules
       class A10_virtual_server < Base
-        # @return [] hostname or ip of your A10 Networks device
+        # @return [String] hostname or ip of your A10 Networks device
         attribute :host
-        validates :host, presence: true, inclusion: {:in=>[], :message=>"%{value} needs to be "}
+        validates :host, presence: true, type: String
 
-        # @return [] admin account of your A10 Networks device
+        # @return [String] admin account of your A10 Networks device
         attribute :username
-        validates :username, presence: true, inclusion: {:in=>[], :message=>"%{value} needs to be "}
+        validates :username, presence: true, type: String
 
-        # @return [] admin password of your A10 Networks device
+        # @return [String] admin password of your A10 Networks device
         attribute :password
-        validates :password, presence: true, inclusion: {:in=>[], :message=>"%{value} needs to be "}
+        validates :password, presence: true, type: String
 
-        # @return [] slb virtual server name
+        # @return [String] slb virtual server name
         attribute :virtual_server
-        validates :virtual_server, presence: true, inclusion: {:in=>[], :message=>"%{value} needs to be "}
+        validates :virtual_server, presence: true, type: String
 
-        # @return [nil] slb virtual server ip address
+        # @return [String, nil] slb virtual server ip address
         attribute :virtual_server_ip
-        validates :virtual_server_ip, inclusion: {:in=>[], :message=>"%{value} needs to be "}, allow_nil: true
+        validates :virtual_server_ip, type: String
 
         # @return [:enabled, :disabled, nil] slb virtual server status
         attribute :virtual_server_status
         validates :virtual_server_status, inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
 
-        # @return [Array] A list of ports to create for the virtual server. Each list item should be a dictionary which specifies the C(port:) and C(type:), but can also optionally specify the C(service_group:) as well as the C(status:). See the examples below for details. This parameter is required when C(state) is C(present).
+        # @return [Array, nil] A list of ports to create for the virtual server. Each list item should be a dictionary which specifies the C(port:) and C(type:), but can also optionally specify the C(service_group:) as well as the C(status:). See the examples below for details. This parameter is required when C(state) is C(present).
         attribute :virtual_server_ports
         validates :virtual_server_ports, type: Array
 

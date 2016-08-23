@@ -14,7 +14,7 @@ module Ansible
         attribute :allocation_method
         validates :allocation_method, inclusion: {:in=>[:Dynamic, :Static], :message=>"%{value} needs to be :Dynamic, :Static"}, allow_nil: true
 
-        # @return [Object] The customizable portion of the FQDN assigned to public IP address. This is an explicit setting. If no value is provided, any existing value will be removed on an existing public IP.
+        # @return [Object, nil] The customizable portion of the FQDN assigned to public IP address. This is an explicit setting. If no value is provided, any existing value will be removed on an existing public IP.
         attribute :domain_name_label
 
         # @return [String] Name of the Public IP.
@@ -25,7 +25,7 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
-        # @return [String] Valid azure location. Defaults to location of the resource group.
+        # @return [String, nil] Valid azure location. Defaults to location of the resource group.
         attribute :location
         validates :location, type: String
       end

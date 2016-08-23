@@ -10,7 +10,7 @@ module Ansible
         attribute :msg
         validates :msg, presence: true, type: String
 
-        # @return [String] Subject line for email delivery.
+        # @return [String, nil] Subject line for email delivery.
         attribute :subject
         validates :subject, type: String
 
@@ -18,31 +18,31 @@ module Ansible
         attribute :topic
         validates :topic, presence: true, type: String
 
-        # @return [Object] Message to send to email-only subscription
+        # @return [Object, nil] Message to send to email-only subscription
         attribute :email
 
-        # @return [Object] Message to send to SQS-only subscription
+        # @return [Object, nil] Message to send to SQS-only subscription
         attribute :sqs
 
-        # @return [String] Message to send to SMS-only subscription
+        # @return [String, nil] Message to send to SMS-only subscription
         attribute :sms
         validates :sms, type: String
 
-        # @return [Object] Message to send to HTTP-only subscription
+        # @return [Object, nil] Message to send to HTTP-only subscription
         attribute :http
 
-        # @return [Object] Message to send to HTTPS-only subscription
+        # @return [Object, nil] Message to send to HTTPS-only subscription
         attribute :https
 
-        # @return [String] AWS secret key. If not set then the value of the AWS_SECRET_KEY environment variable is used.
+        # @return [String, nil] AWS secret key. If not set then the value of the AWS_SECRET_KEY environment variable is used.
         attribute :aws_secret_key
         validates :aws_secret_key, type: String
 
-        # @return [String] AWS access key. If not set then the value of the AWS_ACCESS_KEY environment variable is used.
+        # @return [String, nil] AWS access key. If not set then the value of the AWS_ACCESS_KEY environment variable is used.
         attribute :aws_access_key
         validates :aws_access_key, type: String
 
-        # @return [Object] The AWS region to use. If not specified then the value of the EC2_REGION environment variable, if any, is used.
+        # @return [Object, nil] The AWS region to use. If not specified then the value of the EC2_REGION environment variable, if any, is used.
         attribute :region
       end
     end

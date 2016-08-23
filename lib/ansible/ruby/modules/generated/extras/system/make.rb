@@ -6,11 +6,11 @@ module Ansible
   module Ruby
     module Modules
       class Make < Base
-        # @return [String] The target to run
+        # @return [String, nil] The target to run
         attribute :target
         validates :target, type: String
 
-        # @return [String] Any extra parameters to pass to make
+        # @return [String, nil] Any extra parameters to pass to make
         attribute :params
         validates :params, type: String
 

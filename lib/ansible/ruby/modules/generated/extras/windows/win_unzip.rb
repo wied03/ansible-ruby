@@ -22,7 +22,7 @@ module Ansible
         attribute :recurse
         validates :recurse, inclusion: {:in=>[true, false, true, false], :message=>"%{value} needs to be true, false, true, false"}, allow_nil: true
 
-        # @return [String] If this file or directory exists the specified src will not be extracted.
+        # @return [String, nil] If this file or directory exists the specified src will not be extracted.
         attribute :creates
         validates :creates, type: String
       end

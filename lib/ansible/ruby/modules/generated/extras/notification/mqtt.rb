@@ -6,21 +6,21 @@ module Ansible
   module Ruby
     module Modules
       class Mqtt < Base
-        # @return [String] MQTT broker address/name
+        # @return [String, nil] MQTT broker address/name
         attribute :server
         validates :server, type: String
 
-        # @return [Fixnum] MQTT broker port number
+        # @return [Integer, nil] MQTT broker port number
         attribute :port
-        validates :port, type: Fixnum
+        validates :port, type: Integer
 
-        # @return [Object] Username to authenticate against the broker.
+        # @return [Object, nil] Username to authenticate against the broker.
         attribute :username
 
-        # @return [Object] Password for C(username) to authenticate against the broker.
+        # @return [Object, nil] Password for C(username) to authenticate against the broker.
         attribute :password
 
-        # @return [String] MQTT client identifier
+        # @return [String, nil] MQTT client identifier
         attribute :client_id
         validates :client_id, type: String
 
@@ -36,7 +36,7 @@ module Ansible
         attribute :qos
         validates :qos, inclusion: {:in=>[0, 1, 2], :message=>"%{value} needs to be 0, 1, 2"}, allow_nil: true
 
-        # @return [String] Setting this flag causes the broker to retain (i.e. keep) the message so that applications that subsequently subscribe to the topic can received the last retained message immediately.
+        # @return [String, nil] Setting this flag causes the broker to retain (i.e. keep) the message so that applications that subsequently subscribe to the topic can received the last retained message immediately.
         attribute :retain
         validates :retain, type: String
       end

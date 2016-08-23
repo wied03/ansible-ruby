@@ -10,17 +10,17 @@ module Ansible
         attribute :name
         validates :name, presence: true
 
-        # @return [Object] A debconf configuration setting
+        # @return [Object, nil] A debconf configuration setting
         attribute :question
 
         # @return [:string, :password, :boolean, :select, :multiselect, :note, :error, :title, :text, nil] The type of the value supplied
         attribute :vtype
         validates :vtype, inclusion: {:in=>[:string, :password, :boolean, :select, :multiselect, :note, :error, :title, :text], :message=>"%{value} needs to be :string, :password, :boolean, :select, :multiselect, :note, :error, :title, :text"}, allow_nil: true
 
-        # @return [Object] Value to set the configuration to
+        # @return [Object, nil] Value to set the configuration to
         attribute :value
 
-        # @return [Object] Do not set 'seen' flag when pre-seeding
+        # @return [Object, nil] Do not set 'seen' flag when pre-seeding
         attribute :unseen
       end
     end

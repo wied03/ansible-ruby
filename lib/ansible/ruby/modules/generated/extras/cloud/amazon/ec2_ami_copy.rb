@@ -14,11 +14,11 @@ module Ansible
         attribute :source_image_id
         validates :source_image_id, presence: true, type: String
 
-        # @return [String] The name of the new image to copy
+        # @return [String, nil] The name of the new image to copy
         attribute :name
         validates :name, type: String
 
-        # @return [String] An optional human-readable string describing the contents and purpose of the new AMI.
+        # @return [String, nil] An optional human-readable string describing the contents and purpose of the new AMI.
         attribute :description
         validates :description, type: String
 
@@ -26,11 +26,11 @@ module Ansible
         attribute :wait
         validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [Fixnum] how long before wait gives up, in seconds
+        # @return [Integer, nil] how long before wait gives up, in seconds
         attribute :wait_timeout
-        validates :wait_timeout, type: Fixnum
+        validates :wait_timeout, type: Integer
 
-        # @return [Array<String>] a hash/dictionary of tags to add to the new copied AMI; '{"key":"value"}' and '{"key":"value","key":"value"}'
+        # @return [Array<String>, nil] a hash/dictionary of tags to add to the new copied AMI; '{"key":"value"}' and '{"key":"value","key":"value"}'
         attribute :tags, flat_array: true
         validates :tags, type: TypeGeneric.new(String)
       end

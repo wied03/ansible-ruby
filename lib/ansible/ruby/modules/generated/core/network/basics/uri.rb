@@ -10,18 +10,18 @@ module Ansible
         attribute :url
         validates :url, presence: true, type: String
 
-        # @return [Object] path of where to download the file to (if desired). If I(dest) is a directory, the basename of the file on the remote server will be used.
+        # @return [Object, nil] path of where to download the file to (if desired). If I(dest) is a directory, the basename of the file on the remote server will be used.
         attribute :dest
 
-        # @return [String] username for the module to use for Digest, Basic or WSSE authentication.
+        # @return [String, nil] username for the module to use for Digest, Basic or WSSE authentication.
         attribute :user
         validates :user, type: String
 
-        # @return [String] password for the module to use for Digest, Basic or WSSE authentication.
+        # @return [String, nil] password for the module to use for Digest, Basic or WSSE authentication.
         attribute :password
         validates :password, type: String
 
-        # @return [String] The body of the http request/response to the web service. If C(body_format) is set to 'json' it will take an already formated JSON string or convert a data structure into JSON.
+        # @return [String, nil] The body of the http request/response to the web service. If C(body_format) is set to 'json' it will take an already formated JSON string or convert a data structure into JSON.
         attribute :body
         validates :body, type: String
 
@@ -45,27 +45,27 @@ module Ansible
         attribute :follow_redirects
         validates :follow_redirects, inclusion: {:in=>[:all, :safe, :none], :message=>"%{value} needs to be :all, :safe, :none"}, allow_nil: true
 
-        # @return [Object] a filename, when it already exists, this step will not be run.
+        # @return [Object, nil] a filename, when it already exists, this step will not be run.
         attribute :creates
 
-        # @return [Object] a filename, when it does not exist, this step will not be run.
+        # @return [Object, nil] a filename, when it does not exist, this step will not be run.
         attribute :removes
 
-        # @return [Fixnum] A valid, numeric, HTTP status code that signifies success of the request. Can also be comma separated list of status codes.
+        # @return [Integer, nil] A valid, numeric, HTTP status code that signifies success of the request. Can also be comma separated list of status codes.
         attribute :status_code
-        validates :status_code, type: Fixnum
+        validates :status_code, type: Integer
 
-        # @return [Fixnum] The socket level timeout in seconds
+        # @return [Integer, nil] The socket level timeout in seconds
         attribute :timeout
-        validates :timeout, type: Fixnum
+        validates :timeout, type: Integer
 
-        # @return [Object] Any parameter starting with "HEADER_" is a sent with your request as a header. For example, HEADER_Content-Type="application/json" would send the header "Content-Type" along with your request with a value of "application/json". This option is deprecated as of C(2.1) and may be removed in a future release. Use I(headers) instead.
+        # @return [Object, nil] Any parameter starting with "HEADER_" is a sent with your request as a header. For example, HEADER_Content-Type="application/json" would send the header "Content-Type" along with your request with a value of "application/json". This option is deprecated as of C(2.1) and may be removed in a future release. Use I(headers) instead.
         attribute :HEADER_
 
-        # @return [Object] Add custom HTTP headers to a request in the format of a YAML hash
+        # @return [Object, nil] Add custom HTTP headers to a request in the format of a YAML hash
         attribute :headers
 
-        # @return [Object] all arguments accepted by the M(file) module also work here
+        # @return [Object, nil] all arguments accepted by the M(file) module also work here
         attribute :others
 
         # @return [:yes, :no, nil] If C(no), SSL certificates will not be validated.  This should only set to C(no) used on personally controlled sites using self-signed certificates.  Prior to 1.9.2 the code defaulted to C(no).

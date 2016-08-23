@@ -6,15 +6,15 @@ module Ansible
   module Ruby
     module Modules
       class Open_iscsi < Base
-        # @return [String] the ip address of the iscsi target
+        # @return [String, nil] the ip address of the iscsi target
         attribute :portal
         validates :portal, type: String
 
-        # @return [Fixnum] the port on which the iscsi target process listens
+        # @return [Integer, nil] the port on which the iscsi target process listens
         attribute :port
-        validates :port, type: Fixnum
+        validates :port, type: Integer
 
-        # @return [String] the iscsi target name
+        # @return [String, nil] the iscsi target name
         attribute :target
         validates :target, type: String
 
@@ -22,14 +22,14 @@ module Ansible
         attribute :login
         validates :login, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
-        # @return [String] discovery.sendtargets.auth.authmethod
+        # @return [String, nil] discovery.sendtargets.auth.authmethod
         attribute :node_auth
         validates :node_auth, type: String
 
-        # @return [Object] discovery.sendtargets.auth.username
+        # @return [Object, nil] discovery.sendtargets.auth.username
         attribute :node_user
 
-        # @return [Object] discovery.sendtargets.auth.password
+        # @return [Object, nil] discovery.sendtargets.auth.password
         attribute :node_pass
 
         # @return [Boolean, nil] whether the target node should be automatically connected at startup

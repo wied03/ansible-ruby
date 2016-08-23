@@ -10,14 +10,14 @@ module Ansible
         attribute :path
         validates :path, presence: true, type: String
 
-        # @return [Object] Additional arguments to pass to the msiexec.exe command
+        # @return [Object, nil] Additional arguments to pass to the msiexec.exe command
         attribute :extra_args
 
         # @return [:present, :absent, nil] Whether the MSI file should be installed or uninstalled
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [Object] Path to a file created by installing the MSI to prevent from attempting to reinstall the package on every run
+        # @return [Object, nil] Path to a file created by installing the MSI to prevent from attempting to reinstall the package on every run
         attribute :creates
 
         # @return [Boolean, nil] Specify whether to wait for install or uninstall to complete before continuing.

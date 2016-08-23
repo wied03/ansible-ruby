@@ -18,59 +18,59 @@ module Ansible
         attribute :image
         validates :image, presence: true, type: String
 
-        # @return [String] The Datacenter to provision this virtual machine.
+        # @return [String, nil] The Datacenter to provision this virtual machine.
         attribute :datacenter
         validates :datacenter, type: String
 
-        # @return [Fixnum] The number of CPU cores to allocate to the virtual machine.
+        # @return [Integer, nil] The number of CPU cores to allocate to the virtual machine.
         attribute :cores
-        validates :cores, type: Fixnum
+        validates :cores, type: Integer
 
-        # @return [Fixnum] The amount of memory to allocate to the virtual machine.
+        # @return [Integer, nil] The amount of memory to allocate to the virtual machine.
         attribute :ram
-        validates :ram, type: Fixnum
+        validates :ram, type: Integer
 
-        # @return [Fixnum] The size in GB of the boot volume.
+        # @return [Integer, nil] The size in GB of the boot volume.
         attribute :volume_size
-        validates :volume_size, type: Fixnum
+        validates :volume_size, type: Integer
 
         # @return [:IDE, :VIRTIO, nil] The bus type for the volume.
         attribute :bus
         validates :bus, inclusion: {:in=>[:IDE, :VIRTIO], :message=>"%{value} needs to be :IDE, :VIRTIO"}, allow_nil: true
 
-        # @return [Array] list of instance ids, currently only used when state='absent' to remove instances.
+        # @return [Array, nil] list of instance ids, currently only used when state='absent' to remove instances.
         attribute :instance_ids
         validates :instance_ids, type: Array
 
-        # @return [Fixnum] The number of virtual machines to create.
+        # @return [Integer, nil] The number of virtual machines to create.
         attribute :count
-        validates :count, type: Fixnum
+        validates :count, type: Integer
 
         # @return [:"us/las", :"us/lasdev", :"de/fra", :"de/fkb", nil] The datacenter location. Use only if you want to create the Datacenter or else this value is ignored.
         attribute :location
         validates :location, inclusion: {:in=>[:"us/las", :"us/lasdev", :"de/fra", :"de/fkb"], :message=>"%{value} needs to be :\"us/las\", :\"us/lasdev\", :\"de/fra\", :\"de/fkb\""}, allow_nil: true
 
-        # @return [TrueClass] This will assign the machine to the public LAN. If no LAN exists with public Internet access it is created.
+        # @return [TrueClass, nil] This will assign the machine to the public LAN. If no LAN exists with public Internet access it is created.
         attribute :assign_public_ip
         validates :assign_public_ip, type: TrueClass
 
-        # @return [Fixnum] The ID of the LAN you wish to add the servers to.
+        # @return [Integer, nil] The ID of the LAN you wish to add the servers to.
         attribute :lan
-        validates :lan, type: Fixnum
+        validates :lan, type: Integer
 
-        # @return [Object] The ProfitBricks username. Overrides the PB_SUBSCRIPTION_ID environement variable.
+        # @return [Object, nil] The ProfitBricks username. Overrides the PB_SUBSCRIPTION_ID environement variable.
         attribute :subscription_user
 
-        # @return [Object] THe ProfitBricks password. Overrides the PB_PASSWORD environement variable.
+        # @return [Object, nil] THe ProfitBricks password. Overrides the PB_PASSWORD environement variable.
         attribute :subscription_password
 
         # @return [:yes, :no, nil] wait for the instance to be in state 'running' before returning
         attribute :wait
         validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [Fixnum] how long before wait gives up, in seconds
+        # @return [Integer, nil] how long before wait gives up, in seconds
         attribute :wait_timeout
-        validates :wait_timeout, type: Fixnum
+        validates :wait_timeout, type: Integer
 
         # @return [:yes, :no, nil] remove the bootVolume of the virtual machine you're destroying.
         attribute :remove_boot_volume

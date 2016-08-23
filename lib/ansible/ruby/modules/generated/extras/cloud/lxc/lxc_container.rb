@@ -14,47 +14,47 @@ module Ansible
         attribute :backing_store
         validates :backing_store, inclusion: {:in=>[:dir, :lvm, :loop, :btrfs, :overlayfs, :zfs], :message=>"%{value} needs to be :dir, :lvm, :loop, :btrfs, :overlayfs, :zfs"}, allow_nil: true
 
-        # @return [String] Name of the template to use within an LXC create.
+        # @return [String, nil] Name of the template to use within an LXC create.
         attribute :template
         validates :template, type: String
 
-        # @return [String] Template options when building the container.
+        # @return [String, nil] Template options when building the container.
         attribute :template_options
         validates :template_options, type: String
 
-        # @return [Object] Path to the LXC configuration file.
+        # @return [Object, nil] Path to the LXC configuration file.
         attribute :config
 
-        # @return [String] Name of the logical volume, defaults to the container name.
+        # @return [String, nil] Name of the logical volume, defaults to the container name.
         attribute :lv_name
         validates :lv_name, type: String
 
-        # @return [String] If Backend store is lvm, specify the name of the volume group.
+        # @return [String, nil] If Backend store is lvm, specify the name of the volume group.
         attribute :vg_name
         validates :vg_name, type: String
 
-        # @return [Object] Use LVM thin pool called TP.
+        # @return [Object, nil] Use LVM thin pool called TP.
         attribute :thinpool
 
-        # @return [String] Create fstype TYPE.
+        # @return [String, nil] Create fstype TYPE.
         attribute :fs_type
         validates :fs_type, type: String
 
-        # @return [String] File system Size.
+        # @return [String, nil] File system Size.
         attribute :fs_size
         validates :fs_size, type: String
 
-        # @return [Object] Place rootfs directory under DIR.
+        # @return [Object, nil] Place rootfs directory under DIR.
         attribute :directory
 
-        # @return [Object] Create zfs under given zfsroot.
+        # @return [Object, nil] Create zfs under given zfsroot.
         attribute :zfs_root
 
-        # @return [String] Run a command within a container.
+        # @return [String, nil] Run a command within a container.
         attribute :container_command
         validates :container_command, type: String
 
-        # @return [Object] Place container under PATH
+        # @return [Object, nil] Place container under PATH
         attribute :lxc_path
 
         # @return [Boolean, nil] Enable a container log for host actions to the container.
@@ -65,7 +65,7 @@ module Ansible
         attribute :container_log_level
         validates :container_log_level, inclusion: {:in=>[:INFO, :ERROR, :DEBUG], :message=>"%{value} needs to be :INFO, :ERROR, :DEBUG"}, allow_nil: true
 
-        # @return [String] Name of the new cloned server. This is only used when state is clone.
+        # @return [String, nil] Name of the new cloned server. This is only used when state is clone.
         attribute :clone_name
         validates :clone_name, type: String
 
@@ -77,7 +77,7 @@ module Ansible
         attribute :archive
         validates :archive, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
-        # @return [String] Path the save the archived container. If the path does not exist the archive method will attempt to create it.
+        # @return [String, nil] Path the save the archived container. If the path does not exist the archive method will attempt to create it.
         attribute :archive_path
         validates :archive_path, type: String
 
@@ -89,7 +89,7 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:started, :stopped, :restarted, :absent, :frozen], :message=>"%{value} needs to be :started, :stopped, :restarted, :absent, :frozen"}, allow_nil: true
 
-        # @return [Array] list of 'key=value' options to use when configuring a container.
+        # @return [Array, nil] list of 'key=value' options to use when configuring a container.
         attribute :container_config
         validates :container_config, type: Array
       end

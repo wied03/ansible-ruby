@@ -10,7 +10,7 @@ module Ansible
         attribute :dest
         validates :dest, presence: true, type: String
 
-        # @return [String] The regular expression to look for in every line of the file. For C(state=present), the pattern to replace if found; only the last line found will be replaced. For C(state=absent), the pattern of the line to remove.  Uses Python regular expressions; see U(http://docs.python.org/2/library/re.html).
+        # @return [String, nil] The regular expression to look for in every line of the file. For C(state=present), the pattern to replace if found; only the last line found will be replaced. For C(state=absent), the pattern of the line to remove.  Uses Python regular expressions; see U(http://docs.python.org/2/library/re.html).
         attribute :regexp
         validates :regexp, type: String
 
@@ -18,7 +18,7 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [String] Required for C(state=present). The line to insert/replace into the file. If C(backrefs) is set, may contain backreferences that will get expanded with the C(regexp) capture groups if the regexp matches.
+        # @return [String, nil] Required for C(state=present). The line to insert/replace into the file. If C(backrefs) is set, may contain backreferences that will get expanded with the C(regexp) capture groups if the regexp matches.
         attribute :line
         validates :line, type: String
 
@@ -42,7 +42,7 @@ module Ansible
         attribute :backup
         validates :backup, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [Object] All arguments accepted by the M(file) module also work here.
+        # @return [Object, nil] All arguments accepted by the M(file) module also work here.
         attribute :others
       end
     end

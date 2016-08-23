@@ -6,11 +6,11 @@ module Ansible
   module Ruby
     module Modules
       class At < Base
-        # @return [String] A command to be executed in the future.
+        # @return [String, nil] A command to be executed in the future.
         attribute :command
         validates :command, type: String
 
-        # @return [Object] An existing script file to be executed in the future.
+        # @return [Object, nil] An existing script file to be executed in the future.
         attribute :script_file
 
         # @return [String] The count of units in the future to execute the command or script file.
@@ -25,7 +25,7 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [String] If a matching job is present a new job will not be added.
+        # @return [String, nil] If a matching job is present a new job will not be added.
         attribute :unique
         validates :unique, type: String
       end

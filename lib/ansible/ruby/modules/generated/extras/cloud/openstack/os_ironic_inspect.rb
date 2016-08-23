@@ -6,25 +6,25 @@ module Ansible
   module Ruby
     module Modules
       class Os_ironic_inspect < Base
-        # @return [String] unique mac address that is used to attempt to identify the host.
+        # @return [String, nil] unique mac address that is used to attempt to identify the host.
         attribute :mac
         validates :mac, type: String
 
-        # @return [String] globally unique identifier (UUID) to identify the host.
+        # @return [String, nil] globally unique identifier (UUID) to identify the host.
         attribute :uuid
         validates :uuid, type: String
 
-        # @return [String] unique name identifier to identify the host in Ironic.
+        # @return [String, nil] unique name identifier to identify the host in Ironic.
         attribute :name
         validates :name, type: String
 
-        # @return [String] If noauth mode is utilized, this is required to be set to the endpoint URL for the Ironic API. Use with "auth" and "auth_type" settings set to None.
+        # @return [String, nil] If noauth mode is utilized, this is required to be set to the endpoint URL for the Ironic API. Use with "auth" and "auth_type" settings set to None.
         attribute :ironic_url
         validates :ironic_url, type: String
 
-        # @return [Fixnum] A timeout in seconds to tell the role to wait for the node to complete introspection if wait is set to True.
+        # @return [Integer, nil] A timeout in seconds to tell the role to wait for the node to complete introspection if wait is set to True.
         attribute :timeout
-        validates :timeout, type: Fixnum
+        validates :timeout, type: Integer
       end
     end
   end

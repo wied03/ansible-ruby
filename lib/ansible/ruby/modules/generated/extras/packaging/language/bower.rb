@@ -6,7 +6,7 @@ module Ansible
   module Ruby
     module Modules
       class Bower < Base
-        # @return [String] The name of a bower package to install
+        # @return [String, nil] The name of a bower package to install
         attribute :name
         validates :name, type: String
 
@@ -22,7 +22,7 @@ module Ansible
         attribute :path
         validates :path, presence: true, type: String
 
-        # @return [String] Relative path to bower executable from install path
+        # @return [String, nil] Relative path to bower executable from install path
         attribute :relative_execpath
         validates :relative_execpath, type: String
 
@@ -30,7 +30,7 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent, :latest], :message=>"%{value} needs to be :present, :absent, :latest"}, allow_nil: true
 
-        # @return [String] The version to be installed
+        # @return [String, nil] The version to be installed
         attribute :version
         validates :version, type: String
       end

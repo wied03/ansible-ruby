@@ -18,17 +18,17 @@ module Ansible
         attribute :login_password
         validates :login_password, presence: true, type: String
 
-        # @return [String] Basic Auth login
+        # @return [String, nil] Basic Auth login
         attribute :http_login_user
         validates :http_login_user, type: String
 
-        # @return [String] Basic Auth password
+        # @return [String, nil] Basic Auth password
         attribute :http_login_password
         validates :http_login_password, type: String
 
-        # @return [Fixnum] The timeout of API request (seconds).
+        # @return [Integer, nil] The timeout of API request (seconds).
         attribute :timeout
-        validates :timeout, type: Fixnum
+        validates :timeout, type: Integer
 
         # @return [Array] List of screens to be created/updated/deleted(see example).,If the screen(s) already been added, the screen(s) name won't be updated.,When creating or updating screen(s), C(screen_name), C(host_group) are required.,When deleting screen(s), the C(screen_name) is required.,The available states are: C(present) (default) and C(absent). If the screen(s) already exists, and the state is not C(absent), the screen(s) will just be updated as needed.
         attribute :screens

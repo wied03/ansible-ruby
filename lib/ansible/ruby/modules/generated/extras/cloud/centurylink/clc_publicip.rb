@@ -10,7 +10,7 @@ module Ansible
         attribute :protocol
         validates :protocol, inclusion: {:in=>[:TCP, :UDP, :ICMP], :message=>"%{value} needs to be :TCP, :UDP, :ICMP"}, allow_nil: true
 
-        # @return [String] A list of ports to expose. This is required when state is 'present'
+        # @return [String, nil] A list of ports to expose. This is required when state is 'present'
         attribute :ports
         validates :ports, type: String
 

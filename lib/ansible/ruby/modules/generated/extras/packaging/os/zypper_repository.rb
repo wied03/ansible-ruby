@@ -6,11 +6,11 @@ module Ansible
   module Ruby
     module Modules
       class Zypper_repository < Base
-        # @return [String] A name for the repository. Not required when adding repofiles.
+        # @return [String, nil] A name for the repository. Not required when adding repofiles.
         attribute :name
         validates :name, type: String
 
-        # @return [String] URI of the repository or .repo file. Required when state=present.
+        # @return [String, nil] URI of the repository or .repo file. Required when state=present.
         attribute :repo
         validates :repo, type: String
 
@@ -18,7 +18,7 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
-        # @return [String] A description of the repository
+        # @return [String, nil] A description of the repository
         attribute :description
         validates :description, type: String
 
@@ -30,7 +30,7 @@ module Ansible
         attribute :refresh
         validates :refresh, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [Object] Set priority of repository. Packages will always be installed from the repository with the smallest priority number.,Needs zypper version >= 1.12.25.
+        # @return [Object, nil] Set priority of repository. Packages will always be installed from the repository with the smallest priority number.,Needs zypper version >= 1.12.25.
         attribute :priority
 
         # @return [:yes, :no, nil] Overwrite multiple repository entries, if repositories with both name and URL already exist.

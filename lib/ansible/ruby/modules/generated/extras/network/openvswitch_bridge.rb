@@ -14,11 +14,11 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [Fixnum] How long to wait for ovs-vswitchd to respond
+        # @return [Integer, nil] How long to wait for ovs-vswitchd to respond
         attribute :timeout
-        validates :timeout, type: Fixnum
+        validates :timeout, type: Integer
 
-        # @return [String] A dictionary of external-ids. Omitting this parameter is a No-op. To  clear all external-ids pass an empty value.
+        # @return [String, nil] A dictionary of external-ids. Omitting this parameter is a No-op. To  clear all external-ids pass an empty value.
         attribute :external_ids
         validates :external_ids, type: String
 

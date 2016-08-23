@@ -22,7 +22,7 @@ module Ansible
         attribute :logging
         validates :logging, inclusion: {:in=>[:on, :off, :low, :medium, :high, :full], :message=>"%{value} needs to be :on, :off, :low, :medium, :high, :full"}, allow_nil: true
 
-        # @return [Object] Insert the corresponding rule as rule number NUM
+        # @return [Object, nil] Insert the corresponding rule as rule number NUM
         attribute :insert
 
         # @return [:allow, :deny, :reject, :limit, nil] Add firewall rule
@@ -33,32 +33,32 @@ module Ansible
         attribute :log
         validates :log, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String] Source IP address.
+        # @return [String, nil] Source IP address.
         attribute :from_ip
         validates :from_ip, type: String
 
-        # @return [Object] Source port.
+        # @return [Object, nil] Source port.
         attribute :from_port
 
-        # @return [String] Destination IP address.
+        # @return [String, nil] Destination IP address.
         attribute :to_ip
         validates :to_ip, type: String
 
-        # @return [Object] Destination port.
+        # @return [Object, nil] Destination port.
         attribute :to_port
 
         # @return [:any, :tcp, :udp, :ipv6, :esp, :ah, nil] TCP/IP protocol.
         attribute :proto
         validates :proto, inclusion: {:in=>[:any, :tcp, :udp, :ipv6, :esp, :ah], :message=>"%{value} needs to be :any, :tcp, :udp, :ipv6, :esp, :ah"}, allow_nil: true
 
-        # @return [Object] Use profile located in C(/etc/ufw/applications.d)
+        # @return [Object, nil] Use profile located in C(/etc/ufw/applications.d)
         attribute :name
 
         # @return [:yes, :no, nil] Delete rule.
         attribute :delete
         validates :delete, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [Object] Specify interface for rule.
+        # @return [Object, nil] Specify interface for rule.
         attribute :interface
 
         # @return [:yes, :no, nil] Apply the rule to routed/forwarded packets.

@@ -18,10 +18,10 @@ module Ansible
         attribute :site
         validates :site, presence: true
 
-        # @return [Object] The application under which the virtual directory is created or exists.
+        # @return [Object, nil] The application under which the virtual directory is created or exists.
         attribute :application
 
-        # @return [Object] The physical path to the folder in which the new virtual directory is created. The specified folder must already exist.
+        # @return [Object, nil] The physical path to the folder in which the new virtual directory is created. The specified folder must already exist.
         attribute :physical_path
       end
     end

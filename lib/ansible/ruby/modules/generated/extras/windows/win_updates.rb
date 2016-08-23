@@ -14,7 +14,7 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:installed, :searched], :message=>"%{value} needs to be :installed, :searched"}, allow_nil: true
 
-        # @return [Object] If set, win_updates will append update progress to the specified file. The directory must already exist.
+        # @return [Object, nil] If set, win_updates will append update progress to the specified file. The directory must already exist.
         attribute :log_path
       end
     end

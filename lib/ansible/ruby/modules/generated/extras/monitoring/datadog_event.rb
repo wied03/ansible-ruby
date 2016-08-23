@@ -18,7 +18,7 @@ module Ansible
         attribute :text
         validates :text, presence: true
 
-        # @return [String] POSIX timestamp of the event.,Default value is now.
+        # @return [String, nil] POSIX timestamp of the event.,Default value is now.
         attribute :date_happened
         validates :date_happened, type: String
 
@@ -26,14 +26,14 @@ module Ansible
         attribute :priority
         validates :priority, inclusion: {:in=>[:normal, :low], :message=>"%{value} needs to be :normal, :low"}, allow_nil: true
 
-        # @return [Object] Comma separated list of tags to apply to the event.
+        # @return [Object, nil] Comma separated list of tags to apply to the event.
         attribute :tags
 
         # @return [:error, :warning, :info, :success, nil] Type of alert.
         attribute :alert_type
         validates :alert_type, inclusion: {:in=>[:error, :warning, :info, :success], :message=>"%{value} needs to be :error, :warning, :info, :success"}, allow_nil: true
 
-        # @return [Object] An arbitrary string to use for aggregation.
+        # @return [Object, nil] An arbitrary string to use for aggregation.
         attribute :aggregation_key
 
         # @return [:yes, :no, nil] If C(no), SSL certificates will not be validated. This should only be used on personally controlled sites using self-signed certificates.

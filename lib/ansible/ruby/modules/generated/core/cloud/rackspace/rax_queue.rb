@@ -6,7 +6,7 @@ module Ansible
   module Ruby
     module Modules
       class Rax_queue < Base
-        # @return [String] Name to give the queue
+        # @return [String, nil] Name to give the queue
         attribute :name
         validates :name, type: String
 

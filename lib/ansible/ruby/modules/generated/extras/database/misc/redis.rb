@@ -10,22 +10,22 @@ module Ansible
         attribute :command
         validates :command, presence: true, inclusion: {:in=>[:slave, :flush, :config], :message=>"%{value} needs to be :slave, :flush, :config"}
 
-        # @return [Object] The password used to authenticate with (usually not used)
+        # @return [Object, nil] The password used to authenticate with (usually not used)
         attribute :login_password
 
-        # @return [String] The host running the database
+        # @return [String, nil] The host running the database
         attribute :login_host
         validates :login_host, type: String
 
-        # @return [Fixnum] The port to connect to
+        # @return [Integer, nil] The port to connect to
         attribute :login_port
-        validates :login_port, type: Fixnum
+        validates :login_port, type: Integer
 
-        # @return [String] The host of the master instance [slave command]
+        # @return [String, nil] The host of the master instance [slave command]
         attribute :master_host
         validates :master_host, type: String
 
-        # @return [String] The port of the master instance [slave command]
+        # @return [String, nil] The port of the master instance [slave command]
         attribute :master_port
         validates :master_port, type: String
 
@@ -33,7 +33,7 @@ module Ansible
         attribute :slave_mode
         validates :slave_mode, inclusion: {:in=>[:master, :slave], :message=>"%{value} needs to be :master, :slave"}, allow_nil: true
 
-        # @return [String] The database to flush (used in db mode) [flush command]
+        # @return [String, nil] The database to flush (used in db mode) [flush command]
         attribute :db
         validates :db, type: String
 
@@ -41,11 +41,11 @@ module Ansible
         attribute :flush_mode
         validates :flush_mode, inclusion: {:in=>[:all, :db], :message=>"%{value} needs to be :all, :db"}, allow_nil: true
 
-        # @return [String] A redis config key.
+        # @return [String, nil] A redis config key.
         attribute :name
         validates :name, type: String
 
-        # @return [String] A redis config value.
+        # @return [String, nil] A redis config value.
         attribute :value
         validates :value, type: String
       end

@@ -14,13 +14,13 @@ module Ansible
         attribute :nic_name
         validates :nic_name, presence: true, type: String
 
-        # @return [Fixnum] Number of port to configure on vswitch
+        # @return [Integer, nil] Number of port to configure on vswitch
         attribute :number_of_ports
-        validates :number_of_ports, type: Fixnum
+        validates :number_of_ports, type: Integer
 
-        # @return [Fixnum] MTU to configure on vswitch
+        # @return [Integer, nil] MTU to configure on vswitch
         attribute :mtu
-        validates :mtu, type: Fixnum
+        validates :mtu, type: Integer
 
         # @return [:present, :absent, nil] Add or remove the switch
         attribute :state

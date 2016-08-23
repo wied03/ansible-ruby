@@ -6,7 +6,7 @@ module Ansible
   module Ruby
     module Modules
       class Pkgin < Base
-        # @return [Array<String>] Name of package to install/remove;,multiple names may be given, separated by commas
+        # @return [Array<String>, nil] Name of package to install/remove;,multiple names may be given, separated by commas
         attribute :name, flat_array: true
         validates :name, type: TypeGeneric.new(String)
 

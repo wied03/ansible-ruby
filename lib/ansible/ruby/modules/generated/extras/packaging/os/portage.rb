@@ -6,7 +6,7 @@ module Ansible
   module Ruby
     module Modules
       class Portage < Base
-        # @return [String] Package atom or set, e.g. C(sys-apps/foo) or C(>foo-2.13) or C(@world)
+        # @return [String, nil] Package atom or set, e.g. C(sys-apps/foo) or C(>foo-2.13) or C(@world)
         attribute :package
         validates :package, type: String
 

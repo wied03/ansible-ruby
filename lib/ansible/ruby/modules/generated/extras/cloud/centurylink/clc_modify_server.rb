@@ -10,27 +10,27 @@ module Ansible
         attribute :server_ids
         validates :server_ids, presence: true, type: Array
 
-        # @return [String] How many CPUs to update on the server
+        # @return [String, nil] How many CPUs to update on the server
         attribute :cpu
         validates :cpu, type: String
 
-        # @return [String] Memory (in GB) to set to the server.
+        # @return [String, nil] Memory (in GB) to set to the server.
         attribute :memory
         validates :memory, type: String
 
-        # @return [String] The anti affinity policy id to be set for a hyper scale server. This is mutually exclusive with 'anti_affinity_policy_name'
+        # @return [String, nil] The anti affinity policy id to be set for a hyper scale server. This is mutually exclusive with 'anti_affinity_policy_name'
         attribute :anti_affinity_policy_id
         validates :anti_affinity_policy_id, type: String
 
-        # @return [String] The anti affinity policy name to be set for a hyper scale server. This is mutually exclusive with 'anti_affinity_policy_id'
+        # @return [String, nil] The anti affinity policy name to be set for a hyper scale server. This is mutually exclusive with 'anti_affinity_policy_id'
         attribute :anti_affinity_policy_name
         validates :anti_affinity_policy_name, type: String
 
-        # @return [String] The alert policy id to be associated to the server. This is mutually exclusive with 'alert_policy_name'
+        # @return [String, nil] The alert policy id to be associated to the server. This is mutually exclusive with 'alert_policy_name'
         attribute :alert_policy_id
         validates :alert_policy_id, type: String
 
-        # @return [String] The alert policy name to be associated to the server. This is mutually exclusive with 'alert_policy_id'
+        # @return [String, nil] The alert policy name to be associated to the server. This is mutually exclusive with 'alert_policy_id'
         attribute :alert_policy_name
         validates :alert_policy_name, type: String
 

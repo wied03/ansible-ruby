@@ -6,10 +6,10 @@ module Ansible
   module Ruby
     module Modules
       class Os_subnets_facts < Base
-        # @return [Object] Name or ID of the subnet
+        # @return [Object, nil] Name or ID of the subnet
         attribute :subnet
 
-        # @return [Hash] A dictionary of meta data to use for further filtering.  Elements of this dictionary may be additional dictionaries.
+        # @return [Hash, nil] A dictionary of meta data to use for further filtering.  Elements of this dictionary may be additional dictionaries.
         attribute :filters
         validates :filters, type: Hash
       end

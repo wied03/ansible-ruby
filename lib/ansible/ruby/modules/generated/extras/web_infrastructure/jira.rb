@@ -22,39 +22,39 @@ module Ansible
         attribute :password
         validates :password, presence: true, type: String
 
-        # @return [String] The project for this operation. Required for issue creation.
+        # @return [String, nil] The project for this operation. Required for issue creation.
         attribute :project
         validates :project, type: String
 
-        # @return [String] The issue summary, where appropriate.
+        # @return [String, nil] The issue summary, where appropriate.
         attribute :summary
         validates :summary, type: String
 
-        # @return [String] The issue description, where appropriate.
+        # @return [String, nil] The issue description, where appropriate.
         attribute :description
         validates :description, type: String
 
-        # @return [String] The issue type, for issue creation.
+        # @return [String, nil] The issue type, for issue creation.
         attribute :issuetype
         validates :issuetype, type: String
 
-        # @return [String] An existing issue key to operate on.
+        # @return [String, nil] An existing issue key to operate on.
         attribute :issue
         validates :issue, type: String
 
-        # @return [String] The comment text to add.
+        # @return [String, nil] The comment text to add.
         attribute :comment
         validates :comment, type: String
 
-        # @return [String] The desired status; only relevant for the transition operation.
+        # @return [String, nil] The desired status; only relevant for the transition operation.
         attribute :status
         validates :status, type: String
 
-        # @return [String] Sets the assignee on create or transition operations. Note not all transitions will allow this.
+        # @return [String, nil] Sets the assignee on create or transition operations. Note not all transitions will allow this.
         attribute :assignee
         validates :assignee, type: String
 
-        # @return [Hash] This is a free-form data structure that can contain arbitrary data. This is passed directly to the JIRA REST API (possibly after merging with other required data, as when passed to create). See examples for more information, and the JIRA REST API for the structure required for various fields.
+        # @return [Hash, nil] This is a free-form data structure that can contain arbitrary data. This is passed directly to the JIRA REST API (possibly after merging with other required data, as when passed to create). See examples for more information, and the JIRA REST API for the structure required for various fields.
         attribute :fields
         validates :fields, type: Hash
       end

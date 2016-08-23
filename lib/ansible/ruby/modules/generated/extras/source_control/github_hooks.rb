@@ -18,7 +18,7 @@ module Ansible
         attribute :repo
         validates :repo, presence: true, type: String
 
-        # @return [String] When creating a new hook, this is the url that you want github to post to. It is only required when creating a new hook.
+        # @return [String, nil] When creating a new hook, this is the url that you want github to post to. It is only required when creating a new hook.
         attribute :hookurl
         validates :hookurl, type: String
 

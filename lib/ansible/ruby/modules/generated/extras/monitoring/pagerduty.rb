@@ -10,41 +10,41 @@ module Ansible
         attribute :state
         validates :state, presence: true, inclusion: {:in=>[:running, :started, :ongoing, :absent], :message=>"%{value} needs to be :running, :started, :ongoing, :absent"}
 
-        # @return [] PagerDuty unique subdomain.
+        # @return [String] PagerDuty unique subdomain.
         attribute :name
-        validates :name, presence: true, inclusion: {:in=>[], :message=>"%{value} needs to be "}
+        validates :name, presence: true, type: String
 
-        # @return [] PagerDuty user ID.
+        # @return [String] PagerDuty user ID.
         attribute :user
-        validates :user, presence: true, inclusion: {:in=>[], :message=>"%{value} needs to be "}
+        validates :user, presence: true, type: String
 
-        # @return [] PagerDuty user password.
+        # @return [String] PagerDuty user password.
         attribute :passwd
-        validates :passwd, presence: true, inclusion: {:in=>[], :message=>"%{value} needs to be "}
+        validates :passwd, presence: true, type: String
 
-        # @return [] A pagerduty token, generated on the pagerduty site. Can be used instead of user/passwd combination.
+        # @return [String] A pagerduty token, generated on the pagerduty site. Can be used instead of user/passwd combination.
         attribute :token
-        validates :token, presence: true, inclusion: {:in=>[], :message=>"%{value} needs to be "}
+        validates :token, presence: true, type: String
 
-        # @return [] ID of user making the request. Only needed when using a token and creating a maintenance_window.
+        # @return [Object] ID of user making the request. Only needed when using a token and creating a maintenance_window.
         attribute :requester_id
-        validates :requester_id, presence: true, inclusion: {:in=>[], :message=>"%{value} needs to be "}
+        validates :requester_id, presence: true
 
-        # @return [nil] A comma separated list of PagerDuty service IDs.
+        # @return [String, nil] A comma separated list of PagerDuty service IDs.
         attribute :service
-        validates :service, inclusion: {:in=>[], :message=>"%{value} needs to be "}, allow_nil: true
+        validates :service, type: String
 
-        # @return [nil] Length of maintenance window in hours.
+        # @return [Integer, nil] Length of maintenance window in hours.
         attribute :hours
-        validates :hours, inclusion: {:in=>[], :message=>"%{value} needs to be "}, allow_nil: true
+        validates :hours, type: Integer
 
-        # @return [nil] Maintenance window in minutes (this is added to the hours).
+        # @return [Integer, nil] Maintenance window in minutes (this is added to the hours).
         attribute :minutes
-        validates :minutes, inclusion: {:in=>[], :message=>"%{value} needs to be "}, allow_nil: true
+        validates :minutes, type: Integer
 
-        # @return [nil] Short description of maintenance window.
+        # @return [String, nil] Short description of maintenance window.
         attribute :desc
-        validates :desc, inclusion: {:in=>[], :message=>"%{value} needs to be "}, allow_nil: true
+        validates :desc, type: String
 
         # @return [:yes, :no, nil] If C(no), SSL certificates will not be validated. This should only be used on personally controlled sites using self-signed certificates.
         attribute :validate_certs

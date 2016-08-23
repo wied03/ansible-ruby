@@ -10,11 +10,11 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [String] The name of a specific Extended attribute key to set/retrieve
+        # @return [String, nil] The name of a specific Extended attribute key to set/retrieve
         attribute :key
         validates :key, type: String
 
-        # @return [String] The value to set the named name/key to, it automatically sets the C(state) to 'set'
+        # @return [String, nil] The value to set the named name/key to, it automatically sets the C(state) to 'set'
         attribute :value
         validates :value, type: String
 

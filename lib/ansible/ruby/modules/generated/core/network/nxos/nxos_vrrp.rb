@@ -14,15 +14,15 @@ module Ansible
         attribute :interface
         validates :interface, presence: true, type: String
 
-        # @return [String] vrrp priority
+        # @return [String, nil] vrrp priority
         attribute :priority
         validates :priority, type: String
 
-        # @return [String] hsrp virtual IP address
+        # @return [String, nil] hsrp virtual IP address
         attribute :vip
         validates :vip, type: String
 
-        # @return [String] clear text authentication string
+        # @return [String, nil] clear text authentication string
         attribute :authentication
         validates :authentication, type: String
 

@@ -6,15 +6,15 @@ module Ansible
   module Ruby
     module Modules
       class Find < Base
-        # @return [String] Select files whose age is equal to or greater than the specified time. Use a negative age to find files equal to or less than the specified time. You can choose seconds, minutes, hours, days, or weeks by specifying the first letter of any of those words (e.g., "1w").
+        # @return [String, nil] Select files whose age is equal to or greater than the specified time. Use a negative age to find files equal to or less than the specified time. You can choose seconds, minutes, hours, days, or weeks by specifying the first letter of any of those words (e.g., "1w").
         attribute :age
         validates :age, type: String
 
-        # @return [String] One or more (shell or regex) patterns, which type is controled by C(use_regex) option.,The patterns restrict the list of files to be returned to those whose basenames match at least one of the patterns specified. Multiple patterns can be specified using a list.
+        # @return [String, nil] One or more (shell or regex) patterns, which type is controled by C(use_regex) option.,The patterns restrict the list of files to be returned to those whose basenames match at least one of the patterns specified. Multiple patterns can be specified using a list.
         attribute :patterns
         validates :patterns, type: String
 
-        # @return [Object] One or more re patterns which should be matched against the file content
+        # @return [Object, nil] One or more re patterns which should be matched against the file content
         attribute :contains
 
         # @return [String] List of paths to the file or directory to search. All paths must be fully qualified.
@@ -29,7 +29,7 @@ module Ansible
         attribute :recurse
         validates :recurse, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String] Select files whose size is equal to or greater than the specified size. Use a negative size to find files equal to or less than the specified size. Unqualified values are in bytes, but b, k, m, g, and t can be appended to specify bytes, kilobytes, megabytes, gigabytes, and terabytes, respectively. Size is not evaluated for directories.
+        # @return [String, nil] Select files whose size is equal to or greater than the specified size. Use a negative size to find files equal to or less than the specified size. Unqualified values are in bytes, but b, k, m, g, and t can be appended to specify bytes, kilobytes, megabytes, gigabytes, and terabytes, respectively. Size is not evaluated for directories.
         attribute :size
         validates :size, type: String
 

@@ -10,7 +10,7 @@ module Ansible
         attribute :resource_group_name
         validates :resource_group_name, presence: true, type: String
 
-        # @return [String] The geo-locations in which the resource group will be located.
+        # @return [String, nil] The geo-locations in which the resource group will be located.
         attribute :location
         validates :location, type: String
 
@@ -22,21 +22,21 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [Object] A hash containing the templates inline. This parameter is mutually exclusive with 'template_link'. Either one of them is required if "state" parameter is "present".
+        # @return [Object, nil] A hash containing the templates inline. This parameter is mutually exclusive with 'template_link'. Either one of them is required if "state" parameter is "present".
         attribute :template
 
-        # @return [String] Uri of file containing the template body. This parameter is mutually exclusive with 'template'. Either one of them is required if "state" parameter is "present".
+        # @return [String, nil] Uri of file containing the template body. This parameter is mutually exclusive with 'template'. Either one of them is required if "state" parameter is "present".
         attribute :template_link
         validates :template_link, type: String
 
-        # @return [Object] A hash of all the required template variables for the deployment template. This parameter is mutually exclusive with 'parameters_link'. Either one of them is required if "state" parameter is "present".
+        # @return [Object, nil] A hash of all the required template variables for the deployment template. This parameter is mutually exclusive with 'parameters_link'. Either one of them is required if "state" parameter is "present".
         attribute :parameters
 
-        # @return [String] Uri of file containing the parameters body. This parameter is mutually exclusive with 'parameters'. Either one of them is required if "state" parameter is "present".
+        # @return [String, nil] Uri of file containing the parameters body. This parameter is mutually exclusive with 'parameters'. Either one of them is required if "state" parameter is "present".
         attribute :parameters_link
         validates :parameters_link, type: String
 
-        # @return [String] The name of the deployment to be tracked in the resource group deployment history. Re-using a deployment name will overwrite the previous value in the resource group's deployment history.
+        # @return [String, nil] The name of the deployment to be tracked in the resource group deployment history. Re-using a deployment name will overwrite the previous value in the resource group's deployment history.
         attribute :deployment_name
         validates :deployment_name, type: String
 
@@ -44,9 +44,9 @@ module Ansible
         attribute :wait_for_deployment_completion
         validates :wait_for_deployment_completion, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [Fixnum] Time (in seconds) to wait between polls when waiting for deployment completion.
+        # @return [Integer, nil] Time (in seconds) to wait between polls when waiting for deployment completion.
         attribute :wait_for_deployment_polling_period
-        validates :wait_for_deployment_polling_period, type: Fixnum
+        validates :wait_for_deployment_polling_period, type: Integer
       end
     end
   end

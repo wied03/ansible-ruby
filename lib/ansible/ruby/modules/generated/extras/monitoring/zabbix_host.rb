@@ -18,11 +18,11 @@ module Ansible
         attribute :login_password
         validates :login_password, presence: true, type: String
 
-        # @return [String] Basic Auth login
+        # @return [String, nil] Basic Auth login
         attribute :http_login_user
         validates :http_login_user, type: String
 
-        # @return [String] Basic Auth password
+        # @return [String, nil] Basic Auth password
         attribute :http_login_password
         validates :http_login_password, type: String
 
@@ -30,11 +30,11 @@ module Ansible
         attribute :host_name
         validates :host_name, presence: true, type: String
 
-        # @return [Array] List of host groups the host is part of.
+        # @return [Array, nil] List of host groups the host is part of.
         attribute :host_groups
         validates :host_groups, type: Array
 
-        # @return [String] List of templates linked to the host.
+        # @return [String, nil] List of templates linked to the host.
         attribute :link_templates
         validates :link_templates, type: String
 
@@ -50,15 +50,15 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [Fixnum] The timeout of API request (seconds).
+        # @return [Integer, nil] The timeout of API request (seconds).
         attribute :timeout
-        validates :timeout, type: Fixnum
+        validates :timeout, type: Integer
 
-        # @return [String] The name of the Zabbix Proxy to be used
+        # @return [String, nil] The name of the Zabbix Proxy to be used
         attribute :proxy
         validates :proxy, type: String
 
-        # @return [Array] List of interfaces to be created for the host (see example below).,Available values are: dns, ip, main, port, type and useip.,Please review the interface documentation for more information on the supported properties,https://www.zabbix.com/documentation/2.0/manual/appendix/api/hostinterface/definitions#host_interface
+        # @return [Array, nil] List of interfaces to be created for the host (see example below).,Available values are: dns, ip, main, port, type and useip.,Please review the interface documentation for more information on the supported properties,https://www.zabbix.com/documentation/2.0/manual/appendix/api/hostinterface/definitions#host_interface
         attribute :interfaces
         validates :interfaces, type: Array
 

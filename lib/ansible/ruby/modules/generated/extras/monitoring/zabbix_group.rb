@@ -18,11 +18,11 @@ module Ansible
         attribute :login_password
         validates :login_password, presence: true, type: String
 
-        # @return [String] Basic Auth login
+        # @return [String, nil] Basic Auth login
         attribute :http_login_user
         validates :http_login_user, type: String
 
-        # @return [String] Basic Auth password
+        # @return [String, nil] Basic Auth password
         attribute :http_login_password
         validates :http_login_password, type: String
 
@@ -30,9 +30,9 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [Fixnum] The timeout of API request(seconds).
+        # @return [Integer, nil] The timeout of API request(seconds).
         attribute :timeout
-        validates :timeout, type: Fixnum
+        validates :timeout, type: Integer
 
         # @return [Array] List of host groups to create or delete.
         attribute :host_groups

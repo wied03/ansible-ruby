@@ -10,7 +10,7 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [String] The groups to add the hostname to, comma separated.
+        # @return [String, nil] The groups to add the hostname to, comma separated.
         attribute :groups
         validates :groups, type: String
       end

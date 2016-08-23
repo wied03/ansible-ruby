@@ -14,11 +14,11 @@ module Ansible
         attribute :backup
         validates :backup, inclusion: {:in=>[:true, :false], :message=>"%{value} needs to be :true, :false"}, allow_nil: true
 
-        # @return [Fixnum] The C(confirm) argument will configure a time out value for the commit to be confirmed before it is automatically rolled back.  If the C(confirm) argument is set to False, this argument is silently ignored.  If the value for this argument is set to 0, the commit is confirmed immediately.
+        # @return [Integer, nil] The C(confirm) argument will configure a time out value for the commit to be confirmed before it is automatically rolled back.  If the C(confirm) argument is set to False, this argument is silently ignored.  If the value for this argument is set to 0, the commit is confirmed immediately.
         attribute :confirm
-        validates :confirm, type: Fixnum
+        validates :confirm, type: Integer
 
-        # @return [String] The C(comment) argument specifies a text string to be used when committing the configuration.  If the C(confirm) argument is set to False, this argument is silently ignored.
+        # @return [String, nil] The C(comment) argument specifies a text string to be used when committing the configuration.  If the C(confirm) argument is set to False, this argument is silently ignored.
         attribute :comment
         validates :comment, type: String
 

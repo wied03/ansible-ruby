@@ -22,11 +22,11 @@ module Ansible
         attribute :enabled
         validates :enabled, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
-        # @return [String] A path or URL to the repository.,Multiple values may be provided.
+        # @return [String, nil] A path or URL to the repository.,Multiple values may be provided.
         attribute :origin
         validates :origin, type: String
 
-        # @return [Object] A path or URL to the repository mirror.,Multiple values may be provided.
+        # @return [Object, nil] A path or URL to the repository mirror.,Multiple values may be provided.
         attribute :mirror
       end
     end

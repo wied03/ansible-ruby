@@ -22,7 +22,7 @@ module Ansible
         attribute :server_name
         validates :server_name, presence: true
 
-        # @return [String] slb server IP address
+        # @return [String, nil] slb server IP address
         attribute :server_ip
         validates :server_ip, type: String
 
@@ -30,7 +30,7 @@ module Ansible
         attribute :server_status
         validates :server_status, inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
 
-        # @return [Array] A list of ports to create for the server. Each list item should be a dictionary which specifies the C(port:) and C(protocol:), but can also optionally specify the C(status:). See the examples below for details. This parameter is required when C(state) is C(present).
+        # @return [Array, nil] A list of ports to create for the server. Each list item should be a dictionary which specifies the C(port:) and C(protocol:), but can also optionally specify the C(status:). See the examples below for details. This parameter is required when C(state) is C(present).
         attribute :server_ports
         validates :server_ports, type: Array
 

@@ -22,11 +22,11 @@ module Ansible
         attribute :autostart
         validates :autostart, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String] libvirt connection uri.
+        # @return [String, nil] libvirt connection uri.
         attribute :uri
         validates :uri, type: String
 
-        # @return [String] XML document used with the define command.
+        # @return [String, nil] XML document used with the define command.
         attribute :xml
         validates :xml, type: String
       end

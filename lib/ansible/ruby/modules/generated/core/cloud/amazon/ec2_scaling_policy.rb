@@ -22,17 +22,17 @@ module Ansible
         attribute :adjustment_type
         validates :adjustment_type, inclusion: {:in=>[:ChangeInCapacity, :ExactCapacity, :PercentChangeInCapacity], :message=>"%{value} needs to be :ChangeInCapacity, :ExactCapacity, :PercentChangeInCapacity"}, allow_nil: true
 
-        # @return [Fixnum] The amount by which the autoscaling group is adjusted by the policy
+        # @return [Integer, nil] The amount by which the autoscaling group is adjusted by the policy
         attribute :scaling_adjustment
-        validates :scaling_adjustment, type: Fixnum
+        validates :scaling_adjustment, type: Integer
 
-        # @return [Fixnum] Minimum amount of adjustment when policy is triggered
+        # @return [Integer, nil] Minimum amount of adjustment when policy is triggered
         attribute :min_adjustment_step
-        validates :min_adjustment_step, type: Fixnum
+        validates :min_adjustment_step, type: Integer
 
-        # @return [Fixnum] The minimum period of time between which autoscaling actions can take place
+        # @return [Integer, nil] The minimum period of time between which autoscaling actions can take place
         attribute :cooldown
-        validates :cooldown, type: Fixnum
+        validates :cooldown, type: Integer
       end
     end
   end

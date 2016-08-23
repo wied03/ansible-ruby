@@ -10,20 +10,20 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [Object] Domain the public key is related to.
+        # @return [Object, nil] Domain the public key is related to.
         attribute :domain
 
-        # @return [Object] Account the public key is related to.
+        # @return [Object, nil] Account the public key is related to.
         attribute :account
 
-        # @return [Object] Name of the project the public key to be registered in.
+        # @return [Object, nil] Name of the project the public key to be registered in.
         attribute :project
 
         # @return [:present, :absent, nil] State of the public key.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [String] String of the public key.
+        # @return [String, nil] String of the public key.
         attribute :public_key
         validates :public_key, type: String
       end

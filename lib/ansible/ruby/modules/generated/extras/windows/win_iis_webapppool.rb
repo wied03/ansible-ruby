@@ -14,7 +14,7 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:absent, :stopped, :started, :restarted], :message=>"%{value} needs to be :absent, :stopped, :started, :restarted"}, allow_nil: true
 
-        # @return [String] Application Pool attributes from string where attributes are seperated by a pipe and attribute name/values by colon Ex. "foo:1|bar:2"
+        # @return [String, nil] Application Pool attributes from string where attributes are seperated by a pipe and attribute name/values by colon Ex. "foo:1|bar:2"
         attribute :attributes
         validates :attributes, type: String
       end

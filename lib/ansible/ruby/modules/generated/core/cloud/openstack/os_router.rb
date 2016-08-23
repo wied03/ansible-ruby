@@ -14,23 +14,23 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [TrueClass] Desired admin state of the created or existing router.
+        # @return [TrueClass, nil] Desired admin state of the created or existing router.
         attribute :admin_state_up
         validates :admin_state_up, type: TrueClass
 
-        # @return [TrueClass] Enable Source NAT (SNAT) attribute.
+        # @return [TrueClass, nil] Enable Source NAT (SNAT) attribute.
         attribute :enable_snat
         validates :enable_snat, type: TrueClass
 
-        # @return [String] Unique name or ID of the external gateway network.,required I(interfaces) or I(enable_snat) are provided.
+        # @return [String, nil] Unique name or ID of the external gateway network.,required I(interfaces) or I(enable_snat) are provided.
         attribute :network
         validates :network, type: String
 
-        # @return [String] The IP address parameters for the external gateway network. Each is a dictionary with the subnet name or ID (subnet) and the IP address to assign on the subnet (ip). If no IP is specified, one is automatically assigned from that subnet.
+        # @return [String, nil] The IP address parameters for the external gateway network. Each is a dictionary with the subnet name or ID (subnet) and the IP address to assign on the subnet (ip). If no IP is specified, one is automatically assigned from that subnet.
         attribute :external_fixed_ips
         validates :external_fixed_ips, type: String
 
-        # @return [String] List of subnets to attach to the router internal interface.
+        # @return [String, nil] List of subnets to attach to the router internal interface.
         attribute :interfaces
         validates :interfaces, type: String
       end

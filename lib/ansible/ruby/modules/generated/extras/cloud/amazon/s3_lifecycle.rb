@@ -10,19 +10,19 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [String] Indicates the lifetime of the objects that are subject to the rule by the date they will expire. The value must be ISO-8601 format, the time must be midnight and a GMT timezone must be specified.
+        # @return [String, nil] Indicates the lifetime of the objects that are subject to the rule by the date they will expire. The value must be ISO-8601 format, the time must be midnight and a GMT timezone must be specified.
         attribute :expiration_date
         validates :expiration_date, type: String
 
-        # @return [Fixnum] Indicates the lifetime, in days, of the objects that are subject to the rule. The value must be a non-zero positive integer.
+        # @return [Integer, nil] Indicates the lifetime, in days, of the objects that are subject to the rule. The value must be a non-zero positive integer.
         attribute :expiration_days
-        validates :expiration_days, type: Fixnum
+        validates :expiration_days, type: Integer
 
-        # @return [String] Prefix identifying one or more objects to which the rule applies.  If no prefix is specified, the rule will apply to the whole bucket.
+        # @return [String, nil] Prefix identifying one or more objects to which the rule applies.  If no prefix is specified, the rule will apply to the whole bucket.
         attribute :prefix
         validates :prefix, type: String
 
-        # @return [Object] Unique identifier for the rule. The value cannot be longer than 255 characters. A unique value for the rule will be generated if no value is provided.
+        # @return [Object, nil] Unique identifier for the rule. The value cannot be longer than 255 characters. A unique value for the rule will be generated if no value is provided.
         attribute :rule_id
 
         # @return [:present, :absent, nil] Create or remove the lifecycle rule
@@ -37,13 +37,13 @@ module Ansible
         attribute :storage_class
         validates :storage_class, inclusion: {:in=>[:glacier], :message=>"%{value} needs to be :glacier"}, allow_nil: true
 
-        # @return [String] Indicates the lifetime of the objects that are subject to the rule by the date they will transition to a different storage class. The value must be ISO-8601 format, the time must be midnight and a GMT timezone must be specified. If transition_days is not specified, this parameter is required.
+        # @return [String, nil] Indicates the lifetime of the objects that are subject to the rule by the date they will transition to a different storage class. The value must be ISO-8601 format, the time must be midnight and a GMT timezone must be specified. If transition_days is not specified, this parameter is required.
         attribute :transition_date
         validates :transition_date, type: String
 
-        # @return [Fixnum] Indicates when, in days, an object transitions to a different storage class. If transition_date is not specified, this parameter is required.
+        # @return [Integer, nil] Indicates when, in days, an object transitions to a different storage class. If transition_date is not specified, this parameter is required.
         attribute :transition_days
-        validates :transition_days, type: Fixnum
+        validates :transition_days, type: Integer
       end
     end
   end

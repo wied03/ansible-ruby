@@ -18,50 +18,50 @@ module Ansible
         attribute :instance_type
         validates :instance_type, presence: true, type: String
 
-        # @return [String] The AMI unique identifier to be used for the group
+        # @return [String, nil] The AMI unique identifier to be used for the group
         attribute :image_id
         validates :image_id, type: String
 
-        # @return [String] The SSH key name to be used for access to managed instances
+        # @return [String, nil] The SSH key name to be used for access to managed instances
         attribute :key_name
         validates :key_name, type: String
 
-        # @return [Array] A list of security groups into which instances should be found
+        # @return [Array, nil] A list of security groups into which instances should be found
         attribute :security_groups
         validates :security_groups, type: Array
 
-        # @return [Array] a list of volume dicts, each containing device name and optionally ephemeral id or snapshot id. Size and type (and number of iops for io device type) must be specified for a new volume or a root volume, and may be passed for a snapshot volume. For any volume, a volume size less than 1 will be interpreted as a request not to create the volume.
+        # @return [Array, nil] a list of volume dicts, each containing device name and optionally ephemeral id or snapshot id. Size and type (and number of iops for io device type) must be specified for a new volume or a root volume, and may be passed for a snapshot volume. For any volume, a volume size less than 1 will be interpreted as a request not to create the volume.
         attribute :volumes
         validates :volumes, type: Array
 
-        # @return [Object] opaque blob of data which is made available to the ec2 instance
+        # @return [Object, nil] opaque blob of data which is made available to the ec2 instance
         attribute :user_data
 
-        # @return [Object] Kernel id for the EC2 instance
+        # @return [Object, nil] Kernel id for the EC2 instance
         attribute :kernel_id
 
-        # @return [Object] The spot price you are bidding. Only applies for an autoscaling group with spot instances.
+        # @return [Object, nil] The spot price you are bidding. Only applies for an autoscaling group with spot instances.
         attribute :spot_price
 
-        # @return [Object] whether instances in group are launched with detailed monitoring.
+        # @return [Object, nil] whether instances in group are launched with detailed monitoring.
         attribute :instance_monitoring
 
-        # @return [Object] Used for Auto Scaling groups that launch instances into an Amazon Virtual Private Cloud. Specifies whether to assign a public IP address to each instance launched in a Amazon VPC.
+        # @return [Object, nil] Used for Auto Scaling groups that launch instances into an Amazon Virtual Private Cloud. Specifies whether to assign a public IP address to each instance launched in a Amazon VPC.
         attribute :assign_public_ip
 
-        # @return [Object] A RAM disk id for the instances.
+        # @return [Object, nil] A RAM disk id for the instances.
         attribute :ramdisk_id
 
-        # @return [Object] The name or the Amazon Resource Name (ARN) of the instance profile associated with the IAM role for the instances.
+        # @return [Object, nil] The name or the Amazon Resource Name (ARN) of the instance profile associated with the IAM role for the instances.
         attribute :instance_profile_name
 
-        # @return [Object] Specifies whether the instance is optimized for EBS I/O (true) or not (false).
+        # @return [Object, nil] Specifies whether the instance is optimized for EBS I/O (true) or not (false).
         attribute :ebs_optimized
 
-        # @return [Object] Id of ClassicLink enabled VPC
+        # @return [Object, nil] Id of ClassicLink enabled VPC
         attribute :classic_link_vpc_id
 
-        # @return [Object] A list of security group id's with which to associate the ClassicLink VPC instances.
+        # @return [Object, nil] A list of security group id's with which to associate the ClassicLink VPC instances.
         attribute :classic_link_vpc_security_groups
       end
     end

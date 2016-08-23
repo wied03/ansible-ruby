@@ -14,9 +14,9 @@ module Ansible
         attribute :api_secret
         validates :api_secret, presence: true, type: String
 
-        # @return [Fixnum] Nexmo Number to send from
+        # @return [Integer] Nexmo Number to send from
         attribute :src
-        validates :src, presence: true, type: Fixnum
+        validates :src, presence: true, type: Integer
 
         # @return [Array] Phone number(s) to send SMS message to
         attribute :dest

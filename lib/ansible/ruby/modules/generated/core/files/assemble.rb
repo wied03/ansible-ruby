@@ -18,7 +18,7 @@ module Ansible
         attribute :backup
         validates :backup, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String] A delimiter to separate the file contents.
+        # @return [String, nil] A delimiter to separate the file contents.
         attribute :delimiter
         validates :delimiter, type: String
 
@@ -26,13 +26,13 @@ module Ansible
         attribute :remote_src
         validates :remote_src, inclusion: {:in=>[:True, :False], :message=>"%{value} needs to be :True, :False"}, allow_nil: true
 
-        # @return [Object] Assemble files only if C(regex) matches the filename. If not set, all files are assembled. All "\\" (backslash) must be escaped as "\\\\" to comply yaml syntax. Uses Python regular expressions; see U(http://docs.python.org/2/library/re.html).
+        # @return [Object, nil] Assemble files only if C(regex) matches the filename. If not set, all files are assembled. All "\\" (backslash) must be escaped as "\\\\" to comply yaml syntax. Uses Python regular expressions; see U(http://docs.python.org/2/library/re.html).
         attribute :regexp
 
-        # @return [Object] A boolean that controls if files that start with a '.' will be included or not.
+        # @return [Object, nil] A boolean that controls if files that start with a '.' will be included or not.
         attribute :ignore_hidden
 
-        # @return [String] The validation command to run before copying into place.  The path to the file to validate is passed in via '%s' which must be present as in the sshd example below. The command is passed securely so shell features like expansion and pipes won't work.
+        # @return [String, nil] The validation command to run before copying into place.  The path to the file to validate is passed in via '%s' which must be present as in the sshd example below. The command is passed securely so shell features like expansion and pipes won't work.
         attribute :validate
         validates :validate, type: String
       end

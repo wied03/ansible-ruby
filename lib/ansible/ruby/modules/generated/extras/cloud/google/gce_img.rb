@@ -10,10 +10,10 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [Object] an optional description
+        # @return [Object, nil] an optional description
         attribute :description
 
-        # @return [String] the source disk or the Google Cloud Storage URI to create the image from
+        # @return [String, nil] the source disk or the Google Cloud Storage URI to create the image from
         attribute :source
         validates :source, type: String
 
@@ -21,21 +21,21 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [String] the zone of the disk specified by source
+        # @return [String, nil] the zone of the disk specified by source
         attribute :zone
         validates :zone, type: String
 
-        # @return [Fixnum] timeout for the operation
+        # @return [Integer, nil] timeout for the operation
         attribute :timeout
-        validates :timeout, type: Fixnum
+        validates :timeout, type: Integer
 
-        # @return [Object] service account email
+        # @return [Object, nil] service account email
         attribute :service_account_email
 
-        # @return [Object] path to the pem file associated with the service account email
+        # @return [Object, nil] path to the pem file associated with the service account email
         attribute :pem_file
 
-        # @return [Object] your GCE project ID
+        # @return [Object, nil] your GCE project ID
         attribute :project_id
       end
     end

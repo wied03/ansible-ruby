@@ -18,7 +18,7 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [Object] Description of the VRF
+        # @return [Object, nil] Description of the VRF
         attribute :description
       end
     end

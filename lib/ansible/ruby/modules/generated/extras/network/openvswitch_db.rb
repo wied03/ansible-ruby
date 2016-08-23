@@ -26,9 +26,9 @@ module Ansible
         attribute :value
         validates :value, presence: true, type: String
 
-        # @return [Fixnum] How long to wait for ovs-vswitchd to respond
+        # @return [Integer, nil] How long to wait for ovs-vswitchd to respond
         attribute :timeout
-        validates :timeout, type: Fixnum
+        validates :timeout, type: Integer
       end
     end
   end

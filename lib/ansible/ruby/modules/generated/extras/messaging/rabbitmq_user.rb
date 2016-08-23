@@ -10,34 +10,34 @@ module Ansible
         attribute :user
         validates :user, presence: true, type: String
 
-        # @return [String] Password of user to add.,To change the password of an existing user, you must also specify C(force=yes).
+        # @return [String, nil] Password of user to add.,To change the password of an existing user, you must also specify C(force=yes).
         attribute :password
         validates :password, type: String
 
-        # @return [Object] User tags specified as comma delimited
+        # @return [Object, nil] User tags specified as comma delimited
         attribute :tags
 
-        # @return [Array] a list of dicts, each dict contains vhost, configure_priv, write_priv, and read_priv, and represents a permission rule for that vhost.,This option should be preferable when you care about all permissions of the user.,You should use vhost, configure_priv, write_priv, and read_priv options instead if you care about permissions for just some vhosts.
+        # @return [Array, nil] a list of dicts, each dict contains vhost, configure_priv, write_priv, and read_priv, and represents a permission rule for that vhost.,This option should be preferable when you care about all permissions of the user.,You should use vhost, configure_priv, write_priv, and read_priv options instead if you care about permissions for just some vhosts.
         attribute :permissions
         validates :permissions, type: Array
 
-        # @return [String] vhost to apply access privileges.,This option will be ignored when permissions option is used.
+        # @return [String, nil] vhost to apply access privileges.,This option will be ignored when permissions option is used.
         attribute :vhost
         validates :vhost, type: String
 
-        # @return [String] erlang node name of the rabbit we wish to configure
+        # @return [String, nil] erlang node name of the rabbit we wish to configure
         attribute :node
         validates :node, type: String
 
-        # @return [String] Regular expression to restrict configure actions on a resource for the specified vhost.,By default all actions are restricted.,This option will be ignored when permissions option is used.
+        # @return [String, nil] Regular expression to restrict configure actions on a resource for the specified vhost.,By default all actions are restricted.,This option will be ignored when permissions option is used.
         attribute :configure_priv
         validates :configure_priv, type: String
 
-        # @return [String] Regular expression to restrict configure actions on a resource for the specified vhost.,By default all actions are restricted.,This option will be ignored when permissions option is used.
+        # @return [String, nil] Regular expression to restrict configure actions on a resource for the specified vhost.,By default all actions are restricted.,This option will be ignored when permissions option is used.
         attribute :write_priv
         validates :write_priv, type: String
 
-        # @return [String] Regular expression to restrict configure actions on a resource for the specified vhost.,By default all actions are restricted.,This option will be ignored when permissions option is used.
+        # @return [String, nil] Regular expression to restrict configure actions on a resource for the specified vhost.,By default all actions are restricted.,This option will be ignored when permissions option is used.
         attribute :read_priv
         validates :read_priv, type: String
 

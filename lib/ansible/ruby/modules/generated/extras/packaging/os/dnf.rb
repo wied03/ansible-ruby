@@ -10,21 +10,21 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [Object] Various (non-idempotent) commands for usage with C(/usr/bin/ansible) and I(not) playbooks. See examples.
+        # @return [Object, nil] Various (non-idempotent) commands for usage with C(/usr/bin/ansible) and I(not) playbooks. See examples.
         attribute :list
 
         # @return [:present, :latest, :absent, nil] Whether to install (C(present), C(latest)), or remove (C(absent)) a package.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :latest, :absent], :message=>"%{value} needs to be :present, :latest, :absent"}, allow_nil: true
 
-        # @return [String] I(Repoid) of repositories to enable for the install/update operation. These repos will not persist beyond the transaction. When specifying multiple repos, separate them with a ",".
+        # @return [String, nil] I(Repoid) of repositories to enable for the install/update operation. These repos will not persist beyond the transaction. When specifying multiple repos, separate them with a ",".
         attribute :enablerepo
         validates :enablerepo, type: String
 
-        # @return [Object] I(Repoid) of repositories to disable for the install/update operation. These repos will not persist beyond the transaction. When specifying multiple repos, separate them with a ",".
+        # @return [Object, nil] I(Repoid) of repositories to disable for the install/update operation. These repos will not persist beyond the transaction. When specifying multiple repos, separate them with a ",".
         attribute :disablerepo
 
-        # @return [Object] The remote dnf configuration file to use for the transaction.
+        # @return [Object, nil] The remote dnf configuration file to use for the transaction.
         attribute :conf_file
 
         # @return [:yes, :no, nil] Whether to disable the GPG checking of signatures of packages being installed. Has an effect only if state is I(present) or I(latest).

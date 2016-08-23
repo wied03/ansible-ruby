@@ -14,7 +14,7 @@ module Ansible
         attribute :key
         validates :key, presence: true, type: String
 
-        # @return [String] Alternate path to the authorized_keys file
+        # @return [String, nil] Alternate path to the authorized_keys file
         attribute :path
         validates :path, type: String
 
@@ -26,7 +26,7 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [Array<String>] A string of ssh key options to be prepended to the key in the authorized_keys file
+        # @return [Array<String>, nil] A string of ssh key options to be prepended to the key in the authorized_keys file
         attribute :key_options, flat_array: true
         validates :key_options, type: TypeGeneric.new(String)
 

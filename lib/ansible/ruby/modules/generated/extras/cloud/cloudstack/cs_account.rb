@@ -10,32 +10,32 @@ module Ansible
         attribute :name
         validates :name, presence: true
 
-        # @return [Object] Username of the user to be created if account did not exist.,Required on C(state=present).
+        # @return [Object, nil] Username of the user to be created if account did not exist.,Required on C(state=present).
         attribute :username
 
-        # @return [Object] Password of the user to be created if account did not exist.,Required on C(state=present).
+        # @return [Object, nil] Password of the user to be created if account did not exist.,Required on C(state=present).
         attribute :password
 
-        # @return [Object] First name of the user to be created if account did not exist.,Required on C(state=present).
+        # @return [Object, nil] First name of the user to be created if account did not exist.,Required on C(state=present).
         attribute :first_name
 
-        # @return [Object] Last name of the user to be created if account did not exist.,Required on C(state=present).
+        # @return [Object, nil] Last name of the user to be created if account did not exist.,Required on C(state=present).
         attribute :last_name
 
-        # @return [Object] Email of the user to be created if account did not exist.,Required on C(state=present).
+        # @return [Object, nil] Email of the user to be created if account did not exist.,Required on C(state=present).
         attribute :email
 
-        # @return [Object] Timezone of the user to be created if account did not exist.
+        # @return [Object, nil] Timezone of the user to be created if account did not exist.
         attribute :timezone
 
-        # @return [Object] Network domain of the account.
+        # @return [Object, nil] Network domain of the account.
         attribute :network_domain
 
         # @return [:user, :root_admin, :domain_admin, nil] Type of the account.
         attribute :account_type
         validates :account_type, inclusion: {:in=>[:user, :root_admin, :domain_admin], :message=>"%{value} needs to be :user, :root_admin, :domain_admin"}, allow_nil: true
 
-        # @return [String] Domain the account is related to.
+        # @return [String, nil] Domain the account is related to.
         attribute :domain
         validates :domain, type: String
 
@@ -43,7 +43,7 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent, :enabled, :disabled, :locked, :unlocked], :message=>"%{value} needs to be :present, :absent, :enabled, :disabled, :locked, :unlocked"}, allow_nil: true
 
-        # @return [TrueClass] Poll async jobs until job has finished.
+        # @return [TrueClass, nil] Poll async jobs until job has finished.
         attribute :poll_async
         validates :poll_async, type: TrueClass
       end

@@ -6,7 +6,7 @@ module Ansible
   module Ruby
     module Modules
       class Junos_facts < Base
-        # @return [TrueClass] The C(config) argument instructs the fact module to collect the configuration from the remote device.  The configuration is then included in return facts.  By default, the configuration is returned as text.  The C(config_format) can be used to return different Junos configuration formats.
+        # @return [TrueClass, nil] The C(config) argument instructs the fact module to collect the configuration from the remote device.  The configuration is then included in return facts.  By default, the configuration is returned as text.  The C(config_format) can be used to return different Junos configuration formats.
         attribute :config
         validates :config, type: TrueClass
 

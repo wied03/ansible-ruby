@@ -10,15 +10,15 @@ module Ansible
         attribute :alias
         validates :alias, presence: true
 
-        # @return [String] The name of the alert policy. This is mutually exclusive with id
+        # @return [String, nil] The name of the alert policy. This is mutually exclusive with id
         attribute :name
         validates :name, type: String
 
-        # @return [String] The alert policy id. This is mutually exclusive with name
+        # @return [String, nil] The alert policy id. This is mutually exclusive with name
         attribute :id
         validates :id, type: String
 
-        # @return [String] A list of recipient email ids to notify the alert. This is required for state 'present'
+        # @return [String, nil] A list of recipient email ids to notify the alert. This is required for state 'present'
         attribute :alert_recipients
         validates :alert_recipients, type: String
 
@@ -26,11 +26,11 @@ module Ansible
         attribute :metric
         validates :metric, inclusion: {:in=>[:cpu, :memory, :disk], :message=>"%{value} needs to be :cpu, :memory, :disk"}, allow_nil: true
 
-        # @return [String] The length of time in minutes that the condition must exceed the threshold. This is required for state 'present'
+        # @return [String, nil] The length of time in minutes that the condition must exceed the threshold. This is required for state 'present'
         attribute :duration
         validates :duration, type: String
 
-        # @return [String] The threshold that will trigger the alert when the metric equals or exceeds it. This is required for state 'present' This number represents a percentage and must be a value between 5.0 - 95.0 that is a multiple of 5.0
+        # @return [String, nil] The threshold that will trigger the alert when the metric equals or exceeds it. This is required for state 'present' This number represents a percentage and must be a value between 5.0 - 95.0 that is a multiple of 5.0
         attribute :threshold
         validates :threshold, type: String
 

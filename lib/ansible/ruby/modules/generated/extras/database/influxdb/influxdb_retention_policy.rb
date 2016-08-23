@@ -10,17 +10,17 @@ module Ansible
         attribute :hostname
         validates :hostname, presence: true, type: String
 
-        # @return [String] Username that will be used to authenticate against InfluxDB server
+        # @return [String, nil] Username that will be used to authenticate against InfluxDB server
         attribute :username
         validates :username, type: String
 
-        # @return [String] Password that will be used to authenticate against InfluxDB server
+        # @return [String, nil] Password that will be used to authenticate against InfluxDB server
         attribute :password
         validates :password, type: String
 
-        # @return [Fixnum] The port on which InfluxDB server is listening
+        # @return [Integer, nil] The port on which InfluxDB server is listening
         attribute :port
-        validates :port, type: Fixnum
+        validates :port, type: Integer
 
         # @return [String] Name of the database where retention policy will be created
         attribute :database_name
@@ -34,9 +34,9 @@ module Ansible
         attribute :duration
         validates :duration, presence: true, type: String
 
-        # @return [Fixnum] Determines how many independent copies of each point are stored in the cluster
+        # @return [Integer] Determines how many independent copies of each point are stored in the cluster
         attribute :replication
-        validates :replication, presence: true, type: Fixnum
+        validates :replication, presence: true, type: Integer
 
         # @return [Object] Sets the retention policy as default retention policy
         attribute :default

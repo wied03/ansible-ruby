@@ -26,7 +26,7 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent, :enabled, :disabled], :message=>"%{value} needs to be :present, :absent, :enabled, :disabled"}, allow_nil: true
 
-        # @return [String] Partition
+        # @return [String, nil] Partition
         attribute :partition
         validates :partition, type: String
 
@@ -38,27 +38,27 @@ module Ansible
         attribute :destination
         validates :destination, presence: true, type: String
 
-        # @return [String] Port of the virtual server . Required when state=present and vs does not exist
+        # @return [String, nil] Port of the virtual server . Required when state=present and vs does not exist
         attribute :port
         validates :port, type: String
 
-        # @return [String] List of all Profiles (HTTP,ClientSSL,ServerSSL,etc) that must be used by the virtual server
+        # @return [String, nil] List of all Profiles (HTTP,ClientSSL,ServerSSL,etc) that must be used by the virtual server
         attribute :all_profiles
         validates :all_profiles, type: String
 
-        # @return [String] Default pool for the virtual server
+        # @return [String, nil] Default pool for the virtual server
         attribute :pool
         validates :pool, type: String
 
-        # @return [String] Source network address policy
+        # @return [String, nil] Source network address policy
         attribute :snat
         validates :snat, type: String
 
-        # @return [String] Default Profile which manages the session persistence
+        # @return [String, nil] Default Profile which manages the session persistence
         attribute :default_persistence_profile
         validates :default_persistence_profile, type: String
 
-        # @return [String] Virtual server description.
+        # @return [String, nil] Virtual server description.
         attribute :description
         validates :description, type: String
       end

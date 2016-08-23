@@ -14,7 +14,7 @@ module Ansible
         attribute :package_id
         validates :package_id, presence: true, type: String
 
-        # @return [Hash] The dictionary of arguments required to deploy the blue print.
+        # @return [Hash, nil] The dictionary of arguments required to deploy the blue print.
         attribute :package_params
         validates :package_params, type: Hash
 

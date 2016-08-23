@@ -10,39 +10,39 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [Object] The username used to authenticate with
+        # @return [Object, nil] The username used to authenticate with
         attribute :login_user
 
-        # @return [Object] The password used to authenticate with
+        # @return [Object, nil] The password used to authenticate with
         attribute :login_password
 
-        # @return [String] Host running the database
+        # @return [String, nil] Host running the database
         attribute :login_host
         validates :login_host, type: String
 
-        # @return [Object] Path to a Unix domain socket for local connections
+        # @return [Object, nil] Path to a Unix domain socket for local connections
         attribute :login_unix_socket
 
-        # @return [Object] Name of the role to set as owner of the database
+        # @return [Object, nil] Name of the role to set as owner of the database
         attribute :owner
 
-        # @return [Fixnum] Database port to connect to.
+        # @return [Integer, nil] Database port to connect to.
         attribute :port
-        validates :port, type: Fixnum
+        validates :port, type: Integer
 
-        # @return [String] Template used to create the database
+        # @return [String, nil] Template used to create the database
         attribute :template
         validates :template, type: String
 
-        # @return [String] Encoding of the database
+        # @return [String, nil] Encoding of the database
         attribute :encoding
         validates :encoding, type: String
 
-        # @return [String] Collation order (LC_COLLATE) to use in the database. Must match collation order of template database unless C(template0) is used as template.
+        # @return [String, nil] Collation order (LC_COLLATE) to use in the database. Must match collation order of template database unless C(template0) is used as template.
         attribute :lc_collate
         validates :lc_collate, type: String
 
-        # @return [String] Character classification (LC_CTYPE) to use in the database (e.g. lower, upper, ...) Must match LC_CTYPE of template database unless C(template0) is used as template.
+        # @return [String, nil] Character classification (LC_CTYPE) to use in the database (e.g. lower, upper, ...) Must match LC_CTYPE of template database unless C(template0) is used as template.
         attribute :lc_ctype
         validates :lc_ctype, type: String
 

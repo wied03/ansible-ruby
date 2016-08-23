@@ -14,15 +14,15 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [String] The VPC ID the zone should be a part of (if this is going to be a private zone)
+        # @return [String, nil] The VPC ID the zone should be a part of (if this is going to be a private zone)
         attribute :vpc_id
         validates :vpc_id, type: String
 
-        # @return [String] The VPC Region the zone should be a part of (if this is going to be a private zone)
+        # @return [String, nil] The VPC Region the zone should be a part of (if this is going to be a private zone)
         attribute :vpc_region
         validates :vpc_region, type: String
 
-        # @return [String] Comment associated with the zone
+        # @return [String, nil] Comment associated with the zone
         attribute :comment
         validates :comment, type: String
       end

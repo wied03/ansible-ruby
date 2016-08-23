@@ -6,18 +6,18 @@ module Ansible
   module Ruby
     module Modules
       class Rax_cdb_database < Base
-        # @return [Object] The databases server UUID
+        # @return [Object, nil] The databases server UUID
         attribute :cdb_id
 
-        # @return [String] Name to give to the database
+        # @return [String, nil] Name to give to the database
         attribute :name
         validates :name, type: String
 
-        # @return [String] Set of symbols and encodings
+        # @return [String, nil] Set of symbols and encodings
         attribute :character_set
         validates :character_set, type: String
 
-        # @return [String] Set of rules for comparing characters in a character set
+        # @return [String, nil] Set of rules for comparing characters in a character set
         attribute :collate
         validates :collate, type: String
 

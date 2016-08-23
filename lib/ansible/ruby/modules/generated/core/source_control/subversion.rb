@@ -14,7 +14,7 @@ module Ansible
         attribute :dest
         validates :dest, presence: true, type: String
 
-        # @return [String] Specific revision to checkout.
+        # @return [String, nil] Specific revision to checkout.
         attribute :revision
         validates :revision, type: String
 
@@ -22,13 +22,13 @@ module Ansible
         attribute :force
         validates :force, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [Object] --username parameter passed to svn.
+        # @return [Object, nil] --username parameter passed to svn.
         attribute :username
 
-        # @return [Object] --password parameter passed to svn.
+        # @return [Object, nil] --password parameter passed to svn.
         attribute :password
 
-        # @return [Object] Path to svn executable to use. If not supplied, the normal mechanism for resolving binary paths will be used.
+        # @return [Object, nil] Path to svn executable to use. If not supplied, the normal mechanism for resolving binary paths will be used.
         attribute :executable
 
         # @return [:yes, :no, nil] If C(yes), do export instead of checkout/update.

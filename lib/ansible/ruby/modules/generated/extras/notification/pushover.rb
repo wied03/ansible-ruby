@@ -18,7 +18,7 @@ module Ansible
         attribute :user_key
         validates :user_key, presence: true, type: String
 
-        # @return [Object] Message priority (see U(https://pushover.net) for details.)
+        # @return [Object, nil] Message priority (see U(https://pushover.net) for details.)
         attribute :pri
       end
     end

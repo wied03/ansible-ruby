@@ -10,11 +10,11 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [String] Description of the domain
+        # @return [String, nil] Description of the domain
         attribute :description
         validates :description, type: String
 
-        # @return [TrueClass] Is the domain enabled
+        # @return [TrueClass, nil] Is the domain enabled
         attribute :enabled
         validates :enabled, type: TrueClass
 

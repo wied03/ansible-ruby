@@ -10,17 +10,17 @@ module Ansible
         attribute :commands
         validates :commands, presence: true, type: Array
 
-        # @return [Array] List of conditions to evaluate against the output of the command. The task will wait for a each condition to be true before moving forward. If the conditional is not true within the configured number of retries, the task fails. See examples.
+        # @return [Array, nil] List of conditions to evaluate against the output of the command. The task will wait for a each condition to be true before moving forward. If the conditional is not true within the configured number of retries, the task fails. See examples.
         attribute :waitfor
         validates :waitfor, type: Array
 
-        # @return [Fixnum] Specifies the number of retries a command should by tried before it is considered failed. The command is run on the target device every retry and evaluated against the waitfor conditions.
+        # @return [Integer, nil] Specifies the number of retries a command should by tried before it is considered failed. The command is run on the target device every retry and evaluated against the waitfor conditions.
         attribute :retries
-        validates :retries, type: Fixnum
+        validates :retries, type: Integer
 
-        # @return [Fixnum] Configures the interval in seconds to wait between retries of the command. If the command does not pass the specified conditions, the interval indicates how long to wait before trying the command again.
+        # @return [Integer, nil] Configures the interval in seconds to wait between retries of the command. If the command does not pass the specified conditions, the interval indicates how long to wait before trying the command again.
         attribute :interval
-        validates :interval, type: Fixnum
+        validates :interval, type: Integer
       end
     end
   end

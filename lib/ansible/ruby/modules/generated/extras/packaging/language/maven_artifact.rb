@@ -14,26 +14,26 @@ module Ansible
         attribute :artifact_id
         validates :artifact_id, presence: true, type: String
 
-        # @return [String] The maven version coordinate
+        # @return [String, nil] The maven version coordinate
         attribute :version
         validates :version, type: String
 
-        # @return [Object] The maven classifier coordinate
+        # @return [Object, nil] The maven classifier coordinate
         attribute :classifier
 
-        # @return [String] The maven type/extension coordinate
+        # @return [String, nil] The maven type/extension coordinate
         attribute :extension
         validates :extension, type: String
 
-        # @return [String] The URL of the Maven Repository to download from
+        # @return [String, nil] The URL of the Maven Repository to download from
         attribute :repository_url
         validates :repository_url, type: String
 
-        # @return [String] The username to authenticate as to the Maven Repository
+        # @return [String, nil] The username to authenticate as to the Maven Repository
         attribute :username
         validates :username, type: String
 
-        # @return [String] The password to authenticate with to the Maven Repository
+        # @return [String, nil] The password to authenticate with to the Maven Repository
         attribute :password
         validates :password, type: String
 

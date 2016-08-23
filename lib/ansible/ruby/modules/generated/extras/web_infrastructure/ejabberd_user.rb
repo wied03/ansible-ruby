@@ -14,7 +14,7 @@ module Ansible
         attribute :host
         validates :host, presence: true, type: String
 
-        # @return [String] the password to assign to the username
+        # @return [String, nil] the password to assign to the username
         attribute :password
         validates :password, type: String
 

@@ -10,14 +10,14 @@ module Ansible
         attribute :dest
         validates :dest, presence: true, type: String
 
-        # @return [Fixnum] Number of packets to send
+        # @return [Integer, nil] Number of packets to send
         attribute :count
-        validates :count, type: Fixnum
+        validates :count, type: Integer
 
-        # @return [Object] Source IP Address
+        # @return [Object, nil] Source IP Address
         attribute :source
 
-        # @return [String] Outgoing VRF
+        # @return [String, nil] Outgoing VRF
         attribute :vrf
         validates :vrf, type: String
       end

@@ -14,13 +14,13 @@ module Ansible
         attribute :switch_name
         validates :switch_name, presence: true, type: String
 
-        # @return [Fixnum] The VLAN ID that should be configured with the portgroup
+        # @return [Integer] The VLAN ID that should be configured with the portgroup
         attribute :vlan_id
-        validates :vlan_id, presence: true, type: Fixnum
+        validates :vlan_id, presence: true, type: Integer
 
-        # @return [Fixnum] The number of ports the portgroup should contain
+        # @return [Integer] The number of ports the portgroup should contain
         attribute :num_ports
-        validates :num_ports, presence: true, type: Fixnum
+        validates :num_ports, presence: true, type: Integer
 
         # @return [:earlyBinding, :lateBinding, :ephemeral] See VMware KB 1022312 regarding portgroup types
         attribute :portgroup_type

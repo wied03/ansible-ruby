@@ -14,7 +14,7 @@ module Ansible
         attribute :dest
         validates :dest, presence: true, type: String
 
-        # @return [String] What version of the repository to check out.  This can be the full 40-character I(SHA-1) hash, the literal string C(HEAD), a branch name, or a tag name.
+        # @return [String, nil] What version of the repository to check out.  This can be the full 40-character I(SHA-1) hash, the literal string C(HEAD), a branch name, or a tag name.
         attribute :version
         validates :version, type: String
 
@@ -22,22 +22,22 @@ module Ansible
         attribute :accept_hostkey
         validates :accept_hostkey, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String] Creates a wrapper script and exports the path as GIT_SSH which git then automatically uses to override ssh arguments. An example value could be "-o StrictHostKeyChecking=no"
+        # @return [String, nil] Creates a wrapper script and exports the path as GIT_SSH which git then automatically uses to override ssh arguments. An example value could be "-o StrictHostKeyChecking=no"
         attribute :ssh_opts
         validates :ssh_opts, type: String
 
-        # @return [String] Specify an optional private key file to use for the checkout.
+        # @return [String, nil] Specify an optional private key file to use for the checkout.
         attribute :key_file
         validates :key_file, type: String
 
-        # @return [Object] Reference repository (see "git clone --reference ...")
+        # @return [Object, nil] Reference repository (see "git clone --reference ...")
         attribute :reference
 
-        # @return [String] Name of the remote.
+        # @return [String, nil] Name of the remote.
         attribute :remote
         validates :remote, type: String
 
-        # @return [String] Add an additional refspec to be fetched. If version is set to a I(SHA-1) not reachable from any branch or tag, this option may be necessary to specify the ref containing the I(SHA-1). Uses the same syntax as the 'git fetch' command. An example value could be "refs/meta/config".
+        # @return [String, nil] Add an additional refspec to be fetched. If version is set to a I(SHA-1) not reachable from any branch or tag, this option may be necessary to specify the ref containing the I(SHA-1). Uses the same syntax as the 'git fetch' command. An example value could be "refs/meta/config".
         attribute :refspec
         validates :refspec, type: String
 
@@ -45,7 +45,7 @@ module Ansible
         attribute :force
         validates :force, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [Object] Create a shallow clone with a history truncated to the specified number or revisions. The minimum possible value is C(1), otherwise ignored. Needs I(git>=1.9.1) to work correctly.
+        # @return [Object, nil] Create a shallow clone with a history truncated to the specified number or revisions. The minimum possible value is C(1), otherwise ignored. Needs I(git>=1.9.1) to work correctly.
         attribute :depth
 
         # @return [:yes, :no, nil] If C(no), do not clone the repository if it does not exist locally
@@ -56,7 +56,7 @@ module Ansible
         attribute :update
         validates :update, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [Object] Path to git executable to use. If not supplied, the normal mechanism for resolving binary paths will be used.
+        # @return [Object, nil] Path to git executable to use. If not supplied, the normal mechanism for resolving binary paths will be used.
         attribute :executable
 
         # @return [:yes, :no, nil] if C(yes), repository will be created as a bare repo, otherwise it will be a standard repo with a workspace.

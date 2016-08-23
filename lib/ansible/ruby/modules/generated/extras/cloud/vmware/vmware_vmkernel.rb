@@ -26,20 +26,20 @@ module Ansible
         attribute :vland_id
         validates :vland_id, presence: true
 
-        # @return [Object] The MTU for the VMK interface
+        # @return [Object, nil] The MTU for the VMK interface
         attribute :mtu
 
-        # @return [Object] Enable the VMK interface for VSAN traffic
+        # @return [Object, nil] Enable the VMK interface for VSAN traffic
         attribute :enable_vsan
 
-        # @return [Object] Enable the VMK interface for vMotion traffic
+        # @return [Object, nil] Enable the VMK interface for vMotion traffic
         attribute :enable_vmotion
 
-        # @return [TrueClass] Enable the VMK interface for Management traffic
+        # @return [TrueClass, nil] Enable the VMK interface for Management traffic
         attribute :enable_mgmt
         validates :enable_mgmt, type: TrueClass
 
-        # @return [Object] Enable the VMK interface for Fault Tolerance traffic
+        # @return [Object, nil] Enable the VMK interface for Fault Tolerance traffic
         attribute :enable_ft
       end
     end

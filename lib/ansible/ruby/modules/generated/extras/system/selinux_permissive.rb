@@ -18,7 +18,7 @@ module Ansible
         attribute :no_reload
         validates :no_reload, inclusion: {:in=>[:True, :False], :message=>"%{value} needs to be :True, :False"}, allow_nil: true
 
-        # @return [Object] name of the SELinux policy store to use
+        # @return [Object, nil] name of the SELinux policy store to use
         attribute :store
       end
     end

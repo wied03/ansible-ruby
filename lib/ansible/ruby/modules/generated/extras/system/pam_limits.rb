@@ -34,11 +34,11 @@ module Ansible
         attribute :use_max
         validates :use_max, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String] Modify the limits.conf path.
+        # @return [String, nil] Modify the limits.conf path.
         attribute :dest
         validates :dest, type: String
 
-        # @return [String] Comment associated with the limit.
+        # @return [String, nil] Comment associated with the limit.
         attribute :comment
         validates :comment, type: String
       end

@@ -10,7 +10,7 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [Object] Optional I(GID) to set for the group.
+        # @return [Object, nil] Optional I(GID) to set for the group.
         attribute :gid
 
         # @return [:present, :absent, nil] Whether the group should be present or not on the remote host.

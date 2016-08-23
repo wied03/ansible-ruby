@@ -14,11 +14,11 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [String] The marker line template. "{mark}" will be replaced with "BEGIN" or "END".
+        # @return [String, nil] The marker line template. "{mark}" will be replaced with "BEGIN" or "END".
         attribute :marker
         validates :marker, type: String
 
-        # @return [String] The text to insert inside the marker lines. If it's missing or an empty string, the block will be removed as if C(state) were specified to C(absent).
+        # @return [String, nil] The text to insert inside the marker lines. If it's missing or an empty string, the block will be removed as if C(state) were specified to C(absent).
         attribute :block
         validates :block, type: String
 

@@ -10,24 +10,24 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [Object] Package name(s) to exclude when state=present, or latest
+        # @return [Object, nil] Package name(s) to exclude when state=present, or latest
         attribute :exclude
 
-        # @return [Object] Various (non-idempotent) commands for usage with C(/usr/bin/ansible) and I(not) playbooks. See examples.
+        # @return [Object, nil] Various (non-idempotent) commands for usage with C(/usr/bin/ansible) and I(not) playbooks. See examples.
         attribute :list
 
         # @return [:present, :installed, :latest, :absent, :removed, nil] Whether to install (C(present) or C(installed), C(latest)), or remove (C(absent) or C(removed)) a package.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :installed, :latest, :absent, :removed], :message=>"%{value} needs to be :present, :installed, :latest, :absent, :removed"}, allow_nil: true
 
-        # @return [String] I(Repoid) of repositories to enable for the install/update operation. These repos will not persist beyond the transaction. When specifying multiple repos, separate them with a ",".
+        # @return [String, nil] I(Repoid) of repositories to enable for the install/update operation. These repos will not persist beyond the transaction. When specifying multiple repos, separate them with a ",".
         attribute :enablerepo
         validates :enablerepo, type: String
 
-        # @return [Object] I(Repoid) of repositories to disable for the install/update operation. These repos will not persist beyond the transaction. When specifying multiple repos, separate them with a ",".
+        # @return [Object, nil] I(Repoid) of repositories to disable for the install/update operation. These repos will not persist beyond the transaction. When specifying multiple repos, separate them with a ",".
         attribute :disablerepo
 
-        # @return [Object] The remote yum configuration file to use for the transaction.
+        # @return [Object, nil] The remote yum configuration file to use for the transaction.
         attribute :conf_file
 
         # @return [:yes, :no, nil] Whether to disable the GPG checking of signatures of packages being installed. Has an effect only if state is I(present) or I(latest).

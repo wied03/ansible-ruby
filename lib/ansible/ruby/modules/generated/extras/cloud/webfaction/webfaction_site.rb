@@ -22,11 +22,11 @@ module Ansible
         attribute :https
         validates :https, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
-        # @return [Array] A mapping of URLs to apps
+        # @return [Array, nil] A mapping of URLs to apps
         attribute :site_apps
         validates :site_apps, type: Array
 
-        # @return [Array] A list of subdomains associated with this site.
+        # @return [Array, nil] A list of subdomains associated with this site.
         attribute :subdomains
         validates :subdomains, type: Array
 

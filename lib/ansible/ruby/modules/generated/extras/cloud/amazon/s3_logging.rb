@@ -14,11 +14,11 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [String] The bucket to log to. Required when state=present.
+        # @return [String, nil] The bucket to log to. Required when state=present.
         attribute :target_bucket
         validates :target_bucket, type: String
 
-        # @return [String] The prefix that should be prepended to the generated log files written to the target_bucket.
+        # @return [String, nil] The prefix that should be prepended to the generated log files written to the target_bucket.
         attribute :target_prefix
         validates :target_prefix, type: String
       end

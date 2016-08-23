@@ -14,11 +14,11 @@ module Ansible
         attribute :state
         validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
 
-        # @return [String] Snapshot from which to create a clone
+        # @return [String, nil] Snapshot from which to create a clone
         attribute :origin
         validates :origin, type: String
 
-        # @return [Object] The C(zfs) module takes key=value pairs for zfs properties to be set. See the zfs(8) man page for more information.
+        # @return [Object, nil] The C(zfs) module takes key=value pairs for zfs properties to be set. See the zfs(8) man page for more information.
         attribute :key_value
       end
     end

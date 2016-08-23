@@ -6,23 +6,23 @@ module Ansible
   module Ruby
     module Modules
       class Wait_for < Base
-        # @return [String] A resolvable hostname or IP address to wait for
+        # @return [String, nil] A resolvable hostname or IP address to wait for
         attribute :host
         validates :host, type: String
 
-        # @return [Fixnum] maximum number of seconds to wait for
+        # @return [Integer, nil] maximum number of seconds to wait for
         attribute :timeout
-        validates :timeout, type: Fixnum
+        validates :timeout, type: Integer
 
-        # @return [Fixnum] maximum number of seconds to wait for a connection to happen before closing and retrying
+        # @return [Integer, nil] maximum number of seconds to wait for a connection to happen before closing and retrying
         attribute :connect_timeout
-        validates :connect_timeout, type: Fixnum
+        validates :connect_timeout, type: Integer
 
-        # @return [Fixnum] number of seconds to wait before starting to poll
+        # @return [Integer, nil] number of seconds to wait before starting to poll
         attribute :delay
-        validates :delay, type: Fixnum
+        validates :delay, type: Integer
 
-        # @return [String] port number to poll
+        # @return [String, nil] port number to poll
         attribute :port
         validates :port, type: String
 
@@ -30,15 +30,15 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :started, :stopped, :absent, :drained], :message=>"%{value} needs to be :present, :started, :stopped, :absent, :drained"}, allow_nil: true
 
-        # @return [String] path to a file on the filesytem that must exist before continuing
+        # @return [String, nil] path to a file on the filesytem that must exist before continuing
         attribute :path
         validates :path, type: String
 
-        # @return [String] Can be used to match a string in either a file or a socket connection. Defaults to a multiline regex.
+        # @return [String, nil] Can be used to match a string in either a file or a socket connection. Defaults to a multiline regex.
         attribute :search_regex
         validates :search_regex, type: String
 
-        # @return [Array<String>] list of hosts or IPs to ignore when looking for active TCP connections for C(drained) state
+        # @return [Array<String>, nil] list of hosts or IPs to ignore when looking for active TCP connections for C(drained) state
         attribute :exclude_hosts, flat_array: true
         validates :exclude_hosts, type: TypeGeneric.new(String)
       end

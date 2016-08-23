@@ -10,7 +10,7 @@ module Ansible
         attribute :msg
         validates :msg, presence: true, type: String
 
-        # @return [String] What voice to use
+        # @return [String, nil] What voice to use
         attribute :voice
         validates :voice, type: String
       end

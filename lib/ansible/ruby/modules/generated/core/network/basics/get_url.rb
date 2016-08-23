@@ -14,7 +14,7 @@ module Ansible
         attribute :dest
         validates :dest, presence: true, type: String
 
-        # @return [String] absolute path of where temporary file is downloaded to.,Defaults to TMPDIR, TEMP or TMP env variables or a platform specific value,https://docs.python.org/2/library/tempfile.html#tempfile.tempdir
+        # @return [String, nil] absolute path of where temporary file is downloaded to.,Defaults to TMPDIR, TEMP or TMP env variables or a platform specific value,https://docs.python.org/2/library/tempfile.html#tempfile.tempdir
         attribute :tmp_dest
         validates :tmp_dest, type: String
 
@@ -26,10 +26,10 @@ module Ansible
         attribute :backup
         validates :backup, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [Object] If a SHA-256 checksum is passed to this parameter, the digest of the destination file will be calculated after it is downloaded to ensure its integrity and verify that the transfer completed successfully. This option is deprecated. Use 'checksum'.
+        # @return [Object, nil] If a SHA-256 checksum is passed to this parameter, the digest of the destination file will be calculated after it is downloaded to ensure its integrity and verify that the transfer completed successfully. This option is deprecated. Use 'checksum'.
         attribute :sha256sum
 
-        # @return [String] If a checksum is passed to this parameter, the digest of the destination file will be calculated after it is downloaded to ensure its integrity and verify that the transfer completed successfully. Format: <algorithm>:<checksum>, e.g.: checksum="sha256:D98291AC[...]B6DC7B97" If you worry about portability, only the sha1 algorithm is available on all platforms and python versions.  The third party hashlib library can be installed for access to additional algorithms. Additionaly, if a checksum is passed to this parameter, and the file exist under the C(dest) location, the destination_checksum would be calculated, and if checksum equals destination_checksum, the file download would be skipped (unless C(force) is true). 
+        # @return [String, nil] If a checksum is passed to this parameter, the digest of the destination file will be calculated after it is downloaded to ensure its integrity and verify that the transfer completed successfully. Format: <algorithm>:<checksum>, e.g.: checksum="sha256:D98291AC[...]B6DC7B97" If you worry about portability, only the sha1 algorithm is available on all platforms and python versions.  The third party hashlib library can be installed for access to additional algorithms. Additionaly, if a checksum is passed to this parameter, and the file exist under the C(dest) location, the destination_checksum would be calculated, and if checksum equals destination_checksum, the file download would be skipped (unless C(force) is true). 
         attribute :checksum
         validates :checksum, type: String
 
@@ -41,25 +41,25 @@ module Ansible
         attribute :validate_certs
         validates :validate_certs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [Fixnum] Timeout in seconds for URL request
+        # @return [Integer, nil] Timeout in seconds for URL request
         attribute :timeout
-        validates :timeout, type: Fixnum
+        validates :timeout, type: Integer
 
-        # @return [Array<String>] Add custom HTTP headers to a request in the format "key:value,key:value"
+        # @return [Array<String>, nil] Add custom HTTP headers to a request in the format "key:value,key:value"
         attribute :headers, flat_array: true
         validates :headers, type: TypeGeneric.new(String)
 
-        # @return [Object] The username for use in HTTP basic authentication. This parameter can be used without C(url_password) for sites that allow empty passwords.
+        # @return [Object, nil] The username for use in HTTP basic authentication. This parameter can be used without C(url_password) for sites that allow empty passwords.
         attribute :url_username
 
-        # @return [Object] The password for use in HTTP basic authentication. If the C(url_username) parameter is not specified, the C(url_password) parameter will not be used.
+        # @return [Object, nil] The password for use in HTTP basic authentication. If the C(url_username) parameter is not specified, the C(url_password) parameter will not be used.
         attribute :url_password
 
         # @return [:yes, :no, nil] httplib2, the library used by the uri module only sends authentication information when a webservice responds to an initial request with a 401 status. Since some basic auth services do not properly send a 401, logins will fail. This option forces the sending of the Basic authentication header upon initial request.
         attribute :force_basic_auth
         validates :force_basic_auth, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [Object] all arguments accepted by the M(file) module also work here
+        # @return [Object, nil] all arguments accepted by the M(file) module also work here
         attribute :others
       end
     end

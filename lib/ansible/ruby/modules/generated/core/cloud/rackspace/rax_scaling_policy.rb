@@ -6,22 +6,22 @@ module Ansible
   module Ruby
     module Modules
       class Rax_scaling_policy < Base
-        # @return [Object] The UTC time when this policy will be executed. The time must be formatted according to C(yyyy-MM-dd'T'HH:mm:ss.SSS) such as C(2013-05-19T08:07:08Z)
+        # @return [Object, nil] The UTC time when this policy will be executed. The time must be formatted according to C(yyyy-MM-dd'T'HH:mm:ss.SSS) such as C(2013-05-19T08:07:08Z)
         attribute :at
 
-        # @return [Object] The change, either as a number of servers or as a percentage, to make in the scaling group. If this is a percentage, you must set I(is_percent) to C(true) also.
+        # @return [Object, nil] The change, either as a number of servers or as a percentage, to make in the scaling group. If this is a percentage, you must set I(is_percent) to C(true) also.
         attribute :change
 
-        # @return [Object] The time when the policy will be executed, as a cron entry. For example, if this is parameter is set to C(1 0 * * *)
+        # @return [Object, nil] The time when the policy will be executed, as a cron entry. For example, if this is parameter is set to C(1 0 * * *)
         attribute :cron
 
-        # @return [Object] The period of time, in seconds, that must pass before any scaling can occur after the previous scaling. Must be an integer between 0 and 86400 (24 hrs).
+        # @return [Object, nil] The period of time, in seconds, that must pass before any scaling can occur after the previous scaling. Must be an integer between 0 and 86400 (24 hrs).
         attribute :cooldown
 
-        # @return [Object] The desired server capacity of the scaling the group; that is, how many servers should be in the scaling group.
+        # @return [Object, nil] The desired server capacity of the scaling the group; that is, how many servers should be in the scaling group.
         attribute :desired_capacity
 
-        # @return [Object] Whether the value in I(change) is a percent value
+        # @return [Object, nil] Whether the value in I(change) is a percent value
         attribute :is_percent
 
         # @return [Object] Name to give the policy

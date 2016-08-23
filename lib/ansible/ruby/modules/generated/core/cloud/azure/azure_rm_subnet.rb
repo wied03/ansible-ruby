@@ -18,7 +18,7 @@ module Ansible
         attribute :address_prefix_cidr
         validates :address_prefix_cidr, presence: true, type: String
 
-        # @return [Object] Name of an existing security group with which to associate the subnet.
+        # @return [Object, nil] Name of an existing security group with which to associate the subnet.
         attribute :security_group_name
 
         # @return [:absent, :present] Assert the state of the subnet. Use 'present' to create or update a subnet and 'absent' to delete a subnet.

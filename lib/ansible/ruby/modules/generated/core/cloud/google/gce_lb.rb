@@ -6,38 +6,38 @@ module Ansible
   module Ruby
     module Modules
       class Gce_lb < Base
-        # @return [String] the name identifier for the HTTP health check
+        # @return [String, nil] the name identifier for the HTTP health check
         attribute :httphealthcheck_name
         validates :httphealthcheck_name, type: String
 
-        # @return [Fixnum] the TCP port to use for HTTP health checking
+        # @return [Integer, nil] the TCP port to use for HTTP health checking
         attribute :httphealthcheck_port
-        validates :httphealthcheck_port, type: Fixnum
+        validates :httphealthcheck_port, type: Integer
 
-        # @return [String] the url path to use for HTTP health checking
+        # @return [String, nil] the url path to use for HTTP health checking
         attribute :httphealthcheck_path
         validates :httphealthcheck_path, type: String
 
-        # @return [Fixnum] the duration in seconds between each health check request
+        # @return [Integer, nil] the duration in seconds between each health check request
         attribute :httphealthcheck_interval
-        validates :httphealthcheck_interval, type: Fixnum
+        validates :httphealthcheck_interval, type: Integer
 
-        # @return [Fixnum] the timeout in seconds before a request is considered a failed check
+        # @return [Integer, nil] the timeout in seconds before a request is considered a failed check
         attribute :httphealthcheck_timeout
-        validates :httphealthcheck_timeout, type: Fixnum
+        validates :httphealthcheck_timeout, type: Integer
 
-        # @return [Fixnum] number of consecutive failed checks before marking a node unhealthy
+        # @return [Integer, nil] number of consecutive failed checks before marking a node unhealthy
         attribute :httphealthcheck_unhealthy_count
-        validates :httphealthcheck_unhealthy_count, type: Fixnum
+        validates :httphealthcheck_unhealthy_count, type: Integer
 
-        # @return [Fixnum] number of consecutive successful checks before marking a node healthy
+        # @return [Integer, nil] number of consecutive successful checks before marking a node healthy
         attribute :httphealthcheck_healthy_count
-        validates :httphealthcheck_healthy_count, type: Fixnum
+        validates :httphealthcheck_healthy_count, type: Integer
 
-        # @return [Object] host header to pass through on HTTP check requests
+        # @return [Object, nil] host header to pass through on HTTP check requests
         attribute :httphealthcheck_host
 
-        # @return [String] name of the load-balancer resource
+        # @return [String, nil] name of the load-balancer resource
         attribute :name
         validates :name, type: String
 
@@ -45,17 +45,17 @@ module Ansible
         attribute :protocol
         validates :protocol, inclusion: {:in=>[:tcp, :udp], :message=>"%{value} needs to be :tcp, :udp"}, allow_nil: true
 
-        # @return [String] the GCE region where the load-balancer is defined
+        # @return [String, nil] the GCE region where the load-balancer is defined
         attribute :region
         validates :region, type: String
 
-        # @return [Object] the external static IPv4 (or auto-assigned) address for the LB
+        # @return [Object, nil] the external static IPv4 (or auto-assigned) address for the LB
         attribute :external_ip
 
-        # @return [Object] the port (range) to forward, e.g. 80 or 8000-8888 defaults to all ports
+        # @return [Object, nil] the port (range) to forward, e.g. 80 or 8000-8888 defaults to all ports
         attribute :port_range
 
-        # @return [Array] a list of zone/nodename pairs, e.g ['us-central1-a/www-a', ...]
+        # @return [Array, nil] a list of zone/nodename pairs, e.g ['us-central1-a/www-a', ...]
         attribute :members
         validates :members, type: Array
 
@@ -63,16 +63,16 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:active, :present, :absent, :deleted], :message=>"%{value} needs to be :active, :present, :absent, :deleted"}, allow_nil: true
 
-        # @return [Object] service account email
+        # @return [Object, nil] service account email
         attribute :service_account_email
 
-        # @return [Object] path to the pem file associated with the service account email This option is deprecated. Use 'credentials_file'.
+        # @return [Object, nil] path to the pem file associated with the service account email This option is deprecated. Use 'credentials_file'.
         attribute :pem_file
 
-        # @return [Object] path to the JSON file associated with the service account email
+        # @return [Object, nil] path to the JSON file associated with the service account email
         attribute :credentials_file
 
-        # @return [Object] your GCE project ID
+        # @return [Object, nil] your GCE project ID
         attribute :project_id
       end
     end

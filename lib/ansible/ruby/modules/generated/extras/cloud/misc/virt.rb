@@ -18,11 +18,11 @@ module Ansible
         attribute :command
         validates :command, inclusion: {:in=>[:create, :status, :start, :stop, :pause, :unpause, :shutdown, :undefine, :destroy, :get_xml, :autostart, :freemem, :list_vms, :info, :nodeinfo, :virttype, :define], :message=>"%{value} needs to be :create, :status, :start, :stop, :pause, :unpause, :shutdown, :undefine, :destroy, :get_xml, :autostart, :freemem, :list_vms, :info, :nodeinfo, :virttype, :define"}, allow_nil: true
 
-        # @return [String] libvirt connection uri
+        # @return [String, nil] libvirt connection uri
         attribute :uri
         validates :uri, type: String
 
-        # @return [String] XML document used with the define command
+        # @return [String, nil] XML document used with the define command
         attribute :xml
         validates :xml, type: String
       end

@@ -10,10 +10,10 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [Object] Label (name) to give the network
+        # @return [Object, nil] Label (name) to give the network
         attribute :label
 
-        # @return [Object] cidr of the network being created
+        # @return [Object, nil] cidr of the network being created
         attribute :cidr
       end
     end

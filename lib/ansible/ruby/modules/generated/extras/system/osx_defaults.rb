@@ -6,11 +6,11 @@ module Ansible
   module Ruby
     module Modules
       class Osx_defaults < Base
-        # @return [String] The domain is a domain name of the form com.companyname.appname.
+        # @return [String, nil] The domain is a domain name of the form com.companyname.appname.
         attribute :domain
         validates :domain, type: String
 
-        # @return [String] The host on which the preference should apply. The special value "currentHost" corresponds to the "-currentHost" switch of the defaults commandline tool.
+        # @return [String, nil] The host on which the preference should apply. The special value "currentHost" corresponds to the "-currentHost" switch of the defaults commandline tool.
         attribute :host
         validates :host, type: String
 
@@ -26,7 +26,7 @@ module Ansible
         attribute :array_add
         validates :array_add, inclusion: {:in=>[:true, :false], :message=>"%{value} needs to be :true, :false"}, allow_nil: true
 
-        # @return [Array] The value to write. Only required when state = present.
+        # @return [Array, nil] The value to write. Only required when state = present.
         attribute :value
         validates :value, type: Array
 

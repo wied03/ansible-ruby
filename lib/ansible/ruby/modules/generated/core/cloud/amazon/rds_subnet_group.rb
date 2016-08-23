@@ -14,11 +14,11 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [String] Database subnet group description. Only set when a new group is added.
+        # @return [String, nil] Database subnet group description. Only set when a new group is added.
         attribute :description
         validates :description, type: String
 
-        # @return [Array] List of subnet IDs that make up the database subnet group.
+        # @return [Array, nil] List of subnet IDs that make up the database subnet group.
         attribute :subnets
         validates :subnets, type: Array
       end

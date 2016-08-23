@@ -14,31 +14,31 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [String] Set exact URL to download the plugin from (Only works for ES 1.x)
+        # @return [String, nil] Set exact URL to download the plugin from (Only works for ES 1.x)
         attribute :url
         validates :url, type: String
 
-        # @return [String] Timeout setting: 30s, 1m, 1h...
+        # @return [String, nil] Timeout setting: 30s, 1m, 1h...
         attribute :timeout
         validates :timeout, type: String
 
-        # @return [String] Location of the plugin binary
+        # @return [String, nil] Location of the plugin binary
         attribute :plugin_bin
         validates :plugin_bin, type: String
 
-        # @return [String] Your configured plugin directory specified in Elasticsearch
+        # @return [String, nil] Your configured plugin directory specified in Elasticsearch
         attribute :plugin_dir
         validates :plugin_dir, type: String
 
-        # @return [String] Proxy host to use during plugin installation
+        # @return [String, nil] Proxy host to use during plugin installation
         attribute :proxy_host
         validates :proxy_host, type: String
 
-        # @return [String] Proxy port to use during plugin installation
+        # @return [String, nil] Proxy port to use during plugin installation
         attribute :proxy_port
         validates :proxy_port, type: String
 
-        # @return [String] Version of the plugin to be installed. If plugin exists with previous version, it will NOT be updated
+        # @return [String, nil] Version of the plugin to be installed. If plugin exists with previous version, it will NOT be updated
         attribute :version
         validates :version, type: String
       end

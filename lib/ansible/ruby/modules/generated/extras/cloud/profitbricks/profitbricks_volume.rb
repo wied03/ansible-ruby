@@ -14,9 +14,9 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [Fixnum] The size of the volume.
+        # @return [Integer, nil] The size of the volume.
         attribute :size
-        validates :size, type: Fixnum
+        validates :size, type: Integer
 
         # @return [:IDE, :VIRTIO, nil] The bus type.
         attribute :bus
@@ -26,7 +26,7 @@ module Ansible
         attribute :image
         validates :image, presence: true
 
-        # @return [String] The disk type. Currently only HDD.
+        # @return [String, nil] The disk type. Currently only HDD.
         attribute :disk_type
         validates :disk_type, type: String
 
@@ -34,31 +34,31 @@ module Ansible
         attribute :licence_type
         validates :licence_type, inclusion: {:in=>[:LINUX, :WINDOWS, :UNKNOWN, :OTHER], :message=>"%{value} needs to be :LINUX, :WINDOWS, :UNKNOWN, :OTHER"}, allow_nil: true
 
-        # @return [Fixnum] The number of volumes you wish to create.
+        # @return [Integer, nil] The number of volumes you wish to create.
         attribute :count
-        validates :count, type: Fixnum
+        validates :count, type: Integer
 
         # @return [:yes, :no, nil] Whether or not to increment a single number in the name for created virtual machines.
         attribute :auto_increment
         validates :auto_increment, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [Array] list of instance ids, currently only used when state='absent' to remove instances.
+        # @return [Array, nil] list of instance ids, currently only used when state='absent' to remove instances.
         attribute :instance_ids
         validates :instance_ids, type: Array
 
-        # @return [Object] The ProfitBricks username. Overrides the PB_SUBSCRIPTION_ID environement variable.
+        # @return [Object, nil] The ProfitBricks username. Overrides the PB_SUBSCRIPTION_ID environement variable.
         attribute :subscription_user
 
-        # @return [Object] THe ProfitBricks password. Overrides the PB_PASSWORD environement variable.
+        # @return [Object, nil] THe ProfitBricks password. Overrides the PB_PASSWORD environement variable.
         attribute :subscription_password
 
         # @return [:yes, :no, nil] wait for the datacenter to be created before returning
         attribute :wait
         validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [Fixnum] how long before wait gives up, in seconds
+        # @return [Integer, nil] how long before wait gives up, in seconds
         attribute :wait_timeout
-        validates :wait_timeout, type: Fixnum
+        validates :wait_timeout, type: Integer
 
         # @return [:present, :absent, nil] create or terminate datacenters
         attribute :state

@@ -14,7 +14,7 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [Object] If specified, use this blacklist file instead of C(/etc/modprobe.d/blacklist-ansible.conf).
+        # @return [Object, nil] If specified, use this blacklist file instead of C(/etc/modprobe.d/blacklist-ansible.conf).
         attribute :blacklist_file
       end
     end

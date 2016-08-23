@@ -10,11 +10,11 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [String] The SSH public host key, as a string (required if state=present, optional when state=absent, in which case all keys for the host are removed)
+        # @return [String, nil] The SSH public host key, as a string (required if state=present, optional when state=absent, in which case all keys for the host are removed)
         attribute :key
         validates :key, type: String
 
-        # @return [String] The known_hosts file to edit
+        # @return [String, nil] The known_hosts file to edit
         attribute :path
         validates :path, type: String
 

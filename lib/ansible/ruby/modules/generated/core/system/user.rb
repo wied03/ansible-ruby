@@ -10,11 +10,11 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [String] Optionally sets the description (aka I(GECOS)) of user account.
+        # @return [String, nil] Optionally sets the description (aka I(GECOS)) of user account.
         attribute :comment
         validates :comment, type: String
 
-        # @return [String] Optionally sets the I(UID) of the user.
+        # @return [String, nil] Optionally sets the I(UID) of the user.
         attribute :uid
         validates :uid, type: String
 
@@ -22,14 +22,14 @@ module Ansible
         attribute :non_unique
         validates :non_unique, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [Object] Optionally sets the seuser type (user_u) on selinux enabled systems.
+        # @return [Object, nil] Optionally sets the seuser type (user_u) on selinux enabled systems.
         attribute :seuser
 
-        # @return [String] Optionally sets the user's primary group (takes a group name).
+        # @return [String, nil] Optionally sets the user's primary group (takes a group name).
         attribute :group
         validates :group, type: String
 
-        # @return [String] Puts the user in this comma-delimited list of groups. When set to the empty string ('groups='), the user is removed from all groups except the primary group.
+        # @return [String, nil] Puts the user in this comma-delimited list of groups. When set to the empty string ('groups='), the user is removed from all groups except the primary group.
         attribute :groups
         validates :groups, type: String
 
@@ -37,17 +37,17 @@ module Ansible
         attribute :append
         validates :append, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String] Optionally set the user's shell.
+        # @return [String, nil] Optionally set the user's shell.
         attribute :shell
         validates :shell, type: String
 
-        # @return [Object] Optionally set the user's home directory.
+        # @return [Object, nil] Optionally set the user's home directory.
         attribute :home
 
-        # @return [Object] Optionally set a home skeleton directory. Requires createhome option!
+        # @return [Object, nil] Optionally set a home skeleton directory. Requires createhome option!
         attribute :skeleton
 
-        # @return [Object] Optionally set the user's password to this crypted value.  See the user example in the github examples directory for what this looks like in a playbook. See U(http://docs.ansible.com/ansible/faq.html#how-do-i-generate-crypted-passwords-for-the-user-module) for details on various ways to generate these password values. Note on Darwin system, this value has to be cleartext. Beware of security issues.
+        # @return [Object, nil] Optionally set the user's password to this crypted value.  See the user example in the github examples directory for what this looks like in a playbook. See U(http://docs.ansible.com/ansible/faq.html#how-do-i-generate-crypted-passwords-for-the-user-module) for details on various ways to generate these password values. Note on Darwin system, this value has to be cleartext. Beware of security issues.
         attribute :password
 
         # @return [:present, :absent, nil] Whether the account should exist or not, taking action if the state is different from what is stated.
@@ -70,7 +70,7 @@ module Ansible
         attribute :force
         validates :force, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [Object] Optionally sets the user's login class for FreeBSD, OpenBSD and NetBSD systems.
+        # @return [Object, nil] Optionally sets the user's login class for FreeBSD, OpenBSD and NetBSD systems.
         attribute :login_class
 
         # @return [:yes, :no, nil] When used with C(state=absent), behavior is as with C(userdel --remove).
@@ -81,30 +81,30 @@ module Ansible
         attribute :generate_ssh_key
         validates :generate_ssh_key, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [Fixnum] Optionally specify number of bits in SSH key to create.
+        # @return [Integer, nil] Optionally specify number of bits in SSH key to create.
         attribute :ssh_key_bits
-        validates :ssh_key_bits, type: Fixnum
+        validates :ssh_key_bits, type: Integer
 
-        # @return [String] Optionally specify the type of SSH key to generate. Available SSH key types will depend on implementation present on target host.
+        # @return [String, nil] Optionally specify the type of SSH key to generate. Available SSH key types will depend on implementation present on target host.
         attribute :ssh_key_type
         validates :ssh_key_type, type: String
 
-        # @return [String] Optionally specify the SSH key filename. If this is a relative filename then it will be relative to the user's home directory.
+        # @return [String, nil] Optionally specify the SSH key filename. If this is a relative filename then it will be relative to the user's home directory.
         attribute :ssh_key_file
         validates :ssh_key_file, type: String
 
-        # @return [String] Optionally define the comment for the SSH key.
+        # @return [String, nil] Optionally define the comment for the SSH key.
         attribute :ssh_key_comment
         validates :ssh_key_comment, type: String
 
-        # @return [Object] Set a passphrase for the SSH key.  If no passphrase is provided, the SSH key will default to having no passphrase.
+        # @return [Object, nil] Set a passphrase for the SSH key.  If no passphrase is provided, the SSH key will default to having no passphrase.
         attribute :ssh_key_passphrase
 
         # @return [:always, :on_create, nil] C(always) will update passwords if they differ.  C(on_create) will only set the password for newly created users.
         attribute :update_password
         validates :update_password, inclusion: {:in=>[:always, :on_create], :message=>"%{value} needs to be :always, :on_create"}, allow_nil: true
 
-        # @return [String] An expiry time for the user in epoch, it will be ignored on platforms that do not support this. Currently supported on Linux and FreeBSD.
+        # @return [String, nil] An expiry time for the user in epoch, it will be ignored on platforms that do not support this. Currently supported on Linux and FreeBSD.
         attribute :expires
         validates :expires, type: String
       end

@@ -6,7 +6,7 @@ module Ansible
   module Ruby
     module Modules
       class Os_volume < Base
-        # @return [String] Size of volume in GB. This parameter is required when the I(state) parameter is 'present'.
+        # @return [String, nil] Size of volume in GB. This parameter is required when the I(state) parameter is 'present'.
         attribute :size
         validates :size, type: String
 
@@ -14,19 +14,19 @@ module Ansible
         attribute :display_name
         validates :display_name, presence: true
 
-        # @return [String] String describing the volume
+        # @return [String, nil] String describing the volume
         attribute :display_description
         validates :display_description, type: String
 
-        # @return [String] Volume type for volume
+        # @return [String, nil] Volume type for volume
         attribute :volume_type
         validates :volume_type, type: String
 
-        # @return [String] Image name or id for boot from volume
+        # @return [String, nil] Image name or id for boot from volume
         attribute :image
         validates :image, type: String
 
-        # @return [String] Volume snapshot id to create from
+        # @return [String, nil] Volume snapshot id to create from
         attribute :snapshot_id
         validates :snapshot_id, type: String
 

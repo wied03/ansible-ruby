@@ -18,19 +18,19 @@ module Ansible
         attribute :revision, flat_array: true
         validates :revision, presence: true, type: TypeGeneric.new(Float)
 
-        # @return [String] User who deployed.
+        # @return [String, nil] User who deployed.
         attribute :user
         validates :user, type: String
 
-        # @return [String] Rollbar username of the user who deployed.
+        # @return [String, nil] Rollbar username of the user who deployed.
         attribute :rollbar_user, flat_array: true
         validates :rollbar_user, type: String
 
-        # @return [String] Deploy comment (e.g. what is being deployed).
+        # @return [String, nil] Deploy comment (e.g. what is being deployed).
         attribute :comment
         validates :comment, type: String
 
-        # @return [String] Optional URL to submit the notification to.
+        # @return [String, nil] Optional URL to submit the notification to.
         attribute :url
         validates :url, type: String
 

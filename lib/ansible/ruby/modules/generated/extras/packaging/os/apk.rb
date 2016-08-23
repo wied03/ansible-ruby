@@ -6,7 +6,7 @@ module Ansible
   module Ruby
     module Modules
       class Apk < Base
-        # @return [Array<String>] A package name, like C(foo), or mutliple packages, like C(foo, bar).
+        # @return [Array<String>, nil] A package name, like C(foo), or mutliple packages, like C(foo, bar).
         attribute :name, flat_array: true
         validates :name, type: TypeGeneric.new(String)
 
