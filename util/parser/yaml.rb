@@ -69,7 +69,9 @@ module Ansible
               '- local_action dnsimple' => '- local_action: dnsimple',
               # zabbix_hostmacro
               'macro_name:Example macro' => 'macro_name: Example macro',
-              'macro_value:Example value' => 'macro_value: Example value'
+              'macro_value:Example value' => 'macro_value: Example value',
+              # pagerduty
+              /- pagerduty_alert:\n\s+name: companyabc/ => "- pagerduty_alert:\n                      name=companyabc"
             }
             dirty_patterns.inject(yaml) do |fixed_yaml, find_replace|
               fixed_yaml.gsub find_replace[0], find_replace[1]
