@@ -9,87 +9,22 @@ module Ansible
 
         class << self
           def parse(name, details, example)
-            puts "handling option #{name}"
-            lines = []
+            puts "parsing option #{name}"
             details = details.symbolize_keys
-            # for some reason, description is often an array
-            flat_desc = [*details[:description]].join ','
+            # can be both an array and string
+            description = [*details[:description]]
             type_details = derive_type name, details, example
-            formatted_type = format_yard_return_type(type_details)
-            lines << "# #{formatted_type} #{flat_desc}"
-            attribute_args = {}
-            attribute_args[:flat_array] = true if type_details[:flat_array]
-            flat_attr_args = attribute_args.map do |key, value|
-              "#{key}: #{value}"
-            end.join ', '
-            lines << "attribute :#{name}#{flat_attr_args.empty? ? '' : ", #{flat_attr_args}"}"
-            lines << parse_validations(name, type_details)
-            lines.compact
+            OptionData.new name: name,
+                           description: description,
+                           required: type_details[:required],
+                           type: type_details[:type],
+                           flat_array: type_details[:flat_array]
           rescue
             $stderr << "Problem parsing option #{name}!"
             raise
           end
 
-          def format_yard_return_type(type_details)
-            type = type_details[:type]
-            types = if (choices = type_details[:choices])
-                      if (BOOLEAN_OPTIONS - choices).empty?
-                        choices = choices - BOOLEAN_OPTIONS
-                        choices << 'Boolean'
-                      else
-                        choices
-                      end
-                    elsif type.is_a? TypeGeneric
-                      "Array<#{type.klass.name}>"
-                    else
-                      type || Object
-                    end
-            types = [*types]
-            types << nil unless type_details[:required]
-            formatted = [*types].map do |each_type|
-              case each_type
-              when Class
-                each_type.name
-              when Symbol
-                each_type.inspect
-              when NilClass
-                'nil'
-              else
-                each_type
-              end
-            end.join ', '
-            "@return [#{formatted}]"
-          end
-
           private
-
-          def parse_validations(attribute, type_details)
-            validations = {}
-            required = type_details[:required]
-            # keep code lighter if not required
-            validations[:presence] = true if required
-            validations[:type] = case type
-                                 when TypeGeneric
-                                   "TypeGeneric.new(#{type.klass.name})"
-                                 when String
-                                   # Boolean for YARD
-                                   type
-                                 else
-                                   type.name
-                                 end if type
-            if (choices = type_details[:choices])
-              validations[:inclusion] = {
-                in: choices,
-                message: "%{value} needs to be #{choices.map { |sym| "#{sym.inspect}" }.join(', ')}"
-              }
-              # let this take care of validation, no need for type
-              validations.delete :type
-              validations[:allow_nil] = true unless required
-            end
-
-            return nil unless validations.any?
-            "validates :#{attribute}, #{validations.map { |key, value| "#{key}: #{value}" }.join(', ')}"
-          end
 
           def derive_type(attribute, details, example)
             sample_values = find_sample_values attribute, details, example
