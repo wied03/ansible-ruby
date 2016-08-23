@@ -84,7 +84,7 @@ module Ansible
         attribute :port
         validates :port, type: Fixnum
 
-        # @return [String] The database state
+        # @return [Symbol] The database state
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end

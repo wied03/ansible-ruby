@@ -70,12 +70,14 @@ RUBY
 
     context 'choices' do
       let(:choices) { %w(present absent) }
+      let(:default) { 'present' }
+      let(:required) { false }
 
       let(:details) do
         {
           description: ['The username used to authenticate with'],
           required: required,
-          default: 'present',
+          default: default,
           choices: choices
         }
       end
@@ -85,7 +87,7 @@ RUBY
 
         it do
           is_expected.to eq <<RUBY
-# @return [String] The username used to authenticate with
+# @return [Symbol] The username used to authenticate with
 attribute :login_user
 validates :login_user, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
 RUBY
@@ -97,7 +99,32 @@ RUBY
 
         it do
           is_expected.to eq <<RUBY
-# @return [String] The username used to authenticate with
+# @return [Symbol] The username used to authenticate with
+attribute :login_user
+validates :login_user, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+RUBY
+        end
+      end
+
+      context 'different types' do
+        let(:default) { 'abc' }
+        let(:choices) { [1, 'abc'] }
+
+        it do
+          is_expected.to eq <<RUBY
+# @return [Object] The username used to authenticate with
+attribute :login_user
+validates :login_user, inclusion: {:in=>[1, :abc], :message=>"%{value} needs to be 1, :abc"}, allow_nil: true
+RUBY
+        end
+      end
+
+      context 'no default' do
+        let(:default) { nil }
+
+        it do
+          is_expected.to eq <<RUBY
+# @return [Symbol] The username used to authenticate with
 attribute :login_user
 validates :login_user, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 RUBY
@@ -105,27 +132,40 @@ RUBY
       end
 
       context 'no included' do
-        # is really [present, no, yes] in YAML
-        let(:choices) { ['present', true, false] }
-        let(:required) { false }
+        context 'with string' do
+          # is really [present, no, yes] in YAML
+          let(:choices) { ['present', true, false] }
 
-        it do
-          is_expected.to eq <<RUBY
-# @return [String] The username used to authenticate with
+          it do
+            is_expected.to eq <<RUBY
+# @return [Object] The username used to authenticate with
 attribute :login_user
 validates :login_user, inclusion: {:in=>[:present, true, false], :message=>"%{value} needs to be :present, true, false"}, allow_nil: true
 RUBY
+          end
+        end
+
+        context 'without string' do
+          let(:choices) { [true, false] }
+          let(:default) { nil }
+
+          it do
+            is_expected.to eq <<RUBY
+# @return [Boolean] The username used to authenticate with
+attribute :login_user
+validates :login_user, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+RUBY
+          end
         end
       end
 
       context 'integers' do
         let(:choices) { [1, 2, 3] }
-
-        let(:required) { false }
+        let(:default) { nil }
 
         it do
           is_expected.to eq <<RUBY
-# @return [String] The username used to authenticate with
+# @return [Fixnum] The username used to authenticate with
 attribute :login_user
 validates :login_user, inclusion: {:in=>[1, 2, 3], :message=>"%{value} needs to be 1, 2, 3"}, allow_nil: true
 RUBY
@@ -178,9 +218,9 @@ RUBY
 
         it do
           is_expected.to eq <<RUBY
-# @return [Array<Integer>] The username used to authenticate with
+# @return [Array<Fixnum>] The username used to authenticate with
 attribute :login_user, flat_array: true
-validates :login_user, type: TypeGeneric.new(Integer)
+validates :login_user, type: TypeGeneric.new(Fixnum)
 RUBY
         end
       end
@@ -462,9 +502,9 @@ RUBY
 
         it do
           is_expected.to eq <<RUBY
-# @return [Array<Integer>] The username used to authenticate with
+# @return [Array<Fixnum>] The username used to authenticate with
 attribute :name, flat_array: true
-validates :name, type: TypeGeneric.new(Integer)
+validates :name, type: TypeGeneric.new(Fixnum)
 RUBY
         end
       end

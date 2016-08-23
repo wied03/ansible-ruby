@@ -38,6 +38,9 @@ module Ansible
             validations[:type] = case type
                                  when TypeGeneric
                                    "TypeGeneric.new(#{type.klass.name})"
+                                 when String
+                                   # Boolean for YARD
+                                   type
                                  else
                                    type.name
                                  end if type
@@ -68,17 +71,31 @@ module Ansible
 
           def derive_type(attribute, details, example)
             sample_value = derive_sample_value attribute, details, example
-            [sample_value, sample_value && identify_class_from(sample_value)]
+            [sample_value, sample_value && identify_class_from(sample_value, details)]
           end
 
           def derive_sample_value(attribute, details, example)
-            if (default = details[:default])
+            union_type = is_union_type? details
+            if (default = details[:default]) && !union_type
               default
+            elsif (choices = details[:choices]) && !union_type
+              choices[0]
+            elsif union_type
+              nil
             else
               return nil unless [Hash, Array].include? example.class
               value_hash = process_hash(example)
               sample_value = value_hash[attribute]
               sample_value && sample_value
+            end
+          end
+
+          def is_union_type?(details)
+            choices = details[:choices]
+            if choices && choices.any?
+              # If we have more than 1 type, just call it an object
+              klasses = choices.map(&:class).uniq
+              klasses.length != 1 && klasses != [TrueClass, FalseClass]
             end
           end
 
@@ -111,22 +128,33 @@ module Ansible
             end
           end
 
-          def identify_class_from(value)
+          def identify_class_from(value, details)
+            # if we have a confined set of choices, make the type a symbol
+            if details[:choices] && value
+              value = parse_value_into_num value
+              return case value
+                     when String
+                       Symbol
+                     when TrueClass, FalseClass
+                       # for YARD purposes
+                       'Boolean'
+                     else
+                       value.class
+                     end
+            end
             value = unquote_string(value) if value.is_a?(String)
             if is_flat_array? value
               array = value.split ','
               item = array[0]
-              klass = if is_integer?(item)
-                        Integer
-                      elsif is_float?(item)
-                        Float
-                      else
-                        item.class
-                      end
-              TypeGeneric.new klass
+              value = parse_value_into_num item
+              TypeGeneric.new value.class
             else
               value.class
             end
+          end
+
+          def parse_value_into_num(item)
+            parsed_integer(item) || parsed_float(item) || item
           end
 
           # some sample values are foo='stuff,bar'
@@ -134,11 +162,11 @@ module Ansible
             ((unquoted_match = /'(.*)'/.match(string)) && unquoted_match[1]) || string
           end
 
-          def is_integer?(value)
+          def parsed_integer(value)
             Integer(value) rescue false
           end
 
-          def is_float?(value)
+          def parsed_float(value)
             Float(value) rescue false
           end
 
