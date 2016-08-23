@@ -12,7 +12,7 @@ module Ansible
         def from_yaml_string(desc_yaml, example_yaml)
           description = parse_yaml desc_yaml, 'description'
           mod = description['module']
-          example_yaml = fixed_example mod, example_yaml
+          example_yaml = fix_example mod, example_yaml
           example = parse_yaml example_yaml, 'example'
           klass mod do
             options(description['options'], example)
@@ -31,7 +31,7 @@ module Ansible
 
         private
 
-        def fixed_example(mod, yaml)
+        def fix_example(mod, yaml)
           # some examples are wrong
           yaml.gsub "- #{mod}", "- #{mod}:"
         end
