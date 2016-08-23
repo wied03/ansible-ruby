@@ -58,7 +58,7 @@ module Ansible
 
         # @return [String] You can specify a different logging driver for the container than for the daemon. "json-file" Default logging driver for Docker. Writes JSON messages to file. docker logs command is available only for this logging driver. "none" disables any logging for the container. "syslog" Syslog logging driver for Docker. Writes log messages to syslog. docker logs command is not available for this logging driver. "journald" Journald logging driver for Docker. Writes log messages to "journald". "gelf" Graylog Extended Log Format (GELF) logging driver for Docker. Writes log messages to a GELF endpoint likeGraylog or Logstash. "fluentd" Fluentd logging driver for Docker. Writes log messages to "fluentd" (forward input). "awslogs" (added in 2.1) Awslogs logging driver for Docker. Writes log messages to AWS Cloudwatch Logs. If not defined explicitly, the Docker daemon's default ("json-file") will apply. Requires docker >= 1.6.0.
         attribute :log_driver
-        validates :log_driver, inclusion: {:in=>[:"json-file", :none, :syslog, :journald, :gelf, :fluentd, :awslogs], :message=>"%{value} needs to be :json-file, :none, :syslog, :journald, :gelf, :fluentd, :awslogs"}, allow_nil: true
+        validates :log_driver, inclusion: {:in=>[:"json-file", :none, :syslog, :journald, :gelf, :fluentd, :awslogs], :message=>"%{value} needs to be :\"json-file\", :none, :syslog, :journald, :gelf, :fluentd, :awslogs"}, allow_nil: true
 
         # @return [Hash] Additional options to pass to the logging driver selected above. See Docker `log-driver <https://docs.docker.com/reference/logging/overview/>` documentation for more information. Requires docker >=1.7.0.
         attribute :log_opt
@@ -164,7 +164,7 @@ module Ansible
 
         # @return [Object] Container restart policy.,The 'unless-stopped' choice is only available starting in Ansible 2.1 and for Docker 1.9 and above.
         attribute :restart_policy
-        validates :restart_policy, inclusion: {:in=>[:no, :"on-failure", :always, :"unless-stopped"], :message=>"%{value} needs to be :no, :on-failure, :always, :unless-stopped"}, allow_nil: true
+        validates :restart_policy, inclusion: {:in=>[:no, :"on-failure", :always, :"unless-stopped"], :message=>"%{value} needs to be :no, :\"on-failure\", :always, :\"unless-stopped\""}, allow_nil: true
 
         # @return [Fixnum] Maximum number of times to restart a container. Leave as "0" for unlimited retries.
         attribute :restart_policy_retry

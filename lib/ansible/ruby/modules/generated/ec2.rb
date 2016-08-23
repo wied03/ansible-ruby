@@ -39,7 +39,7 @@ module Ansible
 
         # @return [String] Type of spot request; one of "one-time" or "persistent". Defaults to "one-time" if not supplied.
         attribute :spot_type
-        validates :spot_type, inclusion: {:in=>[:"one-time", :persistent], :message=>"%{value} needs to be :one-time, :persistent"}, allow_nil: true
+        validates :spot_type, inclusion: {:in=>[:"one-time", :persistent], :message=>"%{value} needs to be :\"one-time\", :persistent"}, allow_nil: true
 
         # @return [String] I(ami) ID to use for the instance
         attribute :image

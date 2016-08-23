@@ -20,7 +20,7 @@ module Ansible
 
         # @return [String] The type of database.  Used only when command=create.
         attribute :db_engine
-        validates :db_engine, inclusion: {:in=>[:MySQL, :"oracle-se1", :"oracle-se", :"oracle-ee", :"sqlserver-ee", :"sqlserver-se", :"sqlserver-ex", :"sqlserver-web", :postgres], :message=>"%{value} needs to be :MySQL, :oracle-se1, :oracle-se, :oracle-ee, :sqlserver-ee, :sqlserver-se, :sqlserver-ex, :sqlserver-web, :postgres"}, allow_nil: true
+        validates :db_engine, inclusion: {:in=>[:MySQL, :"oracle-se1", :"oracle-se", :"oracle-ee", :"sqlserver-ee", :"sqlserver-se", :"sqlserver-ex", :"sqlserver-web", :postgres], :message=>"%{value} needs to be :MySQL, :\"oracle-se1\", :\"oracle-se\", :\"oracle-ee\", :\"sqlserver-ee\", :\"sqlserver-se\", :\"sqlserver-ex\", :\"sqlserver-web\", :postgres"}, allow_nil: true
 
         # @return [Fixnum] Size in gigabytes of the initial storage for the DB instance. Used only when command=create or command=modify.
         attribute :size
@@ -53,7 +53,7 @@ module Ansible
 
         # @return [Object] The license model for this DB instance. Used only when command=create or command=restore.
         attribute :license_model
-        validates :license_model, inclusion: {:in=>[:"license-included", :"bring-your-own-license", :"general-public-license", :"postgresql-license"], :message=>"%{value} needs to be :license-included, :bring-your-own-license, :general-public-license, :postgresql-license"}, allow_nil: true
+        validates :license_model, inclusion: {:in=>[:"license-included", :"bring-your-own-license", :"general-public-license", :"postgresql-license"], :message=>"%{value} needs to be :\"license-included\", :\"bring-your-own-license\", :\"general-public-license\", :\"postgresql-license\""}, allow_nil: true
 
         # @return [Object] Specifies if this is a Multi-availability-zone deployment. Can not be used in conjunction with zone parameter. Used only when command=create or command=modify.
         attribute :multi_zone
