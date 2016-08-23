@@ -50,10 +50,10 @@ end
 
 def get_yaml(file)
   python = File.read file
-  match = /^DOCUMENTATION.*?'''(.*?)'''/m.match(python)
+  match = /^DOCUMENTATION.*?['"]{3}(.*?)['"]{3}/m.match(python)
   raise "Unable to find description in #{file}" unless match
   description = match[1]
-  match = /^EXAMPLES.*?'''(.*?)'''/m.match(python)
+  match = /^EXAMPLES.*?['"]{3}(.*?)['"]{3}/m.match(python)
   raise "Unable to find examples in #{file}" unless match
   [description, match[1]]
 end
@@ -68,7 +68,7 @@ task :update_modules => :python_dependencies do
     puts "****** Begin file #{file}"
     puts 'Retrieving description and example'
     description, example = get_yaml file
-    puts 'Parsing description/example'
+    puts 'Parsing YAML'
     ruby_result = Ansible::Ruby::Parser.from_yaml_string description, example
     ruby_path = File.join('lib/ansible/ruby/modules/generated', File.basename(file, '.py')) + '.rb'
     puts "Writing Ruby code to #{ruby_path}"
