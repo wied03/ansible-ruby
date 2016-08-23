@@ -5,10 +5,10 @@ module Ansible
       module Yaml
         class << self
           def parse(yaml_string, description, module_name=nil)
-            yaml_string = remove_middle_comments yaml_string
+            File.write "debug_#{description}_before.yml", yaml_string if ENV['DEBUG']
             yaml_string = fix_missing_hash_entry(yaml_string, module_name) if module_name
             yaml_string = remove_difficult_strings yaml_string
-            File.write "debug_#{description}.yml", yaml_string if ENV['DEBUG']
+            File.write "debug_#{description}_after.yml", yaml_string if ENV['DEBUG']
             YAML.load yaml_string
           rescue StandardError
             $stderr << "Problem parsing #{description}!"
@@ -56,18 +56,6 @@ module Ansible
             yaml = yaml.gsub "- #{module_name} :", correct_usage
             # missing colon entirely
             yaml.gsub /- #{module_name}(?!\:)/, correct_usage
-          end
-
-          def remove_middle_comments(yaml)
-            is_array = false
-            index = 0
-            with_yaml_lines yaml do |line|
-              # Exclude lines that aren't white space or indentations for arrays
-              next nil if is_array && ![' ', '-'].include?(line[0])
-              is_array = true if line.start_with?('-') && !line.start_with?('---')
-              index += 1
-              line
-            end
           end
         end
       end

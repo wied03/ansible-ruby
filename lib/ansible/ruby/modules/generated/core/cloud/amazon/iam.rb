@@ -39,9 +39,8 @@ module Ansible
         # @return [Object] A list of the keys that you want impacted by the access_key_state paramter.
         attribute :access_key_ids
 
-        # @return [String] A list of groups the user should belong to. When update, will gracefully remove groups not listed.
+        # @return [Object] A list of groups the user should belong to. When update, will gracefully remove groups not listed.
         attribute :groups
-        validates :groups, type: String
 
         # @return [String] When type is user and state is present, define the users login password. Also works with update. Note that always returns changed.
         attribute :password

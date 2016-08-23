@@ -18,9 +18,8 @@ module Ansible
         attribute :policy_name
         validates :policy_name, presence: true, type: String
 
-        # @return [String] The path to the properly json formatted policy file (mutually exclusive with C(policy_json))
+        # @return [Object] The path to the properly json formatted policy file (mutually exclusive with C(policy_json))
         attribute :policy_document
-        validates :policy_document, type: String
 
         # @return [Array<String>] A properly json formatted policy as string (mutually exclusive with C(policy_document), see https://github.com/ansible/ansible/issues/7005#issuecomment-42894813 on how to use it properly)
         attribute :policy_json, flat_array: true

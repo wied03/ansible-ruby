@@ -10,25 +10,23 @@ module Ansible
         attribute :backend
         validates :backend, type: String
 
-        # @return [String] Name of the backend host to change.
+        # @return [Object] Name of the backend host to change.
         attribute :host
-        validates :host, presence: true, type: String
+        validates :host, presence: true
 
-        # @return [String] When disabling a server, immediately terminate all the sessions attached to the specified server. This can be used to terminate long-running sessions after a server is put into maintenance mode.
+        # @return [Object] When disabling a server, immediately terminate all the sessions attached to the specified server. This can be used to terminate long-running sessions after a server is put into maintenance mode.
         attribute :shutdown_sessions
-        validates :shutdown_sessions, type: String
 
         # @return [String] Path to the HAProxy socket file.
         attribute :socket
         validates :socket, type: String
 
-        # @return [String] Desired state of the provided backend host.
+        # @return [Object] Desired state of the provided backend host.
         attribute :state
         validates :state, presence: true, inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}
 
-        # @return [String] Wait until the server reports a status of 'UP' when `state=enabled`, or status of 'MAINT' when `state=disabled`.
+        # @return [Object] Wait until the server reports a status of 'UP' when `state=enabled`, or status of 'MAINT' when `state=disabled`.
         attribute :wait
-        validates :wait, type: String
 
         # @return [Fixnum] Number of seconds to wait between retries.
         attribute :wait_interval
@@ -38,9 +36,8 @@ module Ansible
         attribute :wait_retries
         validates :wait_retries, type: Fixnum
 
-        # @return [String] The value passed in argument. If the value ends with the `%` sign, then the new weight will be relative to the initially configured weight. Relative weights are only permitted between 0 and 100% and absolute weights are permitted between 0 and 256.
+        # @return [Object] The value passed in argument. If the value ends with the `%` sign, then the new weight will be relative to the initially configured weight. Relative weights are only permitted between 0 and 100% and absolute weights are permitted between 0 and 256.
         attribute :weight
-        validates :weight, type: String
       end
     end
   end
