@@ -56,7 +56,9 @@ module Ansible
               # get_ent
               '- getent: database=shadow key=www-data split=:' => "- getent: 'database=shadow key=www-data split=:'",
               # crypttab
-              "when: '/dev/mapper/luks-' in {{ item.device }}" => "when: \"'/dev/mapper/luks-' in {{ item.device }}\""
+              "when: '/dev/mapper/luks-' in {{ item.device }}" => "when: \"'/dev/mapper/luks-' in {{ item.device }}\"",
+              # npm
+              /^description: .*package.*/ => '# npm description removed'
             }
             dirty_patterns.inject(yaml) do |fixed_yaml, find_replace|
               fixed_yaml.gsub find_replace[0], find_replace[1]
