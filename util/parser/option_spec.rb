@@ -26,7 +26,7 @@ describe Ansible::Ruby::Parser::Option do
 
       it do
         is_expected.to eq <<RUBY
-# @return [Object] The username used to authenticate with
+# @return [Object, nil] The username used to authenticate with
 attribute :login_user
 RUBY
       end
@@ -171,10 +171,37 @@ validates :login_user, inclusion: {:in=>[1, 2, 3], :message=>"%{value} needs to 
 RUBY
         end
       end
+
+      context 'empty' do
+        let(:choices) { [] }
+
+        context 'default' do
+          let(:default) { 123 }
+
+          it do
+            is_expected.to eq <<RUBY
+# @return [Integer, nil] The username used to authenticate with
+attribute :login_user
+validates :login_user, type: Integer
+RUBY
+          end
+        end
+
+        context 'no default' do
+          let(:default) { nil }
+
+          it do
+            is_expected.to eq <<RUBY
+# @return [Object, nil] The username used to authenticate with
+attribute :login_user
+RUBY
+          end
+        end
+      end
     end
 
     context 'type from default' do
-      { String => 'foo', Fixnum => 1, Float => 1.5 }.each do |type, value|
+      { String => 'foo', Integer => 1, Float => 1.5 }.each do |type, value|
         context type do
           let(:details) do
             {
@@ -185,7 +212,7 @@ RUBY
 
           it do
             is_expected.to eq <<RUBY
-# @return [#{type}] The username used to authenticate with
+# @return [#{type}, nil] The username used to authenticate with
 attribute :login_user
 validates :login_user, type: #{type}
 RUBY
@@ -206,7 +233,7 @@ RUBY
 
         it do
           is_expected.to eq <<RUBY
-# @return [Array<String>] The username used to authenticate with
+# @return [Array<String>, nil] The username used to authenticate with
 attribute :login_user, flat_array: true
 validates :login_user, type: TypeGeneric.new(String)
 RUBY
@@ -218,9 +245,9 @@ RUBY
 
         it do
           is_expected.to eq <<RUBY
-# @return [Array<Fixnum>] The username used to authenticate with
+# @return [Array<Integer>, nil] The username used to authenticate with
 attribute :login_user, flat_array: true
-validates :login_user, type: TypeGeneric.new(Fixnum)
+validates :login_user, type: TypeGeneric.new(Integer)
 RUBY
         end
       end
@@ -230,7 +257,7 @@ RUBY
 
         it do
           is_expected.to eq <<RUBY
-# @return [Array<Float>] The username used to authenticate with
+# @return [Array<Float>, nil] The username used to authenticate with
 attribute :login_user, flat_array: true
 validates :login_user, type: TypeGeneric.new(Float)
 RUBY
@@ -238,7 +265,7 @@ RUBY
       end
     end
 
-    context 'type and required' do
+    context 'default value and required' do
       let(:details) do
         {
           description: ['The username used to authenticate with'],
@@ -257,11 +284,14 @@ RUBY
     end
 
     context 'from example' do
+      let(:choices) { nil }
+
       let(:details) do
         {
           description: ['The username used to authenticate with'],
           required: false,
-          default: nil
+          default: nil,
+          choices: choices
         }
       end
 
@@ -270,7 +300,7 @@ RUBY
 
         it do
           is_expected.to eq <<RUBY
-# @return [String] The username used to authenticate with
+# @return [String, nil] The username used to authenticate with
 attribute :name
 validates :name, type: String
 RUBY
@@ -292,7 +322,7 @@ RUBY
 
         it do
           is_expected.to eq <<RUBY
-# @return [String] The username used to authenticate with
+# @return [String, nil] The username used to authenticate with
 attribute :username
 validates :username, type: String
 RUBY
@@ -305,7 +335,7 @@ RUBY
 
         it do
           is_expected.to eq <<RUBY
-# @return [Object] The username used to authenticate with
+# @return [Object, nil] The username used to authenticate with
 attribute :name
 RUBY
         end
@@ -329,7 +359,7 @@ RUBY
 
         it do
           is_expected.to eq <<RUBY
-# @return [Float] The username used to authenticate with
+# @return [Float, nil] The username used to authenticate with
 attribute :name
 validates :name, type: Float
 RUBY
@@ -350,7 +380,7 @@ RUBY
 
         it do
           is_expected.to eq <<RUBY
-# @return [String] The username used to authenticate with
+# @return [String, nil] The username used to authenticate with
 attribute :stack_name
 validates :stack_name, type: String
 RUBY
@@ -372,7 +402,7 @@ RUBY
 
         it do
           is_expected.to eq <<RUBY
-# @return [Float] The username used to authenticate with
+# @return [Float, nil] The username used to authenticate with
 attribute :something
 validates :something, type: Float
 RUBY
@@ -398,7 +428,7 @@ RUBY
 
         it do
           is_expected.to eq <<RUBY
-# @return [Hash] The username used to authenticate with
+# @return [Hash, nil] The username used to authenticate with
 attribute :something
 validates :something, type: Hash
 RUBY
@@ -424,7 +454,7 @@ RUBY
 
         it do
           is_expected.to eq <<RUBY
-# @return [Hash] The username used to authenticate with
+# @return [Hash, nil] The username used to authenticate with
 attribute :something
 validates :something, type: Hash
 RUBY
@@ -454,7 +484,7 @@ RUBY
 
         it do
           is_expected.to eq <<RUBY
-# @return [String] The username used to authenticate with
+# @return [String, nil] The username used to authenticate with
 attribute :something
 validates :something, type: String
 RUBY
@@ -472,7 +502,7 @@ RUBY
 
         it do
           is_expected.to eq <<RUBY
-# @return [String] The username used to authenticate with
+# @return [String, nil] The username used to authenticate with
 attribute :name
 validates :name, type: String
 RUBY
@@ -484,7 +514,7 @@ RUBY
 
         it do
           is_expected.to eq <<RUBY
-# @return [String] The username used to authenticate with
+# @return [String, nil] The username used to authenticate with
 attribute :template
 validates :template, type: String
 RUBY
@@ -502,9 +532,32 @@ RUBY
 
         it do
           is_expected.to eq <<RUBY
-# @return [Array<Fixnum>] The username used to authenticate with
+# @return [Array<Integer>, nil] The username used to authenticate with
 attribute :name, flat_array: true
-validates :name, type: TypeGeneric.new(Fixnum)
+validates :name, type: TypeGeneric.new(Integer)
+RUBY
+        end
+      end
+
+      context 'empty choices' do
+        let(:name) { 'username' }
+        let(:choices) { [] }
+        let(:example) do
+          {
+            'tasks' => [
+              {
+                'name' => 'create stuff',
+                'action' => 'ejabberd_user username=test host=server password=password'
+              }
+            ]
+          }
+        end
+
+        it do
+          is_expected.to eq <<RUBY
+# @return [String, nil] The username used to authenticate with
+attribute :username
+validates :username, type: String
 RUBY
         end
       end

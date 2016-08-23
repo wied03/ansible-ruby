@@ -32,13 +32,16 @@ module Ansible
                       if (BOOLEAN_OPTIONS - choices).empty?
                         choices = choices - BOOLEAN_OPTIONS
                         choices << 'Boolean'
+                      else
+                        choices
                       end
-                      is_required?(details) ? choices : choices << nil
                     elsif type.is_a? TypeGeneric
                       "Array<#{type.klass.name}>"
                     else
                       type || Object
                     end
+            types = [*types]
+            types << nil unless is_required?(details)
             formatted = [*types].map do |each_type|
               case each_type
               when Class
@@ -97,7 +100,7 @@ module Ansible
             union_type = is_union_type? details
             if (default = details[:default]) && !union_type
               default
-            elsif (choices = details[:choices]) && !union_type
+            elsif (choices = parsed_choices(details)) && !union_type
               choices[0]
             elsif union_type
               nil
@@ -111,7 +114,7 @@ module Ansible
 
           def parsed_choices(details)
             choices = details[:choices]
-            return nil unless choices
+            return nil unless choices && choices.any?
             choices.map do |choice|
               result = parse_value_into_num choice
               result = result.to_sym if result.is_a?(String)
@@ -173,10 +176,16 @@ module Ansible
               array = value.split ','
               item = array[0]
               value = parse_value_into_num item
-              TypeGeneric.new value.class
+              klass = handle_fixnum value.class
+              TypeGeneric.new klass
             else
-              value.class
+              handle_fixnum value.class
             end
+          end
+
+          def handle_fixnum(klass)
+            # Integers are more clear
+            klass == Fixnum ? Integer : klass
           end
 
           def parse_value_into_num(item)

@@ -77,12 +77,12 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [Object] The username used to authenticate with
+        # @return [Object, nil] The username used to authenticate with
         attribute :login_user
 
-        # @return [Fixnum] Database port to connect to.
+        # @return [Integer, nil] Database port to connect to.
         attribute :port
-        validates :port, type: Fixnum
+        validates :port, type: Integer
 
         # @return [:present, :absent, nil] The database state
         attribute :state
