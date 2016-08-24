@@ -20,12 +20,17 @@ module Ansible
           role_task_yaml_files = yaml_filenames role_task_files
           deps = [*deps] + (playbook_yml_files + role_task_yaml_files)
           task name => deps do
-            flat = options ? options + ' ' : ''
+            flat = flat_options
+            flat += ' ' unless flat.empty?
             sh "ansible-playbook #{flat}#{playbook_yml_files.join ' '}"
           end
         end
 
         private
+
+        def flat_options
+          [*options].join ' '
+        end
 
         class << self
           def load_rule

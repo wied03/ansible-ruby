@@ -91,20 +91,24 @@ OUTPUT
     end
 
     context 'options' do
-      let(:task) do
-        Ansible::Ruby::Rake::Task.new do |task|
-          task.playbooks = ruby_file
-          task.options = '--ansible-option'
+      { flat: '--ansible-option', array: ['--ansible-option'] }.each do |type, value|
+        context type do
+          let(:task) do
+            Ansible::Ruby::Rake::Task.new do |task|
+              task.playbooks = ruby_file
+              task.options = value
+            end
+          end
+
+          it 'executed the command' do
+            expect(@commands).to include 'ansible-playbook --ansible-option playbook1_test.yml'
+          end
+
+          it 'generates the YAML' do
+            expect(File.exist?(yaml_file)).to be_truthy
+            expect(File.read(yaml_file)).to include 'host1:host2'
+          end
         end
-      end
-
-      it 'executed the command' do
-        expect(@commands).to include 'ansible-playbook --ansible-option playbook1_test.yml'
-      end
-
-      it 'generates the YAML' do
-        expect(File.exist?(yaml_file)).to be_truthy
-        expect(File.read(yaml_file)).to include 'host1:host2'
       end
     end
 
