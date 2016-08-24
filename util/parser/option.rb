@@ -21,7 +21,7 @@ module Ansible
                            description: description,
                            required: details[:required],
                            types: types,
-                           flat_array: flat_array(sample_values),
+                           flat_array: flat_array(*sample_values),
                            choices: parse_choices(details)
           rescue
             $stderr << "Problem parsing option #{name}!"
@@ -154,7 +154,10 @@ module Ansible
             value.include?('.') && Float(value) rescue false
           end
 
-          def flat_array(value)
+          def flat_array(*values)
+            # be conservative for now
+            return nil unless values.length == 1
+            value = values[0]
             return nil unless value.is_a?(String) && value.include?(',') && !is_variable_expression?(value)
             items = value.split(',').map do |item|
               item = parse_value_into_num(item)
