@@ -31,6 +31,14 @@ class TypeGeneric
     "Attribute #{attribute} expected to be a #{@klass} but was a #{object.class}"
   end
 
+  def eql?(other)
+    other.is_a?(TypeGeneric) && other.klass == @klass
+  end
+
+  def hash
+    @klass.hash
+  end
+
   private
 
   def validation_object(value)

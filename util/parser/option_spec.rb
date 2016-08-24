@@ -614,7 +614,7 @@ RUBY
 
           it do
             is_expected.to eq <<RUBY
-# @return [Array<String>, nil] The username used to authenticate with
+# @return [Array<String>, String, nil] The username used to authenticate with
 attribute :lines
 validates :lines, type: TypeGeneric.new(String)
 RUBY
@@ -639,7 +639,7 @@ RUBY
 
           it do
             is_expected.to eq <<RUBY
-# @return [Array<String>, nil] The username used to authenticate with
+# @return [Array<String>, String, nil] The username used to authenticate with
 attribute :lines
 validates :lines, type: TypeGeneric.new(String)
 RUBY

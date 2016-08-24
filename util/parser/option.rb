@@ -111,14 +111,14 @@ module Ansible
           end
 
           def derive_types(values)
-            values.map { |value| derive_type value }
+            values.map { |value| derive_type value }.uniq
           end
 
           def derive_type(value)
             value = unquote_string(value) if value.is_a?(String) && !is_variable_expression?(value)
-            flat_array = flat_array value
-            if flat_array
-              item = flat_array[0]
+            array = flat_array(value) || (value.is_a?(Array) && value)
+            if array
+              item = array[0]
               value = parse_value_into_num item
               klass = handle_fixnum value.class
               TypeGeneric.new klass
