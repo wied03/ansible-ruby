@@ -52,14 +52,7 @@ module Ansible
                         # some ansible options are reflected as CSVs
                         [*value].join ','
                       else
-                        case value
-                        when Array
-                          value.map { |val| val.respond_to?(:to_h) ? val.to_h : val }
-                        when Base
-                          value.to_h
-                        else
-                          value
-                        end
+                        hashify value
                       end
               generic_type = options[:generic]
               # flat array does not need to be converted, it's already a string at this point
@@ -72,6 +65,17 @@ module Ansible
         end
 
         private
+
+        def hashify(value)
+          case value
+          when Array
+            value.map { |val| val.respond_to?(:to_h) ? val.to_h : val }
+          when Base
+            value.to_h
+          else
+            value
+          end
+        end
 
         def convert_generic(generic_type, value)
           # hash friendly of [*value]
