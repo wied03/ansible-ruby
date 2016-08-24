@@ -121,7 +121,10 @@ module Ansible
               /(- os_server:.*?)^-.*/m => '\1',
               # ec2_asg - bad comments
               /^# Rolling ASG Updates.*?launch configuration\.$/m => '# comments',
-              /^To only replace a couple of instances.*replace_instances":/m => '# comments'
+              /^To only replace a couple of instances.*replace_instances":/m => '# comments',
+              # rollbar_deployment - trailing commas
+              'revision=4.2,' => 'revision=4.2',
+              "rollbar_user='admin'," => "rollbar_user='admin'"
             }
             dirty_patterns.inject(yaml) do |fixed_yaml, find_replace|
               fixed_yaml.gsub find_replace[0], find_replace[1]
