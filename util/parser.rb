@@ -29,7 +29,8 @@ module Ansible
         def options(options, example)
           options ||= {}
           all_lines = options.map do |name, detail|
-            lines = Option.parse(name, detail, example).map { |line| "#{INDENT}#{line}" }
+            option_data = Option.parse(name, detail, example)
+            lines = OptionFormatter.format(option_data).map { |line| "#{INDENT}#{line}" }
             # separate attributes with a line break
             lines << ''
           end.flatten
