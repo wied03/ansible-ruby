@@ -9,9 +9,17 @@ module Ansible
           @register_set = register_set
         end
 
-        def stdout
+        # we need to respond to everything, don't want super
+        # rubocop:disable Style/MethodMissing
+        def method_missing(id, *args)
           register_needed
-          "#{@name}.stdout"
+          flat_args = args.map(&:inspect).map(&:to_s).join ', '
+          "#{@name}.#{id}#{flat_args.empty? ? '' : "(#{flat_args})"}"
+        end
+        # rubocop:enable Style/MethodMissing
+
+        def respond_to_missing?(*)
+          true
         end
 
         private

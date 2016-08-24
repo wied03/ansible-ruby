@@ -126,6 +126,46 @@ describe Ansible::Ruby::DslBuilders::Task do
       end
     end
 
+    context 'other field' do
+      let(:ruby) do
+        <<-RUBY
+        atomic_result = copy do
+          src '/file1.conf'
+          dest '/file2.conf'
+        end
+        changed_when "'No upgrade available' not in \#{atomic_result.something_else}"
+        RUBY
+      end
+
+      it { is_expected.to be_a Ansible::Ruby::Models::Task }
+      it do
+        is_expected.to have_attributes name: 'Copy something',
+                                       register: 'result_1',
+                                       changed_when: "'No upgrade available' not in result_1.something_else",
+                                       module: be_a(Ansible::Ruby::Modules::Copy)
+      end
+    end
+
+    context 'other method' do
+      let(:ruby) do
+        <<-RUBY
+        atomic_result = copy do
+          src '/file1.conf'
+          dest '/file2.conf'
+        end
+        changed_when "'No upgrade available' not in \#{atomic_result.something_else(123, 'hello')}"
+        RUBY
+      end
+
+      it { is_expected.to be_a Ansible::Ruby::Models::Task }
+      it do
+        is_expected.to have_attributes name: 'Copy something',
+                                       register: 'result_1',
+                                       changed_when: "'No upgrade available' not in result_1.something_else(123, \"hello\")",
+                                       module: be_a(Ansible::Ruby::Modules::Copy)
+      end
+    end
+
     context 'syntax error' do
       let(:ruby) do
         <<-RUBY
