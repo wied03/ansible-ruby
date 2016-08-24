@@ -9,13 +9,7 @@ describe Ansible::Ruby::Parser::Option do
     subject(:option_data) { Ansible::Ruby::Parser::Option.parse(name, details, example) }
 
     let(:name) { 'login_user' }
-    let(:example) do
-      [
-        { 'postgresql_db' => 'name=acme' },
-        { 'postgresql_db' => "name=acme encoding='UTF-8' lc_collate='de_DE.UTF-8' lc_ctype='de_DE.UTF-8' template='template0' else=55" }
-      ]
-    end
-
+    let(:example) { false }
     let(:required) { false }
     let(:default) { nil }
     let(:description) { ['The username used to authenticate with'] }
@@ -274,26 +268,20 @@ describe Ansible::Ruby::Parser::Option do
     end
 
     context 'from example' do
-      let(:choices) { nil }
-
-      let(:details) do
-        {
-          description: ['The username used to authenticate with'],
-          required: false,
-          default: nil,
-          choices: choices
-        }
-      end
-
       context 'on its own' do
         let(:name) { 'name' }
+        let(:example) do
+          [
+            { 'postgresql_db' => 'name=acme' },
+            { 'postgresql_db' => "name=acme encoding='UTF-8' lc_collate='de_DE.UTF-8' lc_ctype='de_DE.UTF-8' template='template0' else=55" }
+          ]
+        end
 
         it do
-          is_expected.to eq <<RUBY
-# @return [String, nil] The username used to authenticate with
-attribute :name
-validates :name, type: String
-RUBY
+          is_expected.to have_attributes name: 'name',
+                                         choices: nil,
+                                         types: [String],
+                                         flat_array?: nil
         end
       end
 
@@ -311,11 +299,10 @@ RUBY
         end
 
         it do
-          is_expected.to eq <<RUBY
-# @return [String, nil] The username used to authenticate with
-attribute :username
-validates :username, type: String
-RUBY
+          is_expected.to have_attributes name: 'username',
+                                         choices: nil,
+                                         types: [String],
+                                         flat_array?: nil
         end
       end
 
@@ -324,10 +311,10 @@ RUBY
         let(:example) { false }
 
         it do
-          is_expected.to eq <<RUBY
-# @return [Object, nil] The username used to authenticate with
-attribute :name
-RUBY
+          is_expected.to have_attributes name: 'name',
+                                         choices: nil,
+                                         types: [],
+                                         flat_array?: nil
         end
       end
 
@@ -348,11 +335,10 @@ RUBY
         end
 
         it do
-          is_expected.to eq <<RUBY
-# @return [Float, nil] The username used to authenticate with
-attribute :name
-validates :name, type: Float
-RUBY
+          is_expected.to have_attributes name: 'name',
+                                         choices: nil,
+                                         types: [Float],
+                                         flat_array?: nil
         end
       end
 
@@ -374,11 +360,10 @@ RUBY
           let(:variable) { "{{ lookup('file','policy.json') }}" }
 
           it do
-            is_expected.to eq <<RUBY
-# @return [String, nil] The username used to authenticate with
-attribute :name
-validates :name, type: String
-RUBY
+            is_expected.to have_attributes name: 'name',
+                                           choices: nil,
+                                           types: [String],
+                                           flat_array?: nil
           end
         end
 
@@ -386,11 +371,10 @@ RUBY
           let(:variable) { "  {{ lookup('file','policy.json') }}" }
 
           it do
-            is_expected.to eq <<RUBY
-# @return [String, nil] The username used to authenticate with
-attribute :name
-validates :name, type: String
-RUBY
+            is_expected.to have_attributes name: 'name',
+                                           choices: nil,
+                                           types: [String],
+                                           flat_array?: nil
           end
         end
       end
@@ -408,15 +392,14 @@ RUBY
         end
 
         it do
-          is_expected.to eq <<RUBY
-# @return [String, nil] The username used to authenticate with
-attribute :stack_name
-validates :stack_name, type: String
-RUBY
+          is_expected.to have_attributes name: 'stack_name',
+                                         choices: nil,
+                                         types: [String],
+                                         flat_array?: nil
         end
       end
 
-      context 'something like parser fail' do
+      context 'play type syntax' do
         let(:name) { 'something' }
 
         let(:example) do
@@ -430,11 +413,10 @@ RUBY
         end
 
         it do
-          is_expected.to eq <<RUBY
-# @return [Float, nil] The username used to authenticate with
-attribute :something
-validates :something, type: Float
-RUBY
+          is_expected.to have_attributes name: 'something',
+                                         choices: nil,
+                                         types: [Float],
+                                         flat_array?: nil
         end
       end
 
@@ -456,11 +438,10 @@ RUBY
         end
 
         it do
-          is_expected.to eq <<RUBY
-# @return [Hash, nil] The username used to authenticate with
-attribute :something
-validates :something, type: Hash
-RUBY
+          is_expected.to have_attributes name: 'something',
+                                         choices: nil,
+                                         types: [Hash],
+                                         flat_array?: nil
         end
       end
 
@@ -482,11 +463,10 @@ RUBY
         end
 
         it do
-          is_expected.to eq <<RUBY
-# @return [Hash, nil] The username used to authenticate with
-attribute :something
-validates :something, type: Hash
-RUBY
+          is_expected.to have_attributes name: 'something',
+                                         choices: nil,
+                                         types: [Hash],
+                                         flat_array?: nil
         end
       end
 
@@ -512,11 +492,10 @@ RUBY
         end
 
         it do
-          is_expected.to eq <<RUBY
-# @return [String, nil] The username used to authenticate with
-attribute :something
-validates :something, type: String
-RUBY
+          is_expected.to have_attributes name: 'something',
+                                         choices: nil,
+                                         types: [String],
+                                         flat_array?: nil
         end
       end
 
@@ -530,23 +509,27 @@ RUBY
         end
 
         it do
-          is_expected.to eq <<RUBY
-# @return [String, nil] The username used to authenticate with
-attribute :name
-validates :name, type: String
-RUBY
+          is_expected.to have_attributes name: 'name',
+                                         choices: nil,
+                                         types: [String],
+                                         flat_array?: nil
         end
       end
 
       context 'quoted' do
         let(:name) { 'template' }
+        let(:example) do
+          [
+            { 'postgresql_db' => 'name=acme' },
+            { 'postgresql_db' => "name=acme encoding='UTF-8' lc_collate='de_DE.UTF-8' lc_ctype='de_DE.UTF-8' template='template0' else=55" }
+          ]
+        end
 
         it do
-          is_expected.to eq <<RUBY
-# @return [String, nil] The username used to authenticate with
-attribute :template
-validates :template, type: String
-RUBY
+          is_expected.to have_attributes name: 'template',
+                                         choices: nil,
+                                         types: [String],
+                                         flat_array?: nil
         end
       end
 
@@ -560,12 +543,13 @@ RUBY
         end
 
         it do
-          is_expected.to eq <<RUBY
-# @return [Array<Integer>, nil] The username used to authenticate with
-attribute :name, flat_array: true
-validates :name, type: TypeGeneric.new(Integer)
-RUBY
+          is_expected.to have_attributes name: 'name',
+                                         choices: nil,
+                                         types: [TypeGeneric],
+                                         flat_array?: %w('12 13')
         end
+
+        it { is_expected.to have_type_generic Integer }
       end
 
       context 'example has multiple types' do
@@ -587,11 +571,10 @@ RUBY
         end
 
         it do
-          is_expected.to eq <<RUBY
-# @return [String, Integer, nil] The username used to authenticate with
-attribute :lines
-validates :lines, type: MultipleTypes.new(String, Integer)
-RUBY
+          is_expected.to have_attributes name: 'lines',
+                                         choices: nil,
+                                         types: [String, Integer],
+                                         flat_array?: nil
         end
       end
 
@@ -615,12 +598,13 @@ RUBY
           end
 
           it do
-            is_expected.to eq <<RUBY
-# @return [Array<String>, nil] The username used to authenticate with
-attribute :lines
-validates :lines, type: TypeGeneric.new(String)
-RUBY
+            is_expected.to have_attributes name: 'lines',
+                                           choices: nil,
+                                           types: [TypeGeneric],
+                                           flat_array?: nil
           end
+
+          it { is_expected.to have_type_generic String }
         end
 
         context 'array comes before non-array value' do
@@ -640,12 +624,13 @@ RUBY
           end
 
           it do
-            is_expected.to eq <<RUBY
-# @return [Array<String>, String, nil] The username used to authenticate with
-attribute :lines
-validates :lines, type: TypeGeneric.new(String)
-RUBY
+            is_expected.to have_attributes name: 'lines',
+                                           choices: nil,
+                                           types: [TypeGeneric],
+                                           flat_array?: nil
           end
+
+          it { is_expected.to have_type_generic String }
         end
 
         context 'array comes after non-array value' do
@@ -665,12 +650,13 @@ RUBY
           end
 
           it do
-            is_expected.to eq <<RUBY
-# @return [String, Array<String>, nil] The username used to authenticate with
-attribute :lines
-validates :lines, type: TypeGeneric.new(String)
-RUBY
+            is_expected.to have_attributes name: 'lines',
+                                           choices: nil,
+                                           types: [TypeGeneric],
+                                           flat_array?: nil
           end
+
+          it { is_expected.to have_type_generic String }
         end
       end
 
@@ -689,10 +675,10 @@ RUBY
         end
 
         it do
-          is_expected.to eq <<RUBY
-# @return [Object, nil] The username used to authenticate with
-attribute :lines
-RUBY
+          is_expected.to have_attributes name: 'lines',
+                                         choices: nil,
+                                         types: [],
+                                         flat_array?: nil
         end
       end
 
@@ -711,11 +697,10 @@ RUBY
         end
 
         it do
-          is_expected.to eq <<RUBY
-# @return [String, nil] The username used to authenticate with
-attribute :username
-validates :username, type: String
-RUBY
+          is_expected.to have_attributes name: 'username',
+                                         choices: nil,
+                                         types: [String],
+                                         flat_array?: nil
         end
       end
     end

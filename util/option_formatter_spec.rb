@@ -120,6 +120,18 @@ RUBY
       end
     end
 
+    context 'array' do
+      let(:types) { [TypeGeneric.new(Integer)] }
+
+      it do
+        is_expected.to eq <<RUBY
+# @return [Array<Integer>, Integer, nil] abc
+attribute :the_attribute
+validates :the_attribute, type: TypeGeneric.new(Integer)
+RUBY
+      end
+    end
+
     context 'flat array' do
       let(:types) { [TypeGeneric.new(Integer)] }
       let(:flat_array) { [123, 456] }
