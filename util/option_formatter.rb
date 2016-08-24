@@ -35,9 +35,8 @@ module Ansible
                       choices
                     end
                   else
-                    # no mutating
-                    option_data.types.clone
-                  end
+                    option_data.types
+                  end.clone # no mutating
           # Want to at least show something
           types << Object if types.empty?
           types << nil unless option_data.required?
