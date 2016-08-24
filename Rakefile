@@ -5,7 +5,7 @@ require 'reek/rake/task'
 require 'ansible/ruby/rake/task'
 require_relative 'util/parser'
 
-task default: [:clean, :spec, :rubocop, :reek, :ansible_lint]
+task default: [:clean, :spec, :rubocop, :reek, :update_modules, :ansible_lint]
 
 desc 'Run specs'
 RSpec::Core::RakeTask.new :spec do |task|
@@ -76,15 +76,17 @@ end
 
 desc 'Update/generate Ruby modules from Ansible modules'
 task update_modules: :python_dependencies do
-  ansible_dir = `python util/get_ansible.py`.strip
+  python_path = FileList['.eggs/*.egg'].join ':'
+  ansible_dir = `PYTHONPATH=#{python_path} python util/get_ansible.py`.strip
+  puts "Ansible directory #{ansible_dir}"
   modules_dir = Pathname.new(File.join(ansible_dir, 'modules'))
   files = if ENV['FILE']
             [ENV['FILE']]
           else
             FileList[File.join(ansible_dir, 'modules/**/*.py')]
-              .exclude('**/*/_*.py')
-              .exclude('**/*/include_vars.py')
-              .exclude('**/*/async_wrapper.py')
+              .exclude(/__init__.py/)
+              .exclude(/include_vars.py/)
+              .exclude(/async_wrapper.py/)
           end
   already_processed = []
   fails = {}
