@@ -130,5 +130,13 @@ task :update_modules => :python_dependencies do
 
   puts "#{already_processed.length} modules successfully processed. #{fails.length} failures"
   raise '1 or more files failed' if fails.any?
-  # TODO: Create a requires file
+  base_dir = Pathname.new('lib')
+  puts 'Writing requires'
+  File.open 'lib/ansible/ruby/modules/generated.rb', 'w' do |file|
+    already_processed.each do |ruby|
+      relative = Pathname.new(ruby).relative_path_from(base_dir)
+      without_extension = relative.to_s.gsub /\.rb$/, ''
+      file << "require '#{without_extension}'\n"
+    end
+  end
 end
