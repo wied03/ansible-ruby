@@ -58,7 +58,7 @@ module Ansible
             union_type = union_type? details
             default = details[:default]
             # A lot of options with no defaults in Ansible have a value of None
-            result = if !default.is_a?(NilClass) && !union_type && default != 'None'
+            result = if use_default?(default, union_type)
                        default
                      elsif (choices = parse_choices(details)) && !union_type
                        choices[0]
@@ -71,6 +71,10 @@ module Ansible
                        []
                      end
             [*result]
+          end
+
+          def use_default?(default, union_type)
+            !default.is_a?(NilClass) && !union_type && default != 'None'
           end
 
           def parse_choices(details)
