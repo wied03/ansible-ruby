@@ -571,6 +571,31 @@ RUBY
       context 'example has array' do
         let(:name) { 'lines' }
 
+        context 'only array' do
+          let(:example) do
+            [
+              {
+                "postgresql_db" => {
+                  'lines' => %w(hello there dude)
+                }
+              },
+              {
+                "postgresql_db" => {
+                  'lines' => %w(hello there again)
+                }
+              }
+            ]
+          end
+
+          it do
+            is_expected.to eq <<RUBY
+# @return [Array<String>, nil] The username used to authenticate with
+attribute :lines
+validates :lines, type: TypeGeneric.new(String)
+RUBY
+          end
+        end
+
         context 'array comes before non-array value' do
           let(:example) do
             [
