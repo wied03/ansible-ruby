@@ -123,9 +123,12 @@ ansible_mod.autoload(:Rax_scaling_policy, 'ansible/ruby/modules/generated/core/c
 ansible_mod.autoload(:Vsphere_guest, 'ansible/ruby/modules/generated/core/cloud/vmware/vsphere_guest')
 # Using custom module
 ansible_mod.autoload(:Command, 'ansible/ruby/modules/custom/commands/command')
-ansible_mod.autoload(:Raw, 'ansible/ruby/modules/generated/core/commands/raw')
-ansible_mod.autoload(:Script, 'ansible/ruby/modules/generated/core/commands/script')
-ansible_mod.autoload(:Shell, 'ansible/ruby/modules/generated/core/commands/shell')
+# Using custom module
+ansible_mod.autoload(:Raw, 'ansible/ruby/modules/custom/commands/raw')
+# Using custom module
+ansible_mod.autoload(:Script, 'ansible/ruby/modules/custom/commands/script')
+# Using custom module
+ansible_mod.autoload(:Shell, 'ansible/ruby/modules/custom/commands/shell')
 ansible_mod.autoload(:Mysql_db, 'ansible/ruby/modules/generated/core/database/mysql/mysql_db')
 ansible_mod.autoload(:Mysql_user, 'ansible/ruby/modules/generated/core/database/mysql/mysql_user')
 ansible_mod.autoload(:Mysql_variables, 'ansible/ruby/modules/generated/core/database/mysql/mysql_variables')
