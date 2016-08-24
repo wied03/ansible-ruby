@@ -1,0 +1,6 @@
+require 'ansible/ruby/rake/task'
+
+desc 'named ansible task'
+Ansible::Ruby::Rake::Task.new do |task|
+  task.playbooks = 'webservers.rb'
+end
