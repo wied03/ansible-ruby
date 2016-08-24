@@ -2,6 +2,7 @@
 
 require_relative 'parser/option'
 require_relative 'parser/yaml'
+require_relative './option_formatter'
 require 'yaml'
 
 module Ansible
