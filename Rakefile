@@ -40,7 +40,7 @@ task :python_dependencies do
 end
 
 desc 'Runs a check against generated playbooks'
-task ansible_lint: (PLAYBOOKS << :python_dependencies) do
+task ansible_lint: (PLAYBOOKS.clone << :python_dependencies) do
   # Grab the first installed egg
   ansible_lint = FileList['.eggs/ansible_lint*.egg'][0]
   all_eggs = FileList['.eggs/*.egg']
