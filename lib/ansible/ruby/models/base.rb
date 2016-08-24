@@ -1,4 +1,6 @@
 require 'active_model'
+require 'ansible/ruby/models/type_generic'
+require 'ansible/ruby/models/multiple_types'
 require 'ansible/ruby/models/type_validator'
 
 module Ansible
