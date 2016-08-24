@@ -36,7 +36,7 @@ module Ansible
         validates :certname, type: String
 
         # @return [Array<String>, String, nil] A comma-separated list of puppet tags to be used.
-        attribute :tags, flat_array: true
+        attribute :tags
         validates :tags, type: TypeGeneric.new(String)
 
         # @return [String, nil] Execute a specific piece of Puppet code. It has no effect with a puppetmaster.

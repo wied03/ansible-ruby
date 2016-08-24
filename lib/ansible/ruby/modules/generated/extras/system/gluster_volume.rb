@@ -15,7 +15,7 @@ module Ansible
         validates :state, presence: true, inclusion: {:in=>[:present, :absent, :started, :stopped], :message=>"%{value} needs to be :present, :absent, :started, :stopped"}
 
         # @return [Array<String>, String, nil] List of hosts to use for probing and brick setup
-        attribute :cluster, flat_array: true
+        attribute :cluster
         validates :cluster, type: TypeGeneric.new(String)
 
         # @return [Object, nil] Override local hostname (for peer probing purposes)

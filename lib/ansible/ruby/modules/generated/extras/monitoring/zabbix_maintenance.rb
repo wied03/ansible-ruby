@@ -29,11 +29,11 @@ module Ansible
         attribute :http_login_password
 
         # @return [Array<String>, String, nil] Hosts to manage maintenance window for. Separate multiple hosts with commas. C(host_name) is an alias for C(host_names). B(Required) option when C(state) is I(present) and no C(host_groups) specified.
-        attribute :host_names, flat_array: true
+        attribute :host_names
         validates :host_names, type: TypeGeneric.new(String)
 
         # @return [Array<String>, String, nil] Host groups to manage maintenance window for. Separate multiple groups with commas. C(host_group) is an alias for C(host_groups). B(Required) option when C(state) is I(present) and no C(host_names) specified.
-        attribute :host_groups, flat_array: true
+        attribute :host_groups
         validates :host_groups, type: TypeGeneric.new(String)
 
         # @return [Integer, nil] Length of maintenance window in minutes.

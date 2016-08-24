@@ -17,9 +17,9 @@ module Ansible
         attribute :machine_type
         validates :machine_type, type: String
 
-        # @return [Array<String>, String, nil] a hash/dictionary of custom data for the instance; '{"key":"value", ...}'
-        attribute :metadata, flat_array: true
-        validates :metadata, type: TypeGeneric.new(String)
+        # @return [Hash, nil] a hash/dictionary of custom data for the instance; '{"key":"value", ...}'
+        attribute :metadata
+        validates :metadata, type: Hash
 
         # @return [String, nil] service account email
         attribute :service_account_email

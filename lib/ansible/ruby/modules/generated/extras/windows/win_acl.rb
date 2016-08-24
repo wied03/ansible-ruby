@@ -27,7 +27,7 @@ module Ansible
         validates :rights, presence: true, inclusion: {:in=>[:AppendData, :ChangePermissions, :Delete, :DeleteSubdirectoriesAndFiles, :ExecuteFile, :FullControl, :ListDirectory, :Modify, :Read, :ReadAndExecute, :ReadAttributes, :ReadData, :ReadExtendedAttributes, :ReadPermissions, :Synchronize, :TakeOwnership, :Traverse, :Write, :WriteAttributes, :WriteData, :WriteExtendedAttributes], :message=>"%{value} needs to be :AppendData, :ChangePermissions, :Delete, :DeleteSubdirectoriesAndFiles, :ExecuteFile, :FullControl, :ListDirectory, :Modify, :Read, :ReadAndExecute, :ReadAttributes, :ReadData, :ReadExtendedAttributes, :ReadPermissions, :Synchronize, :TakeOwnership, :Traverse, :Write, :WriteAttributes, :WriteData, :WriteExtendedAttributes"}
 
         # @return [:ContainerInherit, :ObjectInherit, :None, nil] Inherit flags on the ACL rules.  Can be specified as a comma separated list (Ex. "ContainerInherit, ObjectInherit").  For more information on the choices see MSDN InheritanceFlags Enumeration.
-        attribute :inherit, flat_array: true
+        attribute :inherit
         validates :inherit, inclusion: {:in=>[:ContainerInherit, :ObjectInherit, :None], :message=>"%{value} needs to be :ContainerInherit, :ObjectInherit, :None"}, allow_nil: true
 
         # @return [:None, :NoPropagateInherit, :InheritOnly, nil] Propagation flag on the ACL rules.  For more information on the choices see MSDN PropagationFlags Enumeration.

@@ -46,7 +46,7 @@ module Ansible
         validates :timeout, type: Integer
 
         # @return [Array<String>, String, nil] Add custom HTTP headers to a request in the format "key:value,key:value"
-        attribute :headers, flat_array: true
+        attribute :headers
         validates :headers, type: TypeGeneric.new(String)
 
         # @return [Object, nil] The username for use in HTTP basic authentication. This parameter can be used without C(url_password) for sites that allow empty passwords.
