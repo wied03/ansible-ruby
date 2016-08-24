@@ -7,6 +7,8 @@ play 'image copy' do
       source_image_id 'ami-1b9e2570'
       name 'test'
       wait :no
+      tags type: 'ansible',
+           test: '2'
     end
   end
 end

@@ -19,7 +19,7 @@ module Ansible
         validates :msg, presence: true, type: String
 
         # @return [Array<String>, String, nil] tags of the message, separated by commas
-        attribute :tags, flat_array: true
+        attribute :tags
         validates :tags, type: TypeGeneric.new(String)
 
         # @return [String, nil] (chat only - required) Name of the "user" sending the message

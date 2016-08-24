@@ -30,9 +30,9 @@ module Ansible
         attribute :wait_timeout
         validates :wait_timeout, type: Integer
 
-        # @return [Array<String>, String, nil] a hash/dictionary of tags to add to the new copied AMI; '{"key":"value"}' and '{"key":"value","key":"value"}'
-        attribute :tags, flat_array: true
-        validates :tags, type: TypeGeneric.new(String)
+        # @return [Hash, nil] a hash/dictionary of tags to add to the new copied AMI; '{"key":"value"}' and '{"key":"value","key":"value"}'
+        attribute :tags
+        validates :tags, type: Hash
       end
     end
   end

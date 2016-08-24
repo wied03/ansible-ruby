@@ -39,7 +39,7 @@ module Ansible
         validates :purge_zones, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Array<String>, String, nil] A list of security groups to apply to the elb
-        attribute :security_group_ids, flat_array: true
+        attribute :security_group_ids
         validates :security_group_ids, type: TypeGeneric.new(String)
 
         # @return [Object, nil] A list of security group names to apply to the elb

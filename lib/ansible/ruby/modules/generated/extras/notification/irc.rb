@@ -34,7 +34,7 @@ module Ansible
         validates :channel, presence: true, type: String
 
         # @return [Array<String>, String, nil] A list of nicknames to send the message to. One of nick_to or channel needs to be set.  When both are defined, the message will be sent to both of them.
-        attribute :nick_to, flat_array: true
+        attribute :nick_to
         validates :nick_to, type: TypeGeneric.new(String)
 
         # @return [Object, nil] Channel key

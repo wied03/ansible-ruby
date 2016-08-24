@@ -31,7 +31,7 @@ module Ansible
         validates :app_parameters, type: Hash
 
         # @return [Array<String>, String, nil] Service dependencies that has to be started to trigger startup, separated by comma.
-        attribute :dependencies, flat_array: true
+        attribute :dependencies
         validates :dependencies, type: TypeGeneric.new(String)
 
         # @return [String, nil] User to be used for service startup

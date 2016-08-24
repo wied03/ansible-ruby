@@ -30,9 +30,9 @@ module Ansible
         attribute :permission
         validates :permission, type: String
 
-        # @return [String, nil] Headers to attach to object.
+        # @return [Hash, nil] Headers to attach to object.
         attribute :headers
-        validates :headers, type: String
+        validates :headers, type: Hash
 
         # @return [Object, nil] Time limit (in seconds) for the URL generated and returned by GCA when performing a mode=put or mode=get_url operation. This url is only available when public-read is the acl for the object.
         attribute :expiration

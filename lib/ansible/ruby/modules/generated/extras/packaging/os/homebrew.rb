@@ -27,7 +27,7 @@ module Ansible
         validates :upgrade_all, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Array<String>, String, nil] options flags to install a package
-        attribute :install_options, flat_array: true
+        attribute :install_options
         validates :install_options, type: TypeGeneric.new(String)
       end
     end

@@ -7,7 +7,7 @@ module Ansible
     module Modules
       class Cl_interface_policy < Base
         # @return [Array<String>, String, nil] list of ports to run initial run at 10G
-        attribute :allowed, flat_array: true
+        attribute :allowed
         validates :allowed, type: TypeGeneric.new(String)
 
         # @return [String, nil] folder to store interface files.

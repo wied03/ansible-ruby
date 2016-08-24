@@ -27,7 +27,7 @@ module Ansible
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [Array<String>, String, nil] A string of ssh key options to be prepended to the key in the authorized_keys file
-        attribute :key_options, flat_array: true
+        attribute :key_options
         validates :key_options, type: TypeGeneric.new(String)
 
         # @return [:yes, :no, nil] Whether to remove all other non-specified keys from the authorized_keys file. Multiple keys can be specified in a single C(key) string value by separating them by newlines.,This option is not loop aware, so if you use C(with_) , it will be exclusive per iteration of the loop, if you want multiple keys in the file you need to pass them all to C(key) in a single batch as mentioned above.

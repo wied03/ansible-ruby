@@ -46,31 +46,6 @@ describe Ansible::Ruby::Models::Base do
         it { is_expected.to have_hash foo: [123] }
         it { is_expected.to have_attributes foo: [123] }
       end
-
-      context 'flat array' do
-        let(:klass) do
-          Class.new(Ansible::Ruby::Models::Base) do
-            attribute :foo, flat_array: true
-            validates :foo, type: TypeGeneric.new(Integer)
-          end
-        end
-
-        context 'as single value' do
-          let(:instance) { klass.new foo: 123 }
-
-          it { is_expected.to be_valid }
-          it { is_expected.to have_hash foo: '123' }
-          it { is_expected.to have_attributes foo: 123 }
-        end
-
-        context 'as multiple values' do
-          let(:instance) { klass.new foo: [123] }
-
-          it { is_expected.to be_valid }
-          it { is_expected.to have_hash foo: '123' }
-          it { is_expected.to have_attributes foo: [123] }
-        end
-      end
     end
 
     context 'multiple values' do
@@ -79,32 +54,6 @@ describe Ansible::Ruby::Models::Base do
       it { is_expected.to be_valid }
       it { is_expected.to have_hash foo: [123, 456] }
       it { is_expected.to have_attributes foo: [123, 456] }
-    end
-  end
-
-  context 'serialize array as flat' do
-    let(:klass) do
-      gen = generic_type
-      Class.new(Ansible::Ruby::Models::Base) do
-        attribute :foo, flat_array: true
-        validates :foo, type: TypeGeneric.new(gen)
-      end
-    end
-
-    let(:instance) { klass.new foo: value }
-
-    context 'integer' do
-      let(:value) { [123, 456] }
-      let(:generic_type) { Integer }
-
-      it { is_expected.to have_hash foo: '123,456' }
-    end
-
-    context 'string' do
-      let(:value) { %w(abc def) }
-      let(:generic_type) { String }
-
-      it { is_expected.to have_hash foo: 'abc,def' }
     end
   end
 

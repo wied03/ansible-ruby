@@ -7,7 +7,7 @@ module Ansible
     module Modules
       class Gce_net < Base
         # @return [Array<String>, String, nil] the protocol:ports to allow ('tcp:80' or 'tcp:80,443' or 'tcp:80-800;udp:1-25')
-        attribute :allowed, flat_array: true
+        attribute :allowed
         validates :allowed, type: TypeGeneric.new(String)
 
         # @return [String, nil] the IPv4 address range in CIDR notation for the network this parameter is not mandatory when you specified existing network in name parameter, but when you create new network, this parameter is mandatory

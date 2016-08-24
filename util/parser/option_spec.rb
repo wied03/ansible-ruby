@@ -29,7 +29,6 @@ describe Ansible::Ruby::Parser::Option do
         it { is_expected.to be_a Ansible::Ruby::Parser::OptionData }
         it do
           is_expected.to have_attributes name: 'login_user',
-                                         flat_array?: nil,
                                          required?: false,
                                          choices: nil
         end
@@ -40,7 +39,6 @@ describe Ansible::Ruby::Parser::Option do
 
         it do
           is_expected.to have_attributes name: 'login_user',
-                                         flat_array?: nil,
                                          required?: true,
                                          choices: nil
         end
@@ -182,7 +180,7 @@ describe Ansible::Ruby::Parser::Option do
       end
     end
 
-    context 'type from default' do
+    context 'default' do
       { String => 'foo', Integer => 1, Float => 1.5 }.each do |type, value|
         context type do
           let(:default) { value }
@@ -195,9 +193,7 @@ describe Ansible::Ruby::Parser::Option do
           end
         end
       end
-    end
 
-    context 'default' do
       context 'None string' do
         let(:default) { 'None' }
 
@@ -222,16 +218,15 @@ describe Ansible::Ruby::Parser::Option do
         end
       end
 
-      context 'array' do
-        context 'flat array' do
+      context 'flat array' do
+        context 'string' do
           let(:default) { 'hello,there' }
 
           it do
             is_expected.to have_attributes name: 'login_user',
                                            required?: false,
                                            choices: nil,
-                                           types: [TypeGeneric],
-                                           flat_array?: %w(hello there)
+                                           types: [TypeGeneric]
           end
 
           it { is_expected.to have_type_generic String }
@@ -244,8 +239,7 @@ describe Ansible::Ruby::Parser::Option do
             is_expected.to have_attributes name: 'login_user',
                                            required?: false,
                                            choices: nil,
-                                           types: [TypeGeneric],
-                                           flat_array?: [123, 456]
+                                           types: [TypeGeneric]
           end
 
           it { is_expected.to have_type_generic Integer }
@@ -258,11 +252,21 @@ describe Ansible::Ruby::Parser::Option do
             is_expected.to have_attributes name: 'login_user',
                                            required?: false,
                                            choices: nil,
-                                           types: [TypeGeneric],
-                                           flat_array?: [123.12, 456.89]
+                                           types: [TypeGeneric]
           end
 
           it { is_expected.to have_type_generic Float }
+        end
+      end
+
+      context 'flat hash' do
+        let(:default) { '{"Name":"SuperService-new-AMI", "type":"SuperService"}' }
+
+        it do
+          is_expected.to have_attributes name: 'login_user',
+                                         required?: false,
+                                         choices: nil,
+                                         types: [Hash]
         end
       end
     end
@@ -280,8 +284,7 @@ describe Ansible::Ruby::Parser::Option do
         it do
           is_expected.to have_attributes name: 'name',
                                          choices: nil,
-                                         types: [String],
-                                         flat_array?: nil
+                                         types: [String]
         end
       end
 
@@ -301,8 +304,7 @@ describe Ansible::Ruby::Parser::Option do
         it do
           is_expected.to have_attributes name: 'username',
                                          choices: nil,
-                                         types: [String],
-                                         flat_array?: nil
+                                         types: [String]
         end
       end
 
@@ -313,8 +315,7 @@ describe Ansible::Ruby::Parser::Option do
         it do
           is_expected.to have_attributes name: 'name',
                                          choices: nil,
-                                         types: [],
-                                         flat_array?: nil
+                                         types: []
         end
       end
 
@@ -337,8 +338,7 @@ describe Ansible::Ruby::Parser::Option do
         it do
           is_expected.to have_attributes name: 'name',
                                          choices: nil,
-                                         types: [Float],
-                                         flat_array?: nil
+                                         types: [Float]
         end
       end
 
@@ -362,8 +362,7 @@ describe Ansible::Ruby::Parser::Option do
           it do
             is_expected.to have_attributes name: 'name',
                                            choices: nil,
-                                           types: [String],
-                                           flat_array?: nil
+                                           types: [String]
           end
         end
 
@@ -373,8 +372,7 @@ describe Ansible::Ruby::Parser::Option do
           it do
             is_expected.to have_attributes name: 'name',
                                            choices: nil,
-                                           types: [String],
-                                           flat_array?: nil
+                                           types: [String]
           end
         end
       end
@@ -394,8 +392,7 @@ describe Ansible::Ruby::Parser::Option do
         it do
           is_expected.to have_attributes name: 'stack_name',
                                          choices: nil,
-                                         types: [String],
-                                         flat_array?: nil
+                                         types: [String]
         end
       end
 
@@ -415,8 +412,7 @@ describe Ansible::Ruby::Parser::Option do
         it do
           is_expected.to have_attributes name: 'something',
                                          choices: nil,
-                                         types: [Float],
-                                         flat_array?: nil
+                                         types: [Float]
         end
       end
 
@@ -440,8 +436,7 @@ describe Ansible::Ruby::Parser::Option do
         it do
           is_expected.to have_attributes name: 'something',
                                          choices: nil,
-                                         types: [Hash],
-                                         flat_array?: nil
+                                         types: [Hash]
         end
       end
 
@@ -465,8 +460,7 @@ describe Ansible::Ruby::Parser::Option do
         it do
           is_expected.to have_attributes name: 'something',
                                          choices: nil,
-                                         types: [Hash],
-                                         flat_array?: nil
+                                         types: [Hash]
         end
       end
 
@@ -494,8 +488,7 @@ describe Ansible::Ruby::Parser::Option do
         it do
           is_expected.to have_attributes name: 'something',
                                          choices: nil,
-                                         types: [String],
-                                         flat_array?: nil
+                                         types: [String]
         end
       end
 
@@ -511,8 +504,7 @@ describe Ansible::Ruby::Parser::Option do
         it do
           is_expected.to have_attributes name: 'name',
                                          choices: nil,
-                                         types: [String],
-                                         flat_array?: nil
+                                         types: [String]
         end
       end
 
@@ -528,8 +520,7 @@ describe Ansible::Ruby::Parser::Option do
         it do
           is_expected.to have_attributes name: 'template',
                                          choices: nil,
-                                         types: [String],
-                                         flat_array?: nil
+                                         types: [String]
         end
       end
 
@@ -545,8 +536,7 @@ describe Ansible::Ruby::Parser::Option do
         it do
           is_expected.to have_attributes name: 'name',
                                          choices: nil,
-                                         types: [TypeGeneric],
-                                         flat_array?: %w('12 13')
+                                         types: [TypeGeneric]
         end
 
         it { is_expected.to have_type_generic Integer }
@@ -573,8 +563,7 @@ describe Ansible::Ruby::Parser::Option do
         it do
           is_expected.to have_attributes name: 'lines',
                                          choices: nil,
-                                         types: [String, Integer],
-                                         flat_array?: nil
+                                         types: [String, Integer]
         end
       end
 
@@ -595,8 +584,7 @@ describe Ansible::Ruby::Parser::Option do
           it do
             is_expected.to have_attributes name: 'lines',
                                            choices: nil,
-                                           types: [TypeGeneric],
-                                           flat_array?: nil
+                                           types: [TypeGeneric]
           end
 
           it { is_expected.to have_type_generic String }
@@ -621,8 +609,7 @@ describe Ansible::Ruby::Parser::Option do
           it do
             is_expected.to have_attributes name: 'lines',
                                            choices: nil,
-                                           types: [TypeGeneric],
-                                           flat_array?: nil
+                                           types: [TypeGeneric]
           end
 
           it { is_expected.to have_type_generic String }
@@ -647,8 +634,7 @@ describe Ansible::Ruby::Parser::Option do
           it do
             is_expected.to have_attributes name: 'lines',
                                            choices: nil,
-                                           types: [TypeGeneric],
-                                           flat_array?: nil
+                                           types: [TypeGeneric]
           end
 
           it { is_expected.to have_type_generic String }
@@ -673,8 +659,7 @@ describe Ansible::Ruby::Parser::Option do
           it do
             is_expected.to have_attributes name: 'lines',
                                            choices: nil,
-                                           types: [TypeGeneric],
-                                           flat_array?: nil
+                                           types: [TypeGeneric]
           end
 
           it { is_expected.to have_type_generic String }
@@ -698,8 +683,7 @@ describe Ansible::Ruby::Parser::Option do
         it do
           is_expected.to have_attributes name: 'lines',
                                          choices: nil,
-                                         types: [],
-                                         flat_array?: nil
+                                         types: []
         end
       end
 
@@ -720,8 +704,7 @@ describe Ansible::Ruby::Parser::Option do
         it do
           is_expected.to have_attributes name: 'username',
                                          choices: nil,
-                                         types: [String],
-                                         flat_array?: nil
+                                         types: [String]
         end
       end
     end

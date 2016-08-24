@@ -31,7 +31,7 @@ module Ansible
         validates :minutes, type: Integer
 
         # @return [Array<String>, String] What to manage downtime/alerts for. Separate multiple services with commas. C(service) is an alias for C(services). B(Required) option when using the C(downtime), C(enable_alerts), and C(disable_alerts) actions.
-        attribute :services, flat_array: true
+        attribute :services
         validates :services, presence: true, type: TypeGeneric.new(String)
 
         # @return [String, nil] The Servicegroup we want to set downtimes/alerts for. B(Required) option when using the C(servicegroup_service_downtime) amd C(servicegroup_host_downtime).
