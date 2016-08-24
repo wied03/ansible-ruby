@@ -16,7 +16,8 @@ module Ansible
             "#{key}: #{value}"
           end.join ', '
           name = option_data.name
-          lines << "attribute :#{name}#{flat_attr_args.empty? ? '' : ", #{flat_attr_args}"}"
+          symbol = name.to_sym.inspect
+          lines << "attribute #{symbol}#{flat_attr_args.empty? ? '' : ", #{flat_attr_args}"}"
           lines << format_validations(option_data)
           lines.compact
         rescue
@@ -86,7 +87,8 @@ module Ansible
           end
 
           return nil unless validations.any?
-          "validates :#{option_data.name}, #{validations.map { |key, value| "#{key}: #{value}" }.join(', ')}"
+          symbol = option_data.name.to_sym.inspect
+          "validates #{symbol}, #{validations.map { |key, value| "#{key}: #{value}" }.join(', ')}"
         end
 
         def format_single_validation(type)
