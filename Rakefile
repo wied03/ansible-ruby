@@ -101,6 +101,8 @@ task update_modules: :python_dependencies do
       ruby_result = Ansible::Ruby::Parser.from_yaml_string description, example, example_fail_is_ok
       python_dir = File.dirname(file)
       ruby_filename = File.basename(file, '.py') + '.rb'
+      # don't want leading _ in front of stuff
+      ruby_filename.gsub! /^_/, ''
       module_path = Pathname.new(python_dir).relative_path_from(modules_dir)
       ruby_path = File.join('lib/ansible/ruby/modules/generated', module_path, ruby_filename)
       mkdir_p File.dirname(ruby_path)
@@ -135,10 +137,17 @@ task update_modules: :python_dependencies do
   base_dir = Pathname.new('lib')
   puts 'Writing requires'
   File.open 'lib/ansible/ruby/modules/generated.rb', 'w' do |file|
+    file << <<HEADER
+# Generated file, DO NOT EDIT!
+
+ansible_mod = Ansible::Ruby::Modules
+
+HEADER
     already_processed.each do |ruby|
       relative = Pathname.new(ruby).relative_path_from(base_dir)
       without_extension = relative.to_s.gsub(/\.rb$/, '')
-      file << "require '#{without_extension}'\n"
+      klass_name = File.basename without_extension
+      file << "ansible_mod.autoload(:#{klass_name.capitalize}, '#{without_extension}')\n"
     end
   end
 end

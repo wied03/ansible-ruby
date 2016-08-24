@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'ansible-ruby'
 require 'ansible/ruby/rake/task'
-require 'rake/copy'
+Ansible::Ruby::Modules.autoload :Copy, 'rake/copy'
 
 describe Ansible::Ruby::Rake::Task do
   let(:rake_dir) { 'spec/rake/no_nested_tasks' }
