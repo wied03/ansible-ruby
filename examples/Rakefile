@@ -8,3 +8,7 @@ desc 'named ansible task'
 Ansible::Ruby::Rake::Task.new do |task|
   task.playbooks = 'webservers.rb'
 end
+
+Ansible::Ruby::Rake::Task.new :ami do |task|
+  task.playbooks = 'image_copy.rb'
+end
