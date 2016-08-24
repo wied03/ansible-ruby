@@ -108,8 +108,8 @@ module Ansible
           def values_by_key(example)
             example = example['tasks'] if example.is_a?(Hash) && example['tasks']
             first_cut = example.map { |ex| ex.reject { |key, _| key == 'name' } }
-                               .map { |ex| ex.map { |_, value| value } }
-                               .flatten
+                          .map { |ex| ex.map { |_, value| value } }
+                          .flatten
             array_of_hashes = first_cut.map do |value|
               if value.is_a?(String)
                 hash_equal_sign_pairs(value)
@@ -146,7 +146,9 @@ module Ansible
           def derive_type(value)
             value = unquote_string(value) if value.is_a?(String) && !variable_expression?(value)
             array = flat_array(value) || (value.is_a?(Array) && value)
-            if array
+            if value.is_a?(String) && flat_hash(value)
+              Hash
+            elsif array
               item = array[0]
               value = parse_value_into_num item
               klass = handle_fixnum value.class
@@ -184,6 +186,13 @@ module Ansible
           def parsed_float(value)
             value.include?('.') && Float(value)
           rescue
+            false
+          end
+
+          def flat_hash(value)
+            JSON.parse(value).is_a?(Hash)
+          rescue
+            # JSON.parse knows
             false
           end
 
