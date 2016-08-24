@@ -124,7 +124,11 @@ module Ansible
               /^To only replace a couple of instances.*replace_instances":/m => '# comments',
               # rollbar_deployment - trailing commas
               'revision=4.2,' => 'revision=4.2',
-              "rollbar_user='admin'," => "rollbar_user='admin'"
+              "rollbar_user='admin'," => "rollbar_user='admin'",
+              # Synchronize - non parseable defaults
+              'default: Value of ansible_ssh_port for this host, remote_port config setting, or 22 if none of those are set' => 'default: 22',
+              # rds - non parseable defaults
+              'default: 3306 for mysql, 1521 for Oracle, 1433 for SQL Server, 5432 for PostgreSQL.' => 'default: 5432'
             }
             dirty_patterns.inject(yaml) do |fixed_yaml, find_replace|
               fixed_yaml.gsub find_replace[0], find_replace[1]
