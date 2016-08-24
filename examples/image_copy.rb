@@ -1,6 +1,16 @@
 play 'image copy' do
   local_host
 
+  task 'say hello' do
+    result = command do
+      free_form 'ls howdy'
+      chdir '/tmp'
+    end
+
+    changed_when "'howdy' in #{result.stdout}"
+    failed_when 'false'
+  end
+
   task 'image copy' do
     ec2_ami_copy do
       source_region 'us-east-1'

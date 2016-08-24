@@ -121,7 +121,8 @@ ansible_mod.autoload(:Rax_queue, 'ansible/ruby/modules/generated/core/cloud/rack
 ansible_mod.autoload(:Rax_scaling_group, 'ansible/ruby/modules/generated/core/cloud/rackspace/rax_scaling_group')
 ansible_mod.autoload(:Rax_scaling_policy, 'ansible/ruby/modules/generated/core/cloud/rackspace/rax_scaling_policy')
 ansible_mod.autoload(:Vsphere_guest, 'ansible/ruby/modules/generated/core/cloud/vmware/vsphere_guest')
-ansible_mod.autoload(:Command, 'ansible/ruby/modules/generated/core/commands/command')
+# Using custom module
+ansible_mod.autoload(:Command, 'ansible/ruby/modules/custom/commands/command')
 ansible_mod.autoload(:Raw, 'ansible/ruby/modules/generated/core/commands/raw')
 ansible_mod.autoload(:Script, 'ansible/ruby/modules/generated/core/commands/script')
 ansible_mod.autoload(:Shell, 'ansible/ruby/modules/generated/core/commands/shell')

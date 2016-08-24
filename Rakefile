@@ -156,6 +156,12 @@ HEADER
       relative = Pathname.new(ruby).relative_path_from(base_dir)
       without_extension = relative.to_s.gsub(/\.rb$/, '')
       klass_name = File.basename without_extension
+      custom_modules = FileList["lib/ansible/ruby/modules/custom/**/#{File.basename(relative)}"]
+      if custom_modules.any?
+        file << "# Using custom module\n"
+        without_extension = Pathname.new(custom_modules[0]).relative_path_from(base_dir).to_s
+        without_extension = without_extension.gsub(/\.rb$/, '')
+      end
       file << "ansible_mod.autoload(:#{klass_name.capitalize}, '#{without_extension}')\n"
     end
   end
@@ -165,15 +171,19 @@ task :verify_checksums do
   existing_sums = 'util/checksums_existing.json'
   new_checksums = JSON.parse File.read(NEW_CHECKSUMS)
   valid_custom_checksums = Hash[FileList['lib/ansible/ruby/modules/custom/**/*.rb']
+                                  .exclude('**/*_spec.rb')
                                   .map do |filename|
     file_contents = File.read filename
     module_only = File.basename(filename)
     match = /# VALIDATED_CHECKSUM: (.*)$/.match(file_contents)
     validated_checksum = match && match[1]
     unless validated_checksum
-      puts "Adding checksum to #{filename}"
       validated_checksum = new_checksums[module_only]
-      File.write filename, "# VALIDATED_CHECKSUM: #{validated_checksum}\n" + file_contents
+      # No need for empty checksums
+      if validated_checksum
+        puts "Adding checksum to #{filename}"
+        File.write filename, "# VALIDATED_CHECKSUM: #{validated_checksum}\n" + file_contents
+      end
     end
     [module_only, validated_checksum]
   end]
