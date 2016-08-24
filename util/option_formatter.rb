@@ -71,7 +71,7 @@ module Ansible
                    generic = generics[0]
                    "TypeGeneric.new(#{generic.klass.name})"
                  elsif types.length > 1
-                   "MultipleTypes.new(#{types.map { |type| format_single_validation type }})"
+                   "MultipleTypes.new(#{types.map { |type| format_single_validation type }.join ', '})"
                  elsif types.length == 1
                    format_single_validation types[0]
                  end

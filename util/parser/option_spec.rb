@@ -122,8 +122,6 @@ attribute :login_user
 validates :login_user, inclusion: {:in=>[1, :abc], :message=>"%{value} needs to be 1, :abc"}, allow_nil: true
 RUBY
         end
-
-        pending 'what happens here validation wise? might need to test it outside of choices'
       end
 
       context 'no default' do
@@ -566,6 +564,33 @@ RUBY
 # @return [Array<Integer>, nil] The username used to authenticate with
 attribute :name, flat_array: true
 validates :name, type: TypeGeneric.new(Integer)
+RUBY
+        end
+      end
+
+      context 'example has multiple types' do
+        let(:name) { 'lines' }
+
+        let(:example) do
+          [
+            {
+              "postgresql_db" => {
+                'lines' => 'hello'
+              }
+            },
+            {
+              "postgresql_db" => {
+                'lines' => 456
+              }
+            }
+          ]
+        end
+
+        it do
+          is_expected.to eq <<RUBY
+# @return [String, Integer, nil] The username used to authenticate with
+attribute :lines
+validates :lines, type: MultipleTypes.new(String, Integer)
 RUBY
         end
       end
