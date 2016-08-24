@@ -47,9 +47,10 @@ module Ansible
             @set_vars.map do |key|
               value = send key
               options = self.class.attr_options(key)
-              value = if options[:flat_array]
+              flat_array = options[:flat_array]
+              value = if flat_array
                         # some ansible options are reflected as CSVs
-                        value.join ','
+                        [*value].join ','
                       else
                         case value
                         when Array
@@ -60,7 +61,11 @@ module Ansible
                           value
                         end
                       end
-              value = convert_generic options[:generic], value
+              generic_type = options[:generic]
+              # flat array does not need to be converted, it's already a string at this point
+              if generic_type && !flat_array
+                value = convert_generic generic_type, value
+              end
               key = options[:original_name] || key
               [key, value]
             end.compact]
@@ -69,7 +74,6 @@ module Ansible
         private
 
         def convert_generic(generic_type, value)
-          return value unless generic_type
           # hash friendly of [*value]
           case value
           when generic_type
