@@ -23,7 +23,7 @@ desc 'Runs Reek stuff'
 Reek::Rake::Task.new do |task|
   # rake task overrides all config.reek exclusions, which is annoying and it won't let us set a FileList directly
   files = FileList['**/*.rb']
-            .exclude('vendor/**/*') # Travis stuff
+          .exclude('vendor/**/*') # Travis stuff
   task.instance_variable_set :@source_files, files
 end
 
@@ -78,7 +78,7 @@ end
 desc 'Update/generate Ruby modules from Ansible modules'
 task update_modules: [:generate_modules, :verify_checksums]
 
-NEW_CHECKSUMS = 'util/checksums_new.json'
+NEW_CHECKSUMS = 'util/checksums_new.json'.freeze
 task generate_modules: :python_dependencies do
   python_path = FileList['.eggs/*.egg'].join ':'
   ansible_dir = `PYTHONPATH=#{python_path} python util/get_ansible.py`.strip
@@ -171,22 +171,22 @@ task :verify_checksums do
   existing_sums = 'util/checksums_existing.json'
   new_checksums = JSON.parse File.read(NEW_CHECKSUMS)
   valid_custom_checksums = Hash[FileList['lib/ansible/ruby/modules/custom/**/*.rb']
-                                  .exclude('**/*_spec.rb')
-                                  .map do |filename|
-    file_contents = File.read filename
-    module_only = File.basename(filename)
-    match = /# VALIDATED_CHECKSUM: (.*)$/.match(file_contents)
-    validated_checksum = match && match[1]
-    unless validated_checksum
-      validated_checksum = new_checksums[module_only]
-      # No need for empty checksums
-      if validated_checksum
-        puts "Adding checksum to #{filename}"
-        File.write filename, "# VALIDATED_CHECKSUM: #{validated_checksum}\n" + file_contents
-      end
-    end
-    [module_only, validated_checksum]
-  end]
+                           .exclude('**/*_spec.rb')
+                           .map do |filename|
+                                  file_contents = File.read filename
+                                  module_only = File.basename(filename)
+                                  match = /# VALIDATED_CHECKSUM: (.*)$/.match(file_contents)
+                                  validated_checksum = match && match[1]
+                                  unless validated_checksum
+                                    validated_checksum = new_checksums[module_only]
+                                    # No need for empty checksums
+                                    if validated_checksum
+                                      puts "Adding checksum to #{filename}"
+                                      File.write filename, "# VALIDATED_CHECKSUM: #{validated_checksum}\n" + file_contents
+                                    end
+                                  end
+                                  [module_only, validated_checksum]
+                                end]
 
   problems = new_checksums.map do |changed_file, new_checksum|
     next unless valid_custom_checksums.include? changed_file

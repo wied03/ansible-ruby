@@ -51,11 +51,9 @@ describe Ansible::Ruby::Modules::FreeForm do
     subject { instance.to_h }
 
     it do
-      is_expected.to eq({
-                          some_module: 'howdy',
-                          args: {
-                            foo: 123
-                          }
+      is_expected.to eq(some_module: 'howdy',
+                        args: {
+                          foo: 123
                         })
     end
   end
