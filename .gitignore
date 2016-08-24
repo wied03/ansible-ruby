@@ -7,3 +7,5 @@ Gemfile.lock
 /.eggs
 *_test.yml
 /debug_*.yml
+# Only used temporarily for verification
+util/checksums_new.json
