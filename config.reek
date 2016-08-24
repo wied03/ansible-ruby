@@ -28,3 +28,8 @@ TooManyInstanceVariables:
 # couldn't get it to adhere to my comments
 ManualDispatch:
   enabled: false
+
+# code gen
+"lib/ansible/ruby/modules/generated":
+  UncommunicativeModuleName:
+    enabled: false

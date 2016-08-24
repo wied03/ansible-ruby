@@ -5,7 +5,7 @@ require 'reek/rake/task'
 require 'ansible/ruby/rake/task'
 require_relative 'util/parser'
 
-task default: [:clean, :spec, :rubocop, :reek, :update_modules, :ansible_lint]
+task default: [:clean, :spec, :update_modules, :rubocop, :reek, :ansible_lint]
 
 desc 'Run specs'
 RSpec::Core::RakeTask.new :spec do |task|
@@ -22,7 +22,6 @@ Reek::Rake::Task.new do |task|
   # rake task overrides all config.reek exclusions, which is annoying and it won't let us set a FileList directly
   files = FileList['**/*.rb']
           .exclude('vendor/**/*') # Travis stuff
-          .exclude('lib/ansible/ruby/modules/generated/**/*')
   task.instance_variable_set :@source_files, files
 end
 

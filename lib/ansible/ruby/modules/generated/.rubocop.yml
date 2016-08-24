@@ -1,0 +1,37 @@
+# These become Python module names
+Style/ClassAndModuleCamelCase:
+  Enabled: false
+
+# code gen
+Style/Documentation:
+  Enabled: false
+
+Style/SpaceInsideHashLiteralBraces:
+  Enabled: false
+
+Metrics/LineLength:
+  Enabled: false
+
+Style/HashSyntax:
+  Enabled: false
+
+Style/StringLiterals:
+  Enabled: false
+
+Style/SpaceAroundOperators:
+  Enabled: false
+
+Style/StringLiterals:
+  Enabled: false
+
+Style/AsciiComments:
+  Enabled: false
+
+Style/TrailingWhitespace:
+  Enabled: false
+
+Style/EmptyLinesAroundClassBody:
+  Enabled: false
+
+Metrics/ClassLength:
+  Enabled: false
