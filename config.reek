@@ -24,3 +24,7 @@ FeatureEnvy:
 
 TooManyInstanceVariables:
   max_instance_variables: 8
+
+# couldn't get it to adhere to my comments
+ManualDispatch:
+  enabled: false
