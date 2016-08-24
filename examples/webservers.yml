@@ -1,16 +1,15 @@
 ---
 # This is a generated YAML file by ansible-ruby, DO NOT EDIT
-- hosts: host1
+- hosts: localhost
   name: webserver install
   tasks:
-  - name: install nginx
-    yum:
-      name: nginx
-      state: absent
   - name: EC2 load balancer
     ec2_elb_lb:
       state: present
       name: lb_01
-      security_group_ids: id1,id2
+      security_group_ids: sg-3c4fca59,sg-cabcc0ad
       listeners:
-        '22': tcp
+        protocol: http
+        load_balancer_port: 80
+        instance_port: 80
+  connection: local
