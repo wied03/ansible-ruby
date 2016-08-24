@@ -252,9 +252,26 @@ RUBY
 
       it do
         is_expected.to eq <<RUBY
-# @return [FalseClass, nil] The username used to authenticate with
+# @return [Boolean, nil] The username used to authenticate with
 attribute :login_user
-validates :login_user, type: FalseClass
+validates :login_user, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+RUBY
+      end
+    end
+
+    context 'default of True' do
+      let(:details) do
+        {
+          description: ['The username used to authenticate with'],
+          default: true
+        }
+      end
+
+      it do
+        is_expected.to eq <<RUBY
+# @return [Boolean, nil] The username used to authenticate with
+attribute :login_user
+validates :login_user, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 RUBY
       end
     end

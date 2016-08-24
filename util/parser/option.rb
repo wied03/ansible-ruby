@@ -15,13 +15,20 @@ module Ansible
             description = [*details[:description]]
             sample_values = find_sample_values name, details, example
             types = derive_types sample_values
+            choices = parse_choices(details)
+            # Example only has true or false
+            missing_bool_type = missing_bool_type types
+            if missing_bool_type
+              types << missing_bool_type
+              choices = [true, false]
+            end
             puts "Sample values: #{sample_values}\nDerived Types: #{types}" if debug?
             OptionData.new name: name,
                            description: description,
                            required: details[:required],
                            types: types,
                            flat_array: flat_array(*sample_values),
-                           choices: parse_choices(details)
+                           choices: choices
           rescue
             $stderr << "Problem parsing option #{name}!"
             raise
@@ -33,6 +40,11 @@ module Ansible
 
           def debug?
             ENV['DEBUG']
+          end
+
+          def missing_bool_type(types)
+            result = [TrueClass, FalseClass] - types
+            result.length == 1 ? result[0] : nil
           end
 
           def find_sample_values(attribute, details, example)
