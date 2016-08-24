@@ -21,3 +21,15 @@ DuplicateMethodCall:
 
 FeatureEnvy:
   enabled: false
+
+TooManyInstanceVariables:
+  max_instance_variables: 8
+
+# couldn't get it to adhere to my comments
+ManualDispatch:
+  enabled: false
+
+# code gen
+"lib/ansible/ruby/modules/generated":
+  UncommunicativeModuleName:
+    enabled: false

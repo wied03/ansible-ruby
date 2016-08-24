@@ -1,5 +1,7 @@
-require 'support/matchers/have_hash'
-require 'support/matchers/have_errors'
+spec_dir = Pathname.new('spec')
+Dir['spec/support/**/*.rb'].each do |file|
+  require Pathname.new(file).relative_path_from(spec_dir)
+end
 
 RSpec.configure do |config|
   config.filter_run_including focus: true

@@ -1,6 +1,7 @@
 require 'spec_helper'
 require 'ansible-ruby'
 require 'ansible/ruby/rake/task'
+Ansible::Ruby::Modules.autoload :Copy, 'rake/copy'
 
 describe Ansible::Ruby::Rake::Task do
   let(:rake_dir) { 'spec/rake/no_nested_tasks' }
@@ -90,20 +91,52 @@ OUTPUT
     end
 
     context 'options' do
-      let(:task) do
-        Ansible::Ruby::Rake::Task.new do |task|
-          task.playbooks = ruby_file
-          task.options = '--ansible-option'
+      { flat: '--ansible-option', array: ['--ansible-option'] }.each do |type, value|
+        context type do
+          let(:task) do
+            Ansible::Ruby::Rake::Task.new do |task|
+              task.playbooks = ruby_file
+              task.options = value
+            end
+          end
+
+          it 'executed the command' do
+            expect(@commands).to include 'ansible-playbook --ansible-option playbook1_test.yml'
+          end
         end
       end
 
-      it 'executed the command' do
-        expect(@commands).to include 'ansible-playbook --ansible-option playbook1_test.yml'
-      end
+      context 'env override' do
+        around do |example|
+          ENV['ANSIBLE_OPTS'] = '--check'
+          example.run
+          ENV.delete 'ANSIBLE_OPTS'
+        end
 
-      it 'generates the YAML' do
-        expect(File.exist?(yaml_file)).to be_truthy
-        expect(File.read(yaml_file)).to include 'host1:host2'
+        context 'combined' do
+          let(:task) do
+            Ansible::Ruby::Rake::Task.new do |task|
+              task.playbooks = ruby_file
+              task.options = '-v'
+            end
+          end
+
+          it 'executed the command' do
+            expect(@commands).to include 'ansible-playbook -v --check playbook1_test.yml'
+          end
+        end
+
+        context 'only env' do
+          let(:task) do
+            Ansible::Ruby::Rake::Task.new do |task|
+              task.playbooks = ruby_file
+            end
+          end
+
+          it 'executed the command' do
+            expect(@commands).to include 'ansible-playbook --check playbook1_test.yml'
+          end
+        end
       end
     end
 

@@ -51,6 +51,28 @@ describe Ansible::Ruby::DslBuilders::Play do
     end
   end
 
+  context 'localhost shortcut' do
+    let(:ruby) do
+      <<-RUBY
+      local_host
+
+      task 'Copy something' do
+          copy do
+            src '/file1.conf'
+            dest '/file2.conf'
+          end
+      end
+      RUBY
+    end
+
+    it { is_expected.to be_a Ansible::Ruby::Models::Play }
+
+    it do
+      is_expected.to have_attributes hosts: 'localhost',
+                                     connection: :local
+    end
+  end
+
   context 'no name provided' do
     let(:builder) { Ansible::Ruby::DslBuilders::Play.new }
 

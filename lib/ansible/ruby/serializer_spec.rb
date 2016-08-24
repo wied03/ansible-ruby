@@ -49,5 +49,22 @@ ec2:
         is_expected.to eq "---\n# This is a generated YAML file by ansible-ruby, DO NOT EDIT\nec2:\n  foo: "
       end
     end
+
+    context 'symbol' do
+      let(:hash) do
+        [{ ec2: { foo: :howdy } }]
+      end
+
+      it do
+        text = <<-YAML
+---
+# This is a generated YAML file by ansible-ruby, DO NOT EDIT
+- ec2:
+    foo: howdy
+        YAML
+        # Don't expecte a trailing CR
+        is_expected.to eq text.rstrip
+      end
+    end
   end
 end
