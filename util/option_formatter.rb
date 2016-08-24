@@ -27,15 +27,19 @@ module Ansible
         private
 
         def format_yard_return_types(option_data)
-          types = option_data.types
-          if (choices = option_data.choices)
-            types = if (BOOLEAN_OPTIONS - choices).empty?
+          types = if (choices = option_data.choices)
+                    if (BOOLEAN_OPTIONS - choices).empty?
                       choices = choices - BOOLEAN_OPTIONS
                       choices << 'Boolean'
                     else
                       choices
                     end
-          end
+                  else
+                    # no mutating
+                    option_data.types.clone
+                  end
+          # Want to at least show something
+          types << Object if types.empty?
           types << nil unless option_data.required?
           formatted = types.map { |type| format_yard_type type }.join ', '
           "@return [#{formatted}]"
