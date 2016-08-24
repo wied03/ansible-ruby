@@ -122,6 +122,19 @@ describe Ansible::Ruby::Models::Base do
       it { is_expected.to have_hash foo: nil, toodles: 40.4 }
     end
 
+    context 'original name was not attr friendly' do
+      let(:klass) do
+        Class.new(Ansible::Ruby::Models::Base) do
+          attribute :foo_bar, original_name: 'foo-bar'
+        end
+      end
+
+      let(:instance) { klass.new foo_bar: 'howdy' }
+
+      it { is_expected.to be_valid }
+      it { is_expected.to have_hash 'foo-bar' => 'howdy' }
+    end
+
     context 'generic type' do
       context 'single value' do
         context 'correct type' do

@@ -22,8 +22,8 @@ describe Ansible::Ruby::OptionFormatter do
       it do
         is_expected.to eq <<RUBY
 # @return [String, nil] abc
-attribute :"no-recommends"
-validates :"no-recommends", type: String
+attribute :no_recommends, original_name: 'no-recommends'
+validates :no_recommends, type: String
 RUBY
       end
     end

@@ -44,6 +44,7 @@ module Ansible
                           value
                         end
                       end
+              key = options[:original_name] || key
               [key, value]
             end.compact]
         end

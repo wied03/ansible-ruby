@@ -12,11 +12,12 @@ module Ansible
           lines << "# #{formatted_type} #{flat_desc}"
           attribute_args = {}
           attribute_args[:flat_array] = true if option_data.flat_array?
+          name = option_data.name
+          attribute_args[:original_name] = "'#{name}'" if track_original_name?(name)
           flat_attr_args = attribute_args.map do |key, value|
             "#{key}: #{value}"
           end.join ', '
-          name = option_data.name
-          symbol = name.to_sym.inspect
+          symbol = symbolize_attribute(name)
           lines << "attribute #{symbol}#{flat_attr_args.empty? ? '' : ", #{flat_attr_args}"}"
           lines << format_validations(option_data)
           lines.compact
@@ -26,6 +27,14 @@ module Ansible
         end
 
         private
+
+        def track_original_name?(name)
+          name.include? '-'
+        end
+
+        def symbolize_attribute(name)
+          name.gsub('-', '_').to_sym.inspect
+        end
 
         def format_yard_return_types(option_data)
           types = if (choices = option_data.choices)
@@ -87,7 +96,7 @@ module Ansible
           end
 
           return nil unless validations.any?
-          symbol = option_data.name.to_sym.inspect
+          symbol = symbolize_attribute(option_data.name)
           "validates #{symbol}, #{validations.map { |key, value| "#{key}: #{value}" }.join(', ')}"
         end
 
