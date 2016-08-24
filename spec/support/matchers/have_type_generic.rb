@@ -12,6 +12,6 @@ RSpec::Matchers.define :have_type_generic do |expected|
   end
 
   failure_message do |_|
-    @no_generics ? "Could not find generic in types #{@types}" :  @matcher.failure_message
+    @no_generics ? "Could not find generic in types #{@types}" : @matcher.failure_message
   end
 end

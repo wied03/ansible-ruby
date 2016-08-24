@@ -109,8 +109,8 @@ module Ansible
           def values_by_key(example)
             example = example['tasks'] if example.is_a?(Hash) && example['tasks']
             first_cut = example.map { |ex| ex.reject { |key, _| key == 'name' } }
-                          .map { |ex| ex.map { |_, value| value } }
-                          .flatten
+                               .map { |ex| ex.map { |_, value| value } }
+                               .flatten
             array_of_hashes = first_cut.map do |value|
               if value.is_a?(String)
                 hash_equal_sign_pairs(value)
@@ -139,7 +139,7 @@ module Ansible
 
           def derive_types(values)
             types = values.map { |value| derive_type value }.uniq
-            generic = types.find { |t| t.is_a?(TypeGeneric) }
+            generic = types.find { |type| type.is_a?(TypeGeneric) }
             # No need to include generic and the generic's type
             types.reject { |type| generic && type == generic.klass }
           end
