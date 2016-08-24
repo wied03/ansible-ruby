@@ -11,8 +11,7 @@ module Ansible
           def parse(name, details, example)
             puts "---\nParsing option #{name}" if debug?
             details = details.symbolize_keys
-            # can be both an array and string
-            description = [*details[:description]]
+            description = parse_description(details)
             sample_values = find_sample_values name, details, example
             types = derive_types sample_values
             choices = parse_choices(details)
@@ -34,6 +33,14 @@ module Ansible
             raise
           ensure
             puts "\nDone Parsing option #{name}" if debug?
+          end
+
+          def parse_description(details)
+            # can be both an array and string, could have carriage returns in it
+            lines = [*details[:description]]
+            lines.map do |line|
+              line.gsub(/\r?\n/, "\\r\\n")
+            end
           end
 
           private

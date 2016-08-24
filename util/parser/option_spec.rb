@@ -55,21 +55,37 @@ RUBY
       end
     end
 
-    context 'description is a string' do
+    context 'description' do
       let(:details) do
         {
-          description: 'The username used to authenticate with',
+          description: description,
           required: true,
           default: nil
         }
       end
 
-      it do
-        is_expected.to eq <<RUBY
+      context 'is string' do
+        let(:description) { 'The username used to authenticate with' }
+
+        it do
+          is_expected.to eq <<RUBY
 # @return [Object] The username used to authenticate with
 attribute :login_user
 validates :login_user, presence: true
 RUBY
+        end
+      end
+
+      context 'contains carriage return' do
+        let(:description) { ["The username used to authenticate with \r\n something"] }
+
+        it do
+          is_expected.to eq <<RUBY
+# @return [Object] The username used to authenticate with \\r\\n something
+attribute :login_user
+validates :login_user, presence: true
+RUBY
+        end
       end
     end
 
