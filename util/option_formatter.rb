@@ -55,7 +55,8 @@ module Ansible
         end
 
         def format_yard_type(type)
-          type = "Array<#{type.klass.name}>" if type.is_a? TypeGeneric
+          # we let user use an array or single value
+          type = "Array<#{type.klass.name}>, #{type.klass.name}" if type.is_a? TypeGeneric
           case type
           when Class
             type.name

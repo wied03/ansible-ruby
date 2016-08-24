@@ -138,7 +138,7 @@ RUBY
 
       it do
         is_expected.to eq <<RUBY
-# @return [Array<Integer>, nil] abc
+# @return [Array<Integer>, Integer, nil] abc
 attribute :the_attribute, flat_array: true
 validates :the_attribute, type: TypeGeneric.new(Integer)
 RUBY
