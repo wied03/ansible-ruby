@@ -35,6 +35,11 @@ module Ansible
           @playbook_args[:gather_facts] = value
         end
 
+        def local_host
+          hosts 'localhost'
+          connection :local
+        end
+
         def evaluate(*)
           tasks = super
           args = @playbook_args.merge({})
