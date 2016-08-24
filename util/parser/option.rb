@@ -55,7 +55,7 @@ module Ansible
           end
 
           def find_sample_values(attribute, details, example)
-            union_type = is_union_type? details
+            union_type = union_type? details
             default = details[:default]
             # A lot of options with no defaults in Ansible have a value of None
             result = if !default.is_a?(NilClass) && !union_type && default != 'None'
@@ -97,7 +97,7 @@ module Ansible
             end.uniq
           end
 
-          def is_union_type?(details)
+          def union_type?(details)
             klasses = choice_classes details
             klasses && klasses.length != 1
           end
@@ -138,7 +138,7 @@ module Ansible
           end
 
           def derive_type(value)
-            value = unquote_string(value) if value.is_a?(String) && !is_variable_expression?(value)
+            value = unquote_string(value) if value.is_a?(String) && !variable_expression?(value)
             array = flat_array(value) || (value.is_a?(Array) && value)
             if array
               item = array[0]
@@ -150,7 +150,7 @@ module Ansible
             end
           end
 
-          def is_variable_expression?(value)
+          def variable_expression?(value)
             value.lstrip.start_with?('{{')
           end
 
@@ -185,7 +185,7 @@ module Ansible
             # be conservative for now
             return nil unless values.length == 1
             value = values[0]
-            return nil unless value.is_a?(String) && value.include?(',') && !is_variable_expression?(value)
+            return nil unless value.is_a?(String) && value.include?(',') && !variable_expression?(value)
             items = value.split(',').map do |item|
               item = parse_value_into_num(item)
               item.inspect

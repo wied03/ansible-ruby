@@ -138,13 +138,11 @@ YAML
       end
 
       it do
-        is_expected.to eq ({
-          'hash' => [
-            'value 1',
-            'value 2 goes on to next line',
-            'value 3'
-          ]
-        })
+        is_expected.to eq('hash' => [
+                            'value 1',
+                            'value 2 goes on to next line',
+                            'value 3'
+                          ])
       end
     end
   end

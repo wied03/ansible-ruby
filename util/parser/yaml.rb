@@ -20,7 +20,7 @@ module Ansible
 
           def remove_line_continuation(yaml)
             # code doesn't always indent these right
-            yaml.gsub /\\\n/, ''
+            yaml.gsub(/\\\n/, '')
           end
 
           def with_yaml_lines(yaml)
@@ -29,6 +29,7 @@ module Ansible
             end.join "\n"
           end
 
+          # rubocop:disable Metrics/MethodLength
           def remove_difficult_strings(yaml)
             dirty_patterns = {
               '        azure_rm_networkinterface:' => '      azure_rm_networkinterface:',
@@ -136,13 +137,14 @@ module Ansible
               fixed_yaml.gsub find_replace[0], find_replace[1]
             end
           end
+          # rubocop:enable Metrics/MethodLength
 
           def fix_missing_hash_entry(yaml, module_name)
             # fix - svc : issues
             correct_usage = "- #{module_name}:"
             yaml = yaml.gsub "- #{module_name} :", correct_usage
             # missing colon entirely
-            yaml.gsub /- #{module_name}(?!\:)/, correct_usage
+            yaml.gsub(/- #{module_name}(?!\:)/, correct_usage)
           end
         end
       end

@@ -135,7 +135,7 @@ task update_modules: :python_dependencies do
   File.open 'lib/ansible/ruby/modules/generated.rb', 'w' do |file|
     already_processed.each do |ruby|
       relative = Pathname.new(ruby).relative_path_from(base_dir)
-      without_extension = relative.to_s.gsub /\.rb$/, ''
+      without_extension = relative.to_s.gsub(/\.rb$/, '')
       file << "require '#{without_extension}'\n"
     end
   end

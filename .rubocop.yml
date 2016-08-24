@@ -2,6 +2,7 @@ AllCops:
   Exclude:
     - 'Gemfile'
     - 'vendor/**/*'
+    - 'lib/ansible/ruby/modules/generated/**/*'
 
 # Not that big of a problem
 Metrics/LineLength:

@@ -76,21 +76,9 @@ module Ansible
           validations[:presence] = true if required
           generics = types.select { |t| t.is_a?(TypeGeneric) }.uniq
           raise "Only know how to deal with 1 generic type, found #{generics}" unless generics.length <= 1
-          type = if generics.any?
-                   generic = generics[0]
-                   "TypeGeneric.new(#{generic.klass.name})"
-                 elsif types.length > 1
-                   "MultipleTypes.new(#{types.map { |type| format_single_validation type }.join ', '})"
-                 elsif types.length == 1
-                   format_single_validation types[0]
-                 end
+          type = validation_type(generics, types)
           if (choices = option_data.choices)
-            validations[:inclusion] = {
-              in: choices,
-              message: "%{value} needs to be #{choices.map { |sym| sym.inspect.to_s }.join(', ')}"
-            }
-            # let this take care of validation, no need for type
-            validations[:allow_nil] = true unless required
+            choices_validation validations, choices, required
           elsif type
             validations[:type] = type
           end
@@ -98,6 +86,26 @@ module Ansible
           return nil unless validations.any?
           symbol = symbolize_attribute(option_data.name)
           "validates #{symbol}, #{validations.map { |key, value| "#{key}: #{value}" }.join(', ')}"
+        end
+
+        def choices_validation(validations, choices, required)
+          validations[:inclusion] = {
+            in: choices,
+            message: "%{value} needs to be #{choices.map { |sym| sym.inspect.to_s }.join(', ')}"
+          }
+          # let this take care of validation, no need for type
+          validations[:allow_nil] = true unless required
+        end
+
+        def validation_type(generics, types)
+          if generics.any?
+            generic = generics[0]
+            "TypeGeneric.new(#{generic.klass.name})"
+          elsif types.length > 1
+            "MultipleTypes.new(#{types.map { |type| format_single_validation type }.join ', '})"
+          elsif types.length == 1
+            format_single_validation types[0]
+          end
         end
 
         def format_single_validation(type)
