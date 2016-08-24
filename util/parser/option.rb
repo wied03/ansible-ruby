@@ -9,11 +9,13 @@ module Ansible
       module Option
         class << self
           def parse(name, details, example)
+            puts "---\nParsing option #{name}" if debug?
             details = details.symbolize_keys
             # can be both an array and string
             description = [*details[:description]]
             sample_values = find_sample_values name, details, example
             types = derive_types sample_values
+            puts "Sample values: #{sample_values}\nDerived Types: #{types}" if debug?
             OptionData.new name: name,
                            description: description,
                            required: details[:required],
@@ -23,14 +25,21 @@ module Ansible
           rescue
             $stderr << "Problem parsing option #{name}!"
             raise
+          ensure
+            puts "\nDone Parsing option #{name}" if debug?
           end
 
           private
 
+          def debug?
+            ENV['DEBUG']
+          end
+
           def find_sample_values(attribute, details, example)
             union_type = is_union_type? details
+            default = details[:default]
             # A lot of options with no defaults in Ansible have a value of None
-            result = if (default = details[:default]) && !union_type && default != 'None'
+            result = if !default.is_a?(NilClass) && !union_type && default != 'None'
                        default
                      elsif (choices = parse_choices(details)) && !union_type
                        choices[0]

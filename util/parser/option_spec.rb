@@ -242,6 +242,23 @@ RUBY
       end
     end
 
+    context 'default of False' do
+      let(:details) do
+        {
+          description: ['The username used to authenticate with'],
+          default: false
+        }
+      end
+
+      it do
+        is_expected.to eq <<RUBY
+# @return [FalseClass, nil] The username used to authenticate with
+attribute :login_user
+validates :login_user, type: FalseClass
+RUBY
+      end
+    end
+
     context 'array' do
       let(:details) do
         {
