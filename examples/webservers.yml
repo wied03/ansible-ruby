@@ -9,7 +9,7 @@
       name: lb_01
       security_group_ids: sg-3c4fca59,sg-cabcc0ad
       listeners:
-        protocol: http
+      - protocol: http
         load_balancer_port: 80
         instance_port: 80
   connection: local
