@@ -6,11 +6,7 @@ require_relative '../option_formatter'
 
 describe Ansible::Ruby::Parser::Option do
   describe '::parse' do
-    # match the expected multiline string stuff
-    subject do
-      option_data = Ansible::Ruby::Parser::Option.parse(name, details, example)
-      Ansible::Ruby::OptionFormatter.format(option_data).join("\n") + "\n"
-    end
+    subject(:option_data) { Ansible::Ruby::Parser::Option.parse(name, details, example) }
 
     let(:name) { 'login_user' }
     let(:example) do
@@ -20,59 +16,50 @@ describe Ansible::Ruby::Parser::Option do
       ]
     end
 
-    context 'optional' do
-      let(:details) do
-        {
-          description: ['The username used to authenticate with'],
-          required: false,
-          default: nil
-        }
-      end
+    let(:required) { false }
+    let(:default) { nil }
+    let(:description) { ['The username used to authenticate with'] }
+    let(:choices) { nil }
 
-      it do
-        is_expected.to eq <<RUBY
-# @return [Object, nil] The username used to authenticate with
-attribute :login_user
-RUBY
-      end
+    let(:details) do
+      {
+        description: description,
+        required: required,
+        default: default,
+        choices: choices
+      }
     end
 
-    context 'required' do
-      let(:details) do
-        {
-          description: ['The username used to authenticate with'],
-          required: true,
-          default: nil
-        }
+    context 'optional' do
+      context 'yes' do
+        it { is_expected.to be_a Ansible::Ruby::Parser::OptionData }
+        it do
+          is_expected.to have_attributes name: 'login_user',
+                                         flat_array?: nil,
+                                         required?: false,
+                                         choices: nil
+        end
       end
 
-      it do
-        is_expected.to eq <<RUBY
-# @return [Object] The username used to authenticate with
-attribute :login_user
-validates :login_user, presence: true
-RUBY
+      context 'no' do
+        let(:required) { true }
+
+        it do
+          is_expected.to have_attributes name: 'login_user',
+                                         flat_array?: nil,
+                                         required?: true,
+                                         choices: nil
+        end
       end
     end
 
     context 'description' do
-      let(:details) do
-        {
-          description: description,
-          required: true,
-          default: nil
-        }
-      end
-
       context 'is string' do
         let(:description) { 'The username used to authenticate with' }
 
         it do
-          is_expected.to eq <<RUBY
-# @return [Object] The username used to authenticate with
-attribute :login_user
-validates :login_user, presence: true
-RUBY
+          is_expected.to have_attributes description: ['The username used to authenticate with'],
+                                         name: 'login_user'
         end
       end
 
@@ -80,11 +67,8 @@ RUBY
         let(:description) { ["The username used to authenticate with \r\n something"] }
 
         it do
-          is_expected.to eq <<RUBY
-# @return [Object] The username used to authenticate with \\r\\n something
-attribute :login_user
-validates :login_user, presence: true
-RUBY
+          is_expected.to have_attributes description: ['The username used to authenticate with \\r\\n something'],
+                                         name: 'login_user'
         end
       end
     end
@@ -94,24 +78,14 @@ RUBY
       let(:default) { 'present' }
       let(:required) { false }
 
-      let(:details) do
-        {
-          description: ['The username used to authenticate with'],
-          required: required,
-          default: default,
-          choices: choices
-        }
-      end
-
       context 'required' do
         let(:required) { true }
 
         it do
-          is_expected.to eq <<RUBY
-# @return [:present, :absent] The username used to authenticate with
-attribute :login_user
-validates :login_user, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
-RUBY
+          is_expected.to have_attributes name: 'login_user',
+                                         required?: true,
+                                         types: [String],
+                                         choices: [:present, :absent]
         end
       end
 
@@ -119,11 +93,10 @@ RUBY
         let(:required) { false }
 
         it do
-          is_expected.to eq <<RUBY
-# @return [:present, :absent, nil] The username used to authenticate with
-attribute :login_user
-validates :login_user, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
-RUBY
+          is_expected.to have_attributes name: 'login_user',
+                                         required?: false,
+                                         types: [String],
+                                         choices: [:present, :absent]
         end
       end
 
@@ -132,11 +105,10 @@ RUBY
         let(:choices) { [1, 'abc'] }
 
         it do
-          is_expected.to eq <<RUBY
-# @return [1, :abc, nil] The username used to authenticate with
-attribute :login_user
-validates :login_user, inclusion: {:in=>[1, :abc], :message=>"%{value} needs to be 1, :abc"}, allow_nil: true
-RUBY
+          is_expected.to have_attributes name: 'login_user',
+                                         required?: false,
+                                         types: [],
+                                         choices: [1, :abc]
         end
       end
 
@@ -144,11 +116,10 @@ RUBY
         let(:default) { nil }
 
         it do
-          is_expected.to eq <<RUBY
-# @return [:present, :absent, nil] The username used to authenticate with
-attribute :login_user
-validates :login_user, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
-RUBY
+          is_expected.to have_attributes name: 'login_user',
+                                         required?: false,
+                                         types: [Symbol],
+                                         choices: [:present, :absent]
         end
       end
 
@@ -158,24 +129,22 @@ RUBY
           let(:choices) { ['present', true, false] }
 
           it do
-            is_expected.to eq <<RUBY
-# @return [:present, Boolean, nil] The username used to authenticate with
-attribute :login_user
-validates :login_user, inclusion: {:in=>[:present, true, false], :message=>"%{value} needs to be :present, true, false"}, allow_nil: true
-RUBY
+            is_expected.to have_attributes name: 'login_user',
+                                           required?: false,
+                                           types: [],
+                                           choices: [:present, true, false]
           end
         end
 
-        context 'without string' do
+        context 'boolean without string' do
           let(:choices) { [true, false] }
           let(:default) { nil }
 
           it do
-            is_expected.to eq <<RUBY
-# @return [Boolean, nil] The username used to authenticate with
-attribute :login_user
-validates :login_user, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
-RUBY
+            is_expected.to have_attributes name: 'login_user',
+                                           required?: false,
+                                           types: [TrueClass, FalseClass],
+                                           choices: [true, false]
           end
         end
       end
@@ -185,11 +154,10 @@ RUBY
         let(:default) { nil }
 
         it do
-          is_expected.to eq <<RUBY
-# @return [1, 2, 3, nil] The username used to authenticate with
-attribute :login_user
-validates :login_user, inclusion: {:in=>[1, 2, 3], :message=>"%{value} needs to be 1, 2, 3"}, allow_nil: true
-RUBY
+          is_expected.to have_attributes name: 'login_user',
+                                         required?: false,
+                                         types: [Integer],
+                                         choices: [1, 2, 3]
         end
       end
 
@@ -200,11 +168,10 @@ RUBY
           let(:default) { 123 }
 
           it do
-            is_expected.to eq <<RUBY
-# @return [Integer, nil] The username used to authenticate with
-attribute :login_user
-validates :login_user, type: Integer
-RUBY
+            is_expected.to have_attributes name: 'login_user',
+                                           required?: false,
+                                           types: [Integer],
+                                           choices: nil
           end
         end
 
@@ -212,10 +179,10 @@ RUBY
           let(:default) { nil }
 
           it do
-            is_expected.to eq <<RUBY
-# @return [Object, nil] The username used to authenticate with
-attribute :login_user
-RUBY
+            is_expected.to have_attributes name: 'login_user',
+                                           required?: false,
+                                           types: [],
+                                           choices: nil
           end
         end
       end
@@ -224,134 +191,85 @@ RUBY
     context 'type from default' do
       { String => 'foo', Integer => 1, Float => 1.5 }.each do |type, value|
         context type do
-          let(:details) do
-            {
-              description: ['The username used to authenticate with'],
-              default: value
-            }
-          end
+          let(:default) { value }
 
           it do
-            is_expected.to eq <<RUBY
-# @return [#{type}, nil] The username used to authenticate with
-attribute :login_user
-validates :login_user, type: #{type}
-RUBY
+            is_expected.to have_attributes name: 'login_user',
+                                           required?: false,
+                                           types: [type],
+                                           choices: nil
           end
         end
       end
     end
 
-    context 'default of None' do
-      let(:details) do
-        {
-          description: ['The username used to authenticate with'],
-          default: 'None'
-        }
-      end
-
-      it do
-        is_expected.to eq <<RUBY
-# @return [Object, nil] The username used to authenticate with
-attribute :login_user
-RUBY
-      end
-    end
-
-    context 'default of False' do
-      let(:details) do
-        {
-          description: ['The username used to authenticate with'],
-          default: false
-        }
-      end
-
-      it do
-        is_expected.to eq <<RUBY
-# @return [Boolean, nil] The username used to authenticate with
-attribute :login_user
-validates :login_user, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
-RUBY
-      end
-    end
-
-    context 'default of True' do
-      let(:details) do
-        {
-          description: ['The username used to authenticate with'],
-          default: true
-        }
-      end
-
-      it do
-        is_expected.to eq <<RUBY
-# @return [Boolean, nil] The username used to authenticate with
-attribute :login_user
-validates :login_user, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
-RUBY
-      end
-    end
-
-    context 'array' do
-      let(:details) do
-        {
-          description: ['The username used to authenticate with'],
-          default: array_value
-        }
-      end
-
-      context 'flat array' do
-        let(:array_value) { 'hello,there' }
+    context 'default' do
+      context 'None string' do
+        let(:default) { 'None' }
 
         it do
-          is_expected.to eq <<RUBY
-# @return [Array<String>, nil] The username used to authenticate with
-attribute :login_user, flat_array: true
-validates :login_user, type: TypeGeneric.new(String)
-RUBY
+          is_expected.to have_attributes name: 'login_user',
+                                         required?: false,
+                                         types: [],
+                                         choices: nil
         end
       end
 
-      context 'integer' do
-        let(:array_value) { '123,456' }
+      [true, false].each do |bool_test|
+        context bool_test do
+          let(:default) { bool_test }
 
-        it do
-          is_expected.to eq <<RUBY
-# @return [Array<Integer>, nil] The username used to authenticate with
-attribute :login_user, flat_array: true
-validates :login_user, type: TypeGeneric.new(Integer)
-RUBY
+          it do
+            is_expected.to have_attributes name: 'login_user',
+                                           required?: false,
+                                           choices: [true, false],
+                                           types: include(TrueClass, FalseClass)
+          end
         end
       end
 
-      context 'float' do
-        let(:array_value) { '123.12,456.89' }
+      context 'array' do
+        context 'flat array' do
+          let(:default) { 'hello,there' }
 
-        it do
-          is_expected.to eq <<RUBY
-# @return [Array<Float>, nil] The username used to authenticate with
-attribute :login_user, flat_array: true
-validates :login_user, type: TypeGeneric.new(Float)
-RUBY
+          it do
+            is_expected.to have_attributes name: 'login_user',
+                                           required?: false,
+                                           choices: nil,
+                                           types: [TypeGeneric],
+                                           flat_array?: %w(hello there)
+          end
+
+          it { is_expected.to have_type_generic String }
         end
-      end
-    end
 
-    context 'default value and required' do
-      let(:details) do
-        {
-          description: ['The username used to authenticate with'],
-          required: true,
-          default: 'foobar'
-        }
-      end
+        context 'integer' do
+          let(:default) { '123,456' }
 
-      it do
-        is_expected.to eq <<RUBY
-# @return [String] The username used to authenticate with
-attribute :login_user
-validates :login_user, presence: true, type: String
-RUBY
+          it do
+            is_expected.to have_attributes name: 'login_user',
+                                           required?: false,
+                                           choices: nil,
+                                           types: [TypeGeneric],
+                                           flat_array?: [123, 456]
+          end
+
+          it { is_expected.to have_type_generic Integer }
+        end
+
+        context 'float' do
+          let(:default) { '123.12,456.89' }
+
+          it do
+            is_expected.to have_attributes name: 'login_user',
+                                           required?: false,
+                                           choices: nil,
+                                           types: [TypeGeneric],
+                                           flat_array?: [123.12, 456.89]
+          end
+
+          it { is_expected.to have_type_generic Float }
+        end
       end
     end
 
