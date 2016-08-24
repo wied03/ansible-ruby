@@ -7,7 +7,7 @@ module Ansible
       class << self
         def format(option_data)
           lines = []
-          formatted_type = format_yard_return_type(option_data)
+          formatted_type = format_yard_return_types(option_data)
           flat_desc = option_data.description.join ','
           lines << "# #{formatted_type} #{flat_desc}"
           attribute_args = {}
@@ -26,43 +26,43 @@ module Ansible
 
         private
 
-        def format_yard_return_type(option_data)
-          type = option_data.type
-          types = if (choices = option_data.choices)
-                    if (BOOLEAN_OPTIONS - choices).empty?
+        def format_yard_return_types(option_data)
+          types = option_data.types
+          if (choices = option_data.choices)
+            types = if (BOOLEAN_OPTIONS - choices).empty?
                       choices = choices - BOOLEAN_OPTIONS
                       choices << 'Boolean'
                     else
                       choices
                     end
-                  elsif type.is_a? TypeGeneric
-                    "Array<#{type.klass.name}>"
-                  else
-                    type || Object
-                  end
-          types = [*types]
+          end
           types << nil unless option_data.required?
-          formatted = [*types].map do |each_type|
-            case each_type
-            when Class
-              each_type.name
-            when Symbol
-              each_type.inspect
-            when NilClass
-              'nil'
-            else
-              each_type
-            end
-          end.join ', '
+          formatted = types.map { |type| format_yard_type type }.join ', '
           "@return [#{formatted}]"
+        end
+
+        def format_yard_type(type)
+          type = "Array<#{type.klass.name}>" if type.is_a? TypeGeneric
+          case type
+          when Class
+            type.name
+          when Symbol
+            type.inspect
+          when NilClass
+            'nil'
+          else
+            type
+          end
         end
 
         def format_validations(option_data)
           validations = {}
           required = option_data.required?
-          type = option_data.type
+          types = option_data.types
           # keep code lighter if not required
           validations[:presence] = true if required
+          # TODO: Deal with multiple typoes here
+          type = types[0]
           validations[:type] = case type
                                when TypeGeneric
                                  "TypeGeneric.new(#{type.klass.name})"

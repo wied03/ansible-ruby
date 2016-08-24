@@ -15,14 +15,14 @@ module Ansible
             description = [*details[:description]]
             sample_values = find_sample_values name, details, example
             puts "samples values #{sample_values}"
-            type = derive_type sample_values
-            puts "type is #{type}"
+            types = derive_types sample_values
+            puts "types is #{types}"
             OptionData.new name: name,
                            description: description,
                            required: details[:required],
-                           type: type,
+                           types: types,
                            flat_array: flat_array(sample_values),
-                           choices: parsed_choices(details)
+                           choices: parse_choices(details)
           rescue
             $stderr << "Problem parsing option #{name}!"
             raise
@@ -32,20 +32,22 @@ module Ansible
 
           def find_sample_values(attribute, details, example)
             union_type = is_union_type? details
-            if (default = details[:default]) && !union_type
-              default
-            elsif (choices = parsed_choices(details)) && !union_type
-              choices[0]
-            elsif union_type
-              nil
-            else
-              return nil unless [Hash, Array].include? example.class
-              values_by_key = values_by_key(example)
-              values_by_key[attribute]
-            end
+            result = if (default = details[:default]) && !union_type
+                       default
+                     elsif (choices = parse_choices(details)) && !union_type
+                       choices[0]
+                     elsif union_type
+                       nil
+                     elsif [Hash, Array].include? example.class
+                       values_by_key = values_by_key(example)
+                       values_by_key[attribute]
+                     else
+                       []
+                     end
+            [*result]
           end
 
-          def parsed_choices(details)
+          def parse_choices(details)
             choices = details[:choices]
             return nil unless choices && choices.any?
             choices.map do |choice|
@@ -56,7 +58,7 @@ module Ansible
           end
 
           def choice_classes(details)
-            choices = parsed_choices details
+            choices = parse_choices details
             return nil unless choices
             choices.map do |choice|
               case choice
@@ -108,8 +110,11 @@ module Ansible
             end]
           end
 
+          def derive_types(values)
+            values.map { |value| derive_type value }
+          end
+
           def derive_type(value)
-            return nil if value.is_a? NilClass
             value = unquote_string(value) if value.is_a?(String) && !is_variable_expression?(value)
             flat_array = flat_array value
             if flat_array

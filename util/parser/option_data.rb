@@ -3,10 +3,10 @@ module Ansible
   module Ruby
     module Parser
       class OptionData
-        attr_reader :type, :name, :description, :choices
+        attr_reader :types, :name, :description, :choices
 
-        def initialize(name:, description:, required:, type:, flat_array:, choices:)
-          @type = type
+        def initialize(name:, description:, required:, types:, flat_array:, choices:)
+          @types = types
           @description = description
           @name = name
           @flat_array = flat_array
