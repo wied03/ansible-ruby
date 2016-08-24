@@ -29,7 +29,8 @@ module Ansible
 
           def find_sample_values(attribute, details, example)
             union_type = is_union_type? details
-            result = if (default = details[:default]) && !union_type
+            # A lot of options with no defaults in Ansible have a value of None
+            result = if (default = details[:default]) && !union_type && default != 'None'
                        default
                      elsif (choices = parse_choices(details)) && !union_type
                        choices[0]
@@ -85,7 +86,7 @@ module Ansible
                 value
               end
             end.compact
-            vals_by_key = array_of_hashes.inject({}) do |result, hash|
+            array_of_hashes.inject({}) do |result, hash|
               hash.each do |key, value|
                 by_key = result[key] ||= []
                 by_key << value
@@ -93,7 +94,6 @@ module Ansible
               end
               result
             end
-            vals_by_key
           end
 
           def hash_equal_sign_pairs(key_value_str)
