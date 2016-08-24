@@ -99,9 +99,10 @@ module Ansible
           def hash_equal_sign_pairs(key_value_str)
             Hash[key_value_str.split(' ').map do |pair|
               equals = pair.split '='
+              next unless equals.length >= 2
               # some attributes have data like attr=value=value2, only want attr=value
               equals[0..1]
-            end]
+            end.compact]
           end
 
           def derive_types(values)

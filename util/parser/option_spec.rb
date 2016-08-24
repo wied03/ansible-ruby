@@ -674,6 +674,28 @@ RUBY
         end
       end
 
+      context 'double equals' do
+        let(:name) { 'lines' }
+        let(:example) do
+          [
+            {
+              "postgresql_db" => nil,
+              'lines' => [
+                'result[0].sys_ver_str == 7.2(0)D1(1)',
+                'foo'
+              ]
+            }
+          ]
+        end
+
+        it do
+          is_expected.to eq <<RUBY
+# @return [Object, nil] The username used to authenticate with
+attribute :lines
+RUBY
+        end
+      end
+
       context 'empty choices' do
         let(:name) { 'username' }
         let(:choices) { [] }
