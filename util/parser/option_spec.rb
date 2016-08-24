@@ -180,7 +180,7 @@ describe Ansible::Ruby::Parser::Option do
       end
     end
 
-    context 'type from default' do
+    context 'default' do
       { String => 'foo', Integer => 1, Float => 1.5 }.each do |type, value|
         context type do
           let(:default) { value }
@@ -193,9 +193,7 @@ describe Ansible::Ruby::Parser::Option do
           end
         end
       end
-    end
 
-    context 'default' do
       context 'None string' do
         let(:default) { 'None' }
 
@@ -220,8 +218,8 @@ describe Ansible::Ruby::Parser::Option do
         end
       end
 
-      context 'array' do
-        context 'flat array' do
+      context 'flat array' do
+        context 'string' do
           let(:default) { 'hello,there' }
 
           it do
@@ -258,6 +256,17 @@ describe Ansible::Ruby::Parser::Option do
           end
 
           it { is_expected.to have_type_generic Float }
+        end
+      end
+
+      context 'flat hash' do
+        let(:default) { '{"Name":"SuperService-new-AMI", "type":"SuperService"}' }
+
+        it do
+          is_expected.to have_attributes name: 'login_user',
+                                         required?: false,
+                                         choices: nil,
+                                         types: [Hash]
         end
       end
     end
