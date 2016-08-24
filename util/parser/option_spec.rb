@@ -581,6 +581,27 @@ describe Ansible::Ruby::Parser::Option do
       context 'example has array' do
         let(:name) { 'lines' }
 
+        context 'array of different types' do
+          let(:example) do
+            [
+              {
+                'postgresql_db' => {
+                  'lines' => %w(hello there 123)
+                }
+              }
+            ]
+          end
+
+          it do
+            is_expected.to have_attributes name: 'lines',
+                                           choices: nil,
+                                           types: [TypeGeneric],
+                                           flat_array?: nil
+          end
+
+          it { is_expected.to have_type_generic String }
+        end
+
         context 'only array' do
           let(:example) do
             [
