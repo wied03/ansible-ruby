@@ -62,7 +62,7 @@ module Ansible
         # @return [Object, nil] The name of the security group to which the VM should be added
         attribute :security_groups
 
-        # @return [Array<Hash>, nil] A list of network id's to which the VM's interface should be attached
+        # @return [Array<Hash>, Hash, nil] A list of network id's to which the VM's interface should be attached
         attribute :nics
         validates :nics, type: TypeGeneric.new(Hash)
 

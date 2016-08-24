@@ -6,7 +6,7 @@ module Ansible
   module Ruby
     module Modules
       class Cl_interface_policy < Base
-        # @return [Array<String>, nil] list of ports to run initial run at 10G
+        # @return [Array<String>, String, nil] list of ports to run initial run at 10G
         attribute :allowed, flat_array: true
         validates :allowed, type: TypeGeneric.new(String)
 

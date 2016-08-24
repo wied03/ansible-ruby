@@ -35,7 +35,7 @@ module Ansible
         attribute :certname
         validates :certname, type: String
 
-        # @return [Array<String>, nil] A comma-separated list of puppet tags to be used.
+        # @return [Array<String>, String, nil] A comma-separated list of puppet tags to be used.
         attribute :tags, flat_array: true
         validates :tags, type: TypeGeneric.new(String)
 

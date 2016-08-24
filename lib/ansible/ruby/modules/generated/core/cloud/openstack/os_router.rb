@@ -26,11 +26,11 @@ module Ansible
         attribute :network
         validates :network, type: String
 
-        # @return [Array<Hash>, nil] The IP address parameters for the external gateway network. Each is a dictionary with the subnet name or ID (subnet) and the IP address to assign on the subnet (ip). If no IP is specified, one is automatically assigned from that subnet.
+        # @return [Array<Hash>, Hash, nil] The IP address parameters for the external gateway network. Each is a dictionary with the subnet name or ID (subnet) and the IP address to assign on the subnet (ip). If no IP is specified, one is automatically assigned from that subnet.
         attribute :external_fixed_ips
         validates :external_fixed_ips, type: TypeGeneric.new(Hash)
 
-        # @return [Array<String>, nil] List of subnets to attach to the router internal interface.
+        # @return [Array<String>, String, nil] List of subnets to attach to the router internal interface.
         attribute :interfaces
         validates :interfaces, type: TypeGeneric.new(String)
       end

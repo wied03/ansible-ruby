@@ -63,7 +63,7 @@ module Ansible
         # @return [Object, nil] IPv6 address for default instance's network.
         attribute :ip6_address
 
-        # @return [Array<Hash>, nil] List of mappings in the form {'network': NetworkName, 'ip': 1.2.3.4},Mutually exclusive with C(networks) option.
+        # @return [Array<Hash>, Hash, nil] List of mappings in the form {'network': NetworkName, 'ip': 1.2.3.4},Mutually exclusive with C(networks) option.
         attribute :ip_to_networks
         validates :ip_to_networks, type: TypeGeneric.new(Hash)
 
@@ -110,7 +110,7 @@ module Ansible
         attribute :force
         validates :force, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
-        # @return [Array<Hash>, nil] List of tags. Tags are a list of dictionaries having keys C(key) and C(value).,If you want to delete all tags, set a empty list e.g. C(tags: []).
+        # @return [Array<Hash>, Hash, nil] List of tags. Tags are a list of dictionaries having keys C(key) and C(value).,If you want to delete all tags, set a empty list e.g. C(tags: []).
         attribute :tags
         validates :tags, type: TypeGeneric.new(Hash)
 

@@ -6,11 +6,11 @@ module Ansible
   module Ruby
     module Modules
       class Iosxr_command < Base
-        # @return [Array<String>] List of commands to send to the remote ios device over the configured provider. The resulting output from the command is returned. If the I(waitfor) argument is provided, the module is not returned until the condition is satisfied or the number of retires as expired.
+        # @return [Array<String>, String] List of commands to send to the remote ios device over the configured provider. The resulting output from the command is returned. If the I(waitfor) argument is provided, the module is not returned until the condition is satisfied or the number of retires as expired.
         attribute :commands
         validates :commands, presence: true, type: TypeGeneric.new(String)
 
-        # @return [Array<String>, nil] List of conditions to evaluate against the output of the command. The task will wait for a each condition to be true before moving forward. If the conditional is not true within the configured number of retries, the task fails. See examples.
+        # @return [Array<String>, String, nil] List of conditions to evaluate against the output of the command. The task will wait for a each condition to be true before moving forward. If the conditional is not true within the configured number of retries, the task fails. See examples.
         attribute :waitfor
         validates :waitfor, type: TypeGeneric.new(String)
 

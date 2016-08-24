@@ -10,7 +10,7 @@ module Ansible
         attribute :name
         validates :name, type: String
 
-        # @return [Array<String>, nil] Limit results by providing a list of tags. Format tags as 'key' or 'key:value'.
+        # @return [Array<String>, String, nil] Limit results by providing a list of tags. Format tags as 'key' or 'key:value'.
         attribute :tags
         validates :tags, type: TypeGeneric.new(String)
       end

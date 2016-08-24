@@ -10,7 +10,7 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [Array<String>, nil] Comma separated list of roles to create and grant usage access to the schema.
+        # @return [Array<String>, String, nil] Comma separated list of roles to create and grant usage access to the schema.
         attribute :usage_roles, flat_array: true
         validates :usage_roles, type: TypeGeneric.new(String)
 

@@ -18,7 +18,7 @@ module Ansible
         attribute :from_address
         validates :from_address, presence: true, type: String
 
-        # @return [Array<String>] a list with one or more recipient email addresses
+        # @return [Array<String>, String] a list with one or more recipient email addresses
         attribute :to_addresses
         validates :to_addresses, presence: true, type: TypeGeneric.new(String)
 

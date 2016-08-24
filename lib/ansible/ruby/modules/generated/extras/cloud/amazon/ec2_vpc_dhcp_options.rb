@@ -10,15 +10,15 @@ module Ansible
         attribute :domain_name
         validates :domain_name, type: String
 
-        # @return [Array<String>, nil] A list of hosts to set the DNS servers for the VPC to. (Should be a list of IP addresses rather than host names.)
+        # @return [Array<String>, String, nil] A list of hosts to set the DNS servers for the VPC to. (Should be a list of IP addresses rather than host names.)
         attribute :dns_servers
         validates :dns_servers, type: TypeGeneric.new(String)
 
-        # @return [Array<String>, nil] List of hosts to advertise as NTP servers for the VPC.
+        # @return [Array<String>, String, nil] List of hosts to advertise as NTP servers for the VPC.
         attribute :ntp_servers
         validates :ntp_servers, type: TypeGeneric.new(String)
 
-        # @return [Array<String>, nil] List of hosts to advertise as NetBIOS servers.
+        # @return [Array<String>, String, nil] List of hosts to advertise as NetBIOS servers.
         attribute :netbios_name_servers
         validates :netbios_name_servers, type: TypeGeneric.new(String)
 

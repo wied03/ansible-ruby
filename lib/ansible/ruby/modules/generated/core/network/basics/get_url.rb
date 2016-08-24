@@ -45,7 +45,7 @@ module Ansible
         attribute :timeout
         validates :timeout, type: Integer
 
-        # @return [Array<String>, nil] Add custom HTTP headers to a request in the format "key:value,key:value"
+        # @return [Array<String>, String, nil] Add custom HTTP headers to a request in the format "key:value,key:value"
         attribute :headers, flat_array: true
         validates :headers, type: TypeGeneric.new(String)
 

@@ -10,7 +10,7 @@ module Ansible
         attribute :instance_name
         validates :instance_name, presence: true, type: String
 
-        # @return [Array<String>] comma-separated list of tags to add or remove
+        # @return [Array<String>, String] comma-separated list of tags to add or remove
         attribute :tags
         validates :tags, presence: true, type: TypeGeneric.new(String)
 

@@ -6,7 +6,7 @@ module Ansible
   module Ruby
     module Modules
       class Clc_blueprint_package < Base
-        # @return [Array<String>] A list of server Ids to deploy the blue print package.
+        # @return [Array<String>, String] A list of server Ids to deploy the blue print package.
         attribute :server_ids
         validates :server_ids, presence: true, type: TypeGeneric.new(String)
 

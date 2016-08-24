@@ -6,15 +6,15 @@ module Ansible
   module Ruby
     module Modules
       class Junos_command < Base
-        # @return [Array<String>, nil] An ordered set of CLI commands to be executed on the remote device.  The output from the commands is then returned to the playbook in the task results.
+        # @return [Array<String>, String, nil] An ordered set of CLI commands to be executed on the remote device.  The output from the commands is then returned to the playbook in the task results.
         attribute :commands
         validates :commands, type: TypeGeneric.new(String)
 
-        # @return [Array<String>, nil] The C(rpcs) argument accepts a list of RPCs to be executed over a netconf session and the results from the RPC execution is return to the playbook via the modules results dictionary.
+        # @return [Array<String>, String, nil] The C(rpcs) argument accepts a list of RPCs to be executed over a netconf session and the results from the RPC execution is return to the playbook via the modules results dictionary.
         attribute :rpcs
         validates :rpcs, type: TypeGeneric.new(String)
 
-        # @return [Array<String>, nil] Specifies what to evaluate from the output of the command and what conditionals to apply.  This argument will cause the task to wait for a particular conditional or set of considitonals to be true before moving forward.   If the conditional is not true by the configured retries, the task fails.  See examples.
+        # @return [Array<String>, String, nil] Specifies what to evaluate from the output of the command and what conditionals to apply.  This argument will cause the task to wait for a particular conditional or set of considitonals to be true before moving forward.   If the conditional is not true by the configured retries, the task fails.  See examples.
         attribute :waitfor
         validates :waitfor, type: TypeGeneric.new(String)
 

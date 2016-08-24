@@ -14,7 +14,7 @@ module Ansible
         attribute :switch_name
         validates :switch_name, presence: true, type: String
 
-        # @return [Array<String>] The ESXi hosts vmnics to use with the Distributed vSwitch
+        # @return [Array<String>, String] The ESXi hosts vmnics to use with the Distributed vSwitch
         attribute :vmnics
         validates :vmnics, presence: true, type: TypeGeneric.new(String)
 

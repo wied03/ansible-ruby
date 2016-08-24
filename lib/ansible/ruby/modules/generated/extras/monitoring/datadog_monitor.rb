@@ -57,7 +57,7 @@ module Ansible
         attribute :notify_audit
         validates :notify_audit, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
-        # @return [Array<String>, nil] A dictionary of thresholds by status. This option is only available for service checks and metric alerts. Because each of them can have multiple thresholds, we don't define them directly in the query.
+        # @return [Array<String>, String, nil] A dictionary of thresholds by status. This option is only available for service checks and metric alerts. Because each of them can have multiple thresholds, we don't define them directly in the query.
         attribute :thresholds
         validates :thresholds, type: TypeGeneric.new(String)
       end

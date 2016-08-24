@@ -10,11 +10,11 @@ module Ansible
         attribute :resource_group
         validates :resource_group, presence: true, type: String
 
-        # @return [Array<String>, nil] List of IPv4 address ranges where each is formatted using CIDR notation. Required when creating a new virtual network or using purge_address_prefixes.
+        # @return [Array<String>, String, nil] List of IPv4 address ranges where each is formatted using CIDR notation. Required when creating a new virtual network or using purge_address_prefixes.
         attribute :address_prefixes_cidr
         validates :address_prefixes_cidr, type: TypeGeneric.new(String)
 
-        # @return [Array<String>, nil] Custom list of DNS servers. Maximum length of two. The first server in the list will be treated as the Primary server. This is an explicit list. Existing DNS servers will be replaced with the specified list. Use the purge_dns_servers option to remove all custom DNS servers and revert to default Azure servers.
+        # @return [Array<String>, String, nil] Custom list of DNS servers. Maximum length of two. The first server in the list will be treated as the Primary server. This is an explicit list. Existing DNS servers will be replaced with the specified list. Use the purge_dns_servers option to remove all custom DNS servers and revert to default Azure servers.
         attribute :dns_servers
         validates :dns_servers, type: TypeGeneric.new(String)
 

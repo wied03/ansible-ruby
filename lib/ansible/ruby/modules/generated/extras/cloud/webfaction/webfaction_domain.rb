@@ -14,7 +14,7 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [Array<String>, nil] Any subdomains to create.
+        # @return [Array<String>, String, nil] Any subdomains to create.
         attribute :subdomains
         validates :subdomains, type: TypeGeneric.new(String)
 

@@ -26,7 +26,7 @@ module Ansible
         attribute :host_all
         validates :host_all, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, Array<String>, nil] MySQL privileges string in the format: C(db.table:priv1,priv2)
+        # @return [Array<String>, String, nil] MySQL privileges string in the format: C(db.table:priv1,priv2)
         attribute :priv
         validates :priv, type: TypeGeneric.new(String)
 

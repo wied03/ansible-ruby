@@ -43,7 +43,7 @@ module Ansible
         # @return [Object, nil] A list of vpc security group names to associate with this cache cluster. Only use if inside a vpc
         attribute :security_group_ids
 
-        # @return [Array<String>, nil] A list of cache security group names to associate with this cache cluster. Must be an empty list if inside a vpc
+        # @return [Array<String>, String, nil] A list of cache security group names to associate with this cache cluster. Must be an empty list if inside a vpc
         attribute :cache_security_groups
         validates :cache_security_groups, type: TypeGeneric.new(String)
 

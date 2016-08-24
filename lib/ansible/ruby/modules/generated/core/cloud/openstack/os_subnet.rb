@@ -33,7 +33,7 @@ module Ansible
         # @return [Object, nil] The ip that would be assigned to the gateway for this subnet
         attribute :gateway_ip
 
-        # @return [Array<String>, nil] List of DNS nameservers for this subnet.
+        # @return [Array<String>, String, nil] List of DNS nameservers for this subnet.
         attribute :dns_nameservers
         validates :dns_nameservers, type: TypeGeneric.new(String)
 
@@ -43,7 +43,7 @@ module Ansible
         # @return [Object, nil] From the subnet pool the last IP that should be assigned to the virtual machines.
         attribute :allocation_pool_end
 
-        # @return [Array<Hash>, nil] A list of host route dictionaries for the subnet.
+        # @return [Array<Hash>, Hash, nil] A list of host route dictionaries for the subnet.
         attribute :host_routes
         validates :host_routes, type: TypeGeneric.new(Hash)
 

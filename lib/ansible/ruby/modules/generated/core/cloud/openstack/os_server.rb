@@ -38,7 +38,7 @@ module Ansible
         # @return [Object, nil] Name or ID of a network to attach this instance to. A simpler version of the nics parameter, only one of network or nics should be supplied.
         attribute :network
 
-        # @return [Array<Hash>, nil] A list of networks to which the instance's interface should be attached. Networks may be referenced by net-id/net-name/port-id or port-name.,Also this accepts a string containing a list of (net/port)-(id/name) Eg: nics: "net-id=uuid-1,port-name=myport" Only one of network or nics should be supplied.
+        # @return [Array<Hash>, Hash, nil] A list of networks to which the instance's interface should be attached. Networks may be referenced by net-id/net-name/port-id or port-name.,Also this accepts a string containing a list of (net/port)-(id/name) Eg: nics: "net-id=uuid-1,port-name=myport" Only one of network or nics should be supplied.
         attribute :nics
         validates :nics, type: TypeGeneric.new(Hash)
 

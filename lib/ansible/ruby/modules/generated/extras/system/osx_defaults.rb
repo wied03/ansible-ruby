@@ -26,7 +26,7 @@ module Ansible
         attribute :array_add
         validates :array_add, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
-        # @return [String, Array<String>, nil] The value to write. Only required when state = present.
+        # @return [Array<String>, String, nil] The value to write. Only required when state = present.
         attribute :value
         validates :value, type: TypeGeneric.new(String)
 

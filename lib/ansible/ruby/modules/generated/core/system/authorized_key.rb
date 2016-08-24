@@ -26,7 +26,7 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [Array<String>, nil] A string of ssh key options to be prepended to the key in the authorized_keys file
+        # @return [Array<String>, String, nil] A string of ssh key options to be prepended to the key in the authorized_keys file
         attribute :key_options, flat_array: true
         validates :key_options, type: TypeGeneric.new(String)
 

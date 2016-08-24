@@ -30,7 +30,7 @@ module Ansible
         attribute :virtual_server_status
         validates :virtual_server_status, inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
 
-        # @return [Array<Hash>, nil] A list of ports to create for the virtual server. Each list item should be a dictionary which specifies the C(port:) and C(type:), but can also optionally specify the C(service_group:) as well as the C(status:). See the examples below for details. This parameter is required when C(state) is C(present).
+        # @return [Array<Hash>, Hash, nil] A list of ports to create for the virtual server. Each list item should be a dictionary which specifies the C(port:) and C(type:), but can also optionally specify the C(service_group:) as well as the C(status:). See the examples below for details. This parameter is required when C(state) is C(present).
         attribute :virtual_server_ports
         validates :virtual_server_ports, type: TypeGeneric.new(Hash)
 

@@ -40,7 +40,7 @@ module Ansible
         # @return [Object, nil] Path to a Unix domain socket for local connections
         attribute :login_unix_socket
 
-        # @return [String, Array<String>, nil] PostgreSQL privileges string in the format: C(table:priv1,priv2)
+        # @return [Array<String>, String, nil] PostgreSQL privileges string in the format: C(table:priv1,priv2)
         attribute :priv
         validates :priv, type: TypeGeneric.new(String)
 

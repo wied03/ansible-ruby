@@ -30,7 +30,7 @@ module Ansible
         attribute :service_group_method
         validates :service_group_method, inclusion: {:in=>[:"round-robin", :"weighted-rr", :"least-connection", :"weighted-least-connection", :"service-least-connection", :"service-weighted-least-connection", :"fastest-response", :"least-request", :"round-robin-strict", :"src-ip-only-hash", :"src-ip-hash"], :message=>"%{value} needs to be :\"round-robin\", :\"weighted-rr\", :\"least-connection\", :\"weighted-least-connection\", :\"service-least-connection\", :\"service-weighted-least-connection\", :\"fastest-response\", :\"least-request\", :\"round-robin-strict\", :\"src-ip-only-hash\", :\"src-ip-hash\""}, allow_nil: true
 
-        # @return [Array<Hash>, nil] A list of servers to add to the service group. Each list item should be a dictionary which specifies the C(server:) and C(port:), but can also optionally specify the C(status:). See the examples below for details.
+        # @return [Array<Hash>, Hash, nil] A list of servers to add to the service group. Each list item should be a dictionary which specifies the C(server:) and C(port:), but can also optionally specify the C(status:). See the examples below for details.
         attribute :servers
         validates :servers, type: TypeGeneric.new(Hash)
 

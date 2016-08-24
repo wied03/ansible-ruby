@@ -26,7 +26,7 @@ module Ansible
         attribute :token
         validates :token, type: String
 
-        # @return [Array<Hash>, nil] an list of the rules that should be associated with a given token.
+        # @return [Array<Hash>, Hash, nil] an list of the rules that should be associated with a given token.
         attribute :rules
         validates :rules, type: TypeGeneric.new(Hash)
 

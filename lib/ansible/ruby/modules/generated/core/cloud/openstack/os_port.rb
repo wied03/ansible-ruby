@@ -14,7 +14,7 @@ module Ansible
         attribute :name
         validates :name, type: String
 
-        # @return [Array<Hash>, nil] Desired IP and/or subnet for this port.  Subnet is referenced by subnet_id and IP is referenced by ip_address.
+        # @return [Array<Hash>, Hash, nil] Desired IP and/or subnet for this port.  Subnet is referenced by subnet_id and IP is referenced by ip_address.
         attribute :fixed_ips
         validates :fixed_ips, type: TypeGeneric.new(Hash)
 
@@ -24,7 +24,7 @@ module Ansible
         # @return [Object, nil] MAC address of this port.
         attribute :mac_address
 
-        # @return [Array<String>, nil] Security group(s) ID(s) or name(s) associated with the port (comma separated string or YAML list)
+        # @return [Array<String>, String, nil] Security group(s) ID(s) or name(s) associated with the port (comma separated string or YAML list)
         attribute :security_groups
         validates :security_groups, type: TypeGeneric.new(String)
 

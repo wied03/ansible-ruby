@@ -6,7 +6,7 @@ module Ansible
   module Ruby
     module Modules
       class Junos_config < Base
-        # @return [Array<String>, nil] The path to the config source.  The source can be either a file with config or a template that will be merged during runtime.  By default the task will search for the source file in role or playbook root folder in templates directory.
+        # @return [Array<String>, String, nil] The path to the config source.  The source can be either a file with config or a template that will be merged during runtime.  By default the task will search for the source file in role or playbook root folder in templates directory.
         attribute :lines
         validates :lines, type: TypeGeneric.new(String)
 

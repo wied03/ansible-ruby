@@ -54,7 +54,7 @@ module Ansible
         attribute :dimensions
         validates :dimensions, type: Hash
 
-        # @return [Array<String>, nil] A list of the names action(s) taken when the alarm is in the 'alarm' status
+        # @return [Array<String>, String, nil] A list of the names action(s) taken when the alarm is in the 'alarm' status
         attribute :alarm_actions
         validates :alarm_actions, type: TypeGeneric.new(String)
 

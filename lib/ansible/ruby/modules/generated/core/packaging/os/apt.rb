@@ -46,7 +46,7 @@ module Ansible
         attribute :upgrade
         validates :upgrade, inclusion: {:in=>[:no, :yes, :safe, :full, :dist], :message=>"%{value} needs to be :no, :yes, :safe, :full, :dist"}, allow_nil: true
 
-        # @return [Array<String>, nil] Add dpkg options to apt command. Defaults to '-o "Dpkg::Options::=--force-confdef" -o "Dpkg::Options::=--force-confold"',Options should be supplied as comma separated list
+        # @return [Array<String>, String, nil] Add dpkg options to apt command. Defaults to '-o "Dpkg::Options::=--force-confdef" -o "Dpkg::Options::=--force-confold"',Options should be supplied as comma separated list
         attribute :dpkg_options, flat_array: true
         validates :dpkg_options, type: TypeGeneric.new(String)
 

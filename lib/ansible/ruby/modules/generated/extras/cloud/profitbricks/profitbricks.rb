@@ -38,7 +38,7 @@ module Ansible
         attribute :bus
         validates :bus, inclusion: {:in=>[:IDE, :VIRTIO], :message=>"%{value} needs to be :IDE, :VIRTIO"}, allow_nil: true
 
-        # @return [Array<String>, nil] list of instance ids, currently only used when state='absent' to remove instances.
+        # @return [Array<String>, String, nil] list of instance ids, currently only used when state='absent' to remove instances.
         attribute :instance_ids
         validates :instance_ids, type: TypeGeneric.new(String)
 

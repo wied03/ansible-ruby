@@ -14,7 +14,7 @@ module Ansible
         attribute :domainname
         validates :domainname, presence: true, type: String
 
-        # @return [Array<String>] The DNS servers that the host should be configured to use.
+        # @return [Array<String>, String] The DNS servers that the host should be configured to use.
         attribute :dns_servers
         validates :dns_servers, presence: true, type: TypeGeneric.new(String)
       end

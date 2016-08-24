@@ -29,7 +29,7 @@ module Ansible
         attribute :resource_group
         validates :resource_group, presence: true, type: String
 
-        # @return [Array<Hash>, nil] Set of rules shaping traffic flow to or from a subnet or NIC. Each rule is a dictionary.
+        # @return [Array<Hash>, Hash, nil] Set of rules shaping traffic flow to or from a subnet or NIC. Each rule is a dictionary.
         attribute :rules
         validates :rules, type: TypeGeneric.new(Hash)
 

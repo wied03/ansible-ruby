@@ -49,7 +49,7 @@ module Ansible
         attribute :color
         validates :color, inclusion: {:in=>[:normal, :good, :warning, :danger], :message=>"%{value} needs to be :normal, :good, :warning, :danger"}, allow_nil: true
 
-        # @return [Array<Hash>, nil] Define a list of attachments. This list mirrors the Slack JSON API. For more information, see https://api.slack.com/docs/attachments
+        # @return [Array<Hash>, Hash, nil] Define a list of attachments. This list mirrors the Slack JSON API. For more information, see https://api.slack.com/docs/attachments
         attribute :attachments
         validates :attachments, type: TypeGeneric.new(Hash)
       end

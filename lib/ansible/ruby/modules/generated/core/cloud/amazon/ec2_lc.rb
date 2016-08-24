@@ -26,11 +26,11 @@ module Ansible
         attribute :key_name
         validates :key_name, type: String
 
-        # @return [Array<String>, nil] A list of security groups into which instances should be found
+        # @return [Array<String>, String, nil] A list of security groups into which instances should be found
         attribute :security_groups
         validates :security_groups, type: TypeGeneric.new(String)
 
-        # @return [Array<Hash>, nil] a list of volume dicts, each containing device name and optionally ephemeral id or snapshot id. Size and type (and number of iops for io device type) must be specified for a new volume or a root volume, and may be passed for a snapshot volume. For any volume, a volume size less than 1 will be interpreted as a request not to create the volume.
+        # @return [Array<Hash>, Hash, nil] a list of volume dicts, each containing device name and optionally ephemeral id or snapshot id. Size and type (and number of iops for io device type) must be specified for a new volume or a root volume, and may be passed for a snapshot volume. For any volume, a volume size less than 1 will be interpreted as a request not to create the volume.
         attribute :volumes
         validates :volumes, type: TypeGeneric.new(Hash)
 

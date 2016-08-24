@@ -37,7 +37,7 @@ module Ansible
         attribute :image_id
         validates :image_id, type: String
 
-        # @return [Array<Hash>, nil] An optional list of device hashes/dictionaries with custom configurations (same block-device-mapping parameters),Valid properties include: device_name, volume_type, size (in GB), delete_on_termination (boolean), no_device (boolean), snapshot_id, iops (for io1 volume_type)
+        # @return [Array<Hash>, Hash, nil] An optional list of device hashes/dictionaries with custom configurations (same block-device-mapping parameters),Valid properties include: device_name, volume_type, size (in GB), delete_on_termination (boolean), no_device (boolean), snapshot_id, iops (for io1 volume_type)
         attribute :device_mapping
         validates :device_mapping, type: TypeGeneric.new(Hash)
 

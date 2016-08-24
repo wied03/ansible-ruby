@@ -32,7 +32,7 @@ module Ansible
         attribute :timeout
         validates :timeout, type: Integer
 
-        # @return [Array<String>] List of host groups to create or delete.
+        # @return [Array<String>, String] List of host groups to create or delete.
         attribute :host_groups
         validates :host_groups, presence: true, type: TypeGeneric.new(String)
       end

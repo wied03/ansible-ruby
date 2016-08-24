@@ -30,7 +30,7 @@ module Ansible
         attribute :schema
         validates :schema, type: String
 
-        # @return [Array<String>] Comma separated list of role (user/group) names to set permissions for.,The special value C(PUBLIC) can be provided instead to set permissions for the implicitly defined PUBLIC group.,Alias: I(role)
+        # @return [Array<String>, String] Comma separated list of role (user/group) names to set permissions for.,The special value C(PUBLIC) can be provided instead to set permissions for the implicitly defined PUBLIC group.,Alias: I(role)
         attribute :roles
         validates :roles, presence: true, type: TypeGeneric.new(String)
 

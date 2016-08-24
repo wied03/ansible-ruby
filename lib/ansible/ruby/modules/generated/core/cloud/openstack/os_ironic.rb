@@ -32,7 +32,7 @@ module Ansible
         attribute :driver_info
         validates :driver_info, type: Hash
 
-        # @return [Array<Hash>] A list of network interface cards, eg, " - mac: aa:bb:cc:aa:bb:cc"
+        # @return [Array<Hash>, Hash] A list of network interface cards, eg, " - mac: aa:bb:cc:aa:bb:cc"
         attribute :nics
         validates :nics, presence: true, type: TypeGeneric.new(Hash)
 

@@ -6,7 +6,7 @@ module Ansible
   module Ruby
     module Modules
       class Gce_net < Base
-        # @return [Array<String>, nil] the protocol:ports to allow ('tcp:80' or 'tcp:80,443' or 'tcp:80-800;udp:1-25')
+        # @return [Array<String>, String, nil] the protocol:ports to allow ('tcp:80' or 'tcp:80,443' or 'tcp:80-800;udp:1-25')
         attribute :allowed, flat_array: true
         validates :allowed, type: TypeGeneric.new(String)
 
@@ -25,7 +25,7 @@ module Ansible
         # @return [Object, nil] the source IPv4 address range in CIDR notation
         attribute :src_range
 
-        # @return [Array<String>, nil] the source instance tags for creating a firewall rule
+        # @return [Array<String>, String, nil] the source instance tags for creating a firewall rule
         attribute :src_tags
         validates :src_tags, type: TypeGeneric.new(String)
 

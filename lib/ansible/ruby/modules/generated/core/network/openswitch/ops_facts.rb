@@ -10,7 +10,7 @@ module Ansible
         attribute :config
         validates :config, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
-        # @return [Array<String>, nil] Accepts a list of endpoints to retrieve from the remote device using the REST API.  The endpoints should be valid endpoints availble on the device.  This argument is only valid when the transport is C(rest).
+        # @return [Array<String>, String, nil] Accepts a list of endpoints to retrieve from the remote device using the REST API.  The endpoints should be valid endpoints availble on the device.  This argument is only valid when the transport is C(rest).
         attribute :endpoints
         validates :endpoints, type: TypeGeneric.new(String)
       end

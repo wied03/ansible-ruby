@@ -20,11 +20,11 @@ module Ansible
         # @return [Object, nil] A revision number for the task definition
         attribute :revision
 
-        # @return [Array<Hash>, nil] A list of containers definitions
+        # @return [Array<Hash>, Hash, nil] A list of containers definitions
         attribute :containers
         validates :containers, type: TypeGeneric.new(Hash)
 
-        # @return [Array<Hash>, nil] A list of names of volumes to be attached
+        # @return [Array<Hash>, Hash, nil] A list of names of volumes to be attached
         attribute :volumes
         validates :volumes, type: TypeGeneric.new(Hash)
       end

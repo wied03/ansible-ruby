@@ -18,7 +18,7 @@ module Ansible
         attribute :description
         validates :description, type: String
 
-        # @return [Array<String>, nil] List of subnet IDs that make up the Elasticache subnet group.
+        # @return [Array<String>, String, nil] List of subnet IDs that make up the Elasticache subnet group.
         attribute :subnets
         validates :subnets, type: TypeGeneric.new(String)
       end

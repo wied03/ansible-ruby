@@ -42,7 +42,7 @@ module Ansible
         attribute :port
         validates :port, type: Integer
 
-        # @return [Array<String>, nil] List of all Profiles (HTTP,ClientSSL,ServerSSL,etc) that must be used by the virtual server
+        # @return [Array<String>, String, nil] List of all Profiles (HTTP,ClientSSL,ServerSSL,etc) that must be used by the virtual server
         attribute :all_profiles
         validates :all_profiles, type: TypeGeneric.new(String)
 

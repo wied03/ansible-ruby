@@ -6,7 +6,7 @@ module Ansible
   module Ruby
     module Modules
       class Homebrew < Base
-        # @return [String, Array<String>, nil] name of package to install/remove
+        # @return [Array<String>, String, nil] name of package to install/remove
         attribute :name
         validates :name, type: TypeGeneric.new(String)
 
@@ -26,7 +26,7 @@ module Ansible
         attribute :upgrade_all
         validates :upgrade_all, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
-        # @return [Array<String>, nil] options flags to install a package
+        # @return [Array<String>, String, nil] options flags to install a package
         attribute :install_options, flat_array: true
         validates :install_options, type: TypeGeneric.new(String)
       end

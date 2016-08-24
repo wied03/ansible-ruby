@@ -24,7 +24,7 @@ module Ansible
         # @return [Object, nil] name of the datacenter in which the session exists or should be created.
         attribute :datacenter
 
-        # @return [Array<String>, nil] a list of checks that will be used to verify the session health. If all the checks fail, the session will be invalidated and any locks associated with the session will be release and can be acquired once the associated lock delay has expired.
+        # @return [Array<String>, String, nil] a list of checks that will be used to verify the session health. If all the checks fail, the session will be invalidated and any locks associated with the session will be release and can be acquired once the associated lock delay has expired.
         attribute :checks
         validates :checks, type: TypeGeneric.new(String)
 

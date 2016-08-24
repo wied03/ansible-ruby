@@ -6,11 +6,11 @@ module Ansible
   module Ruby
     module Modules
       class Eos_command < Base
-        # @return [String, Array<String>] The commands to send to the remote EOS device over the configured provider.  The resulting output from the command is returned.  If the I(waitfor) argument is provided, the module is not returned until the condition is satisfied or the number of retries has been exceeded.
+        # @return [Array<String>, String] The commands to send to the remote EOS device over the configured provider.  The resulting output from the command is returned.  If the I(waitfor) argument is provided, the module is not returned until the condition is satisfied or the number of retries has been exceeded.
         attribute :commands
         validates :commands, presence: true, type: TypeGeneric.new(String)
 
-        # @return [Array<String>, nil] Specifies what to evaluate from the output of the command and what conditionals to apply.  This argument will cause the task to wait for a particular conditional to be true before moving forward.   If the conditional is not true by the configured retries, the task fails.  See examples.
+        # @return [Array<String>, String, nil] Specifies what to evaluate from the output of the command and what conditionals to apply.  This argument will cause the task to wait for a particular conditional to be true before moving forward.   If the conditional is not true by the configured retries, the task fails.  See examples.
         attribute :waitfor
         validates :waitfor, type: TypeGeneric.new(String)
 

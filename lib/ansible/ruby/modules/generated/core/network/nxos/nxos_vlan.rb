@@ -10,7 +10,7 @@ module Ansible
         attribute :vlan_id
         validates :vlan_id, type: String
 
-        # @return [Array<String>, nil] range of VLANs such as 2-10 or 2,5,10-15, etc.
+        # @return [Array<String>, String, nil] range of VLANs such as 2-10 or 2,5,10-15, etc.
         attribute :vlan_range, flat_array: true
         validates :vlan_range, type: TypeGeneric.new(String)
 

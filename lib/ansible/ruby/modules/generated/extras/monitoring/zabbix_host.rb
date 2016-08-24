@@ -28,11 +28,11 @@ module Ansible
         attribute :host_name
         validates :host_name, presence: true, type: String
 
-        # @return [Array<String>, nil] List of host groups the host is part of.
+        # @return [Array<String>, String, nil] List of host groups the host is part of.
         attribute :host_groups
         validates :host_groups, type: TypeGeneric.new(String)
 
-        # @return [Array<String>, nil] List of templates linked to the host.
+        # @return [Array<String>, String, nil] List of templates linked to the host.
         attribute :link_templates
         validates :link_templates, type: TypeGeneric.new(String)
 

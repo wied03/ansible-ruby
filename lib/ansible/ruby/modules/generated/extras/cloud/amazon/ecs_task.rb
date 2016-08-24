@@ -29,7 +29,7 @@ module Ansible
         attribute :task
         validates :task, type: String
 
-        # @return [Array<String>, nil] The list of container instances on which to deploy the task
+        # @return [Array<String>, String, nil] The list of container instances on which to deploy the task
         attribute :container_instances
         validates :container_instances, type: TypeGeneric.new(String)
 

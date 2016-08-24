@@ -6,15 +6,15 @@ module Ansible
   module Ruby
     module Modules
       class Eos_config < Base
-        # @return [Array<String>] The ordered set of commands that should be configured in the section.  The commands must be the exact same commands as found in the device running-config.  Be sure to note the configuration command syntax as some commands are automatically modified by the device config parser.
+        # @return [Array<String>, String] The ordered set of commands that should be configured in the section.  The commands must be the exact same commands as found in the device running-config.  Be sure to note the configuration command syntax as some commands are automatically modified by the device config parser.
         attribute :lines
         validates :lines, presence: true, type: TypeGeneric.new(String)
 
-        # @return [Array<String>, nil] The ordered set of parents that uniquely identify the section the commands should be checked against.  If the parents argument is omitted, the commands are checked against the set of top level or global commands.
+        # @return [Array<String>, String, nil] The ordered set of parents that uniquely identify the section the commands should be checked against.  If the parents argument is omitted, the commands are checked against the set of top level or global commands.
         attribute :parents
         validates :parents, type: TypeGeneric.new(String)
 
-        # @return [Array<String>, nil] The ordered set of commands to push on to the command stack if a change needs to be made.  This allows the playbook designer the opportunity to perform configuration commands prior to pushing any changes without affecting how the set of commands are matched against the system
+        # @return [Array<String>, String, nil] The ordered set of commands to push on to the command stack if a change needs to be made.  This allows the playbook designer the opportunity to perform configuration commands prior to pushing any changes without affecting how the set of commands are matched against the system
         attribute :before
         validates :before, type: TypeGeneric.new(String)
 

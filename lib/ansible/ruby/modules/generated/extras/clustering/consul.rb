@@ -45,7 +45,7 @@ module Ansible
         attribute :service_address
         validates :service_address, type: String
 
-        # @return [Array<String>, nil] a list of tags that will be attached to the service registration.
+        # @return [Array<String>, String, nil] a list of tags that will be attached to the service registration.
         attribute :tags
         validates :tags, type: TypeGeneric.new(String)
 

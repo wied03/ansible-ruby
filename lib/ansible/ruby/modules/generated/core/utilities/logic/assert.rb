@@ -6,7 +6,7 @@ module Ansible
   module Ruby
     module Modules
       class Assert < Base
-        # @return [String, Array<String>] A string expression of the same form that can be passed to the 'when' statement,Alternatively, a list of string expressions
+        # @return [Array<String>, String] A string expression of the same form that can be passed to the 'when' statement,Alternatively, a list of string expressions
         attribute :that
         validates :that, presence: true, type: TypeGeneric.new(String)
       end

@@ -6,7 +6,7 @@ module Ansible
   module Ruby
     module Modules
       class Apt_rpm < Base
-        # @return [String, Array<String>] name of package to install, upgrade or remove.
+        # @return [Array<String>, String] name of package to install, upgrade or remove.
         attribute :pkg
         validates :pkg, presence: true, type: TypeGeneric.new(String)
 

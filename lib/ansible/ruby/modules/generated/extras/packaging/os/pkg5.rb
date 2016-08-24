@@ -6,7 +6,7 @@ module Ansible
   module Ruby
     module Modules
       class Pkg5 < Base
-        # @return [String, Array<String>] An FRMI of the package(s) to be installed/removed/updated.,Multiple packages may be specified, separated by C(,).
+        # @return [Array<String>, String] An FRMI of the package(s) to be installed/removed/updated.,Multiple packages may be specified, separated by C(,).
         attribute :name
         validates :name, presence: true, type: TypeGeneric.new(String)
 

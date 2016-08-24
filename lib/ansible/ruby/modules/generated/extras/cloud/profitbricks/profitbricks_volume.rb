@@ -42,7 +42,7 @@ module Ansible
         attribute :auto_increment
         validates :auto_increment, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
-        # @return [Array<String>, nil] list of instance ids, currently only used when state='absent' to remove instances.
+        # @return [Array<String>, String, nil] list of instance ids, currently only used when state='absent' to remove instances.
         attribute :instance_ids
         validates :instance_ids, type: TypeGeneric.new(String)
 

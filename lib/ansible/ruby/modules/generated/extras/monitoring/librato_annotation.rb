@@ -38,7 +38,7 @@ module Ansible
         attribute :end_time
         validates :end_time, type: Integer
 
-        # @return [Array<Hash>] See examples
+        # @return [Array<Hash>, Hash] See examples
         attribute :links
         validates :links, presence: true, type: TypeGeneric.new(Hash)
       end

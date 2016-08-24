@@ -10,7 +10,7 @@ module Ansible
         attribute :vg
         validates :vg, presence: true, type: String
 
-        # @return [String, Array<String>, nil] List of comma-separated devices to use as physical devices in this volume group. Required when creating or resizing volume group.,The module will take care of running pvcreate if needed.
+        # @return [Array<String>, String, nil] List of comma-separated devices to use as physical devices in this volume group. Required when creating or resizing volume group.,The module will take care of running pvcreate if needed.
         attribute :pvs
         validates :pvs, type: TypeGeneric.new(String)
 

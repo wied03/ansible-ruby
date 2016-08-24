@@ -89,7 +89,7 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:started, :stopped, :restarted, :absent, :frozen], :message=>"%{value} needs to be :started, :stopped, :restarted, :absent, :frozen"}, allow_nil: true
 
-        # @return [Array<String>, nil] list of 'key=value' options to use when configuring a container.
+        # @return [Array<String>, String, nil] list of 'key=value' options to use when configuring a container.
         attribute :container_config
         validates :container_config, type: TypeGeneric.new(String)
       end

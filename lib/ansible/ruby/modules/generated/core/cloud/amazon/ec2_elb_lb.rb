@@ -14,7 +14,7 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [Array<Hash>, nil] List of ports/protocols for this ELB to listen on (see example)
+        # @return [Array<Hash>, Hash, nil] List of ports/protocols for this ELB to listen on (see example)
         attribute :listeners
         validates :listeners, type: TypeGeneric.new(Hash)
 
@@ -30,7 +30,7 @@ module Ansible
         attribute :purge_instance_ids
         validates :purge_instance_ids, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
-        # @return [Array<String>, nil] List of availability zones to enable on this ELB
+        # @return [Array<String>, String, nil] List of availability zones to enable on this ELB
         attribute :zones
         validates :zones, type: TypeGeneric.new(String)
 
@@ -38,7 +38,7 @@ module Ansible
         attribute :purge_zones
         validates :purge_zones, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
-        # @return [Array<String>, nil] A list of security groups to apply to the elb
+        # @return [Array<String>, String, nil] A list of security groups to apply to the elb
         attribute :security_group_ids, flat_array: true
         validates :security_group_ids, type: TypeGeneric.new(String)
 
@@ -53,7 +53,7 @@ module Ansible
         attribute :access_logs
         validates :access_logs, type: Hash
 
-        # @return [Array<String>, nil] A list of VPC subnets to use when creating ELB. Zones should be empty if using this.
+        # @return [Array<String>, String, nil] A list of VPC subnets to use when creating ELB. Zones should be empty if using this.
         attribute :subnets
         validates :subnets, type: TypeGeneric.new(String)
 

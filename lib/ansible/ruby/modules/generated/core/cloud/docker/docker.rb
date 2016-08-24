@@ -29,11 +29,11 @@ module Ansible
         attribute :name
         validates :name, type: String
 
-        # @return [Array<String>, nil] List containing private to public port mapping specification. Use docker 'CLI-style syntax: C(8000), C(9000:8000), or C(0.0.0.0:9000:8000)' where 8000 is a container port, 9000 is a host port, and 0.0.0.0 is - a host interface. The container ports need to be exposed either in the Dockerfile or via the C(expose) option.
+        # @return [Array<String>, String, nil] List containing private to public port mapping specification. Use docker 'CLI-style syntax: C(8000), C(9000:8000), or C(0.0.0.0:9000:8000)' where 8000 is a container port, 9000 is a host port, and 0.0.0.0 is - a host interface. The container ports need to be exposed either in the Dockerfile or via the C(expose) option.
         attribute :ports
         validates :ports, type: TypeGeneric.new(String)
 
-        # @return [Array<Integer>, nil] List of additional container ports to expose for port mappings or links. If the port is already exposed using EXPOSE in a Dockerfile, you don't need to expose it again.
+        # @return [Array<Integer>, Integer, nil] List of additional container ports to expose for port mappings or links. If the port is already exposed using EXPOSE in a Dockerfile, you don't need to expose it again.
         attribute :expose
         validates :expose, type: TypeGeneric.new(Integer)
 
@@ -41,19 +41,19 @@ module Ansible
         attribute :publish_all_ports
         validates :publish_all_ports, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
-        # @return [Array<String>, nil] List of volumes to mount within the container,Use docker CLI-style syntax: C(/host:/container[:mode]),You can specify a read mode for the mount with either C(ro) or C(rw). Starting at version 2.1, SELinux hosts can additionally use C(z) or C(Z) mount options to use a shared or private label for the volume.
+        # @return [Array<String>, String, nil] List of volumes to mount within the container,Use docker CLI-style syntax: C(/host:/container[:mode]),You can specify a read mode for the mount with either C(ro) or C(rw). Starting at version 2.1, SELinux hosts can additionally use C(z) or C(Z) mount options to use a shared or private label for the volume.
         attribute :volumes
         validates :volumes, type: TypeGeneric.new(String)
 
-        # @return [Array<String>, nil] List of names of containers to mount volumes from.
+        # @return [Array<String>, String, nil] List of names of containers to mount volumes from.
         attribute :volumes_from
         validates :volumes_from, type: TypeGeneric.new(String)
 
-        # @return [Array<String>, nil] List of other containers to link within this container with an optional,alias. Use docker CLI-style syntax: C(redis:myredis).
+        # @return [Array<String>, String, nil] List of other containers to link within this container with an optional,alias. Use docker CLI-style syntax: C(redis:myredis).
         attribute :links
         validates :links, type: TypeGeneric.new(String)
 
-        # @return [Array<String>, nil] List of host devices to expose to container
+        # @return [Array<String>, String, nil] List of host devices to expose to container
         attribute :devices
         validates :devices, type: TypeGeneric.new(String)
 

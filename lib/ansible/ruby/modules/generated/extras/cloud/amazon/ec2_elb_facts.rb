@@ -6,7 +6,7 @@ module Ansible
   module Ruby
     module Modules
       class Ec2_elb_facts < Base
-        # @return [String, Array<String>, nil] List of ELB names to gather facts about. Pass this option to gather facts about a set of ELBs, otherwise, all ELBs are returned.
+        # @return [Array<String>, String, nil] List of ELB names to gather facts about. Pass this option to gather facts about a set of ELBs, otherwise, all ELBs are returned.
         attribute :names
         validates :names, type: TypeGeneric.new(String)
       end

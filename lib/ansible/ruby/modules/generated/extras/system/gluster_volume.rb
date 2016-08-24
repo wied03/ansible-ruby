@@ -14,7 +14,7 @@ module Ansible
         attribute :state
         validates :state, presence: true, inclusion: {:in=>[:present, :absent, :started, :stopped], :message=>"%{value} needs to be :present, :absent, :started, :stopped"}
 
-        # @return [Array<String>, nil] List of hosts to use for probing and brick setup
+        # @return [Array<String>, String, nil] List of hosts to use for probing and brick setup
         attribute :cluster, flat_array: true
         validates :cluster, type: TypeGeneric.new(String)
 
@@ -31,7 +31,7 @@ module Ansible
         attribute :transport
         validates :transport, inclusion: {:in=>[:tcp, :rdma, :"tcp,rdma"], :message=>"%{value} needs to be :tcp, :rdma, :\"tcp,rdma\""}, allow_nil: true
 
-        # @return [String, Array<String>, nil] Brick paths on servers. Multiple brick paths can be separated by commas
+        # @return [Array<String>, String, nil] Brick paths on servers. Multiple brick paths can be separated by commas
         attribute :bricks
         validates :bricks, type: TypeGeneric.new(String)
 

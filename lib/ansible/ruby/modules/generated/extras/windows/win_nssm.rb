@@ -30,7 +30,7 @@ module Ansible
         attribute :app_parameters
         validates :app_parameters, type: Hash
 
-        # @return [Array<String>, nil] Service dependencies that has to be started to trigger startup, separated by comma.
+        # @return [Array<String>, String, nil] Service dependencies that has to be started to trigger startup, separated by comma.
         attribute :dependencies, flat_array: true
         validates :dependencies, type: TypeGeneric.new(String)
 

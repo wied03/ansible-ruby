@@ -6,7 +6,7 @@ module Ansible
   module Ruby
     module Modules
       class Seport < Base
-        # @return [String, Array<String>] Ports or port ranges, separated by a comma
+        # @return [Array<String>, String] Ports or port ranges, separated by a comma
         attribute :ports
         validates :ports, presence: true, type: TypeGeneric.new(String)
 

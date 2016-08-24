@@ -28,7 +28,7 @@ module Ansible
         attribute :timeout
         validates :timeout, type: Integer
 
-        # @return [Array<Hash>] List of screens to be created/updated/deleted(see example).,If the screen(s) already been added, the screen(s) name won't be updated.,When creating or updating screen(s), C(screen_name), C(host_group) are required.,When deleting screen(s), the C(screen_name) is required.,The available states are: C(present) (default) and C(absent). If the screen(s) already exists, and the state is not C(absent), the screen(s) will just be updated as needed.
+        # @return [Array<Hash>, Hash] List of screens to be created/updated/deleted(see example).,If the screen(s) already been added, the screen(s) name won't be updated.,When creating or updating screen(s), C(screen_name), C(host_group) are required.,When deleting screen(s), the C(screen_name) is required.,The available states are: C(present) (default) and C(absent). If the screen(s) already exists, and the state is not C(absent), the screen(s) will just be updated as needed.
         attribute :screens
         validates :screens, presence: true, type: TypeGeneric.new(Hash)
       end

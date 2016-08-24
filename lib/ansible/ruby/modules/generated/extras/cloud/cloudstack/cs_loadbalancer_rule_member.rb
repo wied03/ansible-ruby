@@ -13,7 +13,7 @@ module Ansible
         # @return [Object, nil] Public IP address from where the network traffic will be load balanced from.,Only needed to find the rule if C(name) is not unique.
         attribute :ip_address
 
-        # @return [Array<String>] List of VMs to assign to or remove from the rule.
+        # @return [Array<String>, String] List of VMs to assign to or remove from the rule.
         attribute :vms
         validates :vms, presence: true, type: TypeGeneric.new(String)
 

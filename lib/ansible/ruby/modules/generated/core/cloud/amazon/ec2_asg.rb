@@ -14,11 +14,11 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [Array<String>, nil] List of ELB names to use for the group
+        # @return [Array<String>, String, nil] List of ELB names to use for the group
         attribute :load_balancers
         validates :load_balancers, type: TypeGeneric.new(String)
 
-        # @return [Array<String>, nil] List of availability zone names in which to create the group.  Defaults to all the availability zones in the region if vpc_zone_identifier is not set.
+        # @return [Array<String>, String, nil] List of availability zone names in which to create the group.  Defaults to all the availability zones in the region if vpc_zone_identifier is not set.
         attribute :availability_zones
         validates :availability_zones, type: TypeGeneric.new(String)
 
@@ -46,7 +46,7 @@ module Ansible
         attribute :replace_batch_size
         validates :replace_batch_size, type: Integer
 
-        # @return [Array<String>, nil] List of instance_ids belonging to the named ASG that you would like to terminate and be replaced with instances matching the current launch configuration.
+        # @return [Array<String>, String, nil] List of instance_ids belonging to the named ASG that you would like to terminate and be replaced with instances matching the current launch configuration.
         attribute :replace_instances
         validates :replace_instances, type: TypeGeneric.new(String)
 
@@ -54,11 +54,11 @@ module Ansible
         attribute :lc_check
         validates :lc_check, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
-        # @return [Array<String>, nil] List of VPC subnets to use
+        # @return [Array<String>, String, nil] List of VPC subnets to use
         attribute :vpc_zone_identifier
         validates :vpc_zone_identifier, type: TypeGeneric.new(String)
 
-        # @return [Array<Hash>, nil] A list of tags to add to the Auto Scale Group. Optional key is 'propagate_at_launch', which defaults to true.
+        # @return [Array<Hash>, Hash, nil] A list of tags to add to the Auto Scale Group. Optional key is 'propagate_at_launch', which defaults to true.
         attribute :tags
         validates :tags, type: TypeGeneric.new(Hash)
 

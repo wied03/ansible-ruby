@@ -18,7 +18,7 @@ module Ansible
         attribute :msg
         validates :msg, presence: true, type: String
 
-        # @return [String, Array<Integer>] one or more phone numbers to send the text message to, format +15551112222
+        # @return [String, Array<Integer>, Integer] one or more phone numbers to send the text message to, format +15551112222
         attribute :to_number
         validates :to_number, presence: true, type: TypeGeneric.new(Integer)
 

@@ -55,7 +55,7 @@ module Ansible
         # @return [Object, nil] the port (range) to forward, e.g. 80 or 8000-8888 defaults to all ports
         attribute :port_range
 
-        # @return [Array<String>, nil] a list of zone/nodename pairs, e.g ['us-central1-a/www-a', ...]
+        # @return [Array<String>, String, nil] a list of zone/nodename pairs, e.g ['us-central1-a/www-a', ...]
         attribute :members
         validates :members, type: TypeGeneric.new(String)
 

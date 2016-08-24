@@ -6,7 +6,7 @@ module Ansible
   module Ruby
     module Modules
       class Clc_modify_server < Base
-        # @return [Array<String>] A list of server Ids to modify.
+        # @return [Array<String>, String] A list of server Ids to modify.
         attribute :server_ids
         validates :server_ids, presence: true, type: TypeGeneric.new(String)
 

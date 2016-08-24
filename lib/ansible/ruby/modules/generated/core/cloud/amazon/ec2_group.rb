@@ -18,11 +18,11 @@ module Ansible
         attribute :vpc_id
         validates :vpc_id, type: Integer
 
-        # @return [Array<Hash>, nil] List of firewall inbound rules to enforce in this group (see example). If none are supplied, a default all-out rule is assumed. If an empty list is supplied, no inbound rules will be enabled.
+        # @return [Array<Hash>, Hash, nil] List of firewall inbound rules to enforce in this group (see example). If none are supplied, a default all-out rule is assumed. If an empty list is supplied, no inbound rules will be enabled.
         attribute :rules
         validates :rules, type: TypeGeneric.new(Hash)
 
-        # @return [Array<Hash>, nil] List of firewall outbound rules to enforce in this group (see example). If none are supplied, a default all-out rule is assumed. If an empty list is supplied, no outbound rules will be enabled.
+        # @return [Array<Hash>, Hash, nil] List of firewall outbound rules to enforce in this group (see example). If none are supplied, a default all-out rule is assumed. If an empty list is supplied, no outbound rules will be enabled.
         attribute :rules_egress
         validates :rules_egress, type: TypeGeneric.new(Hash)
 

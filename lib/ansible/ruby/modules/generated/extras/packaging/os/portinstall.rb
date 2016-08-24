@@ -6,7 +6,7 @@ module Ansible
   module Ruby
     module Modules
       class Portinstall < Base
-        # @return [String, Array<String>] name of package to install/remove
+        # @return [Array<String>, String] name of package to install/remove
         attribute :name
         validates :name, presence: true, type: TypeGeneric.new(String)
 

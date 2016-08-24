@@ -18,7 +18,7 @@ module Ansible
         attribute :src
         validates :src, presence: true, type: Integer
 
-        # @return [Array<Integer>] Phone number(s) to send SMS message to
+        # @return [Array<Integer>, Integer] Phone number(s) to send SMS message to
         attribute :dest
         validates :dest, presence: true, type: TypeGeneric.new(Integer)
 

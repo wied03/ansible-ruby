@@ -6,7 +6,7 @@ module Ansible
   module Ruby
     module Modules
       class Clc_server_snapshot < Base
-        # @return [Array<String>] The list of CLC server Ids.
+        # @return [Array<String>, String] The list of CLC server Ids.
         attribute :server_ids
         validates :server_ids, presence: true, type: TypeGeneric.new(String)
 

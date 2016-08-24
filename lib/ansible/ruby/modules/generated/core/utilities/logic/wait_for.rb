@@ -38,7 +38,7 @@ module Ansible
         attribute :search_regex
         validates :search_regex, type: String
 
-        # @return [Array<String>, nil] list of hosts or IPs to ignore when looking for active TCP connections for C(drained) state
+        # @return [Array<String>, String, nil] list of hosts or IPs to ignore when looking for active TCP connections for C(drained) state
         attribute :exclude_hosts, flat_array: true
         validates :exclude_hosts, type: TypeGeneric.new(String)
       end

@@ -10,7 +10,7 @@ module Ansible
         attribute :key_name
         validates :key_name, type: String
 
-        # @return [String, Array<String>, nil] security group (or list of groups) to use with the instance
+        # @return [Array<String>, String, nil] security group (or list of groups) to use with the instance
         attribute :group
         validates :group, type: TypeGeneric.new(String)
 
@@ -95,7 +95,7 @@ module Ansible
         # @return [Object, nil] Name of the IAM instance profile to use. Boto library must be 2.5.0+
         attribute :instance_profile_name
 
-        # @return [Array<String>, nil] list of instance ids, currently used for states: absent, running, stopped
+        # @return [Array<String>, String, nil] list of instance ids, currently used for states: absent, running, stopped
         attribute :instance_ids
         validates :instance_ids, type: TypeGeneric.new(String)
 
@@ -111,7 +111,7 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent, :running, :stopped], :message=>"%{value} needs to be :present, :absent, :running, :stopped"}, allow_nil: true
 
-        # @return [Array<Hash>, nil] a list of hash/dictionaries of volumes to add to the new instance; '[{"key":"value", "key":"value"}]'; keys allowed are - device_name (str; required), delete_on_termination (bool; False), device_type (deprecated), ephemeral (str), encrypted (bool; False), snapshot (str), volume_type (str), iops (int) - device_type is deprecated use volume_type, iops must be set when volume_type='io1', ephemeral and snapshot are mutually exclusive.
+        # @return [Array<Hash>, Hash, nil] a list of hash/dictionaries of volumes to add to the new instance; '[{"key":"value", "key":"value"}]'; keys allowed are - device_name (str; required), delete_on_termination (bool; False), device_type (deprecated), ephemeral (str), encrypted (bool; False), snapshot (str), volume_type (str), iops (int) - device_type is deprecated use volume_type, iops must be set when volume_type='io1', ephemeral and snapshot are mutually exclusive.
         attribute :volumes
         validates :volumes, type: TypeGeneric.new(Hash)
 
@@ -123,11 +123,11 @@ module Ansible
         attribute :exact_count
         validates :exact_count, type: Integer
 
-        # @return [String, Array<String>, nil] Used with 'exact_count' to determine how many nodes based on a specific tag criteria should be running.  This can be expressed in multiple ways and is shown in the EXAMPLES section.  For instance, one can request 25 servers that are tagged with "class=webserver". The specified tag must already exist or be passed in as the 'instance_tags' option.
+        # @return [Array<String>, String, nil] Used with 'exact_count' to determine how many nodes based on a specific tag criteria should be running.  This can be expressed in multiple ways and is shown in the EXAMPLES section.  For instance, one can request 25 servers that are tagged with "class=webserver". The specified tag must already exist or be passed in as the 'instance_tags' option.
         attribute :count_tag
         validates :count_tag, type: TypeGeneric.new(String)
 
-        # @return [Array<String>, nil] A list of existing network interfaces to attach to the instance at launch. When specifying existing network interfaces, none of the assign_public_ip, private_ip, vpc_subnet_id, group, or group_id parameters may be used. (Those parameters are for creating a new network interface at launch.)
+        # @return [Array<String>, String, nil] A list of existing network interfaces to attach to the instance at launch. When specifying existing network interfaces, none of the assign_public_ip, private_ip, vpc_subnet_id, group, or group_id parameters may be used. (Those parameters are for creating a new network interface at launch.)
         attribute :network_interfaces
         validates :network_interfaces, type: TypeGeneric.new(String)
 

@@ -37,7 +37,7 @@ module Ansible
         attribute :detach
         validates :detach, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
-        # @return [Array<String>, nil] List of host device bindings to add to the container. Each binding is a mapping expressed in the format: <path_on_host>:<path_in_container>:<cgroup_permissions>
+        # @return [Array<String>, String, nil] List of host device bindings to add to the container. Each binding is a mapping expressed in the format: <path_on_host>:<path_in_container>:<cgroup_permissions>
         attribute :devices
         validates :devices, type: TypeGeneric.new(String)
 
@@ -60,7 +60,7 @@ module Ansible
         # @return [Object, nil] Dict of host-to-IP mappings, where each host name is a key in the dictionary. Each host name will be added to the container's /etc/hosts file.
         attribute :etc_hosts
 
-        # @return [Array<Integer>, nil] List of additional container ports to expose for port mappings or links. If the port is already exposed using EXPOSE in a Dockerfile, it does not need to be xposed again.
+        # @return [Array<Integer>, Integer, nil] List of additional container ports to expose for port mappings or links. If the port is already exposed using EXPOSE in a Dockerfile, it does not need to be xposed again.
         attribute :exposed_ports
         validates :exposed_ports, type: TypeGeneric.new(Integer)
 
@@ -103,7 +103,7 @@ module Ansible
         # @return [Object, nil] Dictionary of key value pairs.
         attribute :labels
 
-        # @return [Array<String>, nil] List of name aliases for linked containers in the format C(container_name:alias)
+        # @return [Array<String>, String, nil] List of name aliases for linked containers in the format C(container_name:alias)
         attribute :links
         validates :links, type: TypeGeneric.new(String)
 
@@ -142,7 +142,7 @@ module Ansible
         attribute :network_mode
         validates :network_mode, inclusion: {:in=>[:bridge, :"container:<name|id>", :host, :none], :message=>"%{value} needs to be :bridge, :\"container:<name|id>\", :host, :none"}, allow_nil: true
 
-        # @return [Array<Hash>, nil] List of networks the container belongs to.,Each network is a dict with keys C(name), C(ipv4_address), C(ipv6_address), C(links), C(aliases).,For each network C(name) is required, all other keys are optional.,If included, C(links) or C(aliases) are lists.,For examples of the data structure and usage see EXAMPLES below.,To remove a container from one or more networks, use the C(purge_networks) option.
+        # @return [Array<Hash>, Hash, nil] List of networks the container belongs to.,Each network is a dict with keys C(name), C(ipv4_address), C(ipv6_address), C(links), C(aliases).,For each network C(name) is required, all other keys are optional.,If included, C(links) or C(aliases) are lists.,For examples of the data structure and usage see EXAMPLES below.,To remove a container from one or more networks, use the C(purge_networks) option.
         attribute :networks
         validates :networks, type: TypeGeneric.new(Hash)
 
@@ -225,7 +225,7 @@ module Ansible
         # @return [Object, nil] Set the UTS namespace mode for the container.
         attribute :uts
 
-        # @return [Array<String>, nil] List of volumes to mount within the container.,Use docker CLI-style syntax: C(/host:/container[:mode]),You can specify a read mode for the mount with either C(ro) or C(rw).,SELinux hosts can additionally use C(z) or C(Z) to use a shared or private label for the volume.
+        # @return [Array<String>, String, nil] List of volumes to mount within the container.,Use docker CLI-style syntax: C(/host:/container[:mode]),You can specify a read mode for the mount with either C(ro) or C(rw).,SELinux hosts can additionally use C(z) or C(Z) to use a shared or private label for the volume.
         attribute :volumes
         validates :volumes, type: TypeGeneric.new(String)
 
@@ -233,7 +233,7 @@ module Ansible
         attribute :volume_driver
         validates :volume_driver, type: String
 
-        # @return [Array<String>, nil] List of container names or Ids to get volumes from.
+        # @return [Array<String>, String, nil] List of container names or Ids to get volumes from.
         attribute :volumes_from
         validates :volumes_from, type: TypeGeneric.new(String)
       end

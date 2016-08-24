@@ -16,7 +16,7 @@ module Ansible
         # @return [Object, nil] The ID of the route table to update or delete.
         attribute :route_table_id
 
-        # @return [Array<Hash>] List of routes in the route table. Routes are specified as dicts containing the keys 'dest' and one of 'gateway_id', 'instance_id', 'interface_id', or 'vpc_peering_connection_id'. If 'gateway_id' is specified, you can refer to the VPC's IGW by using the value 'igw'.
+        # @return [Array<Hash>, Hash] List of routes in the route table. Routes are specified as dicts containing the keys 'dest' and one of 'gateway_id', 'instance_id', 'interface_id', or 'vpc_peering_connection_id'. If 'gateway_id' is specified, you can refer to the VPC's IGW by using the value 'igw'.
         attribute :routes
         validates :routes, presence: true, type: TypeGeneric.new(Hash)
 
@@ -24,7 +24,7 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [Array<String>] An array of subnets to add to this route table. Subnets may be specified by either subnet ID, Name tag, or by a CIDR such as '10.0.0.0/24'.
+        # @return [Array<String>, String] An array of subnets to add to this route table. Subnets may be specified by either subnet ID, Name tag, or by a CIDR such as '10.0.0.0/24'.
         attribute :subnets
         validates :subnets, presence: true, type: TypeGeneric.new(String)
 

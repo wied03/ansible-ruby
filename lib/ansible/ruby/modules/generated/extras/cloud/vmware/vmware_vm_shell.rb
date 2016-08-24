@@ -37,7 +37,7 @@ module Ansible
         attribute :vm_shell_args
         validates :vm_shell_args, type: String
 
-        # @return [Array<String>, nil] Comma seperated list of envirnoment variable, specified in the guest OS notation
+        # @return [Array<String>, String, nil] Comma seperated list of envirnoment variable, specified in the guest OS notation
         attribute :vm_shell_env
         validates :vm_shell_env, type: TypeGeneric.new(String)
 

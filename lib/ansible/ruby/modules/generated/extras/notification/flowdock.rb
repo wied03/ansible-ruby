@@ -18,7 +18,7 @@ module Ansible
         attribute :msg
         validates :msg, presence: true, type: String
 
-        # @return [Array<String>, nil] tags of the message, separated by commas
+        # @return [Array<String>, String, nil] tags of the message, separated by commas
         attribute :tags, flat_array: true
         validates :tags, type: TypeGeneric.new(String)
 

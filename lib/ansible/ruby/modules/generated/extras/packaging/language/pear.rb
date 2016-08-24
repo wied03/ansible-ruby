@@ -6,7 +6,7 @@ module Ansible
   module Ruby
     module Modules
       class Pear < Base
-        # @return [String, Array<String>] Name of the package to install, upgrade, or remove.
+        # @return [Array<String>, String] Name of the package to install, upgrade, or remove.
         attribute :name
         validates :name, presence: true, type: TypeGeneric.new(String)
 
