@@ -102,7 +102,7 @@ task update_modules: :python_dependencies do
       python_dir = File.dirname(file)
       ruby_filename = File.basename(file, '.py') + '.rb'
       # don't want leading _ in front of stuff
-      ruby_filename.gsub! /^_/, ''
+      ruby_filename.gsub!(/^_/, '')
       module_path = Pathname.new(python_dir).relative_path_from(modules_dir)
       ruby_path = File.join('lib/ansible/ruby/modules/generated', module_path, ruby_filename)
       mkdir_p File.dirname(ruby_path)
