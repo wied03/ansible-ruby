@@ -122,6 +122,8 @@ attribute :login_user
 validates :login_user, inclusion: {:in=>[1, :abc], :message=>"%{value} needs to be 1, :abc"}, allow_nil: true
 RUBY
         end
+
+        pending 'what happens here validation wise? might need to test it outside of choices'
       end
 
       context 'no default' do
@@ -639,7 +641,7 @@ RUBY
 
           it do
             is_expected.to eq <<RUBY
-# @return [Array<String>, String, nil] The username used to authenticate with
+# @return [String, Array<String>, nil] The username used to authenticate with
 attribute :lines
 validates :lines, type: TypeGeneric.new(String)
 RUBY

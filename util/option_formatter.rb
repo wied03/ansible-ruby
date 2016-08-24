@@ -62,33 +62,45 @@ module Ansible
           validations = {}
           required = option_data.required?
           types = option_data.types
+          puts "types for formatting are #{types}"
           # keep code lighter if not required
           validations[:presence] = true if required
-          # TODO: Deal with multiple typoes here
-          type = types[0]
-          validations[:type] = case type
-                               when TypeGeneric
-                                 "TypeGeneric.new(#{type.klass.name})"
-                               when String
-                                 # Boolean for YARD
-                                 type
-                               else
-                                 type.name
-                               end if type
+          generics = types.select { |t| t.is_a?(TypeGeneric) }.uniq
+          raise "Only know how to deal with 1 generic type, found #{generics}" unless generics.length <= 1
+          type = if generics.any?
+                   generic = generics[0]
+                   "TypeGeneric.new(#{generic.klass.name})"
+                 elsif types.length > 1
+                   "MultipleTypes.new(#{types.map { |type| format_single_validation type }})"
+                 elsif types.length == 1
+                   format_single_validation types[0]
+                 end
           if (choices = option_data.choices)
             validations[:inclusion] = {
               in: choices,
               message: "%{value} needs to be #{choices.map { |sym| "#{sym.inspect}" }.join(', ')}"
             }
             # let this take care of validation, no need for type
-            validations.delete :type
             validations[:allow_nil] = true unless required
+          elsif type
+            validations[:type] = type
           end
 
           return nil unless validations.any?
           "validates :#{option_data.name}, #{validations.map { |key, value| "#{key}: #{value}" }.join(', ')}"
         end
 
+        def format_single_validation(type)
+          case type
+          when TypeGeneric
+            "TypeGeneric.new(#{type.klass.name})"
+          when String
+            # Boolean for YARD
+            type
+          else
+            type.name
+          end
+        end
       end
     end
   end
