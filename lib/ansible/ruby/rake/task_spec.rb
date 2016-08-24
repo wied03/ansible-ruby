@@ -103,10 +103,38 @@ OUTPUT
           it 'executed the command' do
             expect(@commands).to include 'ansible-playbook --ansible-option playbook1_test.yml'
           end
+        end
+      end
 
-          it 'generates the YAML' do
-            expect(File.exist?(yaml_file)).to be_truthy
-            expect(File.read(yaml_file)).to include 'host1:host2'
+      context 'env override' do
+        around do |example|
+          ENV['ANSIBLE_OPTS'] = '--check'
+          example.run
+          ENV.delete 'ANSIBLE_OPTS'
+        end
+
+        context 'combined' do
+          let(:task) do
+            Ansible::Ruby::Rake::Task.new do |task|
+              task.playbooks = ruby_file
+              task.options = '-v'
+            end
+          end
+
+          it 'executed the command' do
+            expect(@commands).to include 'ansible-playbook -v --check playbook1_test.yml'
+          end
+        end
+
+        context 'only env' do
+          let(:task) do
+            Ansible::Ruby::Rake::Task.new do |task|
+              task.playbooks = ruby_file
+            end
+          end
+
+          it 'executed the command' do
+            expect(@commands).to include 'ansible-playbook --check playbook1_test.yml'
           end
         end
       end

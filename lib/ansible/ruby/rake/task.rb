@@ -29,7 +29,8 @@ module Ansible
         private
 
         def flat_options
-          [*options].join ' '
+          array = [*options] << ENV['ANSIBLE_OPTS']
+          array.compact.join ' '
         end
 
         class << self
