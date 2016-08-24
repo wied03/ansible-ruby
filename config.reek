@@ -21,3 +21,6 @@ DuplicateMethodCall:
 
 FeatureEnvy:
   enabled: false
+
+TooManyInstanceVariables:
+  max_instance_variables: 8

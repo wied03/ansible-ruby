@@ -11,6 +11,7 @@ module Ansible
       INDENT = Array.new(8, ' ').join ''
 
       class << self
+        # :reek:ControlParameter - Coming from Rake task, no easier answer
         def from_yaml_string(desc_yaml, example_yaml, example_fail_is_ok)
           description = Yaml.parse desc_yaml, 'description'
           mod = description['module']
