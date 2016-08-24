@@ -1,5 +1,5 @@
 require 'active_model'
-require 'ansible/ruby/type_validator'
+require 'ansible/ruby/models/type_validator'
 
 module Ansible
   module Ruby
