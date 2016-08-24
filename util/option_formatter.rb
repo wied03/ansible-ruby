@@ -62,7 +62,6 @@ module Ansible
           validations = {}
           required = option_data.required?
           types = option_data.types
-          puts "types for formatting are #{types}"
           # keep code lighter if not required
           validations[:presence] = true if required
           generics = types.select { |t| t.is_a?(TypeGeneric) }.uniq

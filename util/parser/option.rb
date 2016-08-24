@@ -9,14 +9,11 @@ module Ansible
       module Option
         class << self
           def parse(name, details, example)
-            puts "parsing option #{name}"
             details = details.symbolize_keys
             # can be both an array and string
             description = [*details[:description]]
             sample_values = find_sample_values name, details, example
-            puts "samples values #{sample_values}"
             types = derive_types sample_values
-            puts "types is #{types}"
             OptionData.new name: name,
                            description: description,
                            required: details[:required],
@@ -81,7 +78,6 @@ module Ansible
             first_cut = example.map { |ex| ex.reject { |key, _| key == 'name' } }
                           .map { |ex| ex.map { |_, value| value } }
                           .flatten
-            puts "first cut #{first_cut}"
             array_of_hashes = first_cut.map do |value|
               if value.is_a?(String)
                 hash_equal_sign_pairs(value)
@@ -89,7 +85,6 @@ module Ansible
                 value
               end
             end.compact
-            puts "array of hashes #{array_of_hashes}"
             vals_by_key = array_of_hashes.inject({}) do |result, hash|
               hash.each do |key, value|
                 by_key = result[key] ||= []
@@ -98,7 +93,6 @@ module Ansible
               end
               result
             end
-            puts "values by key #{vals_by_key}"
             vals_by_key
           end
 
