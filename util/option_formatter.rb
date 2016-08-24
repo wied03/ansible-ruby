@@ -74,13 +74,13 @@ module Ansible
           types = option_data.types
           # keep code lighter if not required
           validations[:presence] = true if required
-          generics = types.select { |t| t.is_a?(TypeGeneric) }.uniq
-          raise "Only know how to deal with 1 generic type, found #{generics}" unless generics.length <= 1
-          type = validation_type(generics, types)
+          generics = locate_generics types
           if (choices = option_data.choices)
-            choices_validation validations, choices, required
-          elsif type
-            validations[:type] = type
+            choices_validation validations, choices
+            validations[:allow_nil] = true unless required
+          else
+            type = validation_type(generics, types)
+            validations[:type] = type if type
           end
 
           return nil unless validations.any?
@@ -88,13 +88,17 @@ module Ansible
           "validates #{symbol}, #{validations.map { |key, value| "#{key}: #{value}" }.join(', ')}"
         end
 
-        def choices_validation(validations, choices, required)
+        def locate_generics(types)
+          generics = types.select { |type| type.is_a?(TypeGeneric) }.uniq
+          raise "Only know how to deal with 1 generic type, found #{generics}" unless generics.length <= 1
+          generics
+        end
+
+        def choices_validation(validations, choices)
           validations[:inclusion] = {
             in: choices,
             message: "%{value} needs to be #{choices.map { |sym| sym.inspect.to_s }.join(', ')}"
           }
-          # let this take care of validation, no need for type
-          validations[:allow_nil] = true unless required
         end
 
         def validation_type(generics, types)
