@@ -430,18 +430,34 @@ RUBY
             {
               "name" => 'some task',
               'cloudformation' => {
-                'name' => "{{ lookup('file','policy.json') }}",
+                'name' => variable,
               }
             }
           ]
         end
 
-        it do
-          is_expected.to eq <<RUBY
+        context 'normal' do
+          let(:variable) { "{{ lookup('file','policy.json') }}" }
+
+          it do
+            is_expected.to eq <<RUBY
 # @return [String, nil] The username used to authenticate with
 attribute :name
 validates :name, type: String
 RUBY
+          end
+        end
+
+        context 'leading spaces' do
+          let(:variable) { "  {{ lookup('file','policy.json') }}" }
+
+          it do
+            is_expected.to eq <<RUBY
+# @return [String, nil] The username used to authenticate with
+attribute :name
+validates :name, type: String
+RUBY
+          end
         end
       end
 

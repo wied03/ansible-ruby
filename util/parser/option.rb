@@ -144,7 +144,7 @@ module Ansible
           end
 
           def is_variable_expression?(value)
-            value.start_with?('{{')
+            value.lstrip.start_with?('{{')
           end
 
           def handle_fixnum(klass)
