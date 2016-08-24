@@ -49,9 +49,7 @@ module Ansible
               options = self.class.attr_options(key)
               value = hashify value
               generic_type = options[:generic]
-              if generic_type
-                value = convert_generic generic_type, value
-              end
+              value = convert_generic generic_type, value if generic_type
               key = options[:original_name] || key
               [key, value]
             end.compact]

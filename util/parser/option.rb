@@ -108,8 +108,8 @@ module Ansible
           def values_by_key(example)
             example = example['tasks'] if example.is_a?(Hash) && example['tasks']
             first_cut = example.map { |ex| ex.reject { |key, _| key == 'name' } }
-                          .map { |ex| ex.map { |_, value| value } }
-                          .flatten
+                               .map { |ex| ex.map { |_, value| value } }
+                               .flatten
             array_of_hashes = first_cut.map do |value|
               if value.is_a?(String)
                 hash_equal_sign_pairs(value)
@@ -144,11 +144,10 @@ module Ansible
           end
 
           def derive_type(value)
-            value = unquote_string(value) if value.is_a?(String) && !variable_expression?(value)
-            array = flat_array(value) || (value.is_a?(Array) && value)
-            if value.is_a?(String) && flat_hash(value)
+            value = unquote_string(value)
+            if hash?(value)
               Hash
-            elsif array
+            elsif (array = parse_array(value))
               item = array[0]
               value = parse_value_into_num item
               klass = handle_fixnum value.class
@@ -156,6 +155,10 @@ module Ansible
             else
               handle_fixnum value.class
             end
+          end
+
+          def parse_array(value)
+            flat_array(value) || (value.is_a?(Array) && value)
           end
 
           def variable_expression?(value)
@@ -173,8 +176,9 @@ module Ansible
           end
 
           # some sample values are foo='stuff,bar'
-          def unquote_string(string)
-            ((unquoted_match = /'(.*)'/.match(string)) && unquoted_match[1]) || string
+          def unquote_string(value)
+            return value unless value.is_a?(String) && !variable_expression?(value)
+            ((unquoted_match = /'(.*)'/.match(value)) && unquoted_match[1]) || value
           end
 
           def parsed_integer(value)
@@ -189,7 +193,8 @@ module Ansible
             false
           end
 
-          def flat_hash(value)
+          def hash?(value)
+            return false unless value.is_a?(String)
             JSON.parse(value).is_a?(Hash)
           rescue
             # JSON.parse knows
