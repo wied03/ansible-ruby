@@ -22,6 +22,41 @@ describe Ansible::Ruby::Models::Base do
     it { is_expected.to have_attributes foo: 123 }
   end
 
+  context 'generic' do
+    let(:klass) do
+      Class.new(Ansible::Ruby::Models::Base) do
+        attribute :foo
+        validates :foo, type: TypeGeneric.new(Integer)
+      end
+    end
+
+    context 'single value' do
+      context 'on its own' do
+        let(:instance) { klass.new foo: 123 }
+
+        it { is_expected.to be_valid }
+        it { is_expected.to have_hash foo: [123] }
+        it { is_expected.to have_attributes foo: 123 }
+      end
+
+      context 'in array' do
+        let(:instance) { klass.new foo: [123] }
+
+        it { is_expected.to be_valid }
+        it { is_expected.to have_hash foo: [123] }
+        it { is_expected.to have_attributes foo: [123] }
+      end
+    end
+
+    context 'multiple values' do
+      let(:instance) { klass.new foo: [123, 456] }
+
+      it { is_expected.to be_valid }
+      it { is_expected.to have_hash foo: [123, 456] }
+      it { is_expected.to have_attributes foo: [123, 456] }
+    end
+  end
+
   context 'serialize array as flat' do
     let(:klass) do
       Class.new(Ansible::Ruby::Models::Base) do

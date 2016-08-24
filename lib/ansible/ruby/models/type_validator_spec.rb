@@ -56,14 +56,12 @@ describe TypeValidator do
     let(:instance) { klass.new foo: 123, toodles: 40.4 }
 
     it { is_expected.to be_valid }
-    it { is_expected.to have_hash foo: 123, toodles: 40.4 }
   end
 
   context 'nil value' do
     let(:instance) { klass.new foo: nil, toodles: 40.4 }
 
     it { is_expected.to be_valid }
-    it { is_expected.to have_hash foo: nil, toodles: 40.4 }
   end
 
   context 'original name was not attr friendly' do
@@ -85,7 +83,6 @@ describe TypeValidator do
         let(:instance) { klass.new foo: nil, bar: 45.44, toodles: 40.4 }
 
         it { is_expected.to be_valid }
-        it { is_expected.to have_hash foo: nil, bar: 45.44, toodles: 40.4 }
       end
 
       context 'incorrect type' do
@@ -98,7 +95,6 @@ describe TypeValidator do
         let(:instance) { klass.new foo: nil, bar: nil, toodles: 40.4 }
 
         it { is_expected.to be_valid }
-        it { is_expected.to have_hash foo: nil, bar: nil, toodles: 40.4 }
       end
 
       context 'nil not allowed' do
@@ -114,14 +110,12 @@ describe TypeValidator do
         let(:instance) { klass.new foo: nil, bar: [45.44], toodles: 40.4 }
 
         it { is_expected.to be_valid }
-        it { is_expected.to have_hash foo: nil, bar: [45.44], toodles: 40.4 }
       end
 
       context 'empty array' do
         let(:instance) { klass.new foo: nil, bar: [], toodles: 40.4 }
 
         it { is_expected.to be_valid }
-        it { is_expected.to have_hash foo: nil, bar: [], toodles: 40.4 }
       end
 
       context 'incorrect type' do
