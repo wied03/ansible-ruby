@@ -47,16 +47,9 @@ module Ansible
             @set_vars.map do |key|
               value = send key
               options = self.class.attr_options(key)
-              flat_array = options[:flat_array]
-              value = if flat_array
-                        # some ansible options are reflected as CSVs
-                        [*value].join ','
-                      else
-                        hashify value
-                      end
+              value = hashify value
               generic_type = options[:generic]
-              # flat array does not need to be converted, it's already a string at this point
-              if generic_type && !flat_array
+              if generic_type
                 value = convert_generic generic_type, value
               end
               key = options[:original_name] || key

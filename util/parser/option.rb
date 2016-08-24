@@ -26,7 +26,6 @@ module Ansible
                            description: description,
                            required: details[:required],
                            types: types,
-                           flat_array: flat_array(*sample_values),
                            choices: choices
           rescue
             $stderr << "Problem parsing option #{name}!"
