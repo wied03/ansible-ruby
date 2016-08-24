@@ -39,7 +39,7 @@ module Ansible
             # can be both an array and string, could have carriage returns in it
             lines = [*details[:description]]
             lines.map do |line|
-              line.gsub(/\r?\n/, "\\r\\n")
+              line.gsub(/\r?\n/, '\\r\\n')
             end
           end
 
@@ -105,8 +105,8 @@ module Ansible
           def values_by_key(example)
             example = example['tasks'] if example.is_a?(Hash) && example['tasks']
             first_cut = example.map { |ex| ex.reject { |key, _| key == 'name' } }
-                          .map { |ex| ex.map { |_, value| value } }
-                          .flatten
+                               .map { |ex| ex.map { |_, value| value } }
+                               .flatten
             array_of_hashes = first_cut.map do |value|
               if value.is_a?(String)
                 hash_equal_sign_pairs(value)
@@ -114,7 +114,7 @@ module Ansible
                 value
               end
             end.compact
-            array_of_hashes.inject({}) do |result, hash|
+            array_of_hashes.each_with_object({}) do |hash, result|
               hash.each do |key, value|
                 by_key = result[key] ||= []
                 by_key << value
@@ -170,11 +170,15 @@ module Ansible
           end
 
           def parsed_integer(value)
-            Integer(value) rescue false
+            Integer(value)
+          rescue
+            false
           end
 
           def parsed_float(value)
-            value.include?('.') && Float(value) rescue false
+            value.include?('.') && Float(value)
+          rescue
+            false
           end
 
           def flat_array(*values)

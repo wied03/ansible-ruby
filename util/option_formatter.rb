@@ -2,7 +2,7 @@
 module Ansible
   module Ruby
     module OptionFormatter
-      BOOLEAN_OPTIONS = [true, false]
+      BOOLEAN_OPTIONS = [true, false].freeze
 
       class << self
         def format(option_data)
@@ -33,13 +33,13 @@ module Ansible
         end
 
         def symbolize_attribute(name)
-          name.gsub('-', '_').to_sym.inspect
+          name.tr('-', '_').to_sym.inspect
         end
 
         def format_yard_return_types(option_data)
           types = if (choices = option_data.choices)
                     if (BOOLEAN_OPTIONS - choices).empty?
-                      choices = choices - BOOLEAN_OPTIONS
+                      choices -= BOOLEAN_OPTIONS
                       choices << 'Boolean'
                     else
                       choices
@@ -87,7 +87,7 @@ module Ansible
           if (choices = option_data.choices)
             validations[:inclusion] = {
               in: choices,
-              message: "%{value} needs to be #{choices.map { |sym| "#{sym.inspect}" }.join(', ')}"
+              message: "%{value} needs to be #{choices.map { |sym| sym.inspect.to_s }.join(', ')}"
             }
             # let this take care of validation, no need for type
             validations[:allow_nil] = true unless required

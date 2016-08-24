@@ -4,7 +4,7 @@ module Ansible
     module Parser
       module Yaml
         class << self
-          def parse(yaml_string, description, module_name=nil)
+          def parse(yaml_string, description, module_name = nil)
             File.write "debug_#{description}_before.yml", yaml_string if ENV['DEBUG']
             yaml_string = remove_line_continuation yaml_string
             yaml_string = fix_missing_hash_entry(yaml_string, module_name) if module_name

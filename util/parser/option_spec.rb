@@ -9,14 +9,14 @@ describe Ansible::Ruby::Parser::Option do
     # match the expected multiline string stuff
     subject do
       option_data = Ansible::Ruby::Parser::Option.parse(name, details, example)
-      Ansible::Ruby::OptionFormatter.format(option_data).join("\n")+"\n"
+      Ansible::Ruby::OptionFormatter.format(option_data).join("\n") + "\n"
     end
 
     let(:name) { 'login_user' }
     let(:example) do
       [
-        { "postgresql_db" => "name=acme" },
-        { "postgresql_db" => "name=acme encoding='UTF-8' lc_collate='de_DE.UTF-8' lc_ctype='de_DE.UTF-8' template='template0' else=55" }
+        { 'postgresql_db' => 'name=acme' },
+        { 'postgresql_db' => "name=acme encoding='UTF-8' lc_collate='de_DE.UTF-8' lc_ctype='de_DE.UTF-8' template='template0' else=55" }
       ]
     end
 
@@ -420,7 +420,7 @@ RUBY
         let(:example) do
           [
             {
-              "name" => 'some task',
+              'name' => 'some task',
               'cloudformation' => {
                 'name' => 444.44,
                 'something' => 'else'
@@ -444,9 +444,9 @@ RUBY
         let(:example) do
           [
             {
-              "name" => 'some task',
+              'name' => 'some task',
               'cloudformation' => {
-                'name' => variable,
+                'name' => variable
               }
             }
           ]
@@ -483,8 +483,8 @@ RUBY
         let(:example) do
           [
             {
-              "name" => 'some task',
-              'cloudformation' => "stack_name=\"ansible-cloudformation\" state=present region=us-east-1 disable_rollback=true template_url=https://s3.amazonaws.com/my-bucket/cloudformation.template"
+              'name' => 'some task',
+              'cloudformation' => 'stack_name="ansible-cloudformation" state=present region=us-east-1 disable_rollback=true template_url=https://s3.amazonaws.com/my-bucket/cloudformation.template'
             }
           ]
         end
@@ -526,7 +526,7 @@ RUBY
         let(:example) do
           [
             {
-              "name" => 'some task',
+              'name' => 'some task',
               'cloudformation' => {
                 'name' => 444.44,
                 'something' => {
@@ -552,8 +552,8 @@ RUBY
         let(:example) do
           [
             {
-              "name" => 'some task',
-              'cloudformation' => "stack_name=\"ansible-cloudformation\" state=present region=us-east-1 disable_rollback=true template_url=https://s3.amazonaws.com/my-bucket/cloudformation.template",
+              'name' => 'some task',
+              'cloudformation' => 'stack_name="ansible-cloudformation" state=present region=us-east-1 disable_rollback=true template_url=https://s3.amazonaws.com/my-bucket/cloudformation.template',
               'args' => {
                 'something' => {
                   'setting1' => true
@@ -578,14 +578,14 @@ RUBY
         let(:example) do
           [
             {
-              "name" => 'some task',
+              'name' => 'some task',
               'cloudformation' => {
                 'name' => 444.44,
                 'something' => 'else'
               }
             },
             {
-              "name" => 'some task',
+              'name' => 'some task',
               'become' => true,
               'gather_facts' => true,
               'roles' => %w(role1 role2)
@@ -607,7 +607,7 @@ RUBY
 
         let(:example) do
           [
-            { "postgresql_db" => "apt: name=foo=1.00 state=present" }
+            { 'postgresql_db' => 'apt: name=foo=1.00 state=present' }
           ]
         end
 
@@ -637,7 +637,7 @@ RUBY
 
         let(:example) do
           [
-            { "postgresql_db" => "apt: name='12,13' state=present" }
+            { 'postgresql_db' => "apt: name='12,13' state=present" }
           ]
         end
 
@@ -656,12 +656,12 @@ RUBY
         let(:example) do
           [
             {
-              "postgresql_db" => {
+              'postgresql_db' => {
                 'lines' => 'hello'
               }
             },
             {
-              "postgresql_db" => {
+              'postgresql_db' => {
                 'lines' => 456
               }
             }
@@ -684,12 +684,12 @@ RUBY
           let(:example) do
             [
               {
-                "postgresql_db" => {
+                'postgresql_db' => {
                   'lines' => %w(hello there dude)
                 }
               },
               {
-                "postgresql_db" => {
+                'postgresql_db' => {
                   'lines' => %w(hello there again)
                 }
               }
@@ -709,12 +709,12 @@ RUBY
           let(:example) do
             [
               {
-                "postgresql_db" => {
+                'postgresql_db' => {
                   'lines' => %w(hello there dude)
                 }
               },
               {
-                "postgresql_db" => {
+                'postgresql_db' => {
                   'lines' => 'howdy'
                 }
               }
@@ -734,12 +734,12 @@ RUBY
           let(:example) do
             [
               {
-                "postgresql_db" => {
+                'postgresql_db' => {
                   'lines' => 'howdy'
                 }
               },
               {
-                "postgresql_db" => {
+                'postgresql_db' => {
                   'lines' => %w(hello there dude)
                 }
               }
@@ -761,7 +761,7 @@ RUBY
         let(:example) do
           [
             {
-              "postgresql_db" => nil,
+              'postgresql_db' => nil,
               'lines' => [
                 'result[0].sys_ver_str == 7.2(0)D1(1)',
                 'foo'

@@ -29,9 +29,9 @@ YAML
 
       it do
         is_expected.to eq [
-                            { 'postgresql_db' => 'name=acme' },
-                            { 'postgresql_db' => "name=acme encoding='UTF-8' lc_collate='de_DE.UTF-8' lc_ctype='de_DE.UTF-8' template='template0'" },
-                          ]
+          { 'postgresql_db' => 'name=acme' },
+          { 'postgresql_db' => "name=acme encoding='UTF-8' lc_collate='de_DE.UTF-8' lc_ctype='de_DE.UTF-8' template='template0'" }
+        ]
       end
     end
 
@@ -50,13 +50,13 @@ YAML
 
         it do
           is_expected.to eq [
-                              {
-                                'postgresql_db' => {
-                                  'aws_access_key' => 'xxxxxxxxxxxxxxxxxxxxxxx'
-                                },
-                                'register' => 'instance'
-                              }
-                            ]
+            {
+              'postgresql_db' => {
+                'aws_access_key' => 'xxxxxxxxxxxxxxxxxxxxxxx'
+              },
+              'register' => 'instance'
+            }
+          ]
         end
       end
 
@@ -78,10 +78,10 @@ YAML
 
         it do
           is_expected.to eq [
-                              { 'svc' => 'name=dnscache state=stopped' },
-                              { 'svc' => 'name=dnscache state=killed' },
-                              { 'svc' => 'name=dnscache state=restarted' }
-                            ]
+            { 'svc' => 'name=dnscache state=stopped' },
+            { 'svc' => 'name=dnscache state=killed' },
+            { 'svc' => 'name=dnscache state=restarted' }
+          ]
         end
       end
     end
@@ -99,9 +99,9 @@ YAML
 
       it do
         is_expected.to eq [
-                            { 'svc' => 'name=dnscache state=started' },
-                            { 'svc' => 'name=dnscache state=stopped' }
-                          ]
+          { 'svc' => 'name=dnscache state=started' },
+          { 'svc' => 'name=dnscache state=stopped' }
+        ]
       end
     end
 
@@ -117,13 +117,11 @@ YAML
       end
 
       it do
-        is_expected.to eq({
-                            'module' => 'datadog_monitor',
-                            'description' => [
-                              "Manages monitors within Datadog"
-                            ],
-                            'version_added' => '2.0'
-                          })
+        is_expected.to eq('module' => 'datadog_monitor',
+                          'description' => [
+                            'Manages monitors within Datadog'
+                          ],
+                          'version_added' => '2.0')
       end
     end
 

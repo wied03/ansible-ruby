@@ -6,7 +6,7 @@ require_relative './parser/option_data'
 describe Ansible::Ruby::OptionFormatter do
   describe '::format' do
     subject do
-      Ansible::Ruby::OptionFormatter.format(option_data).join("\n")+"\n"
+      Ansible::Ruby::OptionFormatter.format(option_data).join("\n") + "\n"
     end
 
     context 'non symbol friendly attribute' do

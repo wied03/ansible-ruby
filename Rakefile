@@ -21,7 +21,7 @@ desc 'Runs Reek stuff'
 Reek::Rake::Task.new do |task|
   # rake task overrides all config.reek exclusions, which is annoying and it won't let us set a FileList directly
   files = FileList['**/*.rb']
-            .exclude('vendor/**/*') # Travis stuff
+          .exclude('vendor/**/*') # Travis stuff
   task.instance_variable_set :@source_files, files
 end
 
@@ -74,7 +74,7 @@ def get_yaml(file)
 end
 
 desc 'Update/generate Ruby modules from Ansible modules'
-task :update_modules => :python_dependencies do
+task update_modules: :python_dependencies do
   ansible_dir = `python util/get_ansible.py`.strip
   modules_dir = Pathname.new(File.join(ansible_dir, 'modules'))
   files = if ENV['FILE']
