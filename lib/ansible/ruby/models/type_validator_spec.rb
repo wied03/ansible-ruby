@@ -1,5 +1,6 @@
 # See LICENSE.txt for license
 require 'spec_helper'
+require 'ansible/ruby/models/base'
 
 describe TypeValidator do
   before { stub_const 'Ansible::Ruby::TypeValTestModel', klass }
@@ -123,6 +124,31 @@ describe TypeValidator do
 
         it { is_expected.to_not be_valid }
       end
+    end
+  end
+
+  context 'custom message' do
+    let(:klass) do
+      Class.new(Ansible::Ruby::Models::Base) do
+        attribute :foo
+        validates :foo, type: {
+          type: String,
+          message: 'stuff (%{value}), %{value} is expected to be a String but was a %{type}'
+        }
+      end
+    end
+
+    context 'invalid' do
+      let(:instance) { klass.new foo: 123 }
+
+      it { is_expected.to_not be_valid }
+      it { is_expected.to have_errors foo: 'stuff (123), 123 is expected to be a String but was a Fixnum' }
+    end
+
+    context 'valid' do
+      let(:instance) { klass.new foo: 'abc' }
+
+      it { is_expected.to be_valid }
     end
   end
 end

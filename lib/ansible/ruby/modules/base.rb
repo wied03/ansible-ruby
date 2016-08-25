@@ -6,7 +6,7 @@ module Ansible
       class Base < Models::Base
         def to_h
           {
-            self.class.name.split('::').last.downcase.to_sym => super
+            self.class.name.demodulize.underscore.to_sym => super
           }
         end
       end

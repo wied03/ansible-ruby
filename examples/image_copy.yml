@@ -3,6 +3,13 @@
 - hosts: localhost
   name: image copy
   tasks:
+  - name: say hello
+    command: ls howdy
+    args:
+      chdir: "/tmp"
+    register: result_1
+    changed_when: "'howdy' in result_1.stdout"
+    failed_when: 'false'
   - name: image copy
     ec2_ami_copy:
       source_region: us-east-1

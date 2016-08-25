@@ -4,17 +4,31 @@ class TypeValidator < ActiveModel::EachValidator
   def validate_each(record, attribute, value)
     # Don't worry about this case, different validator
     return if value.is_a? NilClass
-    expected_type = options[:with]
-    record_errors = record.errors[attribute]
+    failed = perform_validation(attribute, value)
+    return unless failed
+    failed = custom_error(value) if options[:message]
+    record.errors[attribute] << failed
+  end
+
+  private
+
+  def expected_type
+    options[:type] || options[:with]
+  end
+
+  def perform_validation(attribute, value)
     case expected_type
     when TypeGeneric, MultipleTypes
-      unless expected_type.valid? value
-        record_errors << expected_type.error(attribute, value)
-      end
+      expected_type.error(attribute, value) unless expected_type.valid? value
     else
       unless value.is_a?(expected_type)
-        record_errors << "Attribute #{attribute} expected to be a #{expected_type} but was a #{value.class}"
+        "Attribute #{attribute} expected to be a #{expected_type} but was a #{value.class}"
       end
     end
+  end
+
+  def custom_error(value)
+    options[:message].gsub('%{value}', value.to_s)
+                     .gsub('%{type}', value.class.name)
   end
 end

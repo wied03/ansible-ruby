@@ -1,0 +1,7 @@
+---
+# This is a generated YAML file by ansible-ruby, DO NOT EDIT
+- hosts: localhost
+  name: command fun
+  roles:
+  - dummy
+  connection: local

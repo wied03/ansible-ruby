@@ -1,7 +1,7 @@
 require 'ansible/ruby/rake/task'
 
 task :clean do
-  rm_rf FileList['*.yml']
+  rm_rf FileList['**/*/*.yml']
 end
 
 desc 'named ansible task'
@@ -11,4 +11,8 @@ end
 
 Ansible::Ruby::Rake::Task.new :ami do |task|
   task.playbooks = 'image_copy.rb'
+end
+
+Ansible::Ruby::Rake::Task.new :command do |task|
+  task.playbooks = 'command.rb'
 end

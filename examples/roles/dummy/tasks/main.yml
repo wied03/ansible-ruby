@@ -1,0 +1,8 @@
+---
+# This is a generated YAML file by ansible-ruby, DO NOT EDIT
+- name: say hello
+  command: ls howdy
+  args:
+    chdir: "/tmp"
+  register: result_1
+  changed_when: "'howdy' in result_1.stdout"
