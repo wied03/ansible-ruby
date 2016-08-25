@@ -152,8 +152,6 @@ OUTPUT
     end
 
     context 'clean' do
-      let(:unrelated_file) { 'something.yml' }
-
       def execute_task
         FileUtils.touch unrelated_file
         super
@@ -161,6 +159,7 @@ OUTPUT
       end
 
       after do
+        puts 'cleaning test file'
         FileUtils.rm_rf unrelated_file
       end
 
@@ -170,9 +169,24 @@ OUTPUT
         end
       end
 
-      it { is_expected.to execute_command 'ansible-playbook playbook1_test.yml' }
-      it { is_expected.to_not have_yaml yaml_file }
-      it { is_expected.to have_yaml unrelated_file }
+      context 'no roles' do
+        let(:unrelated_file) { 'something.yml' }
+
+        it { is_expected.to execute_command 'ansible-playbook playbook1_test.yml' }
+        it { is_expected.to_not have_yaml yaml_file }
+        it { is_expected.to have_yaml unrelated_file }
+      end
+
+      context 'roles' do
+        let(:unrelated_file) { 'roles/role1/tasks/keep_this.yml' }
+        let(:rake_dir) { 'spec/rake/nested_tasks' }
+        let(:task_yml) { 'roles/role1/tasks/task1_test.yml' }
+
+        it { is_expected.to execute_command 'ansible-playbook playbook1_test.yml' }
+        it { is_expected.to_not have_yaml yaml_file }
+        it { is_expected.to_not have_yaml 'playbook1_test.yml' }
+        it { is_expected.to have_yaml unrelated_file }
+      end
     end
   end
 end
