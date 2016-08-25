@@ -4,7 +4,7 @@
 [![Quality](http://img.shields.io/codeclimate/github/wied03/ansible-ruby.svg?style=flat-square)](https://codeclimate.com/github/wied03/ansible-ruby)
 [![Version](http://img.shields.io/gem/v/ansible-ruby.svg?style=flat-square)](https://rubygems.org/gems/ansible-ruby)
 
-Attempts to create a Ruby DSL on top of Ansible's YML files
+Attempts to create a Ruby DSL on top of Ansible's YML files. Currently this is against Ansible 2.1.1.0.
 
 ## What does it do?
 * Creates a Ruby DSL that compiles .rb files to YML on a file by file basis
