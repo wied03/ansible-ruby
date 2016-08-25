@@ -4,57 +4,38 @@ require 'ansible/ruby/rake/task'
 Ansible::Ruby::Modules.autoload :Copy, 'rake/copy'
 
 describe Ansible::Ruby::Rake::Task do
-  let(:rake_dir) { 'spec/rake/no_nested_tasks' }
+  include_context :rake_testing
 
-  around do |example|
-    Dir.chdir rake_dir do
-      FileUtils.rm_rf Dir.glob('**/*/*.yml')
-      example.run
-    end
-  end
+  context 'real Rake run' do
+    describe 'description' do
+      # :reek:ControlParameter - just a test
+      # :reek:BooleanParameter - just a test
+      def rake(task, expect_success = true)
+        @output = `rake -f Rakefile_test.rb #{task} 2>&1`
+        puts @output
+        expect($?.success?).to be_truthy if expect_success
+        @output
+      end
 
-  before do
-    Rake::Task.clear
-    task = Ansible::Ruby::Rake::Compile
-    instance_var = :'@rule_done'
-    task.remove_instance_variable(instance_var) if task.instance_variable_defined? instance_var
-  end
+      subject { rake '-T' }
 
-  describe 'real description' do
-    # :reek:ControlParameter - just a test
-    # :reek:BooleanParameter - just a test
-    def rake(task, expect_success = true)
-      @output = `rake -f Rakefile_test.rb #{task} 2>&1`
-      puts @output
-      expect($?.success?).to be_truthy if expect_success
-      @output
-    end
-
-    subject { rake '-T' }
-
-    it do
-      is_expected.to eq <<OUTPUT
+      it do
+        is_expected.to eq <<OUTPUT
+rake compile          # explicit compile task
 rake default          # the ansible task default
 rake default_compile  # Compiles YAML files for :default task
 rake stuff            # named ansible task
 rake stuff_compile    # Compiles YAML files for :stuff task
 OUTPUT
+      end
     end
   end
 
-  context 'programmatic' do
+  context 'programmatic Rake run' do
+    include_context :rake_invoke
+
     let(:yaml_file) { 'playbook1_test.yml' }
     let(:ruby_file) { 'playbook1_test.rb' }
-
-    before { execute_task }
-
-    def execute_task
-      @commands = []
-      expect(task).to receive(:sh) do |command, _|
-        @commands << command
-      end
-      Rake::Task[:default].invoke
-    end
 
     context 'default' do
       let(:task) do
@@ -63,14 +44,8 @@ OUTPUT
         end
       end
 
-      it 'executed the command' do
-        expect(@commands).to include 'ansible-playbook playbook1_test.yml'
-      end
-
-      it 'generates the YAML' do
-        expect(File.exist?(yaml_file)).to be_truthy
-        expect(File.read(yaml_file)).to include 'host1:host2'
-      end
+      it { is_expected.to execute_command 'ansible-playbook playbook1_test.yml' }
+      it { is_expected.to generate_yaml yaml_file, that: include('host1:host2') }
     end
 
     context 'multiple playbook files' do
@@ -80,16 +55,9 @@ OUTPUT
         end
       end
 
-      it 'executed the command' do
-        expect(@commands).to include 'ansible-playbook playbook1_test.yml playbook2_test.yml'
-      end
-
-      it 'generates the YAML' do
-        expect(File.exist?('playbook1_test.yml')).to be_truthy
-        expect(File.read('playbook1_test.yml')).to include 'host1:host2'
-        expect(File.exist?('playbook2_test.yml')).to be_truthy
-        expect(File.read('playbook2_test.yml')).to include 'something else'
-      end
+      it { is_expected.to execute_command 'ansible-playbook playbook1_test.yml playbook2_test.yml' }
+      it { is_expected.to generate_yaml 'playbook1_test.yml', that: include('host1:host2') }
+      it { is_expected.to generate_yaml 'playbook2_test.yml', that: include('something else') }
     end
 
     context 'options' do
@@ -102,9 +70,7 @@ OUTPUT
             end
           end
 
-          it 'executed the command' do
-            expect(@commands).to include 'ansible-playbook --ansible-option playbook1_test.yml'
-          end
+          it { is_expected.to execute_command 'ansible-playbook --ansible-option playbook1_test.yml' }
         end
       end
 
@@ -123,9 +89,7 @@ OUTPUT
             end
           end
 
-          it 'executed the command' do
-            expect(@commands).to include 'ansible-playbook -v --check playbook1_test.yml'
-          end
+          it { is_expected.to execute_command 'ansible-playbook -v --check playbook1_test.yml' }
         end
 
         context 'only env' do
@@ -135,9 +99,7 @@ OUTPUT
             end
           end
 
-          it 'executed the command' do
-            expect(@commands).to include 'ansible-playbook --check playbook1_test.yml'
-          end
+          it { is_expected.to execute_command 'ansible-playbook --check playbook1_test.yml' }
         end
       end
     end
@@ -154,14 +116,8 @@ OUTPUT
         end
       end
 
-      it 'executed the command' do
-        expect(@commands).to include 'ansible-playbook playbook1_test.yml'
-      end
-
-      it 'generates the YAML' do
-        expect(File.exist?(yaml_file)).to be_truthy
-        expect(File.read(yaml_file)).to include 'host1:host2'
-      end
+      it { is_expected.to execute_command 'ansible-playbook playbook1_test.yml' }
+      it { is_expected.to generate_yaml yaml_file, that: include('host1:host2') }
 
       it 'executes the dependency' do
         expect(File.exist?(test_file)).to be_truthy
@@ -178,17 +134,9 @@ OUTPUT
         end
       end
 
-      it 'generates playbook YAML' do
-        expect(File.exist?(yaml_file)).to be_truthy
-        expect(File.read(yaml_file)).to include 'host1:host2'
-        expect(File.read(yaml_file)).to include 'roles'
-      end
-
-      it 'generates task YAML' do
-        expect(File.exist?(task_yml)).to be_truthy
-        expect(File.read(task_yml)).to include '- name: Copy something over'
-        expect(File.read(task_yml)).to include '- name: Copy something else over'
-      end
+      it { is_expected.to generate_yaml yaml_file, that: include('host1:host2', 'roles') }
+      it { is_expected.to generate_yaml task_yml, that: include('- name: Copy something over') }
+      it { is_expected.to generate_yaml task_yml, that: include('- name: Copy something else over') }
     end
 
     context 'YML and Ruby playbook' do
@@ -203,16 +151,9 @@ OUTPUT
         end
       end
 
-      it 'executed the command' do
-        expect(@commands).to include 'ansible-playbook playbook1_test.yml sample3_test.yml'
-      end
-
-      it 'generates the YAML' do
-        expect(File.exist?('playbook1_test.yml')).to be_truthy
-        expect(File.read('playbook1_test.yml')).to include 'host1:host2'
-        expect(File.exist?('sample3_test.yml')).to be_truthy
-        expect(File.read('sample3_test.yml')).to include 'original YML file'
-      end
+      it { is_expected.to execute_command 'ansible-playbook playbook1_test.yml sample3_test.yml' }
+      it { is_expected.to generate_yaml 'playbook1_test.yml', that: include('host1:host2') }
+      it { is_expected.to generate_yaml 'sample3_test.yml', that: include('original YML file') }
     end
 
     context 'no playbook' do

@@ -11,3 +11,8 @@ Ansible::Ruby::Rake::Task.new :stuff do |task|
   task.playbooks = 'lib/ansible/ruby/rake/sample_test.rb'
 end
 # rubocop: enable Style/FileName
+
+desc 'explicit compile task'
+Ansible::Ruby::Rake::Compile.new :compile do |task|
+  task.files = 'foobar'
+end
