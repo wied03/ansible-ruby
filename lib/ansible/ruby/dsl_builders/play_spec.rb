@@ -4,11 +4,11 @@ require 'ansible-ruby'
 describe Ansible::Ruby::DslBuilders::Play do
   let(:builder) { Ansible::Ruby::DslBuilders::Play.new 'another play' }
 
-  def evaluate
-    builder.evaluate ruby
+  def _evaluate
+    builder._evaluate ruby
   end
 
-  subject(:playbook) { evaluate }
+  subject(:playbook) { _evaluate }
 
   before do
     klass = Class.new(Ansible::Ruby::Modules::Base) do

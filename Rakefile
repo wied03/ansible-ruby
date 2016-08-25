@@ -11,7 +11,7 @@ task default: [:clean, :spec, :update_modules, :rubocop, :reek, :ansible_lint]
 
 desc 'Run specs'
 RSpec::Core::RakeTask.new :spec do |task|
-  task.pattern = 'lib/**/*_spec.rb'
+  task.pattern = '*/**/*_spec.rb'
 end
 
 desc 'Runs Rubocop'

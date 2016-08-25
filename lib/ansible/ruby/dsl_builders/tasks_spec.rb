@@ -5,11 +5,11 @@ require 'ansible-ruby'
 describe Ansible::Ruby::DslBuilders::Tasks do
   let(:builder) { Ansible::Ruby::DslBuilders::Tasks.new }
 
-  def evaluate
-    builder.evaluate ruby
+  def _evaluate
+    builder._evaluate ruby
   end
 
-  subject(:tasks) { evaluate }
+  subject(:tasks) { _evaluate }
 
   before do
     klass = Class.new(Ansible::Ruby::Modules::Base) do

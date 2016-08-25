@@ -4,11 +4,11 @@ require 'ansible-ruby'
 describe Ansible::Ruby::DslBuilders::ModuleCall do
   let(:builder) { Ansible::Ruby::DslBuilders::ModuleCall.new }
 
-  def evaluate
-    builder.evaluate ruby
+  def _evaluate
+    builder._evaluate ruby
   end
 
-  subject { evaluate }
+  subject { _evaluate }
 
   before do
     klass = Class.new(Ansible::Ruby::Models::Base) do
@@ -44,9 +44,21 @@ describe Ansible::Ruby::DslBuilders::ModuleCall do
       RUBY
     end
 
-    subject { -> { evaluate } }
+    subject { -> { _evaluate } }
 
     it { is_expected.to raise_error "Can't use arguments [\"howdy\"] on this type of module at line 1!" }
+  end
+
+  context 'no block' do
+    let(:ruby) do
+      <<-RUBY
+      copy()
+      RUBY
+    end
+
+    subject { -> { _evaluate } }
+
+    it { is_expected.to raise_error 'You must supply a block when using this type of module at line 1!' }
   end
 
   context 'free form module' do
@@ -77,6 +89,17 @@ describe Ansible::Ruby::DslBuilders::ModuleCall do
       it { is_expected.to have_attributes free_form: 'ls /stuff', foo: '/file1.conf' }
     end
 
+    context 'no block' do
+      let(:ruby) do
+        <<-RUBY
+command 'ls /stuff'
+        RUBY
+      end
+
+      it { is_expected.to be_a Ansible::Ruby::Modules::Command }
+      it { is_expected.to have_attributes free_form: 'ls /stuff' }
+    end
+
     context 'too many args' do
       let(:ruby) do
         <<-RUBY
@@ -86,7 +109,7 @@ describe Ansible::Ruby::DslBuilders::ModuleCall do
         RUBY
       end
 
-      subject { -> { evaluate } }
+      subject { -> { _evaluate } }
 
       it { is_expected.to raise_error 'Expected only 1 argument for this type of module at line 1!' }
     end
@@ -100,7 +123,7 @@ describe Ansible::Ruby::DslBuilders::ModuleCall do
         RUBY
       end
 
-      subject { -> { evaluate } }
+      subject { -> { _evaluate } }
 
       it { is_expected.to raise_error 'Expected 1 argument for this type of module at line 1!' }
     end
@@ -120,7 +143,7 @@ describe Ansible::Ruby::DslBuilders::ModuleCall do
       RUBY
     end
 
-    subject { -> { evaluate } }
+    subject { -> { _evaluate } }
 
     it { is_expected.to raise_error "Validation failed: Dest can't be blank at line 6!" }
   end
@@ -136,7 +159,7 @@ describe Ansible::Ruby::DslBuilders::ModuleCall do
       RUBY
     end
 
-    subject { -> { evaluate } }
+    subject { -> { _evaluate } }
 
     it { is_expected.to raise_error 'Unknown module foo_copy at line 2!' }
   end

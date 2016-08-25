@@ -11,15 +11,15 @@ module Ansible
 
         def task(name, &block)
           task_builder = Task.new name
-          @tasks << task_builder.evaluate(&block)
+          @tasks << task_builder._evaluate(&block)
         end
 
-        def evaluate(*)
+        def _evaluate(*)
           super
           Models::Tasks.new tasks: @tasks
         end
 
-        def process_method(id, *)
+        def _process_method(id, *)
           raise "undefined local variable or method `#{id}'"
         end
       end

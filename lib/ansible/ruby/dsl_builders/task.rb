@@ -15,7 +15,7 @@ module Ansible
           @task_args = {}
         end
 
-        def evaluate(*)
+        def _evaluate(*)
           super
           args = {
             module: @module,
@@ -27,7 +27,7 @@ module Ansible
         end
 
         def become(*args)
-          value = implicit_bool args
+          value = _implicit_bool args
           @task_args[:become] = value
         end
 
@@ -64,7 +64,7 @@ module Ansible
         end
 
         def ignore_errors(*args)
-          value = implicit_bool args
+          value = _implicit_bool args
           @task_args[:ignore_errors] = value
         end
 
@@ -74,7 +74,7 @@ module Ansible
 
         private
 
-        def process_method(id, *args, &block)
+        def _process_method(id, *args, &block)
           # only 1 module, so don't try and do this again
           raise "undefined local variable or method `#{id}'" if @module
           module_call_builder = ModuleCall.new
