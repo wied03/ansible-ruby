@@ -8,6 +8,7 @@ Attempts to create a Ruby DSL on top of Ansible's YML files
 
 ## What does it do?
 * Creates a Ruby DSL that compiles .rb files to YML on a file by file basis
+* Type validation
 * Assists with basic syntax regarding `register`
 * Offers a Rake task to assist in easily generating YML files from dependent Ruby files
 
@@ -17,8 +18,23 @@ YAML is OK but can suffer from the same problems that exist with any markup lang
 ## How does this relate to Python and modules?
 Python is widely installed (probably moreso than Ruby :()) on machines to be managed. We recognize Ansible's choice here. This tool does not try and change how Ansible modules work. It only tries to avoid editing lots of YML directly.
 
-## Example
-Here is a single play:
+## Usage
+
+Install Ruby+Bundler (this was tested with Ruby 2.2.5), then add `ansible-ruby` to your Gemfile:
+
+```ruby
+gem 'ansible-ruby'
+```
+
+## File Structure
+
+Nothing changes here. Lay out playbooks/etc. like you would normally. There are 2 places right now where you can use ansible-ruby files.
+
+1. Playbooks
+2. Tasks within roles
+
+## Examples
+Here is a playbook with a single play:
 ```ruby
 play 'the play name' do
   hosts %w(host1 host2)
@@ -57,7 +73,11 @@ This will translate to:
   user: centos
 ```
 
-You can invoke all of this via a Rake task. The Rake task will look for any .rb files under roles/role_name/tasks/*.rb and transform those as well:
+Note this is using a tiny bit of Ruby AST-ish syntax with the result variables to make working them more friendly. There is more work to do on this [see issue](https://github.com/wied03/ansible-ruby/issues/5).
+
+## Invoke/Rake
+
+You can invoke all of this via a Rake task. The Rake task will, by convention, look for any .rb files under roles/role_name/tasks/*.rb and transform those as well:
 
 ```ruby
 desc 'named ansible task'
@@ -65,6 +85,17 @@ Ansible::Ruby::Rake::Task.new :stuff do |task|
   task.playbooks = 'lib/ansible/ruby/rake/sample_test.rb'
 end
 ```
+
+## Module Support
+
+Ruby code within this project parses the YAML documentation in Ansible's modules and creates model classes in Ruby to assist with validation. All of them are there but some of them might need some work.
+
+## Limitations
+
+* Handlers/blocks not supported yet - [see issue](https://github.com/wied03/ansible-ruby/issues/15)
+* Error messages could use improvement - [see issue](https://github.com/wied03/ansible-ruby/issues/7)
+* Inclusion isn't yet supported by the DSL
+* Result variable DSL is fairly limited, all it does right now is make sure you use the right variable name (see issues for improvements) 
 
 ## License
 Copyright (c) 2016, BSW Technology Consulting LLC
