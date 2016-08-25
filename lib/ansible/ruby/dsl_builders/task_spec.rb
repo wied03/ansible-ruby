@@ -42,6 +42,23 @@ describe Ansible::Ruby::DslBuilders::Task do
     end
   end
 
+  context 'jinja' do
+    let(:ruby) do
+      <<-RUBY
+      copy do
+        src '/file1.conf'
+        dest '/file2.conf'
+      end
+      with_dict jinja('servers')
+      RUBY
+    end
+
+    it do
+      is_expected.to have_attributes name: 'Copy something',
+                                     with_dict: '{{ servers }}'
+    end
+  end
+
   context 'other attributes' do
     let(:ruby) do
       <<-RUBY
@@ -66,6 +83,7 @@ describe Ansible::Ruby::DslBuilders::Task do
                                      become_user: 'root',
                                      async: 0,
                                      poll: 50,
+                                     with_dict: '{{ servers }}',
                                      ignore_errors: true,
                                      notify: 'handler1',
                                      module: be_a(Ansible::Ruby::Modules::Copy)

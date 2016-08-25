@@ -22,6 +22,10 @@ module Ansible
           super
         end
 
+        def jinja(text)
+          "{{ #{text} }}"
+        end
+
         def method_missing(id, *args, &block)
           result = begin
             _process_method id, *args, &block

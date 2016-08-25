@@ -34,6 +34,20 @@ describe Ansible::Ruby::DslBuilders::ModuleCall do
     it { is_expected.to have_attributes src: '/file1.conf', dest: '/file2.conf' }
   end
 
+  context 'jinja variable' do
+    let(:ruby) do
+      <<-RUBY
+      copy do
+        src jinja('a_file')
+        dest '/file2.conf'
+      end
+      RUBY
+    end
+
+    it { is_expected.to be_a Ansible::Ruby::Modules::Copy }
+    it { is_expected.to have_attributes src: '{{ a_file }}', dest: '/file2.conf' }
+  end
+
   context 'using free form name on non free-form module' do
     let(:ruby) do
       <<-RUBY

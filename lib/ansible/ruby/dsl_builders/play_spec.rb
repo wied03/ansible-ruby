@@ -135,4 +135,22 @@ describe Ansible::Ruby::DslBuilders::Play do
                                      hosts: 'host1'
     end
   end
+
+  context 'jinja' do
+    let(:ruby) do
+      <<-RUBY
+      hosts 'host1'
+roles %w(role1 role2)
+      user jinja('centos')
+      RUBY
+    end
+
+    it { is_expected.to be_a Ansible::Ruby::Models::Play }
+    it do
+      is_expected.to have_attributes roles: %w(role1 role2),
+                                     user: '{{ centos }}',
+                                     name: 'another play',
+                                     hosts: 'host1'
+    end
+  end
 end

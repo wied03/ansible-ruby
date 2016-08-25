@@ -1,5 +1,5 @@
 task 'say hello' do
-  result = command 'ls howdy' do
+  result = command jinja('a_command | default("ls howdy")') do
     chdir '/tmp'
   end
 

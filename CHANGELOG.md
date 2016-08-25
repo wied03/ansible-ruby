@@ -1,5 +1,5 @@
 ## Under development
-* TBD
+* Add jinja variable helper
 
 # 1.0.2 - 25 August 2016
 * Allow free form tasks to be supplied without a block
