@@ -1,6 +1,10 @@
 language: ruby
 sudo: false
 
+branches:
+  except:
+  - /^features.*$/
+
 cache:
   bundler: true
   directories:
