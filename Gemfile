@@ -6,4 +6,3 @@ gem 'rspec'
 gem 'rake'
 gem 'rubocop', require: false
 gem 'reek', '~> 4.3.0'
-gem 'activemodel', '~> 5.0'
