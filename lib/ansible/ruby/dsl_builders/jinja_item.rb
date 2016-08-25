@@ -7,7 +7,11 @@ module Ansible
     module DslBuilders
       module JinjaItem
         def jinja_item
-          JinjaItemNode.new lambda { |mode| @jinja_item_mode = mode }
+          block = lambda do |mode|
+            # Don't want to override any dict dependency
+            @jinja_item_mode = mode unless @jinja_item_mode == :dict
+          end
+          JinjaItemNode.new block
         end
       end
     end

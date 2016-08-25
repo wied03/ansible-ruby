@@ -105,6 +105,28 @@ describe Ansible::Ruby::DslBuilders::ModuleCall do
       end
     end
 
+    context 'dict usage first' do
+      let(:ruby) do
+        <<-RUBY
+        copy do
+          src [jinja_item.key, jinja_item]
+          dest '/file2.conf'
+        end
+        RUBY
+      end
+
+      it { is_expected.to be_a Ansible::Ruby::Modules::Copy }
+
+      it do
+        is_expected.to have_attributes src: ['{{ item.key }}', '{{ item }}'],
+                                       dest: '/file2.conf'
+      end
+
+      it 'does shows jinja item usage' do
+        expect(evaluated_builder._jinja_item_mode).to eq :dict
+      end
+    end
+
     context 'hash' do
       pending 'write this'
     end
