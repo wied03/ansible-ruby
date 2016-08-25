@@ -75,11 +75,15 @@ This will translate to:
 
 Note this is using a tiny bit of Ruby AST-ish syntax with the result variables to make working them more friendly. There is more work to do on this [see issue](https://github.com/wied03/ansible-ruby/issues/5).
 
+You can see more examples in the examples/ directory in the repository.
+
 ## Invoke/Rake
 
 You can invoke all of this via a Rake task. The Rake task will, by convention, look for any .rb files under roles/role_name/tasks/*.rb and transform those as well:
 
 ```ruby
+require 'ansible/ruby/rake/task'
+
 desc 'named ansible task'
 Ansible::Ruby::Rake::Task.new :stuff do |task|
   task.playbooks = 'lib/ansible/ruby/rake/sample_test.rb'
