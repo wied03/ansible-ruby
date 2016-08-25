@@ -19,7 +19,7 @@ module Ansible
         attribute :when
         validates :when, type: String
         attribute :with_dict
-        validates :with_dict, type: String
+        validates :with_dict, type: MultipleTypes.new(String, Hash)
         attribute :with_items
         validates :with_items, type: MultipleTypes.new(String, Array)
         attribute :notify
