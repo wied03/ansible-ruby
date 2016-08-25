@@ -15,7 +15,7 @@ describe Ansible::Ruby::Rake::Task do
 
   before do
     Rake::Task.clear
-    task = Ansible::Ruby::Rake::Task
+    task = Ansible::Ruby::Rake::Compile
     instance_var = :'@rule_done'
     task.remove_instance_variable(instance_var) if task.instance_variable_defined? instance_var
   end
@@ -34,8 +34,10 @@ describe Ansible::Ruby::Rake::Task do
 
     it do
       is_expected.to eq <<OUTPUT
-rake default  # the ansible task default
-rake stuff    # named ansible task
+rake default          # the ansible task default
+rake default_compile  # Compiles YAML files for :default task
+rake stuff            # named ansible task
+rake stuff_compile    # Compiles YAML files for :stuff task
 OUTPUT
     end
   end
