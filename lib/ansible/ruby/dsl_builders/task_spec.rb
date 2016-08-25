@@ -144,10 +144,10 @@ describe Ansible::Ruby::DslBuilders::Task do
   context 'dictionary' do
     let(:ruby) do
       <<-RUBY
-      with_dict(jinja('servers')) do |item|
+      with_dict(jinja('servers')) do |key, value|
         copy do
-          src item
-          dest '/file2.conf'
+          src value.toodles
+          dest key
         end
       end
       RUBY
@@ -156,7 +156,8 @@ describe Ansible::Ruby::DslBuilders::Task do
     it do
       is_expected.to have_attributes name: 'Copy something',
                                      with_dict: '{{ servers }}',
-                                     module: (have_attributes(src: '{{ item }}'))
+                                     module: (have_attributes(src: '{{ item.value.toodles }}',
+                                                              dest: '{{ item.key }}'))
     end
   end
 

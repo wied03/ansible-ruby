@@ -15,9 +15,9 @@ task 'and goodbye' do
     }
   }
 
-  with_dict(stuff) do |item|
+  with_dict(stuff) do |key, value|
     # will run ls cmd1 123
-    command "ls #{item.key} #{item.value.foobar}" do
+    command "ls #{key} #{value.foobar}" do
       chdir '/tmp'
     end
   end

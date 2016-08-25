@@ -49,12 +49,15 @@ module Ansible
 
         def with_dict(clause)
           @task_args[:with_dict] = clause
-          yield _jinja_item if block_given?
+          return unless block_given?
+          hash_key = JinjaItemNode.new('item.key')
+          hash_value = JinjaItemNode.new('item.value')
+          yield [hash_key, hash_value]
         end
 
         def with_items(clause)
           @task_args[:with_items] = clause
-          yield _jinja_item if block_given?
+          yield JinjaItemNode.new if block_given?
         end
 
         def async(value)
@@ -79,10 +82,6 @@ module Ansible
         end
 
         private
-
-        def _jinja_item
-          JinjaItemNode.new
-        end
 
         def _process_method(id, *args, &block)
           # only 1 module, so don't try and do this again
