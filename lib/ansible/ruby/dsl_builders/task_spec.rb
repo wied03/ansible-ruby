@@ -4,11 +4,11 @@ require 'ansible-ruby'
 describe Ansible::Ruby::DslBuilders::Task do
   let(:builder) { Ansible::Ruby::DslBuilders::Task.new 'Copy something' }
 
-  def evaluate
-    builder.evaluate ruby
+  def _evaluate
+    builder._evaluate ruby
   end
 
-  subject(:task) { evaluate }
+  subject(:task) { _evaluate }
 
   before do
     klass = Class.new(Ansible::Ruby::Modules::Base) do
@@ -79,7 +79,7 @@ describe Ansible::Ruby::DslBuilders::Task do
       RUBY
     end
 
-    subject { -> { evaluate } }
+    subject { -> { _evaluate } }
 
     it { is_expected.to raise_error "Validation failed: Module can't be blank" }
   end
@@ -177,7 +177,7 @@ describe Ansible::Ruby::DslBuilders::Task do
         RUBY
       end
 
-      subject { -> { evaluate } }
+      subject { -> { _evaluate } }
 
       it { is_expected.to raise_error NameError, /undefined local variable or method `atomicc_result' for.*/ }
     end

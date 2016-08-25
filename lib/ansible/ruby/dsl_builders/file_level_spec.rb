@@ -4,11 +4,11 @@ require 'ansible-ruby'
 describe Ansible::Ruby::DslBuilders::FileLevel do
   let(:builder) { Ansible::Ruby::DslBuilders::FileLevel.new }
 
-  def evaluate
-    builder.evaluate ruby
+  def _evaluate
+    builder._evaluate ruby
   end
 
-  subject(:result) { evaluate }
+  subject(:result) { _evaluate }
 
   before do
     klass = Class.new(Ansible::Ruby::Modules::Base) do
@@ -95,7 +95,7 @@ describe Ansible::Ruby::DslBuilders::FileLevel do
   end
 
   context 'change from play to task' do
-    subject { -> { evaluate } }
+    subject { -> { _evaluate } }
 
     let(:ruby) do
       <<-RUBY
@@ -117,7 +117,7 @@ describe Ansible::Ruby::DslBuilders::FileLevel do
   end
 
   context 'change from task to play' do
-    subject { -> { evaluate } }
+    subject { -> { _evaluate } }
 
     let(:ruby) do
       <<-RUBY
