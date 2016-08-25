@@ -22,23 +22,27 @@ describe Ansible::Ruby::DslBuilders::JinjaItemNode do
     end
   end
 
-  describe '#to_s' do
-    subject { instance.to_s }
+  context 'string conversions' do
+    [:to_s, :to_str].each do |method|
+      describe "##{method}" do
+        subject { instance.send(method) }
 
-    context 'key' do
-      subject { instance.key.to_s }
+        context 'key' do
+          subject { instance.key.send(method) }
 
-      it { is_expected.to eq '{{ item.key }}' }
-    end
+          it { is_expected.to eq '{{ item.key }}' }
+        end
 
-    context 'nested' do
-      subject { instance.key.stuff.to_s }
+        context 'nested' do
+          subject { instance.key.stuff.send(method) }
 
-      it { is_expected.to eq '{{ item.key.stuff }}' }
-    end
+          it { is_expected.to eq '{{ item.key.stuff }}' }
+        end
 
-    context 'ref only' do
-      it { is_expected.to eq '{{ item }}' }
+        context 'ref only' do
+          it { is_expected.to eq '{{ item }}' }
+        end
+      end
     end
   end
 

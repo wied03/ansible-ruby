@@ -19,6 +19,10 @@ module Ansible
           "{{ #{flat} }}"
         end
 
+        def to_str
+          to_s
+        end
+
         def method_missing(id, *)
           contexts = @contexts + [id]
           JinjaItemNode.new @mode_setter, :dict, contexts
