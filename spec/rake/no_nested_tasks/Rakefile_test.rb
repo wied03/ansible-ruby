@@ -1,13 +1,13 @@
 # rubocop: disable Style/FileName
-require 'ansible/ruby/rake/task'
+require 'ansible/ruby/rake/tasks'
 
 desc 'the ansible task default'
-Ansible::Ruby::Rake::Task.new do |task|
+Ansible::Ruby::Rake::Execute.new do |task|
   task.playbooks = 'lib/ansible/ruby/rake/sample_test.rb'
 end
 
 desc 'named ansible task'
-Ansible::Ruby::Rake::Task.new :stuff do |task|
+Ansible::Ruby::Rake::Execute.new :stuff do |task|
   task.playbooks = 'lib/ansible/ruby/rake/sample_test.rb'
 end
 # rubocop: enable Style/FileName

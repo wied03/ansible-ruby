@@ -6,7 +6,7 @@ require 'ansible/ruby/rake/compile'
 module Ansible
   module Ruby
     module Rake
-      class Task < ::Rake::TaskLib
+      class Execute < ::Rake::TaskLib
         include TaskUtil
 
         # :reek:Attribute - Rake DSL gets ugly if we don't use a block

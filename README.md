@@ -109,10 +109,10 @@ You can see more examples in the examples/ directory in the repository.
 You can invoke all of this via a Rake task. The Rake task will, by convention, look for any .rb files under roles/role_name/tasks/*.rb and transform those as well:
 
 ```ruby
-require 'ansible/ruby/rake/task'
+require 'ansible/ruby/rake/tasks'
 
 desc 'named ansible task'
-Ansible::Ruby::Rake::Task.new :stuff do |task|
+Ansible::Ruby::Rake::Execute.new :stuff do |task|
   task.playbooks = 'lib/ansible/ruby/rake/sample_test.rb'
 end
 ```

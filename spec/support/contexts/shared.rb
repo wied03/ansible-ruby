@@ -25,7 +25,7 @@ RSpec.shared_context :rake_invoke do
 
   def execute_task
     commands = rake_result[:commands] = []
-    expect(task).to receive(:sh) do |command, _|
+    allow(task).to receive(:sh) do |command, _|
       commands << command
     end
     Rake::Task[:default].invoke

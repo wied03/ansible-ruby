@@ -1,9 +1,9 @@
 require 'spec_helper'
 require 'ansible-ruby'
-require 'ansible/ruby/rake/task'
+require 'ansible/ruby/rake/execute'
 Ansible::Ruby::Modules.autoload :Copy, 'rake/copy'
 
-describe Ansible::Ruby::Rake::Task do
+describe Ansible::Ruby::Rake::Execute do
   include_context :rake_testing
 
   context 'real Rake run' do
@@ -39,7 +39,7 @@ OUTPUT
 
     context 'default' do
       let(:task) do
-        Ansible::Ruby::Rake::Task.new do |task|
+        Ansible::Ruby::Rake::Execute.new do |task|
           task.playbooks = ruby_file
         end
       end
@@ -50,7 +50,7 @@ OUTPUT
 
     context 'multiple playbook files' do
       let(:task) do
-        Ansible::Ruby::Rake::Task.new do |task|
+        Ansible::Ruby::Rake::Execute.new do |task|
           task.playbooks = %w(playbook1_test.rb playbook2_test.rb)
         end
       end
@@ -64,7 +64,7 @@ OUTPUT
       { flat: '--ansible-option', array: ['--ansible-option'] }.each do |type, value|
         context type do
           let(:task) do
-            Ansible::Ruby::Rake::Task.new do |task|
+            Ansible::Ruby::Rake::Execute.new do |task|
               task.playbooks = ruby_file
               task.options = value
             end
@@ -83,7 +83,7 @@ OUTPUT
 
         context 'combined' do
           let(:task) do
-            Ansible::Ruby::Rake::Task.new do |task|
+            Ansible::Ruby::Rake::Execute.new do |task|
               task.playbooks = ruby_file
               task.options = '-v'
             end
@@ -94,7 +94,7 @@ OUTPUT
 
         context 'only env' do
           let(:task) do
-            Ansible::Ruby::Rake::Task.new do |task|
+            Ansible::Ruby::Rake::Execute.new do |task|
               task.playbooks = ruby_file
             end
           end
@@ -111,7 +111,7 @@ OUTPUT
           FileUtils.touch test_file
         end
 
-        Ansible::Ruby::Rake::Task.new default: :foobar do |task|
+        Ansible::Ruby::Rake::Execute.new default: :foobar do |task|
           task.playbooks = ruby_file
         end
       end
@@ -129,7 +129,7 @@ OUTPUT
       let(:task_yml) { 'roles/role1/tasks/task1_test.yml' }
 
       let(:task) do
-        Ansible::Ruby::Rake::Task.new do |task|
+        Ansible::Ruby::Rake::Execute.new do |task|
           task.playbooks = ruby_file
         end
       end
@@ -139,29 +139,12 @@ OUTPUT
       it { is_expected.to generate_yaml task_yml, that: include('- name: Copy something else over') }
     end
 
-    context 'YML and Ruby playbook' do
-      def execute_task
-        File.write 'sample3_test.yml', 'original YML file'
-        super
-      end
-
-      let(:task) do
-        Ansible::Ruby::Rake::Task.new do |task|
-          task.playbooks = %w(playbook1_test.rb sample3_test.yml)
-        end
-      end
-
-      it { is_expected.to execute_command 'ansible-playbook playbook1_test.yml sample3_test.yml' }
-      it { is_expected.to generate_yaml 'playbook1_test.yml', that: include('host1:host2') }
-      it { is_expected.to generate_yaml 'sample3_test.yml', that: include('original YML file') }
-    end
-
     context 'no playbook' do
       def execute_task
-        # overridding parent so we can test error
+        # overriding parent so we can test error
       end
 
-      subject { -> { Ansible::Ruby::Rake::Task.new } }
+      subject { -> { Ansible::Ruby::Rake::Execute.new } }
 
       it { is_expected.to raise_error 'You did not supply any playbooks!' }
     end

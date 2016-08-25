@@ -2,7 +2,7 @@ require 'bundler/gem_tasks'
 require 'rspec/core/rake_task'
 require 'rubocop/rake_task'
 require 'reek/rake/task'
-require 'ansible/ruby/rake/task'
+require 'ansible/ruby/rake/tasks'
 require_relative 'util/parser'
 require 'digest'
 require 'json'
@@ -34,7 +34,7 @@ end
 
 # Want to use the rule for our lint Rake task
 PLAYBOOKS = %w(example_test.yml role_test.yml).map { |filename| File.join('spec/ansible_lint', filename) }
-Ansible::Ruby::Rake::Task.send(:load_rule)
+Ansible::Ruby::Rake::Compile.send(:load_rule)
 
 task :python_dependencies do
   sh './setup.py build'
