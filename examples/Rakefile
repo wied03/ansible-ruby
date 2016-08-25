@@ -1,18 +1,16 @@
 require 'ansible/ruby/rake/tasks'
 
-task :clean do
-  rm_rf FileList['**/*/*.yml']
-end
-
 desc 'named ansible task'
 Ansible::Ruby::Rake::Execute.new do |task|
   task.playbooks = 'webservers.rb'
 end
 
+desc 'AMI test'
 Ansible::Ruby::Rake::Execute.new :ami do |task|
   task.playbooks = 'image_copy.rb'
 end
 
+desc 'Command test'
 Ansible::Ruby::Rake::Execute.new :command do |task|
   task.playbooks = 'command.rb'
 end

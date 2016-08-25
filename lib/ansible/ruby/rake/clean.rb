@@ -20,7 +20,7 @@ module Ansible
           task name => deps do
             exist = clean_files.select { |file| File.exist? file }
             if exist.any?
-              puts "Cleaning ansible-ruby files: #{exist}"
+              puts 'Cleaning ansible-ruby files'
               rm_rf exist
             else
               puts 'No ansible-ruby files exist to clean'
