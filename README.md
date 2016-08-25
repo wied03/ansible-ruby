@@ -2,9 +2,10 @@
 
 [![Build Status](http://img.shields.io/travis/wied03/ansible-ruby/master.svg?style=flat)](http://travis-ci.org/wied03/ansible-ruby)
 [![Quality](http://img.shields.io/codeclimate/github/wied03/ansible-ruby.svg?style=flat-square)](https://codeclimate.com/github/wied03/ansible-ruby)
+[![Coverage](https://codeclimate.com/github/wied03/ansible-ruby/badges/coverage.svg)](https://codeclimate.com/github/wied03/ansible-ruby/coverage)
 [![Version](http://img.shields.io/gem/v/ansible-ruby.svg?style=flat-square)](https://rubygems.org/gems/ansible-ruby)
 
-Attempts to create a Ruby DSL on top of Ansible's YML files
+Attempts to create a Ruby DSL on top of Ansible's YML files. Currently this is against Ansible 2.1.1.0.
 
 ## What does it do?
 * Creates a Ruby DSL that compiles .rb files to YML on a file by file basis
@@ -30,8 +31,10 @@ gem 'ansible-ruby'
 
 Nothing changes here. Lay out playbooks/etc. like you would normally. There are 2 places right now where you can use ansible-ruby files.
 
-1. Playbooks
+1. Playbooks (either with role references or embedded tasks)
 2. Tasks within roles
+
+Ansible-ruby does NOT stray beyond the boundaries of a normal Ansible YAML file. Nothing magic with includes, etc.
 
 ## Examples
 Here is a playbook with a single play:
@@ -54,7 +57,7 @@ play 'the play name' do
 end
 ```
 
-This will translate to:
+This will be automatically translated to:
 ```yml
 ---
 # This is a generated YAML file by ansible-ruby, DO NOT EDIT
@@ -73,6 +76,30 @@ This will translate to:
   user: centos
 ```
 
+There is also a shortcut for a localhost/local connection play.
+
+```ruby
+play 'command fun' do
+  local_host
+  
+  task 'say hello' do
+    command 'ls howdy'
+  end
+end
+```
+
+Compiles to:
+```yml
+---
+# This is a generated YAML file by ansible-ruby, DO NOT EDIT
+- hosts: localhost
+  name: command fun
+  tasks:
+  - name: say hello
+    command: ls howdy
+  connection: local
+```
+
 Note this is using a tiny bit of Ruby AST-ish syntax with the result variables to make working them more friendly. There is more work to do on this [see issue](https://github.com/wied03/ansible-ruby/issues/5).
 
 You can see more examples in the examples/ directory in the repository.
@@ -82,10 +109,10 @@ You can see more examples in the examples/ directory in the repository.
 You can invoke all of this via a Rake task. The Rake task will, by convention, look for any .rb files under roles/role_name/tasks/*.rb and transform those as well:
 
 ```ruby
-require 'ansible/ruby/rake/task'
+require 'ansible/ruby/rake/tasks'
 
 desc 'named ansible task'
-Ansible::Ruby::Rake::Task.new :stuff do |task|
+Ansible::Ruby::Rake::Execute.new :stuff do |task|
   task.playbooks = 'lib/ansible/ruby/rake/sample_test.rb'
 end
 ```
@@ -93,6 +120,10 @@ end
 ## Module Support
 
 Ruby code within this project parses the YAML documentation in Ansible's modules and creates model classes in Ruby to assist with validation. All of them are there but some of them might need some work.
+
+## Ansible Galaxy
+
+There's no reason why you can't use Ansible Galaxy with this. It hasn't been tested much but since this tool stays within the task/playbook/etc. boundary, it should work fine to use Galaxy roles from ansible-ruby playbooks or even to build Galaxy roles with ansible-ruby.
 
 ## Limitations
 

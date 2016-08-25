@@ -1,3 +1,8 @@
+if ENV['TRAVIS']
+  require 'codeclimate-test-reporter'
+  CodeClimate::TestReporter.start
+end
+
 spec_dir = Pathname.new('spec')
 Dir['spec/support/**/*.rb'].each do |file|
   require Pathname.new(file).relative_path_from(spec_dir)

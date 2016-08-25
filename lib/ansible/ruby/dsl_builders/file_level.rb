@@ -18,7 +18,7 @@ module Ansible
           end
           @context = :playbook
           play_builder = Play.new name
-          @plays << play_builder.evaluate(&block)
+          @plays << play_builder._evaluate(&block)
         end
 
         def task(name, &block)
@@ -30,20 +30,20 @@ module Ansible
           @tasks_builder.task name, &block
         end
 
-        def evaluate(*)
+        def _evaluate(*)
           super
           case @context
           when :playbook
             # TODO: Add a playbook DSL and do this like tasks
             Models::Playbook.new plays: @plays
           when :tasks
-            @tasks_builder.evaluate {}
+            @tasks_builder._evaluate {}
           else
             raise "Unknown context #{@context}"
           end
         end
 
-        def process_method(id, *)
+        def _process_method(id, *)
           raise "undefined local variable or method `#{id}'"
         end
       end

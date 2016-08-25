@@ -22,10 +22,11 @@ module Ansible
           module_key = result.keys[0]
           args = result[module_key]
           free_form_arg = args.delete :free_form
-          {
-            module_key => free_form_arg,
-            args: args
+          result = {
+            module_key => free_form_arg
           }
+          result[:args] = args if args.any?
+          result
         end
       end
     end

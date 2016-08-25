@@ -46,15 +46,25 @@ describe Ansible::Ruby::Modules::FreeForm do
   end
 
   describe '#to_h' do
-    let(:instance) { klass.new free_form: 'howdy', foo: 123 }
-
     subject { instance.to_h }
 
-    it do
-      is_expected.to eq(some_module: 'howdy',
-                        args: {
-                          foo: 123
-                        })
+    context 'args' do
+      let(:instance) { klass.new free_form: 'howdy', foo: 123 }
+
+      it do
+        is_expected.to eq(some_module: 'howdy',
+                          args: {
+                            foo: 123
+                          })
+      end
+    end
+
+    context 'no args' do
+      let(:instance) { klass.new free_form: 'howdy' }
+
+      it do
+        is_expected.to eq(some_module: 'howdy')
+      end
     end
   end
 end

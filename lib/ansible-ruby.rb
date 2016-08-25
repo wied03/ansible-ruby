@@ -3,5 +3,5 @@
 require 'ansible/ruby/version'
 require 'ansible/ruby/serializer'
 require 'ansible/ruby/dsl_builders/file_level'
-require 'ansible/ruby/modules/generated'
+require 'ansible/ruby/modules/all'
 # rubocop:enable Style/FileName

@@ -9,7 +9,7 @@ module Ansible
           @result = {}
         end
 
-        def process_method(id, *args)
+        def _process_method(id, *args)
           value = args.length == 1 ? args[0] : args
           @result[id] = value
         end

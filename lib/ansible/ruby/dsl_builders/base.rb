@@ -8,7 +8,7 @@ module Ansible
 
         attr_reader :result
 
-        def evaluate(*args, &block)
+        def _evaluate(*args, &block)
           if block
             instance_eval(&block)
           else
@@ -24,7 +24,7 @@ module Ansible
 
         def method_missing(id, *args, &block)
           result = begin
-            process_method id, *args, &block
+            _process_method id, *args, &block
           rescue StandardError => our_error
             begin
               super
@@ -45,7 +45,7 @@ module Ansible
           nil
         end
 
-        def implicit_bool(args)
+        def _implicit_bool(args)
           args.empty? || args[0]
         end
       end
