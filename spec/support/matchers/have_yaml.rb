@@ -12,7 +12,7 @@ RSpec::Matchers.define :have_yaml do |*expected|
       next false
     end
 
-    unless File.exists?(filename)
+    unless File.exist?(filename)
       @our_messages = "File #{filename} does not exist!"
       next false
     end

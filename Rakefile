@@ -40,7 +40,7 @@ Ansible::Ruby::Rake::Clean.new :clean do |task|
   task.files = PLAYBOOKS
 end
 
-task :clean_compile => [:clean, :compile]
+task clean_compile: [:clean, :compile]
 
 task :python_dependencies do
   sh './setup.py build'
