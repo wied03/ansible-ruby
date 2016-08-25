@@ -71,4 +71,16 @@ describe Ansible::Ruby::Models::Task do
                         notify: %w(handler1))
     end
   end
+
+  context 'dict and items' do
+    subject do
+      Ansible::Ruby::Models::Task.new name: 'do stuff on EC2',
+                                      module: module_klass.new(foo: 123),
+                                      with_items: 'foo',
+                                      with_dict: 'foo'
+    end
+
+    it { is_expected.to_not be_valid }
+    it { is_expected.to have_errors with_items: 'Cannot use both with_items and with_dict!' }
+  end
 end

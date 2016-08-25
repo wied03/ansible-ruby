@@ -30,6 +30,7 @@ module Ansible
         validates :poll, type: Integer
         attribute :ignore_errors
         validates :ignore_errors, type: MultipleTypes.new(TrueClass, FalseClass)
+        validate :loop_and_dict
 
         def to_h
           result = super
@@ -46,6 +47,12 @@ module Ansible
           end
           new_result[:notify] = [*notify] if notify
           new_result
+        end
+
+        private
+
+        def loop_and_dict
+          errors.add :with_items, 'Cannot use both with_items and with_dict!' if with_items && with_dict
         end
       end
     end
