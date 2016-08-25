@@ -54,6 +54,10 @@ module Ansible
           case value
           when DslBuilders::JinjaItemNode
             value.to_s
+          when Hash
+            Hash[
+              value.map { |key, hash_val| [key, _convert_ast_node(hash_val)] }
+            ]
           when Array
             value.map { |val| _convert_ast_node(val) }
           else
