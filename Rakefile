@@ -2,12 +2,12 @@ require 'bundler/gem_tasks'
 require 'rspec/core/rake_task'
 require 'rubocop/rake_task'
 require 'reek/rake/task'
-require 'ansible/ruby/rake/task'
+require 'ansible/ruby/rake/tasks'
 require_relative 'util/parser'
 require 'digest'
 require 'json'
 
-task default: [:clean, :spec, :update_modules, :rubocop, :reek, :ansible_lint]
+task default: [:spec, :update_modules, :rubocop, :reek, :ansible_lint]
 
 desc 'Run specs'
 RSpec::Core::RakeTask.new :spec do |task|
@@ -27,21 +27,27 @@ Reek::Rake::Task.new do |task|
   task.instance_variable_set :@source_files, files
 end
 
-desc 'cleans out generated files'
-task :clean do
-  rm_rf FileList['spec/**/*.yml']
-end
-
 # Want to use the rule for our lint Rake task
 PLAYBOOKS = %w(example_test.yml role_test.yml).map { |filename| File.join('spec/ansible_lint', filename) }
-Ansible::Ruby::Rake::Task.send(:load_rule)
+
+desc 'compile for Ansible lint test'
+Ansible::Ruby::Rake::Compile.new :compile do |task|
+  task.files = PLAYBOOKS
+end
+
+desc 'clean before ansible lint test'
+Ansible::Ruby::Rake::Clean.new :clean do |task|
+  task.files = PLAYBOOKS
+end
+
+task clean_compile: [:clean, :compile]
 
 task :python_dependencies do
   sh './setup.py build'
 end
 
 desc 'Runs a check against generated playbooks'
-task ansible_lint: (PLAYBOOKS.clone << :python_dependencies) do
+task ansible_lint: [:clean_compile, :python_dependencies] do
   # Grab the first installed egg
   ansible_lint = FileList['.eggs/ansible_lint*.egg'][0]
   all_eggs = FileList['.eggs/*.egg']
