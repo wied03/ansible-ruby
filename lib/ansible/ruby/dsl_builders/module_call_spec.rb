@@ -4,11 +4,16 @@ require 'ansible-ruby'
 describe Ansible::Ruby::DslBuilders::ModuleCall do
   let(:builder) { Ansible::Ruby::DslBuilders::ModuleCall.new }
 
-  def _evaluate
+  let(:evaluated_builder) do
+    builder._evaluate ruby
+    builder
+  end
+
+  def evaluate
     builder._evaluate ruby
   end
 
-  subject { _evaluate }
+  subject { evaluate }
 
   before do
     klass = Class.new(Ansible::Ruby::Models::Base) do
@@ -45,7 +50,95 @@ describe Ansible::Ruby::DslBuilders::ModuleCall do
     end
 
     it { is_expected.to be_a Ansible::Ruby::Modules::Copy }
-    it { is_expected.to have_attributes src: '{{ a_file }}', dest: '/file2.conf' }
+    it do
+      is_expected.to have_attributes src: '{{ a_file }}',
+                                     dest: '/file2.conf'
+    end
+  end
+
+  context 'jinja item' do
+    context 'single value' do
+      let(:ruby) do
+        <<-RUBY
+        item = Ansible::Ruby::DslBuilders::JinjaItemNode.new
+
+        copy do
+          src item
+          dest '/file2.conf'
+        end
+        RUBY
+      end
+
+      it { is_expected.to be_a Ansible::Ruby::Modules::Copy }
+
+      it do
+        is_expected.to have_attributes src: '{{ item }}',
+                                       dest: '/file2.conf'
+      end
+    end
+
+    context 'array' do
+      let(:ruby) do
+        <<-RUBY
+        item = Ansible::Ruby::DslBuilders::JinjaItemNode.new
+
+        copy do
+          src [item, item]
+          dest '/file2.conf'
+        end
+        RUBY
+      end
+
+      it { is_expected.to be_a Ansible::Ruby::Modules::Copy }
+
+      it do
+        is_expected.to have_attributes src: ['{{ item }}', '{{ item }}'],
+                                       dest: '/file2.conf'
+      end
+    end
+
+    context 'mixed values' do
+      let(:ruby) do
+        <<-RUBY
+        item = Ansible::Ruby::DslBuilders::JinjaItemNode.new
+
+        copy do
+          src [item, item.key]
+          dest '/file2.conf'
+        end
+        RUBY
+      end
+
+      it { is_expected.to be_a Ansible::Ruby::Modules::Copy }
+
+      it do
+        is_expected.to have_attributes src: ['{{ item }}', '{{ item.key }}'],
+                                       dest: '/file2.conf'
+      end
+    end
+
+    context 'hash' do
+      let(:ruby) do
+        <<-RUBY
+        item = Ansible::Ruby::DslBuilders::JinjaItemNode.new
+
+        copy do
+          src stuff: item, bar: item
+          dest '/file2.conf'
+        end
+        RUBY
+      end
+
+      it { is_expected.to be_a Ansible::Ruby::Modules::Copy }
+
+      it do
+        is_expected.to have_attributes src: {
+          stuff: '{{ item }}',
+          bar: '{{ item }}'
+        },
+                                       dest: '/file2.conf'
+      end
+    end
   end
 
   context 'using free form name on non free-form module' do
@@ -58,7 +151,7 @@ describe Ansible::Ruby::DslBuilders::ModuleCall do
       RUBY
     end
 
-    subject { -> { _evaluate } }
+    subject { -> { evaluate } }
 
     it { is_expected.to raise_error "Can't use arguments [\"howdy\"] on this type of module at line 1!" }
   end
@@ -70,7 +163,7 @@ describe Ansible::Ruby::DslBuilders::ModuleCall do
       RUBY
     end
 
-    subject { -> { _evaluate } }
+    subject { -> { evaluate } }
 
     it { is_expected.to raise_error 'You must supply a block when using this type of module at line 1!' }
   end
@@ -103,6 +196,19 @@ describe Ansible::Ruby::DslBuilders::ModuleCall do
       it { is_expected.to have_attributes free_form: 'ls /stuff', foo: '/file1.conf' }
     end
 
+    context 'jinja item in name' do
+      let(:ruby) do
+        <<-RUBY
+        item = Ansible::Ruby::DslBuilders::JinjaItemNode.new
+
+        command item
+        RUBY
+      end
+
+      it { is_expected.to be_a Ansible::Ruby::Modules::Command }
+      it { is_expected.to have_attributes free_form: '{{ item }}' }
+    end
+
     context 'no block' do
       let(:ruby) do
         <<-RUBY
@@ -123,7 +229,7 @@ command 'ls /stuff'
         RUBY
       end
 
-      subject { -> { _evaluate } }
+      subject { -> { evaluate } }
 
       it { is_expected.to raise_error 'Expected only 1 argument for this type of module at line 1!' }
     end
@@ -137,7 +243,7 @@ command 'ls /stuff'
         RUBY
       end
 
-      subject { -> { _evaluate } }
+      subject { -> { evaluate } }
 
       it { is_expected.to raise_error 'Expected 1 argument for this type of module at line 1!' }
     end
@@ -157,7 +263,7 @@ command 'ls /stuff'
       RUBY
     end
 
-    subject { -> { _evaluate } }
+    subject { -> { evaluate } }
 
     it { is_expected.to raise_error "Validation failed: Dest can't be blank at line 6!" }
   end
@@ -173,7 +279,7 @@ command 'ls /stuff'
       RUBY
     end
 
-    subject { -> { _evaluate } }
+    subject { -> { evaluate } }
 
     it { is_expected.to raise_error 'Unknown module foo_copy at line 2!' }
   end

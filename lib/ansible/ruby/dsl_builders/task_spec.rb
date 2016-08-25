@@ -90,6 +90,77 @@ describe Ansible::Ruby::DslBuilders::Task do
     end
   end
 
+  context 'loops' do
+    context 'regular task' do
+      let(:ruby) do
+        <<-RUBY
+        with_items(jinja('servers')) do |item|
+          copy do
+            src item
+            dest '/file2.conf'
+          end
+        end
+        RUBY
+      end
+
+      it do
+        is_expected.to have_attributes name: 'Copy something',
+                                       with_items: '{{ servers }}',
+                                       module: have_attributes(src: '{{ item }}')
+      end
+    end
+
+    context 'free form' do
+      before do
+        klass = Class.new(Ansible::Ruby::Modules::Base) do
+          attribute :free_form
+          validates :free_form, presence: true
+          attribute :src
+        end
+        stub_const 'Ansible::Ruby::Modules::Jinjafftest', klass
+        klass.class_eval do
+          include Ansible::Ruby::Modules::FreeForm
+        end
+      end
+
+      let(:ruby) do
+        <<-RUBY
+        with_items(jinja('servers')) do |item|
+          jinjafftest "howdy \#{item}" do
+            src '/file1.conf'
+          end
+        end
+        RUBY
+      end
+
+      it do
+        is_expected.to have_attributes name: 'Copy something',
+                                       with_items: '{{ servers }}',
+                                       module: have_attributes(free_form: 'howdy {{ item }}', src: '/file1.conf')
+      end
+    end
+  end
+
+  context 'dictionary' do
+    let(:ruby) do
+      <<-RUBY
+      with_dict(jinja('servers')) do |key, value|
+        copy do
+          src value.toodles
+          dest key
+        end
+      end
+      RUBY
+    end
+
+    it do
+      is_expected.to have_attributes name: 'Copy something',
+                                     with_dict: '{{ servers }}',
+                                     module: have_attributes(src: '{{ item.value.toodles }}',
+                                                             dest: '{{ item.key }}')
+    end
+  end
+
   context 'no modules' do
     let(:ruby) do
       <<-RUBY

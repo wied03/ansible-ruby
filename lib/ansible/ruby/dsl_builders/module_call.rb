@@ -2,6 +2,7 @@ require 'ansible/ruby/dsl_builders/base'
 require 'ansible/ruby/dsl_builders/args'
 require 'ansible/ruby/modules/base'
 require 'ansible/ruby/modules/custom/free_form'
+require 'ansible/ruby/dsl_builders/jinja_item_node'
 
 module Ansible
   module Ruby
@@ -39,7 +40,28 @@ module Ansible
           free_form = free_form_module && _free_form_arg(module_args)
           args.merge! _block_args(&block)
           args[:free_form] = free_form if free_form
-          args
+          _jinja_nodes(args)
+        end
+
+        def _jinja_nodes(args)
+          Hash[args.map do |key, value|
+            [key, _convert_ast_node(value)]
+          end]
+        end
+
+        def _convert_ast_node(value)
+          case value
+          when DslBuilders::JinjaItemNode
+            value.to_s
+          when Hash
+            Hash[
+              value.map { |key, hash_val| [key, _convert_ast_node(hash_val)] }
+            ]
+          when Array
+            value.map { |val| _convert_ast_node(val) }
+          else
+            value
+          end
         end
 
         def _module_klass(id)

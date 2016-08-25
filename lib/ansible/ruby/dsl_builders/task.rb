@@ -49,6 +49,15 @@ module Ansible
 
         def with_dict(clause)
           @task_args[:with_dict] = clause
+          return unless block_given?
+          hash_key = JinjaItemNode.new('item.key')
+          hash_value = JinjaItemNode.new('item.value')
+          yield [hash_key, hash_value]
+        end
+
+        def with_items(clause)
+          @task_args[:with_items] = clause
+          yield JinjaItemNode.new if block_given?
         end
 
         def async(value)
@@ -77,9 +86,9 @@ module Ansible
         def _process_method(id, *args, &block)
           # only 1 module, so don't try and do this again
           raise "undefined local variable or method `#{id}'" if @module
-          module_call_builder = ModuleCall.new
-          module_call_builder.send(id, *args, &block)
-          @module = module_call_builder.result
+          mcb = ModuleCall.new
+          mcb.send(id, *args, &block)
+          @module = mcb.result
         end
 
         def method_missing_return(_id, _result, *_args)

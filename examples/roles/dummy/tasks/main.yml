@@ -1,8 +1,21 @@
 ---
 # This is a generated YAML file by ansible-ruby, DO NOT EDIT
 - name: say hello
-  command: '{{ a_command | default("ls howdy") }}'
+  shell: ls {{ item }} || true
   args:
     chdir: "/tmp"
+  with_items:
+  - a
+  - b
+  - c
   register: result_1
-  changed_when: "'howdy' in result_1.stdout"
+  failed_when: "'No such filesss' in result_1.stderr"
+- name: and goodbye
+  command: ls {{ item.key }} {{ item.value.foobar }}
+  args:
+    chdir: "/tmp"
+  with_dict:
+    cmd1:
+      foobar: '123'
+    cmd2:
+      foobar: '456'
