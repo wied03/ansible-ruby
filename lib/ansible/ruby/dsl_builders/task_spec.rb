@@ -106,7 +106,7 @@ describe Ansible::Ruby::DslBuilders::Task do
       it do
         is_expected.to have_attributes name: 'Copy something',
                                        with_items: '{{ servers }}',
-                                       module: (have_attributes(src: '{{ item }}'))
+                                       module: have_attributes(src: '{{ item }}')
       end
     end
 
@@ -156,8 +156,8 @@ describe Ansible::Ruby::DslBuilders::Task do
     it do
       is_expected.to have_attributes name: 'Copy something',
                                      with_dict: '{{ servers }}',
-                                     module: (have_attributes(src: '{{ item.value.toodles }}',
-                                                              dest: '{{ item.key }}'))
+                                     module: have_attributes(src: '{{ item.value.toodles }}',
+                                                             dest: '{{ item.key }}')
     end
   end
 
