@@ -46,9 +46,19 @@ module Ansible
 
         def _jinja_nodes(args)
           Hash[args.map do |key, value|
-            stringified = value.is_a?(DslBuilders::JinjaItemNode) ? value.to_s : value
-            [key, stringified]
+            [key, _convert_ast_node(value)]
           end]
+        end
+
+        def _convert_ast_node(value)
+          case value
+          when DslBuilders::JinjaItemNode
+            value.to_s
+          when Array
+            value.map { |val| _convert_ast_node(val) }
+          else
+            value
+          end
         end
 
         def _module_klass(id)
