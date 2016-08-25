@@ -160,6 +160,35 @@ describe Ansible::Ruby::DslBuilders::Task do
         it { is_expected.to raise_error 'You used an item (e.g. item) in your task without using with_items!' }
       end
     end
+
+    context 'free form' do
+      before do
+        klass = Class.new(Ansible::Ruby::Modules::Base) do
+          attribute :free_form
+          validates :free_form, presence: true
+          attribute :src
+        end
+        stub_const 'Ansible::Ruby::Modules::Jinjafftest', klass
+        klass.class_eval do
+          include Ansible::Ruby::Modules::FreeForm
+        end
+      end
+
+      let(:ruby) do
+        <<-RUBY
+        jinjafftest "howdy \#{jinja_item}" do
+          src '/file1.conf'
+        end
+        with_dict jinja('servers')
+        RUBY
+      end
+
+      it do
+        is_expected.to have_attributes name: 'Copy something',
+                                       with_dict: '{{ servers }}',
+                                       module: have_attributes(free_form: 'howdy {{ item }}', src: '/file1.conf')
+      end
+    end
   end
 
   context 'no modules' do

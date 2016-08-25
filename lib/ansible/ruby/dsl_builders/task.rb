@@ -7,6 +7,8 @@ module Ansible
   module Ruby
     module DslBuilders
       class Task < Base
+        include JinjaItem
+
         def initialize(name)
           super()
           @module = nil
