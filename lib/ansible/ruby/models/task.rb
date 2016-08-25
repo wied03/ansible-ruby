@@ -21,7 +21,7 @@ module Ansible
         attribute :with_dict
         validates :with_dict, type: String
         attribute :with_items
-        validates :with_items, type: String
+        validates :with_items, type: MultipleTypes.new(String, Array)
         attribute :notify
         validates :notify, type: TypeGeneric.new(String)
         attribute :async
