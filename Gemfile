@@ -5,5 +5,5 @@ gemspec
 gem 'rspec'
 gem 'rake'
 gem 'rubocop', require: false
-gem 'reek'
+gem 'reek', '~> 4.3.0'
 gem 'activemodel', '~> 5.0'
