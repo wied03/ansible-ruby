@@ -17,3 +17,5 @@
   with_dict:
     cmd1:
       foobar: '123'
+    cmd2:
+      foobar: '456'

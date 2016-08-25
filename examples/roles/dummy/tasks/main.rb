@@ -12,11 +12,14 @@ task 'and goodbye' do
   stuff = {
     cmd1: {
       foobar: '123'
+    },
+    cmd2: {
+      foobar: '456'
     }
   }
 
   with_dict(stuff) do |key, value|
-    # will run ls cmd1 123
+    # will run ls cmd1 123 and ls cmd2 456
     command "ls #{key} #{value.foobar}" do
       chdir '/tmp'
     end
