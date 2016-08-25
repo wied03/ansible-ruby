@@ -1,12 +1,9 @@
 require 'ansible/ruby/dsl_builders/base'
-require 'ansible/ruby/dsl_builders/jinja_item'
 
 module Ansible
   module Ruby
     module DslBuilders
       class Args < Base
-        include JinjaItem
-
         def initialize
           super
           @result = {}

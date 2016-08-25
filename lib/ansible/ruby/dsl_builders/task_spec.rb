@@ -90,74 +90,23 @@ describe Ansible::Ruby::DslBuilders::Task do
     end
   end
 
-  context 'jinja_item usage' do
-    context 'item.key' do
-      context 'with_dict' do
-        let(:ruby) do
-          <<-RUBY
+  context 'loops' do
+    context 'regular task' do
+      let(:ruby) do
+        <<-RUBY
+        with_items(jinja('servers')) do |item|
           copy do
-            src jinja_item.key
+            src item
             dest '/file2.conf'
           end
-          with_dict jinja('servers')
-          RUBY
         end
-
-        it do
-          is_expected.to have_attributes name: 'Copy something',
-                                         with_dict: '{{ servers }}',
-                                         module: (have_attributes(src: '{{ item.key }}'))
-        end
+        RUBY
       end
 
-      context 'no with_dict' do
-        let(:ruby) do
-          <<-RUBY
-          copy do
-            src jinja_item.key
-            dest '/file2.conf'
-          end
-          RUBY
-        end
-
-        subject { -> { _evaluate } }
-
-        it { is_expected.to raise_error 'You used an item.value (e.g. item.key) in your task without using with_dict!' }
-      end
-    end
-
-    context 'item' do
-      context 'with_items' do
-        let(:ruby) do
-          <<-RUBY
-          copy do
-            src jinja_item
-            dest '/file2.conf'
-          end
-          with_items jinja('servers')
-          RUBY
-        end
-
-        it do
-          is_expected.to have_attributes name: 'Copy something',
-                                         with_items: '{{ servers }}',
-                                         module: (have_attributes(src: '{{ item }}'))
-        end
-      end
-
-      context 'no with_items' do
-        let(:ruby) do
-          <<-RUBY
-          copy do
-            src jinja_item
-            dest '/file2.conf'
-          end
-          RUBY
-        end
-
-        subject { -> { _evaluate } }
-
-        it { is_expected.to raise_error 'You used an item (e.g. item) in your task without using with_items!' }
+      it do
+        is_expected.to have_attributes name: 'Copy something',
+                                       with_items: '{{ servers }}',
+                                       module: (have_attributes(src: '{{ item }}'))
       end
     end
 
@@ -176,18 +125,38 @@ describe Ansible::Ruby::DslBuilders::Task do
 
       let(:ruby) do
         <<-RUBY
-        jinjafftest "howdy \#{jinja_item}" do
-          src '/file1.conf'
+        with_items(jinja('servers')) do |item|
+          jinjafftest "howdy \#{item}" do
+            src '/file1.conf'
+          end
         end
-        with_dict jinja('servers')
         RUBY
       end
 
       it do
         is_expected.to have_attributes name: 'Copy something',
-                                       with_dict: '{{ servers }}',
+                                       with_items: '{{ servers }}',
                                        module: have_attributes(free_form: 'howdy {{ item }}', src: '/file1.conf')
       end
+    end
+  end
+
+  context 'dictionary' do
+    let(:ruby) do
+      <<-RUBY
+      with_dict(jinja('servers')) do |item|
+        copy do
+          src item
+          dest '/file2.conf'
+        end
+      end
+      RUBY
+    end
+
+    it do
+      is_expected.to have_attributes name: 'Copy something',
+                                     with_dict: '{{ servers }}',
+                                     module: (have_attributes(src: '{{ item }}'))
     end
   end
 

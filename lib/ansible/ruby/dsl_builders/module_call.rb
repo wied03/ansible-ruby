@@ -2,13 +2,12 @@ require 'ansible/ruby/dsl_builders/base'
 require 'ansible/ruby/dsl_builders/args'
 require 'ansible/ruby/modules/base'
 require 'ansible/ruby/modules/custom/free_form'
-require 'ansible/ruby/dsl_builders/jinja_item'
+require 'ansible/ruby/dsl_builders/jinja_item_node'
 
 module Ansible
   module Ruby
     module DslBuilders
       class ModuleCall < Base
-        include JinjaItem
         MODULES_MOD = Ansible::Ruby::Modules
 
         def respond_to_missing?(method_name, _)
@@ -74,9 +73,7 @@ module Ansible
           return {} unless block
           # Delegate everything to the args builder and apply it to the module class we located
           module_builder = Args.new
-          result = module_builder._evaluate(&block)
-          @jinja_item_mode = module_builder._jinja_item_mode
-          result
+          module_builder._evaluate(&block)
         end
 
         def _free_form_arg(module_args)

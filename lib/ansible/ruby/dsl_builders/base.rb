@@ -6,10 +6,6 @@ module Ansible
           @result = nil
         end
 
-        def _jinja_item_mode
-          @jinja_item_mode
-        end
-
         attr_reader :result
 
         def _evaluate(*args, &block)

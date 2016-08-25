@@ -54,18 +54,16 @@ describe Ansible::Ruby::DslBuilders::ModuleCall do
       is_expected.to have_attributes src: '{{ a_file }}',
                                      dest: '/file2.conf'
     end
-
-    it 'does not show jinja item usage' do
-      expect(evaluated_builder._jinja_item_mode).to be_nil
-    end
   end
 
   context 'jinja item' do
-    context 'var only' do
+    context 'single value' do
       let(:ruby) do
         <<-RUBY
+        item = Ansible::Ruby::DslBuilders::JinjaItemNode.new
+
         copy do
-          src jinja_item
+          src item
           dest '/file2.conf'
         end
         RUBY
@@ -77,17 +75,15 @@ describe Ansible::Ruby::DslBuilders::ModuleCall do
         is_expected.to have_attributes src: '{{ item }}',
                                        dest: '/file2.conf'
       end
-
-      it 'does shows jinja item usage' do
-        expect(evaluated_builder._jinja_item_mode).to eq :ref_only
-      end
     end
 
     context 'array' do
       let(:ruby) do
         <<-RUBY
+        item = Ansible::Ruby::DslBuilders::JinjaItemNode.new
+
         copy do
-          src [jinja_item, jinja_item]
+          src [item, item]
           dest '/file2.conf'
         end
         RUBY
@@ -99,17 +95,15 @@ describe Ansible::Ruby::DslBuilders::ModuleCall do
         is_expected.to have_attributes src: ['{{ item }}', '{{ item }}'],
                                        dest: '/file2.conf'
       end
-
-      it 'does shows jinja item usage' do
-        expect(evaluated_builder._jinja_item_mode).to eq :ref_only
-      end
     end
 
-    context 'dict usage first' do
+    context 'mixed values' do
       let(:ruby) do
         <<-RUBY
+        item = Ansible::Ruby::DslBuilders::JinjaItemNode.new
+
         copy do
-          src [jinja_item.key, jinja_item]
+          src [item, item.key]
           dest '/file2.conf'
         end
         RUBY
@@ -118,20 +112,18 @@ describe Ansible::Ruby::DslBuilders::ModuleCall do
       it { is_expected.to be_a Ansible::Ruby::Modules::Copy }
 
       it do
-        is_expected.to have_attributes src: ['{{ item.key }}', '{{ item }}'],
+        is_expected.to have_attributes src: ['{{ item }}', '{{ item.key }}'],
                                        dest: '/file2.conf'
-      end
-
-      it 'does shows jinja item usage' do
-        expect(evaluated_builder._jinja_item_mode).to eq :dict
       end
     end
 
     context 'hash' do
       let(:ruby) do
         <<-RUBY
+        item = Ansible::Ruby::DslBuilders::JinjaItemNode.new
+
         copy do
-          src stuff: jinja_item, bar: jinja_item
+          src stuff: item, bar: item
           dest '/file2.conf'
         end
         RUBY
@@ -145,32 +137,6 @@ describe Ansible::Ruby::DslBuilders::ModuleCall do
           bar: '{{ item }}'
         },
                                        dest: '/file2.conf'
-      end
-
-      it 'does shows jinja item usage' do
-        expect(evaluated_builder._jinja_item_mode).to eq :ref_only
-      end
-    end
-
-    context 'dictionary' do
-      let(:ruby) do
-        <<-RUBY
-        copy do
-          src jinja_item.key
-          dest '/file2.conf'
-        end
-        RUBY
-      end
-
-      it { is_expected.to be_a Ansible::Ruby::Modules::Copy }
-
-      it do
-        is_expected.to have_attributes src: '{{ item.key }}',
-                                       dest: '/file2.conf'
-      end
-
-      it 'does shows jinja item usage' do
-        expect(evaluated_builder._jinja_item_mode).to eq :dict
       end
     end
   end
@@ -231,35 +197,16 @@ describe Ansible::Ruby::DslBuilders::ModuleCall do
     end
 
     context 'jinja item in name' do
-      context 'var only' do
-        let(:ruby) do
-          <<-RUBY
-          command jinja_item
-          RUBY
-        end
+      let(:ruby) do
+        <<-RUBY
+        item = Ansible::Ruby::DslBuilders::JinjaItemNode.new
 
-        it { is_expected.to be_a Ansible::Ruby::Modules::Command }
-        it { is_expected.to have_attributes free_form: '{{ item }}' }
-
-        it 'does shows jinja item usage' do
-          expect(evaluated_builder._jinja_item_mode).to eq :ref_only
-        end
+        command item
+        RUBY
       end
 
-      context 'dictionary' do
-        let(:ruby) do
-          <<-RUBY
-            command jinja_item.key
-          RUBY
-        end
-
-        it { is_expected.to be_a Ansible::Ruby::Modules::Command }
-        it { is_expected.to have_attributes free_form: '{{ item.key }}' }
-
-        it 'does shows jinja item usage' do
-          expect(evaluated_builder._jinja_item_mode).to eq :dict
-        end
-      end
+      it { is_expected.to be_a Ansible::Ruby::Modules::Command }
+      it { is_expected.to have_attributes free_form: '{{ item }}' }
     end
 
     context 'no block' do

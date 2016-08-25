@@ -7,8 +7,6 @@ module Ansible
   module Ruby
     module DslBuilders
       class Task < Base
-        include JinjaItem
-
         def initialize(name)
           super()
           @module = nil
@@ -19,7 +17,6 @@ module Ansible
 
         def _evaluate(*)
           super
-          validate_jinja_nodes
           args = {
             module: @module,
             name: @name
@@ -52,10 +49,12 @@ module Ansible
 
         def with_dict(clause)
           @task_args[:with_dict] = clause
+          yield _jinja_item if block_given?
         end
 
         def with_items(clause)
           @task_args[:with_items] = clause
+          yield _jinja_item if block_given?
         end
 
         def async(value)
@@ -81,23 +80,16 @@ module Ansible
 
         private
 
-        def validate_jinja_nodes
-          # might be a task without a module
-          return unless @mcb
-          if @mcb._jinja_item_mode == :dict && !@task_args[:with_dict]
-            raise 'You used an item.value (e.g. item.key) in your task without using with_dict!'
-          end
-          if @mcb._jinja_item_mode == :ref_only && !@task_args[:with_items]
-            raise 'You used an item (e.g. item) in your task without using with_items!'
-          end
+        def _jinja_item
+          JinjaItemNode.new
         end
 
         def _process_method(id, *args, &block)
           # only 1 module, so don't try and do this again
           raise "undefined local variable or method `#{id}'" if @module
-          @mcb = ModuleCall.new
-          @mcb.send(id, *args, &block)
-          @module = @mcb.result
+          mcb = ModuleCall.new
+          mcb.send(id, *args, &block)
+          @module = mcb.result
         end
 
         def method_missing_return(_id, _result, *_args)

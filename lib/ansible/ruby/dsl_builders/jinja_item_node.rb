@@ -3,11 +3,8 @@ module Ansible
   module Ruby
     module DslBuilders
       class JinjaItemNode
-        def initialize(mode_setter, mode = :ref_only, contexts='item')
+        def initialize(contexts='item')
           @contexts = [*contexts]
-          @mode_setter = mode_setter
-          @mode = mode
-          mode_setter[@mode]
         end
 
         def +(other)
@@ -25,7 +22,7 @@ module Ansible
 
         def method_missing(id, *)
           contexts = @contexts + [id]
-          JinjaItemNode.new @mode_setter, :dict, contexts
+          JinjaItemNode.new contexts
         end
       end
     end
