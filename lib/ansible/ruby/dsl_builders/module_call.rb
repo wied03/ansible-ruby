@@ -10,8 +10,8 @@ module Ansible
         MODULES_MOD = Ansible::Ruby::Modules
 
         def respond_to_missing?(method_name, _)
-          _klass_name = _klass_name method_name
-          MODULES_MOD.const_defined?(_klass_name) || super
+          klass_name = _klass_name method_name
+          MODULES_MOD.const_defined?(klass_name) || super
         end
 
         private
@@ -21,19 +21,37 @@ module Ansible
         end
 
         def _process_method(id, *module_args, &block)
-          raise "Unknown module #{id}" unless respond_to_missing? id, true
-          module_klass = MODULES_MOD.const_get _klass_name(id)
+          module_klass = _module_klass(id)
+          args = _arguments(block, module_args, module_klass)
+          @result = module_klass.new(args)
+          @result.validate!
+        end
+
+        def _arguments(block, module_args, module_klass)
           free_form_module = module_klass.include?(Ansible::Ruby::Modules::FreeForm)
           if module_args.any? && !free_form_module
             raise "Can't use arguments #{module_args} on this type of module"
           end
-          free_form = _free_form_arg(module_args) if free_form_module
+          if !free_form_module && !block
+            raise 'You must supply a block when using this type of module'
+          end
+          args = {}
+          free_form = free_form_module && _free_form_arg(module_args)
+          args.merge! _block_args(&block)
+          args[:free_form] = free_form if free_form
+          args
+        end
+
+        def _module_klass(id)
+          raise "Unknown module #{id}" unless respond_to_missing? id, true
+          MODULES_MOD.const_get _klass_name(id)
+        end
+
+        def _block_args(&block)
+          return {} unless block
           # Delegate everything to the args builder and apply it to the module class we located
           module_builder = Args.new
-          args = module_builder._evaluate(&block)
-          args[:free_form] = free_form if free_form
-          @result = module_klass.new(args)
-          @result.validate!
+          module_builder._evaluate(&block)
         end
 
         def _free_form_arg(module_args)

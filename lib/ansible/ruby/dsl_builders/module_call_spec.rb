@@ -58,7 +58,7 @@ describe Ansible::Ruby::DslBuilders::ModuleCall do
 
     subject { -> { _evaluate } }
 
-    it { is_expected.to raise_error 'block fool!' }
+    it { is_expected.to raise_error 'You must supply a block when using this type of module at line 1!' }
   end
 
   context 'free form module' do
