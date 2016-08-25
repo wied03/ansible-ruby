@@ -15,5 +15,5 @@ ratings:
   paths:
   - "**.rb"
 exclude_paths:
-- "*_spec.rb"
+- "**_spec.rb"
 - lib/ansible/ruby/modules/generated/
