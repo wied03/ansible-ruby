@@ -4,11 +4,11 @@ require 'ansible-ruby'
 describe Ansible::Ruby::DslBuilders::FileLevel do
   let(:builder) { Ansible::Ruby::DslBuilders::FileLevel.new }
 
-  def _evaluate
+  def evaluate
     builder._evaluate ruby
   end
 
-  subject(:result) { _evaluate }
+  subject(:result) { evaluate }
 
   before do
     klass = Class.new(Ansible::Ruby::Modules::Base) do
@@ -18,6 +18,30 @@ describe Ansible::Ruby::DslBuilders::FileLevel do
       validates :dest, presence: true
     end
     stub_const 'Ansible::Ruby::Modules::Copy', klass
+  end
+
+  context 'handlers' do
+    context 'without handlers' do
+      pending 'write this'
+    end
+
+    context 'with' do
+      let(:ruby) do
+        <<-RUBY
+        handlers do
+          handler 'copy_reboot' do
+            copy do
+              src '/file1.conf'
+              dest '/file2.conf'
+            end
+          end
+        end
+        RUBY
+      end
+
+      it { is_expected.to be_a Ansible::Ruby::Models::Handlers }
+      it { is_expected.to have_attributes handlers: include(be_a(Ansible::Ruby::Models::Handler)) }
+    end
   end
 
   context 'playbook' do
@@ -95,7 +119,7 @@ describe Ansible::Ruby::DslBuilders::FileLevel do
   end
 
   context 'change from play to task' do
-    subject { -> { _evaluate } }
+    subject { -> { evaluate } }
 
     let(:ruby) do
       <<-RUBY
@@ -117,7 +141,7 @@ describe Ansible::Ruby::DslBuilders::FileLevel do
   end
 
   context 'change from task to play' do
-    subject { -> { _evaluate } }
+    subject { -> { evaluate } }
 
     let(:ruby) do
       <<-RUBY
