@@ -3,8 +3,8 @@ require 'spec_helper'
 require 'ansible-ruby'
 
 describe Ansible::Ruby::DslBuilders::Tasks do
-  let(:unit) { Ansible::Ruby::Models::Tasks }
-  let(:builder) { Ansible::Ruby::DslBuilders::Tasks.new unit }
+  let(:context) { Ansible::Ruby::Models::Tasks }
+  let(:builder) { Ansible::Ruby::DslBuilders::Tasks.new context }
 
   def _evaluate
     builder._evaluate ruby
@@ -47,7 +47,7 @@ describe Ansible::Ruby::DslBuilders::Tasks do
   end
 
   context 'handler' do
-    let(:unit) { Ansible::Ruby::Models::Handlers }
+    let(:context) { Ansible::Ruby::Models::Handlers }
 
     let(:ruby) do
       <<-RUBY

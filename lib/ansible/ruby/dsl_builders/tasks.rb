@@ -5,19 +5,21 @@ module Ansible
   module Ruby
     module DslBuilders
       class Tasks < Base
-        def initialize(unit)
-          @unit = unit
-          @tasks = []
+        def initialize(context)
+          @context = context
+          @items = []
         end
 
         def task(name, &block)
+          # TODO: Handlers have the same DSL as Task as well, so pass on our context to that
           task_builder = Task.new name
-          @tasks << task_builder._evaluate(&block)
+          @items << task_builder._evaluate(&block)
         end
 
         def _evaluate(*)
           super
-          Models::Tasks.new tasks: @tasks
+          # TODO: use context here
+          Models::Tasks.new tasks: @items
         end
 
         def _process_method(id, *)

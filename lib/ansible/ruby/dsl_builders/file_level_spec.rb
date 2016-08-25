@@ -28,14 +28,12 @@ describe Ansible::Ruby::DslBuilders::FileLevel do
     context 'with' do
       let(:ruby) do
         <<-RUBY
-        handlers do
           handler 'copy_reboot' do
             copy do
               src '/file1.conf'
               dest '/file2.conf'
             end
           end
-        end
         RUBY
       end
 
