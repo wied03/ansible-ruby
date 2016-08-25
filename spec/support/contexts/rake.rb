@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'ansible/ruby/rake/compile'
 
 RSpec.shared_context :rake_testing do
   before do
@@ -12,7 +13,9 @@ RSpec.shared_context :rake_testing do
 
   around do |example|
     Dir.chdir rake_dir do
-      FileUtils.rm_rf Dir.glob('**/*/*.yml')
+      clean = Dir.glob('**/*.yml')
+      puts "Cleaning up #{clean} before test"
+      FileUtils.rm_rf clean
       example.run
     end
   end

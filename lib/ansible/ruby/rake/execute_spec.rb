@@ -23,8 +23,10 @@ describe Ansible::Ruby::Rake::Execute do
         is_expected.to eq <<OUTPUT
 rake compile          # explicit compile task
 rake default          # the ansible task default
+rake default_clean    # Cleans YAML files for :default task
 rake default_compile  # Compiles YAML files for :default task
 rake stuff            # named ansible task
+rake stuff_clean      # Cleans YAML files for :stuff task
 rake stuff_compile    # Compiles YAML files for :stuff task
 OUTPUT
       end
@@ -45,7 +47,7 @@ OUTPUT
       end
 
       it { is_expected.to execute_command 'ansible-playbook playbook1_test.yml' }
-      it { is_expected.to generate_yaml yaml_file, that: include('host1:host2') }
+      it { is_expected.to have_yaml yaml_file, that: include('host1:host2') }
     end
 
     context 'multiple playbook files' do
@@ -56,8 +58,8 @@ OUTPUT
       end
 
       it { is_expected.to execute_command 'ansible-playbook playbook1_test.yml playbook2_test.yml' }
-      it { is_expected.to generate_yaml 'playbook1_test.yml', that: include('host1:host2') }
-      it { is_expected.to generate_yaml 'playbook2_test.yml', that: include('something else') }
+      it { is_expected.to have_yaml 'playbook1_test.yml', that: include('host1:host2') }
+      it { is_expected.to have_yaml 'playbook2_test.yml', that: include('something else') }
     end
 
     context 'options' do
@@ -117,7 +119,7 @@ OUTPUT
       end
 
       it { is_expected.to execute_command 'ansible-playbook playbook1_test.yml' }
-      it { is_expected.to generate_yaml yaml_file, that: include('host1:host2') }
+      it { is_expected.to have_yaml yaml_file, that: include('host1:host2') }
 
       it 'executes the dependency' do
         expect(File.exist?(test_file)).to be_truthy
@@ -134,9 +136,9 @@ OUTPUT
         end
       end
 
-      it { is_expected.to generate_yaml yaml_file, that: include('host1:host2', 'roles') }
-      it { is_expected.to generate_yaml task_yml, that: include('- name: Copy something over') }
-      it { is_expected.to generate_yaml task_yml, that: include('- name: Copy something else over') }
+      it { is_expected.to have_yaml yaml_file, that: include('host1:host2', 'roles') }
+      it { is_expected.to have_yaml task_yml, that: include('- name: Copy something over') }
+      it { is_expected.to have_yaml task_yml, that: include('- name: Copy something else over') }
     end
 
     context 'no playbook' do
@@ -147,6 +149,30 @@ OUTPUT
       subject { -> { Ansible::Ruby::Rake::Execute.new } }
 
       it { is_expected.to raise_error 'You did not supply any playbooks!' }
+    end
+
+    context 'clean' do
+      let(:unrelated_file) { 'something.yml' }
+
+      def execute_task
+        FileUtils.touch unrelated_file
+        super
+        Rake::Task[:default_clean].invoke
+      end
+
+      after do
+        FileUtils.rm_rf unrelated_file
+      end
+
+      let(:task) do
+        Ansible::Ruby::Rake::Execute.new do |task|
+          task.playbooks = ruby_file
+        end
+      end
+
+      it { is_expected.to execute_command 'ansible-playbook playbook1_test.yml' }
+      it { is_expected.to_not have_yaml yaml_file }
+      it { is_expected.to have_yaml unrelated_file }
     end
   end
 end

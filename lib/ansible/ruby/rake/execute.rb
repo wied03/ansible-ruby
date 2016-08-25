@@ -2,6 +2,7 @@ require 'rake/tasklib'
 require 'ansible-ruby'
 require 'ansible/ruby/rake/task_util'
 require 'ansible/ruby/rake/compile'
+require 'ansible/ruby/rake/clean'
 
 module Ansible
   module Ruby
@@ -27,9 +28,15 @@ module Ansible
             flat += ' ' unless flat.empty?
             sh "ansible-playbook #{flat}#{playbook_yml_files.join ' '}"
           end
-          desc "Compiles YAML files for #{name.inspect.to_s} task"
+          symbol = name.inspect.to_s
+          desc "Compiles YAML files for #{symbol} task"
+          compiled_files = playbooks + role_task_files
           Compile.new compile_task_name do |compile_task|
-            compile_task.files = playbooks + role_task_files
+            compile_task.files = compiled_files
+          end
+          desc "Cleans YAML files for #{symbol} task"
+          Clean.new "#{name}_clean".to_sym do |clean_task|
+            clean_task.files = compiled_files
           end
         end
 

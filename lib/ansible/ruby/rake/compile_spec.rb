@@ -23,7 +23,7 @@ describe Ansible::Ruby::Rake::Compile do
     end
 
     it { is_expected.to_not execute_commands }
-    it { is_expected.to generate_yaml yaml_file, that: include('host1:host2') }
+    it { is_expected.to have_yaml yaml_file, that: include('host1:host2') }
 
     it 'executes the dependency' do
       expect(File.exist?(test_file)).to be_truthy
@@ -53,7 +53,7 @@ describe Ansible::Ruby::Rake::Compile do
     end
 
     it { is_expected.to_not execute_commands }
-    it { is_expected.to generate_yaml 'playbook1_test.yml', that: include('host1:host2') }
-    it { is_expected.to generate_yaml 'sample3_test.yml', that: include('original YML file') }
+    it { is_expected.to have_yaml 'playbook1_test.yml', that: include('host1:host2') }
+    it { is_expected.to have_yaml 'sample3_test.yml', that: include('original YML file') }
   end
 end
