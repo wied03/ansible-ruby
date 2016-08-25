@@ -1,5 +1,5 @@
 module Ansible
   module Ruby
-    VERSION = '1.0.0.dev'.freeze
+    VERSION = '1.0.1'.freeze
   end
 end
