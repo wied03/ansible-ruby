@@ -20,6 +20,8 @@ module Ansible
         validates :when, type: String
         attribute :with_dict
         validates :with_dict, type: String
+        attribute :with_items
+        validates :with_items, type: String
         attribute :notify
         validates :notify, type: TypeGeneric.new(String)
         attribute :async

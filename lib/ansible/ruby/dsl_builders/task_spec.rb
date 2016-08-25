@@ -93,21 +93,71 @@ describe Ansible::Ruby::DslBuilders::Task do
   context 'jinja_item usage' do
     context 'item.key' do
       context 'with_dict' do
-        pending 'write this'
+        let(:ruby) do
+          <<-RUBY
+          copy do
+            src jinja_item.key
+            dest '/file2.conf'
+          end
+          with_dict jinja('servers')
+          RUBY
+        end
+
+        it do
+          is_expected.to have_attributes name: 'Copy something',
+                                         with_dict: '{{ servers }}',
+                                         module: (have_attributes(src: '{{ item.key }}'))
+        end
       end
 
       context 'no with_dict' do
-        pending 'write this'
+        let(:ruby) do
+          <<-RUBY
+          copy do
+            src jinja_item.key
+            dest '/file2.conf'
+          end
+          RUBY
+        end
+
+        subject { -> { _evaluate } }
+
+        it { is_expected.to raise_error 'You used an item.value (e.g. item.key) in your task without using with_dict!' }
       end
     end
 
     context 'item' do
       context 'with_items' do
-        pending 'write this'
+        let(:ruby) do
+          <<-RUBY
+          copy do
+            src jinja_item
+            dest '/file2.conf'
+          end
+          with_items jinja('servers')
+          RUBY
+        end
+
+        it do
+          is_expected.to have_attributes name: 'Copy something',
+                                         with_items: '{{ servers }}',
+                                         module: (have_attributes(src: '{{ item }}'))
+        end
       end
 
       context 'no with_items' do
-        pending 'write this'
+        let(:ruby) do
+          <<-RUBY
+          copy do
+            src jinja_item
+            dest '/file2.conf'
+          end
+          RUBY
+        end
+
+        subject { -> { _evaluate } }
+
+        it { is_expected.to raise_error 'You used an item (e.g. item) in your task without using with_items!' }
       end
     end
   end

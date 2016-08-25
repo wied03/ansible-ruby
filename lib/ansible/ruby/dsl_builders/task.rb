@@ -17,6 +17,7 @@ module Ansible
 
         def _evaluate(*)
           super
+          validate_jinja_nodes
           args = {
             module: @module,
             name: @name
@@ -51,6 +52,10 @@ module Ansible
           @task_args[:with_dict] = clause
         end
 
+        def with_items(clause)
+          @task_args[:with_items] = clause
+        end
+
         def async(value)
           @task_args[:async] = value
         end
@@ -74,12 +79,23 @@ module Ansible
 
         private
 
+        def validate_jinja_nodes
+          # might be a task without a module
+          return unless @mcb
+          if @mcb._jinja_item_mode == :dict && !@task_args[:with_dict]
+            raise 'You used an item.value (e.g. item.key) in your task without using with_dict!'
+          end
+          if @mcb._jinja_item_mode == :ref_only && !@task_args[:with_items]
+            raise 'You used an item (e.g. item) in your task without using with_items!'
+          end
+        end
+
         def _process_method(id, *args, &block)
           # only 1 module, so don't try and do this again
           raise "undefined local variable or method `#{id}'" if @module
-          module_call_builder = ModuleCall.new
-          module_call_builder.send(id, *args, &block)
-          @module = module_call_builder.result
+          @mcb = ModuleCall.new
+          @mcb.send(id, *args, &block)
+          @module = @mcb.result
         end
 
         def method_missing_return(_id, _result, *_args)
