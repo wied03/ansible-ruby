@@ -145,7 +145,7 @@ task generate_modules: :python_dependencies do
   puts 'Writing checksums'
   File.write NEW_CHECKSUMS, JSON.pretty_generate(checksums)
   puts 'Writing requires'
-  File.open 'lib/ansible/ruby/modules/generated.rb', 'w' do |file|
+  File.open 'lib/ansible/ruby/modules/all.rb', 'w' do |file|
     file << <<HEADER
 # Generated file, DO NOT EDIT!
 
