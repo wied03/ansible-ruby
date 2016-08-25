@@ -90,6 +90,28 @@ describe Ansible::Ruby::DslBuilders::Task do
     end
   end
 
+  context 'jinja_item usage' do
+    context 'item.key' do
+      context 'with_dict' do
+        pending 'write this'
+      end
+
+      context 'no with_dict' do
+        pending 'write this'
+      end
+    end
+
+    context 'item' do
+      context 'with_items' do
+        pending 'write this'
+      end
+
+      context 'no with_items' do
+        pending 'write this'
+      end
+    end
+  end
+
   context 'no modules' do
     let(:ruby) do
       <<-RUBY
