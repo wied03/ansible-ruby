@@ -5,7 +5,8 @@ module Ansible
   module Ruby
     module DslBuilders
       class Tasks < Base
-        def initialize
+        def initialize(unit)
+          @unit = unit
           @tasks = []
         end
 

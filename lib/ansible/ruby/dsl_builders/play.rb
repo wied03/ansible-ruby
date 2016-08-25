@@ -6,7 +6,7 @@ module Ansible
     module DslBuilders
       class Play < Tasks
         def initialize(name = nil)
-          super()
+          super(Models::Tasks)
           @playbook_args = {}
           @playbook_args[:name] = name
         end
