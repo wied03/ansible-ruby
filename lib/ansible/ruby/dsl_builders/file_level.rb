@@ -57,7 +57,7 @@ module Ansible
 
         def _validate_context(expected)
           if @context && @context != expected
-            raise "This is a #{expected} file, cannot use #{@context} here!"
+            raise "This is a #{@context} file, cannot use #{expected} here!"
           end
         end
       end

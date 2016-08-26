@@ -148,7 +148,7 @@ describe Ansible::Ruby::DslBuilders::FileLevel do
       RUBY
     end
 
-    it { is_expected.to raise_error 'This is a tasks file, cannot use playbook here!' }
+    it { is_expected.to raise_error 'This is a playbook file, cannot use tasks here!' }
   end
 
   context 'change from task to play' do
@@ -170,6 +170,6 @@ describe Ansible::Ruby::DslBuilders::FileLevel do
       RUBY
     end
 
-    it { is_expected.to raise_error 'This is a playbook file, cannot use tasks here!' }
+    it { is_expected.to raise_error 'This is a tasks file, cannot use playbook here!' }
   end
 end
