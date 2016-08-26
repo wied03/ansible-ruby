@@ -1,5 +1,6 @@
 require 'ansible/ruby/models/play'
 require 'ansible/ruby/dsl_builders/tasks'
+require 'ansible/ruby/models/block'
 
 module Ansible
   module Ruby
@@ -38,6 +39,10 @@ module Ansible
         def local_host
           hosts 'localhost'
           connection :local
+        end
+
+        def block(&block)
+
         end
 
         # allow any order
