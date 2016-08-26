@@ -28,7 +28,7 @@ module Ansible
         def to_h
           result = super
           hosts = result.delete :hosts
-          tasks = result.delete :tasks
+          tasks = result.delete :items
           roles = result.delete :roles
           name = result.delete :name
           # Be consistent with Ansible order

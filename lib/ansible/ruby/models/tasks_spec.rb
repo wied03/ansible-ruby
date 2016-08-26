@@ -27,7 +27,7 @@ describe Ansible::Ruby::Models::Tasks do
 
   context 'basic' do
     let(:instance) do
-      Ansible::Ruby::Models::Tasks.new tasks: [task1, task2]
+      Ansible::Ruby::Models::Tasks.new items: [task1, task2]
     end
 
     it do
@@ -55,16 +55,16 @@ describe Ansible::Ruby::Models::Tasks do
 
     subject { -> { instance.to_h } }
 
-    it { is_expected.to raise_error "Validation failed: Tasks can't be blank" }
+    it { is_expected.to raise_error "Validation failed: Items can't be blank" }
   end
 
   context 'empty tasks' do
     let(:instance) do
-      Ansible::Ruby::Models::Tasks.new tasks: []
+      Ansible::Ruby::Models::Tasks.new items: []
     end
 
     subject { -> { instance.to_h } }
 
-    it { is_expected.to raise_error "Validation failed: Tasks can't be blank" }
+    it { is_expected.to raise_error "Validation failed: Items can't be blank" }
   end
 end

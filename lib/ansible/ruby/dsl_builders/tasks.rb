@@ -1,13 +1,20 @@
 # See LICENSE.txt for license
 require 'ansible/ruby/dsl_builders/task'
+require 'ansible/ruby/models/handler'
 
 module Ansible
   module Ruby
     module DslBuilders
       class Tasks < Base
-        @valid_methods = {
-          Models::Tasks => [:task],
-          Models::Handlers => [:handler]
+        @contexts = {
+          tasks: {
+            valid_methods: [:task],
+            model: Models::Task
+          },
+          handlers: {
+            valid_methods: [:handler],
+            model: Models::Handler
+          }
         }
 
         def initialize(context)
@@ -17,21 +24,25 @@ module Ansible
 
         # allow multiple tasks, etc.
         def _result
-          # TODO: use context here
-          Models::Tasks.new tasks: @items
+          Models::Tasks.new items: @items
         end
 
         class << self
-          def valid_methods(context)
-            @valid_methods[context]
+          def context(context)
+            @contexts[context]
           end
         end
 
         private
 
+        def _context
+          self.class.context @context
+        end
+
         def _valid_methods
-          valid = self.class.valid_methods @context
-          raise "Unknown context #{@context}" unless valid
+          raise "Unknown context #{@context}" unless _context
+          valid = _context[:valid_methods]
+          raise "Valid methods not configured for #{@context}!" unless valid
           valid
         end
 
@@ -42,8 +53,9 @@ module Ansible
         end
 
         def _handle(name, &block)
-          # TODO: Handlers have the same DSL as Task as well, so pass on our context to that
-          task_builder = Task.new name
+          model = _context[:model]
+          raise "Model not configured for #{@context}" unless model
+          task_builder = Task.new name, model
           task_builder.instance_eval(&block)
           @items << task_builder._result
         end

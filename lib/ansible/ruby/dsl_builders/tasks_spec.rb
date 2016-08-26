@@ -3,7 +3,7 @@ require 'spec_helper'
 require 'ansible-ruby'
 
 describe Ansible::Ruby::DslBuilders::Tasks do
-  let(:context) { Ansible::Ruby::Models::Tasks }
+  let(:context) { :tasks }
   let(:builder) { Ansible::Ruby::DslBuilders::Tasks.new context }
 
   def evaluate
@@ -37,11 +37,11 @@ describe Ansible::Ruby::DslBuilders::Tasks do
 
     it { is_expected.to be_a Ansible::Ruby::Models::Tasks }
     it do
-      is_expected.to have_attributes tasks: include(be_a(Ansible::Ruby::Models::Task))
+      is_expected.to have_attributes items: include(be_a(Ansible::Ruby::Models::Task))
     end
 
     describe 'hash keys' do
-      subject { tasks.tasks.map { |task| task.to_h.stringify_keys.keys } }
+      subject { tasks.items.map { |task| task.to_h.stringify_keys.keys } }
 
       it { is_expected.to eq [%w(name copy)] }
     end
@@ -52,13 +52,13 @@ describe Ansible::Ruby::DslBuilders::Tasks do
     subject { lambda { evaluate } }
 
     context 'tasks context' do
-      let(:context) { Ansible::Ruby::Models::Tasks }
+      let(:context) { :tasks }
 
       it { is_expected.to raise_error "Invalid method/local variable `foobar'. Only [:task] is valid at line 1!" }
     end
 
     context 'handler context' do
-      let(:context) { Ansible::Ruby::Models::Handlers }
+      let(:context) { :handlers }
 
       it { is_expected.to raise_error "Invalid method/local variable `foobar'. Only [:handler] is valid at line 1!" }
     end
@@ -69,7 +69,7 @@ describe Ansible::Ruby::DslBuilders::Tasks do
   end
 
   context 'handler' do
-    let(:context) { Ansible::Ruby::Models::Handlers }
+    let(:context) { :handlers }
 
     let(:ruby) do
       <<-RUBY
@@ -82,13 +82,13 @@ describe Ansible::Ruby::DslBuilders::Tasks do
       RUBY
     end
 
-    it { is_expected.to be_a Ansible::Ruby::Models::Handlers }
+    it { is_expected.to be_a Ansible::Ruby::Models::Tasks }
     it do
-      is_expected.to have_attributes tasks: include(be_a(Ansible::Ruby::Models::Handler))
+      is_expected.to have_attributes items: include(be_a(Ansible::Ruby::Models::Handler))
     end
 
     describe 'hash keys' do
-      subject { tasks.tasks.map { |task| task.to_h.stringify_keys.keys } }
+      subject { tasks.items.map { |task| task.to_h.stringify_keys.keys } }
 
       it { is_expected.to eq [%w(name copy)] }
     end

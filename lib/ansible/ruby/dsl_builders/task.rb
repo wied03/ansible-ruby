@@ -2,14 +2,14 @@ require 'ansible/ruby/dsl_builders/base'
 require 'ansible/ruby/dsl_builders/module_call'
 require 'ansible/ruby/dsl_builders/result'
 require 'ansible/ruby/models/task'
-require 'ansible/ruby/models/handlers'
 
 module Ansible
   module Ruby
     module DslBuilders
       class Task < Base
-        def initialize(name)
+        def initialize(name, context)
           super()
+          @context = context
           @module = nil
           @temp_counter = 0
           @name = name
@@ -77,7 +77,7 @@ module Ansible
             module: @module,
             name: @name
           }.merge @task_args
-          task = Models::Task.new args
+          task = @context.new args
           task.validate!
           task
         end

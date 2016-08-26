@@ -22,6 +22,21 @@ describe Ansible::Ruby::Models::Base do
     it { is_expected.to have_attributes foo: 123 }
   end
 
+  context 'inheritance' do
+    let(:klass) do
+      superklass = super()
+      stub_const 'Ansible::Ruby::TestModelBase', superklass
+      puts "super is #{superklass.attr_options} #{superklass}"
+      Class.new(superklass)
+    end
+
+    let(:instance) { klass.new foo: 123 }
+
+    it { is_expected.to be_valid }
+    it { is_expected.to have_hash foo: 123 }
+    it { is_expected.to have_attributes foo: 123 }
+  end
+
   context 'generic' do
     let(:klass) do
       Class.new(Ansible::Ruby::Models::Base) do
