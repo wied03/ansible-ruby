@@ -5,6 +5,8 @@ task 'say hello' do
     end
 
     failed_when "'No such filesss' in #{result.stderr}"
+
+    notify 'reboot'
   end
 end
 

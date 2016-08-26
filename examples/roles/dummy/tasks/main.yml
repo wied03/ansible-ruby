@@ -10,6 +10,8 @@
   - c
   register: result_1
   failed_when: "'No such filesss' in result_1.stderr"
+  notify:
+  - reboot
 - name: and goodbye
   command: ls {{ item.key }} {{ item.value.foobar }}
   args:
