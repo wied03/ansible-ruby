@@ -3,13 +3,15 @@ require 'spec_helper'
 require 'ansible-ruby'
 
 describe Ansible::Ruby::DslBuilders::Tasks do
-  let(:builder) { Ansible::Ruby::DslBuilders::Tasks.new }
+  let(:context) { :tasks }
+  let(:builder) { Ansible::Ruby::DslBuilders::Tasks.new context }
 
-  def _evaluate
-    builder._evaluate ruby
+  def evaluate
+    builder.instance_eval ruby
+    builder._result
   end
 
-  subject(:tasks) { _evaluate }
+  subject(:tasks) { evaluate }
 
   before do
     klass = Class.new(Ansible::Ruby::Modules::Base) do
@@ -35,11 +37,68 @@ describe Ansible::Ruby::DslBuilders::Tasks do
 
     it { is_expected.to be_a Ansible::Ruby::Models::Tasks }
     it do
-      is_expected.to have_attributes tasks: include(be_a(Ansible::Ruby::Models::Task))
+      is_expected.to have_attributes items: include(be_a(Ansible::Ruby::Models::Task))
     end
 
     describe 'hash keys' do
-      subject { tasks.tasks.map { |task| task.to_h.stringify_keys.keys } }
+      subject { tasks.items.map { |task| task.to_h.stringify_keys.keys } }
+
+      it { is_expected.to eq [%w(name copy)] }
+    end
+  end
+
+  context 'invalid method' do
+    let(:ruby) { 'foobar()' }
+    subject { -> { evaluate } }
+
+    context 'tasks context' do
+      let(:context) { :tasks }
+
+      it { is_expected.to raise_error "Invalid method/local variable `foobar'. Only [:task] is valid at line 1!" }
+    end
+
+    context 'handler context' do
+      let(:context) { :handlers }
+
+      it { is_expected.to raise_error "Invalid method/local variable `foobar'. Only [:handler] is valid at line 1!" }
+    end
+  end
+
+  context 'no name supplied' do
+    [:handlers, :tasks].each do |type|
+      context type do
+        let(:context) { type }
+        let(:singular) { type[0..-2] }
+        let(:ruby) { "#{singular} { copy { src 'file1'\n dest 'file2'} }" }
+
+        subject { -> { evaluate } }
+
+        it { is_expected.to raise_error "Validation failed: Name can't be blank at line 1!" }
+      end
+    end
+  end
+
+  context 'handler' do
+    let(:context) { :handlers }
+
+    let(:ruby) do
+      <<-RUBY
+      handler 'Copy something' do
+        copy do
+          src '/file1.conf'
+          dest '/file2.conf'
+        end
+      end
+      RUBY
+    end
+
+    it { is_expected.to be_a Ansible::Ruby::Models::Tasks }
+    it do
+      is_expected.to have_attributes items: include(be_a(Ansible::Ruby::Models::Handler))
+    end
+
+    describe 'hash keys' do
+      subject { tasks.items.map { |task| task.to_h.stringify_keys.keys } }
 
       it { is_expected.to eq [%w(name copy)] }
     end

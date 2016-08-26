@@ -5,12 +5,13 @@ describe Ansible::Ruby::DslBuilders::ModuleCall do
   let(:builder) { Ansible::Ruby::DslBuilders::ModuleCall.new }
 
   let(:evaluated_builder) do
-    builder._evaluate ruby
+    evaluate
     builder
   end
 
   def evaluate
-    builder._evaluate ruby
+    builder.instance_eval ruby
+    builder._result
   end
 
   subject { evaluate }
@@ -25,7 +26,7 @@ describe Ansible::Ruby::DslBuilders::ModuleCall do
     stub_const 'Ansible::Ruby::Modules::Copy', klass
   end
 
-  context 'found' do
+  context 'non free-form module' do
     let(:ruby) do
       <<-RUBY
       copy do
@@ -39,213 +40,217 @@ describe Ansible::Ruby::DslBuilders::ModuleCall do
     it { is_expected.to have_attributes src: '/file1.conf', dest: '/file2.conf' }
   end
 
-  context 'jinja variable' do
-    let(:ruby) do
-      <<-RUBY
-      copy do
-        src jinja('a_file')
-        dest '/file2.conf'
-      end
-      RUBY
-    end
-
-    it { is_expected.to be_a Ansible::Ruby::Modules::Copy }
-    it do
-      is_expected.to have_attributes src: '{{ a_file }}',
-                                     dest: '/file2.conf'
-    end
-  end
-
-  context 'jinja item' do
-    context 'single value' do
+  context 'jinja' do
+    context 'variable' do
       let(:ruby) do
         <<-RUBY
-        item = Ansible::Ruby::DslBuilders::JinjaItemNode.new
-
         copy do
-          src item
+          src jinja('a_file')
           dest '/file2.conf'
         end
         RUBY
       end
 
       it { is_expected.to be_a Ansible::Ruby::Modules::Copy }
-
       it do
-        is_expected.to have_attributes src: '{{ item }}',
+        is_expected.to have_attributes src: '{{ a_file }}',
                                        dest: '/file2.conf'
       end
     end
 
-    context 'array' do
-      let(:ruby) do
-        <<-RUBY
-        item = Ansible::Ruby::DslBuilders::JinjaItemNode.new
+    context 'item' do
+      context 'single value' do
+        let(:ruby) do
+          <<-RUBY
+          item = Ansible::Ruby::DslBuilders::JinjaItemNode.new
 
-        copy do
-          src [item, item]
-          dest '/file2.conf'
+          copy do
+            src item
+            dest '/file2.conf'
+          end
+          RUBY
         end
-        RUBY
-      end
 
-      it { is_expected.to be_a Ansible::Ruby::Modules::Copy }
+        it { is_expected.to be_a Ansible::Ruby::Modules::Copy }
 
-      it do
-        is_expected.to have_attributes src: ['{{ item }}', '{{ item }}'],
-                                       dest: '/file2.conf'
-      end
-    end
-
-    context 'mixed values' do
-      let(:ruby) do
-        <<-RUBY
-        item = Ansible::Ruby::DslBuilders::JinjaItemNode.new
-
-        copy do
-          src [item, item.key]
-          dest '/file2.conf'
+        it do
+          is_expected.to have_attributes src: '{{ item }}',
+                                         dest: '/file2.conf'
         end
-        RUBY
       end
 
-      it { is_expected.to be_a Ansible::Ruby::Modules::Copy }
+      context 'array' do
+        let(:ruby) do
+          <<-RUBY
+          item = Ansible::Ruby::DslBuilders::JinjaItemNode.new
 
-      it do
-        is_expected.to have_attributes src: ['{{ item }}', '{{ item.key }}'],
-                                       dest: '/file2.conf'
-      end
-    end
-
-    context 'hash' do
-      let(:ruby) do
-        <<-RUBY
-        item = Ansible::Ruby::DslBuilders::JinjaItemNode.new
-
-        copy do
-          src stuff: item, bar: item
-          dest '/file2.conf'
+          copy do
+            src [item, item]
+            dest '/file2.conf'
+          end
+          RUBY
         end
-        RUBY
+
+        it { is_expected.to be_a Ansible::Ruby::Modules::Copy }
+
+        it do
+          is_expected.to have_attributes src: ['{{ item }}', '{{ item }}'],
+                                         dest: '/file2.conf'
+        end
       end
 
-      it { is_expected.to be_a Ansible::Ruby::Modules::Copy }
+      context 'mixed values' do
+        let(:ruby) do
+          <<-RUBY
+          item = Ansible::Ruby::DslBuilders::JinjaItemNode.new
 
-      it do
-        is_expected.to have_attributes src: {
-          stuff: '{{ item }}',
-          bar: '{{ item }}'
-        },
-                                       dest: '/file2.conf'
+          copy do
+            src [item, item.key]
+            dest '/file2.conf'
+          end
+          RUBY
+        end
+
+        it { is_expected.to be_a Ansible::Ruby::Modules::Copy }
+
+        it do
+          is_expected.to have_attributes src: ['{{ item }}', '{{ item.key }}'],
+                                         dest: '/file2.conf'
+        end
+      end
+
+      context 'hash' do
+        let(:ruby) do
+          <<-RUBY
+          item = Ansible::Ruby::DslBuilders::JinjaItemNode.new
+
+          copy do
+            src stuff: item, bar: item
+            dest '/file2.conf'
+          end
+          RUBY
+        end
+
+        it { is_expected.to be_a Ansible::Ruby::Modules::Copy }
+
+        it do
+          is_expected.to have_attributes src: {
+            stuff: '{{ item }}',
+            bar: '{{ item }}'
+          },
+                                         dest: '/file2.conf'
+        end
       end
     end
   end
 
-  context 'using free form name on non free-form module' do
-    let(:ruby) do
-      <<-RUBY
-      copy 'howdy' do
-        src '/file1.conf'
-        dest '/file2.conf'
-      end
-      RUBY
-    end
-
-    subject { -> { evaluate } }
-
-    it { is_expected.to raise_error "Can't use arguments [\"howdy\"] on this type of module at line 1!" }
-  end
-
-  context 'no block' do
-    let(:ruby) do
-      <<-RUBY
-      copy()
-      RUBY
-    end
-
-    subject { -> { evaluate } }
-
-    it { is_expected.to raise_error 'You must supply a block when using this type of module at line 1!' }
-  end
-
-  context 'free form module' do
-    before do
-      klass_free_form = Class.new(Ansible::Ruby::Models::Base) do
-        attribute :free_form
-        validates :free_form, presence: true
-
-        attribute :foo
-      end
-      stub_const 'Ansible::Ruby::Modules::Command', klass_free_form
-      # simulate monkey patching existing
-      klass_free_form.class_eval do
-        include Ansible::Ruby::Modules::FreeForm
-      end
-    end
-
-    context 'valid' do
+  context 'free form' do
+    context 'using free form name on non free-form module' do
       let(:ruby) do
         <<-RUBY
-        command 'ls /stuff' do
-          foo '/file1.conf'
-        end
+          copy 'howdy' do
+            src '/file1.conf'
+            dest '/file2.conf'
+          end
         RUBY
       end
 
-      it { is_expected.to be_a Ansible::Ruby::Modules::Command }
-      it { is_expected.to have_attributes free_form: 'ls /stuff', foo: '/file1.conf' }
-    end
+      subject { -> { evaluate } }
 
-    context 'jinja item in name' do
-      let(:ruby) do
-        <<-RUBY
-        item = Ansible::Ruby::DslBuilders::JinjaItemNode.new
-
-        command item
-        RUBY
-      end
-
-      it { is_expected.to be_a Ansible::Ruby::Modules::Command }
-      it { is_expected.to have_attributes free_form: '{{ item }}' }
+      it { is_expected.to raise_error "Can't use arguments [\"howdy\"] on this type of module at line 1!" }
     end
 
     context 'no block' do
       let(:ruby) do
         <<-RUBY
-command 'ls /stuff'
-        RUBY
-      end
-
-      it { is_expected.to be_a Ansible::Ruby::Modules::Command }
-      it { is_expected.to have_attributes free_form: 'ls /stuff' }
-    end
-
-    context 'too many args' do
-      let(:ruby) do
-        <<-RUBY
-        command 'ls /stuff', 'more' do
-          foo '/file1.conf'
-        end
+          copy()
         RUBY
       end
 
       subject { -> { evaluate } }
 
-      it { is_expected.to raise_error 'Expected only 1 argument for this type of module at line 1!' }
+      it { is_expected.to raise_error 'You must supply a block when using this type of module at line 1!' }
     end
 
-    context 'free form not supplied' do
-      let(:ruby) do
-        <<-RUBY
-        command do
-          foo '/file1.conf'
+    context 'valid' do
+      before do
+        klass_free_form = Class.new(Ansible::Ruby::Models::Base) do
+          attribute :free_form
+          validates :free_form, presence: true
+
+          attribute :foo
         end
-        RUBY
+        stub_const 'Ansible::Ruby::Modules::Command', klass_free_form
+        # simulate monkey patching existing
+        klass_free_form.class_eval do
+          include Ansible::Ruby::Modules::FreeForm
+        end
       end
 
-      subject { -> { evaluate } }
+      context 'valid' do
+        let(:ruby) do
+          <<-RUBY
+          command 'ls /stuff' do
+            foo '/file1.conf'
+          end
+          RUBY
+        end
 
-      it { is_expected.to raise_error 'Expected 1 argument for this type of module at line 1!' }
+        it { is_expected.to be_a Ansible::Ruby::Modules::Command }
+        it { is_expected.to have_attributes free_form: 'ls /stuff', foo: '/file1.conf' }
+      end
+
+      context 'jinja item in name' do
+        let(:ruby) do
+          <<-RUBY
+          item = Ansible::Ruby::DslBuilders::JinjaItemNode.new
+
+          command item
+          RUBY
+        end
+
+        it { is_expected.to be_a Ansible::Ruby::Modules::Command }
+        it { is_expected.to have_attributes free_form: '{{ item }}' }
+      end
+
+      context 'no block' do
+        let(:ruby) do
+          <<-RUBY
+  command 'ls /stuff'
+          RUBY
+        end
+
+        it { is_expected.to be_a Ansible::Ruby::Modules::Command }
+        it { is_expected.to have_attributes free_form: 'ls /stuff' }
+      end
+
+      context 'too many args' do
+        let(:ruby) do
+          <<-RUBY
+          command 'ls /stuff', 'more' do
+            foo '/file1.conf'
+          end
+          RUBY
+        end
+
+        subject { -> { evaluate } }
+
+        it { is_expected.to raise_error 'Expected only 1 argument for this type of module at line 1!' }
+      end
+
+      context 'free form not supplied' do
+        let(:ruby) do
+          <<-RUBY
+          command do
+            foo '/file1.conf'
+          end
+          RUBY
+        end
+
+        subject { -> { evaluate } }
+
+        it { is_expected.to raise_error 'Expected 1 argument for this type of module at line 1!' }
+      end
     end
   end
 

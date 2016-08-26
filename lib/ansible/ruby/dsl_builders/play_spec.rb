@@ -4,11 +4,12 @@ require 'ansible-ruby'
 describe Ansible::Ruby::DslBuilders::Play do
   let(:builder) { Ansible::Ruby::DslBuilders::Play.new 'another play' }
 
-  def _evaluate
-    builder._evaluate ruby
+  def evaluate
+    builder.instance_eval ruby
+    builder._result
   end
 
-  subject(:playbook) { _evaluate }
+  subject(:playbook) { evaluate }
 
   before do
     klass = Class.new(Ansible::Ruby::Modules::Base) do
@@ -41,7 +42,7 @@ describe Ansible::Ruby::DslBuilders::Play do
       subject { playbook.tasks }
 
       it { is_expected.to be_a Ansible::Ruby::Models::Tasks }
-      it { is_expected.to have_attributes tasks: include(be_a(Ansible::Ruby::Models::Task)) }
+      it { is_expected.to have_attributes items: include(be_a(Ansible::Ruby::Models::Task)) }
     end
 
     describe 'hash keys' do
@@ -110,6 +111,14 @@ describe Ansible::Ruby::DslBuilders::Play do
       is_expected.to have_attributes roles: %w(role1 role2),
                                      hosts: 'host1'
     end
+  end
+
+  context 'invalid keyword' do
+    let(:ruby) { 'foobar' }
+
+    subject { -> { evaluate } }
+
+    it { is_expected.to raise_error "Invalid method/local variable `foobar'. Only valid options are [:hosts, :roles, :connection, :user, :serial, :gather_facts, :local_host, :jinja, :task] at line 1!" }
   end
 
   context 'other attributes' do

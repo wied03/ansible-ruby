@@ -1,4 +1,5 @@
 ## Under development
+* Handler support
 * Add jinja variable helper
 * Add with_items support and add block helper for that and with_dict
 

@@ -30,7 +30,8 @@ module Ansible
               puts "Updating Ansible file #{filename.name} from #{filename.source}..."
               ruby = File.read filename.source
               playbook_builder = Ansible::Ruby::DslBuilders::FileLevel.new
-              playbook = playbook_builder._evaluate ruby
+              playbook_builder.instance_eval ruby
+              playbook = playbook_builder._result
               yml = Ansible::Ruby::Serializer.serialize playbook.to_h
               File.write filename.name, yml
             end

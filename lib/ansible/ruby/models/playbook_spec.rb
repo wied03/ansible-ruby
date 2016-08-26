@@ -13,7 +13,7 @@ describe Ansible::Ruby::Models::Playbook do
     end
   end
 
-  let(:tasks_model) { Ansible::Ruby::Models::Tasks.new tasks: task_array }
+  let(:tasks_model) { Ansible::Ruby::Models::Tasks.new items: task_array }
   let(:task_array) { [task] }
 
   let(:task) do

@@ -2,13 +2,15 @@ require 'spec_helper'
 require 'ansible-ruby'
 
 describe Ansible::Ruby::DslBuilders::Task do
-  let(:builder) { Ansible::Ruby::DslBuilders::Task.new 'Copy something' }
+  let(:context) { Ansible::Ruby::Models::Task }
+  let(:builder) { Ansible::Ruby::DslBuilders::Task.new 'Copy something', context }
 
-  def _evaluate
-    builder._evaluate ruby
+  def evaluate
+    builder.instance_eval ruby
+    builder._result
   end
 
-  subject(:task) { _evaluate }
+  subject(:task) { evaluate }
 
   before do
     klass = Class.new(Ansible::Ruby::Modules::Base) do
@@ -40,6 +42,21 @@ describe Ansible::Ruby::DslBuilders::Task do
 
       it { is_expected.to eq %w(name copy) }
     end
+  end
+
+  context 'handler' do
+    let(:context) { Ansible::Ruby::Models::Handler }
+    let(:ruby) do
+      <<-RUBY
+      copy do
+        src '/file1.conf'
+        dest '/file2.conf'
+      end
+      RUBY
+    end
+
+    it { is_expected.to be_a Ansible::Ruby::Models::Handler }
+    it { is_expected.to have_attributes name: 'Copy something', module: be_a(Ansible::Ruby::Modules::Copy) }
   end
 
   context 'jinja' do
@@ -168,7 +185,7 @@ describe Ansible::Ruby::DslBuilders::Task do
       RUBY
     end
 
-    subject { -> { _evaluate } }
+    subject { -> { evaluate } }
 
     it { is_expected.to raise_error "Validation failed: Module can't be blank" }
   end
@@ -266,9 +283,9 @@ describe Ansible::Ruby::DslBuilders::Task do
         RUBY
       end
 
-      subject { -> { _evaluate } }
+      subject { -> { evaluate } }
 
-      it { is_expected.to raise_error NameError, /undefined local variable or method `atomicc_result' for.*/ }
+      it { is_expected.to raise_error "undefined local variable or method `atomicc_result' at line 5!" }
     end
 
     context 'failed when' do

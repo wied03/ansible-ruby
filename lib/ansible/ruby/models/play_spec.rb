@@ -18,7 +18,7 @@ describe Ansible::Ruby::Models::Play do
                                     module: module_klass.new(foo: 123)
   end
 
-  let(:tasks_model) { Ansible::Ruby::Models::Tasks.new(tasks: task_array) }
+  let(:tasks_model) { Ansible::Ruby::Models::Tasks.new(items: task_array) }
   let(:task_array) { [task] }
 
   subject(:hash) { instance.to_h }

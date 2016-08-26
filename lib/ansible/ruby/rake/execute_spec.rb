@@ -141,6 +141,21 @@ OUTPUT
       it { is_expected.to have_yaml task_yml, that: include('- name: Copy something else over') }
     end
 
+    context 'handlers' do
+      let(:rake_dir) { 'spec/rake/nested_tasks' }
+      let(:handler_yml) { 'roles/role1/handlers/handler1_test.yml' }
+
+      let(:task) do
+        Ansible::Ruby::Rake::Execute.new do |task|
+          task.playbooks = ruby_file
+        end
+      end
+
+      it { is_expected.to have_yaml yaml_file, that: include('host1:host2', 'roles') }
+      it { is_expected.to have_yaml handler_yml, that: include('- name: reboot') }
+      it { is_expected.to have_yaml handler_yml, that: include('shutdown') }
+    end
+
     context 'no playbook' do
       def execute_task
         # overriding parent so we can test error

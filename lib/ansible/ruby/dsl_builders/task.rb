@@ -7,23 +7,13 @@ module Ansible
   module Ruby
     module DslBuilders
       class Task < Base
-        def initialize(name)
+        def initialize(name, context)
           super()
+          @context = context
           @module = nil
           @temp_counter = 0
           @name = name
           @task_args = {}
-        end
-
-        def _evaluate(*)
-          super
-          args = {
-            module: @module,
-            name: @name
-          }.merge @task_args
-          task = Models::Task.new args
-          task.validate!
-          task
         end
 
         def become(*args)
@@ -81,6 +71,17 @@ module Ansible
           !@module || super
         end
 
+        # allow for other attributes besides the module in any order
+        def _result
+          args = {
+            module: @module,
+            name: @name
+          }.merge @task_args
+          task = @context.new args
+          task.validate!
+          task
+        end
+
         private
 
         def _process_method(id, *args, &block)
@@ -88,7 +89,7 @@ module Ansible
           raise "undefined local variable or method `#{id}'" if @module
           mcb = ModuleCall.new
           mcb.send(id, *args, &block)
-          @module = mcb.result
+          @module = mcb._result
         end
 
         def method_missing_return(_id, _result, *_args)
