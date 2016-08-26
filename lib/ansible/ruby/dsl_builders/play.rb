@@ -8,32 +8,32 @@ module Ansible
       class Play < Tasks
         def initialize(name = nil)
           super :tasks
-          @playbook_args = {}
-          @playbook_args[:name] = name
+          @play_args = {}
+          @play_args[:name] = name if name
         end
 
         def hosts(value)
-          @playbook_args[:hosts] = value
+          @play_args[:hosts] = value
         end
 
         def roles(value)
-          @playbook_args[:roles] = value
+          @play_args[:roles] = value
         end
 
         def connection(value)
-          @playbook_args[:connection] = value
+          @play_args[:connection] = value
         end
 
         def user(value)
-          @playbook_args[:user] = value
+          @play_args[:user] = value
         end
 
         def serial(value)
-          @playbook_args[:serial] = value
+          @play_args[:serial] = value
         end
 
         def gather_facts(value)
-          @playbook_args[:gather_facts] = value
+          @play_args[:gather_facts] = value
         end
 
         def local_host
@@ -42,13 +42,15 @@ module Ansible
         end
 
         def block(&block)
-
+          builder = Block.new
+          builder.instance_eval &block
+          @items << builder._result
         end
 
         # allow any order
         def _result
           tasks = super
-          args = @playbook_args.merge({})
+          args = @play_args.merge({})
           # Don't want to trigger validation
           args[:tasks] = tasks if tasks.items.any?
           Models::Play.new args

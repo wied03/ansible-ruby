@@ -2,14 +2,15 @@ require 'spec_helper'
 require 'ansible-ruby'
 
 describe Ansible::Ruby::DslBuilders::Play do
-  let(:builder) { Ansible::Ruby::DslBuilders::Play.new 'another play' }
+  let(:name) { 'another play' }
+  let(:builder) { Ansible::Ruby::DslBuilders::Play.new name }
 
   def evaluate
     builder.instance_eval ruby
     builder._result
   end
 
-  subject(:playbook) { evaluate }
+  subject(:play) { evaluate }
 
   before do
     klass = Class.new(Ansible::Ruby::Modules::Base) do
@@ -36,19 +37,45 @@ describe Ansible::Ruby::DslBuilders::Play do
     end
 
     it { is_expected.to be_a Ansible::Ruby::Models::Play }
-    it { is_expected.to have_attributes hosts: 'host1' }
+    it { is_expected.to have_attributes hosts: 'host1',
+                                        name: 'another play' }
 
     describe 'tasks' do
-      subject { playbook.tasks }
+      subject { play.tasks }
 
       it { is_expected.to be_a Ansible::Ruby::Models::Tasks }
       it { is_expected.to have_attributes items: include(be_a(Ansible::Ruby::Models::Task)) }
     end
 
     describe 'hash keys' do
-      subject { playbook.to_h.stringify_keys.keys }
+      subject { play.to_h.stringify_keys.keys }
 
       it { is_expected.to eq %w(hosts name tasks) }
+    end
+  end
+
+  context 'no name' do
+    let(:ruby) do
+      <<-RUBY
+      hosts 'host1'
+
+      task 'Copy something' do
+          copy do
+            src '/file1.conf'
+            dest '/file2.conf'
+          end
+      end
+      RUBY
+    end
+    let(:name) { nil }
+
+    it { is_expected.to be_a Ansible::Ruby::Models::Play }
+    it { is_expected.to have_attributes hosts: 'host1' }
+
+    describe 'hash keys' do
+      subject { play.to_h.stringify_keys.keys }
+
+      it { is_expected.to eq %w(hosts tasks) }
     end
   end
 
@@ -74,21 +101,25 @@ describe Ansible::Ruby::DslBuilders::Play do
       it { is_expected.to be_a Ansible::Ruby::Models::Play }
       it { is_expected.to have_attributes hosts: 'host1' }
 
-      describe 'block' do
-        subject { playbook.tasks }
+      describe 'tasks' do
+        subject { play.tasks }
 
         it { is_expected.to be_a Ansible::Ruby::Models::Tasks }
         it { is_expected.to have_attributes items: include(be_a(Ansible::Ruby::Models::Block)) }
       end
 
       describe 'hash keys' do
-        subject { playbook.to_h.stringify_keys.keys }
+        subject { play.to_h.stringify_keys.keys }
 
-        it { is_expected.to eq %w(hosts block) }
+        it { is_expected.to eq %w(hosts name tasks) }
       end
     end
 
     context 'no block given' do
+      pending 'write this'
+    end
+
+    context 'block mixed with tasks' do
       pending 'write this'
     end
   end
@@ -132,7 +163,7 @@ describe Ansible::Ruby::DslBuilders::Play do
     end
 
     describe 'hash keys' do
-      subject { playbook.to_h.stringify_keys.keys }
+      subject { play.to_h.stringify_keys.keys }
 
       it { is_expected.to eq %w(hosts tasks) }
     end
