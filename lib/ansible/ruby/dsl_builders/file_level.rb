@@ -49,7 +49,7 @@ module Ansible
         end
 
         def _process_method(id, *)
-          raise "undefined local variable or method `#{id}'"
+          no_method_error id, 'Only valid options are [:task, :handler, :play]'
         end
 
         private

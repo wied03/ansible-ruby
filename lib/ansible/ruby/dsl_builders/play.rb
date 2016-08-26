@@ -48,6 +48,13 @@ module Ansible
           args[:tasks] = tasks if tasks.tasks.any?
           Models::Play.new args
         end
+
+        private
+
+        def _process_method(id, *)
+          valid = self.class.instance_methods - Object.instance_methods - [:_result, :method_missing]
+          no_method_error id, "Only valid options are #{valid}"
+        end
       end
     end
   end

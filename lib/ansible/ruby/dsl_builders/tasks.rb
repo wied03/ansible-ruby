@@ -23,7 +23,10 @@ module Ansible
           Models::Tasks.new tasks: @items
         end
 
+        private
+
         def _process_method(id, *)
+          # All valid cases are already defined
           only_valid_clause = case @context.name
                               when Models::Tasks.name
                                 "Only `task' is valid"

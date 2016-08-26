@@ -269,7 +269,7 @@ describe Ansible::Ruby::DslBuilders::Task do
 
       subject { -> { evaluate } }
 
-      it { is_expected.to raise_error NameError, /undefined local variable or method `atomicc_result' for.*/ }
+      it { is_expected.to raise_error "undefined local variable or method `atomicc_result' at line 5!" }
     end
 
     context 'failed when' do

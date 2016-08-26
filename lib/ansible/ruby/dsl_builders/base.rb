@@ -24,7 +24,7 @@ module Ansible
           rescue StandardError => our_error
             begin
               super
-            rescue NoMethodError => ruby_error
+            rescue NoMethodError, NameError => ruby_error
               matching_line = ruby_error.backtrace
                                 .map { |str| str.split ':' }
                                 .find { |arr| arr[0] == '(eval)' }[1]

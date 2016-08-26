@@ -43,6 +43,14 @@ describe Ansible::Ruby::DslBuilders::FileLevel do
     end
   end
 
+  context 'invalid keyword' do
+    let(:ruby) { 'foobar()' }
+
+    subject { -> { evaluate } }
+
+    it { is_expected.to raise_error "Invalid method/local variable `foobar'. Only valid options are [:task, :handler, :play] at line 1!" }
+  end
+
   context 'playbook' do
     context 'named' do
       let(:ruby) do
@@ -136,7 +144,7 @@ describe Ansible::Ruby::DslBuilders::FileLevel do
       RUBY
     end
 
-    it { is_expected.to raise_error 'This is a playbook file due to a play coming before this task, cannot use task here!' }
+    it { is_expected.to raise_error 'This is a tasks file, cannot use playbook here!' }
   end
 
   context 'change from task to play' do
@@ -158,6 +166,6 @@ describe Ansible::Ruby::DslBuilders::FileLevel do
       RUBY
     end
 
-    it { is_expected.to raise_error 'This is a tasks file due to a task coming before this play, cannot use play here!' }
+    it { is_expected.to raise_error 'This is a playbook file, cannot use tasks here!' }
   end
 end

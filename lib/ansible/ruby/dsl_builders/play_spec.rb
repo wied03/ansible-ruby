@@ -118,8 +118,7 @@ describe Ansible::Ruby::DslBuilders::Play do
 
     subject { lambda { evaluate } }
 
-    it { is_expected.to raise_error "Invalid method/local variable `foobar'. Only `task' is valid at line 1!" }
-    pending 'write this'
+    it { is_expected.to raise_error "Invalid method/local variable `foobar'. Only valid options are [:hosts, :roles, :connection, :user, :serial, :gather_facts, :local_host, :task, :jinja] at line 1!" }
   end
 
   context 'other attributes' do
