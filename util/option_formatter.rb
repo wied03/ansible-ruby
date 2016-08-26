@@ -55,8 +55,11 @@ module Ansible
 
         def format_yard_type(type)
           # we let user use an array or single value
-          type = "Array<#{type.klass.name}>, #{type.klass.name}" if type.is_a? TypeGeneric
           case type
+          when TypeGeneric
+            # Only using 1 of the generic/union-ish types right now
+            klass_name = type.klasses[0].name
+            "Array<#{klass_name}>, #{klass_name}"
           when Class
             type.name
           when Symbol
@@ -104,7 +107,7 @@ module Ansible
         def validation_type(generics, types)
           if generics.any?
             generic = generics[0]
-            "TypeGeneric.new(#{generic.klass.name})"
+            "TypeGeneric.new(#{generic.klasses.map { |klass| klass.name }.join ', '})"
           elsif types.length > 1
             "MultipleTypes.new(#{types.map { |type| format_single_validation type }.join ', '})"
           elsif types.length == 1

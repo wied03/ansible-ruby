@@ -1,4 +1,4 @@
-RSpec::Matchers.define :have_type_generic do |expected|
+RSpec::Matchers.define :have_type_generic do |*expected|
   match do |actual|
     @types = actual.types
     generic = @types.find { |t| t.is_a? TypeGeneric }
@@ -7,7 +7,7 @@ RSpec::Matchers.define :have_type_generic do |expected|
       @no_generics = true
       next false
     end
-    @matcher = eq(generic.klass)
+    @matcher = eq(generic.klasses)
     @matcher.matches? expected
   end
 

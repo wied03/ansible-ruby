@@ -18,7 +18,7 @@ module Ansible
         class << self
           def attr_options
             @attr_options ||= begin
-              # need parent attribute info
+                                # need parent attribute info
               hash = Base > self ? superclass.attr_options : {}
               hash.clone
             end
@@ -43,7 +43,7 @@ module Ansible
             if type_validator.is_a?(TypeGeneric)
               name = attributes[0]
               for_name = attr_options[name] ||= {}
-              for_name[:generic] = type_validator.klass
+              for_name[:generic] = type_validator.klasses
             end
           end
         end
@@ -55,8 +55,8 @@ module Ansible
               value = send key
               options = self.class.attr_option(key)
               value = hashify value
-              generic_type = options[:generic]
-              value = convert_generic generic_type, value if generic_type
+              generic_types = options[:generic]
+              value = convert_generic generic_types, value if generic_types
               key = options[:original_name] || key
               [key, value]
             end.compact]
@@ -75,10 +75,9 @@ module Ansible
           end
         end
 
-        def convert_generic(generic_type, value)
+        def convert_generic(generic_types, value)
           # hash friendly of [*value]
-          case value
-          when generic_type
+          if generic_types.any? { |type| value.is_a? type }
             [value]
           else
             value
