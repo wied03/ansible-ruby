@@ -6,11 +6,11 @@ describe Ansible::Ruby::DslBuilders::Tasks do
   let(:context) { Ansible::Ruby::Models::Tasks }
   let(:builder) { Ansible::Ruby::DslBuilders::Tasks.new context }
 
-  def _evaluate
+  def evaluate
     builder._evaluate ruby
   end
 
-  subject(:tasks) { _evaluate }
+  subject(:tasks) { evaluate }
 
   before do
     klass = Class.new(Ansible::Ruby::Modules::Base) do
@@ -43,6 +43,23 @@ describe Ansible::Ruby::DslBuilders::Tasks do
       subject { tasks.tasks.map { |task| task.to_h.stringify_keys.keys } }
 
       it { is_expected.to eq [%w(name copy)] }
+    end
+  end
+
+  context 'invalid method' do
+    let(:ruby) { 'foobar()' }
+    subject { lambda { evaluate } }
+
+    context 'tasks context' do
+      let(:context) { Ansible::Ruby::Models::Tasks }
+
+      it { is_expected.to raise_error "Invalid method/local variable `foobar'. Only `task' is valid at line 1!" }
+    end
+
+    context 'handler context' do
+      let(:context) { Ansible::Ruby::Models::Handlers }
+
+      it { is_expected.to raise_error "Invalid method/local variable `foobar'. Only `handler' is valid at line 1!" }
     end
   end
 

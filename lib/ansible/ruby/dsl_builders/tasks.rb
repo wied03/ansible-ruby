@@ -23,7 +23,15 @@ module Ansible
         end
 
         def _process_method(id, *)
-          raise "undefined local variable or method `#{id}'"
+          only_valid_clause = case @context.name
+                              when Models::Tasks.name
+                                "Only `task' is valid"
+                              when Models::Handlers.name
+                                "Only `handler' is valid"
+                              else
+                                raise "Unknown context #{@context}"
+                              end
+          raise "Invalid method/local variable `#{id}'. #{only_valid_clause}"
         end
       end
     end
