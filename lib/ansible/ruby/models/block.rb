@@ -8,6 +8,13 @@ module Ansible
       class Block < Unit
         attribute :tasks
         validates :tasks, type: TypeGeneric.new(Task)
+        validate :enough_tasks
+
+        private
+
+        def enough_tasks
+          errors.add :tasks, 'Must have at least 1 task in your block!' unless tasks.any?
+        end
       end
     end
   end

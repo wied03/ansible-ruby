@@ -115,12 +115,34 @@ describe Ansible::Ruby::DslBuilders::Play do
       end
     end
 
-    context 'no block given' do
-      pending 'write this'
+    context 'no task' do
+      let(:ruby) do
+        <<-RUBY
+        hosts 'host1'
+
+        block do
+          ansible_when "ansible_distribution == 'CentOS'"
+        end
+        RUBY
+      end
+
+      subject { lambda { evaluate } }
+
+      it { is_expected.to raise_error 'Validation failed: Tasks Must have at least 1 task in your block!' }
     end
 
-    context 'block mixed with tasks' do
-      pending 'write this'
+    context 'no block' do
+      let(:ruby) do
+        <<-RUBY
+        hosts 'host1'
+
+        block
+        RUBY
+      end
+
+      subject { lambda { evaluate } }
+
+      it { is_expected.to raise_error 'wrong number of arguments (0 for 1..3)' }
     end
   end
 
