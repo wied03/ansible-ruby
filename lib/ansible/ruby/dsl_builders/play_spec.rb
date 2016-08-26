@@ -42,7 +42,7 @@ describe Ansible::Ruby::DslBuilders::Play do
       subject { playbook.tasks }
 
       it { is_expected.to be_a Ansible::Ruby::Models::Tasks }
-      it { is_expected.to have_attributes tasks: include(be_a(Ansible::Ruby::Models::Task)) }
+      it { is_expected.to have_attributes items: include(be_a(Ansible::Ruby::Models::Task)) }
     end
 
     describe 'hash keys' do
@@ -118,7 +118,7 @@ describe Ansible::Ruby::DslBuilders::Play do
 
     subject { lambda { evaluate } }
 
-    it { is_expected.to raise_error "Invalid method/local variable `foobar'. Only valid options are [:hosts, :roles, :connection, :user, :serial, :gather_facts, :local_host, :task, :jinja] at line 1!" }
+    it { is_expected.to raise_error "Invalid method/local variable `foobar'. Only valid options are [:hosts, :roles, :connection, :user, :serial, :gather_facts, :local_host, :jinja, :task] at line 1!" }
   end
 
   context 'other attributes' do

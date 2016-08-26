@@ -6,7 +6,7 @@ module Ansible
     module DslBuilders
       class Play < Tasks
         def initialize(name = nil)
-          super(Models::Tasks)
+          super :tasks
           @playbook_args = {}
           @playbook_args[:name] = name
         end
@@ -45,14 +45,15 @@ module Ansible
           tasks = super
           args = @playbook_args.merge({})
           # Don't want to trigger validation
-          args[:tasks] = tasks if tasks.tasks.any?
+          args[:tasks] = tasks if tasks.items.any?
           Models::Play.new args
         end
 
         private
 
-        def _process_method(id, *)
-          valid = self.class.instance_methods - Object.instance_methods - [:_result, :method_missing]
+        def _process_method(id, *args, &block)
+          return super if respond_to_missing?(id, *args, &block)
+          valid = (self.class.instance_methods - Object.instance_methods - [:_result, :method_missing]) << :task
           no_method_error id, "Only valid options are #{valid}"
         end
       end

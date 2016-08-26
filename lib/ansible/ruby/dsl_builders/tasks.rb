@@ -6,17 +6,6 @@ module Ansible
   module Ruby
     module DslBuilders
       class Tasks < Base
-        @contexts = {
-          tasks: {
-            valid_methods: [:task],
-            model: Models::Task
-          },
-          handlers: {
-            valid_methods: [:handler],
-            model: Models::Handler
-          }
-        }
-
         def initialize(context)
           @context = context
           @items = []
@@ -29,8 +18,25 @@ module Ansible
 
         class << self
           def context(context)
-            @contexts[context]
+            contexts[context]
           end
+
+          def contexts
+            {
+              tasks: {
+                valid_methods: [:task],
+                model: Models::Task
+              },
+              handlers: {
+                valid_methods: [:handler],
+                model: Models::Handler
+              }
+            }
+          end
+        end
+
+        def respond_to_missing?(id, *)
+          _valid_methods.include? id
         end
 
         private
