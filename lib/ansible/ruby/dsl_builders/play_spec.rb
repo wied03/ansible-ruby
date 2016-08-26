@@ -74,7 +74,7 @@ describe Ansible::Ruby::DslBuilders::Play do
       it { is_expected.to be_a Ansible::Ruby::Models::Play }
       it { is_expected.to have_attributes hosts: 'host1' }
 
-      describe 'tasks' do
+      describe 'block' do
         subject { playbook.tasks }
 
         it { is_expected.to be_a Ansible::Ruby::Models::Tasks }
@@ -84,7 +84,7 @@ describe Ansible::Ruby::DslBuilders::Play do
       describe 'hash keys' do
         subject { playbook.to_h.stringify_keys.keys }
 
-        it { is_expected.to eq %w(hosts name tasks) }
+        it { is_expected.to eq %w(hosts block) }
       end
     end
 

@@ -3,8 +3,6 @@ module Ansible
   module Ruby
     module Models
       class Unit < Base
-        attribute :name
-        validates :name, presence: true, type: String
         attribute :register
         validates :register, type: String
         attribute :become

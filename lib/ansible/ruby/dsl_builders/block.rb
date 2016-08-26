@@ -4,7 +4,27 @@ require 'ansible/ruby/models/block'
 module Ansible
   module Ruby
     module DslBuilders
-      class Block
+      class Block < Unit
+        def initialize
+          super
+          @tasks = []
+        end
+
+        def task(name, &block)
+          task_builder = Task.new name, Models::Task
+          task_builder.instance_eval(&block)
+          @tasks << task_builder._result
+        end
+
+        # allow for other attributes besides the module in any order
+        def _result
+          args = {
+            tasks: @tasks
+          }.merge @task_args
+          block = Models::Block.new args
+          block.validate!
+          block
+        end
       end
     end
   end

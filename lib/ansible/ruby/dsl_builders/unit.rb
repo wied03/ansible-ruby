@@ -3,10 +3,9 @@ module Ansible
   module Ruby
     module DslBuilders
       class Unit < Base
-        def initialize(name)
+        def initialize
           super()
           @temp_counter = 0
-          @name = name
           @task_args = {}
         end
 
