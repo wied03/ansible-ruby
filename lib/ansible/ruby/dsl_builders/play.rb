@@ -40,7 +40,8 @@ module Ansible
           connection :local
         end
 
-        def _evaluate(*)
+        # allow any order
+        def _result
           tasks = super
           args = @playbook_args.merge({})
           # Don't want to trigger validation

@@ -72,8 +72,9 @@ module Ansible
         def _block_args(&block)
           return {} unless block
           # Delegate everything to the args builder and apply it to the module class we located
-          module_builder = Args.new
-          module_builder._evaluate(&block)
+          args_builder = Args.new
+          args_builder.instance_eval &block
+          args_builder._result
         end
 
         def _free_form_arg(module_args)

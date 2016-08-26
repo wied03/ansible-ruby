@@ -7,7 +7,8 @@ describe Ansible::Ruby::DslBuilders::Tasks do
   let(:builder) { Ansible::Ruby::DslBuilders::Tasks.new context }
 
   def evaluate
-    builder._evaluate ruby
+    builder.instance_eval ruby
+    builder._result
   end
 
   subject(:tasks) { evaluate }

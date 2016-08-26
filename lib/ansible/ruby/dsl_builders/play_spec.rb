@@ -4,11 +4,12 @@ require 'ansible-ruby'
 describe Ansible::Ruby::DslBuilders::Play do
   let(:builder) { Ansible::Ruby::DslBuilders::Play.new 'another play' }
 
-  def _evaluate
-    builder._evaluate ruby
+  def evaluate
+    builder.instance_eval ruby
+    builder._result
   end
 
-  subject(:playbook) { _evaluate }
+  subject(:playbook) { evaluate }
 
   before do
     klass = Class.new(Ansible::Ruby::Modules::Base) do
@@ -110,6 +111,15 @@ describe Ansible::Ruby::DslBuilders::Play do
       is_expected.to have_attributes roles: %w(role1 role2),
                                      hosts: 'host1'
     end
+  end
+
+  context 'invalid keyword' do
+    let(:ruby) { 'foobar' }
+
+    subject { lambda { evaluate } }
+
+    it { is_expected.to raise_error "Invalid method/local variable `foobar'. Only `task' is valid at line 1!" }
+    pending 'write this'
   end
 
   context 'other attributes' do

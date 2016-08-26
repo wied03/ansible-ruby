@@ -13,11 +13,12 @@ module Ansible
         def task(name, &block)
           # TODO: Handlers have the same DSL as Task as well, so pass on our context to that
           task_builder = Task.new name
-          @items << task_builder._evaluate(&block)
+          task_builder.instance_eval(&block)
+          @items << task_builder._result
         end
 
-        def _evaluate(*)
-          super
+        # allow multiple tasks, etc.
+        def _result
           # TODO: use context here
           Models::Tasks.new tasks: @items
         end
@@ -31,7 +32,7 @@ module Ansible
                               else
                                 raise "Unknown context #{@context}"
                               end
-          raise "Invalid method/local variable `#{id}'. #{only_valid_clause}"
+          no_method_error id, only_valid_clause
         end
       end
     end

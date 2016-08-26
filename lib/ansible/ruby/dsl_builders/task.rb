@@ -15,17 +15,6 @@ module Ansible
           @task_args = {}
         end
 
-        def _evaluate(*)
-          super
-          args = {
-            module: @module,
-            name: @name
-          }.merge @task_args
-          task = Models::Task.new args
-          task.validate!
-          task
-        end
-
         def become(*args)
           value = _implicit_bool args
           @task_args[:become] = value
@@ -79,6 +68,17 @@ module Ansible
 
         def respond_to_missing?(*)
           !@module || super
+        end
+
+        # allow for other attributes besides the module in any order
+        def _result
+          args = {
+            module: @module,
+            name: @name
+          }.merge @task_args
+          task = Models::Task.new args
+          task.validate!
+          task
         end
 
         private

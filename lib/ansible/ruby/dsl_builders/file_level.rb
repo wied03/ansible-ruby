@@ -17,7 +17,8 @@ module Ansible
           _validate_context :playbook
           @context = :playbook
           play_builder = Play.new name
-          @plays << play_builder._evaluate(&block)
+          play_builder.instance_eval &block
+          @plays << play_builder._result
         end
 
         def task(name, &block)
@@ -34,14 +35,14 @@ module Ansible
           @tasks_builder.task name, &block
         end
 
-        def _evaluate(*)
-          super
+        # any order/lazy result
+        def _result
           case @context
           when :playbook
             # TODO: Add a playbook DSL and do this like tasks
             Models::Playbook.new plays: @plays
           when :tasks, :handlers
-            @tasks_builder._evaluate {}
+            @tasks_builder._result
           else
             raise "Unknown context #{@context}"
           end

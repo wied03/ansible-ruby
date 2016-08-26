@@ -5,7 +5,8 @@ describe Ansible::Ruby::DslBuilders::FileLevel do
   let(:builder) { Ansible::Ruby::DslBuilders::FileLevel.new }
 
   def evaluate
-    builder._evaluate ruby
+    builder.instance_eval ruby
+    builder._result
   end
 
   subject(:result) { evaluate }
