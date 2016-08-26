@@ -58,7 +58,7 @@ module Ansible
 
         def _process_method(id, *args, &block)
           return super if respond_to_missing?(id, *args, &block)
-          valid = (self.class.instance_methods - Object.instance_methods - [:_result, :method_missing]) << :task
+          valid = _valid_attributes << :task
           no_method_error id, "Only valid options are #{valid}"
         end
       end

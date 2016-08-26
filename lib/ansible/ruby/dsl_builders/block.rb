@@ -25,6 +25,13 @@ module Ansible
           block.validate!
           block
         end
+
+        private
+
+        def _process_method(id, *)
+          valid = _valid_attributes
+          no_method_error id, "Only valid options are #{valid}"
+        end
       end
     end
   end

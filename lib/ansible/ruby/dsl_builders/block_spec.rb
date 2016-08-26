@@ -34,6 +34,7 @@ describe Ansible::Ruby::DslBuilders::Block do
     end
 
     it { is_expected.to be_a Ansible::Ruby::Models::Block }
+    it { is_expected.to have_attributes when: "ansible_distribution == 'CentOS'" }
 
     describe 'tasks' do
       subject(:tasks) { block.tasks }
@@ -55,12 +56,42 @@ describe Ansible::Ruby::DslBuilders::Block do
   end
 
   context 'other attributes' do
-    pending 'write this'
+    let(:ruby) do
+      <<-RUBY
+      task 'Copy something' do
+        copy do
+          src '/file1.conf'
+        end
+      end
+
+      become true
+      become_user 'root'
+      with_dict '{{ servers }}'
+      async 0
+      poll 50
+      ignore_errors true
+      notify 'handler1'
+      RUBY
+    end
+
+    it { is_expected.to be_a Ansible::Ruby::Models::Block }
+    it do
+      is_expected.to have_attributes tasks: include(Ansible::Ruby::Models::Task),
+                                     become: true,
+                                     become_user: 'root',
+                                     async: 0,
+                                     poll: 50,
+                                     with_dict: '{{ servers }}',
+                                     ignore_errors: true,
+                                     notify: 'handler1'
+    end
   end
 
   context 'unknown keyword' do
-    pending 'write this'
+    let(:ruby) { 'foobar()' }
+
+    subject { lambda { evaluate } }
+
+    it { is_expected.to raise_error "Invalid method/local variable `foobar'. Only valid options are [:task, :become, :become_user, :changed_when, :failed_when, :ansible_when, :with_dict, :with_items, :async, :poll, :notify, :ignore_errors, :jinja] at line 1!" }
   end
-  pending 'are you allowed to add become, etc. to tasks within a block??'
-  pending 'write this'
 end
