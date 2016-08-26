@@ -54,14 +54,18 @@ describe Ansible::Ruby::DslBuilders::Tasks do
     context 'tasks context' do
       let(:context) { Ansible::Ruby::Models::Tasks }
 
-      it { is_expected.to raise_error "Invalid method/local variable `foobar'. Only `task' is valid at line 1!" }
+      it { is_expected.to raise_error "Invalid method/local variable `foobar'. Only [:task] is valid at line 1!" }
     end
 
     context 'handler context' do
       let(:context) { Ansible::Ruby::Models::Handlers }
 
-      it { is_expected.to raise_error "Invalid method/local variable `foobar'. Only `handler' is valid at line 1!" }
+      it { is_expected.to raise_error "Invalid method/local variable `foobar'. Only [:handler] is valid at line 1!" }
     end
+  end
+
+  context 'no name supplied' do
+    pending 'write this'
   end
 
   context 'handler' do

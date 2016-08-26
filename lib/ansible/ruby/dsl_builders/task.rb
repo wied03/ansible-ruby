@@ -2,6 +2,7 @@ require 'ansible/ruby/dsl_builders/base'
 require 'ansible/ruby/dsl_builders/module_call'
 require 'ansible/ruby/dsl_builders/result'
 require 'ansible/ruby/models/task'
+require 'ansible/ruby/models/handlers'
 
 module Ansible
   module Ruby
