@@ -88,7 +88,7 @@ module Ansible
           raise "undefined local variable or method `#{id}'" if @module
           mcb = ModuleCall.new
           mcb.send(id, *args, &block)
-          @module = mcb.result
+          @module = mcb._result
         end
 
         def method_missing_return(_id, _result, *_args)

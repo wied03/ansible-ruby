@@ -6,8 +6,6 @@ module Ansible
           @result = nil
         end
 
-        attr_reader :result
-
         def _result
           @result
         end
