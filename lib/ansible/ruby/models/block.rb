@@ -10,6 +10,13 @@ module Ansible
         validates :tasks, type: TypeGeneric.new(Task)
         validate :enough_tasks
 
+        def to_h
+          # we put the list of tasks directly under the block in Ansible
+          result = super
+          tasks = result.delete :tasks
+          { block: tasks }.merge result
+        end
+
         private
 
         def enough_tasks

@@ -14,3 +14,8 @@ desc 'Command test'
 Ansible::Ruby::Rake::Execute.new :command do |task|
   task.playbooks = 'command.rb'
 end
+
+desc 'Block test'
+Ansible::Ruby::Rake::Execute.new :block do |task|
+  task.playbooks = 'block.rb'
+end

@@ -51,7 +51,7 @@ describe Ansible::Ruby::DslBuilders::Block do
     describe 'hash keys' do
       subject { block.to_h.stringify_keys.keys }
 
-      it { is_expected.to eq %w(tasks when) }
+      it { is_expected.to eq %w(block when) }
     end
   end
 
