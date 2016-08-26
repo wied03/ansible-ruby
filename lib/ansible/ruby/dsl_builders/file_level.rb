@@ -16,7 +16,7 @@ module Ansible
           _validate_context :playbook
           @context = :playbook
           play_builder = Play.new name
-          play_builder.instance_eval &block
+          play_builder.instance_eval(&block)
           @plays << play_builder._result
         end
 
@@ -35,6 +35,7 @@ module Ansible
         end
 
         # any order/lazy result
+        # :reek:NilCheck - when nil is the simplest way to check this
         def _result
           case @context
           when :playbook

@@ -25,7 +25,7 @@ describe Ansible::Ruby::DslBuilders::FileLevel do
     context 'empty' do
       let(:ruby) { '' }
 
-      subject { lambda { evaluate } }
+      subject { -> { evaluate } }
 
       it { is_expected.to raise_error 'Must supply at least 1 handler/task/play!' }
     end

@@ -116,7 +116,7 @@ describe Ansible::Ruby::DslBuilders::Play do
   context 'invalid keyword' do
     let(:ruby) { 'foobar' }
 
-    subject { lambda { evaluate } }
+    subject { -> { evaluate } }
 
     it { is_expected.to raise_error "Invalid method/local variable `foobar'. Only valid options are [:hosts, :roles, :connection, :user, :serial, :gather_facts, :local_host, :jinja, :task] at line 1!" }
   end

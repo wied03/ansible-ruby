@@ -44,7 +44,7 @@ module Ansible
 
         # @return [String, nil] The threshold's unit of measurement
         attribute :unit
-        validates :context, type: String
+        validates :unit, type: String
 
         # @return [String, nil] A longer description of the alarm
         attribute :description

@@ -49,7 +49,7 @@ describe Ansible::Ruby::DslBuilders::Tasks do
 
   context 'invalid method' do
     let(:ruby) { 'foobar()' }
-    subject { lambda { evaluate } }
+    subject { -> { evaluate } }
 
     context 'tasks context' do
       let(:context) { :tasks }
@@ -71,7 +71,7 @@ describe Ansible::Ruby::DslBuilders::Tasks do
         let(:singular) { type[0..-2] }
         let(:ruby) { "#{singular} { copy { src 'file1'\n dest 'file2'} }" }
 
-        subject { lambda { evaluate } }
+        subject { -> { evaluate } }
 
         it { is_expected.to raise_error "Validation failed: Name can't be blank at line 1!" }
       end

@@ -24,10 +24,10 @@ module Ansible
           rescue StandardError => our_error
             begin
               super
-            rescue NoMethodError, NameError => ruby_error
+            rescue NameError => ruby_error
               matching_line = ruby_error.backtrace
-                                .map { |str| str.split ':' }
-                                .find { |arr| arr[0] == '(eval)' }[1]
+                                        .map { |str| str.split ':' }
+                                        .find { |arr| arr[0] == '(eval)' }[1]
               raise "#{our_error.message} at line #{matching_line}!"
             end
           end

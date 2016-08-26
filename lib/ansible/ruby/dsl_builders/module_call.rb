@@ -73,7 +73,7 @@ module Ansible
           return {} unless block
           # Delegate everything to the args builder and apply it to the module class we located
           args_builder = Args.new
-          args_builder.instance_eval &block
+          args_builder.instance_eval(&block)
           args_builder._result
         end
 
