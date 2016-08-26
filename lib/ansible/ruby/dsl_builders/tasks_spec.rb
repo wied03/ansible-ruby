@@ -65,7 +65,17 @@ describe Ansible::Ruby::DslBuilders::Tasks do
   end
 
   context 'no name supplied' do
-    pending 'write this'
+    [:handlers, :tasks].each do |type|
+      context type do
+        let(:context) { type }
+        let(:singular) { type[0..-2] }
+        let(:ruby) { "#{singular} { copy { src 'file1'\n dest 'file2'} }" }
+
+        subject { lambda { evaluate } }
+
+        it { is_expected.to raise_error "Validation failed: Name can't be blank at line 1!" }
+      end
+    end
   end
 
   context 'handler' do
