@@ -42,6 +42,8 @@ module Ansible
             Models::Playbook.new plays: @plays
           when :tasks, :handlers
             @tasks_builder._result
+          when nil
+            raise 'Must supply at least 1 handler/task/play!'
           else
             raise "Unknown context #{@context}"
           end
