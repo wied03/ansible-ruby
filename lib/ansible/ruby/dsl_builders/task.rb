@@ -9,7 +9,8 @@ module Ansible
     module DslBuilders
       class Task < Unit
         def initialize(name, context)
-          super
+          super name
+          @context = context
           @module = nil
         end
 

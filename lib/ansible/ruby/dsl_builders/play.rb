@@ -1,6 +1,6 @@
 require 'ansible/ruby/models/play'
 require 'ansible/ruby/dsl_builders/tasks'
-require 'ansible/ruby/models/block'
+require 'ansible/ruby/dsl_builders/block'
 
 module Ansible
   module Ruby
