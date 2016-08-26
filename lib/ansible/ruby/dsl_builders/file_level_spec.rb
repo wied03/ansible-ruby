@@ -22,7 +22,7 @@ describe Ansible::Ruby::DslBuilders::FileLevel do
   end
 
   context 'handlers' do
-    context 'without handlers' do
+    context 'empty' do
       pending 'write this'
     end
 
@@ -38,8 +38,8 @@ describe Ansible::Ruby::DslBuilders::FileLevel do
         RUBY
       end
 
-      it { is_expected.to be_a Ansible::Ruby::Models::Handlers }
-      it { is_expected.to have_attributes handlers: include(be_a(Ansible::Ruby::Models::Handler)) }
+      it { is_expected.to be_a Ansible::Ruby::Models::Tasks }
+      it { is_expected.to have_attributes items: include(be_a(Ansible::Ruby::Models::Handler)) }
     end
   end
 
@@ -120,7 +120,7 @@ describe Ansible::Ruby::DslBuilders::FileLevel do
 
     it { is_expected.to be_a Ansible::Ruby::Models::Tasks }
     it do
-      is_expected.to have_attributes tasks: include(be_a(Ansible::Ruby::Models::Task),
+      is_expected.to have_attributes items: include(be_a(Ansible::Ruby::Models::Task),
                                                     be_a(Ansible::Ruby::Models::Task))
     end
   end

@@ -23,15 +23,15 @@ module Ansible
         def task(name, &block)
           _validate_context :tasks
           @context = :tasks
-          @tasks_builder ||= Tasks.new(Models::Tasks)
+          @tasks_builder ||= Tasks.new(:tasks)
           @tasks_builder.task name, &block
         end
 
         def handler(name, &block)
           _validate_context :handlers
           @context = :handlers
-          @tasks_builder ||= Tasks.new(Models::Handlers)
-          @tasks_builder.task name, &block
+          @tasks_builder ||= Tasks.new(:handlers)
+          @tasks_builder.handler name, &block
         end
 
         # any order/lazy result
