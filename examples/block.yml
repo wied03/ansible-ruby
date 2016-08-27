@@ -14,6 +14,6 @@
       failed_when: "'Linux' not in result_1.stdout"
     - name: and goodbye
       command: uname -a
-      register: result_1
-      failed_when: "'Darwin' not in result_1.stdout"
+      register: result_2
+      failed_when: "'Darwin' not in result_2.stdout"
     when: "{{ stuff }}"

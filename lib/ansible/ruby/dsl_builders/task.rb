@@ -8,12 +8,13 @@ module Ansible
   module Ruby
     module DslBuilders
       class Task < Unit
-        def initialize(name, context)
+        def initialize(name, context, temp_counter)
           super()
           @name = name
           @context = context
           @module = nil
           @inclusion = nil
+          @temp_counter = temp_counter
         end
 
         def changed_when(clause)
@@ -85,7 +86,6 @@ module Ansible
         def method_missing_return(_id, _result, *_args)
           # method_missing only used for modules here
           # Keep our register variables unique
-          @temp_counter += 1
           Result.new(@temp_counter, ->(name) { @task_args[:register] = name })
         end
       end

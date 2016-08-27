@@ -86,4 +86,43 @@ describe Ansible::Ruby::DslBuilders::Block do
 
     it { is_expected.to raise_error "Invalid method/local variable `foobar'. Only valid options are [:task, :become, :become_user, :ansible_when, :ignore_errors, :jinja] at line 1!" }
   end
+
+  context 'multiple register' do
+    let(:ruby) do
+      <<-RUBY
+      task 'Copy something' do
+        result = copy do
+          src '/file1.conf'
+        end
+
+        changed_when "'No upgrade available' not in \#{result.stdout}"
+      end
+      task 'Copy something else' do
+        result = copy do
+          src '/file1.conf'
+        end
+
+        changed_when "'yes' not in \#{result.stdout}"
+      end
+      RUBY
+    end
+
+    describe 'task 1' do
+      subject { block.tasks[0] }
+
+      it do
+        is_expected.to have_attributes register: 'result_1',
+                                       changed_when: "'No upgrade available' not in result_1.stdout"
+      end
+    end
+
+    describe 'task 2' do
+      subject { block.tasks[1] }
+
+      it do
+        is_expected.to have_attributes register: 'result_2',
+                                       changed_when: "'yes' not in result_2.stdout"
+      end
+    end
+  end
 end

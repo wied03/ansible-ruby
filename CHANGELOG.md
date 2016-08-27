@@ -1,4 +1,5 @@
 ## Under development
+* Fix register count issue (#30)
 * Inclusion support from playbooks
 * Handler support
 * Block support

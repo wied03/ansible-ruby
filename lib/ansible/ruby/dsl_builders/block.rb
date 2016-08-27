@@ -8,10 +8,12 @@ module Ansible
         def initialize
           super
           @tasks = []
+          @temp_counter = 0
         end
 
         def task(name, &block)
-          task_builder = Task.new name, Models::Task
+          @temp_counter += 1
+          task_builder = Task.new name, Models::Task, @temp_counter
           task_builder.instance_eval(&block)
           @tasks << task_builder._result
         end

@@ -10,6 +10,7 @@ module Ansible
         def initialize(context)
           @context = context
           @items = []
+          @temp_counter = 0
         end
 
         def ansible_include(filename, &block)
@@ -66,7 +67,8 @@ module Ansible
         def _handle(name, &block)
           model = _context[:model]
           raise "Model not configured for #{@context}" unless model
-          task_builder = Task.new name, model
+          @temp_counter += 1
+          task_builder = Task.new name, model, @temp_counter
           task_builder.instance_eval(&block)
           @items << task_builder._result
         end

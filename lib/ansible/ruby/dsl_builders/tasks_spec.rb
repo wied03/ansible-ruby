@@ -47,6 +47,47 @@ describe Ansible::Ruby::DslBuilders::Tasks do
     end
   end
 
+  context 'multiple register' do
+    let(:ruby) do
+      <<-RUBY
+      task 'Copy something' do
+        result = copy do
+          src '/file1.conf'
+          dest '/file2.conf'
+        end
+
+        changed_when "'No upgrade available' not in \#{result.stdout}"
+      end
+      task 'Copy something else' do
+        result = copy do
+          src '/file1.conf'
+          dest '/file2.conf'
+        end
+
+        changed_when "'yes' not in \#{result.stdout}"
+      end
+      RUBY
+    end
+
+    describe 'task 1' do
+      subject { tasks.items[0] }
+
+      it do
+        is_expected.to have_attributes register: 'result_1',
+                                       changed_when: "'No upgrade available' not in result_1.stdout"
+      end
+    end
+
+    describe 'task 2' do
+      subject { tasks.items[1] }
+
+      it do
+        is_expected.to have_attributes register: 'result_2',
+                                       changed_when: "'yes' not in result_2.stdout"
+      end
+    end
+  end
+
   context 'include' do
     subject(:inclusion) { tasks.items.find { |item| item.is_a?(Ansible::Ruby::Models::Inclusion) } }
 
