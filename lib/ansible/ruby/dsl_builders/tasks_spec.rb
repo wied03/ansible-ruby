@@ -48,7 +48,11 @@ describe Ansible::Ruby::DslBuilders::Tasks do
   end
 
   context 'include' do
-    context 'standard' do
+    subject(:inclusion) { tasks.items.find { |item| item.is_a?(Ansible::Ruby::Models::Inclusion) } }
+
+    context 'with tasks' do
+      subject { evaluate }
+
       let(:ruby) do
         <<-RUBY
         ansible_include '/some_file.yml'
@@ -67,18 +71,63 @@ describe Ansible::Ruby::DslBuilders::Tasks do
         is_expected.to have_attributes items: include(be_a(Ansible::Ruby::Models::Task),
                                                       be_a(Ansible::Ruby::Models::Inclusion))
       end
+
+      describe 'inclusion' do
+        subject { inclusion }
+
+        it { is_expected.to have_attributes file: '/some_file.yml' }
+      end
     end
 
     context 'with variables' do
-      pending 'write this'
+      let(:ruby) do
+        <<-RUBY
+          ansible_include '/some_file.yml' do
+            static true
+            variables stuff: true
+          end
+        RUBY
+      end
+
+      it { is_expected.to be_a Ansible::Ruby::Models::Inclusion }
+      it do
+        is_expected.to have_attributes file: '/some_file.yml',
+                                       static: true,
+                                       variables: { stuff: true }
+      end
     end
 
     context 'jinja' do
-      pending 'write this'
+      let(:ruby) do
+        <<-RUBY
+        ansible_include '/some_file.yml' do
+          static true
+          variables stuff: jinja('toodles')
+        end
+        RUBY
+      end
+
+      it { is_expected.to be_a Ansible::Ruby::Models::Inclusion }
+      it do
+        is_expected.to have_attributes file: '/some_file.yml',
+                                       variables: { stuff: '{{ toodles }}' }
+      end
     end
 
     context 'static' do
-      pending 'write this'
+      let(:ruby) do
+        <<-RUBY
+        ansible_include '/some_file.yml' do
+          static true
+        end
+        RUBY
+      end
+
+      it { is_expected.to be_a Ansible::Ruby::Models::Inclusion }
+      it do
+        is_expected.to have_attributes file: '/some_file.yml',
+                                       static: true
+      end
     end
   end
 

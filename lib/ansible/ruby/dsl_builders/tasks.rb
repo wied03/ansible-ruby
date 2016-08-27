@@ -12,6 +12,17 @@ module Ansible
           @items = []
         end
 
+        def ansible_include(filename, &block)
+          args = if block
+                   args_builder = Args.new
+                   args_builder.instance_eval(&block)
+                   args_builder._result
+                 else
+                   {}
+                 end
+          @items << Models::Inclusion.new(args.merge(file: filename))
+        end
+
         # allow multiple tasks, etc.
         def _result
           Models::Tasks.new items: @items
