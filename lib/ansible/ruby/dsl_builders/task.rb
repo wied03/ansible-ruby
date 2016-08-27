@@ -2,27 +2,17 @@ require 'ansible/ruby/dsl_builders/base'
 require 'ansible/ruby/dsl_builders/module_call'
 require 'ansible/ruby/dsl_builders/result'
 require 'ansible/ruby/models/task'
+require 'ansible/ruby/dsl_builders/unit'
 
 module Ansible
   module Ruby
     module DslBuilders
-      class Task < Base
+      class Task < Unit
         def initialize(name, context)
           super()
+          @name = name
           @context = context
           @module = nil
-          @temp_counter = 0
-          @name = name
-          @task_args = {}
-        end
-
-        def become(*args)
-          value = _implicit_bool args
-          @task_args[:become] = value
-        end
-
-        def become_user(value)
-          @task_args[:become_user] = value
         end
 
         def changed_when(clause)
@@ -31,10 +21,6 @@ module Ansible
 
         def failed_when(clause)
           @task_args[:failed_when] = clause
-        end
-
-        def ansible_when(clause)
-          @task_args[:when] = clause
         end
 
         def with_dict(clause)
@@ -62,11 +48,6 @@ module Ansible
           @task_args[:notify] = value
         end
 
-        def ignore_errors(*args)
-          value = _implicit_bool args
-          @task_args[:ignore_errors] = value
-        end
-
         def respond_to_missing?(*)
           !@module || super
         end
@@ -86,7 +67,7 @@ module Ansible
 
         def _process_method(id, *args, &block)
           # only 1 module, so don't try and do this again
-          raise "undefined local variable or method `#{id}'" if @module
+          no_method_error id, "Only valid options are #{_valid_attributes}" if @module
           mcb = ModuleCall.new
           mcb.send(id, *args, &block)
           @module = mcb._result

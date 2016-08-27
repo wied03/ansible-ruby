@@ -36,6 +36,10 @@ module Ansible
 
         private
 
+        def _valid_attributes
+          (self.class.instance_methods - Object.instance_methods - [:_result, :method_missing])
+        end
+
         def no_method_error(method, only_valid_clause)
           raise "Invalid method/local variable `#{method}'. #{only_valid_clause}"
         end

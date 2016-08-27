@@ -1,0 +1,16 @@
+---
+# This is a generated YAML file by ansible-ruby, DO NOT EDIT
+- hosts: localhost
+  name: block fun
+  connection: local
+  tasks:
+  - block:
+    - name: say hello
+      command: uname
+      register: result_1
+      failed_when: "'Darwin' not in result_1.stdout"
+    - name: and goodbye
+      command: uname -a
+      register: result_1
+      failed_when: "'Darwin' in result_1.stdout"
+    when: "{{ stuff }}"

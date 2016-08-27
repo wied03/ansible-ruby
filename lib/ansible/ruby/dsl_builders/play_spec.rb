@@ -2,14 +2,15 @@ require 'spec_helper'
 require 'ansible-ruby'
 
 describe Ansible::Ruby::DslBuilders::Play do
-  let(:builder) { Ansible::Ruby::DslBuilders::Play.new 'another play' }
+  let(:name) { 'another play' }
+  let(:builder) { Ansible::Ruby::DslBuilders::Play.new name }
 
   def evaluate
     builder.instance_eval ruby
     builder._result
   end
 
-  subject(:playbook) { evaluate }
+  subject(:play) { evaluate }
 
   before do
     klass = Class.new(Ansible::Ruby::Modules::Base) do
@@ -36,19 +37,114 @@ describe Ansible::Ruby::DslBuilders::Play do
     end
 
     it { is_expected.to be_a Ansible::Ruby::Models::Play }
-    it { is_expected.to have_attributes hosts: 'host1' }
+    it do
+      is_expected.to have_attributes hosts: 'host1',
+                                     name: 'another play'
+    end
 
     describe 'tasks' do
-      subject { playbook.tasks }
+      subject { play.tasks }
 
       it { is_expected.to be_a Ansible::Ruby::Models::Tasks }
       it { is_expected.to have_attributes items: include(be_a(Ansible::Ruby::Models::Task)) }
     end
 
     describe 'hash keys' do
-      subject { playbook.to_h.stringify_keys.keys }
+      subject { play.to_h.stringify_keys.keys }
 
       it { is_expected.to eq %w(hosts name tasks) }
+    end
+  end
+
+  context 'no name' do
+    let(:ruby) do
+      <<-RUBY
+      hosts 'host1'
+
+      task 'Copy something' do
+          copy do
+            src '/file1.conf'
+            dest '/file2.conf'
+          end
+      end
+      RUBY
+    end
+    let(:name) { nil }
+
+    it { is_expected.to be_a Ansible::Ruby::Models::Play }
+    it { is_expected.to have_attributes hosts: 'host1' }
+
+    describe 'hash keys' do
+      subject { play.to_h.stringify_keys.keys }
+
+      it { is_expected.to eq %w(hosts tasks) }
+    end
+  end
+
+  context 'block' do
+    context 'valid' do
+      let(:ruby) do
+        <<-RUBY
+        hosts 'host1'
+
+        block do
+          task 'copy' do
+            copy do
+              src '/file1.conf'
+              dest '/file2.conf'
+            end
+          end
+
+          ansible_when "ansible_distribution == 'CentOS'"
+        end
+        RUBY
+      end
+
+      it { is_expected.to be_a Ansible::Ruby::Models::Play }
+      it { is_expected.to have_attributes hosts: 'host1' }
+
+      describe 'tasks' do
+        subject { play.tasks }
+
+        it { is_expected.to be_a Ansible::Ruby::Models::Tasks }
+        it { is_expected.to have_attributes items: include(be_a(Ansible::Ruby::Models::Block)) }
+      end
+
+      describe 'hash keys' do
+        subject { play.to_h.stringify_keys.keys }
+
+        it { is_expected.to eq %w(hosts name tasks) }
+      end
+    end
+
+    context 'no task' do
+      let(:ruby) do
+        <<-RUBY
+        hosts 'host1'
+
+        block do
+          ansible_when "ansible_distribution == 'CentOS'"
+        end
+        RUBY
+      end
+
+      subject { -> { evaluate } }
+
+      it { is_expected.to raise_error 'Validation failed: Tasks Must have at least 1 task in your block!' }
+    end
+
+    context 'no block' do
+      let(:ruby) do
+        <<-RUBY
+        hosts 'host1'
+
+        block
+        RUBY
+      end
+
+      subject { -> { evaluate } }
+
+      it { is_expected.to raise_error 'wrong number of arguments (0 for 1..3)' }
     end
   end
 
@@ -91,7 +187,7 @@ describe Ansible::Ruby::DslBuilders::Play do
     end
 
     describe 'hash keys' do
-      subject { playbook.to_h.stringify_keys.keys }
+      subject { play.to_h.stringify_keys.keys }
 
       it { is_expected.to eq %w(hosts tasks) }
     end
@@ -118,7 +214,7 @@ describe Ansible::Ruby::DslBuilders::Play do
 
     subject { -> { evaluate } }
 
-    it { is_expected.to raise_error "Invalid method/local variable `foobar'. Only valid options are [:hosts, :roles, :connection, :user, :serial, :gather_facts, :local_host, :jinja, :task] at line 1!" }
+    it { is_expected.to raise_error "Invalid method/local variable `foobar'. Only valid options are [:hosts, :roles, :connection, :user, :serial, :gather_facts, :local_host, :block, :jinja, :task] at line 1!" }
   end
 
   context 'other attributes' do
