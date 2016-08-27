@@ -127,7 +127,6 @@ There's no reason why you can't use Ansible Galaxy with this. It hasn't been tes
 
 ## Limitations
 
-* Handlers/blocks not supported yet - [see issue](https://github.com/wied03/ansible-ruby/issues/15)
 * Error messages could use improvement - [see issue](https://github.com/wied03/ansible-ruby/issues/7)
 * Inclusion isn't yet supported by the DSL
 * Result variable DSL is fairly limited, all it does right now is make sure you use the right variable name (see issues for improvements) 
