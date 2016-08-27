@@ -18,4 +18,5 @@ end
 desc 'Block test'
 Ansible::Ruby::Rake::Execute.new :block do |task|
   task.playbooks = 'block.rb'
+  task.options = '-e stuff=true'
 end

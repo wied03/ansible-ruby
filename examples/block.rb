@@ -3,11 +3,17 @@ play 'block fun' do
 
   block do
     task 'say hello' do
-      command 'uname'
+      result = command 'uname'
+
+      failed_when "'Linux' not in #{result.stdout}"
     end
 
     task 'and goodbye' do
-      command 'uname -a'
+      result = command 'uname -a'
+
+      failed_when "'Darwin' not in #{result.stdout}"
     end
+
+    ansible_when jinja('stuff')
   end
 end
