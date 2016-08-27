@@ -47,6 +47,37 @@ describe Ansible::Ruby::DslBuilders::Tasks do
     end
   end
 
+  context 'include' do
+    context 'standard' do
+      let(:ruby) do
+        <<-RUBY
+        ansible_include '/some_file.yml'
+
+        task 'Copy something' do
+            copy do
+              src '/file1.conf'
+              dest '/file2.conf'
+            end
+        end
+        RUBY
+      end
+
+      it { is_expected.to be_a Ansible::Ruby::Models::Tasks }
+      it do
+        is_expected.to have_attributes items: include(be_a(Ansible::Ruby::Models::Task),
+                                                      be_a(Ansible::Ruby::Models::Inclusion))
+      end
+    end
+
+    context 'with variables' do
+      pending 'write this'
+    end
+
+    context 'static' do
+      pending 'write this'
+    end
+  end
+
   context 'invalid method' do
     let(:ruby) { 'foobar()' }
     subject { -> { evaluate } }
