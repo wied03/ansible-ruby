@@ -1,5 +1,10 @@
 ## Under development
-* TBD
+* Fix register count issue (#30)
+* Inclusion support from playbooks
+* Handler support
+* Block support
+* Add jinja variable helper
+* Add with_items support and add block helper for that and with_dict
 
 # 1.0.2 - 25 August 2016
 * Allow free form tasks to be supplied without a block

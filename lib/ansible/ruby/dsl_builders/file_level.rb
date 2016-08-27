@@ -13,38 +13,53 @@ module Ansible
         end
 
         def play(name = nil, &block)
-          if @context == :tasks
-            raise 'This is a tasks file due to a task coming before this play, cannot use play here!'
-          end
+          _validate_context :playbook
           @context = :playbook
           play_builder = Play.new name
-          @plays << play_builder._evaluate(&block)
+          play_builder.instance_eval(&block)
+          @plays << play_builder._result
         end
 
         def task(name, &block)
-          if @context == :playbook
-            raise 'This is a playbook file due to a play coming before this task, cannot use task here!'
-          end
+          _validate_context :tasks
           @context = :tasks
-          @tasks_builder ||= Tasks.new
+          @tasks_builder ||= Tasks.new(:tasks)
           @tasks_builder.task name, &block
         end
 
-        def _evaluate(*)
-          super
+        def handler(name, &block)
+          _validate_context :handlers
+          @context = :handlers
+          @tasks_builder ||= Tasks.new(:handlers)
+          @tasks_builder.handler name, &block
+        end
+
+        # any order/lazy result
+        # :reek:NilCheck - when nil is the simplest way to check this
+        def _result
           case @context
           when :playbook
             # TODO: Add a playbook DSL and do this like tasks
             Models::Playbook.new plays: @plays
-          when :tasks
-            @tasks_builder._evaluate {}
+          when :tasks, :handlers
+            @tasks_builder._result
+          when nil
+            raise 'Must supply at least 1 handler/task/play!'
           else
             raise "Unknown context #{@context}"
           end
         end
 
         def _process_method(id, *)
-          raise "undefined local variable or method `#{id}'"
+          no_method_error id, 'Only valid options are [:task, :handler, :play]'
+        end
+
+        private
+
+        def _validate_context(expected)
+          if @context && @context != expected
+            raise "This is a #{@context} file, cannot use #{expected} here!"
+          end
         end
       end
     end

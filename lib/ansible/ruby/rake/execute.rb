@@ -30,7 +30,7 @@ module Ansible
           end
           symbol = name.inspect.to_s
           desc "Compiles YAML files for #{symbol} task"
-          compiled_files = playbooks + role_task_files
+          compiled_files = playbooks + nested_files
           Compile.new compile_task_name do |compile_task|
             compile_task.files = compiled_files
           end
@@ -46,8 +46,9 @@ module Ansible
           [*@playbooks]
         end
 
-        def role_task_files
-          FileList['roles/*/tasks/**/*.rb']
+        def nested_files
+          FileList['roles/*/tasks/**/*.rb',
+                   'roles/*/handlers/**/*.rb']
         end
 
         def flat_options

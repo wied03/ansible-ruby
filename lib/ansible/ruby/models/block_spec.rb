@@ -1,7 +1,7 @@
+# see LICENSE.txt in project root
 require 'spec_helper'
-require 'ansible-ruby'
 
-describe Ansible::Ruby::Models::Tasks do
+describe Ansible::Ruby::Models::Block do
   before do
     stub_const('Ansible::Ruby::Modules::Ec2', module_klass)
   end
@@ -27,11 +27,11 @@ describe Ansible::Ruby::Models::Tasks do
 
   context 'basic' do
     let(:instance) do
-      Ansible::Ruby::Models::Tasks.new items: [task1, task2]
+      Ansible::Ruby::Models::Block.new tasks: [task1, task2]
     end
 
     it do
-      is_expected.to eq [
+      is_expected.to eq block: [
         {
           name: 'do stuff on EC2',
           ec2: {
@@ -46,25 +46,5 @@ describe Ansible::Ruby::Models::Tasks do
         }
       ]
     end
-  end
-
-  context 'no tasks' do
-    let(:instance) do
-      Ansible::Ruby::Models::Tasks.new
-    end
-
-    subject { -> { instance.to_h } }
-
-    it { is_expected.to raise_error "Validation failed: Items can't be blank" }
-  end
-
-  context 'empty tasks' do
-    let(:instance) do
-      Ansible::Ruby::Models::Tasks.new items: []
-    end
-
-    subject { -> { instance.to_h } }
-
-    it { is_expected.to raise_error "Validation failed: Items can't be blank" }
   end
 end

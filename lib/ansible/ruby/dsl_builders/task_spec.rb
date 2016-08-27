@@ -2,13 +2,16 @@ require 'spec_helper'
 require 'ansible-ruby'
 
 describe Ansible::Ruby::DslBuilders::Task do
-  let(:builder) { Ansible::Ruby::DslBuilders::Task.new 'Copy something' }
+  let(:context) { Ansible::Ruby::Models::Task }
+  let(:temp_counter) { 1 }
+  let(:builder) { Ansible::Ruby::DslBuilders::Task.new 'Copy something', context, temp_counter }
 
-  def _evaluate
-    builder._evaluate ruby
+  def evaluate
+    builder.instance_eval ruby
+    builder._result
   end
 
-  subject(:task) { _evaluate }
+  subject(:task) { evaluate }
 
   before do
     klass = Class.new(Ansible::Ruby::Modules::Base) do
@@ -42,6 +45,70 @@ describe Ansible::Ruby::DslBuilders::Task do
     end
   end
 
+  context 'handler' do
+    context 'no include' do
+      let(:context) { Ansible::Ruby::Models::Handler }
+      let(:ruby) do
+        <<-RUBY
+            copy do
+              src '/file1.conf'
+              dest '/file2.conf'
+            end
+        RUBY
+      end
+
+      it { is_expected.to be_a Ansible::Ruby::Models::Handler }
+      it { is_expected.to have_attributes name: 'Copy something', module: be_a(Ansible::Ruby::Modules::Copy) }
+    end
+
+    context 'include' do
+      let(:context) { Ansible::Ruby::Models::Handler }
+
+      let(:ruby) do
+        <<-RUBY
+        ansible_include 'something'
+        RUBY
+      end
+
+      subject { -> { evaluate } }
+
+      it { is_expected.to raise_error "Can't call inclusion inside a handler(yet), only in plays/handlers at line 1!" }
+    end
+  end
+
+  context 'task inclusion attempt' do
+    let(:ruby) do
+      <<-RUBY
+        ansible_include 'something'
+        copy do
+          src '/file1.conf'
+          dest '/file2.conf'
+        end
+      RUBY
+    end
+
+    subject { -> { evaluate } }
+
+    it { is_expected.to raise_error "Can't call inclusion inside a task, only in plays/handlers at line 1!" }
+  end
+
+  context 'jinja' do
+    let(:ruby) do
+      <<-RUBY
+      copy do
+        src '/file1.conf'
+        dest '/file2.conf'
+      end
+      with_dict jinja('servers')
+      RUBY
+    end
+
+    it do
+      is_expected.to have_attributes name: 'Copy something',
+                                     with_dict: '{{ servers }}'
+    end
+  end
+
   context 'other attributes' do
     let(:ruby) do
       <<-RUBY
@@ -66,9 +133,113 @@ describe Ansible::Ruby::DslBuilders::Task do
                                      become_user: 'root',
                                      async: 0,
                                      poll: 50,
+                                     with_dict: '{{ servers }}',
                                      ignore_errors: true,
                                      notify: 'handler1',
                                      module: be_a(Ansible::Ruby::Modules::Copy)
+    end
+  end
+
+  context 'no such attribute' do
+    subject { -> { evaluate } }
+
+    context 'before module' do
+      let(:ruby) do
+        <<-RUBY
+          foobar
+          copy do
+            src '/file1.conf'
+            dest '/file2.conf'
+          end
+        RUBY
+      end
+
+      it { is_expected.to raise_error 'Unknown module foobar at line 1! at line 1!' }
+    end
+
+    context 'after module' do
+      let(:ruby) do
+        <<-RUBY
+        copy do
+          src '/file1.conf'
+          dest '/file2.conf'
+        end
+        foobar
+        RUBY
+      end
+
+      it { is_expected.to raise_error "Invalid method/local variable `foobar'. Only valid options are [:changed_when, :failed_when, :with_dict, :with_items, :async, :poll, :notify, :become, :become_user, :ansible_when, :ignore_errors, :jinja] at line 5!" }
+    end
+  end
+
+  context 'loops' do
+    context 'regular task' do
+      let(:ruby) do
+        <<-RUBY
+        with_items(jinja('servers')) do |item|
+          copy do
+            src item
+            dest '/file2.conf'
+          end
+        end
+        RUBY
+      end
+
+      it do
+        is_expected.to have_attributes name: 'Copy something',
+                                       with_items: '{{ servers }}',
+                                       module: have_attributes(src: '{{ item }}')
+      end
+    end
+
+    context 'free form' do
+      before do
+        klass = Class.new(Ansible::Ruby::Modules::Base) do
+          attribute :free_form
+          validates :free_form, presence: true
+          attribute :src
+        end
+        stub_const 'Ansible::Ruby::Modules::Jinjafftest', klass
+        klass.class_eval do
+          include Ansible::Ruby::Modules::FreeForm
+        end
+      end
+
+      let(:ruby) do
+        <<-RUBY
+        with_items(jinja('servers')) do |item|
+          jinjafftest "howdy \#{item}" do
+            src '/file1.conf'
+          end
+        end
+        RUBY
+      end
+
+      it do
+        is_expected.to have_attributes name: 'Copy something',
+                                       with_items: '{{ servers }}',
+                                       module: have_attributes(free_form: 'howdy {{ item }}', src: '/file1.conf')
+      end
+    end
+  end
+
+  context 'dictionary' do
+    let(:ruby) do
+      <<-RUBY
+      with_dict(jinja('servers')) do |key, value|
+        copy do
+          src value.toodles
+          dest key
+        end
+      end
+      RUBY
+    end
+
+    it do
+      is_expected.to have_attributes name: 'Copy something',
+                                     with_dict: '{{ servers }}',
+                                     module: have_attributes(src: '{{ item.value.toodles }}',
+                                                             dest: '{{ item.key }}')
     end
   end
 
@@ -79,7 +250,7 @@ describe Ansible::Ruby::DslBuilders::Task do
       RUBY
     end
 
-    subject { -> { _evaluate } }
+    subject { -> { evaluate } }
 
     it { is_expected.to raise_error "Validation failed: Module can't be blank" }
   end
@@ -123,6 +294,25 @@ describe Ansible::Ruby::DslBuilders::Task do
                                        register: 'result_1',
                                        changed_when: "'No upgrade available' not in result_1.stdout",
                                        module: be_a(Ansible::Ruby::Modules::Copy)
+      end
+    end
+
+    context 'higher count' do
+      let(:temp_counter) { 42 }
+      let(:ruby) do
+        <<-RUBY
+              atomic_result = copy do
+                src '/file1.conf'
+                dest '/file2.conf'
+              end
+              changed_when "'No upgrade available' not in \#{atomic_result.stdout}"
+        RUBY
+      end
+
+      it do
+        is_expected.to have_attributes name: 'Copy something',
+                                       register: 'result_42',
+                                       changed_when: "'No upgrade available' not in result_42.stdout"
       end
     end
 
@@ -177,9 +367,9 @@ describe Ansible::Ruby::DslBuilders::Task do
         RUBY
       end
 
-      subject { -> { _evaluate } }
+      subject { -> { evaluate } }
 
-      it { is_expected.to raise_error NameError, /undefined local variable or method `atomicc_result' for.*/ }
+      it { is_expected.to raise_error(%r{Invalid method/local variable `atomicc_result.*line 5!}) }
     end
 
     context 'failed when' do

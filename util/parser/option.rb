@@ -140,7 +140,7 @@ module Ansible
             types = values.map { |value| derive_type value }.uniq
             generic = types.find { |type| type.is_a?(TypeGeneric) }
             # No need to include generic and the generic's type
-            types.reject { |type| generic && type == generic.klass }
+            types.reject { |type| generic && generic.klasses.include?(type) }
           end
 
           def derive_type(value)

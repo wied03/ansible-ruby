@@ -1,26 +1,76 @@
 # See LICENSE.txt for license
 require 'ansible/ruby/dsl_builders/task'
+require 'ansible/ruby/models/handler'
+require 'ansible/ruby/models/inclusion'
 
 module Ansible
   module Ruby
     module DslBuilders
       class Tasks < Base
-        def initialize
-          @tasks = []
+        def initialize(context)
+          @context = context
+          @items = []
+          @temp_counter = 0
         end
 
-        def task(name, &block)
-          task_builder = Task.new name
-          @tasks << task_builder._evaluate(&block)
+        def ansible_include(filename, &block)
+          @items << _ansible_include(filename, &block)
         end
 
-        def _evaluate(*)
-          super
-          Models::Tasks.new tasks: @tasks
+        # allow multiple tasks, etc.
+        def _result
+          Models::Tasks.new items: @items
         end
 
-        def _process_method(id, *)
-          raise "undefined local variable or method `#{id}'"
+        class << self
+          def context(context)
+            contexts[context]
+          end
+
+          def contexts
+            {
+              tasks: {
+                valid_methods: [:task],
+                model: Models::Task
+              },
+              handlers: {
+                valid_methods: [:handler],
+                model: Models::Handler
+              }
+            }
+          end
+        end
+
+        def respond_to_missing?(id, *)
+          _valid_methods.include? id
+        end
+
+        private
+
+        def _context
+          self.class.context @context
+        end
+
+        def _valid_methods
+          raise "Unknown context #{@context}" unless _context
+          valid = _context[:valid_methods]
+          raise "Valid methods not configured for #{@context}!" unless valid
+          valid
+        end
+
+        def _process_method(id, *args, &block)
+          valid = _valid_methods
+          no_method_error id, "Only #{valid} is valid" unless valid.include? id
+          _handle args[0], &block
+        end
+
+        def _handle(name, &block)
+          model = _context[:model]
+          raise "Model not configured for #{@context}" unless model
+          @temp_counter += 1
+          task_builder = Task.new name, model, @temp_counter
+          task_builder.instance_eval(&block)
+          @items << task_builder._result
         end
       end
     end

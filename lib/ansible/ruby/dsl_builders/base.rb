@@ -6,20 +6,16 @@ module Ansible
           @result = nil
         end
 
-        attr_reader :result
-
-        def _evaluate(*args, &block)
-          if block
-            instance_eval(&block)
-          else
-            raise 'Expected code as an argument if no block supplied!' unless args.length == 1
-            instance_eval args[0]
-          end
+        def _result
           @result
         end
 
         def respond_to_missing?(*)
           super
+        end
+
+        def jinja(text)
+          "{{ #{text} }}"
         end
 
         def method_missing(id, *args, &block)
@@ -28,7 +24,7 @@ module Ansible
           rescue StandardError => our_error
             begin
               super
-            rescue NoMethodError => ruby_error
+            rescue NameError => ruby_error
               matching_line = ruby_error.backtrace
                                         .map { |str| str.split ':' }
                                         .find { |arr| arr[0] == '(eval)' }[1]
@@ -39,6 +35,25 @@ module Ansible
         end
 
         private
+
+        def _ansible_include(filename, &block)
+          args = if block
+                   args_builder = Args.new
+                   args_builder.instance_eval(&block)
+                   args_builder._result
+                 else
+                   {}
+                 end
+          Models::Inclusion.new(args.merge(file: filename))
+        end
+
+        def _valid_attributes
+          (self.class.instance_methods - Object.instance_methods - [:_result, :method_missing])
+        end
+
+        def no_method_error(method, only_valid_clause)
+          raise "Invalid method/local variable `#{method}'. #{only_valid_clause}"
+        end
 
         def method_missing_return(*)
           # Don't leak return values
