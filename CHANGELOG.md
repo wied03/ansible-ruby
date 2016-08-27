@@ -1,4 +1,7 @@
-## Under development
+# Under development
+* TBD
+
+# 1.0.3 - 27 August 2016
 * Fix register count issue (#30)
 * Inclusion support from playbooks
 * Handler support
