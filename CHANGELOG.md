@@ -1,4 +1,5 @@
 ## Under development
+* Inclusion support from playbooks
 * Handler support
 * Block support
 * Add jinja variable helper

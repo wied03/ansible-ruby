@@ -7,7 +7,7 @@ require_relative 'util/parser'
 require 'digest'
 require 'json'
 
-task default: [:spec, :update_modules, :rubocop, :reek, :ansible_lint]
+task default: [:spec, :update_modules, :rubocop, :reek, :compile_examples, :ansible_lint]
 
 desc 'Run specs'
 RSpec::Core::RakeTask.new :spec do |task|
@@ -44,6 +44,15 @@ task clean_compile: [:clean, :compile]
 
 task :python_dependencies do
   sh './setup.py build'
+end
+
+desc 'Compiles examples'
+task :compile_examples do
+  Dir.chdir 'examples' do
+    tasks = %w(ami block command default)
+    clean_compile = tasks.map { |task| "#{task}_clean" } + tasks.map { |task| "#{task}_compile" }
+    sh "rake --trace #{clean_compile.join ' '}"
+  end
 end
 
 desc 'Runs a check against generated playbooks'

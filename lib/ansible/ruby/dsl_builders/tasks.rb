@@ -1,6 +1,7 @@
 # See LICENSE.txt for license
 require 'ansible/ruby/dsl_builders/task'
 require 'ansible/ruby/models/handler'
+require 'ansible/ruby/models/inclusion'
 
 module Ansible
   module Ruby
@@ -9,6 +10,10 @@ module Ansible
         def initialize(context)
           @context = context
           @items = []
+        end
+
+        def ansible_include(filename, &block)
+          @items << _ansible_include(filename, &block)
         end
 
         # allow multiple tasks, etc.

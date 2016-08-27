@@ -56,6 +56,75 @@ describe Ansible::Ruby::DslBuilders::Play do
     end
   end
 
+  context 'multiple tasks' do
+    let(:ruby) do
+      <<-RUBY
+      hosts 'host1'
+
+      task 'Copy something' do
+          copy do
+            src '/file1.conf'
+            dest '/file2.conf'
+          end
+      end
+
+      task 'Copy something else' do
+          copy do
+            src '/file1.conf'
+            dest '/file2.conf'
+          end
+      end
+      RUBY
+    end
+
+    subject { play.tasks }
+
+    it { is_expected.to be_a Ansible::Ruby::Models::Tasks }
+    it do
+      is_expected.to have_attributes items: include(be_a(Ansible::Ruby::Models::Task),
+                                                    be_a(Ansible::Ruby::Models::Task))
+    end
+  end
+
+  context 'include' do
+    let(:ruby) do
+      <<-RUBY
+      hosts 'host1'
+
+      ansible_include '/some_file.yml'
+
+      task 'Copy something' do
+          copy do
+            src '/file1.conf'
+            dest '/file2.conf'
+          end
+      end
+      RUBY
+    end
+
+    it { is_expected.to be_a Ansible::Ruby::Models::Play }
+    it do
+      is_expected.to have_attributes hosts: 'host1',
+                                     name: 'another play'
+    end
+
+    describe 'tasks' do
+      subject { play.tasks }
+
+      it { is_expected.to be_a Ansible::Ruby::Models::Tasks }
+      it do
+        is_expected.to have_attributes items: include(be_a(Ansible::Ruby::Models::Task),
+                                                      be_a(Ansible::Ruby::Models::Inclusion))
+      end
+    end
+
+    describe 'hash keys' do
+      subject { play.to_h.stringify_keys.keys }
+
+      it { is_expected.to eq %w(hosts name tasks) }
+    end
+  end
+
   context 'no name' do
     let(:ruby) do
       <<-RUBY
@@ -214,7 +283,7 @@ describe Ansible::Ruby::DslBuilders::Play do
 
     subject { -> { evaluate } }
 
-    it { is_expected.to raise_error "Invalid method/local variable `foobar'. Only valid options are [:hosts, :roles, :connection, :user, :serial, :gather_facts, :local_host, :block, :jinja, :task] at line 1!" }
+    it { is_expected.to raise_error "Invalid method/local variable `foobar'. Only valid options are [:hosts, :roles, :connection, :user, :serial, :gather_facts, :local_host, :block, :ansible_include, :jinja, :task] at line 1!" }
   end
 
   context 'other attributes' do

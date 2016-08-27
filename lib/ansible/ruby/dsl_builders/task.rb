@@ -13,6 +13,7 @@ module Ansible
           @name = name
           @context = context
           @module = nil
+          @inclusion = nil
         end
 
         def changed_when(clause)
@@ -58,6 +59,7 @@ module Ansible
             module: @module,
             name: @name
           }.merge @task_args
+          args[:inclusion] = @inclusion if @inclusion
           task = @context.new args
           task.validate!
           task
@@ -66,6 +68,13 @@ module Ansible
         private
 
         def _process_method(id, *args, &block)
+          if id == :ansible_include
+            if @context == Models::Handler
+              raise "Can't call inclusion inside a handler(yet), only in plays/handlers"
+            else
+              raise "Can't call inclusion inside a task, only in plays/handlers"
+            end
+          end
           # only 1 module, so don't try and do this again
           no_method_error id, "Only valid options are #{_valid_attributes}" if @module
           mcb = ModuleCall.new

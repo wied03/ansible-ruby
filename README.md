@@ -129,7 +129,7 @@ There's no reason why you can't use Ansible Galaxy with this. It hasn't been tes
 
 * Type validation in generated modules isn't 100% correct - [see issue](https://github.com/wied03/ansible-ruby/issues/23)
 * Error messages could use improvement - [see issue](https://github.com/wied03/ansible-ruby/issues/7)
-* Inclusion isn't yet supported by the DSL
+* Full inclusion support - [see issue](https://github.com/wied03/ansible-ruby/issues/32)
 * Result variable DSL is fairly limited, all it does right now is make sure you use the right variable name (see issues for improvements) 
 
 ## License

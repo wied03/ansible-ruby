@@ -1,6 +1,10 @@
 play 'block fun' do
   local_host
 
+  ansible_include 'inclusion.yml' do
+    variables howdy: 123
+  end
+
   block do
     task 'say hello' do
       result = command 'uname'
