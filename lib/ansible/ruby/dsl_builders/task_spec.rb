@@ -108,7 +108,7 @@ describe Ansible::Ruby::DslBuilders::Task do
   end
 
   context 'no such attribute' do
-    subject { lambda { evaluate } }
+    subject { -> { evaluate } }
 
     context 'before module' do
       let(:ruby) do
@@ -317,7 +317,7 @@ describe Ansible::Ruby::DslBuilders::Task do
 
       subject { -> { evaluate } }
 
-      it { is_expected.to raise_error /Invalid method\/local variable `atomicc_result.*line 5!/ }
+      it { is_expected.to raise_error(%r{Invalid method/local variable `atomicc_result.*line 5!}) }
     end
 
     context 'failed when' do

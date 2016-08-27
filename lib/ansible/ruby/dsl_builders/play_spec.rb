@@ -37,8 +37,10 @@ describe Ansible::Ruby::DslBuilders::Play do
     end
 
     it { is_expected.to be_a Ansible::Ruby::Models::Play }
-    it { is_expected.to have_attributes hosts: 'host1',
-                                        name: 'another play' }
+    it do
+      is_expected.to have_attributes hosts: 'host1',
+                                     name: 'another play'
+    end
 
     describe 'tasks' do
       subject { play.tasks }
@@ -126,7 +128,7 @@ describe Ansible::Ruby::DslBuilders::Play do
         RUBY
       end
 
-      subject { lambda { evaluate } }
+      subject { -> { evaluate } }
 
       it { is_expected.to raise_error 'Validation failed: Tasks Must have at least 1 task in your block!' }
     end
@@ -140,7 +142,7 @@ describe Ansible::Ruby::DslBuilders::Play do
         RUBY
       end
 
-      subject { lambda { evaluate } }
+      subject { -> { evaluate } }
 
       it { is_expected.to raise_error 'wrong number of arguments (0 for 1..3)' }
     end

@@ -43,7 +43,7 @@ module Ansible
 
         def block(&block)
           builder = Block.new
-          builder.instance_eval &block
+          builder.instance_eval(&block)
           @items << builder._result
         end
 

@@ -18,7 +18,7 @@ module Ansible
         class << self
           def attr_options
             @attr_options ||= begin
-                                # need parent attribute info
+              # need parent attribute info
               hash = Base > self ? superclass.attr_options : {}
               hash.clone
             end

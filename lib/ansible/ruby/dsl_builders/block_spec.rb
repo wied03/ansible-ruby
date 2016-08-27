@@ -82,7 +82,7 @@ describe Ansible::Ruby::DslBuilders::Block do
   context 'unknown keyword' do
     let(:ruby) { 'foobar()' }
 
-    subject { lambda { evaluate } }
+    subject { -> { evaluate } }
 
     it { is_expected.to raise_error "Invalid method/local variable `foobar'. Only valid options are [:task, :become, :become_user, :ansible_when, :ignore_errors, :jinja] at line 1!" }
   end
