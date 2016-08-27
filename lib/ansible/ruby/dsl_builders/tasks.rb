@@ -1,6 +1,7 @@
 # See LICENSE.txt for license
 require 'ansible/ruby/dsl_builders/task'
 require 'ansible/ruby/models/handler'
+require 'ansible/ruby/models/inclusion'
 
 module Ansible
   module Ruby

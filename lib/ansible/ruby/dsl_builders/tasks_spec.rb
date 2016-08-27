@@ -73,6 +73,10 @@ describe Ansible::Ruby::DslBuilders::Tasks do
       pending 'write this'
     end
 
+    context 'jinja' do
+      pending 'write this'
+    end
+
     context 'static' do
       pending 'write this'
     end
