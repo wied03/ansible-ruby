@@ -45,18 +45,50 @@ describe Ansible::Ruby::DslBuilders::Task do
   end
 
   context 'handler' do
-    let(:context) { Ansible::Ruby::Models::Handler }
+    context 'no include' do
+      let(:context) { Ansible::Ruby::Models::Handler }
+      let(:ruby) do
+        <<-RUBY
+            copy do
+              src '/file1.conf'
+              dest '/file2.conf'
+            end
+        RUBY
+      end
+
+      it { is_expected.to be_a Ansible::Ruby::Models::Handler }
+      it { is_expected.to have_attributes name: 'Copy something', module: be_a(Ansible::Ruby::Modules::Copy) }
+    end
+
+    context 'include' do
+      let(:context) { Ansible::Ruby::Models::Handler }
+
+      let(:ruby) do
+        <<-RUBY
+        ansible_include 'something'
+        RUBY
+      end
+
+      subject { -> { evaluate } }
+
+      it { is_expected.to raise_error "Can't call inclusion inside a handler(yet), only in plays/handlers at line 1!" }
+    end
+  end
+
+  context 'task inclusion attempt' do
     let(:ruby) do
       <<-RUBY
-      copy do
-        src '/file1.conf'
-        dest '/file2.conf'
-      end
+        ansible_include 'something'
+        copy do
+          src '/file1.conf'
+          dest '/file2.conf'
+        end
       RUBY
     end
 
-    it { is_expected.to be_a Ansible::Ruby::Models::Handler }
-    it { is_expected.to have_attributes name: 'Copy something', module: be_a(Ansible::Ruby::Modules::Copy) }
+    subject { -> { evaluate } }
+
+    it { is_expected.to raise_error "Can't call inclusion inside a task, only in plays/handlers at line 1!" }
   end
 
   context 'jinja' do

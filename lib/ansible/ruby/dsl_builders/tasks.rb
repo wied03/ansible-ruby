@@ -13,14 +13,7 @@ module Ansible
         end
 
         def ansible_include(filename, &block)
-          args = if block
-                   args_builder = Args.new
-                   args_builder.instance_eval(&block)
-                   args_builder._result
-                 else
-                   {}
-                 end
-          @items << Models::Inclusion.new(args.merge(file: filename))
+          @items << _ansible_include(filename, &block)
         end
 
         # allow multiple tasks, etc.

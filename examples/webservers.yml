@@ -2,6 +2,7 @@
 # This is a generated YAML file by ansible-ruby, DO NOT EDIT
 - hosts: localhost
   name: webserver install
+  connection: local
   tasks:
   - name: EC2 load balancer
     ec2_elb_lb:
@@ -16,4 +17,3 @@
         instance_port: 80
       subnets:
       - subnet-637e594b
-  connection: local

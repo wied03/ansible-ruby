@@ -2,14 +2,8 @@
 # This is a generated YAML file by ansible-ruby, DO NOT EDIT
 - hosts: localhost
   name: image copy
+  connection: local
   tasks:
-  - name: say hello
-    command: ls howdy
-    args:
-      chdir: "/tmp"
-    register: result_1
-    changed_when: "'howdy' in result_1.stdout"
-    failed_when: 'false'
   - name: image copy
     ec2_ami_copy:
       source_region: us-east-1
@@ -19,4 +13,3 @@
       tags:
         type: ansible
         test: '2'
-  connection: local

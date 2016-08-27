@@ -1,0 +1,4 @@
+---
+- name: say howdy
+  debug:
+    msg: echo {{ howdy }}

@@ -36,6 +36,17 @@ module Ansible
 
         private
 
+        def _ansible_include(filename, &block)
+          args = if block
+                   args_builder = Args.new
+                   args_builder.instance_eval(&block)
+                   args_builder._result
+                 else
+                   {}
+                 end
+          Models::Inclusion.new(args.merge(file: filename))
+        end
+
         def _valid_attributes
           (self.class.instance_methods - Object.instance_methods - [:_result, :method_missing])
         end
