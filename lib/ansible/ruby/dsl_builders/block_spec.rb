@@ -66,11 +66,7 @@ describe Ansible::Ruby::DslBuilders::Block do
 
       become true
       become_user 'root'
-      with_dict '{{ servers }}'
-      async 0
-      poll 50
       ignore_errors true
-      notify 'handler1'
       RUBY
     end
 
@@ -79,11 +75,7 @@ describe Ansible::Ruby::DslBuilders::Block do
       is_expected.to have_attributes tasks: include(Ansible::Ruby::Models::Task),
                                      become: true,
                                      become_user: 'root',
-                                     async: 0,
-                                     poll: 50,
-                                     with_dict: '{{ servers }}',
-                                     ignore_errors: true,
-                                     notify: 'handler1'
+                                     ignore_errors: true
     end
   end
 
@@ -92,6 +84,6 @@ describe Ansible::Ruby::DslBuilders::Block do
 
     subject { lambda { evaluate } }
 
-    it { is_expected.to raise_error "Invalid method/local variable `foobar'. Only valid options are [:task, :become, :become_user, :changed_when, :failed_when, :ansible_when, :with_dict, :with_items, :async, :poll, :notify, :ignore_errors, :jinja] at line 1!" }
+    it { is_expected.to raise_error "Invalid method/local variable `foobar'. Only valid options are [:task, :become, :become_user, :ansible_when, :ignore_errors, :jinja] at line 1!" }
   end
 end

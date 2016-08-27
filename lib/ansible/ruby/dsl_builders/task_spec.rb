@@ -107,6 +107,38 @@ describe Ansible::Ruby::DslBuilders::Task do
     end
   end
 
+  context 'no such attribute' do
+    subject { lambda { evaluate } }
+
+    context 'before module' do
+      let(:ruby) do
+        <<-RUBY
+          foobar
+          copy do
+            src '/file1.conf'
+            dest '/file2.conf'
+          end
+        RUBY
+      end
+
+      it { is_expected.to raise_error 'Unknown module foobar at line 1! at line 1!' }
+    end
+
+    context 'after module' do
+      let(:ruby) do
+        <<-RUBY
+        copy do
+          src '/file1.conf'
+          dest '/file2.conf'
+        end
+        foobar
+        RUBY
+      end
+
+      it { is_expected.to raise_error "Invalid method/local variable `foobar'. Only valid options are [:changed_when, :failed_when, :with_dict, :with_items, :async, :poll, :notify, :become, :become_user, :ansible_when, :ignore_errors, :jinja] at line 5!" }
+    end
+  end
+
   context 'loops' do
     context 'regular task' do
       let(:ruby) do
@@ -285,7 +317,7 @@ describe Ansible::Ruby::DslBuilders::Task do
 
       subject { -> { evaluate } }
 
-      it { is_expected.to raise_error "undefined local variable or method `atomicc_result' at line 5!" }
+      it { is_expected.to raise_error /Invalid method\/local variable `atomicc_result.*line 5!/ }
     end
 
     context 'failed when' do

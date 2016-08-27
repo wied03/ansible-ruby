@@ -15,6 +15,39 @@ module Ansible
           @module = nil
         end
 
+        def changed_when(clause)
+          @task_args[:changed_when] = clause
+        end
+
+        def failed_when(clause)
+          @task_args[:failed_when] = clause
+        end
+
+        def with_dict(clause)
+          @task_args[:with_dict] = clause
+          return unless block_given?
+          hash_key = JinjaItemNode.new('item.key')
+          hash_value = JinjaItemNode.new('item.value')
+          yield [hash_key, hash_value]
+        end
+
+        def with_items(clause)
+          @task_args[:with_items] = clause
+          yield JinjaItemNode.new if block_given?
+        end
+
+        def async(value)
+          @task_args[:async] = value
+        end
+
+        def poll(value)
+          @task_args[:poll] = value
+        end
+
+        def notify(value)
+          @task_args[:notify] = value
+        end
+
         def respond_to_missing?(*)
           !@module || super
         end
@@ -34,7 +67,7 @@ module Ansible
 
         def _process_method(id, *args, &block)
           # only 1 module, so don't try and do this again
-          raise "undefined local variable or method `#{id}'" if @module
+          no_method_error id, "Only valid options are #{_valid_attributes}" if @module
           mcb = ModuleCall.new
           mcb.send(id, *args, &block)
           @module = mcb._result

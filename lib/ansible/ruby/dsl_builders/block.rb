@@ -29,8 +29,7 @@ module Ansible
         private
 
         def _process_method(id, *)
-          valid = _valid_attributes
-          no_method_error id, "Only valid options are #{valid}"
+          no_method_error id, "Only valid options are #{_valid_attributes}"
         end
       end
     end
