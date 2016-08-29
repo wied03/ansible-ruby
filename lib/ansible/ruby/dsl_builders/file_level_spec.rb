@@ -221,8 +221,12 @@ describe Ansible::Ruby::DslBuilders::FileLevel do
 
         it do
           is_expected.to eq <<ERROR
-unknown attribute 'foobar' for Ansible::Ruby::Modules::Copy.
+Unknown attribute 'foobar' for Ansible::Ruby::Modules::Copy.
+
+Valid attributes are: [:src, :dest]
+
 ****Error Location:****
+file_level_test.rb:4
 file_level_test.rb:2
 file_level_test.rb:1
 ERROR

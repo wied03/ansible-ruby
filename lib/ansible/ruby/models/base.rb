@@ -11,8 +11,8 @@ module Ansible
         include ActiveModel::Validations
 
         def initialize(args = {})
+          @set_vars = {}
           super
-          @set_vars = args.keys
         end
 
         class << self
@@ -25,7 +25,13 @@ module Ansible
           end
 
           def attribute(name, options = {})
-            attr_accessor name
+            attr_reader name
+            # Want to keep track of what we set (avoid default issues)
+            ivar = "@#{name}".to_sym
+            define_method("#{name}=".to_sym) do |value|
+              @set_vars[name] = true
+              instance_variable_set ivar, value
+            end
             for_name = attr_options[name] ||= {}
             for_name.merge! options
           end
@@ -51,7 +57,7 @@ module Ansible
         def to_h
           validate!
           Hash[
-            @set_vars.map do |key|
+            @set_vars.map do |key, _|
               value = send key
               options = self.class.attr_option(key)
               value = hashify value

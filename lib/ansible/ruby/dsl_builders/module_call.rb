@@ -23,45 +23,27 @@ module Ansible
 
         def _process_method(id, *module_args, &block)
           module_klass = _module_klass(id)
-          args = _arguments(block, module_args, module_klass)
-          @result = module_klass.new(args)
+          @result = module_klass.new({})
+          _arguments(block, module_args)
           @result.validate!
         end
 
-        def _arguments(block, module_args, module_klass)
-          free_form_module = module_klass.include?(Ansible::Ruby::Modules::FreeForm)
+        def _arguments(block, module_args)
+          free_form_module = @result.class.include?(Ansible::Ruby::Modules::FreeForm)
           if module_args.any? && !free_form_module
             raise "Can't use arguments #{module_args} on this type of module"
           end
           if !free_form_module && !block
             raise 'You must supply a block when using this type of module'
           end
-          args = {}
           free_form = free_form_module && _free_form_arg(module_args)
-          args.merge! _block_args(&block)
-          args[:free_form] = free_form if free_form
-          _jinja_nodes(args)
-        end
-
-        def _jinja_nodes(args)
-          Hash[args.map do |key, value|
-            [key, _convert_ast_node(value)]
-          end]
-        end
-
-        def _convert_ast_node(value)
-          case value
-          when DslBuilders::JinjaItemNode
-            value.to_s
-          when Hash
-            Hash[
-              value.map { |key, hash_val| [key, _convert_ast_node(hash_val)] }
-            ]
-          when Array
-            value.map { |val| _convert_ast_node(val) }
-          else
-            value
+          args_builder = Args.new @result do |attribute|
+            # More user friendly to get rid of = mutators
+            valid = (@result.methods - Models::Base.instance_methods).reject {|method| method.to_s.end_with?('=')}
+            raise "Unknown attribute '#{attribute}' for #{@result.class.name}.\n\nValid attributes are: #{valid}\n"
           end
+          _block_args(args_builder, &block)
+          args_builder.free_form free_form if free_form
         end
 
         def _module_klass(id)
@@ -69,12 +51,10 @@ module Ansible
           MODULES_MOD.const_get _klass_name(id)
         end
 
-        def _block_args(&block)
+        def _block_args(args_builder, &block)
           return {} unless block
           # Delegate everything to the args builder and apply it to the module class we located
-          args_builder = Args.new
           args_builder.instance_eval(&block)
-          args_builder._result
         end
 
         def _free_form_arg(module_args)

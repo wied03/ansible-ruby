@@ -26,14 +26,12 @@ module Ansible
         private
 
         def _ansible_include(filename, &block)
-          args = if block
-                   args_builder = Args.new
-                   args_builder.instance_eval(&block)
-                   args_builder._result
-                 else
-                   {}
-                 end
-          Models::Inclusion.new(args.merge(file: filename))
+          inclusion = Models::Inclusion.new(file: filename)
+          if block
+            args_builder = Args.new inclusion
+            args_builder.instance_eval(&block)
+          end
+          inclusion
         end
 
         def _valid_attributes
