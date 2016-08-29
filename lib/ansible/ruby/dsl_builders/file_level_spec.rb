@@ -174,12 +174,60 @@ describe Ansible::Ruby::DslBuilders::FileLevel do
   end
 
   describe '#_handled_eval' do
+    subject(:result) do
+      exception = builder._handled_eval filename
+      exception || builder._result
+    end
+
+    let(:filename) { 'file_level_test.rb' }
+
+    around do |example|
+      File.write filename, ruby
+      example.run
+      FileUtils.rm_rf filename
+    end
+
     context 'no error' do
-      pending 'write this'
+      let(:ruby) do
+        <<-RUBY
+        task 'Copy something' do
+          copy do
+            src '/file1.conf'
+            dest '/file2.conf'
+          end
+        end
+        RUBY
+      end
+
+      it { is_expected.to be_a Ansible::Ruby::Models::Tasks }
     end
 
     context 'error' do
-      pending 'write this'
+      let(:ruby) do
+        <<-RUBY
+        task 'Copy something' do
+          copy do
+            src '/file1.conf'
+            foobar '/file2.conf'
+          end
+        end
+        RUBY
+      end
+
+      it { is_expected.to be_a Exception }
+
+      describe 'message' do
+        subject { result.message + "\n" }
+
+        it do
+          is_expected.to eq <<ERROR
+unknown attribute 'foobar' for Ansible::Ruby::Modules::Copy.
+****Error Location:****
+file_level_test.rb:2
+file_level_test.rb:1
+ERROR
+        end
+      end
     end
   end
 end
