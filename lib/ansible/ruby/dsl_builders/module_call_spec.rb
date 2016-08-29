@@ -157,7 +157,7 @@ describe Ansible::Ruby::DslBuilders::ModuleCall do
 
       subject { -> { evaluate } }
 
-      it { is_expected.to raise_error "Can't use arguments [\"howdy\"] on this type of module at line 1!" }
+      it { is_expected.to raise_error "Can't use arguments [\"howdy\"] on this type of module" }
     end
 
     context 'no block' do
@@ -169,7 +169,7 @@ describe Ansible::Ruby::DslBuilders::ModuleCall do
 
       subject { -> { evaluate } }
 
-      it { is_expected.to raise_error 'You must supply a block when using this type of module at line 1!' }
+      it { is_expected.to raise_error 'You must supply a block when using this type of module' }
     end
 
     context 'valid' do
@@ -235,7 +235,7 @@ describe Ansible::Ruby::DslBuilders::ModuleCall do
 
         subject { -> { evaluate } }
 
-        it { is_expected.to raise_error 'Expected only 1 argument for this type of module at line 1!' }
+        it { is_expected.to raise_error 'Expected only 1 argument for this type of module' }
       end
 
       context 'free form not supplied' do
@@ -249,7 +249,7 @@ describe Ansible::Ruby::DslBuilders::ModuleCall do
 
         subject { -> { evaluate } }
 
-        it { is_expected.to raise_error 'Expected 1 argument for this type of module at line 1!' }
+        it { is_expected.to raise_error 'Expected 1 argument for this type of module' }
       end
     end
   end
@@ -270,7 +270,7 @@ describe Ansible::Ruby::DslBuilders::ModuleCall do
 
     subject { -> { evaluate } }
 
-    it { is_expected.to raise_error "Validation failed: Dest can't be blank at line 6!" }
+    it { is_expected.to raise_error "Validation failed: Dest can't be blank" }
   end
 
   context 'not found' do
@@ -286,6 +286,6 @@ describe Ansible::Ruby::DslBuilders::ModuleCall do
 
     subject { -> { evaluate } }
 
-    it { is_expected.to raise_error 'Unknown module foo_copy at line 2!' }
+    it { is_expected.to raise_error 'Unknown module foo_copy' }
   end
 end

@@ -72,7 +72,7 @@ describe Ansible::Ruby::DslBuilders::Task do
 
       subject { -> { evaluate } }
 
-      it { is_expected.to raise_error "Can't call inclusion inside a handler(yet), only in plays/handlers at line 1!" }
+      it { is_expected.to raise_error "Can't call inclusion inside a handler(yet), only in plays/handlers" }
     end
   end
 
@@ -89,7 +89,7 @@ describe Ansible::Ruby::DslBuilders::Task do
 
     subject { -> { evaluate } }
 
-    it { is_expected.to raise_error "Can't call inclusion inside a task, only in plays/handlers at line 1!" }
+    it { is_expected.to raise_error "Can't call inclusion inside a task, only in plays/handlers" }
   end
 
   context 'jinja' do
@@ -154,7 +154,7 @@ describe Ansible::Ruby::DslBuilders::Task do
         RUBY
       end
 
-      it { is_expected.to raise_error 'Unknown module foobar at line 1! at line 1!' }
+      it { is_expected.to raise_error 'Unknown module foobar' }
     end
 
     context 'after module' do
@@ -168,7 +168,7 @@ describe Ansible::Ruby::DslBuilders::Task do
         RUBY
       end
 
-      it { is_expected.to raise_error "Invalid method/local variable `foobar'. Only valid options are [:changed_when, :failed_when, :with_dict, :with_items, :async, :poll, :notify, :become, :become_user, :ansible_when, :ignore_errors, :jinja] at line 5!" }
+      it { is_expected.to raise_error "Invalid method/local variable `foobar'. Only valid options are [:changed_when, :failed_when, :with_dict, :with_items, :async, :poll, :notify, :become, :become_user, :ansible_when, :ignore_errors, :jinja]" }
     end
   end
 
@@ -369,7 +369,7 @@ describe Ansible::Ruby::DslBuilders::Task do
 
       subject { -> { evaluate } }
 
-      it { is_expected.to raise_error(%r{Invalid method/local variable `atomicc_result.*line 5!}) }
+      it { is_expected.to raise_error(%r{Invalid method/local variable `atomicc_result.*}) }
     end
 
     context 'failed when' do

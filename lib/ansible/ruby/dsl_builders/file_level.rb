@@ -34,6 +34,15 @@ module Ansible
           @tasks_builder.handler name, &block
         end
 
+        def _handled_eval(ruby_filename)
+          ruby_code = File.read ruby_filename
+          instance_eval ruby_code, ruby_filename
+          # error code
+          nil
+        rescue StandardError => e
+          e
+        end
+
         # any order/lazy result
         # :reek:NilCheck - when nil is the simplest way to check this
         def _result

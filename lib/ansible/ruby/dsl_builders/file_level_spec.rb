@@ -52,7 +52,7 @@ describe Ansible::Ruby::DslBuilders::FileLevel do
 
     subject { -> { evaluate } }
 
-    it { is_expected.to raise_error "Invalid method/local variable `foobar'. Only valid options are [:task, :handler, :play] at line 1!" }
+    it { is_expected.to raise_error "Invalid method/local variable `foobar'. Only valid options are [:task, :handler, :play]" }
   end
 
   context 'playbook' do
@@ -171,5 +171,15 @@ describe Ansible::Ruby::DslBuilders::FileLevel do
     end
 
     it { is_expected.to raise_error 'This is a tasks file, cannot use playbook here!' }
+  end
+
+  describe '#_handled_eval' do
+    context 'no error' do
+      pending 'write this'
+    end
+
+    context 'error' do
+      pending 'write this'
+    end
   end
 end

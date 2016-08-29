@@ -179,13 +179,13 @@ describe Ansible::Ruby::DslBuilders::Tasks do
     context 'tasks context' do
       let(:context) { :tasks }
 
-      it { is_expected.to raise_error "Invalid method/local variable `foobar'. Only [:task] is valid at line 1!" }
+      it { is_expected.to raise_error "Invalid method/local variable `foobar'. Only [:task] is valid" }
     end
 
     context 'handler context' do
       let(:context) { :handlers }
 
-      it { is_expected.to raise_error "Invalid method/local variable `foobar'. Only [:handler] is valid at line 1!" }
+      it { is_expected.to raise_error "Invalid method/local variable `foobar'. Only [:handler] is valid" }
     end
   end
 
@@ -198,7 +198,7 @@ describe Ansible::Ruby::DslBuilders::Tasks do
 
         subject { -> { evaluate } }
 
-        it { is_expected.to raise_error "Validation failed: Name can't be blank at line 1!" }
+        it { is_expected.to raise_error "Validation failed: Name can't be blank" }
       end
     end
   end
