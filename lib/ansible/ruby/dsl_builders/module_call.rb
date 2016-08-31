@@ -39,11 +39,17 @@ module Ansible
           free_form = free_form_module && _free_form_arg(module_args)
           args_builder = Args.new @result do |attribute|
             # More user friendly to get rid of = mutators
-            valid = (@result.methods - Models::Base.instance_methods).reject {|method| method.to_s.end_with?('=')}
+            valid = _valid_module_attrib
             raise "Unknown attribute '#{attribute}' for #{@result.class.name}.\n\nValid attributes are: #{valid}\n"
           end
           _block_args(args_builder, &block)
           args_builder.free_form free_form if free_form
+        end
+
+        def _valid_module_attrib
+          (@result.methods - Models::Base.instance_methods).reject do |method|
+            method.to_s.end_with?('=') || method == :free_form
+          end
         end
 
         def _module_klass(id)

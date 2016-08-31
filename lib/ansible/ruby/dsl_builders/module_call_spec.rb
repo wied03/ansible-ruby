@@ -172,7 +172,7 @@ describe Ansible::Ruby::DslBuilders::ModuleCall do
       it { is_expected.to raise_error 'You must supply a block when using this type of module' }
     end
 
-    context 'valid' do
+    context 'valid module' do
       before do
         klass_free_form = Class.new(Ansible::Ruby::Models::Base) do
           attribute :free_form
@@ -187,7 +187,7 @@ describe Ansible::Ruby::DslBuilders::ModuleCall do
         end
       end
 
-      context 'valid' do
+      context 'block, no jinja' do
         let(:ruby) do
           <<-RUBY
           command 'ls /stuff' do
@@ -250,6 +250,26 @@ describe Ansible::Ruby::DslBuilders::ModuleCall do
         subject { -> { evaluate } }
 
         it { is_expected.to raise_error 'Expected 1 argument for this type of module' }
+      end
+
+      context 'argument not found' do
+        let(:ruby) do
+          <<-RUBY
+          command 'ls /stuff' do
+            bar '/file1.conf'
+          end
+          RUBY
+        end
+
+        subject { -> { evaluate } }
+
+        it do
+          is_expected.to raise_error <<ERROR
+Unknown attribute 'bar' for Ansible::Ruby::Modules::Command.
+
+Valid attributes are: [:foo]
+ERROR
+        end
       end
     end
   end

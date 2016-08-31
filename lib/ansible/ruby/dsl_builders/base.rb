@@ -18,10 +18,13 @@ module Ansible
           "{{ #{text} }}"
         end
 
+        # For the DSL, don't want to defer to regular method_missing
+        # rubocop:disable Style/MethodMissing
         def method_missing(id, *args, &block)
           result = _process_method id, *args, &block
           method_missing_return id, result, *args
         end
+        # rubocop:enable Style/MethodMissing
 
         private
 
