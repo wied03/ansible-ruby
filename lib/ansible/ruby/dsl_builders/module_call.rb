@@ -12,7 +12,7 @@ module Ansible
 
         def respond_to_missing?(method_name, _)
           klass_name = _klass_name method_name
-          MODULES_MOD.const_defined?(klass_name) || super
+          MODULES_MOD.const_defined?(klass_name)
         end
 
         private
@@ -47,7 +47,7 @@ module Ansible
         end
 
         def _valid_module_attrib
-          (@result.methods - Models::Base.instance_methods).reject do |method|
+          (@result.methods - Modules::Base.instance_methods).reject do |method|
             method.to_s.end_with?('=') || method == :free_form
           end
         end

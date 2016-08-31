@@ -76,9 +76,13 @@ module Ansible
               raise "Can't call inclusion inside a task, only in plays/handlers"
             end
           end
-          # only 1 module, so don't try and do this again
-          no_method_error id, "Only valid options are #{_valid_attributes}" if @module
           mcb = ModuleCall.new
+          if @module && mcb.respond_to?(id)
+            # only 1 module allowed per task, give a good error message
+            raise "Invalid module call `#{id}' since `#{@module.ansible_name}' module has already been used in this task. Only valid options are #{_valid_attributes}"
+          elsif @module
+            no_method_error id, "Only valid options are #{_valid_attributes}"
+          end
           mcb.send(id, *args, &block)
           @module = mcb._result
         end

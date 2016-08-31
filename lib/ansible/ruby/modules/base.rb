@@ -6,8 +6,12 @@ module Ansible
       class Base < Models::Base
         def to_h
           {
-            self.class.name.demodulize.underscore.to_sym => super
+            ansible_name.to_sym => super
           }
+        end
+
+        def ansible_name
+          self.class.name.demodulize.underscore
         end
       end
     end

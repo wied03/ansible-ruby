@@ -172,6 +172,22 @@ describe Ansible::Ruby::DslBuilders::Task do
     end
   end
 
+  context '2 modules in task' do
+    let(:ruby) do
+      <<-RUBY
+      copy do
+        src '/file1.conf'
+        dest '/file2.conf'
+      end
+      debug { msg 'hi' }
+      RUBY
+    end
+
+    subject { -> { evaluate } }
+
+    it { is_expected.to raise_error "Invalid module call `debug' since `copy' module has already been used in this task. Only valid options are [:changed_when, :failed_when, :with_dict, :with_items, :async, :poll, :notify, :become, :become_user, :ansible_when, :ignore_errors, :jinja]" }
+  end
+
   context 'loops' do
     context 'regular task' do
       let(:ruby) do
