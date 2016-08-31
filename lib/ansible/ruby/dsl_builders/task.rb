@@ -69,13 +69,7 @@ module Ansible
         private
 
         def _process_method(id, *args, &block)
-          if id == :ansible_include
-            if @context == Models::Handler
-              raise "Can't call inclusion inside a handler(yet), only in plays/handlers"
-            else
-              raise "Can't call inclusion inside a task, only in plays/handlers"
-            end
-          end
+          _check_context if id == :ansible_include
           mcb = ModuleCall.new
           if @module && mcb.respond_to?(id)
             # only 1 module allowed per task, give a good error message
@@ -85,6 +79,14 @@ module Ansible
           end
           mcb.send(id, *args, &block)
           @module = mcb._result
+        end
+
+        def _check_context
+          if @context == Models::Handler
+            raise "Can't call inclusion inside a handler(yet), only in plays/handlers"
+          else
+            raise "Can't call inclusion inside a task, only in plays/handlers"
+          end
         end
 
         def method_missing_return(_id, _result, *_args)
