@@ -1,5 +1,5 @@
 # Under development
-* TBD
+* Improve error messages (#7)
 
 # 1.0.3 - 27 August 2016
 * Fix register count issue (#30)

@@ -22,6 +22,16 @@ describe Ansible::Ruby::Models::Base do
     it { is_expected.to have_attributes foo: 123 }
   end
 
+  context 'via setter' do
+    let(:instance) { klass.new }
+
+    before { instance.foo = 123 }
+
+    it { is_expected.to be_valid }
+    it { is_expected.to have_hash foo: 123 }
+    it { is_expected.to have_attributes foo: 123 }
+  end
+
   context 'inheritance' do
     let(:klass) do
       superklass = super()

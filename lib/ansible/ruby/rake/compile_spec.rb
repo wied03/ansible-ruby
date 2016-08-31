@@ -56,4 +56,27 @@ describe Ansible::Ruby::Rake::Compile do
     it { is_expected.to have_yaml 'playbook1_test.yml', that: include('host1:host2') }
     it { is_expected.to have_yaml 'sample3_test.yml', that: include('original YML file') }
   end
+
+  context 'compile error' do
+    def execute_task
+      # overriding parent so we can test error
+    end
+
+    subject do
+      Ansible::Ruby::Rake::Compile.new do |task|
+        task.files = 'playbook_error.rb'
+      end
+      -> { Rake::Task[:default].invoke }
+    end
+
+    it do
+      error = <<ERROR
+Invalid method/local variable `ansible_iinclude'. Only valid options are [:hosts, :roles, :connection, :user, :serial, :gather_facts, :local_host, :block, :ansible_include, :jinja, :task]
+****Error Location:****
+playbook_error.rb:4
+playbook_error.rb:1
+ERROR
+      is_expected.to raise_error error.strip
+    end
+  end
 end
