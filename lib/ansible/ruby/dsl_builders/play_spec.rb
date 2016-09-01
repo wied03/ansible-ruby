@@ -283,7 +283,7 @@ describe Ansible::Ruby::DslBuilders::Play do
 
     subject { -> { evaluate } }
 
-    it { is_expected.to raise_error "Invalid method/local variable `foobar'. Only valid options are [:hosts, :roles, :connection, :user, :serial, :gather_facts, :local_host, :block, :ansible_include, :jinja, :task]" }
+    it { is_expected.to raise_error(%r{Invalid method/local variable `foobar'. Only valid options are \[:hosts.*}) }
   end
 
   context 'other attributes' do
