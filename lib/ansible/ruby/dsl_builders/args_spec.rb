@@ -4,18 +4,18 @@ require 'spec_helper'
 describe Ansible::Ruby::DslBuilders::Args do
   let(:builder) { Ansible::Ruby::DslBuilders::Args.new recipient }
 
-  let(:klass) do
-    klass = Class.new(Ansible::Ruby::Modules::Base) do
+  let(:recipient_klass) do
+    recipient_klass = Class.new(Ansible::Ruby::Modules::Base) do
       attribute :src
       validates :src, presence: true
       attribute :dest
       validates :dest, presence: true
     end
-    stub_const 'Ansible::Ruby::Modules::Copy', klass
-    klass
+    stub_const 'Ansible::Ruby::Modules::Copy', recipient_klass
+    recipient_klass
   end
 
-  subject(:recipient) { klass.new {} }
+  subject(:recipient) { recipient_klass.new {} }
 
   before { builder.instance_eval ruby }
 
@@ -114,6 +114,18 @@ describe Ansible::Ruby::DslBuilders::Args do
   end
 
   context 'Ruby Kernel methods' do
-    pending 'write this'
+    Ansible::Ruby::DslBuilders::Args::KERNEL_METHOD_OVERRIDES.each do |method|
+      context "##{method}" do
+        let(:recipient_klass) do
+          klass = super()
+          klass.class_eval { attribute method }
+          klass
+        end
+
+        let(:ruby) { "#{method} 123" }
+
+        it { is_expected.to have_attributes method => 123 }
+      end
+    end
   end
 end

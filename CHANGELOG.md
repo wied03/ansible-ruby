@@ -1,5 +1,6 @@
 # Under development
 * Improve error messages (#7)
+* Prevent these Ruby methods from interfering with module attributes: `[:system, :test, :warn, :sleep]` 
 
 # 1.0.3 - 27 August 2016
 * Fix register count issue (#30)

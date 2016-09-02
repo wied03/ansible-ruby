@@ -4,6 +4,8 @@ module Ansible
   module Ruby
     module DslBuilders
       class Args < Base
+        KERNEL_METHOD_OVERRIDES = [:system, :test, :warn, :sleep]
+
         def initialize(recipient, &block)
           super()
           @error_handler = block
@@ -16,6 +18,12 @@ module Ansible
           value = args.length == 1 ? args[0] : args
           value = _convert_ast_node value
           @recipient.send(setter, value)
+        end
+
+        KERNEL_METHOD_OVERRIDES.each do |method|
+          define_method(method) do |*args|
+            _process_method method, *args
+          end
         end
 
         private
