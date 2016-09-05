@@ -9,7 +9,7 @@
   - b
   - c
   register: result_1
-  failed_when: "'No such filesss' in result_1.stderr"
+  changed_when: "'No such filesss' in result_1.stderr"
   notify:
   - reboot
 - name: and goodbye
@@ -21,3 +21,5 @@
       foobar: '123'
     cmd2:
       foobar: '456'
+  register: result_2
+  changed_when: "'No such filesss' in result_2.stderr"

@@ -28,10 +28,11 @@ module Ansible
             return if @rule_done
             ::Rake.application.create_rule '.yml' => '.rb' do |filename|
               puts "Updating Ansible file #{filename.name} from #{filename.source}..."
-              ruby = File.read filename.source
-              playbook_builder = Ansible::Ruby::DslBuilders::FileLevel.new
-              playbook_builder.instance_eval ruby
-              playbook = playbook_builder._result
+              file_builder = Ansible::Ruby::DslBuilders::FileLevel.new
+              exception = file_builder._handled_eval filename.source
+              # Avoid lengthy stack trace
+              raise exception if exception
+              playbook = file_builder._result
               yml = Ansible::Ruby::Serializer.serialize playbook.to_h
               File.write filename.name, yml
             end

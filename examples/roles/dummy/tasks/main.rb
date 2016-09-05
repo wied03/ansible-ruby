@@ -4,7 +4,7 @@ task 'say hello' do
       chdir '/tmp'
     end
 
-    failed_when "'No such filesss' in #{result.stderr}"
+    changed_when "'No such filesss' in #{result.stderr}"
 
     notify 'reboot'
   end
@@ -22,8 +22,10 @@ task 'and goodbye' do
 
   with_dict(stuff) do |key, value|
     # will run ls cmd1 123 and ls cmd2 456
-    command "ls #{key} #{value.foobar}" do
+    result = command "ls #{key} #{value.foobar}" do
       chdir '/tmp'
     end
+
+    changed_when "'No such filesss' in #{result.stderr}"
   end
 end

@@ -18,33 +18,23 @@ module Ansible
           "{{ #{text} }}"
         end
 
+        # For the DSL, don't want to defer to regular method_missing
+        # rubocop:disable Style/MethodMissing
         def method_missing(id, *args, &block)
-          result = begin
-            _process_method id, *args, &block
-          rescue StandardError => our_error
-            begin
-              super
-            rescue NameError => ruby_error
-              matching_line = ruby_error.backtrace
-                                        .map { |str| str.split ':' }
-                                        .find { |arr| arr[0] == '(eval)' }[1]
-              raise "#{our_error.message} at line #{matching_line}!"
-            end
-          end
+          result = _process_method id, *args, &block
           method_missing_return id, result, *args
         end
+        # rubocop:enable Style/MethodMissing
 
         private
 
         def _ansible_include(filename, &block)
-          args = if block
-                   args_builder = Args.new
-                   args_builder.instance_eval(&block)
-                   args_builder._result
-                 else
-                   {}
-                 end
-          Models::Inclusion.new(args.merge(file: filename))
+          inclusion = Models::Inclusion.new(file: filename)
+          if block
+            args_builder = Args.new inclusion
+            args_builder.instance_eval(&block)
+          end
+          inclusion
         end
 
         def _valid_attributes

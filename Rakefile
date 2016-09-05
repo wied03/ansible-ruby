@@ -27,21 +27,6 @@ Reek::Rake::Task.new do |task|
   task.instance_variable_set :@source_files, files
 end
 
-# Want to use the rule for our lint Rake task
-PLAYBOOKS = %w(example_test.yml role_test.yml).map { |filename| File.join('spec/ansible_lint', filename) }
-
-desc 'compile for Ansible lint test'
-Ansible::Ruby::Rake::Compile.new :compile do |task|
-  task.files = PLAYBOOKS
-end
-
-desc 'clean before ansible lint test'
-Ansible::Ruby::Rake::Clean.new :clean do |task|
-  task.files = PLAYBOOKS
-end
-
-task clean_compile: [:clean, :compile]
-
 task :python_dependencies do
   sh './setup.py build'
 end
@@ -56,13 +41,12 @@ task :compile_examples do
 end
 
 desc 'Runs a check against generated playbooks'
-task ansible_lint: [:clean_compile, :python_dependencies] do
+task ansible_lint: [:compile_examples, :python_dependencies] do
   # Grab the first installed egg
   ansible_lint = FileList['.eggs/ansible_lint*.egg'][0]
   all_eggs = FileList['.eggs/*.egg']
-  PLAYBOOKS.each do |playbook|
-    sh "PYTHONPATH=#{all_eggs.join(':')} #{ansible_lint}/EGG-INFO/scripts/ansible-lint -v #{playbook}"
-  end
+  playbooks = FileList['examples/**/*.yml'].join ' '
+  sh "PYTHONPATH=#{all_eggs.join(':')} #{ansible_lint}/EGG-INFO/scripts/ansible-lint -v #{playbooks}"
 end
 
 no_examples_ok = [

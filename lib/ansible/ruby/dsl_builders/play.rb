@@ -36,6 +36,20 @@ module Ansible
           @play_args[:gather_facts] = value
         end
 
+        def become(*args)
+          value = _implicit_bool args
+          @play_args[:become] = value
+        end
+
+        def become_user(value)
+          @play_args[:become_user] = value
+        end
+
+        def ignore_errors(*args)
+          value = _implicit_bool args
+          @play_args[:ignore_errors] = value
+        end
+
         def local_host
           hosts 'localhost'
           connection :local

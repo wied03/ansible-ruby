@@ -52,7 +52,7 @@ describe Ansible::Ruby::DslBuilders::FileLevel do
 
     subject { -> { evaluate } }
 
-    it { is_expected.to raise_error "Invalid method/local variable `foobar'. Only valid options are [:task, :handler, :play] at line 1!" }
+    it { is_expected.to raise_error "Invalid method/local variable `foobar'. Only valid options are [:task, :handler, :play]" }
   end
 
   context 'playbook' do
@@ -171,5 +171,67 @@ describe Ansible::Ruby::DslBuilders::FileLevel do
     end
 
     it { is_expected.to raise_error 'This is a tasks file, cannot use playbook here!' }
+  end
+
+  describe '#_handled_eval' do
+    subject(:result) do
+      exception = builder._handled_eval filename
+      exception || builder._result
+    end
+
+    let(:filename) { 'file_level_test.rb' }
+
+    around do |example|
+      File.write filename, ruby
+      example.run
+      FileUtils.rm_rf filename
+    end
+
+    context 'no error' do
+      let(:ruby) do
+        <<-RUBY
+        task 'Copy something' do
+          copy do
+            src '/file1.conf'
+            dest '/file2.conf'
+          end
+        end
+        RUBY
+      end
+
+      it { is_expected.to be_a Ansible::Ruby::Models::Tasks }
+    end
+
+    context 'error' do
+      let(:ruby) do
+        <<-RUBY
+        task 'Copy something' do
+          copy do
+            src '/file1.conf'
+            foobar '/file2.conf'
+          end
+        end
+        RUBY
+      end
+
+      it { is_expected.to be_a Exception }
+
+      describe 'message' do
+        subject { result.message + "\n" }
+
+        it do
+          is_expected.to eq <<ERROR
+Unknown attribute 'foobar' for Ansible::Ruby::Modules::Copy.
+
+Valid attributes are: [:src, :dest]
+
+****Error Location:****
+file_level_test.rb:4
+file_level_test.rb:2
+file_level_test.rb:1
+ERROR
+        end
+      end
+    end
   end
 end
