@@ -4,7 +4,7 @@ module Ansible
   module Ruby
     module DslBuilders
       class Args < Base
-        KERNEL_METHOD_OVERRIDES = [:system, :test, :warn, :sleep]
+        KERNEL_METHOD_OVERRIDES = [:system, :test, :warn, :sleep].freeze
 
         def initialize(recipient, &block)
           super()
