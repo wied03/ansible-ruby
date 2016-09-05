@@ -283,30 +283,25 @@ describe Ansible::Ruby::DslBuilders::Play do
 
     subject { -> { evaluate } }
 
-    it { is_expected.to raise_error "Invalid method/local variable `foobar'. Only valid options are [:hosts, :roles, :connection, :user, :serial, :gather_facts, :local_host, :block, :ansible_include, :jinja, :task]" }
+    it { is_expected.to raise_error(%r{Invalid method/local variable `foobar'. Only valid options are \[:hosts.*}) }
   end
 
   context 'other attributes' do
-    let(:ruby) do
-      <<-RUBY
-      hosts 'host1'
-      roles %w(role1 role2)
-      connection :local
-      user 'centos'
-      serial 1
-      gather_facts true
-      RUBY
-    end
+    # We don't build name or tasks the same way as others
+    (Ansible::Ruby::Models::Play.instance_methods - Object.instance_methods - [:name=, :tasks=])
+      .select { |method| method.to_s.end_with?('=') }
+      .map { |method| method.to_s[0..-2] }
+      .each do |method|
 
-    it { is_expected.to be_a Ansible::Ruby::Models::Play }
-    it do
-      is_expected.to have_attributes roles: %w(role1 role2),
-                                     connection: :local,
-                                     user: 'centos',
-                                     serial: 1,
-                                     name: 'another play',
-                                     gather_facts: true,
-                                     hosts: 'host1'
+      context method do
+        let(:ruby) { "#{method} 'some_value'" }
+
+        it { is_expected.to be_a Ansible::Ruby::Models::Play }
+
+        it 'has the builder value' do
+          expect(play.send(method)).to eq 'some_value'
+        end
+      end
     end
   end
 

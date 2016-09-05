@@ -17,7 +17,7 @@ describe Ansible::Ruby::DslBuilders::ModuleCall do
   subject { evaluate }
 
   before do
-    klass = Class.new(Ansible::Ruby::Models::Base) do
+    klass = Class.new(Ansible::Ruby::Modules::Base) do
       attribute :src
       validates :src, presence: true
       attribute :dest
@@ -41,106 +41,19 @@ describe Ansible::Ruby::DslBuilders::ModuleCall do
   end
 
   context 'jinja' do
-    context 'variable' do
-      let(:ruby) do
-        <<-RUBY
-        copy do
-          src jinja('a_file')
-          dest '/file2.conf'
-        end
-        RUBY
-      end
-
-      it { is_expected.to be_a Ansible::Ruby::Modules::Copy }
-      it do
-        is_expected.to have_attributes src: '{{ a_file }}',
-                                       dest: '/file2.conf'
-      end
+    let(:ruby) do
+      <<-RUBY
+            copy do
+              src jinja('a_file')
+              dest '/file2.conf'
+            end
+      RUBY
     end
 
-    context 'item' do
-      context 'single value' do
-        let(:ruby) do
-          <<-RUBY
-          item = Ansible::Ruby::DslBuilders::JinjaItemNode.new
-
-          copy do
-            src item
-            dest '/file2.conf'
-          end
-          RUBY
-        end
-
-        it { is_expected.to be_a Ansible::Ruby::Modules::Copy }
-
-        it do
-          is_expected.to have_attributes src: '{{ item }}',
-                                         dest: '/file2.conf'
-        end
-      end
-
-      context 'array' do
-        let(:ruby) do
-          <<-RUBY
-          item = Ansible::Ruby::DslBuilders::JinjaItemNode.new
-
-          copy do
-            src [item, item]
-            dest '/file2.conf'
-          end
-          RUBY
-        end
-
-        it { is_expected.to be_a Ansible::Ruby::Modules::Copy }
-
-        it do
-          is_expected.to have_attributes src: ['{{ item }}', '{{ item }}'],
-                                         dest: '/file2.conf'
-        end
-      end
-
-      context 'mixed values' do
-        let(:ruby) do
-          <<-RUBY
-          item = Ansible::Ruby::DslBuilders::JinjaItemNode.new
-
-          copy do
-            src [item, item.key]
-            dest '/file2.conf'
-          end
-          RUBY
-        end
-
-        it { is_expected.to be_a Ansible::Ruby::Modules::Copy }
-
-        it do
-          is_expected.to have_attributes src: ['{{ item }}', '{{ item.key }}'],
-                                         dest: '/file2.conf'
-        end
-      end
-
-      context 'hash' do
-        let(:ruby) do
-          <<-RUBY
-          item = Ansible::Ruby::DslBuilders::JinjaItemNode.new
-
-          copy do
-            src stuff: item, bar: item
-            dest '/file2.conf'
-          end
-          RUBY
-        end
-
-        it { is_expected.to be_a Ansible::Ruby::Modules::Copy }
-
-        it do
-          is_expected.to have_attributes src: {
-            stuff: '{{ item }}',
-            bar: '{{ item }}'
-          },
-                                         dest: '/file2.conf'
-        end
-      end
+    it { is_expected.to be_a Ansible::Ruby::Modules::Copy }
+    it do
+      is_expected.to have_attributes src: '{{ a_file }}',
+                                     dest: '/file2.conf'
     end
   end
 

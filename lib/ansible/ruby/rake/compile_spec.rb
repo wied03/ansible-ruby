@@ -70,13 +70,8 @@ describe Ansible::Ruby::Rake::Compile do
     end
 
     it do
-      error = <<ERROR
-Invalid method/local variable `ansible_iinclude'. Only valid options are [:hosts, :roles, :connection, :user, :serial, :gather_facts, :local_host, :block, :ansible_include, :jinja, :task]
-****Error Location:****
-playbook_error.rb:4
-playbook_error.rb:1
-ERROR
-      is_expected.to raise_error error.strip
+      error = "Invalid method/local variable `ansible_iinclude'\\. Only valid options are \\[:hosts.*.*Error Location:.*playbook_error.rb:4.*playbook_error.rb:1"
+      is_expected.to raise_error Regexp.new(error.strip, Regexp::MULTILINE)
     end
   end
 end
