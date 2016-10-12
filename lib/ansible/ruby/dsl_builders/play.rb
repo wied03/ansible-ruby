@@ -16,6 +16,10 @@ module Ansible
           @play_args[:hosts] = value
         end
 
+        def no_log(value)
+          @play_args[:no_log] = value
+        end
+
         def roles(value)
           @play_args[:roles] = value
         end

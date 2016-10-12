@@ -1,4 +1,9 @@
-# Under development
+# Under Development
+* Added no_log support
+* include_vars support
+* Fix Include Not Tested/Working (#40)
+
+# 1.0.4 - 5 September 2016
 * Improve error messages (#7)
 * Add become/become_user/ignore to play DSL
 * Prevent these Ruby methods from interfering with module attributes: `[:system, :test, :warn, :sleep]` 

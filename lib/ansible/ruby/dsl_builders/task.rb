@@ -17,6 +17,10 @@ module Ansible
           @temp_counter = temp_counter
         end
 
+        def no_log(value)
+          @task_args[:no_log] = value
+        end
+
         def changed_when(clause)
           @task_args[:changed_when] = clause
         end
@@ -62,8 +66,13 @@ module Ansible
           }.merge @task_args
           args[:inclusion] = @inclusion if @inclusion
           task = @context.new args
-          task.validate!
+          # Quick feedback if the type is wrong, etc.
+          task.validate! if validate?
           task
+        end
+
+        def validate?
+          true
         end
 
         private

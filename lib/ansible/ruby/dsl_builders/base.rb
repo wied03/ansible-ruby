@@ -38,7 +38,7 @@ module Ansible
         end
 
         def _valid_attributes
-          (self.class.instance_methods - Object.instance_methods - [:_result, :method_missing])
+          (self.class.instance_methods - Object.instance_methods - [:_result, :method_missing, :validate?])
         end
 
         def no_method_error(method, only_valid_clause)
