@@ -1,7 +1,7 @@
 require 'ansible/ruby/dsl_builders/base'
 require 'ansible/ruby/dsl_builders/args'
 require 'ansible/ruby/modules/base'
-require 'ansible/ruby/modules/custom/free_form'
+require 'ansible/ruby/modules/free_form'
 require 'ansible/ruby/dsl_builders/jinja_item_node'
 
 module Ansible
