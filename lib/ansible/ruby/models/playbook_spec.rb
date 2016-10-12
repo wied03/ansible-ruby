@@ -42,31 +42,58 @@ describe Ansible::Ruby::Models::Playbook do
 
     it do
       is_expected.to eq [
-        {
-          hosts: 'host1:host2',
-          name: 'play 1',
-          tasks: [
-            {
-              name: 'do stuff on EC2',
-              ec2: {
-                foo: 123
-              }
-            }
-          ]
-        },
-        {
-          hosts: 'host3',
-          name: 'play 2',
-          tasks: [
-            {
-              name: 'do stuff on EC2',
-              ec2: {
-                foo: 123
-              }
-            }
-          ]
-        }
-      ]
+                          {
+                            hosts: 'host1:host2',
+                            name: 'play 1',
+                            tasks: [
+                              {
+                                name: 'do stuff on EC2',
+                                ec2: {
+                                  foo: 123
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            hosts: 'host3',
+                            name: 'play 2',
+                            tasks: [
+                              {
+                                name: 'do stuff on EC2',
+                                ec2: {
+                                  foo: 123
+                                }
+                              }
+                            ]
+                          }
+                        ]
+    end
+  end
+
+  context 'includes' do
+    let(:instance) do
+      Ansible::Ruby::Models::Playbook.new plays: [play1],
+                                          inclusions: [Ansible::Ruby::Models::Inclusion.new(file: 'something.yml')]
+    end
+
+    it do
+      is_expected.to eq [
+                          {
+                            hosts: 'host1:host2',
+                            name: 'play 1',
+                            tasks: [
+                              {
+                                name: 'do stuff on EC2',
+                                ec2: {
+                                  foo: 123
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            include: 'something.yml'
+                          }
+                        ]
     end
   end
 

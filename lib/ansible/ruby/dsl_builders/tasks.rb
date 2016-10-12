@@ -9,17 +9,19 @@ module Ansible
       class Tasks < Base
         def initialize(context)
           @context = context
-          @items = []
+          @tasks = []
+          @includes = []
           @temp_counter = 0
         end
 
         def ansible_include(filename, &block)
-          @items << _ansible_include(filename, &block)
+          @includes << _ansible_include(filename, &block)
         end
 
         # allow multiple tasks, etc.
         def _result
-          Models::Tasks.new items: @items
+          Models::Tasks.new items: @tasks,
+                            inclusions: @includes
         end
 
         class << self
@@ -70,7 +72,7 @@ module Ansible
           @temp_counter += 1
           task_builder = Task.new name, model, @temp_counter
           task_builder.instance_eval(&block)
-          @items << task_builder._result
+          @tasks << task_builder._result
         end
       end
     end

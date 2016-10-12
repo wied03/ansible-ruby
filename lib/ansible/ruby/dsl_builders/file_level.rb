@@ -10,6 +10,7 @@ module Ansible
           @plays = []
           @tasks_builder = nil
           @context = nil
+          @includes = []
         end
 
         def play(name = nil, &block)
@@ -34,6 +35,10 @@ module Ansible
           @tasks_builder.handler name, &block
         end
 
+        def ansible_include(filename, &block)
+          @includes << _ansible_include(filename, &block)
+        end
+
         def _handled_eval(ruby_filename)
           ruby_code = File.read ruby_filename
           instance_eval ruby_code, ruby_filename
@@ -41,8 +46,8 @@ module Ansible
           nil
         rescue StandardError => error
           only_user_code = error.backtrace_locations
-                                .select { |trace| trace.absolute_path == ruby_filename }
-                                .map { |trace| format_trace_line(trace) }
+                             .select { |trace| trace.absolute_path == ruby_filename }
+                             .map { |trace| format_trace_line(trace) }
           message = "#{error.message}\n****Error Location:****\n#{only_user_code.join("\n")}"
           Exception.new message
         end
@@ -57,9 +62,12 @@ module Ansible
           case @context
           when :playbook
             # TODO: Add a playbook DSL and do this like tasks
-            Models::Playbook.new plays: @plays
+            Models::Playbook.new plays: @plays,
+                                 inclusions: @includes
           when :tasks, :handlers
-            @tasks_builder._result
+            tasks_model = @tasks_builder._result
+            tasks_model.inclusions += @includes
+            tasks_model
           when nil
             raise 'Must supply at least 1 handler/task/play!'
           else

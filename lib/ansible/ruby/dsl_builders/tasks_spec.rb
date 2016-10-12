@@ -89,7 +89,7 @@ describe Ansible::Ruby::DslBuilders::Tasks do
   end
 
   context 'include' do
-    subject(:inclusion) { tasks.items.find { |item| item.is_a?(Ansible::Ruby::Models::Inclusion) } }
+    subject(:inclusion) { tasks.inclusions.first }
 
     context 'with tasks' do
       subject { evaluate }
@@ -109,8 +109,8 @@ describe Ansible::Ruby::DslBuilders::Tasks do
 
       it { is_expected.to be_a Ansible::Ruby::Models::Tasks }
       it do
-        is_expected.to have_attributes items: include(be_a(Ansible::Ruby::Models::Task),
-                                                      be_a(Ansible::Ruby::Models::Inclusion))
+        is_expected.to have_attributes items: include(be_a(Ansible::Ruby::Models::Task)),
+                                       inclusions: include(be_a(Ansible::Ruby::Models::Inclusion))
       end
 
       describe 'inclusion' do

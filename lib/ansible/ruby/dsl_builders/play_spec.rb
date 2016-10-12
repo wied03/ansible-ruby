@@ -113,8 +113,8 @@ describe Ansible::Ruby::DslBuilders::Play do
 
       it { is_expected.to be_a Ansible::Ruby::Models::Tasks }
       it do
-        is_expected.to have_attributes items: include(be_a(Ansible::Ruby::Models::Task),
-                                                      be_a(Ansible::Ruby::Models::Inclusion))
+        is_expected.to have_attributes items: include(be_a(Ansible::Ruby::Models::Task)),
+                                       inclusions: include(be_a(Ansible::Ruby::Models::Inclusion))
       end
     end
 
@@ -288,7 +288,7 @@ describe Ansible::Ruby::DslBuilders::Play do
 
   context 'other attributes' do
     # We don't build name or tasks the same way as others
-    (Ansible::Ruby::Models::Play.instance_methods - Object.instance_methods - [:name=, :tasks=])
+    (Ansible::Ruby::Models::Play.instance_methods - Object.instance_methods - [:name=, :tasks=, :inclusions=])
       .select { |method| method.to_s.end_with?('=') }
       .map { |method| method.to_s[0..-2] }
       .each do |method|

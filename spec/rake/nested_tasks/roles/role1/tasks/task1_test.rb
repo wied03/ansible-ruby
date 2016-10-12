@@ -5,6 +5,8 @@ task 'Copy something over' do
   end
 end
 
+ansible_include 'something.yml'
+
 task 'Copy something else over' do
   copy do
     src '/file3.conf'
