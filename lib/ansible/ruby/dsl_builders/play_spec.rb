@@ -87,41 +87,57 @@ describe Ansible::Ruby::DslBuilders::Play do
   end
 
   context 'include' do
-    let(:ruby) do
-      <<-RUBY
-      hosts 'host1'
-
-      ansible_include '/some_file.yml'
-
-      task 'Copy something' do
-          copy do
-            src '/file1.conf'
-            dest '/file2.conf'
-          end
+    context 'with roles' do
+      let(:ruby) do
+        <<-RUBY
+        hosts 'host1'
+        ansible_include '/some_file.yml'
+        roles %w(role1 role2)
+        RUBY
       end
-      RUBY
+
+      subject { -> { evaluate } }
+
+      it { is_expected.to raise_error 'Includes cannot be used in a play using a role. They can only be used in task files or in plays with a task list.' }
     end
 
-    it { is_expected.to be_a Ansible::Ruby::Models::Play }
-    it do
-      is_expected.to have_attributes hosts: 'host1',
-                                     name: 'another play'
-    end
+    context 'with tasks' do
+      let(:ruby) do
+        <<-RUBY
+        hosts 'host1'
 
-    describe 'tasks' do
-      subject { play.tasks }
+        ansible_include '/some_file.yml'
 
-      it { is_expected.to be_a Ansible::Ruby::Models::Tasks }
+        task 'Copy something' do
+            copy do
+              src '/file1.conf'
+              dest '/file2.conf'
+            end
+        end
+        RUBY
+      end
+
+      it { is_expected.to be_a Ansible::Ruby::Models::Play }
       it do
-        is_expected.to have_attributes items: include(be_a(Ansible::Ruby::Models::Task)),
-                                       inclusions: include(be_a(Ansible::Ruby::Models::Inclusion))
+        is_expected.to have_attributes hosts: 'host1',
+                                       name: 'another play'
       end
-    end
 
-    describe 'hash keys' do
-      subject { play.to_h.stringify_keys.keys }
+      describe 'tasks' do
+        subject { play.tasks }
 
-      it { is_expected.to eq %w(hosts name tasks) }
+        it { is_expected.to be_a Ansible::Ruby::Models::Tasks }
+        it do
+          is_expected.to have_attributes items: include(be_a(Ansible::Ruby::Models::Task)),
+                                         inclusions: include(be_a(Ansible::Ruby::Models::Inclusion))
+        end
+      end
+
+      describe 'hash keys' do
+        subject { play.to_h.stringify_keys.keys }
+
+        it { is_expected.to eq %w(hosts name tasks) }
+      end
     end
   end
 

@@ -64,6 +64,9 @@ module Ansible
         # allow any order
         def _result
           tasks = super
+          if tasks.inclusions.any? && @play_args[:roles]
+            raise 'Includes cannot be used in a play using a role. They can only be used in task files or in plays with a task list.'
+          end
           args = @play_args.merge({})
           # Don't want to trigger validation
           args[:tasks] = tasks if tasks.items.any?

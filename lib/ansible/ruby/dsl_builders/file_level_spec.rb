@@ -48,7 +48,7 @@ describe Ansible::Ruby::DslBuilders::FileLevel do
   end
 
   context 'includes' do
-    context 'playbook' do
+    context 'inside playbook' do
       let(:ruby) do
         <<-RUBY
             play 'the play name' do
@@ -74,7 +74,45 @@ describe Ansible::Ruby::DslBuilders::FileLevel do
       end
     end
 
-    context 'tasks' do
+    context 'inside play' do
+      let(:ruby) do
+        <<-RUBY
+        play 'the play name' do
+          hosts 'host1'
+          ansible_include 'foobar'
+
+          task 'Copy something' do
+            copy do
+              src '/file1.conf'
+              dest '/file2.conf'
+            end
+          end
+        end
+        RUBY
+      end
+
+      it { is_expected.to be_a Ansible::Ruby::Models::Playbook }
+      it do
+        is_expected.to have_attributes plays: include(be_a(Ansible::Ruby::Models::Play)),
+                                       inclusions: []
+      end
+
+      describe 'play' do
+        subject(:play) { result.plays.first }
+
+        it { is_expected.to be_a Ansible::Ruby::Models::Play }
+
+        describe 'tasks' do
+          subject { play.tasks }
+
+          it { is_expected.to be_a Ansible::Ruby::Models::Tasks }
+
+          it { is_expected.to have_attributes inclusions: include(be_a(Ansible::Ruby::Models::Inclusion)) }
+        end
+      end
+    end
+
+    context 'inside tasks' do
       let(:ruby) do
         <<-RUBY
         ansible_include 'foobar'
