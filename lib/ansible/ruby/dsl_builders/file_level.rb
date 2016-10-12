@@ -46,8 +46,8 @@ module Ansible
           nil
         rescue StandardError => error
           only_user_code = error.backtrace_locations
-                             .select { |trace| trace.absolute_path == ruby_filename }
-                             .map { |trace| format_trace_line(trace) }
+                                .select { |trace| trace.absolute_path == ruby_filename }
+                                .map { |trace| format_trace_line(trace) }
           message = "#{error.message}\n****Error Location:****\n#{only_user_code.join("\n")}"
           Exception.new message
         end

@@ -32,19 +32,19 @@ describe Ansible::Ruby::Models::Tasks do
 
     it do
       is_expected.to eq [
-                          {
-                            name: 'do stuff on EC2',
-                            ec2: {
-                              foo: 123
-                            }
-                          },
-                          {
-                            name: 'do more stuff on EC2',
-                            ec2: {
-                              foo: 456
-                            }
-                          }
-                        ]
+        {
+          name: 'do stuff on EC2',
+          ec2: {
+            foo: 123
+          }
+        },
+        {
+          name: 'do more stuff on EC2',
+          ec2: {
+            foo: 456
+          }
+        }
+      ]
     end
   end
 
@@ -56,15 +56,14 @@ describe Ansible::Ruby::Models::Tasks do
 
     it do
       is_expected.to eq [{
-                           include: 'stuff.yml'
-                         },
+        include: 'stuff.yml'
+      },
                          {
                            name: 'do stuff on EC2',
                            ec2: {
                              foo: 123
                            }
-                         }
-                        ]
+                         }]
     end
   end
 
