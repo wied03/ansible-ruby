@@ -94,9 +94,10 @@ describe Ansible::Ruby::DslBuilders::Task do
         subject(:handler) { task_wrapper.task }
 
         it { is_expected.to be_a Ansible::Ruby::Models::Handler }
-        it { is_expected.to have_attributes name: 'Copy something',
-                                            inclusion: be_a(Ansible::Ruby::Models::Inclusion)
-        }
+        it do
+          is_expected.to have_attributes name: 'Copy something',
+                                         inclusion: be_a(Ansible::Ruby::Models::Inclusion)
+        end
       end
     end
   end
@@ -111,9 +112,10 @@ describe Ansible::Ruby::DslBuilders::Task do
 
       subject(:task) { task_wrapper.task }
 
-      it { is_expected.to have_attributes name: 'Copy something',
-                                          inclusion: be_a(Ansible::Ruby::Models::Inclusion)
-      }
+      it do
+        is_expected.to have_attributes name: 'Copy something',
+                                       inclusion: be_a(Ansible::Ruby::Models::Inclusion)
+      end
 
       it 'does not include th module key' do
         expect(task.to_h.keys).to_not include :module

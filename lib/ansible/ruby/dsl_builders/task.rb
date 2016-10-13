@@ -80,7 +80,7 @@ module Ansible
 
         def _process_method(id, *args, &block)
           if id == :ansible_include
-            @inclusion = _ansible_include *args, &block
+            @inclusion = _ansible_include(*args, &block)
             return
           end
           mcb = ModuleCall.new

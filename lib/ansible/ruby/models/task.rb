@@ -49,9 +49,10 @@ module Ansible
 
         private
 
+        # :reek:NilCheck - ^ doesn't work with falsey, you would have to overload the operator
         def inclusion_module
           errors.add :module,
-                     'You must either use an include or a module but not both!' unless (@inclusion != nil) ^ (@module != nil)
+                     'You must either use an include or a module but not both!' unless @inclusion.nil? ^ @module.nil?
         end
 
         def loop_and_dict

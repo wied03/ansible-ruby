@@ -103,7 +103,7 @@ describe Ansible::Ruby::Models::Task do
                                       module: module_klass.new(foo: 123)
     end
 
-    subject { lambda { instance.to_h } }
+    subject { -> { instance.to_h } }
 
     it { is_expected.to raise_error 'Validation failed: Module You must either use an include or a module but not both!' }
   end
