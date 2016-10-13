@@ -3,6 +3,7 @@ require 'ansible/ruby/dsl_builders/module_call'
 require 'ansible/ruby/dsl_builders/result'
 require 'ansible/ruby/models/task'
 require 'ansible/ruby/dsl_builders/unit'
+require 'ansible/ruby/dsl_builders/task_wrapper'
 
 module Ansible
   module Ruby
@@ -68,7 +69,7 @@ module Ansible
           task = @context.new args
           # Quick feedback if the type is wrong, etc.
           task.validate! if validate?
-          task
+          TaskWrapper.new task, @result
         end
 
         def validate?
@@ -101,7 +102,7 @@ module Ansible
             @task_args[:register] = name
             name
           end
-          Result.new name_fetcher
+          @result = Result.new name_fetcher
         end
       end
     end

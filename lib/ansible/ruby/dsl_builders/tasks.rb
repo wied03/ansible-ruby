@@ -74,7 +74,8 @@ module Ansible
           end
           task_builder = Task.new name, model, temp_counter_incrementer
           task_builder.instance_eval(&block)
-          @tasks << task_builder._result
+          wrapper = task_builder._result
+          @tasks << wrapper.task
         end
       end
     end
