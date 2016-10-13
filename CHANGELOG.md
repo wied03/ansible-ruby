@@ -1,3 +1,6 @@
+# Under Development
+* Allow sharing variables between tasks (#29)
+
 # 1.0.5 - 12 October 2016
 * Added no_log support
 * include_vars support
