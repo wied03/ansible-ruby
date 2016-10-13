@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # This module controls active and configured mount points in C(/etc/fstab).
       class Mount < Base
         # @return [String] path to the mount point, eg: C(/mnt/files)
         attribute :name

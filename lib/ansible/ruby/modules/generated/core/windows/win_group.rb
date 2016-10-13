@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Add and remove local groups
       class Win_group < Base
         # @return [Object] Name of the group
         attribute :name

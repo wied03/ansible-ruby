@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Create/delete/reconfigure a guest VM through VMware vSphere. This module has a dependency on pysphere >= 1.7
       class Vsphere_guest < Base
         # @return [String] The hostname of the vcenter server the module will connect to, to create the guest.
         attribute :vcenter_hostname

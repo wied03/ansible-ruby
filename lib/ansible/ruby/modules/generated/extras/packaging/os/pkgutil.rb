@@ -5,6 +5,9 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Manages CSW packages (SVR4 format) on Solaris 10 and 11.
+      # These were the native packages on Solaris <= 10 and are available as a legacy feature in Solaris 11.
+      # Pkgutil is an advanced packaging system, which resolves dependency on installation. It is designed for CSW packages.
       class Pkgutil < Base
         # @return [Object] Package name, e.g. (C(CSWnrpe))
         attribute :name

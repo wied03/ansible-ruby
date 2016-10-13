@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Add or remove a host from distributed virtual switch
       class Vmware_dvs_host < Base
         # @return [String] The ESXi hostname
         attribute :esxi_hostname

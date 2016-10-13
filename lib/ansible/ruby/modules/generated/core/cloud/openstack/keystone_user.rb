@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Manage users,tenants, roles from OpenStack.
       class Keystone_user < Base
         # @return [String, nil] login username to authenticate to keystone
         attribute :login_user

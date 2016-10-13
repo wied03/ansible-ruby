@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Get facts for a specific virtual network or all virtual networks within a resource group.
       class Azure_rm_virtualnetwork_facts < Base
         # @return [String, nil] Only show results for a specific security group.
         attribute :name

@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Configure a .deb package using debconf-set-selections. Or just query existing selections.
       class Debconf < Base
         # @return [Object] Name of package to configure.
         attribute :name

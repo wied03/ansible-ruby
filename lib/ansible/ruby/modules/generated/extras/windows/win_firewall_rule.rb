@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # allows you to create/remove/update firewall rules
       class Win_firewall_rule < Base
         # @return [:yes, :no, nil] is this firewall rule enabled or disabled
         attribute :enable

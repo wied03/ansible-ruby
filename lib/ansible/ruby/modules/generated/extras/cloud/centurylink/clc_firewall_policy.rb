@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Create or delete or update firewall polices on Centurylink Cloud
       class Clc_firewall_policy < Base
         # @return [Object] Target datacenter for the firewall policy
         attribute :location

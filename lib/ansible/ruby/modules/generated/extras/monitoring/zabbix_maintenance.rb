@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # This module will let you create Zabbix maintenance windows.
       class Zabbix_maintenance < Base
         # @return [:present, :absent, nil] Create or remove a maintenance window.
         attribute :state

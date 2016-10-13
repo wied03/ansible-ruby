@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Create and remove security groups.
       class Cs_securitygroup < Base
         # @return [String] Name of the security group.
         attribute :name

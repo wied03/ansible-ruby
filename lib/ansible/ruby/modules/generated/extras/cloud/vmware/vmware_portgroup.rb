@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Create a VMware portgroup
       class Vmware_portgroup < Base
         # @return [String] vSwitch to modify
         attribute :switch_name

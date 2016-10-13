@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Notify airbrake about app deployments (see http://help.airbrake.io/kb/api-2/deploy-tracking)
       class Airbrake_deployment < Base
         # @return [String] API token.
         attribute :token

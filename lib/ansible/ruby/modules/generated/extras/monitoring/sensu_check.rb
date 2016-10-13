@@ -5,6 +5,10 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Manage the checks that should be run on a machine by I(Sensu).
+      # Most options do not have a default and will not be added to the check definition unless specified.
+      # All defaults except I(path), I(state), I(backup) and I(metric) are not managed by this module,
+      # they are simply specified for your convenience.
       class Sensu_check < Base
         # @return [String] The name of the check,This is the key that is used to determine whether a check exists
         attribute :name

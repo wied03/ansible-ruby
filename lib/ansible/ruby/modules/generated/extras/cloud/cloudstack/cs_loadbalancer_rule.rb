@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Add, update and remove load balancer rules.
       class Cs_loadbalancer_rule < Base
         # @return [String] The name of the load balancer rule.
         attribute :name

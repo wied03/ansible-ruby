@@ -5,6 +5,8 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # This module will search a file for a line, and ensure that it is present or absent.
+      # This is primarily useful when you want to change a single line in a file only.
       class Win_lineinfile < Base
         # @return [String] The path of the file to modify.,Note that the Windows path delimiter '\' must be escaped as '\\' (see examples below)
         attribute :dest

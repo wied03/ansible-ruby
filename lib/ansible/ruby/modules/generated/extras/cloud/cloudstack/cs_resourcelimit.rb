@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Manage limits of resources for domains, accounts and projects.
       class Cs_resourcelimit < Base
         # @return [:instance, :ip_address, :volume, :snapshot, :template, :network, :vpc, :cpu, :memory, :primary_storage, :secondary_storage] Type of the resource.
         attribute :resource_type

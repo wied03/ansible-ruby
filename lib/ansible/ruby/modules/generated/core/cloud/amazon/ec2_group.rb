@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # maintains ec2 security groups. This module has a dependency on python-boto >= 2.5
       class Ec2_group < Base
         # @return [String] Name of the security group.
         attribute :name

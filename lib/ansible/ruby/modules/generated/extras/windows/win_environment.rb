@@ -5,6 +5,8 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Uses .net Environment to set or remove environment variables and can set at User, Machine or Process level.
+      # User level environment variables will be set, but not available until the user has logged off and on again.
       class Win_environment < Base
         # @return [:present, :absent, nil] present to ensure environment variable is set, or absent to ensure it is removed
         attribute :state

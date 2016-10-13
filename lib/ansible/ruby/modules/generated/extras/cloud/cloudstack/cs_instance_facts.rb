@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Gathering facts from the API of an instance.
       class Cs_instance_facts < Base
         # @return [String] Name or display name of the instance.
         attribute :name

@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # This module works like M(fetch). It is used for fetching a base64- encoded blob containing the data in a remote file.
       class Slurp < Base
         # @return [Object] The file on the remote system to fetch. This I(must) be a file, not a directory.
         attribute :src

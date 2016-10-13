@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Create, update and remove static NATs.
       class Cs_staticnat < Base
         # @return [String] Public IP address the static NAT is assigned to.
         attribute :ip_address

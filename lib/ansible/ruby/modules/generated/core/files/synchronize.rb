@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # C(synchronize) is a wrapper around the rsync command, meant to make common tasks with rsync easier. It is run and originates on the local host where Ansible is being run. Of course, you could just use the command action to call rsync yourself, but you also have to add a fair number of boilerplate options and host facts. You `still` may need to call rsync directly via C(command) or C(shell) depending on your use case. C(synchronize) does not provide access to the full power of rsync, but does make most invocations easier to follow.
       class Synchronize < Base
         # @return [Object] Path on the source host that will be synchronized to the destination; The path can be absolute or relative.
         attribute :src

@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Manages ZFS file systems, volumes, clones and snapshots.
       class Zfs < Base
         # @return [String] File system, snapshot or volume name e.g. C(rpool/myfs)
         attribute :name

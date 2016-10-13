@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Creates/Removes a gateway interface from the router, used to associate a external network with a router to route external traffic.
       class Quantum_router_gateway < Base
         # @return [String] login username to authenticate to keystone
         attribute :login_username

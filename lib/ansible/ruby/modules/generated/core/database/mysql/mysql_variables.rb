@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Query / Set MySQL variables
       class Mysql_variables < Base
         # @return [String] Variable name to operate
         attribute :variable

@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Create, update or delete a virtual networks. Allows setting and updating the available IPv4 address ranges and setting custom DNS servers. Use the azure_rm_subnet module to associate subnets with a virtual network.
       class Azure_rm_virtualnetwork < Base
         # @return [String] name of resource group.
         attribute :resource_group

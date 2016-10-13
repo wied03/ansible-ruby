@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Create, disable, lock, enable and remove accounts.
       class Cs_account < Base
         # @return [Object] Name of account.
         attribute :name

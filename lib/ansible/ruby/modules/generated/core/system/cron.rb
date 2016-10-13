@@ -5,6 +5,9 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Use this module to manage crontab and environment variables entries. This module allows you to create environment variables and named crontab entries, update, or delete them.
+      # When crontab jobs are managed: the module includes one line with the description of the crontab entry C("#Ansible: <name>") corresponding to the "name" passed to the module, which is used by future ansible/module calls to find/check the state. The "name" parameter should be unique, and changing the "name" value will result in a new cron task being created (or a different one being removed).
+      # When environment variables are managed: no comment line is added, but, when the module needs to find/check the state, it uses the "name" parameter to find the environment variable definition line.
       class Cron < Base
         # @return [String, nil] Description of a crontab entry or, if env is set, the name of environment variable. Required if state=absent
         attribute :name

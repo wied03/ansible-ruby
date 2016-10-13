@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # An Ansible module to Create, Delete, Start and Stop servers in CenturyLink Cloud.
       class Clc_server < Base
         # @return [Object, nil] The list of additional disks for the server
         attribute :additional_disks

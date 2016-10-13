@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Add or remove rights/permissions for a given user or group for the specified src file or folder.
       class Win_acl < Base
         # @return [String] File or Directory
         attribute :path

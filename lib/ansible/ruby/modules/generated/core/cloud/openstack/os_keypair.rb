@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Add or Remove key pair from OpenStack
       class Os_keypair < Base
         # @return [String] Name that has to be given to the key pair
         attribute :name

@@ -5,6 +5,9 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Adds or removes Vertica database schema and, optionally, roles with schema access privileges.
+      # A schema will not be removed until all the objects have been dropped.
+      # In such a situation, if the module tries to remove the schema it will fail and only remove roles created for the schema if they have no dependencies.
       class Vertica_schema < Base
         # @return [String] Name of the schema to add or remove.
         attribute :name

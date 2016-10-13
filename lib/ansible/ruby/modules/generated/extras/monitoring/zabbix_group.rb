@@ -5,6 +5,8 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Create host groups if they do not exist.
+      # Delete existing host groups if they exist.
       class Zabbix_group < Base
         # @return [String] Url of Zabbix server, with protocol (http or https). C(url) is an alias for C(server_url).
         attribute :server_url

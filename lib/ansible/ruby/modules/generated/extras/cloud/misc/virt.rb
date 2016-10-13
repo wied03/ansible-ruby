@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Manages virtual machines supported by I(libvirt).
       class Virt < Base
         # @return [String] name of the guest VM being managed. Note that VM must be previously defined with xml.
         attribute :name

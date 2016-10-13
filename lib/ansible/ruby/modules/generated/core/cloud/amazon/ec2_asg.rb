@@ -5,6 +5,8 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Can create or delete AWS Autoscaling Groups
+      # Works with the ec2_lc module to manage Launch Configurations
       class Ec2_asg < Base
         # @return [:present, :absent] register or deregister the instance
         attribute :state

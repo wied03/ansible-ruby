@@ -5,6 +5,9 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # This module de-registers or registers an AWS EC2 instance from the ELBs that it belongs to.
+      # Returns fact "ec2_elbs" which is a list of elbs attached to the instance if state=absent is passed as an argument.
+      # Will be marked changed when called only if there are ELBs found to operate on.
       class Ec2_elb < Base
         # @return [:present, :absent] register or deregister the instance
         attribute :state

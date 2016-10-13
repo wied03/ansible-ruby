@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Create, update and remove zones.
       class Cs_zone < Base
         # @return [String] Name of the zone.
         attribute :name

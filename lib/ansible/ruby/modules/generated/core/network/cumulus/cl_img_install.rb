@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # install a different version of Cumulus Linux in the inactive slot. For more details go the Image Management User Guide @ http://docs.cumulusnetworks.com/
       class Cl_img_install < Base
         # @return [Object] full path to the Cumulus Linux binary image. Can be a local path, http or https URL. If the code version is in the name of the file, the module will assume this is the version of code you wish to install.
         attribute :src

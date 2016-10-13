@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # manages Zabbix host macros, it can create, update or delete them.
       class Zabbix_hostmacro < Base
         # @return [String] Url of Zabbix server, with protocol (http or https).
         attribute :server_url

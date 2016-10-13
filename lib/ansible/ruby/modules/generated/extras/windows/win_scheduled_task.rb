@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Manage scheduled tasks
       class Win_scheduled_task < Base
         # @return [Object] Name of the scheduled task
         attribute :name

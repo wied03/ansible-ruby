@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Add or Remove a subnet to an OpenStack network
       class Os_subnet < Base
         # @return [:present, :absent, nil] Indicate desired state of the resource
         attribute :state

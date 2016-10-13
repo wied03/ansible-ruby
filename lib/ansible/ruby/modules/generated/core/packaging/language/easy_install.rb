@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Installs Python libraries, optionally in a I(virtualenv)
       class Easy_install < Base
         # @return [String] A Python library name
         attribute :name

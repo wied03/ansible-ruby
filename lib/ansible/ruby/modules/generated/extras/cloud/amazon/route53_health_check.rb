@@ -5,6 +5,8 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Creates and deletes DNS Health checks in Amazons Route53 service
+      # Only the port, resource_path, string_match and request_interval are considered when updating existing health-checks.
       class Route53_health_check < Base
         # @return [:present, :absent] Specifies the action to take.
         attribute :state

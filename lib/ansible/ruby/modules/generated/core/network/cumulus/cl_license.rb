@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Installs a Cumulus Linux license. The module reports no change of status when a license is installed. For more details go the Cumulus Linux License Documentation @ http://docs.cumulusnetwork.com and the Licensing KB Site @ https://support.cumulusnetworks.com/hc/en-us/sections/200507688
       class Cl_license < Base
         # @return [Object, nil] full path to the license. Can be local path or http url
         attribute :src

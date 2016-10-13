@@ -5,6 +5,10 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # The M(script) module takes the script name followed by a list of space-delimited arguments. 
+      # The local script at path will be transferred to the remote node and then executed. 
+      # The given script will be processed through the shell environment on the remote node. 
+      # This module does not require python on the remote system, much like the M(raw) module. 
       class Script < Base
         # @return [Object] path to the local script file followed by optional arguments.
         attribute :free_form

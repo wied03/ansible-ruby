@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Send a message to an IRC channel. This is a very simplistic implementation.
       class Irc < Base
         # @return [String, nil] IRC server name/address
         attribute :server

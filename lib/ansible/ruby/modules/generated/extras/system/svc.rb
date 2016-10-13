@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Controls daemontools services on remote hosts using the svc utility.
       class Svc < Base
         # @return [String] Name of the service to manage.
         attribute :name

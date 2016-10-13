@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Add a VMware Standard Switch to an ESXi host
       class Vmware_vswitch < Base
         # @return [String] vSwitch name to add
         attribute :switch_name

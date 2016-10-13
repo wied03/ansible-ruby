@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Add or Remove security groups from an OpenStack cloud.
       class Os_security_group < Base
         # @return [String] Name that has to be given to the security group. This module requires that security group names be unique.
         attribute :name

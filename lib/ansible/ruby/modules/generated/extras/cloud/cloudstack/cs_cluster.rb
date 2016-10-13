@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Create, update and remove clusters.
       class Cs_cluster < Base
         # @return [String] name of the cluster.
         attribute :name

@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # The M(junos_template) module will load a candidate configuration from a template file onto a remote device running Junos.  The module will return the differences in configuration if the diff option is specified on the Ansible command line
       class Junos_template < Base
         # @return [String] The path to the config source.  The source can be either a file with config or a template that will be merged during runtime.  By default the task will search for the source file in role or playbook root folder in templates directory.
         attribute :src

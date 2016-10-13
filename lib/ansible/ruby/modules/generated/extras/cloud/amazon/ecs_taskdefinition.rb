@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Creates or terminates task definitions
       class Ecs_taskdefinition < Base
         # @return [:present, :absent] State whether the task definition should exist or be deleted
         attribute :state

@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Control Linux encrypted block devices that are set up during system boot in C(/etc/crypttab).
       class Crypttab < Base
         # @return [String] Name of the encrypted block device as it appears in the C(/etc/crypttab) file, or optionaly prefixed with C(/dev/mapper/), as it appears in the filesystem. I(/dev/mapper/) will be stripped from I(name).
         attribute :name

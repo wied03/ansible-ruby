@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # An Ansible module to Create, Delete and Restore server snapshots in CenturyLink Cloud.
       class Clc_server_snapshot < Base
         # @return [Array<String>, String] The list of CLC server Ids.
         attribute :server_ids

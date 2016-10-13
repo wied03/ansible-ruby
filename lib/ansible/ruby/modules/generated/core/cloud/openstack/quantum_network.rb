@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Add or Remove network from OpenStack.
       class Quantum_network < Base
         # @return [String] login username to authenticate to keystone
         attribute :login_username

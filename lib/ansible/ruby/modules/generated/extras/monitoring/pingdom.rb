@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # This module will let you pause/unpause Pingdom alerts
       class Pingdom < Base
         # @return [:running, :paused] Define whether or not the check should be running or paused.
         attribute :state

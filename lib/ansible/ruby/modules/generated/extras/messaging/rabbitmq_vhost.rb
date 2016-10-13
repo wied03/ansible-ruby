@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Manage the state of a virtual host in RabbitMQ
       class Rabbitmq_vhost < Base
         # @return [String] The name of the vhost to manage
         attribute :name

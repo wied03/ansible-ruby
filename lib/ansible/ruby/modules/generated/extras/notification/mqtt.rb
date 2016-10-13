@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Publish a message on an MQTT topic.
       class Mqtt < Base
         # @return [String, nil] MQTT broker address/name
         attribute :server

@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Enables or disables a specified module of the Apache2 webserver.
       class Apache2_module < Base
         # @return [String] name of the module to enable/disable
         attribute :name

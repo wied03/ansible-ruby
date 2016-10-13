@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Manages F5 BIG-IP GTM wide ip
       class Bigip_gtm_wide_ip < Base
         # @return [String] BIG-IP host
         attribute :server

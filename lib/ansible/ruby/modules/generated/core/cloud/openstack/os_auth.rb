@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Retrieve an auth token from an OpenStack Cloud
       class Os_auth < Base
 
       end

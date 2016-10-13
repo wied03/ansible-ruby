@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Manage s3 buckets in AWS
       class S3_bucket < Base
         # @return [Boolean, nil] When trying to delete a bucket, delete all keys in the bucket first (an s3 bucket must be empty for a successful deletion)
         attribute :force

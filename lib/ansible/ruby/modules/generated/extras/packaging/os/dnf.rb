@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Installs, upgrade, removes, and lists packages and groups with the I(dnf) package manager.
       class Dnf < Base
         # @return [String] Package name, or package specifier with version, like C(name-1.0). When using state=latest, this can be '*' which means run: dnf -y update. You can also pass a url or a local path to a rpm file.
         attribute :name

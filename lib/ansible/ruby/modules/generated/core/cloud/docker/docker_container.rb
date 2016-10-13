@@ -5,6 +5,8 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Manage the life cycle of docker containers.
+      # Supports check mode. Run with --check and --diff to view config difference and list of actions to be taken.
       class Docker_container < Base
         # @return [Object, nil] Block IO (relative weight), between 10 and 1000.
         attribute :blkio_weight

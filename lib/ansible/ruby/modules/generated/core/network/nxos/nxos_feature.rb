@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Offers ability to enable and disable features in NX-OS
       class Nxos_feature < Base
         # @return [String] Name of feature.
         attribute :feature

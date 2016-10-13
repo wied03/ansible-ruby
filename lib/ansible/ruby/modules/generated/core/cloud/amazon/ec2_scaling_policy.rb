@@ -5,6 +5,8 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Can create or delete scaling policies for autoscaling groups
+      # Referenced autoscaling groups must already exist
       class Ec2_scaling_policy < Base
         # @return [:present, :absent] register or deregister the policy
         attribute :state

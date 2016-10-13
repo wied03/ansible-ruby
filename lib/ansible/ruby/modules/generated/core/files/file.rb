@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Sets attributes of files, symlinks, and directories, or removes files/symlinks/directories. Many other modules support the same options as the M(file) module - including M(copy), M(template), and M(assemble).
       class File < Base
         # @return [Object] path to the file being managed.  Aliases: I(dest), I(name)
         attribute :path

@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Creates, Removes and configures a IIS Web applications
       class Win_iis_webapplication < Base
         # @return [Object] Name of the Web applicatio
         attribute :name

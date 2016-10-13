@@ -5,6 +5,11 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Consumes docker compose to start, shutdown and scale services.
+      # Works with compose versions 1 and 2.
+      # Compose can be read from a docker-compose.yml (or .yaml) file or inline using the C(definition) option.
+      # See the examples for more details.
+      # Supports check mode.
       class Docker_service < Base
         # @return [Object, nil] Path to a directory containing a docker-compose.yml or docker-compose.yaml file.,Mutually exclusive with C(definition).,Required when no C(definition) is provided.
         attribute :project_src

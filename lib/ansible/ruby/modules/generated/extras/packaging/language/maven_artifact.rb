@@ -5,6 +5,9 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Downloads an artifact from a maven repository given the maven coordinates provided to the module. Can retrieve
+      # snapshots or release versions of the artifact and will resolve the latest available version if one is not
+      # available.
       class Maven_artifact < Base
         # @return [String] The Maven groupId coordinate
         attribute :group_id

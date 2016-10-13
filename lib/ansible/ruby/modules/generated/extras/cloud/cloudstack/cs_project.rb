@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Create, update, suspend, activate and remove projects.
       class Cs_project < Base
         # @return [String] Name of the project.
         attribute :name

@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Manages F5 BIG-IP LTM pool members via iControl SOAP API
       class Bigip_pool_member < Base
         # @return [Object] BIG-IP host
         attribute :server

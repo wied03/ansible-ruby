@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Manage domains on Rackspace Cloud DNS
       class Rax_dns < Base
         # @return [Object, nil] Brief description of the domain. Maximum length of 160 characters
         attribute :comment

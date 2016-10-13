@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # The standard package manager for SmartOS, but also usable on NetBSD or any OS that uses C(pkgsrc).  (Home: U(http://pkgin.net/))
       class Pkgin < Base
         # @return [Array<String>, String, nil] Name of package to install/remove;,multiple names may be given, separated by commas
         attribute :name

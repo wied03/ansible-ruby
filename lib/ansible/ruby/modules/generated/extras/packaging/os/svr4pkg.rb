@@ -5,6 +5,9 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Manages SVR4 packages on Solaris 10 and 11.
+      # These were the native packages on Solaris <= 10 and are available as a legacy feature in Solaris 11.
+      # Note that this is a very basic packaging system. It will not enforce dependencies on install or remove.
       class Svr4pkg < Base
         # @return [String] Package name, e.g. C(SUNWcsr)
         attribute :name

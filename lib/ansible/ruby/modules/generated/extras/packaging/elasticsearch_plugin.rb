@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Manages Elasticsearch plugins.
       class Elasticsearch_plugin < Base
         # @return [String] Name of the plugin to install. In ES 2.x, the name can be an url or file location
         attribute :name

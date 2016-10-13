@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Creates and deletes DNS records in Amazons Route53 service
       class Route53 < Base
         # @return [:get, :create, :delete] Specifies the action to take.
         attribute :command

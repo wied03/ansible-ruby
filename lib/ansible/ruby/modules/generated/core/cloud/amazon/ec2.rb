@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Creates or terminates ec2 instances.
       class Ec2 < Base
         # @return [String, nil] key pair to use on the instance
         attribute :key_name

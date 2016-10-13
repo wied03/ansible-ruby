@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # makes an OS computer speak!  Amuse your friends, annoy your coworkers!
       class Osx_say < Base
         # @return [String] What to say
         attribute :msg

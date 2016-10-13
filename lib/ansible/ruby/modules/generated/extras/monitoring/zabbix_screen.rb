@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # This module allows you to create, modify and delete Zabbix screens and associated graph data.
       class Zabbix_screen < Base
         # @return [String] Url of Zabbix server, with protocol (http or https).
         attribute :server_url

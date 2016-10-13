@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Run targets in a Makefile.
       class Make < Base
         # @return [String, nil] The target to run
         attribute :target

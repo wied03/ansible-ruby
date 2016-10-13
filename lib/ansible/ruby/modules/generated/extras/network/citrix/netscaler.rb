@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Manages Citrix NetScaler server and service entities.
       class Netscaler < Base
         # @return [Object] hostname or ip of your netscaler
         attribute :nsc_host

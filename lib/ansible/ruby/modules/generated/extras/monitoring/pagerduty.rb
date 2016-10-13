@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # This module will let you create PagerDuty maintenance windows
       class Pagerduty < Base
         # @return [:running, :started, :ongoing, :absent] Create a maintenance window or get a list of ongoing windows.
         attribute :state

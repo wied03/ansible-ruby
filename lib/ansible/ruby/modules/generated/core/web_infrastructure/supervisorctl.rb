@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Manage the state of a program or group of programs running via supervisord
       class Supervisorctl < Base
         # @return [String] The name of the supervisord program or group to manage.,The name will be taken as group name when it ends with a colon I(:),Group support is only available in Ansible version 1.6 or later.
         attribute :name

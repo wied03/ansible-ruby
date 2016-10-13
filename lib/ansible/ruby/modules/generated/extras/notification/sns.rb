@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # The M(sns) module sends notifications to a topic on your Amazon SNS account
       class Sns < Base
         # @return [String] Default message to send.
         attribute :msg

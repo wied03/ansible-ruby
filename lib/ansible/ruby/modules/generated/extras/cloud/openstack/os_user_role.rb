@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Grant and revoke roles in either project or domain context for OpenStack Identity Users.
       class Os_user_role < Base
         # @return [String] Name or ID for the role.
         attribute :role

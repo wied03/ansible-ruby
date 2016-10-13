@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Change dpkg package selection state via --get-selections and --set-selections.
       class Dpkg_selections < Base
         # @return [String] Name of the package
         attribute :name

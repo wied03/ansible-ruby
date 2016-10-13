@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Manages network device configurations over SSH or NXAPI.  This module allows implementors to work with the device running-config.  It provides a way to push a set of commands onto a network device by evaluting the current running-config and only pushing configuration commands that are not already configured.  The config source can be a set of commands or a template.
       class Nxos_template < Base
         # @return [String, nil] The path to the config source.  The source can be either a file with config or a template that will be merged during runtime.  By default the task will search for the source file in role or playbook root folder in templates directory.
         attribute :src

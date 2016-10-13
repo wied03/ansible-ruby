@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Create/delete an SSH key.
       class Digital_ocean_sshkey < Base
         # @return [:present, :absent, nil] Indicate desired state of the target.
         attribute :state

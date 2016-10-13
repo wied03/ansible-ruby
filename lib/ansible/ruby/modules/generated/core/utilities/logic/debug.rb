@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # This module prints statements during execution and can be useful for debugging variables or expressions without necessarily halting the playbook. Useful for debugging together with the 'when:' directive.
       class Debug < Base
         # @return [String, nil] The customized message that is printed. If omitted, prints a generic message.
         attribute :msg

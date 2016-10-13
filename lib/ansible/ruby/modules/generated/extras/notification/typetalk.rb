@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Send a message to typetalk using typetalk API ( http://developers.typetalk.in/ )
       class Typetalk < Base
         # @return [String] OAuth2 client ID
         attribute :client_id

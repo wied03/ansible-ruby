@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Create or remove a distributed vSwitch
       class Vmware_dvswitch < Base
         # @return [String] The name of the datacenter that will contain the dvSwitch
         attribute :datacenter_name

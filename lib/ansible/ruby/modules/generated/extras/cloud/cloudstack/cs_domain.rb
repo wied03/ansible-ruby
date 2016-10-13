@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Create, update and remove domains.
       class Cs_domain < Base
         # @return [Object] Path of the domain.,Prefix C(ROOT/) or C(/ROOT/) in path is optional.
         attribute :path

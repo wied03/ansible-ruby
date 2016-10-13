@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # This module can add or remove tags U(https://cloud.google.com/compute/docs/instances/#tags) to/from GCE instance.
       class Gce_tag < Base
         # @return [String] the name of the GCE instance to add/remove tags
         attribute :instance_name

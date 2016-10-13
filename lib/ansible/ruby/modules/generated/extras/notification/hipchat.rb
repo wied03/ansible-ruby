@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Send a message to hipchat
       class Hipchat < Base
         # @return [String] API token.
         attribute :token

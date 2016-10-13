@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Send code deploy and annotation events to Stackdriver
       class Stackdriver < Base
         # @return [String] API key.
         attribute :key

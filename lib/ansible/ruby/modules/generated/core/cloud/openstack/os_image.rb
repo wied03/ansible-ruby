@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Add or Remove images from the OpenStack Image Repository
       class Os_image < Base
         # @return [String] Name that has to be given to the image
         attribute :name

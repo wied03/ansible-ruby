@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Interacts with HTTP and HTTPS web services and supports Digest, Basic and WSSE HTTP authentication mechanisms.
       class Uri < Base
         # @return [String] HTTP or HTTPS URL in the form (http|https)://host.domain[:port]/path
         attribute :url

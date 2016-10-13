@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # This module creates file system.
       class Filesystem < Base
         # @return [String] File System type to be created.
         attribute :fstype

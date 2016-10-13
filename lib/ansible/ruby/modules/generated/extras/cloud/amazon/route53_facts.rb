@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Gets various details related to Route53 zone, record set or health check details
       class Route53_facts < Base
         # @return [:change, :checker_ip_range, :health_check, :hosted_zone, :record_sets, :reusable_delegation_set] specifies the query action to take
         attribute :query

@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Send a SMS message via nexmo
       class Nexmo < Base
         # @return [String] Nexmo API Key
         attribute :api_key

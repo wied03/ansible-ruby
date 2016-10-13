@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Get facts for one storage account or all storage accounts within a resource group.
       class Azure_rm_storageaccount_facts < Base
         # @return [String, nil] Only show results for a specific account.
         attribute :name

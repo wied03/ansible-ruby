@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # This module can be used to join nodes to a cluster, check the status of the cluster.
       class Riak < Base
         # @return [:ping, :kv_test, :join, :plan, :commit, nil] The command you would like to perform against the cluster.
         attribute :command

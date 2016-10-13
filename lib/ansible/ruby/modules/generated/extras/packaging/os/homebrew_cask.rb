@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Manages Homebrew casks.
       class Homebrew_cask < Base
         # @return [String] name of cask to install/remove
         attribute :name

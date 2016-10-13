@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # The M(sns_topic) module allows you to create, delete, and manage subscriptions for AWS SNS topics.
       class Sns_topic < Base
         # @return [String] The name or ARN of the SNS topic to converge
         attribute :name

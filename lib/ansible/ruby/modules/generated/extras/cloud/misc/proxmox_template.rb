@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # allows you to upload/delete templates in Proxmox VE cluster
       class Proxmox_template < Base
         # @return [String] the host of the Proxmox VE cluster
         attribute :api_host

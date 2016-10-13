@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Set up, reconfigure, or remove SSL termination for an existing load balancer.
       class Rax_clb_ssl < Base
         # @return [String] Name or ID of the load balancer on which to manage SSL termination.
         attribute :loadbalancer

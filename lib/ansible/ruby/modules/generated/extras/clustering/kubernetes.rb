@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # This module can manage Kubernetes resources on an existing cluster using the Kubernetes server API. Users can specify in-line API data, or specify an existing Kubernetes YAML file. Currently, this module, Only supports HTTP Basic Auth Only supports 'strategic merge' for update, http://goo.gl/fCPYxT SSL certs are not working, use 'validate_certs=off' to disable
       class Kubernetes < Base
         # @return [String] The IPv4 API endpoint of the Kubernetes cluster.
         attribute :api_endpoint

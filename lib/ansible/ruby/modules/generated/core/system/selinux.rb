@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Configures the SELinux mode and policy. A reboot may be required after usage. Ansible will not issue this reboot but will let you know when it is required.
       class Selinux < Base
         # @return [String, nil] name of the SELinux policy to use (example: C(targeted)) will be required if state is not C(disabled)
         attribute :policy

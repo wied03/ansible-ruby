@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Change an administrative parameter on a MongoDB server.
       class Mongodb_parameter < Base
         # @return [Object, nil] The username used to authenticate with
         attribute :login_user

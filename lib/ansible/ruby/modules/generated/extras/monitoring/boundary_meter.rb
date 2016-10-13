@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # This module manages boundary meters
       class Boundary_meter < Base
         # @return [String] meter name
         attribute :name

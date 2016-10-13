@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # This module will let you trigger, acknowledge or resolve a PagerDuty incident by sending events
       class Pagerduty_alert < Base
         # @return [String] PagerDuty unique subdomain.
         attribute :name

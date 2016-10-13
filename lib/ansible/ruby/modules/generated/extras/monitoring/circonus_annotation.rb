@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Create an annotation event with a given category, title and description. Optionally start, end or durations can be provided
       class Circonus_annotation < Base
         # @return [String] Circonus API key
         attribute :api_key

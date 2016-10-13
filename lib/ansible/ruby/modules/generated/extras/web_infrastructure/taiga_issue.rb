@@ -5,6 +5,9 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Creates/deletes an issue in a Taiga Project Management Platform (U(https://taiga.io)).
+      # An issue is identified by the combination of project, issue subject and issue type.
+      # This module implements the creation or deletion of issues (not the update).
       class Taiga_issue < Base
         # @return [String, nil] The hostname of the Taiga instance.
         attribute :taiga_host

@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # creates / deletes a Rackspace Public Cloud instance and optionally waits for it to be 'running'.
       class Rax < Base
         # @return [Boolean, nil] Whether or not to increment a single number with the name of the created servers. Only applicable when used with the I(group) attribute or meta key.
         attribute :auto_increment

@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Add or remove kernel modules from blacklist.
       class Kernel_blacklist < Base
         # @return [String] Name of kernel module to black- or whitelist.
         attribute :name

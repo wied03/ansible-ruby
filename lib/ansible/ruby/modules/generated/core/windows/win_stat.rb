@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Returns information about a Windows file
       class Win_stat < Base
         # @return [String] The full path of the file/object to get the facts of; both forward and back slashes are accepted.
         attribute :path

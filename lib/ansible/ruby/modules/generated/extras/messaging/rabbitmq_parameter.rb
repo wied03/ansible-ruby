@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Manage dynamic, cluster-wide parameters for RabbitMQ
       class Rabbitmq_parameter < Base
         # @return [String] Name of the component of which the parameter is being set
         attribute :component

@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # This module manipulates sysctl entries and optionally performs a C(/sbin/sysctl -p) after changing them.
       class Sysctl < Base
         # @return [String] The dot-separated path (aka I(key)) specifying the sysctl variable.
         attribute :name

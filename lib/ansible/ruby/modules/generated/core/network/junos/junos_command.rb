@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Network devices running the Junos operating system provide a command driven interface both over CLI and RPC.  This module provides an interface to execute commands using these functions and return the results to the Ansible playbook.  In addition, the M(junos_command) module can specify a set of conditionals to be evaluated against the returned output, only returning control to the playbook once the entire set of conditionals has been met.
       class Junos_command < Base
         # @return [Array<String>, String, nil] An ordered set of CLI commands to be executed on the remote device.  The output from the commands is then returned to the playbook in the task results.
         attribute :commands

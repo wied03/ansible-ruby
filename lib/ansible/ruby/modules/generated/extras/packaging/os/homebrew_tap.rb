@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Tap external Homebrew repositories.
       class Homebrew_tap < Base
         # @return [Object] The repository to tap.
         attribute :tap

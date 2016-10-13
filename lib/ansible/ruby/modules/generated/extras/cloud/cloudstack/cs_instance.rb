@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Deploy, start, update, scale, restart, restore, stop and destroy instances.
       class Cs_instance < Base
         # @return [String, nil] Host name of the instance. C(name) can only contain ASCII letters.,Name will be generated (UUID) by CloudStack if not specified and can not be changed afterwards.,Either C(name) or C(display_name) is required.
         attribute :name

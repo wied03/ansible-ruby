@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Add and remove users from groups
       class Os_user_group < Base
         # @return [Object] Name or id for the user
         attribute :user

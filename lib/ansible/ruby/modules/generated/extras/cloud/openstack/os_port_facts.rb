@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Retrieve facts about ports from OpenStack.
       class Os_port_facts < Base
         # @return [String, nil] Unique name or ID of a port.
         attribute :port

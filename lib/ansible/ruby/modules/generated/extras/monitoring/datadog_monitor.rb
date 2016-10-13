@@ -5,6 +5,8 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Manages monitors within Datadog
+      # Options like described on http://docs.datadoghq.com/api/
       class Datadog_monitor < Base
         # @return [Object] Your DataDog API key.
         attribute :api_key

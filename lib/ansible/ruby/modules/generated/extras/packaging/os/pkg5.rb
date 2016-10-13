@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # IPS packages are the native packages in Solaris 11 and higher.
       class Pkg5 < Base
         # @return [Array<String>, String] An FRMI of the package(s) to be installed/removed/updated.,Multiple packages may be specified, separated by C(,).
         attribute :name

@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Create and remove affinity groups.
       class Cs_affinitygroup < Base
         # @return [String] Name of the affinity group.
         attribute :name

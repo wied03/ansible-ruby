@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # This module creates, removes or resizes volume groups.
       class Lvg < Base
         # @return [String] The name of the volume group.
         attribute :vg

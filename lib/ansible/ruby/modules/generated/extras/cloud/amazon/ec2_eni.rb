@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Create and optionally attach an Elastic Network Interface (ENI) to an instance. If an ENI ID is provided, an attempt is made to update the existing ENI. By passing 'None' as the instance_id, an ENI can be detached from an instance.
       class Ec2_eni < Base
         # @return [String, Hash, nil] The ID of the ENI
         attribute :eni_id

@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Creates or deletes ec2 images.
       class Ec2_ami < Base
         # @return [String, nil] instance id of the image to create
         attribute :instance_id

@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Deploy applications to JBoss standalone using the filesystem
       class Jboss < Base
         # @return [String] The name of the deployment
         attribute :deployment

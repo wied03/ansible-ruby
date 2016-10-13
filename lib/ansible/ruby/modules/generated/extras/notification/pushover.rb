@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Send notifications via pushover, to subscriber list of devices, and email addresses. Requires pushover app on devices.
       class Pushover < Base
         # @return [String] What message you wish to send.
         attribute :msg

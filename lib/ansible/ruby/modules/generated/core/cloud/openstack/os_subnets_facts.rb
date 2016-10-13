@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Retrieve facts about one or more subnets from OpenStack.
       class Os_subnets_facts < Base
         # @return [Object, nil] Name or ID of the subnet
         attribute :subnet

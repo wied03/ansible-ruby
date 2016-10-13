@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Create or Remove virtual machines from Openstack.
       class Nova_compute < Base
         # @return [String] login username to authenticate to keystone
         attribute :login_username

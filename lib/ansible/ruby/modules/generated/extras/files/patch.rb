@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Apply patch files using the GNU patch tool.
       class Patch < Base
         # @return [String, nil] Path of a base directory in which the patch file will be applied. May be ommitted when C(dest) option is specified, otherwise required.
         attribute :basedir

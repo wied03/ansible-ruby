@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Creates or terminates ecs clusters.
       class Ecs_cluster < Base
         # @return [:present, :absent, :has_instances] The desired state of the cluster
         attribute :state

@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Create, update and delete a Public IP address. Allows setting and updating the address allocation method and domain name label. Use the azure_rm_networkinterface module to associate a Public IP with a network interface.
       class Azure_rm_publicipaddress < Base
         # @return [String] Name of resource group with which the Public IP is associated.
         attribute :resource_group

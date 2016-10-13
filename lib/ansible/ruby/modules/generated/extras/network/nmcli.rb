@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Manage the network devices. Create, modify, and manage, ethernet, teams, bonds, vlans etc.
       class Nmcli < Base
         # @return [:present, :absent] Whether the device should exist or not, taking action if the state is different from what is stated.
         attribute :state

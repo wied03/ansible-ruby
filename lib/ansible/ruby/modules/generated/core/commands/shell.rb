@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # The M(shell) module takes the command name followed by a list of space-delimited arguments. It is almost exactly like the M(command) module but runs the command through a shell (C(/bin/sh)) on the remote node.
       class Shell < Base
         # @return [Object] The shell module takes a free form command to run, as a string.  There's not an actual option named "free form".  See the examples!
         attribute :free_form

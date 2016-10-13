@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Manage I(libvirt) storage pools.
       class Virt_pool < Base
         # @return [String, nil] name of the storage pool being managed. Note that pool must be previously defined with xml.
         attribute :name

@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Creates, Removes and configures a IIS Web Application Pool
       class Win_iis_webapppool < Base
         # @return [String] Names of application pool
         attribute :name

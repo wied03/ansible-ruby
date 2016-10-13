@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Get facts for a specific resource group or all resource groups.
       class Azure_rm_resouregroup_facts < Base
         # @return [String, nil] Limit results to a specific resource group.
         attribute :name

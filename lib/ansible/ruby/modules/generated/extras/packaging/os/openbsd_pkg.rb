@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Manage packages on OpenBSD using the pkg tools.
       class Openbsd_pkg < Base
         # @return [String] Name of the package.
         attribute :name

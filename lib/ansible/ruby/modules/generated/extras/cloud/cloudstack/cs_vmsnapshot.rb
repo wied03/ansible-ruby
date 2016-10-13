@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Create, remove and revert VM from snapshots.
       class Cs_vmsnapshot < Base
         # @return [String] Unique Name of the snapshot. In CloudStack terms display name.
         attribute :name

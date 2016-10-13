@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Manages packages with I(apt-rpm). Both low-level (I(rpm)) and high-level (I(apt-get)) package manager binaries required.
       class Apt_rpm < Base
         # @return [Array<String>, String] name of package to install, upgrade or remove.
         attribute :pkg

@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Perform server actions on an existing compute instance from OpenStack. This module does not return any data other than changed true/false.
       class Os_server_actions < Base
         # @return [String] Name or ID of the instance
         attribute :server

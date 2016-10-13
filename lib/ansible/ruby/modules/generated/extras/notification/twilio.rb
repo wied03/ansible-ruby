@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Sends a text message to a phone number through the Twilio messaging API.
       class Twilio < Base
         # @return [String] user's Twilio account token found on the account page
         attribute :account_sid

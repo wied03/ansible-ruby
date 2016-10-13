@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Manage presence of groups on a host.
       class Group < Base
         # @return [String] Name of the group to manage.
         attribute :name

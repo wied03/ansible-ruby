@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Manages Layer 3 attributes for IPv4 and IPv6 interfaces
       class Nxos_ip_interface < Base
         # @return [String] Full name of interface, i.e. Ethernet1/1, vlan10
         attribute :interface

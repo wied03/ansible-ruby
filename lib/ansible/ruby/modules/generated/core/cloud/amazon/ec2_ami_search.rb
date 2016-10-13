@@ -5,6 +5,11 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Look up the most recent AMI on AWS for a given operating system.
+      # Returns C(ami), C(aki), C(ari), C(serial), C(tag)
+      # If there is no AKI or ARI associated with an image, these will be C(null).
+      # Only supports images from cloud-images.ubuntu.com
+      # Example output: C({"ami": "ami-69f5a900", "changed": false, "aki": "aki-88aa75e1", "tag": "release", "ari": null, "serial": "20131024"})
       class Ec2_ami_search < Base
         # @return [:ubuntu] Linux distribution (e.g., C(ubuntu))
         attribute :distro

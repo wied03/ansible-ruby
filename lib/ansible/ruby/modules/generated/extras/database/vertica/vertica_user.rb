@@ -5,6 +5,9 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Adds or removes Vertica database user and, optionally, assigns roles.
+      # A user will not be removed until all the dependencies have been dropped.
+      # In such a situation, if the module tries to remove the user it will fail and only remove roles granted to the user.
       class Vertica_user < Base
         # @return [String] Name of the user to add or remove.
         attribute :name

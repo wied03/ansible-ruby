@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Add or remove network from OpenStack.
       class Os_network < Base
         # @return [String] Name to be assigned to the network.
         attribute :name

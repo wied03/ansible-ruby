@@ -5,6 +5,8 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Add and remove username/password entries in a password file using htpasswd.
+      # This is used by web servers such as Apache and Nginx for basic authentication.
       class Htpasswd < Base
         # @return [String] Path to the file that contains the usernames and passwords
         attribute :path

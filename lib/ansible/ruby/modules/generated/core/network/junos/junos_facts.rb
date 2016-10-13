@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Collects fact information from a remote device running the Junos operating system.  By default, the module will collect basic fact information from the device to be included with the hostvars. Additional fact information can be collected based on the configured set of arguments.
       class Junos_facts < Base
         # @return [Boolean, nil] The C(config) argument instructs the fact module to collect the configuration from the remote device.  The configuration is then included in return facts.  By default, the configuration is returned as text.  The C(config_format) can be used to return different Junos configuration formats.
         attribute :config

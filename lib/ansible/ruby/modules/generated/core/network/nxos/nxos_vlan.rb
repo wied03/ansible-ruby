@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Manages VLAN configurations on NX-OS switches
       class Nxos_vlan < Base
         # @return [String, nil] single vlan id
         attribute :vlan_id

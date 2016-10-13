@@ -5,6 +5,9 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Use to enable or disable EAPI access, and set the port and state of http, https, localHttp and unix-socket servers.
+      # When enabling EAPI access the default is to enable HTTP on port 80, enable HTTPS on port 443, disable local HTTP, and disable Unix socket server. Use the options listed below to override the default configuration.
+      # Requires EOS v4.12 or greater.
       class Eos_eapi < Base
         # @return [:started, :stopped, nil] Set to started or stopped. A state of started will enable EAPI access, and a state of stopped will disable or shutdown all EAPI access.
         attribute :state

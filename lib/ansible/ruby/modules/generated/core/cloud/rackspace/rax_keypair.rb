@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Create a keypair for use with Rackspace Cloud Servers
       class Rax_keypair < Base
         # @return [String] Name of keypair
         attribute :name

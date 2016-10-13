@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Register a template from URL, create a template from a ROOT volume of a stopped VM or its snapshot, extract and delete templates.
       class Cs_template < Base
         # @return [String] Name of the template.
         attribute :name

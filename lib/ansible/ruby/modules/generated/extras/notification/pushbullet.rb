@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # This module sends push notifications via Pushbullet to channels or devices.
       class Pushbullet < Base
         # @return [String] Push bullet API token
         attribute :api_key

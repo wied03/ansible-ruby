@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # create / delete a database in the Cloud Databases.
       class Rax_cdb_user < Base
         # @return [Object, nil] The databases server UUID
         attribute :cdb_id

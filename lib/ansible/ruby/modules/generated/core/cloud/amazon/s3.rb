@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # This module allows the user to manage S3 buckets and the objects within them. Includes support for creating and deleting both objects and buckets, retrieving objects as files or strings and generating download links. This module has a dependency on python-boto.
       class S3 < Base
         # @return [Object, nil] AWS access key id. If not set then the value of the AWS_ACCESS_KEY environment variable is used.
         attribute :aws_access_key

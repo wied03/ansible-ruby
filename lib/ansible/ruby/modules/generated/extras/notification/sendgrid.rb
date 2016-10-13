@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Sends an email with a SendGrid account through their API, not through the SMTP service.
       class Sendgrid < Base
         # @return [String] username for logging into the SendGrid account
         attribute :username

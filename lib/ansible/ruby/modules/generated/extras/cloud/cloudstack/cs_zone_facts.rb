@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Gathering facts from the API of a zone.
       class Cs_zone_facts < Base
         # @return [String] Name of the zone.
         attribute :name

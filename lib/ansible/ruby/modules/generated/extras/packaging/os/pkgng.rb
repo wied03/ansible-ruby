@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Manage binary packages for FreeBSD using 'pkgng' which is available in versions after 9.0.
       class Pkgng < Base
         # @return [Array<String>, String] name of package to install/remove
         attribute :name

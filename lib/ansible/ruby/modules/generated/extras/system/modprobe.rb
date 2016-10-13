@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Add or remove kernel modules.
       class Modprobe < Base
         # @return [String] Name of kernel module to manage.
         attribute :name

@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Manage registration and subscription to the Red Hat Network entitlement platform.
       class Redhat_subscription < Base
         # @return [:present, :absent, nil] whether to register and subscribe (C(present)), or unregister (C(absent)) a system
         attribute :state

@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # An Ansible module to deploy blue print package on a set of servers in CenturyLink Cloud.
       class Clc_blueprint_package < Base
         # @return [Array<String>, String] A list of server Ids to deploy the blue print package.
         attribute :server_ids

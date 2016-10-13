@@ -5,6 +5,8 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Place an ESXI host into maintenance mode
+      # Support for VSAN compliant maintenance mode when selected
       class Vmware_maintenancemode < Base
         # @return [String] Name of the host as defined in vCenter
         attribute :esxi_hostname

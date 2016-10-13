@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Creates or terminates Google Compute Engine (GCE) instances.  See U(https://cloud.google.com/products/compute-engine) for an overview. Full install/configuration instructions for the gce* modules can be found in the comments of ansible/test/gce_tests.py.
       class Gce < Base
         # @return [String, nil] image string to use for the instance
         attribute :image

@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Deploy to nodes controlled by Ironic.
       class Os_ironic_node < Base
         # @return [:present, :absent, nil] Indicates desired state of the resource
         attribute :state

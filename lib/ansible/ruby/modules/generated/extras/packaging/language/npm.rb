@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Manage node.js packages with Node Package Manager (npm)
       class Npm < Base
         # @return [String, nil] The name of a node.js library to install
         attribute :name

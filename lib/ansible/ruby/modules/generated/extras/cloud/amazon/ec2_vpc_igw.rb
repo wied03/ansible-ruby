@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Manage an AWS VPC Internet gateway
       class Ec2_vpc_igw < Base
         # @return [Object] The VPC ID for the VPC in which to manage the Internet Gateway.
         attribute :vpc_id

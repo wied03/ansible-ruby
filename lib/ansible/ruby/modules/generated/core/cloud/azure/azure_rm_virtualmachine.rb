@@ -5,6 +5,8 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Create, update, stop and start a virtual machine. Provide an existing storage account and network interface or allow the module to create these for you. If you choose not to provide a network interface, the resource group must contain a virtual network with at least one subnet.
+      # Currently requires an image found in the Azure Marketplace. Use azure_rm_virtualmachineimage_facts module to discover the publisher, offer, sku and version of a particular image.
       class Azure_rm_virtualmachine < Base
         # @return [String, NilClass] Name of the resource group containing the virtual machine.
         attribute :resource_group

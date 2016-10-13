@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Manage route tables for AWS virtual private clouds
       class Ec2_vpc_route_table < Base
         # @return [:tag, :id, nil] Look up route table by either tags or by route table ID. Non-unique tag lookup will fail. If no tags are specifed then no lookup for an existing route table is performed and a new route table will be created. To change tags of a route table, you must look up by id.
         attribute :lookup

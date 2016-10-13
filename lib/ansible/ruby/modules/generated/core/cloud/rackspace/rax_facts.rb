@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Gather facts for Rackspace Cloud Servers.
       class Rax_facts < Base
         # @return [Object, nil] Server IP address to retrieve facts for, will match any IP assigned to the server
         attribute :address

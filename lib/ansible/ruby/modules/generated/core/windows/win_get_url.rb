@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Fetches a file from a URL and saves to locally
       class Win_get_url < Base
         # @return [String] The full URL of a file to download
         attribute :url

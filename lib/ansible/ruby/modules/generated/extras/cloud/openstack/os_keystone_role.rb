@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Manage OpenStack Identity Roles.
       class Os_keystone_role < Base
         # @return [String] Role Name
         attribute :name

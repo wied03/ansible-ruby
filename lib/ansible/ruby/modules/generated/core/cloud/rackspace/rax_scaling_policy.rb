@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Manipulate Rackspace Cloud Autoscale Scaling Policy
       class Rax_scaling_policy < Base
         # @return [Object, nil] The UTC time when this policy will be executed. The time must be formatted according to C(yyyy-MM-dd'T'HH:mm:ss.SSS) such as C(2013-05-19T08:07:08Z)
         attribute :at

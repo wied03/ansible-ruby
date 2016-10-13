@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Add or remove an APT repositories in Ubuntu and Debian.
       class Apt_repository < Base
         # @return [String] A source string for the repository.
         attribute :repo

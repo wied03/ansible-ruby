@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # The OpenSwitch platform provides a library for pushing JSON structured configuration files into the current running-config.  This module will read the current configuration from OpenSwitch and compare it against a provided candidate configuration. If there are changes, the candidate configuration is merged with the current configuration and pushed into OpenSwitch
       class Ops_template < Base
         # @return [String] The path to the config source.  The source can be either a file with config or a template that will be merged during runtime.  By default the task will search for the source file in role or playbook root folder in templates directory.
         attribute :src

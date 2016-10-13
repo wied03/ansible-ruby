@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Manages global, zone, account, storage and cluster configurations.
       class Cs_configuration < Base
         # @return [String] Name of the configuration.
         attribute :name

@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Create, update and delete a resource group.
       class Azure_rm_resourcegroup < Base
         # @return [Boolean, nil] Remove a resource group and all associated resources. Use with state 'absent' to delete a resource group that contains resources.
         attribute :force

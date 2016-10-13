@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # creates / deletes a Rackspace Public Cloud load balancer.
       class Rax_clb < Base
         # @return [:RANDOM, :LEAST_CONNECTIONS, :ROUND_ROBIN, :WEIGHTED_LEAST_CONNECTIONS, :WEIGHTED_ROUND_ROBIN, nil] algorithm for the balancer being created
         attribute :algorithm

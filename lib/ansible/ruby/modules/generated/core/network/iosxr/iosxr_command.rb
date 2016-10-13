@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Sends arbitrary commands to an IOSXR node and returns the results read from the device. The M(iosxr_command) module includes an argument that will cause the module to wait for a specific condition before returning or timing out if the condition is not met.
       class Iosxr_command < Base
         # @return [Array<String>, String] List of commands to send to the remote ios device over the configured provider. The resulting output from the command is returned. If the I(waitfor) argument is provided, the module is not returned until the condition is satisfied or the number of retires as expired.
         attribute :commands

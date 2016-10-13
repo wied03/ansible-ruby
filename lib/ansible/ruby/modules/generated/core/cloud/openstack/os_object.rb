@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Create or Delete objects and containers from OpenStack
       class Os_object < Base
         # @return [String] The name of the container in which to create the object
         attribute :container

@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Add or remove an I(apt) key, optionally downloading it
       class Apt_key < Base
         # @return [String, nil] identifier of key. Including this allows check mode to correctly report the changed state.
         attribute :id

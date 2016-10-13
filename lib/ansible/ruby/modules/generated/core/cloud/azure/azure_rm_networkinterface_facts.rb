@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Get facts for a specific network interface or all network interfaces within a resource group.
       class Azure_rm_networkinterface_facts < Base
         # @return [String, nil] Only show results for a specific network interface.
         attribute :name

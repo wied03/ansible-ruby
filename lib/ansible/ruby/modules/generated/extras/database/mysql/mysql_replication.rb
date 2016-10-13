@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Manages MySQL server replication, slave, master status get and change master host.
       class Mysql_replication < Base
         # @return [:getslave, :getmaster, :changemaster, :stopslave, :startslave, :resetslave, :resetslaveall, nil] module operating mode. Could be getslave (SHOW SLAVE STATUS), getmaster (SHOW MASTER STATUS), changemaster (CHANGE MASTER TO), startslave (START SLAVE), stopslave (STOP SLAVE), resetslave (RESET SLAVE), resetslaveall (RESET SLAVE ALL)
         attribute :mode

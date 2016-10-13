@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Sends an aribtrary set of commands to an EOS node and returns the results read from the device.  The M(eos_command) module includes an argument that will cause the module to wait for a specific condition before returning or timing out if the condition is not met.
       class Eos_command < Base
         # @return [Array<String>, String] The commands to send to the remote EOS device over the configured provider.  The resulting output from the command is returned.  If the I(waitfor) argument is provided, the module is not returned until the condition is satisfied or the number of retries has been exceeded.
         attribute :commands

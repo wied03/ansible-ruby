@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Start a program in a VM without the need for network connection
       class Vmware_vm_shell < Base
         # @return [String, nil] The datacenter hosting the VM,Will help speed up search
         attribute :datacenter

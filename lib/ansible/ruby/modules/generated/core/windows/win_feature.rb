@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Installs or uninstalls Windows Roles or Features
       class Win_feature < Base
         # @return [Object] Names of roles or features to install as a single feature or a comma-separated list of features
         attribute :name

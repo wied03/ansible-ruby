@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # creates an EBS volume and optionally attaches it to an instance.  If both an instance ID and a device name is given and the instance has a device at the device name, then no volume is created and no attachment is made.  This module has a dependency on python-boto.
       class Ec2_vol < Base
         # @return [String, nil] instance ID if you wish to attach the volume. Since 1.9 you can set to None to detach.
         attribute :instance

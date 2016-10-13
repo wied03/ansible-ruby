@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Manage PHP packages with the pear package manager.
       class Pear < Base
         # @return [Array<String>, String] Name of the package to install, upgrade, or remove.
         attribute :name

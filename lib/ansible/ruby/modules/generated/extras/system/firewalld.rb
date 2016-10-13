@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # This module allows for addition or deletion of services and ports either tcp or udp in either running or permanent firewalld rules.
       class Firewalld < Base
         # @return [String, nil] Name of a service to add/remove to/from firewalld - service must be listed in /etc/services.
         attribute :service

@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Manipulate metadata for Rackspace Cloud Servers
       class Rax_meta < Base
         # @return [Object, nil] Server IP address to modify metadata for, will match any IP assigned to the server
         attribute :address

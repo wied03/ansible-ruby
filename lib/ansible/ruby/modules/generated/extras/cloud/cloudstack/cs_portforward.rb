@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Create, update and remove port forwarding rules.
       class Cs_portforward < Base
         # @return [String] Public IP address the rule is assigned to.
         attribute :ip_address

@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Create/delete a droplet in DigitalOcean and optionally wait for it to be 'running', or deploy an SSH key.
       class Digital_ocean < Base
         # @return [:droplet, :ssh, nil] Which target you want to operate on.
         attribute :command

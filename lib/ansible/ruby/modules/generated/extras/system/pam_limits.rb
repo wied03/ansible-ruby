@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # The M(pam_limits) module modify PAM limits, default in /etc/security/limits.conf. For the full documentation, see man limits.conf(5).
       class Pam_limits < Base
         # @return [String] A username, @groupname, wildcard, uid/gid range.
         attribute :domain

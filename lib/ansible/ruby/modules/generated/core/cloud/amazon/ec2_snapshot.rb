@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # creates an EC2 snapshot from an existing EBS volume
       class Ec2_snapshot < Base
         # @return [String, nil] volume from which to take the snapshot
         attribute :volume_id

@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # An Ansible module to add or delete public ip addresses on an existing server or servers in CenturyLink Cloud.
       class Clc_publicip < Base
         # @return [:TCP, :UDP, :ICMP, nil] The protocol that the public IP will listen for.
         attribute :protocol

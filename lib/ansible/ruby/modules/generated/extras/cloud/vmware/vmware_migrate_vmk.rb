@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Migrate a VMK interface from VSS to VDS
       class Vmware_migrate_vmk < Base
         # @return [String] ESXi hostname to be managed
         attribute :esxi_hostname

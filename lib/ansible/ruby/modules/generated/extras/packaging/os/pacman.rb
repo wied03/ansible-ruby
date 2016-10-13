@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Manage packages with the I(pacman) package manager, which is used by Arch Linux and its variants.
       class Pacman < Base
         # @return [Array<String>, String, nil] Name of the package to install, upgrade, or remove.
         attribute :name

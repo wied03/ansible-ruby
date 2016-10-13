@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Allows you to attach or detach a volume from a ProfitBricks server. This module has a dependency on profitbricks >= 1.0.0
       class Profitbricks_volume_attachments < Base
         # @return [String] The datacenter in which to operate.
         attribute :datacenter

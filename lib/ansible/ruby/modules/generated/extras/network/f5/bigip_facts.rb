@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Collect facts from F5 BIG-IP devices via iControl SOAP API
       class Bigip_facts < Base
         # @return [Object] BIG-IP host
         attribute :server

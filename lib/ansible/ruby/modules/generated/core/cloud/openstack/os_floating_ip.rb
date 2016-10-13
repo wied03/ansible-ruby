@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Add or Remove a floating IP to an instance
       class Os_floating_ip < Base
         # @return [String] The name or ID of the instance to which the IP address should be assigned.
         attribute :server

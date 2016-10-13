@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Create and remove instance groups.
       class Cs_instancegroup < Base
         # @return [String] Name of the instance group.
         attribute :name

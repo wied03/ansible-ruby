@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Adds, modifies and removes nodes from a Rackspace Cloud Load Balancer
       class Rax_clb_nodes < Base
         # @return [String, nil] IP address or domain name of the node
         attribute :address

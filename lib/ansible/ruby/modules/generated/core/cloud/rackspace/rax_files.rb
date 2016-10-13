@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Manipulate Rackspace Cloud Files Containers
       class Rax_files < Base
         # @return [:yes, :no, nil] Optionally clear existing metadata when applying metadata to existing containers. Selecting this option is only appropriate when setting type=meta
         attribute :clear_meta

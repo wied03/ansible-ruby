@@ -5,6 +5,8 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # This is the original Ansible module for managing the Docker container life cycle.
+      # NOTE: Additional and newer modules are available. For the latest on orchestrating containers with Ansible visit our Getting Started with Docker Guide at https://github.com/ansible/ansible/blob/devel/docsite/rst/guide_docker.rst.
       class Docker < Base
         # @return [Integer, nil] Number of matching containers that should be in the desired state.
         attribute :count

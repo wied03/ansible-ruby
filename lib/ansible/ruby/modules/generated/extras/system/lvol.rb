@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # This module creates, removes or resizes logical volumes.
       class Lvol < Base
         # @return [String] The volume group this logical volume is part of.
         attribute :vg

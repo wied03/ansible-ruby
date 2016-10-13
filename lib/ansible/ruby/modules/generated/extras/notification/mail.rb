@@ -5,6 +5,10 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # This module is useful for sending emails from playbooks.
+      # One may wonder why automate sending emails?  In complex environments there are from time to time processes that cannot be automated, either because you lack the authority to make it so, or because not everyone agrees to a common approach.
+      # If you cannot automate a specific step, but the step is non-blocking, sending out an email to the responsible party to make him perform his part of the bargain is an elegant way to put the responsibility in someone else's lap.
+      # Of course sending out a mail can be equally useful as a way to notify one or more people in a team that a specific action has been (successfully) taken.
       class Mail < Base
         # @return [String, nil] The email-address the mail is sent from. May contain address and phrase.
         attribute :from

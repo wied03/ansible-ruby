@@ -5,6 +5,9 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Create or delete AWS Dynamo DB tables.
+      # Can update the provisioned throughput on existing tables.
+      # Returns the status of the specified table.
       class Dynamodb_table < Base
         # @return [:present, :absent, nil] Create or delete the table
         attribute :state

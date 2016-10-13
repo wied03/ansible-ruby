@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Manipulate Rackspace Cloud Autoscale Groups
       class Rax_scaling_group < Base
         # @return [Boolean, nil] Attach read-only configuration drive to server as label config-2
         attribute :config_drive

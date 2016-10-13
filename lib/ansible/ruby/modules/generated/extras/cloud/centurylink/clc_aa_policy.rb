@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # An Ansible module to Create or Delete Anti Affinity Policies at CenturyLink Cloud.
       class Clc_aa_policy < Base
         # @return [String] The name of the Anti Affinity Policy.
         attribute :name

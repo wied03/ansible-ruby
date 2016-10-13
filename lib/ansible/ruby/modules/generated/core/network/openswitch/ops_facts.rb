@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # This module collects additional device fact information from a remote device running OpenSwitch using either the CLI or REST interfaces.  It provides optional arguments for collecting fact information.
       class Ops_facts < Base
         # @return [Boolean, nil] When enabled, this argument will collect the current running configuration from the remote device.  If the transport is C(rest) then the collected configuration will be the full system configuration.
         attribute :config
