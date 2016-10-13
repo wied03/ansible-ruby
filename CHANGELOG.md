@@ -1,4 +1,10 @@
-# Under development
+# Under Development
+* Added no_log support
+* include_vars support
+* Fix Include Not Tested/Working (#40)
+* Updated modules for Ansible 2.1.2 (see 1d2b99b045d3dc8a3e444e7dc146eb737173cdc2)
+
+# 1.0.4 - 5 September 2016
 * Improve error messages (#7)
 * Add become/become_user/ignore to play DSL
 * Prevent these Ruby methods from interfering with module attributes: `[:system, :test, :warn, :sleep]` 

@@ -110,33 +110,26 @@ describe Ansible::Ruby::DslBuilders::Task do
   end
 
   context 'other attributes' do
-    let(:ruby) do
-      <<-RUBY
-      become true
-      become_user 'root'
-      with_dict '{{ servers }}'
-      async 0
-      poll 50
-      ignore_errors true
-      copy do
-        src '/file1.conf'
-        dest '/file2.conf'
-      end
-      notify 'handler1'
-      RUBY
+    before do
+      # We just want to ensure values pass through to the model, validation isn't important here
+      allow(builder).to receive(:validate?).and_return(false)
     end
 
-    it { is_expected.to be_a Ansible::Ruby::Models::Task }
-    it do
-      is_expected.to have_attributes name: 'Copy something',
-                                     become: true,
-                                     become_user: 'root',
-                                     async: 0,
-                                     poll: 50,
-                                     with_dict: '{{ servers }}',
-                                     ignore_errors: true,
-                                     notify: 'handler1',
-                                     module: be_a(Ansible::Ruby::Modules::Copy)
+    # We don't build name or tasks the same way as others
+    (Ansible::Ruby::Models::Task.instance_methods - Object.instance_methods - [:name=, :module=, :register=, :when=])
+      .select { |method| method.to_s.end_with?('=') }
+      .map { |method| method.to_s[0..-2] }
+      .each do |method|
+
+      context method do
+        let(:ruby) { "#{method} 'some_value'\ncopy do\nsrc 'file1'\ndest 'file2'\nend\n" }
+
+        it { is_expected.to be_a Ansible::Ruby::Models::Task }
+
+        it 'has the builder value' do
+          expect(task.send(method)).to eq 'some_value'
+        end
+      end
     end
   end
 
@@ -168,7 +161,7 @@ describe Ansible::Ruby::DslBuilders::Task do
         RUBY
       end
 
-      it { is_expected.to raise_error "Invalid method/local variable `foobar'. Only valid options are [:changed_when, :failed_when, :with_dict, :with_items, :async, :poll, :notify, :become, :become_user, :ansible_when, :ignore_errors, :jinja]" }
+      it { is_expected.to raise_error "Invalid method/local variable `foobar'. Only valid options are [:no_log, :changed_when, :failed_when, :with_dict, :with_items, :async, :poll, :notify, :become, :become_user, :ansible_when, :ignore_errors, :jinja]" }
     end
   end
 
@@ -185,7 +178,7 @@ describe Ansible::Ruby::DslBuilders::Task do
 
     subject { -> { evaluate } }
 
-    it { is_expected.to raise_error "Invalid module call `debug' since `copy' module has already been used in this task. Only valid options are [:changed_when, :failed_when, :with_dict, :with_items, :async, :poll, :notify, :become, :become_user, :ansible_when, :ignore_errors, :jinja]" }
+    it { is_expected.to raise_error "Invalid module call `debug' since `copy' module has already been used in this task. Only valid options are [:no_log, :changed_when, :failed_when, :with_dict, :with_items, :async, :poll, :notify, :become, :become_user, :ansible_when, :ignore_errors, :jinja]" }
   end
 
   context 'loops' do

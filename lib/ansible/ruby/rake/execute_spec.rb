@@ -47,6 +47,7 @@ OUTPUT
       end
 
       it { is_expected.to execute_command 'ansible-playbook playbook1_test.yml' }
+      it { is_expected.to have_yaml yaml_file, that: include('- include: included_file.yml') }
       it { is_expected.to have_yaml yaml_file, that: include('host1:host2') }
     end
 
@@ -137,7 +138,9 @@ OUTPUT
       end
 
       it { is_expected.to have_yaml yaml_file, that: include('host1:host2', 'roles') }
+      it { is_expected.to have_yaml yaml_file, that: include('- include: other_playbook.yml') }
       it { is_expected.to have_yaml task_yml, that: include('- name: Copy something over') }
+      it { is_expected.to have_yaml task_yml, that: include('- include: something.yml') }
       it { is_expected.to have_yaml task_yml, that: include('- name: Copy something else over') }
     end
 

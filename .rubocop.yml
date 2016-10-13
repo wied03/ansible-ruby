@@ -35,3 +35,6 @@ Style/Documentation:
 # if this is really high, fine but 5 is too small
 Metrics/ParameterLists:
   Max: 8
+
+Lint/UnifiedInteger:
+  Enabled: false

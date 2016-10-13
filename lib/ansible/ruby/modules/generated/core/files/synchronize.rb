@@ -14,9 +14,9 @@ module Ansible
         attribute :dest
         validates :dest, presence: true
 
-        # @return [Integer, nil] Port number for ssh on the destination host. Prior to ansible 2.0, the ansible_ssh_port inventory var took precedence over this value.
+        # @return [Array<String>, String, nil] Port number for ssh on the destination host. Prior to ansible 2.0, the ansible_ssh_port inventory var took precedence over this value.
         attribute :dest_port
-        validates :dest_port, type: Integer
+        validates :dest_port, type: TypeGeneric.new(String)
 
         # @return [:push, :pull, nil] Specify the direction of the synchronization. In push mode the localhost or delegate is the source; In pull mode the remote host in context is the source.
         attribute :mode

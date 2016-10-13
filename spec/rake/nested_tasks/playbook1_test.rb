@@ -5,3 +5,5 @@ play 'the play name' do
 
   user 'centos'
 end
+
+ansible_include 'other_playbook.yml'

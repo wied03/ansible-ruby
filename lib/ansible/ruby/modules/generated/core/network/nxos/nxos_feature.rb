@@ -6,11 +6,11 @@ module Ansible
   module Ruby
     module Modules
       class Nxos_feature < Base
-        # @return [String] Name of feature
+        # @return [String] Name of feature.
         attribute :feature
         validates :feature, presence: true, type: String
 
-        # @return [:enabled, :disabled, nil] Desired state of the feature
+        # @return [:enabled, :disabled, nil] Desired state of the feature.
         attribute :state
         validates :state, inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
       end

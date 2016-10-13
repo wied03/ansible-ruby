@@ -48,6 +48,25 @@ describe Ansible::Ruby::Models::Tasks do
     end
   end
 
+  context 'inclusions' do
+    let(:instance) do
+      Ansible::Ruby::Models::Tasks.new items: [task1],
+                                       inclusions: [Ansible::Ruby::Models::Inclusion.new(file: 'stuff.yml')]
+    end
+
+    it do
+      is_expected.to eq [{
+        include: 'stuff.yml'
+      },
+                         {
+                           name: 'do stuff on EC2',
+                           ec2: {
+                             foo: 123
+                           }
+                         }]
+    end
+  end
+
   context 'no tasks' do
     let(:instance) do
       Ansible::Ruby::Models::Tasks.new

@@ -14,7 +14,7 @@ module Ansible
         attribute :dockerfile
         validates :dockerfile, type: String
 
-        # @return [Boolean, nil] Use with absent state to un-tag and remove all images matching the specified name. Use with states 'present' and 'tagged' to take action even when an image already exists.
+        # @return [Boolean, nil] Use with state I(absent) to un-tag and remove all images matching the specified name. Use with state C(present) to build, load or pull an image when the image already exists.
         attribute :force
         validates :force, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
@@ -45,9 +45,9 @@ module Ansible
         attribute :repository
         validates :repository, type: String
 
-        # @return [:absent, :present, :"build (DEPRECATED)", nil] Make assertions about the state of an image.,When 'absent' an image will be removed. Use the force option to un-tag and remove all images matching the provided name.,When 'present' check if an image exists using the provided name and tag. If the image is not found or the force option is used, the image will either be pulled, built or loaded. By default the image will be pulled from Docker Hub. To build the image, provide a path value set to a directory containing a context and Dockerfile. To load an image, specify load_path to provide a path to an archive file. To tag an image to a repository, provide a repository path. If the name contains a repository path, it will be pushed.,NOTE: 'build' is DEPRECATED. Specifying 'build' will behave the same as 'present'.
+        # @return [:absent, :present, :build, nil] Make assertions about the state of an image.,When 'absent' an image will be removed. Use the force option to un-tag and remove all images matching the provided name.,When 'present' check if an image exists using the provided name and tag. If the image is not found or the force option is used, the image will either be pulled, built or loaded. By default the image will be pulled from Docker Hub. To build the image, provide a path value set to a directory containing a context and Dockerfile. To load an image, specify load_path to provide a path to an archive file. To tag an image to a repository, provide a repository path. If the name contains a repository path, it will be pushed.,NOTE: C(build) is DEPRECATED and will be removed in release 2.3. Specifying C(build) will behave the same as C(present).
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present, :"build (DEPRECATED)"], :message=>"%{value} needs to be :absent, :present, :\"build (DEPRECATED)\""}, allow_nil: true
+        validates :state, inclusion: {:in=>[:absent, :present, :build], :message=>"%{value} needs to be :absent, :present, :build"}, allow_nil: true
 
         # @return [String, nil] Used to select an image when pulling. Will be added to the image when pushing, tagging or building. Defaults to 'latest' when pulling an image.
         attribute :tag

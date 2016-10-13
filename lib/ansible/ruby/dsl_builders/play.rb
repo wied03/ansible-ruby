@@ -16,6 +16,10 @@ module Ansible
           @play_args[:hosts] = value
         end
 
+        def no_log(value)
+          @play_args[:no_log] = value
+        end
+
         def roles(value)
           @play_args[:roles] = value
         end
@@ -58,12 +62,15 @@ module Ansible
         def block(&block)
           builder = Block.new
           builder.instance_eval(&block)
-          @items << builder._result
+          @tasks << builder._result
         end
 
         # allow any order
         def _result
           tasks = super
+          if tasks.inclusions.any? && @play_args[:roles]
+            raise 'Includes cannot be used in a play using a role. They can only be used in task files or in plays with a task list.'
+          end
           args = @play_args.merge({})
           # Don't want to trigger validation
           args[:tasks] = tasks if tasks.items.any?

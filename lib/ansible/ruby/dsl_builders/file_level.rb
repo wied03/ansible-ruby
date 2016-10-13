@@ -10,6 +10,7 @@ module Ansible
           @plays = []
           @tasks_builder = nil
           @context = nil
+          @includes = []
         end
 
         def play(name = nil, &block)
@@ -32,6 +33,10 @@ module Ansible
           @context = :handlers
           @tasks_builder ||= Tasks.new(:handlers)
           @tasks_builder.handler name, &block
+        end
+
+        def ansible_include(filename, &block)
+          @includes << _ansible_include(filename, &block)
         end
 
         def _handled_eval(ruby_filename)
@@ -57,9 +62,12 @@ module Ansible
           case @context
           when :playbook
             # TODO: Add a playbook DSL and do this like tasks
-            Models::Playbook.new plays: @plays
+            Models::Playbook.new plays: @plays,
+                                 inclusions: @includes
           when :tasks, :handlers
-            @tasks_builder._result
+            tasks_model = @tasks_builder._result
+            tasks_model.inclusions += @includes
+            tasks_model
           when nil
             raise 'Must supply at least 1 handler/task/play!'
           else
@@ -74,9 +82,7 @@ module Ansible
         private
 
         def _validate_context(expected)
-          if @context && @context != expected
-            raise "This is a #{@context} file, cannot use #{expected} here!"
-          end
+          raise "This is a #{@context} file, cannot use #{expected} here!" if @context && @context != expected
         end
       end
     end

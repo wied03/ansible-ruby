@@ -14,6 +14,8 @@ module Ansible
         validates :failed_when, type: String
         attribute :with_dict
         validates :with_dict, type: MultipleTypes.new(String, Hash)
+        attribute :no_log
+        validates :no_log, type: MultipleTypes.new(TrueClass, FalseClass)
         attribute :with_items
         validates :with_items, type: MultipleTypes.new(String, Array)
         validate :loop_and_dict
