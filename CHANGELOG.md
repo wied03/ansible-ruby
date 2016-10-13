@@ -1,6 +1,7 @@
 # Under Development
 * Allow sharing variables between tasks (#29)
 * Fix include support in handlers and allow include within task (#32)
+* Add 'connection' support to task DSL/model (#38)
 
 # 1.0.5 - 12 October 2016
 * Added no_log support

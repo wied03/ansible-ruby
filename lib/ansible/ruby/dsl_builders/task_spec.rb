@@ -215,7 +215,7 @@ describe Ansible::Ruby::DslBuilders::Task do
         RUBY
       end
 
-      it { is_expected.to raise_error "Invalid method/local variable `foobar'. Only valid options are [:no_log, :changed_when, :failed_when, :with_dict, :with_items, :async, :poll, :notify, :become, :become_user, :ansible_when, :ignore_errors, :jinja]" }
+      it { is_expected.to raise_error %r{Invalid method/local variable `foobar'. Only valid options are.*} }
     end
   end
 
@@ -232,7 +232,7 @@ describe Ansible::Ruby::DslBuilders::Task do
 
     subject { -> { evaluate } }
 
-    it { is_expected.to raise_error "Invalid module call `debug' since `copy' module has already been used in this task. Only valid options are [:no_log, :changed_when, :failed_when, :with_dict, :with_items, :async, :poll, :notify, :become, :become_user, :ansible_when, :ignore_errors, :jinja]" }
+    it { is_expected.to raise_error(/Invalid module call `debug' since `copy' module has already been used in this task. Only valid options are.*/) }
   end
 
   context 'loops' do

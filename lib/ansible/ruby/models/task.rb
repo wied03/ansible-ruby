@@ -30,6 +30,10 @@ module Ansible
         validates :async, type: Integer
         attribute :poll
         validates :poll, type: Integer
+        attribute :connection
+        validates :connection,
+                  allow_nil: true,
+                  inclusion: { in: [:local, :docker, :ssh], message: '%{value} needs to be :local, :docker, or :ssh' }
 
         def to_h
           result = super

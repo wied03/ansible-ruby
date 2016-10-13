@@ -22,6 +22,10 @@ module Ansible
           @task_args[:no_log] = value
         end
 
+        def connection(value)
+          @task_args[:connection] = value
+        end
+
         def changed_when(clause)
           @task_args[:changed_when] = clause
         end
