@@ -1,4 +1,4 @@
-# Under Development
+# 1.0.5 - 12 October 2016
 * Added no_log support
 * include_vars support
 * Fix Include Not Tested/Working (#40)
