@@ -57,7 +57,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
-#{description+KLASS_INDENT}class #{klass_name} < Base
+#{description + KLASS_INDENT}class #{klass_name} < Base
 #{yield}
       end
     end
