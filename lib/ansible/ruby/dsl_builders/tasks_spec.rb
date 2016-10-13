@@ -47,9 +47,10 @@ describe Ansible::Ruby::DslBuilders::Tasks do
     end
   end
 
-  context 'multiple register' do
-    let(:ruby) do
-      <<-RUBY
+  context 'register variables' do
+    context 'no usage outside of task' do
+      let(:ruby) do
+        <<-RUBY
       task 'Copy something' do
         result = copy do
           src '/file1.conf'
@@ -57,6 +58,12 @@ describe Ansible::Ruby::DslBuilders::Tasks do
         end
 
         changed_when "'No upgrade available' not in \#{result.stdout}"
+      end
+      task 'middle task' do
+        copy do
+          src '/file1.conf'
+          dest '/file2.conf'
+        end
       end
       task 'Copy something else' do
         result = copy do
@@ -66,24 +73,92 @@ describe Ansible::Ruby::DslBuilders::Tasks do
 
         changed_when "'yes' not in \#{result.stdout}"
       end
-      RUBY
-    end
+        RUBY
+      end
 
-    describe 'task 1' do
-      subject { tasks.items[0] }
+      describe 'task 1' do
+        subject { tasks.items[0] }
 
-      it do
-        is_expected.to have_attributes register: 'result_1',
-                                       changed_when: "'No upgrade available' not in result_1.stdout"
+        it do
+          is_expected.to have_attributes register: 'result_1',
+                                         changed_when: "'No upgrade available' not in result_1.stdout"
+        end
+      end
+
+      describe 'task 3' do
+        subject { tasks.items[2] }
+
+        it do
+          is_expected.to have_attributes register: 'result_2',
+                                         changed_when: "'yes' not in result_2.stdout"
+        end
       end
     end
 
-    describe 'task 2' do
-      subject { tasks.items[1] }
+    context 'usage between tasks' do
+      let(:ruby) do
+        <<-RUBY
+        stuff = task 'Copy something' do
+          result = copy do
+            src '/file1.conf'
+            dest '/file2.conf'
+          end
 
-      it do
-        is_expected.to have_attributes register: 'result_2',
-                                       changed_when: "'yes' not in result_2.stdout"
+          changed_when "'No upgrade available' not in \#{result.stdout}"
+        end
+
+        task 'Copy something else' do
+          copy do
+            src '/file1.conf'
+            dest '/file2.conf'
+          end
+
+          ansible_when "'yes' not in \#{stuff.stdout}"
+        end
+        RUBY
+      end
+
+      it 'uses result from first task' do
+        items = tasks.items
+        expect(items[0]).to have_attributes register: 'result_1',
+                                            changed_when: "'No upgrade available' not in result_1.stdout"
+        second = items[1]
+        expect(second).to have_attributes when: "'yes' not in result_1.stdout",
+                                          register: nil
+      end
+    end
+
+    context 'usage within tasks and multiple register' do
+      let(:ruby) do
+        <<-RUBY
+          stuff = task 'Copy something' do
+            result = copy do
+              src '/file1.conf'
+              dest '/file2.conf'
+            end
+
+            changed_when "'No upgrade available' not in \#{result.stdout}"
+          end
+          task 'Copy something else' do
+            result = copy do
+              src '/file1.conf'
+              dest '/file2.conf'
+            end
+
+            changed_when "'yes' not in \#{result.stdout}"
+            ansible_when "'yes' not in \#{stuff.stdout}"
+          end
+        RUBY
+      end
+
+      it 'uses result from first task' do
+        items = tasks.items
+        expect(items[0]).to have_attributes register: 'result_1',
+                                            changed_when: "'No upgrade available' not in result_1.stdout"
+        second = items[1]
+        expect(second).to have_attributes when: "'yes' not in result_1.stdout",
+                                          register: 'result_2',
+                                          changed_when: "'yes' not in result_2.stdout"
       end
     end
   end

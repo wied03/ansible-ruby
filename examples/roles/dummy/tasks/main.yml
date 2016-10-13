@@ -12,6 +12,9 @@
   changed_when: "'No such filesss' in result_1.stderr"
   notify:
   - reboot
+- name: middle
+  debug:
+    msg: foo
 - name: and goodbye
   command: ls {{ item.key }} {{ item.value.foobar }}
   args:

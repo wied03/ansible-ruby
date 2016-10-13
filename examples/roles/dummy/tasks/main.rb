@@ -10,6 +10,10 @@ task 'say hello' do
   end
 end
 
+task 'middle' do
+  debug { msg 'foo' }
+end
+
 task 'and goodbye' do
   stuff = {
     cmd1: {

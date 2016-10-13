@@ -3,18 +3,19 @@ require 'ansible/ruby/dsl_builders/module_call'
 require 'ansible/ruby/dsl_builders/result'
 require 'ansible/ruby/models/task'
 require 'ansible/ruby/dsl_builders/unit'
+require 'ansible/ruby/dsl_builders/task_wrapper'
 
 module Ansible
   module Ruby
     module DslBuilders
       class Task < Unit
-        def initialize(name, context, temp_counter)
+        def initialize(name, context, temp_counter_inc)
           super()
           @name = name
           @context = context
           @module = nil
           @inclusion = nil
-          @temp_counter = temp_counter
+          @temp_counter_inc = temp_counter_inc
         end
 
         def no_log(value)
@@ -68,7 +69,7 @@ module Ansible
           task = @context.new args
           # Quick feedback if the type is wrong, etc.
           task.validate! if validate?
-          task
+          TaskWrapper.new task, @result
         end
 
         def validate?
@@ -95,9 +96,13 @@ module Ansible
         end
 
         def method_missing_return(_id, _result, *_args)
-          # method_missing only used for modules here
-          # Keep our register variables unique
-          Result.new(@temp_counter, ->(name) { @task_args[:register] = name })
+          # Until the variable is utilized, we don't know if 'register' should be set, the supplied lambda
+          name_fetcher = lambda do
+            name = "result_#{@temp_counter_inc.call}"
+            @task_args[:register] = name
+            name
+          end
+          @result = Result.new name_fetcher
         end
       end
     end

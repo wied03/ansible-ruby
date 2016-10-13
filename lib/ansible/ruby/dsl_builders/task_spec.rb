@@ -3,15 +3,15 @@ require 'ansible-ruby'
 
 describe Ansible::Ruby::DslBuilders::Task do
   let(:context) { Ansible::Ruby::Models::Task }
-  let(:temp_counter) { 1 }
-  let(:builder) { Ansible::Ruby::DslBuilders::Task.new 'Copy something', context, temp_counter }
+  let(:temp_counter_fetcher) { -> { 1 } }
+  let(:builder) { Ansible::Ruby::DslBuilders::Task.new 'Copy something', context, temp_counter_fetcher }
 
   def evaluate
     builder.instance_eval ruby
     builder._result
   end
 
-  subject(:task) { evaluate }
+  subject(:task_wrapper) { evaluate }
 
   before do
     klass = Class.new(Ansible::Ruby::Modules::Base) do
@@ -33,15 +33,27 @@ describe Ansible::Ruby::DslBuilders::Task do
       RUBY
     end
 
-    describe 'task object' do
-      it { is_expected.to be_a Ansible::Ruby::Models::Task }
-      it { is_expected.to have_attributes name: 'Copy something', module: be_a(Ansible::Ruby::Modules::Copy) }
+    it { is_expected.to be_a Ansible::Ruby::DslBuilders::TaskWrapper }
+
+    describe 'task model' do
+      subject(:task) { task_wrapper.task }
+
+      describe 'task object' do
+        it { is_expected.to be_a Ansible::Ruby::Models::Task }
+        it { is_expected.to have_attributes name: 'Copy something', module: be_a(Ansible::Ruby::Modules::Copy) }
+      end
+
+      describe 'hash keys' do
+        subject { task.to_h.stringify_keys.keys }
+
+        it { is_expected.to eq %w(name copy) }
+      end
     end
 
-    describe 'hash keys' do
-      subject { task.to_h.stringify_keys.keys }
+    describe 'result' do
+      subject { task_wrapper.result }
 
-      it { is_expected.to eq %w(name copy) }
+      it { is_expected.to be_a Ansible::Ruby::DslBuilders::Result }
     end
   end
 
@@ -57,8 +69,14 @@ describe Ansible::Ruby::DslBuilders::Task do
         RUBY
       end
 
-      it { is_expected.to be_a Ansible::Ruby::Models::Handler }
-      it { is_expected.to have_attributes name: 'Copy something', module: be_a(Ansible::Ruby::Modules::Copy) }
+      it { is_expected.to be_a Ansible::Ruby::DslBuilders::TaskWrapper }
+
+      describe 'task model' do
+        subject(:task) { task_wrapper.task }
+
+        it { is_expected.to be_a Ansible::Ruby::Models::Handler }
+        it { is_expected.to have_attributes name: 'Copy something', module: be_a(Ansible::Ruby::Modules::Copy) }
+      end
     end
 
     context 'include' do
@@ -103,9 +121,14 @@ describe Ansible::Ruby::DslBuilders::Task do
       RUBY
     end
 
-    it do
-      is_expected.to have_attributes name: 'Copy something',
-                                     with_dict: '{{ servers }}'
+    it { is_expected.to be_a Ansible::Ruby::DslBuilders::TaskWrapper }
+
+    describe 'task model' do
+      subject(:task) { task_wrapper.task }
+      it do
+        is_expected.to have_attributes name: 'Copy something',
+                                       with_dict: '{{ servers }}'
+      end
     end
   end
 
@@ -114,6 +137,8 @@ describe Ansible::Ruby::DslBuilders::Task do
       # We just want to ensure values pass through to the model, validation isn't important here
       allow(builder).to receive(:validate?).and_return(false)
     end
+
+    subject(:task) { task_wrapper.task }
 
     # We don't build name or tasks the same way as others
     (Ansible::Ruby::Models::Task.instance_methods - Object.instance_methods - [:name=, :module=, :register=, :when=])
@@ -194,10 +219,14 @@ describe Ansible::Ruby::DslBuilders::Task do
         RUBY
       end
 
-      it do
-        is_expected.to have_attributes name: 'Copy something',
-                                       with_items: '{{ servers }}',
-                                       module: have_attributes(src: '{{ item }}')
+      describe 'task model' do
+        subject(:task) { task_wrapper.task }
+
+        it do
+          is_expected.to have_attributes name: 'Copy something',
+                                         with_items: '{{ servers }}',
+                                         module: have_attributes(src: '{{ item }}')
+        end
       end
     end
 
@@ -224,10 +253,14 @@ describe Ansible::Ruby::DslBuilders::Task do
         RUBY
       end
 
-      it do
-        is_expected.to have_attributes name: 'Copy something',
-                                       with_items: '{{ servers }}',
-                                       module: have_attributes(free_form: 'howdy {{ item }}', src: '/file1.conf')
+      describe 'task model' do
+        subject(:task) { task_wrapper.task }
+
+        it do
+          is_expected.to have_attributes name: 'Copy something',
+                                         with_items: '{{ servers }}',
+                                         module: have_attributes(free_form: 'howdy {{ item }}', src: '/file1.conf')
+        end
       end
     end
   end
@@ -244,11 +277,15 @@ describe Ansible::Ruby::DslBuilders::Task do
       RUBY
     end
 
-    it do
-      is_expected.to have_attributes name: 'Copy something',
-                                     with_dict: '{{ servers }}',
-                                     module: have_attributes(src: '{{ item.value.toodles }}',
-                                                             dest: '{{ item.key }}')
+    describe 'task model' do
+      subject(:task) { task_wrapper.task }
+
+      it do
+        is_expected.to have_attributes name: 'Copy something',
+                                       with_dict: '{{ servers }}',
+                                       module: have_attributes(src: '{{ item.value.toodles }}',
+                                                               dest: '{{ item.key }}')
+      end
     end
   end
 
@@ -276,12 +313,18 @@ describe Ansible::Ruby::DslBuilders::Task do
       RUBY
     end
 
-    it { is_expected.to be_a Ansible::Ruby::Models::Task }
-    it do
-      is_expected.to have_attributes name: 'Copy something',
-                                     become: true,
-                                     ignore_errors: true,
-                                     module: be_a(Ansible::Ruby::Modules::Copy)
+    it { is_expected.to be_a Ansible::Ruby::DslBuilders::TaskWrapper }
+
+    describe 'task model' do
+      subject(:task) { task_wrapper.task }
+
+      it { is_expected.to be_a Ansible::Ruby::Models::Task }
+      it do
+        is_expected.to have_attributes name: 'Copy something',
+                                       become: true,
+                                       ignore_errors: true,
+                                       module: be_a(Ansible::Ruby::Modules::Copy)
+      end
     end
   end
 
@@ -297,31 +340,23 @@ describe Ansible::Ruby::DslBuilders::Task do
         RUBY
       end
 
-      it { is_expected.to be_a Ansible::Ruby::Models::Task }
-      it do
-        is_expected.to have_attributes name: 'Copy something',
-                                       register: 'result_1',
-                                       changed_when: "'No upgrade available' not in result_1.stdout",
-                                       module: be_a(Ansible::Ruby::Modules::Copy)
-      end
-    end
+      it { is_expected.to be_a Ansible::Ruby::DslBuilders::TaskWrapper }
 
-    context 'higher count' do
-      let(:temp_counter) { 42 }
-      let(:ruby) do
-        <<-RUBY
-              atomic_result = copy do
-                src '/file1.conf'
-                dest '/file2.conf'
-              end
-              changed_when "'No upgrade available' not in \#{atomic_result.stdout}"
-        RUBY
+      describe 'task model' do
+        subject(:task) { task_wrapper.task }
+
+        it { is_expected.to be_a Ansible::Ruby::Models::Task }
+        it do
+          is_expected.to have_attributes name: 'Copy something',
+                                         register: 'result_1',
+                                         changed_when: "'No upgrade available' not in result_1.stdout",
+                                         module: be_a(Ansible::Ruby::Modules::Copy)
+        end
       end
 
-      it do
-        is_expected.to have_attributes name: 'Copy something',
-                                       register: 'result_42',
-                                       changed_when: "'No upgrade available' not in result_42.stdout"
+      it 'returns a result that matches the register usage' do
+        expect(task_wrapper.task.register).to eq 'result_1'
+        expect(task_wrapper.result.something).to eq 'result_1.something'
       end
     end
 
@@ -336,12 +371,16 @@ describe Ansible::Ruby::DslBuilders::Task do
         RUBY
       end
 
-      it { is_expected.to be_a Ansible::Ruby::Models::Task }
-      it do
-        is_expected.to have_attributes name: 'Copy something',
-                                       register: 'result_1',
-                                       changed_when: "'No upgrade available' not in result_1.something_else",
-                                       module: be_a(Ansible::Ruby::Modules::Copy)
+      describe 'task model' do
+        subject(:task) { task_wrapper.task }
+
+        it { is_expected.to be_a Ansible::Ruby::Models::Task }
+        it do
+          is_expected.to have_attributes name: 'Copy something',
+                                         register: 'result_1',
+                                         changed_when: "'No upgrade available' not in result_1.something_else",
+                                         module: be_a(Ansible::Ruby::Modules::Copy)
+        end
       end
     end
 
@@ -356,12 +395,18 @@ describe Ansible::Ruby::DslBuilders::Task do
         RUBY
       end
 
-      it { is_expected.to be_a Ansible::Ruby::Models::Task }
-      it do
-        is_expected.to have_attributes name: 'Copy something',
-                                       register: 'result_1',
-                                       changed_when: "'No upgrade available' not in result_1.something_else(123, \"hello\")",
-                                       module: be_a(Ansible::Ruby::Modules::Copy)
+      it { is_expected.to be_a Ansible::Ruby::DslBuilders::TaskWrapper }
+
+      describe 'task model' do
+        subject(:task) { task_wrapper.task }
+
+        it { is_expected.to be_a Ansible::Ruby::Models::Task }
+        it do
+          is_expected.to have_attributes name: 'Copy something',
+                                         register: 'result_1',
+                                         changed_when: "'No upgrade available' not in result_1.something_else(123, \"hello\")",
+                                         module: be_a(Ansible::Ruby::Modules::Copy)
+        end
       end
     end
 
@@ -392,12 +437,18 @@ describe Ansible::Ruby::DslBuilders::Task do
         RUBY
       end
 
-      it { is_expected.to be_a Ansible::Ruby::Models::Task }
-      it do
-        is_expected.to have_attributes name: 'Copy something',
-                                       register: 'result_1',
-                                       failed_when: "'No upgrade available' not in result_1.stdout",
-                                       module: be_a(Ansible::Ruby::Modules::Copy)
+      it { is_expected.to be_a Ansible::Ruby::DslBuilders::TaskWrapper }
+
+      describe 'task model' do
+        subject(:task) { task_wrapper.task }
+
+        it { is_expected.to be_a Ansible::Ruby::Models::Task }
+        it do
+          is_expected.to have_attributes name: 'Copy something',
+                                         register: 'result_1',
+                                         failed_when: "'No upgrade available' not in result_1.stdout",
+                                         module: be_a(Ansible::Ruby::Modules::Copy)
+        end
       end
     end
 
@@ -412,12 +463,18 @@ describe Ansible::Ruby::DslBuilders::Task do
         RUBY
       end
 
-      it { is_expected.to be_a Ansible::Ruby::Models::Task }
-      it do
-        is_expected.to have_attributes name: 'Copy something',
-                                       register: 'result_1',
-                                       when: "'No upgrade available' not in result_1.stdout",
-                                       module: be_a(Ansible::Ruby::Modules::Copy)
+      it { is_expected.to be_a Ansible::Ruby::DslBuilders::TaskWrapper }
+
+      describe 'task model' do
+        subject(:task) { task_wrapper.task }
+
+        it { is_expected.to be_a Ansible::Ruby::Models::Task }
+        it do
+          is_expected.to have_attributes name: 'Copy something',
+                                         register: 'result_1',
+                                         when: "'No upgrade available' not in result_1.stdout",
+                                         module: be_a(Ansible::Ruby::Modules::Copy)
+        end
       end
     end
   end

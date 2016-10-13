@@ -69,10 +69,18 @@ module Ansible
         def _handle(name, &block)
           model = _context[:model]
           raise "Model not configured for #{@context}" unless model
-          @temp_counter += 1
-          task_builder = Task.new name, model, @temp_counter
+          temp_counter_incrementer = lambda do
+            @temp_counter += 1
+          end
+          task_builder = Task.new name, model, temp_counter_incrementer
           task_builder.instance_eval(&block)
-          @tasks << task_builder._result
+          wrapper = task_builder._result
+          @last_variable = wrapper.result
+          @tasks << wrapper.task
+        end
+
+        def method_missing_return(*)
+          @last_variable
         end
       end
     end
