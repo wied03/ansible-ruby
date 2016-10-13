@@ -9,10 +9,13 @@ module Ansible
       class Tasks < Base
         attribute :items
         validates :items, presence: true, type: TypeGeneric.new(Task, Block, Inclusion)
+        attribute :inclusions
+        validates :inclusions, type: TypeGeneric.new(Inclusion)
 
         def to_h
+          super_result = super
           # Don't need to return highest level
-          super[:items]
+          (super_result[:inclusions] || []) + super_result[:items]
         end
       end
     end

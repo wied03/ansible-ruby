@@ -17,6 +17,10 @@ module Ansible
           @temp_counter = temp_counter
         end
 
+        def no_log(value)
+          @task_args[:no_log] = value
+        end
+
         def changed_when(clause)
           @task_args[:changed_when] = clause
         end
@@ -62,8 +66,13 @@ module Ansible
           }.merge @task_args
           args[:inclusion] = @inclusion if @inclusion
           task = @context.new args
-          task.validate!
+          # Quick feedback if the type is wrong, etc.
+          task.validate! if validate?
           task
+        end
+
+        def validate?
+          true
         end
 
         private
@@ -71,22 +80,18 @@ module Ansible
         def _process_method(id, *args, &block)
           _check_context if id == :ansible_include
           mcb = ModuleCall.new
+          # only 1 module allowed per task, give a good error message
           if @module && mcb.respond_to?(id)
-            # only 1 module allowed per task, give a good error message
             raise "Invalid module call `#{id}' since `#{@module.ansible_name}' module has already been used in this task. Only valid options are #{_valid_attributes}"
-          elsif @module
-            no_method_error id, "Only valid options are #{_valid_attributes}"
           end
+          no_method_error id, "Only valid options are #{_valid_attributes}" if @module
           mcb.send(id, *args, &block)
           @module = mcb._result
         end
 
         def _check_context
-          if @context == Models::Handler
-            raise "Can't call inclusion inside a handler(yet), only in plays/handlers"
-          else
-            raise "Can't call inclusion inside a task, only in plays/handlers"
-          end
+          raise "Can't call inclusion inside a handler(yet), only in plays/handlers" if @context == Models::Handler
+          raise "Can't call inclusion inside a task, only in plays/handlers"
         end
 
         def method_missing_return(_id, _result, *_args)

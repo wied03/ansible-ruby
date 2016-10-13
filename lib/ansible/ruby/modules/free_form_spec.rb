@@ -1,7 +1,7 @@
 # See LICENSE.txt for license
 
 require 'spec_helper'
-require 'ansible/ruby/modules/custom/free_form'
+require 'ansible/ruby/modules/free_form'
 
 describe Ansible::Ruby::Modules::FreeForm do
   before { stub_const 'Ansible::Ruby::Modules::SomeModule', klass }

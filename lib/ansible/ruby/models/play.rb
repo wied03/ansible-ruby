@@ -13,6 +13,8 @@ module Ansible
         validates :become_user, type: String
         attribute :ignore_errors
         validates :ignore_errors, type: MultipleTypes.new(TrueClass, FalseClass)
+        attribute :no_log
+        validates :no_log, type: MultipleTypes.new(TrueClass, FalseClass)
         attribute :name
         validates :name, type: String
         attribute :tasks

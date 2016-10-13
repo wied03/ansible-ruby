@@ -151,16 +151,25 @@ task generate_modules: :python_dependencies do
 ansible_mod = Ansible::Ruby::Modules
 
 HEADER
+    overridden_modules = []
     processed_files.each do |ruby, _|
       relative = Pathname.new(ruby).relative_path_from(base_dir)
       without_extension = relative.to_s.gsub(/\.rb$/, '')
       klass_name = File.basename without_extension
       custom_modules = FileList["lib/ansible/ruby/modules/custom/**/#{File.basename(relative)}"]
       if custom_modules.any?
+        custom_module = custom_modules[0]
+        overridden_modules << custom_module
         file << "# Using custom module\n"
-        without_extension = Pathname.new(custom_modules[0]).relative_path_from(base_dir).to_s
+        without_extension = Pathname.new(custom_module).relative_path_from(base_dir).to_s
         without_extension = without_extension.gsub(/\.rb$/, '')
       end
+      file << "ansible_mod.autoload(:#{klass_name.capitalize}, '#{without_extension}')\n"
+    end
+    (FileList['lib/ansible/ruby/modules/custom/**/*.rb'] - overridden_modules).each do |mod|
+      relative = Pathname.new(mod).relative_path_from(base_dir)
+      without_extension = relative.to_s.gsub(/\.rb$/, '')
+      klass_name = File.basename without_extension
       file << "ansible_mod.autoload(:#{klass_name.capitalize}, '#{without_extension}')\n"
     end
   end

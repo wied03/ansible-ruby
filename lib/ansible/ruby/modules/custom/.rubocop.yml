@@ -1,0 +1,6 @@
+Style/ClassAndModuleCamelCase:
+  Enabled: false
+
+# kind of pointless here
+Style/Documentation:
+  Enabled: false

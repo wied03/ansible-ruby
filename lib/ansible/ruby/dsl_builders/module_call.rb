@@ -1,7 +1,7 @@
 require 'ansible/ruby/dsl_builders/base'
 require 'ansible/ruby/dsl_builders/args'
 require 'ansible/ruby/modules/base'
-require 'ansible/ruby/modules/custom/free_form'
+require 'ansible/ruby/modules/free_form'
 require 'ansible/ruby/dsl_builders/jinja_item_node'
 
 module Ansible
@@ -64,12 +64,9 @@ module Ansible
         end
 
         def _free_form_arg(module_args)
-          if module_args.any?
-            raise 'Expected only 1 argument for this type of module' if module_args.length > 1
-            module_args[0]
-          else
-            raise 'Expected 1 argument for this type of module'
-          end
+          raise 'Expected 1 argument for this type of module' unless module_args.any?
+          raise 'Expected only 1 argument for this type of module' if module_args.length > 1
+          module_args[0]
         end
       end
     end

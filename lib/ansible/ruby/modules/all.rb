@@ -573,3 +573,4 @@ ansible_mod.autoload(:Win_unzip, 'ansible/ruby/modules/generated/extras/windows/
 ansible_mod.autoload(:Win_updates, 'ansible/ruby/modules/generated/extras/windows/win_updates')
 ansible_mod.autoload(:Win_uri, 'ansible/ruby/modules/generated/extras/windows/win_uri')
 ansible_mod.autoload(:Win_webpicmd, 'ansible/ruby/modules/generated/extras/windows/win_webpicmd')
+ansible_mod.autoload(:Include_vars, 'ansible/ruby/modules/custom/utilities/include_vars')
