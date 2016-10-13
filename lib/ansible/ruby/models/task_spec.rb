@@ -83,4 +83,28 @@ describe Ansible::Ruby::Models::Task do
     it { is_expected.to_not be_valid }
     it { is_expected.to have_errors with_items: 'Cannot use both with_items and with_dict!' }
   end
+
+  context 'inclusion only' do
+    let(:instance) do
+      Ansible::Ruby::Models::Task.new name: 'do stuff on EC2',
+                                      inclusion: Ansible::Ruby::Models::Inclusion.new(file: 'something.yml')
+    end
+
+    it do
+      is_expected.to eq(name: 'do stuff on EC2',
+                        include: 'something.yml')
+    end
+  end
+
+  context 'inclusion and module' do
+    let(:instance) do
+      Ansible::Ruby::Models::Task.new name: 'do stuff on EC2',
+                                      inclusion: Ansible::Ruby::Models::Inclusion.new(file: 'something.yml'),
+                                      module: module_klass.new(foo: 123)
+    end
+
+    subject { lambda { instance.to_h } }
+
+    it { is_expected.to raise_error 'Validation failed: Module You must either use an include or a module but not both!' }
+  end
 end

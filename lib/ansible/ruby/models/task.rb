@@ -1,4 +1,6 @@
 require 'ansible/ruby/models/unit'
+require 'ansible/ruby/models/inclusion'
+require 'ansible/ruby/modules/base'
 
 module Ansible
   module Ruby
@@ -7,7 +9,10 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
         attribute :module
-        validates :module, presence: true
+        validates :module, type: Ansible::Ruby::Modules::Base
+        attribute :inclusion
+        validates :inclusion, type: Inclusion
+        validate :inclusion_module
         attribute :changed_when
         validates :changed_when, type: String
         attribute :failed_when
@@ -28,13 +33,14 @@ module Ansible
 
         def to_h
           result = super
-          # Module gets referenced by name
-          mod = result.delete :module
+          # Module gets referenced by name, may not have a module though
+          mod_or_include = @inclusion ? :inclusion : :module
+          flatten = result.delete(mod_or_include) || {}
           # Module traditionally goes right after name, so rebuilding hash
           new_result = {
             name: result.delete(:name)
           }
-          new_result.merge! mod
+          new_result.merge! flatten
           result.each do |key, value|
             new_result[key] = value
           end
@@ -42,6 +48,11 @@ module Ansible
         end
 
         private
+
+        def inclusion_module
+          errors.add :module,
+                     'You must either use an include or a module but not both!' unless (@inclusion != nil) ^ (@module != nil)
+        end
 
         def loop_and_dict
           errors.add :with_items, 'Cannot use both with_items and with_dict!' if with_items && with_dict

@@ -1,0 +1,8 @@
+---
+# This is a generated YAML file by ansible-ruby, DO NOT EDIT
+- name: another one
+  debug:
+    msg: stuff
+- name: another two
+  debug:
+    msg: stuff

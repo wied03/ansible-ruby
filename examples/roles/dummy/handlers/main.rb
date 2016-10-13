@@ -1,5 +1,7 @@
 handler 'reboot' do
-  command 'echo "would shutdown now"'
+  ansible_include 'handler_include.yml' do
+    static true
+  end
 end
 
 handler 'say hi' do
