@@ -49,6 +49,12 @@ describe Ansible::Ruby::DslBuilders::Task do
         it { is_expected.to eq %w(name copy) }
       end
     end
+
+    describe 'result' do
+      subject { task_wrapper.result }
+
+      it { is_expected.to be_a Ansible::Ruby::DslBuilders::Result }
+    end
   end
 
   context 'handler' do
@@ -346,6 +352,11 @@ describe Ansible::Ruby::DslBuilders::Task do
                                          changed_when: "'No upgrade available' not in result_1.stdout",
                                          module: be_a(Ansible::Ruby::Modules::Copy)
         end
+      end
+
+      it 'returns a result that matches the register usage' do
+        expect(task_wrapper.task.register).to eq 'result_1'
+        expect(task_wrapper.result.something).to eq 'result_1.something'
       end
     end
 
