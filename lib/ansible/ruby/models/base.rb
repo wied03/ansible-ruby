@@ -16,6 +16,16 @@ module Ansible
         end
 
         class << self
+          def remove_existing_validations(attr)
+            _validators.delete attr
+            callbacks = send(:get_callbacks, :validate)
+            for_this_att = callbacks.select do |callback|
+              filter = callback.filter
+              filter.respond_to?(:attributes) && filter.attributes == [attr]
+            end
+            for_this_att.each { |callback| callbacks.delete callback }
+          end
+
           def attr_options
             @attr_options ||= begin
               # need parent attribute info

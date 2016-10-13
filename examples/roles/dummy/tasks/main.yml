@@ -9,7 +9,7 @@
   - b
   - c
   register: result_1
-  changed_when: "'No such filesss' in result_1.stderr"
+  changed_when: "'No such file' in result_1.stderr"
   notify:
   - reboot
 - name: middle

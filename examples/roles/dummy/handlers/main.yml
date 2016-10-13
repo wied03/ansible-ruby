@@ -1,7 +1,8 @@
 ---
 # This is a generated YAML file by ansible-ruby, DO NOT EDIT
 - name: reboot
-  command: echo "would shutdown now"
+  include: handler_include.yml
+  static: true
 - name: say hi
   debug:
     msg: hello there

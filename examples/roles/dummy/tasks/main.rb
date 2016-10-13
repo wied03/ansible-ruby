@@ -4,7 +4,7 @@ task 'say hello' do
       chdir '/tmp'
     end
 
-    changed_when "'No such filesss' in #{result.stderr}"
+    changed_when "'No such file' in #{result.stderr}"
 
     notify 'reboot'
   end

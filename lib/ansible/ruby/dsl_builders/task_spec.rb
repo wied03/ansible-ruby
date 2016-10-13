@@ -88,26 +88,55 @@ describe Ansible::Ruby::DslBuilders::Task do
         RUBY
       end
 
-      subject { -> { evaluate } }
+      it { is_expected.to be_a Ansible::Ruby::DslBuilders::TaskWrapper }
 
-      it { is_expected.to raise_error "Can't call inclusion inside a handler(yet), only in plays/handlers" }
+      describe 'handler model' do
+        subject(:handler) { task_wrapper.task }
+
+        it { is_expected.to be_a Ansible::Ruby::Models::Handler }
+        it do
+          is_expected.to have_attributes name: 'Copy something',
+                                         inclusion: be_a(Ansible::Ruby::Models::Inclusion)
+        end
+      end
     end
   end
 
-  context 'task inclusion attempt' do
-    let(:ruby) do
-      <<-RUBY
-        ansible_include 'something'
-        copy do
-          src '/file1.conf'
-          dest '/file2.conf'
-        end
-      RUBY
+  context 'includes' do
+    context 'inclusion only' do
+      let(:ruby) do
+        <<-RUBY
+          ansible_include 'foobar.yml'
+        RUBY
+      end
+
+      subject(:task) { task_wrapper.task }
+
+      it do
+        is_expected.to have_attributes name: 'Copy something',
+                                       inclusion: be_a(Ansible::Ruby::Models::Inclusion)
+      end
+
+      it 'does not include th module key' do
+        expect(task.to_h.keys).to_not include :module
+      end
     end
 
-    subject { -> { evaluate } }
+    context 'include and module' do
+      let(:ruby) do
+        <<-RUBY
+              ansible_include 'something'
+              copy do
+                src '/file1.conf'
+                dest '/file2.conf'
+              end
+        RUBY
+      end
 
-    it { is_expected.to raise_error "Can't call inclusion inside a task, only in plays/handlers" }
+      subject { -> { evaluate } }
+
+      it { is_expected.to raise_error 'Validation failed: Module You must either use an include or a module but not both!' }
+    end
   end
 
   context 'jinja' do
@@ -141,7 +170,7 @@ describe Ansible::Ruby::DslBuilders::Task do
     subject(:task) { task_wrapper.task }
 
     # We don't build name or tasks the same way as others
-    (Ansible::Ruby::Models::Task.instance_methods - Object.instance_methods - [:name=, :module=, :register=, :when=])
+    (Ansible::Ruby::Models::Task.instance_methods - Object.instance_methods - [:name=, :module=, :register=, :when=, :inclusion=])
       .select { |method| method.to_s.end_with?('=') }
       .map { |method| method.to_s[0..-2] }
       .each do |method|
@@ -298,7 +327,7 @@ describe Ansible::Ruby::DslBuilders::Task do
 
     subject { -> { evaluate } }
 
-    it { is_expected.to raise_error "Validation failed: Module can't be blank" }
+    it { is_expected.to raise_error 'Validation failed: Module You must either use an include or a module but not both!' }
   end
 
   context 'implicit bool true' do
