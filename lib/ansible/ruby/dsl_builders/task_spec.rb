@@ -3,8 +3,8 @@ require 'ansible-ruby'
 
 describe Ansible::Ruby::DslBuilders::Task do
   let(:context) { Ansible::Ruby::Models::Task }
-  let(:temp_counter) { 1 }
-  let(:builder) { Ansible::Ruby::DslBuilders::Task.new 'Copy something', context, temp_counter }
+  let(:temp_counter_fetcher) { lambda { 1 } }
+  let(:builder) { Ansible::Ruby::DslBuilders::Task.new 'Copy something', context, temp_counter_fetcher }
 
   def evaluate
     builder.instance_eval ruby
@@ -303,25 +303,6 @@ describe Ansible::Ruby::DslBuilders::Task do
                                        register: 'result_1',
                                        changed_when: "'No upgrade available' not in result_1.stdout",
                                        module: be_a(Ansible::Ruby::Modules::Copy)
-      end
-    end
-
-    context 'higher count' do
-      let(:temp_counter) { 42 }
-      let(:ruby) do
-        <<-RUBY
-              atomic_result = copy do
-                src '/file1.conf'
-                dest '/file2.conf'
-              end
-              changed_when "'No upgrade available' not in \#{atomic_result.stdout}"
-        RUBY
-      end
-
-      it do
-        is_expected.to have_attributes name: 'Copy something',
-                                       register: 'result_42',
-                                       changed_when: "'No upgrade available' not in result_42.stdout"
       end
     end
 

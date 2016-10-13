@@ -58,6 +58,12 @@ describe Ansible::Ruby::DslBuilders::Tasks do
 
         changed_when "'No upgrade available' not in \#{result.stdout}"
       end
+      task 'middle task' do
+        copy do
+          src '/file1.conf'
+          dest '/file2.conf'
+        end
+      end
       task 'Copy something else' do
         result = copy do
           src '/file1.conf'
@@ -78,8 +84,8 @@ describe Ansible::Ruby::DslBuilders::Tasks do
       end
     end
 
-    describe 'task 2' do
-      subject { tasks.items[1] }
+    describe 'task 3' do
+      subject { tasks.items[2] }
 
       it do
         is_expected.to have_attributes register: 'result_2',
