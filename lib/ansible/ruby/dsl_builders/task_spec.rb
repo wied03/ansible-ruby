@@ -3,7 +3,7 @@ require 'ansible-ruby'
 
 describe Ansible::Ruby::DslBuilders::Task do
   let(:context) { Ansible::Ruby::Models::Task }
-  let(:temp_counter_fetcher) { lambda { 1 } }
+  let(:temp_counter_fetcher) { -> { 1 } }
   let(:builder) { Ansible::Ruby::DslBuilders::Task.new 'Copy something', context, temp_counter_fetcher }
 
   def evaluate

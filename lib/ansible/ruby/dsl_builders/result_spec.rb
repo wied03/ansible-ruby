@@ -3,7 +3,7 @@ require 'spec_helper'
 
 describe Ansible::Ruby::DslBuilders::Result do
   let(:name_fetcher) do
-    lambda { 'the_var' }
+    -> { 'the_var' }
   end
 
   subject(:result) { Ansible::Ruby::DslBuilders::Result.new name_fetcher }
