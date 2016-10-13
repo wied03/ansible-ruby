@@ -45,12 +45,10 @@ module Ansible
             # avoid having to dupe this in the :attribute call
             hash = attributes.length > 1 && attributes[1]
             type_validator = hash && hash[:type]
-            return unless type_validator
-            if type_validator.is_a?(TypeGeneric)
-              name = attributes[0]
-              for_name = attr_options[name] ||= {}
-              for_name[:generic] = type_validator.klasses
-            end
+            return unless type_validator && type_validator.is_a?(TypeGeneric)
+            name = attributes[0]
+            for_name = attr_options[name] ||= {}
+            for_name[:generic] = type_validator.klasses
           end
         end
 
