@@ -18,6 +18,10 @@ module Ansible
           true
         end
 
+        def to_s
+          name
+        end
+
         private
 
         def name

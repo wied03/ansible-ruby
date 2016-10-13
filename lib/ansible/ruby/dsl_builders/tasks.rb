@@ -75,7 +75,12 @@ module Ansible
           task_builder = Task.new name, model, temp_counter_incrementer
           task_builder.instance_eval(&block)
           wrapper = task_builder._result
+          @last_variable = wrapper.result
           @tasks << wrapper.task
+        end
+
+        def method_missing_return(*)
+          @last_variable
         end
       end
     end
