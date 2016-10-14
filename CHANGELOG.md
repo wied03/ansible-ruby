@@ -7,6 +7,7 @@
 * `get_url` takes in a `Hash` for `headers` (#23)
 * `docker_container` `network_mode` is now a String and `volumes` is a `Hash` (#23)
 * `file`, `copy`, `template` support for `owner`, `group`, `mode`, `setype`, `selevel` (#23)
+* `set_fact` is now supported, pass a `Hash` as the parameter 
 
 # 1.0.5 - 12 October 2016
 * Added no_log support

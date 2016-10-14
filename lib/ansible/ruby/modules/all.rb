@@ -237,7 +237,8 @@ ansible_mod.autoload(:Async_status, 'ansible/ruby/modules/generated/core/utiliti
 ansible_mod.autoload(:Debug, 'ansible/ruby/modules/generated/core/utilities/logic/debug')
 ansible_mod.autoload(:Fail, 'ansible/ruby/modules/generated/core/utilities/logic/fail')
 ansible_mod.autoload(:Pause, 'ansible/ruby/modules/generated/core/utilities/logic/pause')
-ansible_mod.autoload(:Set_fact, 'ansible/ruby/modules/generated/core/utilities/logic/set_fact')
+# Using custom module
+ansible_mod.autoload(:Set_fact, 'ansible/ruby/modules/custom/utilities/logic/set_fact')
 ansible_mod.autoload(:Wait_for, 'ansible/ruby/modules/generated/core/utilities/logic/wait_for')
 ansible_mod.autoload(:Apache2_module, 'ansible/ruby/modules/generated/core/web_infrastructure/apache2_module')
 ansible_mod.autoload(:Django_manage, 'ansible/ruby/modules/generated/core/web_infrastructure/django_manage')
