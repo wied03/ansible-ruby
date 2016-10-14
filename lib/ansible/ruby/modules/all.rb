@@ -139,17 +139,20 @@ ansible_mod.autoload(:Postgresql_privs, 'ansible/ruby/modules/generated/core/dat
 ansible_mod.autoload(:Postgresql_user, 'ansible/ruby/modules/generated/core/database/postgresql/postgresql_user')
 ansible_mod.autoload(:Acl, 'ansible/ruby/modules/generated/core/files/acl')
 ansible_mod.autoload(:Assemble, 'ansible/ruby/modules/generated/core/files/assemble')
-ansible_mod.autoload(:Copy, 'ansible/ruby/modules/generated/core/files/copy')
+# Using custom module
+ansible_mod.autoload(:Copy, 'ansible/ruby/modules/custom/files/copy')
 # Using custom module
 ansible_mod.autoload(:Fetch, 'ansible/ruby/modules/custom/files/fetch')
-ansible_mod.autoload(:File, 'ansible/ruby/modules/generated/core/files/file')
+# Using custom module
+ansible_mod.autoload(:File, 'ansible/ruby/modules/custom/files/file')
 ansible_mod.autoload(:Find, 'ansible/ruby/modules/generated/core/files/find')
 ansible_mod.autoload(:Ini_file, 'ansible/ruby/modules/generated/core/files/ini_file')
 ansible_mod.autoload(:Lineinfile, 'ansible/ruby/modules/generated/core/files/lineinfile')
 ansible_mod.autoload(:Replace, 'ansible/ruby/modules/generated/core/files/replace')
 ansible_mod.autoload(:Stat, 'ansible/ruby/modules/generated/core/files/stat')
 ansible_mod.autoload(:Synchronize, 'ansible/ruby/modules/generated/core/files/synchronize')
-ansible_mod.autoload(:Template, 'ansible/ruby/modules/generated/core/files/template')
+# Using custom module
+ansible_mod.autoload(:Template, 'ansible/ruby/modules/custom/files/template')
 ansible_mod.autoload(:Unarchive, 'ansible/ruby/modules/generated/core/files/unarchive')
 ansible_mod.autoload(:Xattr, 'ansible/ruby/modules/generated/core/files/xattr')
 ansible_mod.autoload(:Add_host, 'ansible/ruby/modules/generated/core/inventory/add_host')
