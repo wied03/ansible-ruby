@@ -1,4 +1,7 @@
 # Under Development
+TBD
+
+# 1.0.6 - 14 October 2016
 * Allow sharing variables between tasks (#29)
 * Fix include support in handlers and allow include within task (#32)
 * Add 'connection' support to task DSL/model (#38)
