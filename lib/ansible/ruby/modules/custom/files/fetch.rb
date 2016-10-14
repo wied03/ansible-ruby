@@ -8,7 +8,7 @@ module Ansible
     module Modules
       class Fetch
         remove_existing_validations :flat
-        validates :flat, inclusion: { :in => [:yes, :no], :message => "%{value} needs to be :yes, :no" }, allow_nil: true
+        validates :flat, inclusion: { in: [:yes, :no], message: '%{value} needs to be :yes, :no' }, allow_nil: true
       end
     end
   end

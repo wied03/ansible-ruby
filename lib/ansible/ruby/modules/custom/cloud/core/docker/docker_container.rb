@@ -16,18 +16,24 @@ module Ansible
           result = super
           data = result[:docker_container]
           if data.include? :volumes
-            data[:volumes] = data[:volumes].map do |host_path, info|
-              image_path = if info.is_a? Hash
-                             flags = info[:flags]
-                             path = info[:path]
-                             [path, flags].join ':'
-                           else
-                             info
-                           end
-              [host_path, image_path].join ':'
-            end
+            data[:volumes] = transform_volumes data[:volumes]
           end
           result
+        end
+
+        private
+
+        def transform_volumes(input)
+          input.map do |host_path, info|
+            image_path = if info.is_a? Hash
+                           flags = info[:flags]
+                           path = info[:path]
+                           [path, flags].join ':'
+                         else
+                           info
+                         end
+            [host_path, image_path].join ':'
+          end
         end
       end
     end
