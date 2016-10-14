@@ -166,7 +166,7 @@ HEADER
       end
       file << "ansible_mod.autoload(:#{klass_name.capitalize}, '#{without_extension}')\n"
     end
-    (FileList['lib/ansible/ruby/modules/custom/**/*.rb'] - overridden_modules).each do |mod|
+    (FileList['lib/ansible/ruby/modules/custom/**/*.rb'].exclude('**/*_spec.rb') - overridden_modules).each do |mod|
       relative = Pathname.new(mod).relative_path_from(base_dir)
       without_extension = relative.to_s.gsub(/\.rb$/, '')
       klass_name = File.basename without_extension

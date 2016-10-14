@@ -7,7 +7,8 @@ ansible_mod.autoload(:Cloudformation, 'ansible/ruby/modules/generated/core/cloud
 ansible_mod.autoload(:Ec2, 'ansible/ruby/modules/generated/core/cloud/amazon/ec2')
 ansible_mod.autoload(:Ec2_ami, 'ansible/ruby/modules/generated/core/cloud/amazon/ec2_ami')
 ansible_mod.autoload(:Ec2_ami_find, 'ansible/ruby/modules/generated/core/cloud/amazon/ec2_ami_find')
-ansible_mod.autoload(:Ec2_asg, 'ansible/ruby/modules/generated/core/cloud/amazon/ec2_asg')
+# Using custom module
+ansible_mod.autoload(:Ec2_asg, 'ansible/ruby/modules/custom/cloud/core/amazon/ec2_asg')
 ansible_mod.autoload(:Ec2_eip, 'ansible/ruby/modules/generated/core/cloud/amazon/ec2_eip')
 ansible_mod.autoload(:Ec2_elb, 'ansible/ruby/modules/generated/core/cloud/amazon/ec2_elb')
 ansible_mod.autoload(:Ec2_elb_lb, 'ansible/ruby/modules/generated/core/cloud/amazon/ec2_elb_lb')
@@ -53,7 +54,8 @@ ansible_mod.autoload(:Digital_ocean, 'ansible/ruby/modules/generated/core/cloud/
 ansible_mod.autoload(:Digital_ocean_domain, 'ansible/ruby/modules/generated/core/cloud/digital_ocean/digital_ocean_domain')
 ansible_mod.autoload(:Digital_ocean_sshkey, 'ansible/ruby/modules/generated/core/cloud/digital_ocean/digital_ocean_sshkey')
 ansible_mod.autoload(:Docker, 'ansible/ruby/modules/generated/core/cloud/docker/docker')
-ansible_mod.autoload(:Docker_container, 'ansible/ruby/modules/generated/core/cloud/docker/docker_container')
+# Using custom module
+ansible_mod.autoload(:Docker_container, 'ansible/ruby/modules/custom/cloud/core/docker/docker_container')
 ansible_mod.autoload(:Docker_image, 'ansible/ruby/modules/generated/core/cloud/docker/docker_image')
 ansible_mod.autoload(:Docker_image_facts, 'ansible/ruby/modules/generated/core/cloud/docker/docker_image_facts')
 ansible_mod.autoload(:Docker_login, 'ansible/ruby/modules/generated/core/cloud/docker/docker_login')
@@ -137,21 +139,26 @@ ansible_mod.autoload(:Postgresql_privs, 'ansible/ruby/modules/generated/core/dat
 ansible_mod.autoload(:Postgresql_user, 'ansible/ruby/modules/generated/core/database/postgresql/postgresql_user')
 ansible_mod.autoload(:Acl, 'ansible/ruby/modules/generated/core/files/acl')
 ansible_mod.autoload(:Assemble, 'ansible/ruby/modules/generated/core/files/assemble')
-ansible_mod.autoload(:Copy, 'ansible/ruby/modules/generated/core/files/copy')
-ansible_mod.autoload(:Fetch, 'ansible/ruby/modules/generated/core/files/fetch')
-ansible_mod.autoload(:File, 'ansible/ruby/modules/generated/core/files/file')
+# Using custom module
+ansible_mod.autoload(:Copy, 'ansible/ruby/modules/custom/files/copy')
+# Using custom module
+ansible_mod.autoload(:Fetch, 'ansible/ruby/modules/custom/files/fetch')
+# Using custom module
+ansible_mod.autoload(:File, 'ansible/ruby/modules/custom/files/file')
 ansible_mod.autoload(:Find, 'ansible/ruby/modules/generated/core/files/find')
 ansible_mod.autoload(:Ini_file, 'ansible/ruby/modules/generated/core/files/ini_file')
 ansible_mod.autoload(:Lineinfile, 'ansible/ruby/modules/generated/core/files/lineinfile')
 ansible_mod.autoload(:Replace, 'ansible/ruby/modules/generated/core/files/replace')
 ansible_mod.autoload(:Stat, 'ansible/ruby/modules/generated/core/files/stat')
 ansible_mod.autoload(:Synchronize, 'ansible/ruby/modules/generated/core/files/synchronize')
-ansible_mod.autoload(:Template, 'ansible/ruby/modules/generated/core/files/template')
+# Using custom module
+ansible_mod.autoload(:Template, 'ansible/ruby/modules/custom/files/template')
 ansible_mod.autoload(:Unarchive, 'ansible/ruby/modules/generated/core/files/unarchive')
 ansible_mod.autoload(:Xattr, 'ansible/ruby/modules/generated/core/files/xattr')
 ansible_mod.autoload(:Add_host, 'ansible/ruby/modules/generated/core/inventory/add_host')
 ansible_mod.autoload(:Group_by, 'ansible/ruby/modules/generated/core/inventory/group_by')
-ansible_mod.autoload(:Get_url, 'ansible/ruby/modules/generated/core/network/basics/get_url')
+# Using custom module
+ansible_mod.autoload(:Get_url, 'ansible/ruby/modules/custom/network/basics/get_url')
 ansible_mod.autoload(:Slurp, 'ansible/ruby/modules/generated/core/network/basics/slurp')
 ansible_mod.autoload(:Uri, 'ansible/ruby/modules/generated/core/network/basics/uri')
 ansible_mod.autoload(:Cl_bond, 'ansible/ruby/modules/generated/core/network/cumulus/cl_bond')
