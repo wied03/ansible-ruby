@@ -3,6 +3,10 @@
 * Fix include support in handlers and allow include within task (#32)
 * Add 'connection' support to task DSL/model (#38)
 * Add YARD class comments for generated module classes (#22)
+* Fix `termination policies` in `ec2_asg` (#23)
+* `get_url` takes in a `Hash` for `headers` (#23)
+* `docker_container` `network_mode` is now a String and `volumes` is a `Hash` (#23)
+* `file`, `copy`, `template` support for `owner`, `group`, `mode`, `setype`, `selevel` (#23)
 
 # 1.0.5 - 12 October 2016
 * Added no_log support
