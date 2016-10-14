@@ -9,6 +9,8 @@ module Ansible
       class Docker_container
         remove_existing_validations :volumes
         validates :volumes, type: Hash
+        remove_existing_validations :network_mode
+        validates :network_mode, type: String
 
         def to_h
           result = super
