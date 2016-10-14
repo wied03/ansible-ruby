@@ -5,7 +5,7 @@
 [![Coverage](https://codeclimate.com/github/wied03/ansible-ruby/badges/coverage.svg)](https://codeclimate.com/github/wied03/ansible-ruby/coverage)
 [![Version](http://img.shields.io/gem/v/ansible-ruby.svg?style=flat-square)](https://rubygems.org/gems/ansible-ruby)
 
-Attempts to create a Ruby DSL on top of Ansible's YML files. Currently this is against Ansible 2.1.1.0.
+Attempts to create a Ruby DSL on top of Ansible's YML files. Currently this is against Ansible 2.1.2.0.
 
 ## What does it do?
 * Creates a Ruby DSL that compiles .rb files to YML on a file by file basis
@@ -121,15 +121,19 @@ end
 
 Ruby code within this project parses the YAML documentation in Ansible's modules and creates model classes in Ruby to assist with validation. All of them are there but some of them might need some work.
 
+## Other Features
+* Light variable AST (see examples)
+* Helps with registering a variable in 1 task and using in another (see image_copy example)
+* Type normalization in modules (e.g. allow arrays to be passed in if a given module is expecting CSV)
+
 ## Ansible Galaxy
 
 There's no reason why you can't use Ansible Galaxy with this. It hasn't been tested much but since this tool stays within the task/playbook/etc. boundary, it should work fine to use Galaxy roles from ansible-ruby playbooks or even to build Galaxy roles with ansible-ruby.
 
 ## Limitations
 
-* Type validation in generated modules isn't 100% correct - [see issue](https://github.com/wied03/ansible-ruby/issues/23)
+* Type validation in generated modules isn't 100% correct. I try and fix modules as I discover the,
 * Error messages could use improvement - [see issue](https://github.com/wied03/ansible-ruby/issues/7)
-* Full inclusion support - [see issue](https://github.com/wied03/ansible-ruby/issues/32)
 * Result variable DSL is fairly limited, all it does right now is make sure you use the right variable name (see issues for improvements) 
 
 ## License
