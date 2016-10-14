@@ -54,7 +54,8 @@ ansible_mod.autoload(:Digital_ocean, 'ansible/ruby/modules/generated/core/cloud/
 ansible_mod.autoload(:Digital_ocean_domain, 'ansible/ruby/modules/generated/core/cloud/digital_ocean/digital_ocean_domain')
 ansible_mod.autoload(:Digital_ocean_sshkey, 'ansible/ruby/modules/generated/core/cloud/digital_ocean/digital_ocean_sshkey')
 ansible_mod.autoload(:Docker, 'ansible/ruby/modules/generated/core/cloud/docker/docker')
-ansible_mod.autoload(:Docker_container, 'ansible/ruby/modules/generated/core/cloud/docker/docker_container')
+# Using custom module
+ansible_mod.autoload(:Docker_container, 'ansible/ruby/modules/custom/cloud/core/docker/docker_container')
 ansible_mod.autoload(:Docker_image, 'ansible/ruby/modules/generated/core/cloud/docker/docker_image')
 ansible_mod.autoload(:Docker_image_facts, 'ansible/ruby/modules/generated/core/cloud/docker/docker_image_facts')
 ansible_mod.autoload(:Docker_login, 'ansible/ruby/modules/generated/core/cloud/docker/docker_login')
