@@ -140,7 +140,8 @@ ansible_mod.autoload(:Postgresql_user, 'ansible/ruby/modules/generated/core/data
 ansible_mod.autoload(:Acl, 'ansible/ruby/modules/generated/core/files/acl')
 ansible_mod.autoload(:Assemble, 'ansible/ruby/modules/generated/core/files/assemble')
 ansible_mod.autoload(:Copy, 'ansible/ruby/modules/generated/core/files/copy')
-ansible_mod.autoload(:Fetch, 'ansible/ruby/modules/generated/core/files/fetch')
+# Using custom module
+ansible_mod.autoload(:Fetch, 'ansible/ruby/modules/custom/files/fetch')
 ansible_mod.autoload(:File, 'ansible/ruby/modules/generated/core/files/file')
 ansible_mod.autoload(:Find, 'ansible/ruby/modules/generated/core/files/find')
 ansible_mod.autoload(:Ini_file, 'ansible/ruby/modules/generated/core/files/ini_file')
