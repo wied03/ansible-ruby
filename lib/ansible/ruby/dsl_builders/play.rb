@@ -62,7 +62,7 @@ module Ansible
         def block(&block)
           builder = Block.new
           builder.instance_eval(&block)
-          @tasks << builder._result
+          @task_builders << builder
         end
 
         # allow any order

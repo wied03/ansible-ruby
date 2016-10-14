@@ -3,7 +3,6 @@ require 'ansible/ruby/dsl_builders/module_call'
 require 'ansible/ruby/dsl_builders/result'
 require 'ansible/ruby/models/task'
 require 'ansible/ruby/dsl_builders/unit'
-require 'ansible/ruby/dsl_builders/task_wrapper'
 
 module Ansible
   module Ruby
@@ -15,7 +14,13 @@ module Ansible
           @context = context
           @module = nil
           @inclusion = nil
-          @temp_counter_inc = temp_counter_inc
+          # Until the variable is utilized, we don't know if 'register' should be set, the supplied lambda
+          name_fetcher = lambda do
+            name = "result_#{temp_counter_inc.call}"
+            @task_args[:register] = name
+            name
+          end
+          @register = Result.new name_fetcher
         end
 
         def no_log(value)
@@ -63,6 +68,10 @@ module Ansible
           !@module || super
         end
 
+        def _register
+          @register
+        end
+
         # allow for other attributes besides the module in any order
         def _result
           args = {
@@ -73,7 +82,7 @@ module Ansible
           task = @context.new args
           # Quick feedback if the type is wrong, etc.
           task.validate! if validate?
-          TaskWrapper.new task, @result
+          task
         end
 
         def validate?
@@ -98,13 +107,8 @@ module Ansible
         end
 
         def method_missing_return(_id, _result, *_args)
-          # Until the variable is utilized, we don't know if 'register' should be set, the supplied lambda
-          name_fetcher = lambda do
-            name = "result_#{@temp_counter_inc.call}"
-            @task_args[:register] = name
-            name
-          end
-          @result = Result.new name_fetcher
+          # Allow module call to return the register vsriable
+          @register
         end
       end
     end

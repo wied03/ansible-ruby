@@ -128,6 +128,36 @@ describe Ansible::Ruby::DslBuilders::Tasks do
       end
     end
 
+    context 'usage between task without use in first task' do
+      let(:ruby) do
+        <<-RUBY
+        stuff = task 'Copy something' do
+          copy do
+            src '/file1.conf'
+            dest '/file2.conf'
+          end
+        end
+
+        task 'Copy something else' do
+          copy do
+            src '/file1.conf'
+            dest '/file2.conf'
+          end
+
+          ansible_when "'yes' not in \#{stuff.stdout}"
+        end
+        RUBY
+      end
+
+      it 'uses result from first task' do
+        items = tasks.items
+        expect(items[0]).to have_attributes register: 'result_1'
+        second = items[1]
+        expect(second).to have_attributes when: "'yes' not in result_1.stdout",
+                                          register: nil
+      end
+    end
+
     context 'usage within tasks and multiple register' do
       let(:ruby) do
         <<-RUBY

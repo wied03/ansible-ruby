@@ -9,9 +9,12 @@ module Ansible
       class Tasks < Base
         def initialize(context)
           @context = context
-          @tasks = []
+          @task_builders = []
           @includes = []
-          @temp_counter = 0
+          temp_counter = 0
+          @temp_counter_incrementer = lambda do
+            temp_counter += 1
+          end
         end
 
         def ansible_include(filename, &block)
@@ -20,7 +23,8 @@ module Ansible
 
         # allow multiple tasks, etc.
         def _result
-          Models::Tasks.new items: @tasks,
+          tasks = @task_builders.map(&:_result)
+          Models::Tasks.new items: tasks,
                             inclusions: @includes
         end
 
@@ -69,14 +73,10 @@ module Ansible
         def _handle(name, &block)
           model = _context[:model]
           raise "Model not configured for #{@context}" unless model
-          temp_counter_incrementer = lambda do
-            @temp_counter += 1
-          end
-          task_builder = Task.new name, model, temp_counter_incrementer
+          task_builder = Task.new name, model, @temp_counter_incrementer
           task_builder.instance_eval(&block)
-          wrapper = task_builder._result
-          @last_variable = wrapper.result
-          @tasks << wrapper.task
+          @last_variable = task_builder._register
+          @task_builders << task_builder
         end
 
         def method_missing_return(*)
