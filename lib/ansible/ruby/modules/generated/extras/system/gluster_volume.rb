@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Create, remove, start, stop and tune GlusterFS volumes
       class Gluster_volume < Base
         # @return [String] The volume name
         attribute :name

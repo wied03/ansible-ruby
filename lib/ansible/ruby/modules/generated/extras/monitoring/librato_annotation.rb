@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Create an annotation event on the given annotation stream :name. If the annotation stream does not exist, it will be created automatically
       class Librato_annotation < Base
         # @return [String] Librato account username
         attribute :user

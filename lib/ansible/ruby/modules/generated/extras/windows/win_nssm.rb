@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # nssm is a service helper which doesn't suck. See https://nssm.cc/ for more information.
       class Win_nssm < Base
         # @return [String] Name of the service to operate on
         attribute :name

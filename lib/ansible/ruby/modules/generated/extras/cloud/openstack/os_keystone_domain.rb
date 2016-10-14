@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Create, update, or delete OpenStack Identity domains. If a domain with the supplied name already exists, it will be updated with the new description and enabled attributes.
       class Os_keystone_domain < Base
         # @return [String] Name that has to be given to the instance
         attribute :name

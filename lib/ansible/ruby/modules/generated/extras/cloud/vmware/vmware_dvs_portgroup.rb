@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Create or remove a Distributed vSwitch portgroup
       class Vmware_dvs_portgroup < Base
         # @return [String] The name of the portgroup that is to be created or deleted
         attribute :portgroup_name

@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Manage bower packages with bower
       class Bower < Base
         # @return [String, nil] The name of a bower package to install
         attribute :name

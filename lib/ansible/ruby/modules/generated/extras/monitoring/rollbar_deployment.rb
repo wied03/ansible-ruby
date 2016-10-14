@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Notify Rollbar about app deployments (see https://rollbar.com/docs/deploys_other/)
       class Rollbar_deployment < Base
         # @return [String] Your project access token.
         attribute :token

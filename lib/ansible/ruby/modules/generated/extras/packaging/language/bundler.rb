@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Manage installation and Gem version dependencies for Ruby using the Bundler gem
       class Bundler < Base
         # @return [String, nil] The path to the bundler executable
         attribute :executable

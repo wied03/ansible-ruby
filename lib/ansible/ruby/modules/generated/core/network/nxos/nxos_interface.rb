@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Manages physical attributes of interfaces of NX-OS switches
       class Nxos_interface < Base
         # @return [String] Full name of interface, i.e. Ethernet1/1, port-channel10.
         attribute :interface

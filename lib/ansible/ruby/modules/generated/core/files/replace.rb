@@ -5,6 +5,8 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # This module will replace all instances of a pattern within a file.
+      # It is up to the user to maintain idempotence by ensuring that the same pattern would never match any replacements made.
       class Replace < Base
         # @return [String] The file to modify.
         attribute :dest

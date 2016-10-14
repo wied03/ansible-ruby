@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # This module manipulates files privileges using the Linux capabilities(7) system.
       class Capabilities < Base
         # @return [String] Specifies the path to the file to be managed.
         attribute :path

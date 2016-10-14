@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Manipulate Rackspace Cloud Block Storage Volumes
       class Rax_cbs < Base
         # @return [Object, nil] Description to give the volume being created
         attribute :description

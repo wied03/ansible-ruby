@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # This module uses rabbitMQ Rest API to create/delete bindings
       class Rabbitmq_binding < Base
         # @return [:present, :absent, nil] Whether the exchange should be present or absent,Only present implemented atm
         attribute :state

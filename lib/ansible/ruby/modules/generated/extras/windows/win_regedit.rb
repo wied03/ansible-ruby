@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Add, Edit, or Remove Registry Keys and Values using ItemProperties Cmdlets
       class Win_regedit < Base
         # @return [Object] Name of Registry Key
         attribute :key

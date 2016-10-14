@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # The M(known_hosts) module lets you add or remove a host from the C(known_hosts) file. This is useful if you're going to want to use the M(git) module over ssh, for example. If you have a very large number of host keys to manage, you will find the M(template) module more useful.
       class Known_hosts < Base
         # @return [String] The host to add or remove (must match a host specified in key)
         attribute :name

@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Reboot a Windows machine, wait for it to go down, come back up, and respond to commands.
       class Win_reboot < Base
         # @return [Integer, nil] Seconds for shutdown to wait before requesting reboot
         attribute :pre_reboot_delay_sec

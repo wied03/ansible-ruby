@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Create, update, restart and delete networks.
       class Cs_network < Base
         # @return [String] Name (case sensitive) of the network.
         attribute :name

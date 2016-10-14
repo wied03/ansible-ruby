@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Create or Remove Ironic nodes from OpenStack.
       class Os_ironic < Base
         # @return [:present, :absent, nil] Indicates desired state of the resource
         attribute :state

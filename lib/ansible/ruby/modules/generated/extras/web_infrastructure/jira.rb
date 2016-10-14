@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Create and modify issues in a JIRA instance.
       class Jira < Base
         # @return [String] Base URI for the JIRA instance
         attribute :uri

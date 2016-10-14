@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Sets and retrieves file ACL information.
       class Acl < Base
         # @return [String] The full path of the file or object.
         attribute :name

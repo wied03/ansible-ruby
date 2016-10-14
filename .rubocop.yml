@@ -38,3 +38,9 @@ Metrics/ParameterLists:
 
 Lint/UnifiedInteger:
   Enabled: false
+
+Metrics/BlockLength:
+  Exclude:
+    - '**/*_spec.rb'
+    - 'spec/**/*'
+    - Rakefile

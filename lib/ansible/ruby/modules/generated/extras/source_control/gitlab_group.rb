@@ -5,6 +5,8 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # When the group does not exists in Gitlab, it will be created.
+      # When the group does exists and state=absent, the group will be deleted.
       class Gitlab_group < Base
         # @return [String] Url of Gitlab server, with protocol (http or https).
         attribute :server_url

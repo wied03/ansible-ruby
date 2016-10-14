@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Create or Delete routers from OpenStack
       class Quantum_router < Base
         # @return [String] login username to authenticate to keystone
         attribute :login_username

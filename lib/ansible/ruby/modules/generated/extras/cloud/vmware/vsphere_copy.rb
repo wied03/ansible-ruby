@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Upload files to a vCenter datastore
       class Vsphere_copy < Base
         # @return [String] The vCenter server on which the datastore is available.
         attribute :host

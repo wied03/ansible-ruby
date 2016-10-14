@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Manage VMware ESXi DNS Configuration
       class Vmware_dns_config < Base
         # @return [String] The hostname that an ESXi host should be changed to.
         attribute :change_hostname_to

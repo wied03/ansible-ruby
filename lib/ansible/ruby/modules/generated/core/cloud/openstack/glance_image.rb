@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Add or Remove images from the glance repository.
       class Glance_image < Base
         # @return [String] login username to authenticate to keystone
         attribute :login_username

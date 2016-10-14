@@ -5,6 +5,9 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # When the user does not exists in Gitlab, it will be created.
+      # When the user does exists and state=absent, the user will be deleted.
+      # When changes are made to user, the user will be updated.
       class Gitlab_user < Base
         # @return [String] Url of Gitlab server, with protocol (http or https).
         attribute :server_url

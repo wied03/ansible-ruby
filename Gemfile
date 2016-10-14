@@ -4,6 +4,6 @@ gemspec
 
 gem 'rspec'
 gem 'rake'
-gem 'rubocop', require: false
+gem 'rubocop', '0.44.1', require: false
 gem 'reek', '~> 4.3.0'
 gem 'codeclimate-test-reporter', require: nil

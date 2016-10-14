@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Manages Mercurial (hg) repositories. Supports SSH, HTTP/S and local address.
       class Hg < Base
         # @return [String] The repository address.
         attribute :repo

@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Manage firewall with UFW.
       class Ufw < Base
         # @return [:enabled, :disabled, :reloaded, :reset, nil] C(enabled) reloads firewall and enables firewall on boot.,C(disabled) unloads firewall and disables firewall on boot.,C(reloaded) reloads firewall.,C(reset) disables and resets firewall to installation defaults.
         attribute :state

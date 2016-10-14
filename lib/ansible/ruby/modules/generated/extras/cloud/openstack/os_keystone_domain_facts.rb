@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Retrieve facts about a one or more OpenStack domains
       class Os_keystone_domain_facts < Base
         # @return [String] Name or ID of the domain
         attribute :name

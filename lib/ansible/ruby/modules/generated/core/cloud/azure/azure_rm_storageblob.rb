@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Create, update and delete blob containers and blob objects. Use to upload a file and store it as a blob object, or download a blob object to a file.
       class Azure_rm_storageblob < Base
         # @return [String] Name of the storage account to use.
         attribute :storage_account_name

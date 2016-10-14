@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Management of LXC containers
       class Lxc_container < Base
         # @return [String] Name of a container.
         attribute :name

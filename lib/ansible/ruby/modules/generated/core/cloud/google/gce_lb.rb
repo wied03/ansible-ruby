@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # This module can create and destroy Google Compute Engine C(loadbalancer) and C(httphealthcheck) resources.  The primary LB resource is the C(load_balancer) resource and the health check parameters are all prefixed with I(httphealthcheck). The full documentation for Google Compute Engine load balancing is at U(https://developers.google.com/compute/docs/load-balancing/).  However, the ansible module simplifies the configuration by following the libcloud model. Full install/configuration instructions for the gce* modules can be found in the comments of ansible/test/gce_tests.py.
       class Gce_lb < Base
         # @return [String, nil] the name identifier for the HTTP health check
         attribute :httphealthcheck_name

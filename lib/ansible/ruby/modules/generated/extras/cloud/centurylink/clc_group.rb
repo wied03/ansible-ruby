@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Create or delete Server Groups at Centurylink Centurylink Cloud
       class Clc_group < Base
         # @return [String] The name of the Server Group
         attribute :name

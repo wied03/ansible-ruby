@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Create or Remove compute instances from OpenStack.
       class Os_server < Base
         # @return [String] Name that has to be given to the instance
         attribute :name

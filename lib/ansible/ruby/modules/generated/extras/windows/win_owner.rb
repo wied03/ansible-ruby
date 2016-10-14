@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Set owner of files or directories
       class Win_owner < Base
         # @return [String] Path to be used for changing owner
         attribute :path

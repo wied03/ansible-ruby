@@ -5,6 +5,8 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # IPS packages are the native packages in Solaris 11 and higher.
+      # This modules will configure which publishers a client will download IPS packages from.
       class Pkg5_publisher < Base
         # @return [String] The publisher's name.
         attribute :name

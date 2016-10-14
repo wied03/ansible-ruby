@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Will install, upgrade and remove packages with swdepot package manager (HP-UX)
       class Swdepot < Base
         # @return [String] package name.
         attribute :name

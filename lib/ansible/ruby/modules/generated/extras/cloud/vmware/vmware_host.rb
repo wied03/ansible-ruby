@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # This module can be used to add/remove an ESXi host to/from vCenter
       class Vmware_host < Base
         # @return [String] Name of the datacenter to add the host
         attribute :datacenter_name

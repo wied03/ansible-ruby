@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Lists or describes services in ecs.
       class Ecs_service_facts < Base
         # @return [:true, :false, nil] Set this to true if you want detailed information about the services.
         attribute :details

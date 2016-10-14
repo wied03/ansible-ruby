@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # This module is automatically called by playbooks to gather useful variables about remote hosts that can be used in playbooks. It can also be executed directly by C(/usr/bin/ansible) to check what variables are available to a host. Ansible provides many I(facts) about the system, automatically.
       class Setup < Base
         # @return [String, nil] if supplied, restrict the additional facts collected to the given subset. Possible values: all, hardware, network, virtual, ohai, and facter Can specify a list of values to specify a larger subset. Values can also be used with an initial C(!) to specify that that specific subset should not be collected.  For instance: !hardware, !network, !virtual, !ohai, !facter.  Note that a few facts are always collected.  Use the filter parameter if you do not want to display those.
         attribute :gather_subset

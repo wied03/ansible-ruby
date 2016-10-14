@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Creates (empty) files, updates file modification stamps of existing files, and can create or remove directories. Unlike M(file), does not modify ownership, permissions or manipulate links.
       class Win_file < Base
         # @return [Object] path to the file being managed.  Aliases: I(dest), I(name)
         attribute :path

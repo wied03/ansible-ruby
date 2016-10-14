@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Enables or disables RabbitMQ plugins
       class Rabbitmq_plugin < Base
         # @return [String] Comma-separated list of plugin names
         attribute :names

@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # This module uses rabbitMQ Rest API to create/delete queues
       class Rabbitmq_queue < Base
         # @return [String] Name of the queue to create
         attribute :name

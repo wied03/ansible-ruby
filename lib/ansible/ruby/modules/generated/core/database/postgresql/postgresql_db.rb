@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Add or remove PostgreSQL databases from a remote host.
       class Postgresql_db < Base
         # @return [String] name of the database to add or remove
         attribute :name

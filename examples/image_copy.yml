@@ -13,3 +13,8 @@
       tags:
         type: ansible
         test: '2'
+    register: result_1
+  - name: foobar
+    debug:
+      msg: say hello
+    when: "'stuff' in result_1.stdout"

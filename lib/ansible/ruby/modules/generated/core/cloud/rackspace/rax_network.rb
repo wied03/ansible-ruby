@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # creates / deletes a Rackspace Public Cloud isolated network.
       class Rax_network < Base
         # @return [:present, :absent, nil] Indicate desired state of the resource
         attribute :state

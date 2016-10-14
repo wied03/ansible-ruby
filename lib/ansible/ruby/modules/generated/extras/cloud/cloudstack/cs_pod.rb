@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Create, update, delete pods.
       class Cs_pod < Base
         # @return [String] Name of the pod.
         attribute :name

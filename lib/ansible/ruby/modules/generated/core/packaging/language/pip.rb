@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Manage Python library dependencies. To use this module, one of the following keys is required: C(name) or C(requirements).
       class Pip < Base
         # @return [String, nil] The name of a Python library to install or the url of the remote package.
         attribute :name

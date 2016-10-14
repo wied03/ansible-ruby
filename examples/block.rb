@@ -1,6 +1,7 @@
 play 'block fun' do
   local_host
 
+  # Compiles to an ansible 'include'
   ansible_include 'inclusion.yml' do
     variables howdy: 123
   end

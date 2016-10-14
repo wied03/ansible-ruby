@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Add or remove YUM repositories in RPM-based Linux distributions.
       class Yum_repository < Base
         # @return [:yes, :no, nil] If set to C(yes) Yum will download packages and metadata from this repo in parallel, if possible.
         attribute :async

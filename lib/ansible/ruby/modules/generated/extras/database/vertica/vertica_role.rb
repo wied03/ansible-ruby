@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Adds or removes Vertica database role and, optionally, assign other roles.
       class Vertica_role < Base
         # @return [String] Name of the role to add or remove.
         attribute :name

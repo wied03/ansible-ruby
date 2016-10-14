@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Manipulate Rackspace Cloud Block Storage Volume Attachments
       class Rax_cbs_attachments < Base
         # @return [Object] The device path to attach the volume to, e.g. /dev/xvde
         attribute :device

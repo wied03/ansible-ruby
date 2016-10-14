@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # creates / deletes a Rackspace Public Cloud queue.
       class Rax_queue < Base
         # @return [String, nil] Name to give the queue
         attribute :name

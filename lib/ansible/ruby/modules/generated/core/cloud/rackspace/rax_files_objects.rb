@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Upload, download, and delete objects in Rackspace Cloud Files
       class Rax_files_objects < Base
         # @return [:yes, :no, nil] Optionally clear existing metadata when applying metadata to existing objects. Selecting this option is only appropriate when setting type=meta
         attribute :clear_meta

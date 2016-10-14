@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # This module can create and destroy unformatted GCE persistent disks U(https://developers.google.com/compute/docs/disks#persistentdisks). It also supports attaching and detaching disks from running instances. Full install/configuration instructions for the gce* modules can be found in the comments of ansible/test/gce_tests.py.
       class Gce_pd < Base
         # @return [:yes, :no, nil] do not destroy the disk, merely detach it from an instance
         attribute :detach_only

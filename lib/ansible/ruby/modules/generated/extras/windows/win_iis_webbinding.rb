@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Creates, Removes and configures a binding to an existing IIS Web site
       class Win_iis_webbinding < Base
         # @return [String] Names of web site
         attribute :name

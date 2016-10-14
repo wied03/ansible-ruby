@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Creates or terminates azure instances. When created optionally waits for it to be 'running'.
       class Azure < Base
         # @return [String] name of the virtual machine and associated cloud service.
         attribute :name

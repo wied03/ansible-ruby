@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Manages packages with I(urpmi) (such as for Mageia or Mandriva)
       class Urpmi < Base
         # @return [Array<String>, String] name of package to install, upgrade or remove.
         attribute :pkg

@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # This module works like M(copy), but in reverse. It is used for fetching files from remote machines and storing them locally in a file tree, organized by hostname. Note that this module is written to transfer log files that might not be present, so a missing remote file won't be an error unless fail_on_missing is set to 'yes'.
       class Fetch < Base
         # @return [String] The file on the remote system to fetch. This I(must) be a file, not a directory. Recursive fetching may be supported in a later release.
         attribute :src

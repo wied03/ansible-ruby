@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Reads data out of lldpctl
       class Lldp < Base
 
       end

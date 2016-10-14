@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Add or Remove key pair from nova .
       class Nova_keypair < Base
         # @return [String] login username to authenticate to keystone
         attribute :login_username

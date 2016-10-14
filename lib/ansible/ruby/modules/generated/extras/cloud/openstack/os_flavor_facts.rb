@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Retrieve facts about available OpenStack instance flavors. By default, facts about ALL flavors are retrieved. Filters can be applied to get facts for only matching flavors. For example, you can filter on the amount of RAM available to the flavor, or the number of virtual CPUs available to the flavor, or both. When specifying multiple filters, *ALL* filters must match on a flavor before that flavor is returned as a fact.
       class Os_flavor_facts < Base
         # @return [String, nil] A flavor name. Cannot be used with I(ram) or I(vcpus).
         attribute :name

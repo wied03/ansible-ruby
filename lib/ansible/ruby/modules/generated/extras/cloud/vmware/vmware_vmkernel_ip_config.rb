@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Configure the VMkernel IP Address
       class Vmware_vmkernel_ip_config < Base
         # @return [String] VMkernel interface name
         attribute :vmk_name

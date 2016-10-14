@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Notify BigPanda when deployments start and end (successfully or not). Returns a deployment object containing all the parameters for future module calls.
       class Bigpanda < Base
         # @return [String] The name of the component being deployed. Ex: billing
         attribute :component

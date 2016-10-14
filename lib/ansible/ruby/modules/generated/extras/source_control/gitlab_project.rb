@@ -5,6 +5,9 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # When the project does not exists in Gitlab, it will be created.
+      # When the project does exists and state=absent, the project will be deleted.
+      # When changes are made to the project, the project will be updated.
       class Gitlab_project < Base
         # @return [String] Url of Gitlab server, with protocol (http or https).
         attribute :server_url

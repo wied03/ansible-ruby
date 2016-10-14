@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # The M(grove) module sends a message for a service to a Grove.io channel.
       class Grove < Base
         # @return [String] Token of the channel to post to.
         attribute :channel_token

@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Create or destroy Azure Resource Manager template deployments via the Azure SDK for Python. You can find some quick start templates in GitHub here https://github.com/azure/azure-quickstart-templates. For more information on Azue resource manager templates see https://azure.microsoft.com/en-us/documentation/articles/resource-group-template-deploy/.
       class Azure_rm_deployment < Base
         # @return [String] The resource group name to use or create to host the deployed template
         attribute :resource_group_name

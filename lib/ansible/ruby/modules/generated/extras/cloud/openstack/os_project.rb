@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Manage OpenStack Projects. Projects can be created, updated or deleted using this module. A project will be updated if I(name) matches an existing project and I(state) is present. The value for I(name) cannot be updated without deleting and re-creating the project.
       class Os_project < Base
         # @return [String] Name for the project
         attribute :name

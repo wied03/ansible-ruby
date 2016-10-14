@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Adds or removes a user from a MySQL database.
       class Mysql_user < Base
         # @return [String] name of the user (role) to add or remove
         attribute :name

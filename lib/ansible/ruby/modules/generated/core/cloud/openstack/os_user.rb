@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Manage OpenStack Identity users. Users can be created, updated or deleted using this module. A user will be updated if I(name) matches an existing user and I(state) is present. The value for I(name) cannot be updated without deleting and re-creating the user.
       class Os_user < Base
         # @return [String] Username for the user
         attribute :name

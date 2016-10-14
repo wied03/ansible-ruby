@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Searches, downloads, and installs Windows updates synchronously by automating the Windows Update client
       class Win_updates < Base
         # @return [:Application, :Connectors, :CriticalUpdates, :DefinitionUpdates, :DeveloperKits, :FeaturePacks, :Guidance, :SecurityUpdates, :ServicePacks, :Tools, :UpdateRollups, :Updates, nil] A scalar or list of categories to install updates from
         attribute :category_names

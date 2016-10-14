@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Allows for the management of server certificates
       class Iam_cert < Base
         # @return [String] Name of certificate to add, update or remove.
         attribute :name

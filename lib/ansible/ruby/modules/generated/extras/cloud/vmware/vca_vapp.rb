@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # This module will actively managed vCloud Air vApp instances.  Instances can be created and deleted as well as both deployed and undeployed.
       class Vca_vapp < Base
         # @return [String] The name of the vCloud Air vApp instance
         attribute :vapp_name

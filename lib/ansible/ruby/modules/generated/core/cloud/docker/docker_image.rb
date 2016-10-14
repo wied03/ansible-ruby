@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Build, load or pull an image, making the image available for creating containers. Also supports tagging an image into a repository and archiving an image to a .tar file.
       class Docker_image < Base
         # @return [String, nil] Use with state 'present' to archive an image to a .tar file.
         attribute :archive_path

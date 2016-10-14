@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Acquires and associates a public IP to an account or project. Due to API limitations this is not an idempotent call, so be sure to only conditionally call this when C(state=present)
       class Cs_ip_address < Base
         # @return [String, nil] Public IP address.,Required if C(state=absent)
         attribute :ip_address

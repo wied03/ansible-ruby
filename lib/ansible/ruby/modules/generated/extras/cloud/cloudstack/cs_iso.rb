@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Register and remove ISO images.
       class Cs_iso < Base
         # @return [String] Name of the ISO.
         attribute :name

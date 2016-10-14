@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Get facts for a specific public IP or all public IPs within a resource group.
       class Azure_rm_publicip_facts < Base
         # @return [String, nil] Only show results for a specific Public IP.
         attribute :name

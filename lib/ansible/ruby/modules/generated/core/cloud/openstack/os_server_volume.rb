@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Attach or Detach volumes from OpenStack VM's
       class Os_server_volume < Base
         # @return [:present, :absent, nil] Should the resource be present or absent.
         attribute :state

@@ -5,6 +5,8 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Use to enable or disable NXAPI access, set the port and state of http and https servers, and enable or disable the sandbox.
+      # When enabling NXAPI access the default is to enable HTTP on port 80, enable HTTPS on port 443, and enable the web based UI sandbox. Use the options below to override the default configuration.
       class Nxos_nxapi < Base
         # @return [:started, :stopped, nil] Set to started or stopped. A state of started will enable NXAPI access, and a state of stopped will disable or shutdown all NXAPI access.
         attribute :state

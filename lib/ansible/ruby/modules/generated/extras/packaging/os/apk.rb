@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Manages I(apk) packages for Alpine Linux.
       class Apk < Base
         # @return [Array<String>, String, nil] A package name, like C(foo), or mutliple packages, like C(foo, bar).
         attribute :name

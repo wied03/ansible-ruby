@@ -5,6 +5,8 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Grant or revoke privileges on PostgreSQL database objects.
+      # This module is basically a wrapper around most of the functionality of PostgreSQL's GRANT and REVOKE statements with detection of changes (GRANT/REVOKE I(privs) ON I(type) I(objs) TO/FROM I(roles))
       class Postgresql_privs < Base
         # @return [String] Name of database to connect to.,Alias: I(db)
         attribute :database

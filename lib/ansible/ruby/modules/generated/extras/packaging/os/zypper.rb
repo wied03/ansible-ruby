@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Manage packages on SUSE and openSUSE using the zypper and rpm tools.
       class Zypper < Base
         # @return [String] package name or package specifier with version C(name) or C(name-1.0). You can also pass a url or a local path to a rpm file.
         attribute :name

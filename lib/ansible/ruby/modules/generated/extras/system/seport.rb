@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Manages SELinux network port type definitions.
       class Seport < Base
         # @return [Array<String>, String] Ports or port ranges, separated by a comma
         attribute :ports

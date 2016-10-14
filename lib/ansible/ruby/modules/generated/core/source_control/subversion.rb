@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Deploy given repository URL / revision to dest. If dest exists, update to the specified revision, otherwise perform a checkout.
       class Subversion < Base
         # @return [String] The subversion URL to the repository.
         attribute :repo

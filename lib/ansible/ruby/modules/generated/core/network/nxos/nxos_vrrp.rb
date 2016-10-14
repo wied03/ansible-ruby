@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Manages VRRP configuration on NX-OS switches
       class Nxos_vrrp < Base
         # @return [String] vrrp group number
         attribute :group

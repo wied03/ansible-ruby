@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Verifies Rackspace Cloud credentials and returns identity information
       class Rax_identity < Base
         # @return [:present, :absent, nil] Indicate desired state of the resource
         attribute :state

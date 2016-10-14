@@ -8,17 +8,27 @@ module Ansible
   module Ruby
     module DslBuilders
       class Task < Unit
-        def initialize(name, context, temp_counter)
+        def initialize(name, context, temp_counter_inc)
           super()
           @name = name
           @context = context
           @module = nil
           @inclusion = nil
-          @temp_counter = temp_counter
+          # Until the variable is utilized, we don't know if 'register' should be set, the supplied lambda
+          name_fetcher = lambda do
+            name = "result_#{temp_counter_inc.call}"
+            @task_args[:register] = name
+            name
+          end
+          @register = Result.new name_fetcher
         end
 
         def no_log(value)
           @task_args[:no_log] = value
+        end
+
+        def connection(value)
+          @task_args[:connection] = value
         end
 
         def changed_when(clause)
@@ -58,12 +68,16 @@ module Ansible
           !@module || super
         end
 
+        def _register
+          @register
+        end
+
         # allow for other attributes besides the module in any order
         def _result
           args = {
-            module: @module,
             name: @name
           }.merge @task_args
+          args[:module] = @module if @module
           args[:inclusion] = @inclusion if @inclusion
           task = @context.new args
           # Quick feedback if the type is wrong, etc.
@@ -78,7 +92,10 @@ module Ansible
         private
 
         def _process_method(id, *args, &block)
-          _check_context if id == :ansible_include
+          if id == :ansible_include
+            @inclusion = _ansible_include(*args, &block)
+            return
+          end
           mcb = ModuleCall.new
           # only 1 module allowed per task, give a good error message
           if @module && mcb.respond_to?(id)
@@ -89,15 +106,9 @@ module Ansible
           @module = mcb._result
         end
 
-        def _check_context
-          raise "Can't call inclusion inside a handler(yet), only in plays/handlers" if @context == Models::Handler
-          raise "Can't call inclusion inside a task, only in plays/handlers"
-        end
-
         def method_missing_return(_id, _result, *_args)
-          # method_missing only used for modules here
-          # Keep our register variables unique
-          Result.new(@temp_counter, ->(name) { @task_args[:register] = name })
+          # Allow module call to return the register vsriable
+          @register
         end
       end
     end

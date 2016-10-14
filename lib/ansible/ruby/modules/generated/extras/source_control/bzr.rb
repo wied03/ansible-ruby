@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Manage I(bzr) branches to deploy files or software.
       class Bzr < Base
         # @return [String] SSH or HTTP protocol address of the parent branch.
         attribute :name

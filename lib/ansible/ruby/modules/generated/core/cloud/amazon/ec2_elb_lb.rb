@@ -5,6 +5,8 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Returns information about the load balancer.
+      # Will be marked changed when called only if state is changed.
       class Ec2_elb_lb < Base
         # @return [:present, :absent] Create or destroy the ELB
         attribute :state

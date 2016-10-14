@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Manages Windows services
       class Win_service < Base
         # @return [Object] Name of the service
         attribute :name

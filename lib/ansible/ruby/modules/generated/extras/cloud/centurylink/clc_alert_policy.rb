@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # An Ansible module to Create or Delete Alert Policies at CenturyLink Cloud.
       class Clc_alert_policy < Base
         # @return [Object] The alias of your CLC Account
         attribute :alias

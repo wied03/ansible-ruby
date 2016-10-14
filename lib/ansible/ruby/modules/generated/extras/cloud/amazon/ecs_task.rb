@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Creates or deletes instances of task definitions.
       class Ecs_task < Base
         # @return [:run, :start, :stop] Which task operation to execute
         attribute :operation

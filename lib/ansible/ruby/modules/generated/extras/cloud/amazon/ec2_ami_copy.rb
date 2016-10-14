@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Copies AMI from a source region to a destination region. This module has a dependency on python-boto >= 2.5
       class Ec2_ami_copy < Base
         # @return [String] the source region that AMI should be copied from
         attribute :source_region

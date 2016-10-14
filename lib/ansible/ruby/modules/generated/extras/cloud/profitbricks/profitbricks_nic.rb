@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # This module allows you to create or restore a volume snapshot. This module has a dependency on profitbricks >= 1.0.0
       class Profitbricks_nic < Base
         # @return [String] The datacenter in which to operate.
         attribute :datacenter

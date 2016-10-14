@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Creates or terminates ecs services.
       class Ecs_service < Base
         # @return [:present, :absent, :deleting] The desired state of the service
         attribute :state

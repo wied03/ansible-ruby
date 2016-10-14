@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # OpenSwitch configurations use a simple block indent file sytanx for segementing configuration into sections.  This module provides an implementation for working with ops configuration sections in a deterministic way.
       class Ops_config < Base
         # @return [Object] The ordered set of commands that should be configured in the section.  The commands must be the exact same commands as found in the device running-config.  Be sure to note the configuration command syntax as some commands are automatically modified by the device config parser.
         attribute :lines

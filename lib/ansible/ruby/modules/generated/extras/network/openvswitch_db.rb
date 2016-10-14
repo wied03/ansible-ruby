@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Set column values in record in database table.
       class Openvswitch_db < Base
         # @return [String] Identifies the table in the database.
         attribute :table

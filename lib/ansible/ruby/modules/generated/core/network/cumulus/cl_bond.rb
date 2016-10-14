@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Configures a bond interface on Cumulus Linux To configure a bridge port use the cl_bridge module. To configure any other type of interface use the cl_interface module. Follow the guidelines for bonding found in the Cumulus User Guide at http://docs.cumulusnetworks.com
       class Cl_bond < Base
         # @return [Object] name of the interface
         attribute :name

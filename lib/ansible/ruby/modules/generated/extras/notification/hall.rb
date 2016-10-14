@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # The M(hall) module connects to the U(https://hall.com) messaging API and allows you to deliver notication messages to rooms.
       class Hall < Base
         # @return [String] Room token provided to you by setting up the Ansible room integation on U(https://hall.com)
         attribute :room_token

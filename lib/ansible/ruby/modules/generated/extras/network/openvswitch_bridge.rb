@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Manage Open vSwitch bridges
       class Openvswitch_bridge < Base
         # @return [String] Name of bridge to manage
         attribute :bridge

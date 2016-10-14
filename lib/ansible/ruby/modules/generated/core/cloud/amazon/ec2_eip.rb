@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # This module associates AWS EC2 elastic IP addresses with instances
       class Ec2_eip < Base
         # @return [String, nil] The id of the device for the EIP. Can be an EC2 Instance id or Elastic Network Interface (ENI) id.
         attribute :device_id

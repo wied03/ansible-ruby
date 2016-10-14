@@ -5,6 +5,8 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # The Deploy Helper manages some of the steps common in deploying software. It creates a folder structure, manages a symlink for the current release and cleans up old releases.
+      # Running it with the C(state=query) or C(state=present) will return the C(deploy_helper) fact. C(project_path), whatever you set in the path parameter, C(current_path), the path to the symlink that points to the active release, C(releases_path), the path to the folder to keep releases in, C(shared_path), the path to the folder to keep shared resources in, C(unfinished_filename), the file to check for to recognize unfinished builds, C(previous_release), the release the 'current' symlink is pointing to, C(previous_release_path), the full path to the 'current' symlink target, C(new_release), either the 'release' parameter or a generated timestamp, C(new_release_path), the path to the new release folder (not created by the module).
       class Deploy_helper < Base
         # @return [String] the root path of the project. Alias I(dest). Returned in the C(deploy_helper.project_path) fact.
         attribute :path

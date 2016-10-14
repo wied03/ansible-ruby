@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Manage VMware vSphere Datacenters
       class Vmware_datacenter < Base
         # @return [String] The hostname or IP address of the vSphere vCenter API server
         attribute :hostname

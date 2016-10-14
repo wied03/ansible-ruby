@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Manages a Django application using the I(manage.py) application frontend to I(django-admin). With the I(virtualenv) parameter, all management commands will be executed by the given I(virtualenv) installation.
       class Django_manage < Base
         # @return [:cleanup, :collectstatic, :flush, :loaddata, :migrate, :runfcgi, :syncdb, :test, :validate] The name of the Django management command to run. Built in commands are cleanup, collectstatic, flush, loaddata, migrate, runfcgi, syncdb, test, and validate.,Other commands can be entered, but will fail if they're unknown to Django.  Other commands that may prompt for user input should be run with the I(--noinput) flag.
         attribute :command

@@ -3,11 +3,12 @@ require 'ansible-ruby'
 
 describe Ansible::Ruby::DslBuilders::Task do
   let(:context) { Ansible::Ruby::Models::Task }
-  let(:temp_counter) { 1 }
-  let(:builder) { Ansible::Ruby::DslBuilders::Task.new 'Copy something', context, temp_counter }
+  let(:temp_counter_fetcher) { -> { 1 } }
+  let(:builder) { Ansible::Ruby::DslBuilders::Task.new 'Copy something', context, temp_counter_fetcher }
 
   def evaluate
     builder.instance_eval ruby
+    @variable = builder._register
     builder._result
   end
 
@@ -32,6 +33,8 @@ describe Ansible::Ruby::DslBuilders::Task do
       end
       RUBY
     end
+
+    it { is_expected.to be_a Ansible::Ruby::Models::Task }
 
     describe 'task object' do
       it { is_expected.to be_a Ansible::Ruby::Models::Task }
@@ -70,26 +73,47 @@ describe Ansible::Ruby::DslBuilders::Task do
         RUBY
       end
 
-      subject { -> { evaluate } }
-
-      it { is_expected.to raise_error "Can't call inclusion inside a handler(yet), only in plays/handlers" }
+      it { is_expected.to be_a Ansible::Ruby::Models::Handler }
+      it do
+        is_expected.to have_attributes name: 'Copy something',
+                                       inclusion: be_a(Ansible::Ruby::Models::Inclusion)
+      end
     end
   end
 
-  context 'task inclusion attempt' do
-    let(:ruby) do
-      <<-RUBY
-        ansible_include 'something'
-        copy do
-          src '/file1.conf'
-          dest '/file2.conf'
-        end
-      RUBY
+  context 'includes' do
+    context 'inclusion only' do
+      let(:ruby) do
+        <<-RUBY
+          ansible_include 'foobar.yml'
+        RUBY
+      end
+
+      it do
+        is_expected.to have_attributes name: 'Copy something',
+                                       inclusion: be_a(Ansible::Ruby::Models::Inclusion)
+      end
+
+      it 'does not include th module key' do
+        expect(task.to_h.keys).to_not include :module
+      end
     end
 
-    subject { -> { evaluate } }
+    context 'include and module' do
+      let(:ruby) do
+        <<-RUBY
+              ansible_include 'something'
+              copy do
+                src '/file1.conf'
+                dest '/file2.conf'
+              end
+        RUBY
+      end
 
-    it { is_expected.to raise_error "Can't call inclusion inside a task, only in plays/handlers" }
+      subject { -> { evaluate } }
+
+      it { is_expected.to raise_error 'Validation failed: Module You must either use an include or a module but not both!' }
+    end
   end
 
   context 'jinja' do
@@ -116,7 +140,7 @@ describe Ansible::Ruby::DslBuilders::Task do
     end
 
     # We don't build name or tasks the same way as others
-    (Ansible::Ruby::Models::Task.instance_methods - Object.instance_methods - [:name=, :module=, :register=, :when=])
+    (Ansible::Ruby::Models::Task.instance_methods - Object.instance_methods - [:name=, :module=, :register=, :when=, :inclusion=])
       .select { |method| method.to_s.end_with?('=') }
       .map { |method| method.to_s[0..-2] }
       .each do |method|
@@ -161,7 +185,7 @@ describe Ansible::Ruby::DslBuilders::Task do
         RUBY
       end
 
-      it { is_expected.to raise_error "Invalid method/local variable `foobar'. Only valid options are [:no_log, :changed_when, :failed_when, :with_dict, :with_items, :async, :poll, :notify, :become, :become_user, :ansible_when, :ignore_errors, :jinja]" }
+      it { is_expected.to raise_error %r{Invalid method/local variable `foobar'. Only valid options are.*} }
     end
   end
 
@@ -178,7 +202,7 @@ describe Ansible::Ruby::DslBuilders::Task do
 
     subject { -> { evaluate } }
 
-    it { is_expected.to raise_error "Invalid module call `debug' since `copy' module has already been used in this task. Only valid options are [:no_log, :changed_when, :failed_when, :with_dict, :with_items, :async, :poll, :notify, :become, :become_user, :ansible_when, :ignore_errors, :jinja]" }
+    it { is_expected.to raise_error(/Invalid module call `debug' since `copy' module has already been used in this task. Only valid options are.*/) }
   end
 
   context 'loops' do
@@ -261,7 +285,7 @@ describe Ansible::Ruby::DslBuilders::Task do
 
     subject { -> { evaluate } }
 
-    it { is_expected.to raise_error "Validation failed: Module can't be blank" }
+    it { is_expected.to raise_error 'Validation failed: Module You must either use an include or a module but not both!' }
   end
 
   context 'implicit bool true' do
@@ -286,7 +310,7 @@ describe Ansible::Ruby::DslBuilders::Task do
   end
 
   context 'register' do
-    context 'changed when' do
+    context 'valid' do
       let(:ruby) do
         <<-RUBY
         atomic_result = copy do
@@ -304,64 +328,17 @@ describe Ansible::Ruby::DslBuilders::Task do
                                        changed_when: "'No upgrade available' not in result_1.stdout",
                                        module: be_a(Ansible::Ruby::Modules::Copy)
       end
-    end
 
-    context 'higher count' do
-      let(:temp_counter) { 42 }
-      let(:ruby) do
-        <<-RUBY
-              atomic_result = copy do
-                src '/file1.conf'
-                dest '/file2.conf'
-              end
-              changed_when "'No upgrade available' not in \#{atomic_result.stdout}"
-        RUBY
+      it 'returns a result that matches the register usage' do
+        expect(task.register).to eq 'result_1'
+        expect(@variable.something).to eq 'result_1.something'
       end
 
-      it do
-        is_expected.to have_attributes name: 'Copy something',
-                                       register: 'result_42',
-                                       changed_when: "'No upgrade available' not in result_42.stdout"
-      end
-    end
-
-    context 'other field' do
-      let(:ruby) do
-        <<-RUBY
-        atomic_result = copy do
-          src '/file1.conf'
-          dest '/file2.conf'
-        end
-        changed_when "'No upgrade available' not in \#{atomic_result.something_else}"
-        RUBY
-      end
-
-      it { is_expected.to be_a Ansible::Ruby::Models::Task }
-      it do
-        is_expected.to have_attributes name: 'Copy something',
-                                       register: 'result_1',
-                                       changed_when: "'No upgrade available' not in result_1.something_else",
-                                       module: be_a(Ansible::Ruby::Modules::Copy)
-      end
-    end
-
-    context 'other method' do
-      let(:ruby) do
-        <<-RUBY
-        atomic_result = copy do
-          src '/file1.conf'
-          dest '/file2.conf'
-        end
-        changed_when "'No upgrade available' not in \#{atomic_result.something_else(123, 'hello')}"
-        RUBY
-      end
-
-      it { is_expected.to be_a Ansible::Ruby::Models::Task }
-      it do
-        is_expected.to have_attributes name: 'Copy something',
-                                       register: 'result_1',
-                                       changed_when: "'No upgrade available' not in result_1.something_else(123, \"hello\")",
-                                       module: be_a(Ansible::Ruby::Modules::Copy)
+      it 'returns a result that matches the register usage regardless of order' do
+        # trigger execution
+        stuff = task
+        expect(@variable.something).to eq 'result_1.something'
+        expect(stuff.register).to eq 'result_1'
       end
     end
 
@@ -379,46 +356,6 @@ describe Ansible::Ruby::DslBuilders::Task do
       subject { -> { evaluate } }
 
       it { is_expected.to raise_error(%r{Invalid method/local variable `atomicc_result.*}) }
-    end
-
-    context 'failed when' do
-      let(:ruby) do
-        <<-RUBY
-        atomic_result = copy do
-          src '/file1.conf'
-          dest '/file2.conf'
-        end
-        failed_when "'No upgrade available' not in \#{atomic_result.stdout}"
-        RUBY
-      end
-
-      it { is_expected.to be_a Ansible::Ruby::Models::Task }
-      it do
-        is_expected.to have_attributes name: 'Copy something',
-                                       register: 'result_1',
-                                       failed_when: "'No upgrade available' not in result_1.stdout",
-                                       module: be_a(Ansible::Ruby::Modules::Copy)
-      end
-    end
-
-    context 'ansible_when' do
-      let(:ruby) do
-        <<-RUBY
-        atomic_result = copy do
-          src '/file1.conf'
-          dest '/file2.conf'
-        end
-        ansible_when "'No upgrade available' not in \#{atomic_result.stdout}"
-        RUBY
-      end
-
-      it { is_expected.to be_a Ansible::Ruby::Models::Task }
-      it do
-        is_expected.to have_attributes name: 'Copy something',
-                                       register: 'result_1',
-                                       when: "'No upgrade available' not in result_1.stdout",
-                                       module: be_a(Ansible::Ruby::Modules::Copy)
-      end
     end
   end
 end

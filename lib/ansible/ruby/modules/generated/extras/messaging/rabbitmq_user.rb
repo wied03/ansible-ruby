@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Add or remove users to RabbitMQ and assign permissions
       class Rabbitmq_user < Base
         # @return [String] Name of user to add
         attribute :user

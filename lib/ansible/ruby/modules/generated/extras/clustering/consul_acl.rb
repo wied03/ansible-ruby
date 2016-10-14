@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # allows the addition, modification and deletion of ACL keys and associated rules in a consul cluster via the agent. For more details on using and configuring ACLs, see https://www.consul.io/docs/internals/acl.html.
       class Consul_acl < Base
         # @return [String, nil] a management token is required to manipulate the acl lists
         attribute :mgmt_token

@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Add and remove domain from the list of permissive domain.
       class Selinux_permissive < Base
         # @return [Object] the domain that will be added or removed from the list of permissive domains
         attribute :domain

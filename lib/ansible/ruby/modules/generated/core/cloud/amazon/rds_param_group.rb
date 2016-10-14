@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Creates, modifies, and deletes RDS parameter groups. This module has a dependency on python-boto >= 2.5.
       class Rds_param_group < Base
         # @return [:present, :absent] Specifies whether the group should be present or absent.
         attribute :state

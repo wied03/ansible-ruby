@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Launches an AWS CloudFormation stack and waits for it complete.
       class Cloudformation < Base
         # @return [String] name of the cloudformation stack
         attribute :stack_name

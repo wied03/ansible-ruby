@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # This module provides user management for ejabberd servers
       class Ejabberd_user < Base
         # @return [String] the name of the user to manage
         attribute :username

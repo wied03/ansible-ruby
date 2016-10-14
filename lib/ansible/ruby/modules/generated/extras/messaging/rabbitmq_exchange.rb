@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # This module uses rabbitMQ Rest API to create/delete exchanges
       class Rabbitmq_exchange < Base
         # @return [String] Name of the exchange to create
         attribute :name

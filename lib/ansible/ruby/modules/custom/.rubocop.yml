@@ -4,3 +4,11 @@ Style/ClassAndModuleCamelCase:
 # kind of pointless here
 Style/Documentation:
   Enabled: false
+
+# gets in the way of pasting in generated code comments
+Metrics/LineLength:
+  Enabled: false
+
+Metrics/BlockLength:
+  Exclude:
+    - '**/*_spec.rb'

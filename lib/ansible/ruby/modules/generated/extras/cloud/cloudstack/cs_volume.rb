@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Create, destroy, attach, detach volumes.
       class Cs_volume < Base
         # @return [String] Name of the volume.,C(name) can only contain ASCII letters.
         attribute :name

@@ -5,6 +5,10 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Returns list of matching AMIs with AMI ID, along with other useful information
+      # Can search AMIs with different owners
+      # Can search by matching tag(s), by AMI name and/or other criteria
+      # Results can be sorted and sliced
       class Ec2_ami_find < Base
         # @return [Object] The AWS region to use.
         attribute :region

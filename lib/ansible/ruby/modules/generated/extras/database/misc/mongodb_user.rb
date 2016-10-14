@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Adds or removes a user from a MongoDB database.
       class Mongodb_user < Base
         # @return [String, nil] The username used to authenticate with
         attribute :login_user

@@ -5,6 +5,8 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Get DLL or EXE file build version
+      # change state alway be false
       class Win_file_version < Base
         # @return [String] File to get version(provide absolute path)
         attribute :path

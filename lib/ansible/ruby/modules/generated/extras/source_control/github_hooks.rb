@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Adds service hooks and removes service hooks that have an error status.
       class Github_hooks < Base
         # @return [String] Github username.
         attribute :user

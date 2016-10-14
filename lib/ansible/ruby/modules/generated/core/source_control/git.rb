@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Manage I(git) checkouts of repositories to deploy files or software.
       class Git < Base
         # @return [String] git, SSH, or HTTP(S) protocol address of the git repository.
         attribute :repo

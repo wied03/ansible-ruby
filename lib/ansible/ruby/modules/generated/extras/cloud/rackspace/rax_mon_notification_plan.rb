@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Create or delete a Rackspace Cloud Monitoring notification plan by associating existing rax_mon_notifications with severity levels. Rackspace monitoring module flow | rax_mon_entity -> rax_mon_check -> rax_mon_notification -> *rax_mon_notification_plan* -> rax_mon_alarm
       class Rax_mon_notification_plan < Base
         # @return [:present, :absent, nil] Ensure that the notification plan with this C(label) exists or does not exist.
         attribute :state

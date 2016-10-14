@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Configures a front panel, sub-interface, SVI, management or loopback port on a Cumulus Linux switch. For bridge ports use the cl_bridge module. For bond ports use the cl_bond module. When configuring bridge related features like the "vid" option, please follow the guidelines for configuring "vlan aware" bridging. For more details review the Layer2 Interface Guide at http://docs.cumulusnetworks.com
       class Cl_interface < Base
         # @return [Object] name of the interface
         attribute :name

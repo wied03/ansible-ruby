@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Tests reachability using ping from switch to a remote destination
       class Nxos_ping < Base
         # @return [String] IP address or hostname (resolvable by switch) of remote node
         attribute :dest

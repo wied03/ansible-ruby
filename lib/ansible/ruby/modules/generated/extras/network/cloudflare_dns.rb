@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Manages dns records via the Cloudflare API, see the docs: U(https://api.cloudflare.com/)
       class Cloudflare_dns < Base
         # @return [String] Account API token. You can obtain your API key from the bottom of the Cloudflare 'My Account' page, found here: U(https://www.cloudflare.com/a/account)
         attribute :account_api_token

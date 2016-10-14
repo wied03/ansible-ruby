@@ -5,6 +5,8 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # The M(junos_config) module provides an abstraction for working with the configuration running on remote devices.  It can perform operations that influence the configuration state.
+      # This module provides an implementation for configuring Juniper JUNOS devices.  The configuration statements must start with either `set` or `delete` and are compared against the current device configuration and only changes are pushed to the device.
       class Junos_config < Base
         # @return [Array<String>, String, nil] The path to the config source.  The source can be either a file with config or a template that will be merged during runtime.  By default the task will search for the source file in role or playbook root folder in templates directory.
         attribute :lines

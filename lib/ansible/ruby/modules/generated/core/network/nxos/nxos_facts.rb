@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Offers ability to extract facts from device
       class Nxos_facts < Base
 
       end

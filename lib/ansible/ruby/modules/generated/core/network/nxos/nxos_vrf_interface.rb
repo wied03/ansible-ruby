@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Manages interface specific VRF configuration
       class Nxos_vrf_interface < Base
         # @return [String] Name of VRF to be managed
         attribute :vrf

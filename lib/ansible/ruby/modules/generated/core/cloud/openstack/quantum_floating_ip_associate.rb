@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Associates or disassociates a specific floating IP with a particular instance
       class Quantum_floating_ip_associate < Base
         # @return [String] login username to authenticate to keystone
         attribute :login_username

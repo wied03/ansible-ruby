@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # This module provides an abstraction that enables and configures the netconf system service running on Junos devices.  This module can be used to easily enable the Netconf API. Netconf provides a programmatic interface for working with configuration and state resources as defined in RFC 6242.
       class Junos_netconf < Base
         # @return [Integer] This argument specifies the port the netconf service should listen on for SSH connections.  The default port as defined in RFC 6242 is 830.
         attribute :listens_on

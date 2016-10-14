@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Adds or removes nat rules from a gateway in a vca environment
       class Vca_nat < Base
         # @return [Boolean, nil] If set to true, it will delete all rules in the gateway that are not given as paramter to this module.
         attribute :purge_rules

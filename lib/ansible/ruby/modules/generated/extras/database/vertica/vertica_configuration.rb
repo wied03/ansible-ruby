@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Updates Vertica configuration parameters.
       class Vertica_configuration < Base
         # @return [String] Name of the parameter to update.
         attribute :name

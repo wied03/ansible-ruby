@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # maintains ec2 key pairs. This module has a dependency on python-boto >= 2.5
       class Ec2_key < Base
         # @return [String] Name of the key pair.
         attribute :name

@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Add, modify or remove Windows share and set share permissions.
       class Win_share < Base
         # @return [String] Share name
         attribute :name

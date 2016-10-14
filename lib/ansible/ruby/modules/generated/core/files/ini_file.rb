@@ -5,6 +5,8 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Manage (add, remove, change) individual settings in an INI-style file without having to manage the file as a whole with, say, M(template) or M(assemble). Adds missing sections if they don't exist.
+      # Before version 2.0, comments are discarded when the source file is read, and therefore will not show up in the destination file.
       class Ini_file < Base
         # @return [String] Path to the INI-style file; this file is created if required
         attribute :dest

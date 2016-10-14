@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Enable, disable, and set weights for HAProxy backend servers using socket commands.
       class Haproxy < Base
         # @return [String, nil] Name of the HAProxy backend pool.
         attribute :backend

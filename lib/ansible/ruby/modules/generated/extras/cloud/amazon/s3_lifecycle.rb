@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Manage s3 bucket lifecycle rules in AWS
       class S3_lifecycle < Base
         # @return [String] Name of the s3 bucket
         attribute :name

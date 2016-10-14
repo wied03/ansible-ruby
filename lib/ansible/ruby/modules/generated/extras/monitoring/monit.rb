@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Manage the state of a program monitored via I(Monit)
       class Monit < Base
         # @return [String] The name of the I(monit) program/process to manage
         attribute :name

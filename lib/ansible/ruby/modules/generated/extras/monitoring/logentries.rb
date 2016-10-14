@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Sends logs to LogEntries in realtime
       class Logentries < Base
         # @return [String] path to a log file
         attribute :path

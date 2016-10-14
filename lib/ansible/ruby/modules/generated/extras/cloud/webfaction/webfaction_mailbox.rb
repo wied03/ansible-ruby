@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Add or remove mailboxes on a Webfaction account. Further documentation at http://github.com/quentinsf/ansible-webfaction.
       class Webfaction_mailbox < Base
         # @return [String] The name of the mailbox
         attribute :mailbox_name

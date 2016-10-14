@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Create, delete, retrieve, and update znodes using ZooKeeper.
       class Znode < Base
         # @return [String] A list of ZooKeeper servers (format '[server]:[port]').
         attribute :hosts

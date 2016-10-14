@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Add or remove domains or subdomains on a Webfaction host. Further documentation at http://github.com/quentinsf/ansible-webfaction.
       class Webfaction_domain < Base
         # @return [String] The name of the domain
         attribute :name

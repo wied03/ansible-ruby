@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Adds or removes SSH authorized keys for particular user accounts
       class Authorized_key < Base
         # @return [String] The username on the remote host whose authorized_keys file will be modified
         attribute :user

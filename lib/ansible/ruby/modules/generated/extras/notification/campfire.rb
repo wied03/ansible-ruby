@@ -5,6 +5,8 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Send a message to Campfire.
+      # Messages with newlines will result in a "Paste" message being sent.
       class Campfire < Base
         # @return [String] The subscription name to use.
         attribute :subscription

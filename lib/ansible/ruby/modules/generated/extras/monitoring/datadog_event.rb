@@ -5,6 +5,8 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Allows to post events to DataDog (www.datadoghq.com) service.
+      # Uses http://docs.datadoghq.com/api/#events API.
       class Datadog_event < Base
         # @return [Object] Your DataDog API key.
         attribute :api_key

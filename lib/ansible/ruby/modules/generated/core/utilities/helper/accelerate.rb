@@ -5,6 +5,9 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # This modules launches an ephemeral I(accelerate) daemon on the remote node which Ansible can use to communicate with nodes at high speed.
+      # The daemon listens on a configurable port for a configurable amount of time.
+      # Fireball mode is AES encrypted
       class Accelerate < Base
         # @return [Integer, nil] TCP port for the socket connection
         attribute :port

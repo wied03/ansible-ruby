@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # An Ansible module to Create, Delete shared loadbalancers in CenturyLink Cloud.
       class Clc_loadbalancer < Base
         # @return [String] The name of the loadbalancer
         attribute :name

@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Adds or removes (rpm --import) a gpg key to your rpm database.
       class Rpm_key < Base
         # @return [String] Key that will be modified. Can be a url, a file, or a keyid if the key already exists in the database.
         attribute :key

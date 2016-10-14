@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Retrieve facts for a device using SNMP, the facts will be inserted to the ansible_facts key.
       class Snmp_facts < Base
         # @return [String] Set to target snmp server (normally {{inventory_hostname}})
         attribute :host

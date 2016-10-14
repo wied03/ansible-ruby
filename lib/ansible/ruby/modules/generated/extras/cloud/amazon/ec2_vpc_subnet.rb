@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Manage subnets in AWS virtual private clouds
       class Ec2_vpc_subnet < Base
         # @return [Object, nil] The availability zone for the subnet. Only required when state=present.
         attribute :az

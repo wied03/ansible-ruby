@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Add/remove subnet from a network
       class Quantum_subnet < Base
         # @return [String] login username to authenticate to keystone
         attribute :login_username

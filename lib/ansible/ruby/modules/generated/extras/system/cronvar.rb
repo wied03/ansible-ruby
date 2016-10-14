@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Use this module to manage crontab variables. This module allows you to create, update, or delete cron variable definitions.
       class Cronvar < Base
         # @return [String] Name of the crontab variable.
         attribute :name

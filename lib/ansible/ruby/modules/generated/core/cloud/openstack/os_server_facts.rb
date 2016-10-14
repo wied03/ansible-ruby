@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Retrieve facts about server instances from OpenStack.
       class Os_server_facts < Base
         # @return [String, nil] restrict results to servers with names matching this glob expression (e.g., C<web*>).
         attribute :server

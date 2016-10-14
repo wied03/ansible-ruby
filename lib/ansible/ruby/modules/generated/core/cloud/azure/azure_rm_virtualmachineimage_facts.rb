@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Get facts for virtual machine images.
       class Azure_rm_virtualmachineimage_facts < Base
         # @return [Object, nil] Only show results for a specific security group.
         attribute :name

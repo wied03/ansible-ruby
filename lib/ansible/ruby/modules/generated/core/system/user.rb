@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Manage user accounts and user attributes.
       class User < Base
         # @return [String] Name of the user to create, remove or modify.
         attribute :name

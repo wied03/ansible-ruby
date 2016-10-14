@@ -5,6 +5,8 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Create, register and remove SSH keys.
+      # If no key was found and no public key was provided and a new SSH private/public key pair will be created and the private key will be returned.
       class Cs_sshkeypair < Base
         # @return [String] Name of public key.
         attribute :name

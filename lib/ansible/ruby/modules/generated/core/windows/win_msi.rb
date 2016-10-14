@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Installs or uninstalls a Windows MSI file that is already located on the target server
       class Win_msi < Base
         # @return [String] File system path to the MSI file to install
         attribute :path

@@ -5,6 +5,8 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Manage cache clusters in Amazon Elasticache.
+      # Returns information about the specified cache cluster.
       class Elasticache < Base
         # @return [:present, :absent, :rebooted] C(absent) or C(present) are idempotent actions that will create or destroy a cache cluster as needed. C(rebooted) will reboot the cluster, resulting in a momentary outage.
         attribute :state

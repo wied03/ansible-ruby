@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # This module will insert/update/remove a block of multi-line text surrounded by customizable marker lines.
       class Blockinfile < Base
         # @return [String] The file to modify.
         attribute :dest

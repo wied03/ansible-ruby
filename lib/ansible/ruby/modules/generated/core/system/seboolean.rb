@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Toggles SELinux booleans.
       class Seboolean < Base
         # @return [String] Name of the boolean to configure
         attribute :name

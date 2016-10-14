@@ -5,6 +5,8 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Create or delete AWS SQS queues.
+      # Update attributes on existing queues.
       class Sqs_queue < Base
         # @return [:present, :absent, nil] Create or delete the queue
         attribute :state

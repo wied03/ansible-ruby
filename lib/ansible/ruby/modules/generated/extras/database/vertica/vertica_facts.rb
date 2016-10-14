@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Gathers Vertica database facts.
       class Vertica_facts < Base
         # @return [String, nil] Name of the cluster running the schema.
         attribute :cluster

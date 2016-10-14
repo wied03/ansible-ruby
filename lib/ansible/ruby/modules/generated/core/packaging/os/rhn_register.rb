@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Manage registration to the Red Hat Network.
       class Rhn_register < Base
         # @return [:present, :absent, nil] whether to register (C(present)), or unregister (C(absent)) a system
         attribute :state

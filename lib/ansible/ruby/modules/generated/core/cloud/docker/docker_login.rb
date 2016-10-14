@@ -5,6 +5,9 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Provides functionality similar to the "docker login" command.
+      # Authenticate with a docker registry and add the credentials to your local Docker config file. Adding the credentials to the config files allows future connections to the registry using tools such as Ansible's Docker modules, the Docker CLI and docker-py without needing to provide credentials.
+      # Running in check mode will perform the authentication without updating the config file.
       class Docker_login < Base
         # @return [String, nil] The registry URL.
         attribute :registry_url

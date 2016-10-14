@@ -5,6 +5,8 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Use this module to schedule a command or script file to run once in the future.
+      # All jobs are executed in the 'a' queue.
       class At < Base
         # @return [String, nil] A command to be executed in the future.
         attribute :command

@@ -5,6 +5,9 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Allows the addition, modification and deletion of key/value entries in a consul cluster via the agent. The entire contents of the record, including the indices, flags and session are returned as 'value'.
+      # If the key represents a prefix then Note that when a value is removed, the existing value if any is returned as part of the results.
+      # See http://www.consul.io/docs/agent/http.html#kv for more details.
       class Consul_kv < Base
         # @return [:present, :absent, :acquire, :release, nil] the action to take with the supplied key and value. If the state is 'present', the key contents will be set to the value supplied, 'changed' will be set to true only if the value was different to the current contents. The state 'absent' will remove the key/value pair, again 'changed' will be set to true only if the key actually existed prior to the removal. An attempt can be made to obtain or free the lock associated with a key/value pair with the states 'acquire' or 'release' respectively. a valid session must be supplied to make the attempt changed will be true if the attempt is successful, false otherwise.
         attribute :state

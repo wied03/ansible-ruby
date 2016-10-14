@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Create or delete a Rackspace Cloud Monitoring check associated with an existing rax_mon_entity. A check is a specific test or measurement that is performed, possibly from different monitoring zones, on the systems you monitor. Rackspace monitoring module flow | rax_mon_entity -> *rax_mon_check* -> rax_mon_notification -> rax_mon_notification_plan -> rax_mon_alarm
       class Rax_mon_check < Base
         # @return [:present, :absent, nil] Ensure that a check with this C(label) exists or does not exist.
         attribute :state

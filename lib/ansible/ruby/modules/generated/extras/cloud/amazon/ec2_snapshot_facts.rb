@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Gather facts about ec2 volume snapshots in AWS
       class Ec2_snapshot_facts < Base
         # @return [Object, nil] If you specify one or more snapshot IDs, only snapshots that have the specified IDs are returned.
         attribute :snapshot_ids

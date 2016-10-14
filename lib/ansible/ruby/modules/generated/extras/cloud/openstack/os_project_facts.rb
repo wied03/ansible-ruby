@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Retrieve facts about a one or more OpenStack projects
       class Os_project_facts < Base
         # @return [String] Name or ID of the project
         attribute :name

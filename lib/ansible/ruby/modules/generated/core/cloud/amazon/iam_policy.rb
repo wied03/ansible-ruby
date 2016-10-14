@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Allows uploading or removing IAM policies for IAM users, groups or roles.
       class Iam_policy < Base
         # @return [:user, :group, :role] Type of IAM resource
         attribute :iam_type

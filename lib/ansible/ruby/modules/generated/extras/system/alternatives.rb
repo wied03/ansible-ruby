@@ -5,6 +5,8 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Manages symbolic links using the 'update-alternatives' tool
+      # Useful when multiple programs are installed but provide similar functionality (e.g. different editors).
       class Alternatives < Base
         # @return [String] The generic name of the link.
         attribute :name

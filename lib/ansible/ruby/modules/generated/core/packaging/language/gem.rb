@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Manage installation and uninstallation of Ruby gems.
       class Gem < Base
         # @return [String] The name of the gem to be managed.
         attribute :name

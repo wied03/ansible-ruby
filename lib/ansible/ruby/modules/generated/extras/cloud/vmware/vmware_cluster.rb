@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Create VMware vSphere Cluster
       class Vmware_cluster < Base
         # @return [String] The name of the datacenter the cluster will be created in.
         attribute :datacenter_name

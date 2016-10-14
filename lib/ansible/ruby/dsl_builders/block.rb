@@ -7,21 +7,25 @@ module Ansible
       class Block < Unit
         def initialize
           super
-          @tasks = []
-          @temp_counter = 0
+          @task_builders = []
+          temp_counter = 0
+          @temp_counter_incrementer = lambda do
+            temp_counter += 1
+          end
         end
 
         def task(name, &block)
-          @temp_counter += 1
-          task_builder = Task.new name, Models::Task, @temp_counter
+          task_builder = Task.new name, Models::Task, @temp_counter_incrementer
           task_builder.instance_eval(&block)
-          @tasks << task_builder._result
+          @task_builders << task_builder
+          task_builder._register
         end
 
         # allow for other attributes besides the module in any order
         def _result
+          tasks = @task_builders.map(&:_result)
           args = {
-            tasks: @tasks
+            tasks: tasks
           }.merge @task_args
           block = Models::Block.new args
           block.validate!

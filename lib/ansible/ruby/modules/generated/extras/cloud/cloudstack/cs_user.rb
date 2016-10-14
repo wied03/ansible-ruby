@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Create, update, disable, lock, enable and remove users.
       class Cs_user < Base
         # @return [Object] Username of the user.
         attribute :username

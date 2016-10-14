@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # This module gets the status of an asynchronous task.
       class Async_status < Base
         # @return [Object] Job or task identifier
         attribute :jid

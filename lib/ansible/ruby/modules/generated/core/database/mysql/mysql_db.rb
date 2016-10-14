@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Add or remove MySQL databases from a remote host.
       class Mysql_db < Base
         # @return [String] name of the database to add or remove,name=all May only be provided if I(state) is C(dump) or C(import).,if name=all Works like --all-databases option for mysqldump (Added in 2.0)
         attribute :name

@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Installs or uninstalls a package
       class Win_package < Base
         # @return [String] Location of the package to be installed (either on file system, network share or url)
         attribute :path

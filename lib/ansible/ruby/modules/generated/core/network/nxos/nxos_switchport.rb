@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Manages Layer 2 interfaces
       class Nxos_switchport < Base
         # @return [String] Full name of the interface, i.e. Ethernet1/1
         attribute :interface

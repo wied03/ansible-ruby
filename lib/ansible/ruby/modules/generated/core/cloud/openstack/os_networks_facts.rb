@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Retrieve facts about one or more networks from OpenStack.
       class Os_networks_facts < Base
         # @return [String, nil] Name or ID of the Network
         attribute :name

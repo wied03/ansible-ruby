@@ -5,6 +5,8 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # allows you to create/delete/stop instances in Proxmox VE cluster
+      # Starting in Ansible 2.1, it automatically detects containerization type (lxc for PVE 4, openvz for older)
       class Proxmox < Base
         # @return [String] the host of the Proxmox VE cluster
         attribute :api_host

@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Migrates a virtual machine from a standard vswitch to distributed
       class Vmware_vm_vss_dvs_migrate < Base
         # @return [String] Name of the virtual machine to migrate to a dvSwitch
         attribute :vm_name

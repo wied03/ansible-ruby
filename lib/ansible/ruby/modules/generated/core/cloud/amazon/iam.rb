@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Allows for the management of IAM users, user API keys, groups, roles.
       class Iam < Base
         # @return [:user, :group, :role] Type of IAM resource
         attribute :iam_type

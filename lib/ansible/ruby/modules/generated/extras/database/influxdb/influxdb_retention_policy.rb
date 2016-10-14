@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Manage InfluxDB retention policies
       class Influxdb_retention_policy < Base
         # @return [String] The hostname or IP address on which InfluxDB server is listening
         attribute :hostname

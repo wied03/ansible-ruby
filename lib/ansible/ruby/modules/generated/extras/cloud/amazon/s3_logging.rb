@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Manage logging facility of an s3 bucket in AWS
       class S3_logging < Base
         # @return [String] Name of the s3 bucket.
         attribute :name

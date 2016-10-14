@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Sets machine time to the specified timezone, the module will check if the provided timezone is supported on the machine.
       class Win_timezone < Base
         # @return [Object] Timezone to set to.  Example Central Standard Time
         attribute :timezone

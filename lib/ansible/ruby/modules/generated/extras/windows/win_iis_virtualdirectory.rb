@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Creates, Removes and configures a virtual directory in IIS.
       class Win_iis_virtualdirectory < Base
         # @return [Object] The name of the virtual directory to create or remove
         attribute :name

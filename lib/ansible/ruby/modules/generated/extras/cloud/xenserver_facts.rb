@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Reads data out of XenAPI, can be used instead of multiple xe commands.
       class Xenserver_facts < Base
 
       end

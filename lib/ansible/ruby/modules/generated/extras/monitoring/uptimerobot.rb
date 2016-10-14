@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # This module will let you start and pause Uptime Robot Monitoring
       class Uptimerobot < Base
         # @return [:started, :paused] Define whether or not the monitor should be running or paused.
         attribute :state

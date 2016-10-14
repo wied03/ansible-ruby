@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # This module can install new and updated packages on remote devices running Junos.  The module will compare the specified package with the one running on the remote device and install the specified version if there is a mismatch
       class Junos_package < Base
         # @return [String] The O(src) argument specifies the path to the source package to be installed on the remote device in the advent of a version mismatch. The O(src) argument can be either a localized path or a full path to the package file to install
         attribute :src

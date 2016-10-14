@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Add or remove PostgreSQL extensions from a database.
       class Postgresql_ext < Base
         # @return [String] name of the extension to add or remove
         attribute :name

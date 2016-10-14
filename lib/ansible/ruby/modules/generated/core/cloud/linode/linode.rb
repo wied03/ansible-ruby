@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # creates / deletes a Linode Public Cloud instance and optionally waits for it to be 'running'.
       class Linode < Base
         # @return [:present, :active, :started, :absent, :deleted, :stopped, :restarted, nil] Indicate desired state of the resource
         attribute :state

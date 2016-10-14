@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Manage OpenStack Identity Groups. Groups can be created, deleted or updated. Only the I(description) value can be updated.
       class Os_group < Base
         # @return [String] Group name
         attribute :name

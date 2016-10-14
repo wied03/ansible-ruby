@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Create or terminates AWS virtual private clouds.  This module has a dependency on python-boto.
       class Ec2_vpc < Base
         # @return [Object, nil] The cidr block representing the VPC, e.g. 10.0.0.0/16, required when I(state) is 'present'.
         attribute :cidr_block

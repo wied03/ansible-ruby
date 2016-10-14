@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Creates and deletes Route53 private and public zones
       class Route53_zone < Base
         # @return [String] The DNS zone record (eg: foo.com.)
         attribute :zone

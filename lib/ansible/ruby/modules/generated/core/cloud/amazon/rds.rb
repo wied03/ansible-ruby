@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Creates, deletes, or modifies rds instances.  When creating an instance it can be either a new instance or a read-only replica of an existing instance. This module has a dependency on python-boto >= 2.5. The 'promote' command requires boto >= 2.18.0. Certain features such as tags rely on boto.rds2 (boto >= 2.26.0)
       class Rds < Base
         # @return [:create, :replicate, :delete, :facts, :modify, :promote, :snapshot, :reboot, :restore] Specifies the action to take. The 'reboot' option is available starting at version 2.0
         attribute :command

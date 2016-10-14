@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Manages OpenWrt packages
       class Opkg < Base
         # @return [Array<String>, String] name of package to install/remove
         attribute :name

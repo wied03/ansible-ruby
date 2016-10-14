@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # The M(slack) module sends notifications to U(http://slack.com) via the Incoming WebHook integration
       class Slack < Base
         # @return [String, nil] Slack (sub)domain for your environment without protocol. (i.e. C(future500.slack.com)) In 1.8 and beyond, this is deprecated and may be ignored.  See token documentation for information.
         attribute :domain

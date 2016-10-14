@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Manage I(libvirt) networks.
       class Virt_net < Base
         # @return [String] name of the network being managed. Note that network must be previously defined with xml.
         attribute :name

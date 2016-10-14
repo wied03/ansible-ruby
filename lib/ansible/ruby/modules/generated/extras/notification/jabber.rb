@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Send a message to jabber
       class Jabber < Base
         # @return [String] User as which to connect
         attribute :user

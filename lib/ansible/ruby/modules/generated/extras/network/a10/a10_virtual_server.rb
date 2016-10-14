@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Manage slb virtual server objects on A10 Networks devices via aXAPI
       class A10_virtual_server < Base
         # @return [String] hostname or ip of your A10 Networks device
         attribute :host

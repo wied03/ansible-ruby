@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Create, update or delete a network security group. A security group contains Access Control List (ACL) rules that allow or deny network traffic to subnets or individual network interfaces. A security group is created with a set of default security rules and an empty set of security rules. Shape traffic flow by adding rules to the empty set of security rules.
       class Azure_rm_securitygroup < Base
         # @return [Object, nil] The set of default rules automatically added to a security group at creation. In general default rules will not be modified. Modify rules to shape the flow of traffic to or from a subnet or NIC. See rules below for the makeup of a rule dict.
         attribute :default_rules

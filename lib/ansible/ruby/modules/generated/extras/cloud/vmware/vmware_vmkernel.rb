@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Create a VMware VMkernel Interface
       class Vmware_vmkernel < Base
         # @return [String] The name of the vswitch where to add the VMK interface
         attribute :vswitch_name

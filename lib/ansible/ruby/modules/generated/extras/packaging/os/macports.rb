@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Manages MacPorts packages
       class Macports < Base
         # @return [String] name of package to install/remove
         attribute :name

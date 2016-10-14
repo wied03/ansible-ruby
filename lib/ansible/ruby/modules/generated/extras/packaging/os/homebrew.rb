@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Manages Homebrew packages
       class Homebrew < Base
         # @return [Array<String>, String, nil] name of package to install/remove
         attribute :name

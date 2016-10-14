@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Adds or removes Red Hat software channels
       class Rhn_channel < Base
         # @return [String] name of the software channel
         attribute :name

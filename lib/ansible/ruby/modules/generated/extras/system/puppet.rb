@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Runs I(puppet) agent or apply in a reliable manner
       class Puppet < Base
         # @return [String, nil] How long to wait for I(puppet) to finish.
         attribute :timeout

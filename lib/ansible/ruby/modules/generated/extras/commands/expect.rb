@@ -5,6 +5,8 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # The M(expect) module executes a command and responds to prompts
+      # The given command will be executed on all selected nodes. It will not be processed through the shell, so variables like C($HOME) and operations like C("<"), C(">"), C("|"), and C("&") will not work
       class Expect < Base
         # @return [String] the command module takes command to run.
         attribute :command

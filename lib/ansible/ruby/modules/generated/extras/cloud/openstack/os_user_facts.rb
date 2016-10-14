@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Retrieve facts about a one or more OpenStack users
       class Os_user_facts < Base
         # @return [String] Name or ID of the user
         attribute :name

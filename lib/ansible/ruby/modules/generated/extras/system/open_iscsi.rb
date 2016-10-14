@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Discover targets on given portal, (dis)connect targets, mark targets to manually or auto start, return device nodes of connected targets.
       class Open_iscsi < Base
         # @return [String, nil] the ip address of the iscsi target
         attribute :portal

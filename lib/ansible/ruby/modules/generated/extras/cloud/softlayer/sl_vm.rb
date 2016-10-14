@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Creates or cancels SoftLayer instances. When created, optionally waits for it to be 'running'.
       class Sl_vm < Base
         # @return [Object, nil] Instance Id of the virtual instance to perform action option
         attribute :instance_id

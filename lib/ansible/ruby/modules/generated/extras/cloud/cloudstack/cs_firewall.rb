@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Creates and removes firewall rules.
       class Cs_firewall < Base
         # @return [String, nil] Public IP address the ingress rule is assigned to.,Required if C(type=ingress).
         attribute :ip_address

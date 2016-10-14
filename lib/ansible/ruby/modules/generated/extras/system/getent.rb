@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Runs getent against one of it's various databases and returns information into the host's facts, in a getent_<database> prefixed variable
       class Getent < Base
         # @return [String] the name of a getent database supported by the target system (passwd, group, hosts, etc).
         attribute :database

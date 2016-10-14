@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Create or Remove cinder block storage volumes
       class Os_volume < Base
         # @return [Object, nil] Size of volume in GB. This parameter is required when the I(state) parameter is 'present'.
         attribute :size

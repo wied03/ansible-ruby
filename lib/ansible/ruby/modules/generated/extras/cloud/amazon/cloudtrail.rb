@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Creates or deletes CloudTrail configuration. Ensures logging is also enabled.
       class Cloudtrail < Base
         # @return [:enabled, :disabled] add or remove CloudTrail configuration.
         attribute :state

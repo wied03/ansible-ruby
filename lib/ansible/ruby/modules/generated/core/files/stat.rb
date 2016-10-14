@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Retrieves facts for a file similar to the linux/unix 'stat' command.
       class Stat < Base
         # @return [String] The full path of the file/object to get the facts of
         attribute :path

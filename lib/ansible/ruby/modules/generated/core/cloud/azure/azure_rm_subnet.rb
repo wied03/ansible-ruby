@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Create, update or delete a subnet within a given virtual network. Allows setting and updating the address prefix CIDR, which must be valid within the context of the virtual network. Use the azure_rm_networkinterface module to associate interfaces with the subnet and assign specific IP addresses.
       class Azure_rm_subnet < Base
         # @return [String] Name of resource group.
         attribute :resource_group

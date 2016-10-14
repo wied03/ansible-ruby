@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Create, update or delete a storage account.
       class Azure_rm_storageaccount < Base
         # @return [String] Name of the resource group to use.
         attribute :resource_group

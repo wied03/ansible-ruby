@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Add or remove Zypper repositories on SUSE and openSUSE
       class Zypper_repository < Base
         # @return [String, nil] A name for the repository. Not required when adding repofiles.
         attribute :name

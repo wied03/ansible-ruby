@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # An Ansible module to modify servers in CenturyLink Cloud.
       class Clc_modify_server < Base
         # @return [Array<String>, String] A list of server Ids to modify.
         attribute :server_ids

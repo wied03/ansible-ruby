@@ -5,6 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
+      # Add or Remove rule from an existing security group
       class Os_security_group_rule < Base
         # @return [String] Name or ID of the security group
         attribute :security_group
