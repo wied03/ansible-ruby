@@ -152,7 +152,8 @@ ansible_mod.autoload(:Unarchive, 'ansible/ruby/modules/generated/core/files/unar
 ansible_mod.autoload(:Xattr, 'ansible/ruby/modules/generated/core/files/xattr')
 ansible_mod.autoload(:Add_host, 'ansible/ruby/modules/generated/core/inventory/add_host')
 ansible_mod.autoload(:Group_by, 'ansible/ruby/modules/generated/core/inventory/group_by')
-ansible_mod.autoload(:Get_url, 'ansible/ruby/modules/generated/core/network/basics/get_url')
+# Using custom module
+ansible_mod.autoload(:Get_url, 'ansible/ruby/modules/custom/network/basics/get_url')
 ansible_mod.autoload(:Slurp, 'ansible/ruby/modules/generated/core/network/basics/slurp')
 ansible_mod.autoload(:Uri, 'ansible/ruby/modules/generated/core/network/basics/uri')
 ansible_mod.autoload(:Cl_bond, 'ansible/ruby/modules/generated/core/network/cumulus/cl_bond')

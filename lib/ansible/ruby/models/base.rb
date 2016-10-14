@@ -17,6 +17,8 @@ module Ansible
 
         class << self
           def remove_existing_validations(attr)
+            options = attr_option(attr)
+            options.clear
             _validators.delete attr
             callbacks = send(:get_callbacks, :validate)
             for_this_att = callbacks.select do |callback|
