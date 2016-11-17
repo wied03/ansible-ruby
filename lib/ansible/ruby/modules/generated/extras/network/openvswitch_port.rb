@@ -15,6 +15,10 @@ module Ansible
         attribute :port
         validates :port, presence: true, type: String
 
+        # @return [String, nil] VLAN tag for this port
+        attribute :tag
+        validates :tag, type: String
+
         # @return [:present, :absent, nil] Whether the port should exist
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true

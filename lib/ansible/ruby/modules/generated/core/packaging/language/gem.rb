@@ -33,6 +33,10 @@ module Ansible
         # @return [Object, nil] Override the path to the gem executable
         attribute :executable
 
+        # @return [String, nil] Rewrite the shebang line on installed scripts to use /usr/bin/env.
+        attribute :env_shebang
+        validates :env_shebang, type: String
+
         # @return [String, nil] Version of the gem to be installed/removed.
         attribute :version
         validates :version, type: String

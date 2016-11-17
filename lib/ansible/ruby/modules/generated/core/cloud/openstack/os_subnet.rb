@@ -11,7 +11,7 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [String, nil] Name of the network to which the subnet should be attached,requried when I(state) is 'present'
+        # @return [String, nil] Name of the network to which the subnet should be attached,Required when I(state) is 'present'
         attribute :network_name
         validates :network_name, type: String
 
@@ -33,6 +33,10 @@ module Ansible
 
         # @return [Object, nil] The ip that would be assigned to the gateway for this subnet
         attribute :gateway_ip
+
+        # @return [Boolean, nil] The gateway IP would not be assigned for this subnet
+        attribute :no_gateway_ip
+        validates :no_gateway_ip, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Array<String>, String, nil] List of DNS nameservers for this subnet.
         attribute :dns_nameservers

@@ -19,6 +19,9 @@ module Ansible
         attribute :vm_guest_ip
         validates :vm_guest_ip, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
+        # @return [Object, nil] Network the IP address is related to.
+        attribute :network
+
         # @return [:present, :absent, nil] State of the static NAT.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true

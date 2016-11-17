@@ -39,6 +39,10 @@ module Ansible
         # @return [String, nil] The json dict policy to attach to queue
         attribute :policy
         validates :policy, type: String
+
+        # @return [Hash, nil] json dict with the redrive_policy (see example)
+        attribute :redrive_policy
+        validates :redrive_policy, type: Hash
       end
     end
   end

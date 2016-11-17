@@ -32,6 +32,14 @@ module Ansible
         # @return [Object, nil] Path to svn executable to use. If not supplied, the normal mechanism for resolving binary paths will be used.
         attribute :executable
 
+        # @return [:yes, :no, nil] If no, do not check out the repository if it does not exist locally
+        attribute :checkout
+        validates :checkout, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+
+        # @return [:yes, :no, nil] If no, do not retrieve new revisions from the origin repository
+        attribute :update
+        validates :update, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+
         # @return [:yes, :no, nil] If C(yes), do export instead of checkout/update.
         attribute :export
         validates :export, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true

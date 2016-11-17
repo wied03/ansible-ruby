@@ -7,7 +7,7 @@ module Ansible
     module Modules
       # Create or terminate AWS virtual private clouds.  This module has a dependency on python-boto.
       class Ec2_vpc_net < Base
-        # @return [String] The name to give your VPC. This is used in combination with the cidr_block paramater to determine if a VPC already exists.
+        # @return [String] The name to give your VPC. This is used in combination with the cidr_block parameter to determine if a VPC already exists.
         attribute :name
         validates :name, presence: true, type: String
 

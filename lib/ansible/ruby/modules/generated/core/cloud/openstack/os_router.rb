@@ -27,6 +27,10 @@ module Ansible
         attribute :network
         validates :network, type: String
 
+        # @return [String, nil] Unique name or ID of the project.
+        attribute :project
+        validates :project, type: String
+
         # @return [Array<Hash>, Hash, nil] The IP address parameters for the external gateway network. Each is a dictionary with the subnet name or ID (subnet) and the IP address to assign on the subnet (ip). If no IP is specified, one is automatically assigned from that subnet.
         attribute :external_fixed_ips
         validates :external_fixed_ips, type: TypeGeneric.new(Hash)

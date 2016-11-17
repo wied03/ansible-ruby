@@ -27,6 +27,10 @@ module Ansible
         attribute :state
         validates :state, presence: true, inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}
 
+        # @return [Boolean, nil] Fail whenever trying to enable/disable a backend host that does not exist
+        attribute :fail_on_not_found
+        validates :fail_on_not_found, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+
         # @return [Boolean, nil] Wait until the server reports a status of 'UP' when `state=enabled`, or status of 'MAINT' when `state=disabled`.
         attribute :wait
         validates :wait, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true

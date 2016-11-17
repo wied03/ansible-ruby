@@ -7,22 +7,6 @@ module Ansible
     module Modules
       # Manages F5 BIG-IP LTM tcp monitors via iControl SOAP API
       class Bigip_monitor_tcp < Base
-        # @return [String] BIG-IP host
-        attribute :server
-        validates :server, presence: true, type: String
-
-        # @return [String] BIG-IP username
-        attribute :user
-        validates :user, presence: true, type: String
-
-        # @return [String] BIG-IP password
-        attribute :password
-        validates :password, presence: true, type: String
-
-        # @return [:yes, :no, nil] If C(no), SSL certificates will not be validated. This should only be used on personally controlled sites.  Prior to 2.0, this module would always validate on python >= 2.7.9 and never validate on python <= 2.7.8
-        attribute :validate_certs
-        validates :validate_certs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
-
         # @return [:present, :absent, nil] Monitor state
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
@@ -59,7 +43,7 @@ module Ansible
         attribute :ip
         validates :ip, type: String
 
-        # @return [String, nil] port address part op the ipport definition. The default API setting is 0.
+        # @return [String, nil] Port address part op the ipport definition. The default API setting is 0.
         attribute :port
         validates :port, type: String
 

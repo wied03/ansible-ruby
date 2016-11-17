@@ -8,9 +8,9 @@ module Ansible
       # Can create or delete AWS Autoscaling Groups
       # Works with the ec2_lc module to manage Launch Configurations
       class Ec2_asg < Base
-        # @return [:present, :absent] register or deregister the instance
+        # @return [:present, :absent, nil] register or deregister the instance
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
+        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String] Unique name for group to be created or deleted
         attribute :name
@@ -52,7 +52,7 @@ module Ansible
         attribute :replace_instances
         validates :replace_instances, type: TypeGeneric.new(String)
 
-        # @return [Boolean, nil] Check to make sure instances that are being replaced with replace_instances do not aready have the current launch_config.
+        # @return [Boolean, nil] Check to make sure instances that are being replaced with replace_instances do not already have the current launch_config.
         attribute :lc_check
         validates :lc_check, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
@@ -76,7 +76,7 @@ module Ansible
         attribute :default_cooldown
         validates :default_cooldown, type: String
 
-        # @return [Integer, nil] how long before wait instances to become viable when replaced.  Used in concjunction with instance_ids option.
+        # @return [Integer, nil] how long before wait instances to become viable when replaced.  Used in conjunction with instance_ids option.
         attribute :wait_timeout
         validates :wait_timeout, type: Integer
 
@@ -84,9 +84,16 @@ module Ansible
         attribute :wait_for_instances
         validates :wait_for_instances, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
-        # @return [:OldestInstance, :NewestInstance, :OldestLaunchConfiguration, :ClosestToNextInstanceHour, :Default, nil] An ordered list of criteria used for selecting instances to be removed from the Auto Scaling group when reducing capacity.,For 'Default', when used to create a new autoscaling group, the "Default" value is used. When used to change an existent autoscaling group, the current termination policies are mantained
+        # @return [:OldestInstance, :NewestInstance, :OldestLaunchConfiguration, :ClosestToNextInstanceHour, :Default, nil] An ordered list of criteria used for selecting instances to be removed from the Auto Scaling group when reducing capacity.,For 'Default', when used to create a new autoscaling group, the "Default"i value is used. When used to change an existent autoscaling group, the current termination policies are maintained.
         attribute :termination_policies
         validates :termination_policies, inclusion: {:in=>[:OldestInstance, :NewestInstance, :OldestLaunchConfiguration, :ClosestToNextInstanceHour, :Default], :message=>"%{value} needs to be :OldestInstance, :NewestInstance, :OldestLaunchConfiguration, :ClosestToNextInstanceHour, :Default"}, allow_nil: true
+
+        # @return [Object, nil] A SNS topic ARN to send auto scaling notifications to.
+        attribute :notification_topic
+
+        # @return [String, nil] A list of auto scaling events to trigger notifications on.
+        attribute :notification_types
+        validates :notification_types, type: String
       end
     end
   end

@@ -5,7 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
-      # Manage s3 buckets in AWS
+      # Manage S3 buckets in AWS, Ceph, Walrus and FakeS3
       class S3_bucket < Base
         # @return [Boolean, nil] When trying to delete a bucket, delete all keys in the bucket first (an s3 bucket must be empty for a successful deletion)
         attribute :force
@@ -19,8 +19,13 @@ module Ansible
         attribute :policy
         validates :policy, type: String
 
-        # @return [Object, nil] S3 URL endpoint for usage with Eucalypus, fakes3, etc.  Otherwise assumes AWS
+        # @return [String, nil] S3 URL endpoint for usage with Ceph, Eucalypus, fakes3, etc. Otherwise assumes AWS
         attribute :s3_url
+        validates :s3_url, type: String
+
+        # @return [Boolean, nil] Enable API compatibility with Ceph. It takes into account the S3 API subset working with Ceph in order to provide the same module behaviour where possible.
+        attribute :ceph
+        validates :ceph, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Boolean, nil] With Requester Pays buckets, the requester instead of the bucket owner pays the cost of the request and the data download from the bucket.
         attribute :requester_pays
@@ -34,9 +39,9 @@ module Ansible
         attribute :tags
         validates :tags, type: Hash
 
-        # @return [Boolean, nil] Whether versioning is enabled or disabled (note that once versioning is enabled, it can only be suspended)
+        # @return [:yes, :no, nil] Whether versioning is enabled or disabled (note that once versioning is enabled, it can only be suspended)
         attribute :versioning
-        validates :versioning, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :versioning, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

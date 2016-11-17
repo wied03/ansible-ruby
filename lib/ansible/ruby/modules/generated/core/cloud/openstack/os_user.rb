@@ -11,7 +11,7 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [String, nil] Password for the user,Required when I(state) is present
+        # @return [String, nil] Password for the user
         attribute :password
         validates :password, type: String
 

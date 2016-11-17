@@ -51,7 +51,7 @@ module Ansible
         attribute :encoding
         validates :encoding, type: String
 
-        # @return [:windows, :unix, nil] Specifies the line separator style to use for the modified file. This defaults to the windows line separator (\r\n). Note that the indicated line separator will be used for file output regardless of the original line seperator that appears in the input file.
+        # @return [:windows, :unix, nil] Specifies the line separator style to use for the modified file. This defaults to the windows line separator (\r\n). Note that the indicated line separator will be used for file output regardless of the original line separator that appears in the input file.
         attribute :newline
         validates :newline, inclusion: {:in=>[:windows, :unix], :message=>"%{value} needs to be :windows, :unix"}, allow_nil: true
       end

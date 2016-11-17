@@ -44,7 +44,7 @@ module Ansible
         attribute :template_url
         validates :template_url, type: String
 
-        # @return [:json, :yaml, nil] For local templates, allows specification of json or yaml format
+        # @return [:json, :yaml, nil] (deprecated) For local templates, allows specification of json or yaml format. Templates are now passed raw to CloudFormation regardless of format. This parameter is ignored since Ansible 2.2.
         attribute :template_format
         validates :template_format, inclusion: {:in=>[:json, :yaml], :message=>"%{value} needs to be :json, :yaml"}, allow_nil: true
       end

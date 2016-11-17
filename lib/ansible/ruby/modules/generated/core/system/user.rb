@@ -82,9 +82,9 @@ module Ansible
         attribute :generate_ssh_key
         validates :generate_ssh_key, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [Integer, nil] Optionally specify number of bits in SSH key to create.
+        # @return [String, nil] Optionally specify number of bits in SSH key to create.
         attribute :ssh_key_bits
-        validates :ssh_key_bits, type: Integer
+        validates :ssh_key_bits, type: String
 
         # @return [String, nil] Optionally specify the type of SSH key to generate. Available SSH key types will depend on implementation present on target host.
         attribute :ssh_key_type

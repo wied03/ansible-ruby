@@ -28,6 +28,12 @@ module Ansible
         # @return [Object, nil] Stripe count for volume
         attribute :stripes
 
+        # @return [Object, nil] Disperse count for volume
+        attribute :disperses
+
+        # @return [Object, nil] Redundancy count for volume
+        attribute :redundancies
+
         # @return [:tcp, :rdma, :"tcp,rdma", nil] Transport type for volume
         attribute :transport
         validates :transport, inclusion: {:in=>[:tcp, :rdma, :"tcp,rdma"], :message=>"%{value} needs to be :tcp, :rdma, :\"tcp,rdma\""}, allow_nil: true

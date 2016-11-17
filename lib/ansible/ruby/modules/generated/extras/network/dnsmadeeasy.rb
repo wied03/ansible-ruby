@@ -5,13 +5,13 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
-      # Manages DNS records via the v2 REST API of the DNS Made Easy service.  It handles records only; there is no manipulation of domains or monitor/account support yet. See: U(http://www.dnsmadeeasy.com/services/rest-api/)
+      # Manages DNS records via the v2 REST API of the DNS Made Easy service.  It handles records only; there is no manipulation of domains or monitor/account support yet. See: U(https://www.dnsmadeeasy.com/integration/restapi/)
       class Dnsmadeeasy < Base
-        # @return [String] Accout API Key.
+        # @return [String] Account API Key.
         attribute :account_key
         validates :account_key, presence: true, type: String
 
-        # @return [String] Accout Secret Key.
+        # @return [String] Account Secret Key.
         attribute :account_secret
         validates :account_secret, presence: true, type: String
 

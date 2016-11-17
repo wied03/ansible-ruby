@@ -7,22 +7,6 @@ module Ansible
     module Modules
       # Manages F5 BIG-IP LTM nodes via iControl SOAP API
       class Bigip_node < Base
-        # @return [Object] BIG-IP host
-        attribute :server
-        validates :server, presence: true
-
-        # @return [Object] BIG-IP username
-        attribute :user
-        validates :user, presence: true
-
-        # @return [Object] BIG-IP password
-        attribute :password
-        validates :password, presence: true
-
-        # @return [:yes, :no, nil] If C(no), SSL certificates will not be validated. This should only be used on personally controlled sites.  Prior to 2.0, this module would always validate on python >= 2.7.9 and never validate on python <= 2.7.8
-        attribute :validate_certs
-        validates :validate_certs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
-
         # @return [:present, :absent] Pool member state
         attribute :state
         validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
@@ -43,12 +27,24 @@ module Ansible
         attribute :name
         validates :name, type: String
 
-        # @return [Object] Node IP. Required when state=present and node does not exist. Error when state=absent.
-        attribute :host
-        validates :host, presence: true
+        # @return [:and_list, :m_of_n, nil] Monitor rule type when monitors > 1
+        attribute :monitor_type
+        validates :monitor_type, inclusion: {:in=>[:and_list, :m_of_n], :message=>"%{value} needs to be :and_list, :m_of_n"}, allow_nil: true
 
-        # @return [Object, nil] Node description.
+        # @return [Object, nil] Monitor quorum value when monitor_type is m_of_n
+        attribute :quorum
+
+        # @return [Array<String>, String, nil] Monitor template name list. Always use the full path to the monitor.
+        attribute :monitors
+        validates :monitors, type: TypeGeneric.new(String)
+
+        # @return [String] Node IP. Required when state=present and node does not exist. Error when state=absent.
+        attribute :host
+        validates :host, presence: true, type: String
+
+        # @return [String, nil] Node description.
         attribute :description
+        validates :description, type: String
       end
     end
   end

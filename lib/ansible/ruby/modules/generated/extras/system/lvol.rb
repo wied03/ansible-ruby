@@ -19,9 +19,13 @@ module Ansible
         attribute :size
         validates :size, type: String
 
-        # @return [:present, :absent, nil] Control if the logical volume exists. If C(present) the C(size) option is required.
+        # @return [:present, :absent, nil] Control if the logical volume exists. If C(present) and the volume does not already exist then the C(size) option is required.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+
+        # @return [:yes, :no, nil] Whether the volume is activate and visible to the host.
+        attribute :active
+        validates :active, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:yes, :no, nil] Shrink or remove operations of volumes requires this switch. Ensures that that filesystems get never corrupted/destroyed by mistake.
         attribute :force
@@ -34,6 +38,14 @@ module Ansible
         # @return [String, nil] The name of the snapshot volume
         attribute :snapshot
         validates :snapshot, type: String
+
+        # @return [Array<String>, String, nil] Comma separated list of physical volumes e.g. /dev/sda,/dev/sdb
+        attribute :pvs
+        validates :pvs, type: TypeGeneric.new(String)
+
+        # @return [Boolean, nil] shrink if current size is higher than size requested
+        attribute :shrink
+        validates :shrink, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
       end
     end
   end

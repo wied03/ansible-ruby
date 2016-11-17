@@ -28,8 +28,8 @@ module Ansible
         validates :disable_gpg_check, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:yes, :no, nil] Enable autorefresh of the repository.
-        attribute :refresh
-        validates :refresh, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        attribute :autorefresh
+        validates :autorefresh, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] Set priority of repository. Packages will always be installed from the repository with the smallest priority number.,Needs zypper version >= 1.12.25.
         attribute :priority
@@ -37,6 +37,18 @@ module Ansible
         # @return [:yes, :no, nil] Overwrite multiple repository entries, if repositories with both name and URL already exist.
         attribute :overwrite_multiple
         validates :overwrite_multiple, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+
+        # @return [:yes, :no, nil] Automatically import the gpg signing key of the new or changed repository.,Has an effect only if state is I(present). Has no effect on existing (unchanged) repositories or in combination with I(absent).,Implies runrefresh.
+        attribute :auto_import_keys
+        validates :auto_import_keys, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+
+        # @return [:yes, :no, nil] Refresh the package list of the given repository.,Can be used with repo=* to refresh all repositories.
+        attribute :runrefresh
+        validates :runrefresh, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+
+        # @return [:yes, :no, nil] Set repository to enabled (or disabled).
+        attribute :enabled
+        validates :enabled, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

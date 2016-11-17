@@ -27,14 +27,14 @@ module Ansible
         # @return [Object, nil] When C(state) is I(present) run I(docker-compose up) on a subset of services.
         attribute :services
 
-        # @return [Object, nil] When C(sate) is I(present) scale services. Provide a dictionary of key/value pairs where the key is the name of the service and the value is an integer count for the number of containers.
+        # @return [Object, nil] When C(state) is I(present) scale services. Provide a dictionary of key/value pairs where the key is the name of the service and the value is an integer count for the number of containers.
         attribute :scale
 
         # @return [Boolean, nil] When C(state) is I(present) specify whether or not to include linked services.
         attribute :dependencies
         validates :dependencies, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
-        # @return [Object, nil] Provide docker-compose yaml describing one or more services, networks and volumes.,Mutually exclusive with C(project_src) and C(project_files).
+        # @return [Object, nil] Provide docker-compose yaml describing one or more services, networks and volumes.,Mutually exclusive with C(project_src) and C(files).
         attribute :definition
 
         # @return [Boolean, nil] Whether or not to check the Docker daemon's hostname against the name provided in the client certificate.
@@ -45,9 +45,17 @@ module Ansible
         attribute :recreate
         validates :recreate, inclusion: {:in=>[:always, :never, :smart], :message=>"%{value} needs to be :always, :never, :smart"}, allow_nil: true
 
-        # @return [Boolean, nil] Whether or not to build images before starting containers.,Missing images will always be built.,If an image is present and C(build) is false, the image will not be built.,If an image is present and C(build) is true, the image will be built.
+        # @return [Boolean, nil] Use with state I(present) to always build images prior to starting the application.,Same as running docker-compose build with the pull option.,Images will only be rebuilt if Docker detects a change in the Dockerfile or build directory contents.,Use the C(nocache) option to ignore the image cache when performing the build.,If an existing image is replaced, services using the image will be recreated unless C(recreate) is I(never).
         attribute :build
         validates :build, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+
+        # @return [Boolean, nil] Use with state I(present) to always pull images prior to starting the application.,Same as running docker-compose pull.,When a new image is pulled, services using the image will be recreated unless C(recreate) is I(never).
+        attribute :pull
+        validates :pull, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+
+        # @return [Boolean, nil] Use with the build option to ignore the cache during the image build process.
+        attribute :nocache
+        validates :nocache, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Object, nil] Use with state I(absent) to remove the all images or only local images.
         attribute :remove_images

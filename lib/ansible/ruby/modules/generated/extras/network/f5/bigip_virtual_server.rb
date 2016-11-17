@@ -7,23 +7,7 @@ module Ansible
     module Modules
       # Manages F5 BIG-IP LTM virtual servers via iControl SOAP API
       class Bigip_virtual_server < Base
-        # @return [String] BIG-IP host
-        attribute :server
-        validates :server, presence: true, type: String
-
-        # @return [String] BIG-IP username
-        attribute :user
-        validates :user, presence: true, type: String
-
-        # @return [String] BIG-IP password
-        attribute :password
-        validates :password, presence: true, type: String
-
-        # @return [:yes, :no, nil] If C(no), SSL certificates will not be validated. This should only be used on personally controlled sites using self-signed certificates.
-        attribute :validate_certs
-        validates :validate_certs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
-
-        # @return [:present, :absent, :enabled, :disabled, nil] Virtual Server state,Absent, delete the VS if present,present (and its synonym enabled), create if needed the VS and set state to enabled,disabled, create if needed the VS and set state to disabled
+        # @return [:present, :absent, :enabled, :disabled, nil] Virtual Server state,Absent, delete the VS if present,C(present) (and its synonym enabled), create if needed the VS and set state to enabled,C(disabled), create if needed the VS and set state to disabled
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent, :enabled, :disabled], :message=>"%{value} needs to be :present, :absent, :enabled, :disabled"}, allow_nil: true
 
@@ -31,11 +15,11 @@ module Ansible
         attribute :partition
         validates :partition, type: String
 
-        # @return [String] Virtual server name.
+        # @return [String] Virtual server name
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [String] Destination IP of the virtual server (only host is currently supported) . Required when state=present and vs does not exist.
+        # @return [String] Destination IP of the virtual server (only host is currently supported). Required when state=present and vs does not exist.
         attribute :destination
         validates :destination, presence: true, type: String
 
@@ -46,6 +30,13 @@ module Ansible
         # @return [Array<String>, String, nil] List of all Profiles (HTTP,ClientSSL,ServerSSL,etc) that must be used by the virtual server
         attribute :all_profiles
         validates :all_profiles, type: TypeGeneric.new(String)
+
+        # @return [Object, nil] List of rules to be applied in priority order
+        attribute :all_rules
+
+        # @return [Array<String>, String, nil] List of vlans to be enabled. When a VLAN named C(ALL) is used, all VLANs will be allowed.
+        attribute :enabled_vlans
+        validates :enabled_vlans, type: TypeGeneric.new(String)
 
         # @return [String, nil] Default pool for the virtual server
         attribute :pool
@@ -58,7 +49,7 @@ module Ansible
         # @return [Object, nil] Default Profile which manages the session persistence
         attribute :default_persistence_profile
 
-        # @return [String, nil] Virtual server description.
+        # @return [String, nil] Virtual server description
         attribute :description
         validates :description, type: String
       end

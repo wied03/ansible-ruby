@@ -31,9 +31,9 @@ module Ansible
         attribute :arch
         validates :arch, inclusion: {:in=>[:i386, :amd64], :message=>"%{value} needs to be :i386, :amd64"}, allow_nil: true
 
-        # @return [:"ap-northeast-1", :"ap-southeast-1", :"ap-southeast-2", :"eu-central-1", :"eu-west-1", :"sa-east-1", :"us-east-1", :"us-west-1", :"us-west-2", :"us-gov-west-1", nil] EC2 region
+        # @return [:"ap-northeast-1", :"ap-southeast-1", :"ap-northeast-2", :"ap-southeast-2", :"eu-central-1", :"eu-west-1", :"sa-east-1", :"us-east-1", :"us-west-1", :"us-west-2", :"us-gov-west-1", nil] EC2 region
         attribute :region
-        validates :region, inclusion: {:in=>[:"ap-northeast-1", :"ap-southeast-1", :"ap-southeast-2", :"eu-central-1", :"eu-west-1", :"sa-east-1", :"us-east-1", :"us-west-1", :"us-west-2", :"us-gov-west-1"], :message=>"%{value} needs to be :\"ap-northeast-1\", :\"ap-southeast-1\", :\"ap-southeast-2\", :\"eu-central-1\", :\"eu-west-1\", :\"sa-east-1\", :\"us-east-1\", :\"us-west-1\", :\"us-west-2\", :\"us-gov-west-1\""}, allow_nil: true
+        validates :region, inclusion: {:in=>[:"ap-northeast-1", :"ap-southeast-1", :"ap-northeast-2", :"ap-southeast-2", :"eu-central-1", :"eu-west-1", :"sa-east-1", :"us-east-1", :"us-west-1", :"us-west-2", :"us-gov-west-1"], :message=>"%{value} needs to be :\"ap-northeast-1\", :\"ap-southeast-1\", :\"ap-northeast-2\", :\"ap-southeast-2\", :\"eu-central-1\", :\"eu-west-1\", :\"sa-east-1\", :\"us-east-1\", :\"us-west-1\", :\"us-west-2\", :\"us-gov-west-1\""}, allow_nil: true
 
         # @return [:paravirtual, :hvm, nil] virutalization type
         attribute :virt

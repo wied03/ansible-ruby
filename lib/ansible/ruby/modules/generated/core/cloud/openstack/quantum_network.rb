@@ -34,7 +34,7 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [String] Name to be assigned to the nework
+        # @return [String] Name to be assigned to the network
         attribute :name
         validates :name, presence: true, type: String
 

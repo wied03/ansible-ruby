@@ -95,6 +95,14 @@ module Ansible
         # @return [:present, :absent, nil] Should the resource be present or absent.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+
+        # @return [Boolean, nil] When I(state) is absent and this option is true, any floating IP associated with the instance will be deleted along with the instance.
+        attribute :delete_fip
+        validates :delete_fip, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+
+        # @return [Boolean, nil] When I(auto_ip) is true and this option is true, the I(auto_ip) code will attempt to re-use unassigned floating ips in the project before creating a new one. It is important to note that it is impossible to safely do this concurrently, so if your use case involves concurrent server creation, it is highly recommended to set this to false and to delete the floating ip associated with a server when the server is deleted using I(delete_fip).
+        attribute :reuse_ips
+        validates :reuse_ips, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
       end
     end
   end

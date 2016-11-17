@@ -11,9 +11,9 @@ module Ansible
         attribute :security_group
         validates :security_group, presence: true, type: String
 
-        # @return [:tcp, :udp, :icmp, :None, nil] IP protocol
+        # @return [:tcp, :udp, :icmp, 112, :None, nil] IP protocols TCP UDP ICMP 112 (VRRP)
         attribute :protocol
-        validates :protocol, inclusion: {:in=>[:tcp, :udp, :icmp, :None], :message=>"%{value} needs to be :tcp, :udp, :icmp, :None"}, allow_nil: true
+        validates :protocol, inclusion: {:in=>[:tcp, :udp, :icmp, 112, :None], :message=>"%{value} needs to be :tcp, :udp, :icmp, 112, :None"}, allow_nil: true
 
         # @return [Integer, nil] Starting port
         attribute :port_range_min
@@ -27,8 +27,9 @@ module Ansible
         attribute :remote_ip_prefix
         validates :remote_ip_prefix, type: String
 
-        # @return [Object, nil] Name or ID of the Security group to link (exclusive with remote_ip_prefix)
+        # @return [String, nil] Name or ID of the Security group to link (exclusive with remote_ip_prefix)
         attribute :remote_group
+        validates :remote_group, type: String
 
         # @return [:IPv4, :IPv6, nil] Must be IPv4 or IPv6, and addresses represented in CIDR must match the ingress or egress rules. Not all providers support IPv6.
         attribute :ethertype

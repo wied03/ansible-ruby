@@ -35,6 +35,14 @@ module Ansible
         # @return [Object, nil] Parameters to pass to the package
         attribute :params
 
+        # @return [Boolean, nil] Allow empty Checksums to be used
+        attribute :allow_empty_checksums
+        validates :allow_empty_checksums, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+
+        # @return [Boolean, nil] Ignore Checksums
+        attribute :ignore_checksums
+        validates :ignore_checksums, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+
         # @return [Boolean, nil] Ignore dependencies, only install/upgrade the package itself
         attribute :ignore_dependencies
         validates :ignore_dependencies, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true

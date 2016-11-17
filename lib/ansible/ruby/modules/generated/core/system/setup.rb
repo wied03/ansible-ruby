@@ -11,6 +11,10 @@ module Ansible
         attribute :gather_subset
         validates :gather_subset, type: String
 
+        # @return [Integer, nil] Set the default timeout in seconds for individual fact gathering
+        attribute :gather_timeout
+        validates :gather_timeout, type: Integer
+
         # @return [String, nil] if supplied, only return facts that match this shell-style (fnmatch) wildcard.
         attribute :filter
         validates :filter, type: String

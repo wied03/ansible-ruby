@@ -27,7 +27,7 @@ module Ansible
         attribute :username
         validates :username, type: String
 
-        # @return [String, nil] Url for the message sender's icon (default C(http://www.ansible.com/favicon.ico))
+        # @return [String, nil] Url for the message sender's icon (default C(https://www.ansible.com/favicon.ico))
         attribute :icon_url
         validates :icon_url, type: String
 

@@ -14,7 +14,11 @@ module Ansible
         # @return [Object, nil] List of capabilities to add to the container.
         attribute :capabilities
 
-        # @return [String, nil] Command or list of commands to execute in the container when it starts.
+        # @return [Boolean, nil] Use with I(detach) to remove the container after successful execution.
+        attribute :cleanup
+        validates :cleanup, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+
+        # @return [String, nil] Command to execute when the container starts.
         attribute :command
         validates :command, type: String
 
@@ -56,13 +60,13 @@ module Ansible
         # @return [Object, nil] Path to a file containing environment variables I(FOO=BAR).,If variable also present in C(env), then C(env) value will override.,Requires docker-py >= 1.4.0.
         attribute :env_file
 
-        # @return [Object, nil] String or list of commands that overwrite the default ENTRYPOINT of the image.
+        # @return [Object, nil] Command that overwrites the default ENTRYPOINT of the image.
         attribute :entrypoint
 
         # @return [Object, nil] Dict of host-to-IP mappings, where each host name is a key in the dictionary. Each host name will be added to the container's /etc/hosts file.
         attribute :etc_hosts
 
-        # @return [Array<Integer>, Integer, nil] List of additional container ports to expose for port mappings or links. If the port is already exposed using EXPOSE in a Dockerfile, it does not need to be xposed again.
+        # @return [Array<Integer>, Integer, nil] List of additional container ports which informs Docker that the container listens on the specified network ports at runtime. If the port is already exposed using EXPOSE in a Dockerfile, it does not need to be exposed again.
         attribute :exposed_ports
         validates :exposed_ports, type: TypeGeneric.new(Integer)
 
@@ -76,7 +80,7 @@ module Ansible
         # @return [Object, nil] Container hostname.
         attribute :hostname
 
-        # @return [Boolean, nil] When C(state) is I(present) or I(started) the module compares the configuration of an existing container to requested configuration. The evaluation includes the image version. If the image vesion in the registry does not match the container, the container will be recreated. Stop this behavior by setting C(ignore_image) to I(True).
+        # @return [Boolean, nil] When C(state) is I(present) or I(started) the module compares the configuration of an existing container to requested configuration. The evaluation includes the image version. If the image version in the registry does not match the container, the container will be recreated. Stop this behavior by setting C(ignore_image) to I(True).
         attribute :ignore_image
         validates :ignore_image, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
@@ -109,7 +113,7 @@ module Ansible
         attribute :links
         validates :links, type: TypeGeneric.new(String)
 
-        # @return [:"json-file", :syslog, :journald, :gelf, :fluentd, :awslogs, :splunk, nil] Specify the logging driver.
+        # @return [:"json-file", :syslog, :journald, :gelf, :fluentd, :awslogs, :splunk, nil] Specify the logging driver. Docker uses json-file by default.
         attribute :log_driver
         validates :log_driver, inclusion: {:in=>[:"json-file", :syslog, :journald, :gelf, :fluentd, :awslogs, :splunk], :message=>"%{value} needs to be :\"json-file\", :syslog, :journald, :gelf, :fluentd, :awslogs, :splunk"}, allow_nil: true
 
@@ -152,18 +156,22 @@ module Ansible
         attribute :oom_killer
         validates :oom_killer, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
+        # @return [Integer, nil] An integer value containing the score given to the container in order to tune OOM killer preferences.
+        attribute :oom_score_adj
+        validates :oom_score_adj, type: Integer
+
         # @return [Boolean, nil] Use with the started state to pause running processes inside the container.
         attribute :paused
         validates :paused, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
-        # @return [Object, nil] Set the PID namespace mode for the container. Currenly only supports 'host'.
+        # @return [Object, nil] Set the PID namespace mode for the container. Currently only supports 'host'.
         attribute :pid_mode
 
         # @return [Boolean, nil] Give extended privileges to the container.
         attribute :privileged
         validates :privileged, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
-        # @return [Object, nil] List of ports to publish from the container to the host.,Use docker CLI syntax: C(8000), C(9000:8000), or C(0.0.0.0:9000:8000), where 8000 is a container port, 9000 is a host port, and 0.0.0.0 is a host interface.,Container ports must be exposed either in the Dockerfile or via the C(expose) option.,A value of ALL will publish all exposed container ports to random host ports, ignoring any other mappings.
+        # @return [Object, nil] List of ports to publish from the container to the host.,Use docker CLI syntax: C(8000), C(9000:8000), or C(0.0.0.0:9000:8000), where 8000 is a container port, 9000 is a host port, and 0.0.0.0 is a host interface.,Container ports must be exposed either in the Dockerfile or via the C(expose) option.,A value of ALL will publish all exposed container ports to random host ports, ignoring any other mappings.,If C(networks) parameter is provided, will inspect each network to see if there exists a bridge network with optional parameter com.docker.network.bridge.host_binding_ipv4. If such a network is found, then published ports where no host IP address is specified will be bound to the host IP pointed to by com.docker.network.bridge.host_binding_ipv4. Note that the first bridge network with a com.docker.network.bridge.host_binding_ipv4 value encountered in the list of C(networks) is the one that will be used.
         attribute :published_ports
 
         # @return [Boolean, nil] If true, always pull the latest version of an image. Otherwise, will only pull an image when missing.
@@ -194,13 +202,13 @@ module Ansible
         attribute :restart_retries
         validates :restart_retries, type: Integer
 
-        # @return [Object, nil] Size of `/dev/shm`. The format is `<number><unit>`. `number` must be greater than `0`. Unit is optional and can be `b` (bytes), `k` (kilobytes), `m` (megabytes), or `g` (gigabytes).,Ommitting the unit defaults to bytes. If you omit the size entirely, the system uses `64m`.
+        # @return [Object, nil] Size of `/dev/shm`. The format is `<number><unit>`. `number` must be greater than `0`. Unit is optional and can be `b` (bytes), `k` (kilobytes), `m` (megabytes), or `g` (gigabytes).,Omitting the unit defaults to bytes. If you omit the size entirely, the system uses `64m`.
         attribute :shm_size
 
         # @return [Object, nil] List of security options in the form of C("label:user:User")
         attribute :security_opts
 
-        # @return [:absent, :present, :stopped, :started, nil] I(absent) - A container matching the specified name will be stopped and removed. Use force_kill to kill the container rather than stopping it. Use keep_volumes to retain volumes associated with the removed container.,I(present)" - Asserts the existence of a container matching the name and any provided configuration parameters. If no container matches the name, a container will be created. If a container matches the name but the provided configuration does not match, the container will be updated, if it can be. If it cannot be updated, it will be removed and re-created with the requested config. Image version will be taken into account when comparing configuration. To ignore image version use the ignore_image option. Use the recreate option to force the re-creation of the matching container. Use force_kill to kill the container rather than stopping it. Use keep_volumes to retain volumes associated with a removed container.,I(started) - Asserts there is a running container matching the name and any provided configuration. If no container matches the name, a container will be created and started. If a container matching the name is found but the configuration does not match, the container will be updated, if it can be. If it cannot be updated, it will be removed and a new container will be created with the requested configuration and started. Image version will be taken into account when comparing configuration. To ignore image version use the ignore_image option. Use recreate to always re-create a matching container, even if it is running. Use restart to force a matching container to be stopped and restarted. Use force_kill to kill a container rather than stopping it. Use keep_volumes to retain volumes associated with a removed container.,I(stopped) - Asserts that the container is first I(present), and then if the container is running moves it to a stopped state. Use force_kill to kill a container rather than stopping it.
+        # @return [:absent, :present, :stopped, :started, nil] I(absent) - A container matching the specified name will be stopped and removed. Use force_kill to kill the container rather than stopping it. Use keep_volumes to retain volumes associated with the removed container.,I(present) - Asserts the existence of a container matching the name and any provided configuration parameters. If no container matches the name, a container will be created. If a container matches the name but the provided configuration does not match, the container will be updated, if it can be. If it cannot be updated, it will be removed and re-created with the requested config. Image version will be taken into account when comparing configuration. To ignore image version use the ignore_image option. Use the recreate option to force the re-creation of the matching container. Use force_kill to kill the container rather than stopping it. Use keep_volumes to retain volumes associated with a removed container.,I(started) - Asserts there is a running container matching the name and any provided configuration. If no container matches the name, a container will be created and started. If a container matching the name is found but the configuration does not match, the container will be updated, if it can be. If it cannot be updated, it will be removed and a new container will be created with the requested configuration and started. Image version will be taken into account when comparing configuration. To ignore image version use the ignore_image option. Use recreate to always re-create a matching container, even if it is running. Use restart to force a matching container to be stopped and restarted. Use force_kill to kill a container rather than stopping it. Use keep_volumes to retain volumes associated with a removed container.,I(stopped) - Asserts that the container is first I(present), and then if the container is running moves it to a stopped state. Use force_kill to kill a container rather than stopping it.
         attribute :state
         validates :state, inclusion: {:in=>[:absent, :present, :stopped, :started], :message=>"%{value} needs to be :absent, :present, :stopped, :started"}, allow_nil: true
 
@@ -231,7 +239,7 @@ module Ansible
         attribute :volumes
         validates :volumes, type: TypeGeneric.new(String)
 
-        # @return [String, nil] The container's volume driver.
+        # @return [String, nil] The container volume driver.
         attribute :volume_driver
         validates :volume_driver, type: String
 

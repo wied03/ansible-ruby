@@ -27,9 +27,15 @@ module Ansible
         attribute :image
         validates :image, presence: true
 
-        # @return [String, nil] The disk type. Currently only HDD.
+        # @return [Object, nil] Password set for the administrative user.
+        attribute :image_password
+
+        # @return [Object, nil] Public SSH keys allowing access to the virtual machine.
+        attribute :ssh_keys
+
+        # @return [:HDD, :SSD, nil] The disk type of the volume.
         attribute :disk_type
-        validates :disk_type, type: String
+        validates :disk_type, inclusion: {:in=>[:HDD, :SSD], :message=>"%{value} needs to be :HDD, :SSD"}, allow_nil: true
 
         # @return [:LINUX, :WINDOWS, :UNKNOWN, :OTHER, nil] The licence type for the volume. This is used when the image is non-standard.
         attribute :licence_type

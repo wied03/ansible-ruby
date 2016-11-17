@@ -22,7 +22,7 @@ module Ansible
         attribute :password
         validates :password, type: String
 
-        # @return [String, nil] The body of the http request/response to the web service. If C(body_format) is set to 'json' it will take an already formated JSON string or convert a data structure into JSON.
+        # @return [String, nil] The body of the http request/response to the web service. If C(body_format) is set to 'json' it will take an already formatted JSON string or convert a data structure into JSON.
         attribute :body
         validates :body, type: String
 

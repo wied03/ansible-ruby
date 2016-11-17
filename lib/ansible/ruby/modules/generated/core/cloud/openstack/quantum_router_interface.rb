@@ -5,7 +5,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
-      # Attach/Dettach a subnet interface to a router, to provide a gateway for the subnet.
+      # Attach/Detach a subnet interface to a router, to provide a gateway for the subnet.
       class Quantum_router_interface < Base
         # @return [String] login username to authenticate to keystone
         attribute :login_username

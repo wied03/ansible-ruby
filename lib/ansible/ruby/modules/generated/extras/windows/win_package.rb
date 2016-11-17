@@ -5,19 +5,20 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
-      # Installs or uninstalls a package
+      # Installs or uninstalls a package.
+      # Optionally uses a product_id to check if the package needs installing. You can find product ids for installed programs in the windows registry either in C(HKLM:Software\\Microsoft\\Windows\CurrentVersion\\Uninstall) or for 32 bit programs C(HKLM:Software\\Wow6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall)
       class Win_package < Base
         # @return [String] Location of the package to be installed (either on file system, network share or url)
         attribute :path
         validates :path, presence: true, type: String
 
-        # @return [String, nil] name of the package. Just for logging reasons, will use the value of path if name isn't specified
+        # @return [String, nil] Name of the package, if name isn't specified the path will be used for log messages
         attribute :name
         validates :name, type: String
 
-        # @return [Object] product id of the installed package (used for checking if already installed)
+        # @return [String] product id of the installed package (used for checking if already installed),You can find product ids for installed programs in the windows registry either in C(HKLM:Software\\Microsoft\\Windows\CurrentVersion\\Uninstall) or for 32 bit programs C(HKLM:Software\\Wow6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall)'
         attribute :product_id
-        validates :product_id, presence: true
+        validates :product_id, presence: true, type: String
 
         # @return [Object, nil] Any arguments the installer needs
         attribute :arguments

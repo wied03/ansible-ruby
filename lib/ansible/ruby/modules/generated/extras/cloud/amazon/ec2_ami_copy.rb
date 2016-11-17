@@ -23,6 +23,14 @@ module Ansible
         attribute :description
         validates :description, type: String
 
+        # @return [Boolean, nil] Whether or not to encrypt the target image
+        attribute :encrypted
+        validates :encrypted, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+
+        # @return [String, nil] KMS key id used to encrypt image. If not specified, uses default EBS Customer Master Key (CMK) for your account.
+        attribute :kms_key_id
+        validates :kms_key_id, type: String
+
         # @return [:yes, :no, nil] wait for the copied AMI to be in state 'available' before returning.
         attribute :wait
         validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true

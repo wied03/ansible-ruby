@@ -18,6 +18,9 @@ module Ansible
         attribute :network
         validates :network, type: String
 
+        # @return [Object, nil] VPC the IP address is related to.
+        attribute :vpc
+
         # @return [Object, nil] Account the IP address is related to.
         attribute :account
 

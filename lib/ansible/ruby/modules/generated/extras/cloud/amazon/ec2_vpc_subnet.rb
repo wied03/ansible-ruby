@@ -10,7 +10,7 @@ module Ansible
         # @return [Object, nil] The availability zone for the subnet. Only required when state=present.
         attribute :az
 
-        # @return [String, nil] The CIDR block for the subnet. E.g. 10.0.0.0/16. Only required when state=present.
+        # @return [String, nil] The CIDR block for the subnet. E.g. 192.0.2.0/24. Only required when state=present.
         attribute :cidr
         validates :cidr, type: String
 

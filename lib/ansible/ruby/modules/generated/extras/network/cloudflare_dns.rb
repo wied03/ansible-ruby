@@ -47,7 +47,7 @@ module Ansible
         attribute :timeout
         validates :timeout, type: Integer
 
-        # @return [String, nil] The TTL to give the new record. Min 1 (automatic), max 2147483647
+        # @return [String, nil] The TTL to give the new record. Must be between 120 and 2,147,483,647 seconds, or 1 for automatic.
         attribute :ttl
         validates :ttl, type: String
 

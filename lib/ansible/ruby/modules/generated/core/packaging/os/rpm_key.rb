@@ -11,7 +11,7 @@ module Ansible
         attribute :key
         validates :key, presence: true, type: String
 
-        # @return [:present, :absent, nil] Wheather the key will be imported or removed from the rpm db.
+        # @return [:present, :absent, nil] If the key will be imported or removed from the rpm db.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 

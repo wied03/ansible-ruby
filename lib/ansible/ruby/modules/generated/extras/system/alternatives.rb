@@ -19,6 +19,10 @@ module Ansible
         # @return [String, nil] The path to the symbolic link that should point to the real executable.,This option is required on RHEL-based distributions
         attribute :link
         validates :link, type: String
+
+        # @return [Integer, nil] The priority of the alternative
+        attribute :priority
+        validates :priority, type: Integer
       end
     end
   end

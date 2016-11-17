@@ -15,7 +15,7 @@ module Ansible
         attribute :dest
         validates :dest, presence: true, type: String
 
-        # @return [String, nil] What version of the repository to check out.  This can be the full 40-character I(SHA-1) hash, the literal string C(HEAD), a branch name, or a tag name.
+        # @return [String, nil] What version of the repository to check out.  This can be the the literal string C(HEAD), a branch name, a tag name. It can also be a I(SHA-1) hash, in which case C(refspec) needs to be specified if the given revision is not already available.
         attribute :version
         validates :version, type: String
 
@@ -61,6 +61,9 @@ module Ansible
         # @return [:yes, :no, nil] if C(yes), repository will be created as a bare repo, otherwise it will be a standard repo with a workspace.
         attribute :bare
         validates :bare, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+
+        # @return [Object, nil] The umask to set before doing any checkouts, or any other repository maintenance.
+        attribute :umask
 
         # @return [:yes, :no, nil] if C(no), repository will be cloned without the --recursive option, skipping sub-modules.
         attribute :recursive

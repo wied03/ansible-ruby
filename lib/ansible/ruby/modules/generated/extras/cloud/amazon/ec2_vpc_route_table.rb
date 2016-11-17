@@ -17,9 +17,9 @@ module Ansible
         # @return [Object, nil] The ID of the route table to update or delete.
         attribute :route_table_id
 
-        # @return [Array<Hash>, Hash] List of routes in the route table. Routes are specified as dicts containing the keys 'dest' and one of 'gateway_id', 'instance_id', 'interface_id', or 'vpc_peering_connection_id'. If 'gateway_id' is specified, you can refer to the VPC's IGW by using the value 'igw'.
+        # @return [Array<Hash>, Hash, nil] List of routes in the route table. Routes are specified as dicts containing the keys 'dest' and one of 'gateway_id', 'instance_id', 'interface_id', or 'vpc_peering_connection_id'. If 'gateway_id' is specified, you can refer to the VPC's IGW by using the value 'igw'. Routes are required for present states.
         attribute :routes
-        validates :routes, presence: true, type: TypeGeneric.new(Hash)
+        validates :routes, type: TypeGeneric.new(Hash)
 
         # @return [:present, :absent, nil] Create or destroy the VPC route table
         attribute :state

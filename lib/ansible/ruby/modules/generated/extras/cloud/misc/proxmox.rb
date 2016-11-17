@@ -64,6 +64,10 @@ module Ansible
         attribute :netif
         validates :netif, type: String
 
+        # @return [Array<String>, String, nil] specifies additional mounts (separate disks) for the container
+        attribute :mounts
+        validates :mounts, type: TypeGeneric.new(String)
+
         # @return [Object, nil] specifies the address the container will be assigned
         attribute :ip_address
 

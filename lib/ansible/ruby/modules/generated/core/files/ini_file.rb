@@ -38,6 +38,10 @@ module Ansible
         # @return [Boolean, nil] do not insert spaces before and after '=' symbol
         attribute :no_extra_spaces
         validates :no_extra_spaces, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+
+        # @return [:yes, :no, nil] If specified, the file will be created if it does not already exist. By default it will fail if the file is missing.
+        attribute :create
+        validates :create, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

@@ -7,15 +7,15 @@ module Ansible
     module Modules
       # Add or remove an I(apt) key, optionally downloading it
       class Apt_key < Base
-        # @return [String, nil] identifier of key. Including this allows check mode to correctly report the changed state.
+        # @return [String, nil] identifier of key. Including this allows check mode to correctly report the changed state.,If specifying a subkey's id be aware that apt-key does not understand how to remove keys via a subkey id.  Specify the primary key's id instead.
         attribute :id
         validates :id, type: String
 
-        # @return [String, nil] keyfile contents
+        # @return [String, nil] keyfile contents to add to the keyring
         attribute :data
         validates :data, type: String
 
-        # @return [String, nil] keyfile path
+        # @return [String, nil] path to a keyfile to add to the keyring
         attribute :file
         validates :file, type: String
 
