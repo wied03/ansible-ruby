@@ -131,7 +131,9 @@ module Ansible
               # rds - non parseable defaults
               'default: 3306 for mysql, 1521 for Oracle, 1433 for SQL Server, 5432 for PostgreSQL.' => 'default: 5432',
               # datadog_monitor
-              'default: 2x timeframe for metric, 2 minutes for service' => 'default: 2'
+              'default: 2x timeframe for metric, 2 minutes for service' => 'default: 2',
+              # bad spacing
+              '   docker_image:' => '  docker_image:'
             }
             dirty_patterns.inject(yaml) do |fixed_yaml, find_replace|
               fixed_yaml.gsub find_replace[0], find_replace[1]
