@@ -15,9 +15,9 @@ module Ansible
         attribute :identifier
         validates :identifier, presence: true, type: String
 
-        # @return [:"dw1.xlarge", :"dw1.8xlarge", :"dw2.large", :"dw2.8xlarge", nil] The node type of the cluster. Must be specified when command=create.
+        # @return [:"ds1.xlarge", :"ds1.8xlarge", :"ds2.xlarge", :"ds2.8xlarge", :"dc1.large", :"dc1.8xlarge", :"dw1.xlarge", :"dw1.8xlarge", :"dw2.large", :"dw2.8xlarge", nil] The node type of the cluster. Must be specified when command=create.
         attribute :node_type
-        validates :node_type, inclusion: {:in=>[:"dw1.xlarge", :"dw1.8xlarge", :"dw2.large", :"dw2.8xlarge"], :message=>"%{value} needs to be :\"dw1.xlarge\", :\"dw1.8xlarge\", :\"dw2.large\", :\"dw2.8xlarge\""}, allow_nil: true
+        validates :node_type, inclusion: {:in=>[:"ds1.xlarge", :"ds1.8xlarge", :"ds2.xlarge", :"ds2.8xlarge", :"dc1.large", :"dc1.8xlarge", :"dw1.xlarge", :"dw1.8xlarge", :"dw2.large", :"dw2.8xlarge"], :message=>"%{value} needs to be :\"ds1.xlarge\", :\"ds1.8xlarge\", :\"ds2.xlarge\", :\"ds2.8xlarge\", :\"dc1.large\", :\"dc1.8xlarge\", :\"dw1.xlarge\", :\"dw1.8xlarge\", :\"dw2.large\", :\"dw2.8xlarge\""}, allow_nil: true
 
         # @return [String, nil] Master database username. Used only when command=create.
         attribute :username
@@ -65,14 +65,17 @@ module Ansible
         attribute :cluster_version
         validates :cluster_version, inclusion: {:in=>[1.0], :message=>"%{value} needs to be 1.0"}, allow_nil: true
 
-        # @return [Object, nil] flag to determinate if upgrade of version is possible
+        # @return [Boolean, nil] flag to determinate if upgrade of version is possible
         attribute :allow_version_upgrade
+        validates :allow_version_upgrade, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
-        # @return [Object, nil] if the cluster is accessible publicly or not
+        # @return [Boolean, nil] if the cluster is accessible publicly or not
         attribute :publicly_accessible
+        validates :publicly_accessible, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
-        # @return [Object, nil] if the cluster is encrypted or not
+        # @return [Boolean, nil] if the cluster is encrypted or not
         attribute :encrypted
+        validates :encrypted, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Object, nil] if the cluster has an elastic IP or not
         attribute :elastic_ip

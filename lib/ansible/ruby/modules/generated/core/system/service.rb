@@ -32,6 +32,10 @@ module Ansible
 
         # @return [Object, nil] Additional arguments provided on the command line
         attribute :arguments
+
+        # @return [String, nil] The service module actually uses system specific modules, normally through auto detection, this setting can force a specific module.,Normally it uses the value of the 'ansible_service_mgr' fact and falls back to the old 'service' module when none matching is found.
+        attribute :use
+        validates :use, type: String
       end
     end
   end

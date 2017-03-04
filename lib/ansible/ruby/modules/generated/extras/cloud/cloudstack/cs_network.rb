@@ -25,10 +25,10 @@ module Ansible
         # @return [Object, nil] The ending IPv4 address of the network belongs to.,If not specified, value of C(start_ip) is used.,Only considered on create.
         attribute :end_ip
 
-        # @return [Object, nil] The gateway of the network.,Required for shared networks and isolated networks when it belongs to VPC.,Only considered on create.
+        # @return [Object, nil] The gateway of the network.,Required for shared networks and isolated networks when it belongs to a VPC.,Only considered on create.
         attribute :gateway
 
-        # @return [Object, nil] The netmask of the network.,Required for shared networks and isolated networks when it belongs to VPC.,Only considered on create.
+        # @return [Object, nil] The netmask of the network.,Required for shared networks and isolated networks when it belongs to a VPC.,Only considered on create.
         attribute :netmask
 
         # @return [Object, nil] The beginning IPv6 address of the network belongs to.,Only considered on create.
@@ -46,10 +46,10 @@ module Ansible
         # @return [Object, nil] The ID or VID of the network.
         attribute :vlan
 
-        # @return [Object, nil] The ID or VID of the network.
+        # @return [Object, nil] Name of the VPC of the network.
         attribute :vpc
 
-        # @return [Object, nil] The isolated private vlan for this network.
+        # @return [Object, nil] The isolated private VLAN for this network.
         attribute :isolated_pvlan
 
         # @return [Boolean, nil] Cleanup old network elements.,Only considered on C(state=restarted).
