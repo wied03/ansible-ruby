@@ -133,7 +133,11 @@ module Ansible
               # datadog_monitor
               'default: 2x timeframe for metric, 2 minutes for service' => 'default: 2',
               # bad spacing
-              '   docker_image:' => '  docker_image:'
+              '   docker_image:' => '  docker_image:',
+              # bad spacing
+              '     dellos10_command:' => '    dellos10_command:',
+              # forgot : on key
+              'provider "{{ cli }}"' => 'provider: "{{ cli }}"'
             }
             dirty_patterns.inject(yaml) do |fixed_yaml, find_replace|
               fixed_yaml.gsub find_replace[0], find_replace[1]
