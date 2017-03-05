@@ -137,7 +137,9 @@ module Ansible
               # bad spacing
               '     dellos10_command:' => '    dellos10_command:',
               # forgot : on key
-              'provider "{{ cli }}"' => 'provider: "{{ cli }}"'
+              'provider "{{ cli }}"' => 'provider: "{{ cli }}"',
+              # Forgot 'tasks' list
+              /(?<=transport: cli).*- name:/m => "\ntasks:\n- name:"
             }
             dirty_patterns.inject(yaml) do |fixed_yaml, find_replace|
               fixed_yaml.gsub find_replace[0], find_replace[1]

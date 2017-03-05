@@ -1,0 +1,38 @@
+# See LICENSE.txt at root of repository
+# GENERATED FILE - DO NOT EDIT!!
+require 'ansible/ruby/modules/base'
+
+module Ansible
+  module Ruby
+    module Modules
+      # This module provides configuration file management of VyOS devices.  It provides arguments for managing both the configuration file and state of the active configuration.   All configuration statements are based on `set` and `delete` commands in the device configuration.
+      class Vyos_config < Base
+        # @return [Object, nil] The ordered set of configuration lines to be managed and compared with the existing configuration on the remote device.
+        attribute :lines
+
+        # @return [String, nil] The C(src) argument specifies the path to the source config file to load.  The source config file can either be in bracket format or set format.  The source file can include Jinja2 template variables.
+        attribute :src
+        validates :src, type: String
+
+        # @return [:line, :none, nil] The C(match) argument controls the method used to match against the current active configuration.  By default, the desired config is matched against the active config and the deltas are loaded.  If the C(match) argument is set to C(none) the active configuration is ignored and the configuration is always loaded.
+        attribute :match
+        validates :match, inclusion: {:in=>[:line, :none], :message=>"%{value} needs to be :line, :none"}, allow_nil: true
+
+        # @return [Boolean, nil] The C(backup) argument will backup the current devices active configuration to the Ansible control host prior to making any changes.  The backup file will be located in the backup folder in the root of the playbook
+        attribute :backup
+        validates :backup, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+
+        # @return [String, nil] Allows a commit description to be specified to be included when the configuration is committed.  If the configuration is not changed or committed, this argument is ignored.
+        attribute :comment
+        validates :comment, type: String
+
+        # @return [Object, nil] The C(config) argument specifies the base configuration to use to compare against the desired configuration.  If this value is not specified, the module will automatically retrieve the current active configuration from the remote device.
+        attribute :config
+
+        # @return [Boolean, nil] The C(save) argument controls whether or not changes made to the active configuration are saved to disk.  This is independent of committing the config.  When set to True, the active configuration is saved.
+        attribute :save
+        validates :save, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+      end
+    end
+  end
+end
