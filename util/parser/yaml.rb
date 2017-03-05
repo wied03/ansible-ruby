@@ -139,12 +139,15 @@ module Ansible
               # forgot : on key
               'provider "{{ cli }}"' => 'provider: "{{ cli }}"',
               # Forgot 'tasks' list
-              /(?<=transport: cli).*- name:/m => "\ntasks:\n- name:"
+              /(?<=transport: cli).*?- name: run show version on remote devices.*?eos_command/m => "\ntasks:\n- name: run show version on remote devices\n  eos_command",
+              # Spacing problem
+              '   eos_command:' => '  eos_command:'
             }
             dirty_patterns.inject(yaml) do |fixed_yaml, find_replace|
               fixed_yaml.gsub find_replace[0], find_replace[1]
             end
           end
+
           # rubocop:enable Metrics/MethodLength
 
           def fix_missing_hash_entry(yaml, module_name)
