@@ -108,8 +108,8 @@ module Ansible
           def values_by_key(example)
             example = example['tasks'] if example.is_a?(Hash) && example['tasks']
             first_cut = example.map { |ex| ex.reject { |key, _| key == 'name' } }
-                               .map { |ex| ex.map { |_, value| value } }
-                               .flatten
+                          .map { |ex| ex.map { |_, value| value } }
+                          .flatten
             array_of_hashes = first_cut.map do |value|
               if value.is_a?(String)
                 hash_equal_sign_pairs(value)
@@ -140,7 +140,23 @@ module Ansible
             types = values.map { |value| derive_type value }.uniq
             generic = types.find { |type| type.is_a?(TypeGeneric) }
             # No need to include generic and the generic's type
-            types.reject { |type| generic && generic.klasses.include?(type) }
+            without_type_outside = types.reject { |type| generic && generic.klasses.include?(type) }
+            collapse_generics without_type_outside
+          end
+
+          def collapse_generics(types)
+            grouped = Hash.new { |hash, key| hash[key] = [] }
+            types.each do |type|
+              if type.is_a?(TypeGeneric)
+                grouped[:generic] += type.klasses
+              else
+                grouped[:others] << type
+              end
+            end
+            generics = grouped[:generic]
+            others = grouped[:others]
+            others << TypeGeneric.new(*generics) if generics.any?
+            others
           end
 
           def derive_type(value)

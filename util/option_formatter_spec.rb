@@ -122,5 +122,17 @@ validates :the_attribute, type: TypeGeneric.new(Integer)
 RUBY
       end
     end
+
+    context 'array with multiple types' do
+      let(:types) { [TypeGeneric.new(String, Hash)] }
+
+      it do
+        is_expected.to eq <<RUBY
+# @return [Array<String>, String, nil] abc
+attribute :the_attribute
+validates :the_attribute, type: TypeGeneric.new(String, Hash)
+RUBY
+      end
+    end
   end
 end

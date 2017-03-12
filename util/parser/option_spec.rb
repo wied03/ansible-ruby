@@ -707,6 +707,32 @@ describe Ansible::Ruby::Parser::Option do
                                          types: [String]
         end
       end
+
+      context 'multiple types' do
+        let(:name) { 'lines' }
+        let(:example) do
+          [
+            {
+              'postgresql_db' => {
+                'lines' => ['howdy']
+              }
+            },
+            {
+              'postgresql_db' => {
+                'lines' => [{ hello: 'there' }]
+              }
+            }
+          ]
+        end
+
+        it do
+          is_expected.to have_attributes name: 'lines',
+                                         choices: nil,
+                                         types: [TypeGeneric]
+        end
+
+        it { is_expected.to have_type_generic String, Hash }
+      end
     end
   end
 end
