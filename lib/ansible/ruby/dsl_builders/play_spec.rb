@@ -229,7 +229,7 @@ describe Ansible::Ruby::DslBuilders::Play do
 
       subject { -> { evaluate } }
 
-      it { is_expected.to raise_error 'wrong number of arguments (0 for 1..3)' }
+      it { is_expected.to raise_error 'wrong number of arguments (given 0, expected 1..3)' }
     end
   end
 
@@ -299,7 +299,7 @@ describe Ansible::Ruby::DslBuilders::Play do
 
     subject { -> { evaluate } }
 
-    it { is_expected.to raise_error(%r{Invalid method/local variable `foobar'. Only valid options are \[:hosts.*}) }
+    it { is_expected.to raise_error(%r{Invalid method/local variable `foobar'. Only valid options are \[:ansible_include.*}) }
   end
 
   context 'other attributes' do
