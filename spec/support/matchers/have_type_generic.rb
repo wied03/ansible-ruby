@@ -7,8 +7,8 @@ RSpec::Matchers.define :have_type_generic do |*expected|
       @no_generics = true
       next false
     end
-    @matcher = eq(generic.klasses)
-    @matcher.matches? expected
+    @matcher = eq(expected)
+    @matcher.matches? generic.klasses
   end
 
   failure_message do |_|
