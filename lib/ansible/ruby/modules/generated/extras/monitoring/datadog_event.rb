@@ -12,6 +12,10 @@ module Ansible
         attribute :api_key
         validates :api_key, presence: true
 
+        # @return [Object] Your DataDog app key.
+        attribute :app_key
+        validates :app_key, presence: true
+
         # @return [Object] The event title.
         attribute :title
         validates :title, presence: true

@@ -7,8 +7,9 @@ module Ansible
     module Modules
       # This module provides configuration file management of VyOS devices.  It provides arguments for managing both the configuration file and state of the active configuration.   All configuration statements are based on `set` and `delete` commands in the device configuration.
       class Vyos_config < Base
-        # @return [Object, nil] The ordered set of configuration lines to be managed and compared with the existing configuration on the remote device.
+        # @return [Array<String>, String, nil] The ordered set of configuration lines to be managed and compared with the existing configuration on the remote device.
         attribute :lines
+        validates :lines, type: TypeGeneric.new(String)
 
         # @return [String, nil] The C(src) argument specifies the path to the source config file to load.  The source config file can either be in bracket format or set format.  The source file can include Jinja2 template variables.
         attribute :src

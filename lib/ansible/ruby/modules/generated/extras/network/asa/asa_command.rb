@@ -5,16 +5,14 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
-      # Sends arbitrary commands to an iosxr node and returns the results read from the device. This module includes an argument that will cause the module to wait for a specific condition before returning or timing out if the condition is not met.
-      # This module does not support running commands in configuration mode. Please use M(iosxr_config) to configure iosxr devices.
-      class Iosxr_command < Base
-        # @return [Array<String>, String] List of commands to send to the remote iosxr device over the configured provider. The resulting output from the command is returned. If the I(wait_for) argument is provided, the module is not returned until the condition is satisfied or the number of retries has expired.
+      # Sends arbitrary commands to an ASA node and returns the results read from the device. The M(asa_command) module includes an argument that will cause the module to wait for a specific condition before returning or timing out if the condition is not met.
+      class Asa_command < Base
+        # @return [Array<String>, String] List of commands to send to the remote device over the configured provider. The resulting output from the command is returned. If the I(wait_for) argument is provided, the module is not returned until the condition is satisfied or the number of retires as expired.
         attribute :commands
         validates :commands, presence: true, type: TypeGeneric.new(String)
 
-        # @return [Array<String>, String, nil] List of conditions to evaluate against the output of the command. The task will wait for each condition to be true before moving forward. If the conditional is not true within the configured number of retries, the task fails. See examples.
+        # @return [Object, nil] List of conditions to evaluate against the output of the command. The task will wait for each condition to be true before moving forward. If the conditional is not true within the configured number of retries, the task fails. See examples.
         attribute :wait_for
-        validates :wait_for, type: TypeGeneric.new(String)
 
         # @return [:any, :all, nil] The I(match) argument is used in conjunction with the I(wait_for) argument to specify the match policy.  Valid values are C(all) or C(any).  If the value is set to C(all) then all conditionals in the wait_for must be satisfied.  If the value is set to C(any) then only one of the values must be satisfied.
         attribute :match

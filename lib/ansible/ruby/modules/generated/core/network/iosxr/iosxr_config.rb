@@ -7,11 +7,13 @@ module Ansible
     module Modules
       # Cisco IOS XR configurations use a simple block indent file syntax for segmenting configuration into sections.  This module provides an implementation for working with IOS XR configuration sections in a deterministic way.
       class Iosxr_config < Base
-        # @return [Object, nil] The ordered set of commands that should be configured in the section.  The commands must be the exact same commands as found in the device running-config.  Be sure to note the configuration command syntax as some commands are automatically modified by the device config parser.
+        # @return [Array<String>, String, nil] The ordered set of commands that should be configured in the section.  The commands must be the exact same commands as found in the device running-config.  Be sure to note the configuration command syntax as some commands are automatically modified by the device config parser.
         attribute :lines
+        validates :lines, type: TypeGeneric.new(String)
 
-        # @return [Object, nil] The ordered set of parents that uniquely identify the section the commands should be checked against.  If the parents argument is omitted, the commands are checked against the set of top level or global commands.
+        # @return [String, nil] The ordered set of parents that uniquely identify the section the commands should be checked against.  If the parents argument is omitted, the commands are checked against the set of top level or global commands.
         attribute :parents
+        validates :parents, type: String
 
         # @return [String, nil] Specifies the source path to the file that contains the configuration or configuration template to load.  The path to the source file can either be the full path on the Ansible control host or a relative path from the playbook or role root directory.  This argument is mutually exclusive with I(lines).
         attribute :src
