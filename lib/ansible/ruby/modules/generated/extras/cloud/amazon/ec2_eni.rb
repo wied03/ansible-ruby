@@ -5,13 +5,13 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
-      # Create and optionally attach an Elastic Network Interface (ENI) to an instance. If an ENI ID or private_ip is       provided, the existing ENI (if any) will be modified. The 'attached' parameter controls the attachment status       of the network interface.
+      # Create and optionally attach an Elastic Network Interface (ENI) to an instance. If an ENI ID or private_ip is      provided, the existing ENI (if any) will be modified. The 'attached' parameter controls the attachment status      of the network interface.
       class Ec2_eni < Base
         # @return [String, Hash, nil] The ID of the ENI
         attribute :eni_id
         validates :eni_id, type: MultipleTypes.new(String, Hash)
 
-        # @return [String, nil] Instance ID that you wish to attach ENI to. Since version 2.2, use the 'attached' parameter to attach or       detach an ENI. Prior to 2.2, to detach an ENI from an instance, use 'None'.
+        # @return [String, nil] Instance ID that you wish to attach ENI to. Since version 2.2, use the 'attached' parameter to attach or      detach an ENI. Prior to 2.2, to detach an ENI from an instance, use 'None'.
         attribute :instance_id
         validates :instance_id, type: String
 
@@ -27,7 +27,7 @@ module Ansible
         attribute :description
         validates :description, type: String
 
-        # @return [Object, nil] List of security groups associated with the interface. Only used when state=present. Since version 2.2, you       can specify security groups by ID or by name or a combination of both. Prior to 2.2, you can specify only by ID.
+        # @return [Object, nil] List of security groups associated with the interface. Only used when state=present. Since version 2.2, you      can specify security groups by ID or by name or a combination of both. Prior to 2.2, you can specify only by ID.
         attribute :security_groups
 
         # @return [:present, :absent, nil] Create or delete ENI
@@ -38,7 +38,7 @@ module Ansible
         attribute :device_index
         validates :device_index, type: Integer
 
-        # @return [Boolean, nil] Specifies if network interface should be attached or detached from instance. If ommited, attachment status       won't change
+        # @return [Boolean, nil] Specifies if network interface should be attached or detached from instance. If ommited, attachment status      won't change
         attribute :attached
         validates :attached, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 

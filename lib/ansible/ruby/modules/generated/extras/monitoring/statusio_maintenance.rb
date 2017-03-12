@@ -71,7 +71,7 @@ module Ansible
         attribute :maintenance_id
         validates :maintenance_id, type: String
 
-        # @return [Integer, nil] The length of time in UTC that the maintenance will run             (starting from playbook runtime)
+        # @return [Integer, nil] The length of time in UTC that the maintenance will run            (starting from playbook runtime)
         attribute :minutes
         validates :minutes, type: Integer
 

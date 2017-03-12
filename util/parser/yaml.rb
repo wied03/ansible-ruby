@@ -20,7 +20,7 @@ module Ansible
 
           def remove_line_continuation(yaml)
             # code doesn't always indent these right
-            yaml.gsub(/\\\n/, '')
+            yaml.gsub(/ \\\n/, '')
           end
 
           def with_yaml_lines(yaml)

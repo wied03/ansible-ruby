@@ -10,7 +10,7 @@ module Ansible
         # @return [Object, nil] A list of Network ACL IDs to retrieve facts about.
         attribute :nacl_ids
 
-        # @return [Object, nil] A dict of filters to apply. Each dict item consists of a filter key and a filter value. See       U(http://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeNetworkAcls.html) for possible filters. Filter       names and values are case sensitive.
+        # @return [Object, nil] A dict of filters to apply. Each dict item consists of a filter key and a filter value. See      U(http://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeNetworkAcls.html) for possible filters. Filter      names and values are case sensitive.
         attribute :filters
       end
     end
