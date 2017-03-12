@@ -142,12 +142,18 @@ module Ansible
               /(?<=transport: cli).*?- name: run show version on remote devices.*?eos_command/m => "\ntasks:\n- name: run show version on remote devices\n  eos_command",
               # Spacing problem
               '   eos_command:' => '  eos_command:',
+              '    sros_config:' => '  sros_config:',
+              '     sros_command:' => '    sros_command:',
               # Vars/hash
               /vars:.*?- eos_config:/m => '- eos_config:',
               /vars:.*?- eos_facts:/m => '- eos_facts:',
               /vars:.*?- ios_facts:/m => '- ios_facts:',
               /vars:.*?- asa_config:/m => '- asa_config:',
               /vars:.*?- asa_command:/m => '- asa_command:',
+              /vars:.*?- vyos_command:/m => '- vyos_command:',
+              /vars:.*?- ops_command:/m => '- ops_command:',
+              /vars:.*?- ops_facts:/m => '- ops_facts:',
+              /vars:.*?- nxos_facts:/m => '- nxos_facts:',
               /vars:.*?- asa_acl:/m => '- asa_acl:',
               /vars:.*?  eos_eapi:/m => "- name: foo\n  eos_eapi:",
               /vars:.*?  ios_config:/m => "- name: foo\n  ios_config:",
@@ -161,6 +167,12 @@ module Ansible
               /vars:.*?  nxos_command:/m => "- name: foo\n  nxos_command:",
               '   nxos_command:' => '  nxos_command:',
               /vars:.*?  nxos_config:/m => "- name: foo\n  nxos_config:",
+              /vars:.*?  vyos_facts:/m => "- name: foo\n  vyos_facts:",
+              /vars:.*?  vyos_config:/m => "- name: foo\n  vyos_config:",
+              /vars:.*?  sros_rollback:/m => "- name: foo\n  sros_rollback:",
+              /vars:.*?  sros_config:/m => "- name: foo\n  sros_config:",
+              /vars:.*?  ops_config:/m => "- name: foo\n  ops_config:",
+              /vars:.*?  nxos_nxapi:/m => "- name: foo\n  nxos_nxapi:",
               # quotes not closed
               'src: "C:\\\\DirectoryOne' => 'src: "C:/DirectoryOne"',
               # Not labeled correctly and not formatted right
@@ -191,7 +203,17 @@ module Ansible
               # Example turns into JSON for some reason in cloudformation_facts
               /"stack_outputs": {.*/m => '',
               # unescaped command
-              /ansible winhost.*/ => '# ansible winhost...'
+              /ansible winhost.*/ => '# ansible winhost...',
+              # unmatched quotes
+              /'{{roleinput\d}}"/ => '"{{roleinput2222}}"',
+              # not quoted properly
+              '- include: {{hostvar}}.yml' => '- include: "{{hostvar}}.yml"',
+              'src: {{ inventory_hostname }}.cfg' => 'src: "{{ inventory_hostname }}.cfg"',
+              # = should be colon in nxos_interface_ospf
+              '    cost=default' => '    cost: default',
+              # block
+              /- block:.*name: Install OS/m => "tasks:\n    - name: Install OS",
+              /transport: nxapi.*rescue.*/m => 'transport: nxapi'
             }
             dirty_patterns.inject(yaml) do |fixed_yaml, find_replace|
               fixed_yaml.gsub find_replace[0], find_replace[1]
