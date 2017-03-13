@@ -51,7 +51,7 @@ task ansible_lint: [:compile_examples, :python_dependencies] do
   ansible_lint = FileList['.eggs/ansible_lint*.egg'][0]
   all_eggs = FileList['.eggs/*.egg']
   playbooks = FileList['examples/**/*.yml'].join ' '
-  sh "PYTHONPATH=#{all_eggs.join(':')} #{ansible_lint}/EGG-INFO/scripts/ansible-lint -v #{playbooks}"
+  sh "PYTHONPATH=#{all_eggs.join(':')} python #{ansible_lint}/ansiblelint/main/__init__.py -v #{playbooks}"
 end
 
 no_examples_ok = [
