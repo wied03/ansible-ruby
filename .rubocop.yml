@@ -32,10 +32,6 @@ Metrics/CyclomaticComplexity:
 Style/Documentation:
   Enabled: false
 
-# don't want complains about filename/syntax
-Style/FileName:
-  Enabled: false
-
 # if this is really high, fine but 5 is too small
 Metrics/ParameterLists:
   Max: 8

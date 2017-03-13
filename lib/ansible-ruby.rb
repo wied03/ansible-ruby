@@ -1,3 +1,4 @@
+# rubocop:disable Style/FileName
 # frozen_string_literal: true
 # This is the name of the GEM, need it this way
 require 'ansible/ruby/version'
