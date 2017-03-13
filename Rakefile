@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'bundler/gem_tasks'
 require 'rspec/core/rake_task'
 require 'rubocop/rake_task'
@@ -77,7 +78,7 @@ end
 desc 'Update/generate Ruby modules from Ansible modules'
 task update_modules: [:generate_modules, :verify_checksums]
 
-NEW_CHECKSUMS = 'util/checksums_new.json'.freeze
+NEW_CHECKSUMS = 'util/checksums_new.json'
 task generate_modules: :python_dependencies do
   python_path = FileList['.eggs/*.egg'].join ':'
   ansible_dir = `PYTHONPATH=#{python_path} python util/get_ansible.py`.strip
@@ -146,6 +147,7 @@ task generate_modules: :python_dependencies do
   puts 'Writing requires'
   File.open 'lib/ansible/ruby/modules/all.rb', 'w' do |file|
     file << <<HEADER
+# frozen_string_literal: true
 # Generated file, DO NOT EDIT!
 
 ansible_mod = Ansible::Ruby::Modules
@@ -190,7 +192,12 @@ task :verify_checksums do
                                     # No need for empty checksums
                                     if validated_checksum
                                       puts "Adding checksum to #{filename}"
-                                      File.write filename, "# VALIDATED_CHECKSUM: #{validated_checksum}\n" + file_contents
+                                      lines = file_contents.split "\n"
+                                      index = lines.find_index '# frozen_string_literal: true'
+                                      lines.insert index + 1, "# VALIDATED_CHECKSUM: #{validated_checksum}"
+                                      # trailing new line for file
+                                      lines << ''
+                                      File.write filename, lines.join("\n")
                                     end
                                   end
                                   [module_only, validated_checksum]

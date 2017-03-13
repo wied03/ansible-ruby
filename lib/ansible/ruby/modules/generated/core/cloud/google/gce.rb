@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # See LICENSE.txt at root of repository
 # GENERATED FILE - DO NOT EDIT!!
 require 'ansible/ruby/modules/base'
@@ -50,6 +51,9 @@ module Ansible
         attribute :network
         validates :network, type: String
 
+        # @return [Object, nil] name of the subnetwork in which the instance should be created
+        attribute :subnetwork
+
         # @return [String, nil] if set, create the instance with a persistent boot disk
         attribute :persistent_boot_disk
         validates :persistent_boot_disk, type: String
@@ -57,9 +61,9 @@ module Ansible
         # @return [Object, nil] a list of persistent disks to attach to the instance; a string value gives the name of the disk; alternatively, a dictionary value can define 'name' and 'mode' ('READ_ONLY' or 'READ_WRITE'). The first entry will be the boot disk (which must be READ_WRITE).
         attribute :disks
 
-        # @return [:active, :present, :absent, :deleted, nil] desired state of the resource
+        # @return [:active, :present, :absent, :deleted, :started, :stopped, :terminated, nil] desired state of the resource
         attribute :state
-        validates :state, inclusion: {:in=>[:active, :present, :absent, :deleted], :message=>"%{value} needs to be :active, :present, :absent, :deleted"}, allow_nil: true
+        validates :state, inclusion: {:in=>[:active, :present, :absent, :deleted, :started, :stopped, :terminated], :message=>"%{value} needs to be :active, :present, :absent, :deleted, :started, :stopped, :terminated"}, allow_nil: true
 
         # @return [Object, nil] a comma-separated list of tags to associate with the instance
         attribute :tags
@@ -72,7 +76,7 @@ module Ansible
         attribute :ip_forward
         validates :ip_forward, type: String
 
-        # @return [String, nil] type of external ip, ephemeral by default; alternatively, a list of fixed gce ips or ip names can be given (if there is not enough specified ip, 'ephemeral' will be used)
+        # @return [String, nil] type of external ip, ephemeral by default; alternatively, a list of fixed gce ips or ip names can be given (if there is not enough specified ip, 'ephemeral' will be used). Specify 'none' if no external ip is desired.
         attribute :external_ip
         validates :external_ip, type: String
 

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # See LICENSE.txt at root of repository
 # GENERATED FILE - DO NOT EDIT!!
 require 'ansible/ruby/modules/base'
@@ -15,21 +16,21 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :installed, :emerged, :absent, :removed, :unmerged], :message=>"%{value} needs to be :present, :installed, :emerged, :absent, :removed, :unmerged"}, allow_nil: true
 
-        # @return [:yes, nil] Update packages to the best version available (--update)
+        # @return [Boolean, nil] Update packages to the best version available (--update)
         attribute :update
-        validates :update, inclusion: {:in=>[:yes], :message=>"%{value} needs to be :yes"}, allow_nil: true
+        validates :update, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
-        # @return [:yes, nil] Consider the entire dependency tree of packages (--deep)
+        # @return [Boolean, nil] Consider the entire dependency tree of packages (--deep)
         attribute :deep
-        validates :deep, inclusion: {:in=>[:yes], :message=>"%{value} needs to be :yes"}, allow_nil: true
+        validates :deep, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
-        # @return [:yes, nil] Include installed packages where USE flags have changed (--newuse)
+        # @return [Boolean, nil] Include installed packages where USE flags have changed (--newuse)
         attribute :newuse
-        validates :newuse, inclusion: {:in=>[:yes], :message=>"%{value} needs to be :yes"}, allow_nil: true
+        validates :newuse, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
-        # @return [:yes, nil] Include installed packages where USE flags have changed, except when,flags that the user has not enabled are added or removed,(--changed-use)
+        # @return [Boolean, nil] Include installed packages where USE flags have changed, except when,flags that the user has not enabled are added or removed,(--changed-use)
         attribute :changed_use
-        validates :changed_use, inclusion: {:in=>[:yes], :message=>"%{value} needs to be :yes"}, allow_nil: true
+        validates :changed_use, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Boolean, nil] Do not add the packages to the world file (--oneshot)
         attribute :oneshot

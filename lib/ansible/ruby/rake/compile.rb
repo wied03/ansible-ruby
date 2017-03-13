@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # See LICENSE.txt in root of repository
 require 'rake/tasklib'
 require 'ansible-ruby'

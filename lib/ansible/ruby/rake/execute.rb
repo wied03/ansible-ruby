@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'rake/tasklib'
 require 'ansible-ruby'
 require 'ansible/ruby/rake/task_util'

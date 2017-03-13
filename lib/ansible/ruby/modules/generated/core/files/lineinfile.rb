@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # See LICENSE.txt at root of repository
 # GENERATED FILE - DO NOT EDIT!!
 require 'ansible/ruby/modules/base'
@@ -6,7 +7,7 @@ module Ansible
   module Ruby
     module Modules
       # This module will search a file for a line, and ensure that it is present or absent.
-      # This is primarily useful when you want to change a single line in a file only. See the M(replace) module if you want to change multiple, similar lines; for other cases, see the M(copy) or M(template) modules.
+      # This is primarily useful when you want to change a single line in a file only. See the M(replace) module if you want to change multiple, similar lines or check M(blockinfile) if you want to insert/update/remove a block of lines in a file. For other cases, see the M(copy) or M(template) modules.
       class Lineinfile < Base
         # @return [String] The file to modify.
         attribute :dest

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'spec_helper'
 require 'ansible-ruby'
 
@@ -22,6 +23,8 @@ describe Ansible::Ruby::DslBuilders::Task do
       validates :dest, presence: true
     end
     stub_const 'Ansible::Ruby::Modules::Copy', klass
+    debug_module = Class.new(Ansible::Ruby::Modules::Base)
+    stub_const 'Ansible::Ruby::Modules::Debug', debug_module
   end
 
   context 'single task' do

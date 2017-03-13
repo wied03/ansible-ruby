@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # See LICENSE.txt at root of repository
 # GENERATED FILE - DO NOT EDIT!!
 require 'ansible/ruby/modules/base'
@@ -5,8 +6,8 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
-      # Can create or delete AWS metric alarms
-      # Metrics you wish to alarm on must already exist
+      # Can create or delete AWS metric alarms.
+      # Metrics you wish to alarm on must already exist.
       class Ec2_metric_alarm < Base
         # @return [:present, :absent] register or deregister the alarm
         attribute :state

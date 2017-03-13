@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # See LICENSE.txt at root of repository
 # GENERATED FILE - DO NOT EDIT!!
 require 'ansible/ruby/modules/base'
@@ -15,7 +16,7 @@ module Ansible
         attribute :description
         validates :description, type: String
 
-        # @return [String, nil] Domain id to create the project in if the cloud supports domains
+        # @return [String, nil] Domain id to create the project in if the cloud supports domains. The domain_id parameter requires shade >= 1.8.0
         attribute :domain_id
         validates :domain_id, type: String
 

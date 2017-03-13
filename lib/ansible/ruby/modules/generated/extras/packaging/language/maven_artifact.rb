@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # See LICENSE.txt at root of repository
 # GENERATED FILE - DO NOT EDIT!!
 require 'ansible/ruby/modules/base'
@@ -28,15 +29,15 @@ module Ansible
         attribute :extension
         validates :extension, type: String
 
-        # @return [String, nil] The URL of the Maven Repository to download from
+        # @return [String, nil] The URL of the Maven Repository to download from.,Use s3://... if the repository is hosted on Amazon S3, added in version 2.2.
         attribute :repository_url
         validates :repository_url, type: String
 
-        # @return [String, nil] The username to authenticate as to the Maven Repository
+        # @return [String, nil] The username to authenticate as to the Maven Repository. Use AWS secret key of the repository is hosted on S3
         attribute :username
         validates :username, type: String
 
-        # @return [String, nil] The password to authenticate with to the Maven Repository
+        # @return [String, nil] The password to authenticate with to the Maven Repository. Use AWS secret access key of the repository is hosted on S3
         attribute :password
         validates :password, type: String
 

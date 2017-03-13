@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # See LICENSE.txt at root of repository
 # GENERATED FILE - DO NOT EDIT!!
 require 'ansible/ruby/modules/base'
@@ -61,6 +62,10 @@ module Ansible
 
         # @return [Object, nil] opaque blob of data which is made available to the droplet
         attribute :user_data
+
+        # @return [:yes, :no, nil] Optional, Boolean, enable IPv6 for your droplet.
+        attribute :ipv6
+        validates :ipv6, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:yes, :no, nil] Wait for the droplet to be in state 'running' before returning.  If wait is "no" an ip_address may not be returned.
         attribute :wait

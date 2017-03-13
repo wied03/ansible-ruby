@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # See LICENSE.txt for license
 require 'ansible/ruby/dsl_builders/task'
 require 'ansible/ruby/models/handler'

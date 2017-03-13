@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # See LICENSE.txt at root of repository
 # GENERATED FILE - DO NOT EDIT!!
 require 'ansible/ruby/modules/base'
@@ -83,7 +84,7 @@ module Ansible
         attribute :cross_az_load_balancing
         validates :cross_az_load_balancing, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [Hash, nil] An associative array of stickness policy settings. Policy will be applied to all listeners ( see example )
+        # @return [Hash, nil] An associative array of stickiness policy settings. Policy will be applied to all listeners ( see example )
         attribute :stickiness
         validates :stickiness, type: Hash
 

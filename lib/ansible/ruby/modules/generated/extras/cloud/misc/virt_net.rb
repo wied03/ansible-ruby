@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # See LICENSE.txt at root of repository
 # GENERATED FILE - DO NOT EDIT!!
 require 'ansible/ruby/modules/base'
@@ -15,9 +16,9 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:active, :inactive, :present, :absent], :message=>"%{value} needs to be :active, :inactive, :present, :absent"}, allow_nil: true
 
-        # @return [:define, :create, :start, :stop, :destroy, :undefine, :get_xml, :list_nets, :facts, :info, :status, nil] in addition to state management, various non-idempotent commands are available. See examples.
+        # @return [:define, :create, :start, :stop, :destroy, :undefine, :get_xml, :list_nets, :facts, :info, :status, :modify, nil] in addition to state management, various non-idempotent commands are available. See examples. Modify was added in version 2.1
         attribute :command
-        validates :command, inclusion: {:in=>[:define, :create, :start, :stop, :destroy, :undefine, :get_xml, :list_nets, :facts, :info, :status], :message=>"%{value} needs to be :define, :create, :start, :stop, :destroy, :undefine, :get_xml, :list_nets, :facts, :info, :status"}, allow_nil: true
+        validates :command, inclusion: {:in=>[:define, :create, :start, :stop, :destroy, :undefine, :get_xml, :list_nets, :facts, :info, :status, :modify], :message=>"%{value} needs to be :define, :create, :start, :stop, :destroy, :undefine, :get_xml, :list_nets, :facts, :info, :status, :modify"}, allow_nil: true
 
         # @return [:yes, :no, nil] Specify if a given storage pool should be started automatically on system boot.
         attribute :autostart

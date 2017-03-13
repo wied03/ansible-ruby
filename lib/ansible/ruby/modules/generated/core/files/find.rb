@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # See LICENSE.txt at root of repository
 # GENERATED FILE - DO NOT EDIT!!
 require 'ansible/ruby/modules/base'
@@ -11,11 +12,11 @@ module Ansible
         attribute :age
         validates :age, type: String
 
-        # @return [String, nil] One or more (shell or regex) patterns, which type is controled by C(use_regex) option.,The patterns restrict the list of files to be returned to those whose basenames match at least one of the patterns specified. Multiple patterns can be specified using a list.
+        # @return [String, nil] One or more (shell or regex) patterns, which type is controlled by C(use_regex) option.,The patterns restrict the list of files to be returned to those whose basenames match at least one of the patterns specified. Multiple patterns can be specified using a list.
         attribute :patterns
         validates :patterns, type: String
 
-        # @return [Object, nil] One or more re patterns which should be matched against the file content
+        # @return [Object, nil] One or more regex patterns which should be matched against the file content
         attribute :contains
 
         # @return [String] List of paths to the file or directory to search. All paths must be fully qualified.

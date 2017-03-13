@@ -1,4 +1,5 @@
-# VALIDATED_CHECKSUM: AdFa02QGpVTJzxok0diPJdAEUBApm3x9juB4vVByHyY=
+# frozen_string_literal: true
+# VALIDATED_CHECKSUM: D9lP/0DS7LOMWgAAaw4kVuBckOgT2IqDqrkB2hHMYUo=
 # see LICENSE.txt in project root
 
 require 'ansible/ruby/modules/generated/core/files/file'

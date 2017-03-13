@@ -1,4 +1,5 @@
-# VALIDATED_CHECKSUM: uKMw8+w4NpzVQ2lgEzhz4oIL+HNRv+7w4fIDdY4IOc0=
+# frozen_string_literal: true
+# VALIDATED_CHECKSUM: b61qLsxAXMFl83y/AepYYDFqOkdjndUcCUkJ6Lv+TFg=
 # see LICENSE.txt in project root
 
 require 'ansible/ruby/modules/generated/core/files/template'

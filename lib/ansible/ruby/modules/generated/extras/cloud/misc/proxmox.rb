@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # See LICENSE.txt at root of repository
 # GENERATED FILE - DO NOT EDIT!!
 require 'ansible/ruby/modules/base'
@@ -63,6 +64,10 @@ module Ansible
         # @return [String, nil] specifies network interfaces for the container
         attribute :netif
         validates :netif, type: String
+
+        # @return [Array<String>, String, nil] specifies additional mounts (separate disks) for the container
+        attribute :mounts
+        validates :mounts, type: TypeGeneric.new(String)
 
         # @return [Object, nil] specifies the address the container will be assigned
         attribute :ip_address

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # See LICENSE.txt at root of repository
 # GENERATED FILE - DO NOT EDIT!!
 require 'ansible/ruby/modules/base'
@@ -24,6 +25,10 @@ module Ansible
 
         # @return [Object, nil] Account the project is related to.
         attribute :account
+
+        # @return [Array<Hash>, Hash, nil] List of tags. Tags are a list of dictionaries having keys C(key) and C(value).,If you want to delete all tags, set a empty list e.g. C(tags: []).
+        attribute :tags
+        validates :tags, type: TypeGeneric.new(Hash)
 
         # @return [Boolean, nil] Poll async jobs until job has finished.
         attribute :poll_async

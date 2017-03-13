@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # See LICENSE.txt at root of repository
 # GENERATED FILE - DO NOT EDIT!!
 require 'ansible/ruby/modules/base'
@@ -27,6 +28,12 @@ module Ansible
 
         # @return [Object, nil] Stripe count for volume
         attribute :stripes
+
+        # @return [Object, nil] Disperse count for volume
+        attribute :disperses
+
+        # @return [Object, nil] Redundancy count for volume
+        attribute :redundancies
 
         # @return [:tcp, :rdma, :"tcp,rdma", nil] Transport type for volume
         attribute :transport

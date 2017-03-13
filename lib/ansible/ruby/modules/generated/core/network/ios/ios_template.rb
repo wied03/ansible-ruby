@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # See LICENSE.txt at root of repository
 # GENERATED FILE - DO NOT EDIT!!
 require 'ansible/ruby/modules/base'
@@ -5,7 +6,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
-      # Manages Cisco IOS network device configurations over SSH.  This module allows implementors to work with the device running-config.  It provides a way to push a set of commands onto a network device by evaluting the current running-config and only pushing configuration commands that are not already configured.  The config source can be a set of commands or a template.
+      # Manages Cisco IOS network device configurations over SSH.  This module allows implementers to work with the device running-config.  It provides a way to push a set of commands onto a network device by evaluating the current running-config and only pushing configuration commands that are not already configured.  The config source can be a set of commands or a template.
       class Ios_template < Base
         # @return [String] The path to the config source.  The source can be either a file with config or a template that will be merged during runtime.  By default the task will first search for the source file in role or playbook root folder in templates unless a full path to the file is given.
         attribute :src
@@ -15,15 +16,15 @@ module Ansible
         attribute :force
         validates :force, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
-        # @return [Boolean, nil] The module, by default, will collect the current device running-config to use as a base for comparision to the commands in I(src).  Setting this value to true will cause the command issued to add any necessary flags to collect all defaults as well as the device configuration.  If the destination device does not support such a flag, this argument is silently ignored.
+        # @return [:true, :false] The module, by default, will collect the current device running-config to use as a base for comparison to the commands in I(src).  Setting this value to true will cause the command issued to add any necessary flags to collect all defaults as well as the device configuration.  If the destination device does not support such a flag, this argument is silently ignored.
         attribute :include_defaults
-        validates :include_defaults, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :include_defaults, presence: true, inclusion: {:in=>[:true, :false], :message=>"%{value} needs to be :true, :false"}
 
         # @return [Boolean, nil] When this argument is configured true, the module will backup the running-config from the node prior to making any changes. The backup file will be written to backup_{{ hostname }} in the root of the playbook directory.
         attribute :backup
         validates :backup, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
-        # @return [String, nil] The module, by default, will connect to the remote device and retrieve the current running-config to use as a base for comparing against the contents of source.  There are times when it is not desirable to have the task get the current running-config for every task.  The I(config) argument allows the implementer to pass in the configuruation to use as the base config for comparision.
+        # @return [String, nil] The module, by default, will connect to the remote device and retrieve the current running-config to use as a base for comparing against the contents of source.  There are times when it is not desirable to have the task get the current running-config for every task.  The I(config) argument allows the implementer to pass in the configuration to use as the base config for comparison.
         attribute :config
         validates :config, type: String
       end

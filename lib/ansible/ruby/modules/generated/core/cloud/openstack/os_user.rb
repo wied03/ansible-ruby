@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # See LICENSE.txt at root of repository
 # GENERATED FILE - DO NOT EDIT!!
 require 'ansible/ruby/modules/base'
@@ -11,7 +12,7 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [String, nil] Password for the user,Required when I(state) is present
+        # @return [String, nil] Password for the user
         attribute :password
         validates :password, type: String
 

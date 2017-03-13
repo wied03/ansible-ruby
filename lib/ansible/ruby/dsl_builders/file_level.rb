@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'ansible/ruby/dsl_builders/play'
 require 'ansible/ruby/models/playbook'
 require 'ansible/ruby/models/tasks'

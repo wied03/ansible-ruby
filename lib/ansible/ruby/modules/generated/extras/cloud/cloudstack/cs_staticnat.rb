@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # See LICENSE.txt at root of repository
 # GENERATED FILE - DO NOT EDIT!!
 require 'ansible/ruby/modules/base'
@@ -18,6 +19,9 @@ module Ansible
         # @return [Boolean, nil] VM guest NIC secondary IP address for the static NAT.
         attribute :vm_guest_ip
         validates :vm_guest_ip, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+
+        # @return [Object, nil] Network the IP address is related to.
+        attribute :network
 
         # @return [:present, :absent, nil] State of the static NAT.
         attribute :state

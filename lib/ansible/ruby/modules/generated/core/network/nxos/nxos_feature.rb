@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # See LICENSE.txt at root of repository
 # GENERATED FILE - DO NOT EDIT!!
 require 'ansible/ruby/modules/base'
@@ -5,7 +6,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
-      # Offers ability to enable and disable features in NX-OS
+      # Offers ability to enable and disable features in NX-OS.
       class Nxos_feature < Base
         # @return [String] Name of feature.
         attribute :feature

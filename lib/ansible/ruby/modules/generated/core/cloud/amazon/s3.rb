@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # See LICENSE.txt at root of repository
 # GENERATED FILE - DO NOT EDIT!!
 require 'ansible/ruby/modules/base'
@@ -65,9 +66,9 @@ module Ansible
         attribute :version
         validates :version, type: String
 
-        # @return [Boolean, nil] Force overwrite either locally on the filesystem or remotely with the object/key. Used with PUT and GET operations. Boolean or one of [Always, Never, Different], new in 2.0
+        # @return [String, nil] Force overwrite either locally on the filesystem or remotely with the object/key. Used with PUT and GET operations. Boolean or one of [always, never, different], true is equal to 'always' and false is equal to 'never', new in 2.0
         attribute :overwrite
-        validates :overwrite, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :overwrite, type: String
 
         # @return [String, nil] AWS region to create the bucket in. If not set then the value of the AWS_REGION and EC2_REGION environment variables are checked, followed by the aws_region and ec2_region settings in the Boto config file.  If none of those are set the region defaults to the S3 Location: US Standard.  Prior to ansible 1.8 this parameter could be specified but had no effect.
         attribute :region
@@ -77,8 +78,13 @@ module Ansible
         attribute :retries
         validates :retries, type: Integer
 
-        # @return [Object, nil] S3 URL endpoint for usage with Eucalypus, fakes3, etc.  Otherwise assumes AWS
+        # @return [String, nil] S3 URL endpoint for usage with Ceph, Eucalypus, fakes3, etc.  Otherwise assumes AWS
         attribute :s3_url
+        validates :s3_url, type: String
+
+        # @return [Boolean, nil] Enable Ceph RGW S3 support. This option requires an explicit url via s3_url.
+        attribute :rgw
+        validates :rgw, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [String, nil] The source file path when performing a PUT operation.
         attribute :src

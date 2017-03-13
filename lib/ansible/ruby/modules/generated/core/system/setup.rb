@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # See LICENSE.txt at root of repository
 # GENERATED FILE - DO NOT EDIT!!
 require 'ansible/ruby/modules/base'
@@ -10,6 +11,10 @@ module Ansible
         # @return [String, nil] if supplied, restrict the additional facts collected to the given subset. Possible values: all, hardware, network, virtual, ohai, and facter Can specify a list of values to specify a larger subset. Values can also be used with an initial C(!) to specify that that specific subset should not be collected.  For instance: !hardware, !network, !virtual, !ohai, !facter.  Note that a few facts are always collected.  Use the filter parameter if you do not want to display those.
         attribute :gather_subset
         validates :gather_subset, type: String
+
+        # @return [Integer, nil] Set the default timeout in seconds for individual fact gathering
+        attribute :gather_timeout
+        validates :gather_timeout, type: Integer
 
         # @return [String, nil] if supplied, only return facts that match this shell-style (fnmatch) wildcard.
         attribute :filter

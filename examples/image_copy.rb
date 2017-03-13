@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 play 'image copy' do
   local_host
 

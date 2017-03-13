@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # See LICENSE.txt at root of repository
 # GENERATED FILE - DO NOT EDIT!!
 require 'ansible/ruby/modules/base'
@@ -34,7 +35,7 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [String] Name to be assigned to the nework
+        # @return [String] Name to be assigned to the network
         attribute :name
         validates :name, presence: true, type: String
 

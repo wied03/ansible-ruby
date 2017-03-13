@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # See LICENSE.txt at root of repository
 # GENERATED FILE - DO NOT EDIT!!
 require 'ansible/ruby/modules/base'
@@ -15,7 +16,7 @@ module Ansible
         attribute :dest
         validates :dest, presence: true, type: String
 
-        # @return [Boolean, nil] If C(yes), will always download the file.  If C(no), will only download the file if it does not exist or the remote file has been modified more recently than the local file.
+        # @return [Boolean, nil] If C(yes), will always download the file.  If C(no), will only download the file if it does not exist or the remote file has been modified more recently than the local file.  This works by sending an http HEAD request to retrieve last modified time of the requested resource, so for this to work, the remote web server must support HEAD requests.
         attribute :force
         validates :force, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 

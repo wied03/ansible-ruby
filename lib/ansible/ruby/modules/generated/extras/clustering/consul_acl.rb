@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # See LICENSE.txt at root of repository
 # GENERATED FILE - DO NOT EDIT!!
 require 'ansible/ruby/modules/base'
@@ -11,13 +12,13 @@ module Ansible
         attribute :mgmt_token
         validates :mgmt_token, type: String
 
-        # @return [:present, :absent, nil] whether the ACL pair should be present or absent, defaults to present
+        # @return [:present, :absent, nil] whether the ACL pair should be present or absent
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [:client, :management, nil] the type of token that should be created, either management or client, defaults to client
-        attribute :type
-        validates :type, inclusion: {:in=>[:client, :management], :message=>"%{value} needs to be :client, :management"}, allow_nil: true
+        # @return [:client, :management, nil] the type of token that should be created, either management or client
+        attribute :token_type
+        validates :token_type, inclusion: {:in=>[:client, :management], :message=>"%{value} needs to be :client, :management"}, allow_nil: true
 
         # @return [String, nil] the name that should be associated with the acl key, this is opaque to Consul
         attribute :name

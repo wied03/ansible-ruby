@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # See LICENSE.txt at root of repository
 # GENERATED FILE - DO NOT EDIT!!
 require 'ansible/ruby/modules/base'
@@ -39,7 +40,7 @@ module Ansible
         attribute :existing_only
         validates :existing_only, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [:yes, :no, nil] Delete files that don't exist (after transfer, not before) in the C(src) path. This option requires C(recursive=yes).
+        # @return [:yes, :no, nil] Delete files in C(dest) that don't exist (after transfer, not before) in the C(src) path. This option requires C(recursive=yes).
         attribute :delete
         validates :delete, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 

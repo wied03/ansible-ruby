@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # See LICENSE.txt for license
 require 'json'
 
@@ -140,7 +141,23 @@ module Ansible
             types = values.map { |value| derive_type value }.uniq
             generic = types.find { |type| type.is_a?(TypeGeneric) }
             # No need to include generic and the generic's type
-            types.reject { |type| generic && generic.klasses.include?(type) }
+            without_type_outside = types.reject { |type| generic && generic.klasses.include?(type) }
+            collapse_generics without_type_outside
+          end
+
+          def collapse_generics(types)
+            grouped = Hash.new { |hash, key| hash[key] = [] }
+            types.each do |type|
+              if type.is_a?(TypeGeneric)
+                grouped[:generic] += type.klasses
+              else
+                grouped[:others] << type
+              end
+            end
+            generics = grouped[:generic]
+            others = grouped[:others]
+            others << TypeGeneric.new(*generics) if generics.any?
+            others
           end
 
           def derive_type(value)

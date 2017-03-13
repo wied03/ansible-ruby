@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # See LICENSE.txt at root of repository
 # GENERATED FILE - DO NOT EDIT!!
 require 'ansible/ruby/modules/base'
@@ -83,7 +84,7 @@ module Ansible
         # @return [Object, nil] The low threshhold for flap detection
         attribute :low_flap_threshold
 
-        # @return [Object, nil] The low threshhold for flap detection
+        # @return [Object, nil] The high threshhold for flap detection
         attribute :high_flap_threshold
 
         # @return [Object, nil] A hash/dictionary of custom parameters for mixing to the configuration.,You can't rewrite others module parameters using this

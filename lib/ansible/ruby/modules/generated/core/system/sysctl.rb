@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # See LICENSE.txt at root of repository
 # GENERATED FILE - DO NOT EDIT!!
 require 'ansible/ruby/modules/base'
@@ -11,9 +12,9 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [String, nil] Desired value of the sysctl key.
+        # @return [Integer, String, nil] Desired value of the sysctl key.
         attribute :value
-        validates :value, type: String
+        validates :value, type: MultipleTypes.new(Integer, String)
 
         # @return [:present, :absent, nil] Whether the entry should be present or absent in the sysctl file.
         attribute :state

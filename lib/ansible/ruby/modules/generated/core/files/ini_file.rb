@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # See LICENSE.txt at root of repository
 # GENERATED FILE - DO NOT EDIT!!
 require 'ansible/ruby/modules/base'
@@ -38,6 +39,10 @@ module Ansible
         # @return [Boolean, nil] do not insert spaces before and after '=' symbol
         attribute :no_extra_spaces
         validates :no_extra_spaces, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+
+        # @return [:yes, :no, nil] If set to 'no', the module will fail if the file does not already exist. By default it will create the file if it is missing.
+        attribute :create
+        validates :create, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

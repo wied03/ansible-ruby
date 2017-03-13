@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # See LICENSE.txt at root of repository
 # GENERATED FILE - DO NOT EDIT!!
 require 'ansible/ruby/modules/base'
@@ -13,6 +14,9 @@ module Ansible
 
         # @return [Object, nil] an optional description
         attribute :description
+
+        # @return [Object, nil] an optional family name
+        attribute :family
 
         # @return [String, nil] the source disk or the Google Cloud Storage URI to create the image from
         attribute :source

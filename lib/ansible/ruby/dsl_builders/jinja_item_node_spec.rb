@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # see LICENSE.txt in project root
 require 'spec_helper'
 require 'ansible/ruby/dsl_builders/jinja_item_node'

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # See LICENSE.txt at root of repository
 # GENERATED FILE - DO NOT EDIT!!
 require 'ansible/ruby/modules/base'
@@ -7,7 +8,7 @@ module Ansible
     module Modules
       # This module creates file system.
       class Filesystem < Base
-        # @return [String] File System type to be created.
+        # @return [String] File System type to be created.,reiserfs support was added in 2.2.
         attribute :fstype
         validates :fstype, presence: true, type: String
 

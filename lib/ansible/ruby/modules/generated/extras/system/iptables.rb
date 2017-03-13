@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # See LICENSE.txt at root of repository
 # GENERATED FILE - DO NOT EDIT!!
 require 'ansible/ruby/modules/base'
@@ -15,23 +16,27 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
+        # @return [:append, :insert, nil] Whether the rule should be appended at the bottom or inserted at the top. If the rule already exists the chain won't be modified.
+        attribute :action
+        validates :action, inclusion: {:in=>[:append, :insert], :message=>"%{value} needs to be :append, :insert"}, allow_nil: true
+
         # @return [:ipv4, :ipv6, nil] Which version of the IP protocol this rule should apply to.
         attribute :ip_version
         validates :ip_version, inclusion: {:in=>[:ipv4, :ipv6], :message=>"%{value} needs to be :ipv4, :ipv6"}, allow_nil: true
 
-        # @return [String] Chain to operate on. This option can either be the name of a user defined chain or any of the builtin chains: 'INPUT', 'FORWARD', 'OUTPUT', 'PREROUTING', 'POSTROUTING', 'SECMARK', 'CONNSECMARK'
+        # @return [String, nil] Chain to operate on. This option can either be the name of a user defined chain or any of the builtin chains: 'INPUT', 'FORWARD', 'OUTPUT', 'PREROUTING', 'POSTROUTING', 'SECMARK', 'CONNSECMARK'.
         attribute :chain
-        validates :chain, presence: true, type: String
+        validates :chain, type: String
 
         # @return [String, nil] The protocol of the rule or of the packet to check. The specified protocol can be one of tcp, udp, udplite, icmp, esp, ah, sctp or the special keyword "all", or it can be a numeric value, representing one of these protocols or a different one. A protocol name from /etc/protocols is also allowed. A "!" argument before the protocol inverts the test.  The number zero is equivalent to all. "all" will match with all protocols and is taken as default when this option is omitted.
         attribute :protocol
         validates :protocol, type: String
 
-        # @return [String, nil] Source specification. Address can be either a network name, a hostname, a network IP address (with /mask), or a plain IP address. Hostnames will be resolved once only, before the rule is submitted to the kernel. Please note that specifying any name to be resolved with a remote query such as DNS is a really bad idea. The mask can be either a network mask or a plain number, specifying the number of 1's at the left side of the network mask. Thus, a mask of 24 is equivalent to 255.255.255.0. A "!" argument before the address specification inverts the sense of the address.Source specification. Address can be either a network name, a hostname, a network IP address (with /mask), or a plain IP address.  Hostnames will be resolved once only, before the rule is submitted to the kernel. Please note that specifying any name to be resolved with a remote query such as DNS is a really bad idea. The mask can be either a network mask or a plain number, specifying the number of 1's at the left side of the network mask. Thus, a mask of 24 is equivalent to 255.255.255.0. A "!" argument before the address specification inverts the sense of the address.
+        # @return [String, nil] Source specification. Address can be either a network name, a hostname, a network IP address (with /mask), or a plain IP address. Hostnames will be resolved once only, before the rule is submitted to the kernel. Please note that specifying any name to be resolved with a remote query such as DNS is a really bad idea. The mask can be either a network mask or a plain number, specifying the number of 1's at the left side of the network mask. Thus, a mask of 24 is equivalent to 255.255.255.0. A "!" argument before the address specification inverts the sense of the address.
         attribute :source
         validates :source, type: String
 
-        # @return [Object, nil] Destination specification. Address can be either a network name, a hostname, a network IP address (with /mask), or a plain IP address. Hostnames will be resolved once only, before the rule is submitted to the kernel. Please note that specifying any name to be resolved with a remote query such as DNS is a really bad idea. The mask can be either a network mask or a plain number, specifying the number of 1's at the left side of the network mask. Thus, a mask of 24 is equivalent to 255.255.255.0. A "!" argument before the address specification inverts the sense of the address.Source specification. Address can be either a network name, a hostname, a network IP address (with /mask), or a plain IP address. Hostnames will be resolved once only, before the rule is submitted to the kernel. Please note that specifying any name to be resolved with a remote query such as DNS is a really bad idea. The mask can be either a network mask or a plain number, specifying the number of 1's at the left side of the network mask. Thus, a mask of 24 is equivalent to 255.255.255.0. A "!" argument before the address specification inverts the sense of the address.
+        # @return [Object, nil] Destination specification. Address can be either a network name, a hostname, a network IP address (with /mask), or a plain IP address. Hostnames will be resolved once only, before the rule is submitted to the kernel. Please note that specifying any name to be resolved with a remote query such as DNS is a really bad idea. The mask can be either a network mask or a plain number, specifying the number of 1's at the left side of the network mask. Thus, a mask of 24 is equivalent to 255.255.255.0. A "!" argument before the address specification inverts the sense of the address.
         attribute :destination
 
         # @return [Object, nil] Specifies a match to use, that is, an extension module that tests for a specific property. The set of matches make up the condition under which a target is invoked. Matches are evaluated first to last if specified as an array and work in short-circuit fashion, i.e. if one extension yields false, evaluation will stop.
@@ -71,6 +76,9 @@ module Ansible
         # @return [Object, nil] This specifies a destination address to use with DNAT: without this, the destination address is never altered.
         attribute :to_destination
 
+        # @return [Object, nil] This specifies a source address to use with SNAT: without this, the source address is never altered.
+        attribute :to_source
+
         # @return [String, nil] This allows specifying a DSCP mark to be added to packets. It takes either an integer or hex value. Mutually exclusive with C(set_dscp_mark_class).
         attribute :set_dscp_mark
         validates :set_dscp_mark, type: String
@@ -97,6 +105,15 @@ module Ansible
 
         # @return [Object, nil] Specifies the error packet type to return while rejecting.
         attribute :reject_with
+
+        # @return [Object, nil] This allows specification of the ICMP type, which can be a numeric ICMP type, type/code pair, or one of the ICMP type names shown by the command 'iptables -p icmp -h'
+        attribute :icmp_type
+
+        # @return [Object, nil] Flushes the specified table and chain of all rules. If no chain is specified then the entire table is purged. Ignores all other parameters.
+        attribute :flush
+
+        # @return [Object, nil] Set the policy for the chain to the given target. Valid targets are ACCEPT, DROP, QUEUE, RETURN. Only built in chains can have policies. This parameter requires the chain parameter. Ignores all other parameters.
+        attribute :policy
       end
     end
   end

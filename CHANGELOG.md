@@ -1,5 +1,5 @@
-# Under Development
-TBD
+# 1.0.7 - Under Development
+* Ansible 2.2.1.0 compatibility
 
 # 1.0.6 - 14 October 2016
 * Allow sharing variables between tasks (#29)

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # See LICENSE.txt at root of repository
 # GENERATED FILE - DO NOT EDIT!!
 require 'ansible/ruby/modules/base'
@@ -34,13 +35,13 @@ module Ansible
         # @return [Object, nil] master <master (ifname, or connection UUID or conn_name) of bridge, team, bond master connection profile.
         attribute :master
 
-        # @return [Object, nil] The IPv4 address to this interface using this format ie: "192.168.1.24/24"
+        # @return [Object, nil] The IPv4 address to this interface using this format ie: "192.0.2.24/24"
         attribute :ip4
 
-        # @return [Object, nil] The IPv4 gateway for this interface using this format ie: "192.168.100.1"
+        # @return [Object, nil] The IPv4 gateway for this interface using this format ie: "192.0.2.1"
         attribute :gw4
 
-        # @return [Object, nil] A list of upto 3 dns servers, ipv4 format e.g. To add two IPv4 DNS server addresses: ["8.8.8.8 8.8.4.4"]
+        # @return [Object, nil] A list of upto 3 dns servers, ipv4 format e.g. To add two IPv4 DNS server addresses: ["192.0.2.53", "198.51.100.53"]
         attribute :dns4
 
         # @return [Object, nil] The IPv6 address to this interface using this format ie: "abbe::cafe"

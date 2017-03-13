@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # See LICENSE.txt at root of repository
 # GENERATED FILE - DO NOT EDIT!!
 require 'ansible/ruby/modules/base'
@@ -19,7 +20,13 @@ module Ansible
         attribute :image
         validates :image, presence: true, type: String
 
-        # @return [String, nil] The Datacenter to provision this virtual machine.
+        # @return [Object, nil] Password set for the administrative user.
+        attribute :image_password
+
+        # @return [Object, nil] Public SSH keys allowing access to the virtual machine.
+        attribute :ssh_keys
+
+        # @return [String, nil] The datacenter to provision this virtual machine.
         attribute :datacenter
         validates :datacenter, type: String
 
@@ -30,6 +37,10 @@ module Ansible
         # @return [Integer, nil] The amount of memory to allocate to the virtual machine.
         attribute :ram
         validates :ram, type: Integer
+
+        # @return [:AMD_OPTERON, :INTEL_XEON, nil] The CPU family type to allocate to the virtual machine.
+        attribute :cpu_family
+        validates :cpu_family, inclusion: {:in=>[:AMD_OPTERON, :INTEL_XEON], :message=>"%{value} needs to be :AMD_OPTERON, :INTEL_XEON"}, allow_nil: true
 
         # @return [Integer, nil] The size in GB of the boot volume.
         attribute :volume_size
@@ -47,9 +58,9 @@ module Ansible
         attribute :count
         validates :count, type: Integer
 
-        # @return [:"us/las", :"us/lasdev", :"de/fra", :"de/fkb", nil] The datacenter location. Use only if you want to create the Datacenter or else this value is ignored.
+        # @return [:"us/las", :"de/fra", :"de/fkb", nil] The datacenter location. Use only if you want to create the Datacenter or else this value is ignored.
         attribute :location
-        validates :location, inclusion: {:in=>[:"us/las", :"us/lasdev", :"de/fra", :"de/fkb"], :message=>"%{value} needs to be :\"us/las\", :\"us/lasdev\", :\"de/fra\", :\"de/fkb\""}, allow_nil: true
+        validates :location, inclusion: {:in=>[:"us/las", :"de/fra", :"de/fkb"], :message=>"%{value} needs to be :\"us/las\", :\"de/fra\", :\"de/fkb\""}, allow_nil: true
 
         # @return [Boolean, nil] This will assign the machine to the public LAN. If no LAN exists with public Internet access it is created.
         attribute :assign_public_ip

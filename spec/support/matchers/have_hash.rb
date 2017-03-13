@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 RSpec::Matchers.define :have_hash do |expected|
   match do |actual|
     @matcher = eq(expected)

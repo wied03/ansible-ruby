@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # See LICENSE.txt at root of repository
 # GENERATED FILE - DO NOT EDIT!!
 require 'ansible/ruby/modules/base'
@@ -34,9 +35,9 @@ module Ansible
         attribute :status
         validates :status, inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
 
-        # @return [:glacier, nil] The storage class to transition to. Currently there is only one valid value - 'glacier'.
+        # @return [:glacier, :standard_ia, nil] The storage class to transition to. Currently there are two supported values - 'glacier' or 'standard_ia'.,The 'standard_ia' class is only being available from Ansible version 2.2.
         attribute :storage_class
-        validates :storage_class, inclusion: {:in=>[:glacier], :message=>"%{value} needs to be :glacier"}, allow_nil: true
+        validates :storage_class, inclusion: {:in=>[:glacier, :standard_ia], :message=>"%{value} needs to be :glacier, :standard_ia"}, allow_nil: true
 
         # @return [String, nil] Indicates the lifetime of the objects that are subject to the rule by the date they will transition to a different storage class. The value must be ISO-8601 format, the time must be midnight and a GMT timezone must be specified. If transition_days is not specified, this parameter is required.
         attribute :transition_date

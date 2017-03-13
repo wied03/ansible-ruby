@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # See LICENSE.txt at root of repository
 # GENERATED FILE - DO NOT EDIT!!
 require 'ansible/ruby/modules/base'
@@ -19,9 +20,9 @@ module Ansible
         attribute :source_instance
         validates :source_instance, type: String
 
-        # @return [:MySQL, :"oracle-se1", :"oracle-se", :"oracle-ee", :"sqlserver-ee", :"sqlserver-se", :"sqlserver-ex", :"sqlserver-web", :postgres, nil] The type of database.  Used only when command=create.
+        # @return [:mariadb, :MySQL, :"oracle-se1", :"oracle-se", :"oracle-ee", :"sqlserver-ee", :"sqlserver-se", :"sqlserver-ex", :"sqlserver-web", :postgres, :aurora, nil] The type of database.  Used only when command=create.,mariadb was added in version 2.2
         attribute :db_engine
-        validates :db_engine, inclusion: {:in=>[:MySQL, :"oracle-se1", :"oracle-se", :"oracle-ee", :"sqlserver-ee", :"sqlserver-se", :"sqlserver-ex", :"sqlserver-web", :postgres], :message=>"%{value} needs to be :MySQL, :\"oracle-se1\", :\"oracle-se\", :\"oracle-ee\", :\"sqlserver-ee\", :\"sqlserver-se\", :\"sqlserver-ex\", :\"sqlserver-web\", :postgres"}, allow_nil: true
+        validates :db_engine, inclusion: {:in=>[:mariadb, :MySQL, :"oracle-se1", :"oracle-se", :"oracle-ee", :"sqlserver-ee", :"sqlserver-se", :"sqlserver-ex", :"sqlserver-web", :postgres, :aurora], :message=>"%{value} needs to be :mariadb, :MySQL, :\"oracle-se1\", :\"oracle-se\", :\"oracle-ee\", :\"sqlserver-ee\", :\"sqlserver-se\", :\"sqlserver-ex\", :\"sqlserver-web\", :postgres, :aurora"}, allow_nil: true
 
         # @return [Integer, nil] Size in gigabytes of the initial storage for the DB instance. Used only when command=create or command=modify.
         attribute :size
@@ -70,7 +71,7 @@ module Ansible
         attribute :vpc_security_groups
         validates :vpc_security_groups, type: String
 
-        # @return [Integer, nil] Port number that the DB instance uses for connections. Used only when command=create or command=replicate.,Prior to 2.0 it always defaults to null and the API would use 3306, it had to be set to other DB default values when not using MySql. Starting at 2.0 it auotmaticaly defaults to what is expected for each c(db_engine).
+        # @return [Integer, nil] Port number that the DB instance uses for connections. Used only when command=create or command=replicate.,Prior to 2.0 it always defaults to null and the API would use 3306, it had to be set to other DB default values when not using MySql. Starting at 2.0 it automatically defaults to what is expected for each c(db_engine).
         attribute :port
         validates :port, type: Integer
 

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # See LICENSE.txt at root of repository
 # GENERATED FILE - DO NOT EDIT!!
 require 'ansible/ruby/modules/base'
@@ -39,6 +40,10 @@ module Ansible
         # @return [String, nil] The json dict policy to attach to queue
         attribute :policy
         validates :policy, type: String
+
+        # @return [Hash, nil] json dict with the redrive_policy (see example)
+        attribute :redrive_policy
+        validates :redrive_policy, type: Hash
       end
     end
   end

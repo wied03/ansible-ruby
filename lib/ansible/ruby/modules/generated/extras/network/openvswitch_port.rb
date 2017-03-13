@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # See LICENSE.txt at root of repository
 # GENERATED FILE - DO NOT EDIT!!
 require 'ansible/ruby/modules/base'
@@ -14,6 +15,10 @@ module Ansible
         # @return [String] Name of port to manage on the bridge
         attribute :port
         validates :port, presence: true, type: String
+
+        # @return [String, nil] VLAN tag for this port
+        attribute :tag
+        validates :tag, type: String
 
         # @return [:present, :absent, nil] Whether the port should exist
         attribute :state

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # See LICENSE.txt at root of repository
 # GENERATED FILE - DO NOT EDIT!!
 require 'ansible/ruby/modules/base'
@@ -14,9 +15,9 @@ module Ansible
         # @return [Object, nil] The description of the virtual datacenter.
         attribute :description
 
-        # @return [:"us/las", :"us/lasdev", :"de/fra", :"de/fkb", nil] The datacenter location.
+        # @return [:"us/las", :"de/fra", :"de/fkb", nil] The datacenter location.
         attribute :location
-        validates :location, inclusion: {:in=>[:"us/las", :"us/lasdev", :"de/fra", :"de/fkb"], :message=>"%{value} needs to be :\"us/las\", :\"us/lasdev\", :\"de/fra\", :\"de/fkb\""}, allow_nil: true
+        validates :location, inclusion: {:in=>[:"us/las", :"de/fra", :"de/fkb"], :message=>"%{value} needs to be :\"us/las\", :\"de/fra\", :\"de/fkb\""}, allow_nil: true
 
         # @return [Object, nil] The ProfitBricks username. Overrides the PB_SUBSCRIPTION_ID environement variable.
         attribute :subscription_user

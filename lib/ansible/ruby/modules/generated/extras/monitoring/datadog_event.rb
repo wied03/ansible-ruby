@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # See LICENSE.txt at root of repository
 # GENERATED FILE - DO NOT EDIT!!
 require 'ansible/ruby/modules/base'
@@ -11,6 +12,10 @@ module Ansible
         # @return [Object] Your DataDog API key.
         attribute :api_key
         validates :api_key, presence: true
+
+        # @return [Object] Your DataDog app key.
+        attribute :app_key
+        validates :app_key, presence: true
 
         # @return [Object] The event title.
         attribute :title

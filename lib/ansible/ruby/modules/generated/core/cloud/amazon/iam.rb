@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # See LICENSE.txt at root of repository
 # GENERATED FILE - DO NOT EDIT!!
 require 'ansible/ruby/modules/base'
@@ -29,6 +30,12 @@ module Ansible
         attribute :path
         validates :path, type: String
 
+        # @return [Object, nil] The inline (JSON or YAML) trust policy document that grants an entity permission to assume the role. Mutually exclusive with C(trust_policy_filepath).
+        attribute :trust_policy
+
+        # @return [Object, nil] The path to the trust policy document that grants an entity permission to assume the role. Mutually exclusive with C(trust_policy).
+        attribute :trust_policy_filepath
+
         # @return [:create, :remove, :active, :inactive, nil] When type is user, it creates, removes, deactivates or activates a user's access key(s). Note that actions apply only to keys specified.
         attribute :access_key_state
         validates :access_key_state, inclusion: {:in=>[:create, :remove, :active, :inactive], :message=>"%{value} needs to be :create, :remove, :active, :inactive"}, allow_nil: true
@@ -37,7 +44,7 @@ module Ansible
         attribute :key_count
         validates :key_count, type: String
 
-        # @return [Object, nil] A list of the keys that you want impacted by the access_key_state paramter.
+        # @return [Object, nil] A list of the keys that you want impacted by the access_key_state parameter.
         attribute :access_key_ids
 
         # @return [Object, nil] A list of groups the user should belong to. When update, will gracefully remove groups not listed.

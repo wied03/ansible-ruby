@@ -1,4 +1,4 @@
-# rubocop: disable Style/FileName
+# frozen_string_literal: true
 require 'ansible/ruby/rake/tasks'
 
 desc 'the ansible task default'

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # See LICENSE.txt at root of repository
 # GENERATED FILE - DO NOT EDIT!!
 require 'ansible/ruby/modules/base'
@@ -17,6 +18,9 @@ module Ansible
         # @return [String, nil] Network the IP address is related to.
         attribute :network
         validates :network, type: String
+
+        # @return [Object, nil] VPC the IP address is related to.
+        attribute :vpc
 
         # @return [Object, nil] Account the IP address is related to.
         attribute :account

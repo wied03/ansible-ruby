@@ -1,4 +1,5 @@
-# VALIDATED_CHECKSUM: 8ktTiahMAzMVSxRLVLLtblQnW5xqxnjEx/VLO7Z0mSQ=
+# frozen_string_literal: true
+# VALIDATED_CHECKSUM: v5T3dbovbGBE0ljyTcaYnW+gG0ChWYC8CHAat1jZPP8=
 require 'ansible/ruby/modules/generated/core/network/basics/get_url'
 
 module Ansible

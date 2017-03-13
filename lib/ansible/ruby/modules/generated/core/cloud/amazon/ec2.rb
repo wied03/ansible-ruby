@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # See LICENSE.txt at root of repository
 # GENERATED FILE - DO NOT EDIT!!
 require 'ansible/ruby/modules/base'
@@ -6,6 +7,7 @@ module Ansible
   module Ruby
     module Modules
       # Creates or terminates ec2 instances.
+      # C(state=restarted) was added in 2.2
       class Ec2 < Base
         # @return [String, nil] key pair to use on the instance
         attribute :key_name
@@ -108,9 +110,13 @@ module Ansible
         attribute :termination_protection
         validates :termination_protection, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
-        # @return [:present, :absent, :running, :stopped, nil] create or terminate instances
+        # @return [:stop, :terminate, nil] Set whether AWS will Stop or Terminate an instance on shutdown
+        attribute :instance_initiated_shutdown_behavior
+        validates :instance_initiated_shutdown_behavior, inclusion: {:in=>[:stop, :terminate], :message=>"%{value} needs to be :stop, :terminate"}, allow_nil: true
+
+        # @return [:present, :absent, :running, :restarted, :stopped, nil] create or terminate instances
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent, :running, :stopped], :message=>"%{value} needs to be :present, :absent, :running, :stopped"}, allow_nil: true
+        validates :state, inclusion: {:in=>[:present, :absent, :running, :restarted, :stopped], :message=>"%{value} needs to be :present, :absent, :running, :restarted, :stopped"}, allow_nil: true
 
         # @return [Array<Hash>, Hash, nil] a list of hash/dictionaries of volumes to add to the new instance; '[{"key":"value", "key":"value"}]'; keys allowed are - device_name (str; required), delete_on_termination (bool; False), device_type (deprecated), ephemeral (str), encrypted (bool; False), snapshot (str), volume_type (str), iops (int) - device_type is deprecated use volume_type, iops must be set when volume_type='io1', ephemeral and snapshot are mutually exclusive.
         attribute :volumes

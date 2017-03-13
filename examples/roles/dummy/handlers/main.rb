@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 handler 'reboot' do
   ansible_include 'handler_include.yml' do
     static true

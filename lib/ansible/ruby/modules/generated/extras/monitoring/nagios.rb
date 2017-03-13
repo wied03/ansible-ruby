@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # See LICENSE.txt at root of repository
 # GENERATED FILE - DO NOT EDIT!!
 require 'ansible/ruby/modules/base'
@@ -11,9 +12,9 @@ module Ansible
       # When specifying what service to handle there is a special service value, I(host), which will handle alerts/downtime for the I(host itself), e.g., C(service=host). This keyword may not be given with other services at the same time. I(Setting alerts/downtime for a host does not affect alerts/downtime for any of the services running on it.) To schedule downtime for all services on particular host use keyword "all", e.g., C(service=all).
       # When using the M(nagios) module you will need to specify your Nagios server using the C(delegate_to) parameter.
       class Nagios < Base
-        # @return [:downtime, :enable_alerts, :disable_alerts, :silence, :unsilence, :silence_nagios, :unsilence_nagios, :command, :servicegroup_service_downtime, :servicegroup_host_downtime] Action to take.,servicegroup options were added in 2.0.
+        # @return [:downtime, :delete_downtime, :enable_alerts, :disable_alerts, :silence, :unsilence, :silence_nagios, :unsilence_nagios, :command, :servicegroup_service_downtime, :servicegroup_host_downtime] Action to take.,servicegroup options were added in 2.0.,delete_downtime options were added in 2.2.
         attribute :action
-        validates :action, presence: true, inclusion: {:in=>[:downtime, :enable_alerts, :disable_alerts, :silence, :unsilence, :silence_nagios, :unsilence_nagios, :command, :servicegroup_service_downtime, :servicegroup_host_downtime], :message=>"%{value} needs to be :downtime, :enable_alerts, :disable_alerts, :silence, :unsilence, :silence_nagios, :unsilence_nagios, :command, :servicegroup_service_downtime, :servicegroup_host_downtime"}
+        validates :action, presence: true, inclusion: {:in=>[:downtime, :delete_downtime, :enable_alerts, :disable_alerts, :silence, :unsilence, :silence_nagios, :unsilence_nagios, :command, :servicegroup_service_downtime, :servicegroup_host_downtime], :message=>"%{value} needs to be :downtime, :delete_downtime, :enable_alerts, :disable_alerts, :silence, :unsilence, :silence_nagios, :unsilence_nagios, :command, :servicegroup_service_downtime, :servicegroup_host_downtime"}
 
         # @return [String, nil] Host to operate on in Nagios.
         attribute :host

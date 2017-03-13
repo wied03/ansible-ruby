@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # See LICENSE.txt for license
 require 'spec_helper'
 require 'ansible-ruby'
@@ -140,7 +141,7 @@ YAML
       it do
         is_expected.to eq('hash' => [
                             'value 1',
-                            'value 2 goes on to next line',
+                            'value 2goes on to next line',
                             'value 3'
                           ])
       end

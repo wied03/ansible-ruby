@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # See LICENSE.txt at root of repository
 # GENERATED FILE - DO NOT EDIT!!
 require 'ansible/ruby/modules/base'
@@ -47,7 +48,7 @@ module Ansible
         attribute :is_dynamically_scalable
         validates :is_dynamically_scalable, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
-        # @return [Boolean, nil] Whether the template should be syned or removed across zones.,Only used if C(state) is present or absent.
+        # @return [Boolean, nil] Whether the template should be synced or removed across zones.,Only used if C(state) is present or absent.
         attribute :cross_zones
         validates :cross_zones, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 

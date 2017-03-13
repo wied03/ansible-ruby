@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # See LICENSE.txt at root of repository
 # GENERATED FILE - DO NOT EDIT!!
 require 'ansible/ruby/modules/base'
@@ -32,7 +33,7 @@ module Ansible
         # @return [Object, nil] If a SHA-256 checksum is passed to this parameter, the digest of the destination file will be calculated after it is downloaded to ensure its integrity and verify that the transfer completed successfully. This option is deprecated. Use 'checksum'.
         attribute :sha256sum
 
-        # @return [String, nil] If a checksum is passed to this parameter, the digest of the destination file will be calculated after it is downloaded to ensure its integrity and verify that the transfer completed successfully. Format: <algorithm>:<checksum>, e.g.: checksum="sha256:D98291AC[...]B6DC7B97" If you worry about portability, only the sha1 algorithm is available on all platforms and python versions.  The third party hashlib library can be installed for access to additional algorithms. Additionaly, if a checksum is passed to this parameter, and the file exist under the C(dest) location, the destination_checksum would be calculated, and if checksum equals destination_checksum, the file download would be skipped (unless C(force) is true). 
+        # @return [String, nil] If a checksum is passed to this parameter, the digest of the destination file will be calculated after it is downloaded to ensure its integrity and verify that the transfer completed successfully. Format: <algorithm>:<checksum>, e.g.: checksum="sha256:D98291AC[...]B6DC7B97" If you worry about portability, only the sha1 algorithm is available on all platforms and python versions.  The third party hashlib library can be installed for access to additional algorithms. Additionally, if a checksum is passed to this parameter, and the file exist under the C(dest) location, the destination_checksum would be calculated, and if checksum equals destination_checksum, the file download would be skipped (unless C(force) is true). 
         attribute :checksum
         validates :checksum, type: String
 

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 RSpec::Matchers.define :have_errors do |expected|
   match do |actual|
     actual.valid? # trigger validation

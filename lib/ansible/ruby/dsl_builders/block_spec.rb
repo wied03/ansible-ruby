@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # see LICENSE.txt in project root
 require 'spec_helper'
 
@@ -84,7 +85,7 @@ describe Ansible::Ruby::DslBuilders::Block do
 
     subject { -> { evaluate } }
 
-    it { is_expected.to raise_error "Invalid method/local variable `foobar'. Only valid options are [:task, :become, :become_user, :ansible_when, :ignore_errors, :jinja]" }
+    it { is_expected.to raise_error "Invalid method/local variable `foobar'. Only valid options are [:ansible_when, :become, :become_user, :ignore_errors, :jinja, :task]" }
   end
 
   context 'register' do

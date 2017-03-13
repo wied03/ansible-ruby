@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # See LICENSE.txt at root of repository
 # GENERATED FILE - DO NOT EDIT!!
 require 'ansible/ruby/modules/base'
@@ -23,9 +24,9 @@ module Ansible
         attribute :hookurl
         validates :hookurl, type: String
 
-        # @return [:create, :cleanall] This tells the githooks module what you want it to do.
+        # @return [:create, :cleanall, :list, :clean504] This tells the githooks module what you want it to do.
         attribute :action
-        validates :action, presence: true, inclusion: {:in=>[:create, :cleanall], :message=>"%{value} needs to be :create, :cleanall"}
+        validates :action, presence: true, inclusion: {:in=>[:create, :cleanall, :list, :clean504], :message=>"%{value} needs to be :create, :cleanall, :list, :clean504"}
 
         # @return [:yes, :no, nil] If C(no), SSL certificates for the target repo will not be validated. This should only be used on personally controlled sites using self-signed certificates.
         attribute :validate_certs

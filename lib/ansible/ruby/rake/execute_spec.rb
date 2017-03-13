@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'spec_helper'
 require 'ansible-ruby'
 require 'ansible/ruby/rake/execute'

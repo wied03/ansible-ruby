@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # See LICENSE.txt at root of repository
 # GENERATED FILE - DO NOT EDIT!!
 require 'ansible/ruby/modules/base'
@@ -6,7 +7,7 @@ module Ansible
   module Ruby
     module Modules
       # The M(command) module takes the command name followed by a list of space-delimited arguments.
-      # The given command will be executed on all selected nodes. It will not be processed through the shell, so variables like C($HOME) and operations like C("<"), C(">"), C("|"), and C("&") will not work (use the M(shell) module if you need these features).
+      # The given command will be executed on all selected nodes. It will not be processed through the shell, so variables like C($HOME) and operations like C("<"), C(">"), C("|"), C(";") and C("&") will not work (use the M(shell) module if you need these features).
       class Command < Base
         # @return [Object] the command module takes a free form command to run.  There is no parameter actually named 'free form'. See the examples!
         attribute :free_form

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'ansible/ruby/models/unit'
 require 'ansible/ruby/models/inclusion'
 require 'ansible/ruby/modules/base'

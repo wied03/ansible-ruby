@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # See LICENSE.txt at root of repository
 # GENERATED FILE - DO NOT EDIT!!
 require 'ansible/ruby/modules/base'
@@ -5,7 +6,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
-      # Manages network device configurations over SSH or NXAPI.  This module allows implementors to work with the device running-config.  It provides a way to push a set of commands onto a network device by evaluting the current running-config and only pushing configuration commands that are not already configured.  The config source can be a set of commands or a template.
+      # Manages network device configurations over SSH or NXAPI.  This module allows implementers to work with the device running-config.  It provides a way to push a set of commands onto a network device by evaluating the current running-config and only pushing configuration commands that are not already configured.  The config source can be a set of commands or a template.
       class Nxos_template < Base
         # @return [String, nil] The path to the config source.  The source can be either a file with config or a template that will be merged during runtime.  By default the task will search for the source file in role or playbook root folder in templates directory.
         attribute :src
@@ -15,7 +16,7 @@ module Ansible
         attribute :force
         validates :force, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
-        # @return [Boolean, nil] The module, by default, will collect the current device running-config to use as a base for comparision to the commands in I(src).  Setting this value to true will cause the module to issue the command `show running-config all` to include all device settings.
+        # @return [Boolean, nil] The module, by default, will collect the current device running-config to use as a base for comparisons to the commands in I(src).  Setting this value to true will cause the module to issue the command C(show running-config all) to include all device settings.
         attribute :include_defaults
         validates :include_defaults, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
@@ -23,7 +24,7 @@ module Ansible
         attribute :backup
         validates :backup, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
-        # @return [String, nil] The module, by default, will connect to the remote device and retrieve the current running-config to use as a base for comparing against the contents of source.  There are times when it is not desirable to have the task get the current running-config for every task in a playbook.  The I(config) argument allows the implementer to pass in the configuruation to use as the base config for comparision.
+        # @return [String, nil] The module, by default, will connect to the remote device and retrieve the current running-config to use as a base for comparing against the contents of source.  There are times when it is not desirable to have the task get the current running-config for every task in a playbook.  The I(config) argument allows the implementer to pass in the configuration to use as the base config for comparison.
         attribute :config
         validates :config, type: String
       end

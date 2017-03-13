@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # See LICENSE.txt at root of repository
 # GENERATED FILE - DO NOT EDIT!!
 require 'ansible/ruby/modules/base'
@@ -20,6 +21,9 @@ module Ansible
         attribute :state
         validates :state, presence: true, inclusion: {:in=>[:present, :absent, :muted, :unmuted], :message=>"%{value} needs to be :present, :absent, :muted, :unmuted"}
 
+        # @return [Object, nil] A list of tags to associate with your monitor when creating or updating. This can help you categorize and filter monitors.
+        attribute :tags
+
         # @return [:"metric alert", :"service check", :"event alert", nil] The type of the monitor.,The 'event alert'is available starting at Ansible 2.1
         attribute :type
         validates :type, inclusion: {:in=>[:"metric alert", :"service check", :"event alert"], :message=>"%{value} needs to be :\"metric alert\", :\"service check\", :\"event alert\""}, allow_nil: true
@@ -31,7 +35,7 @@ module Ansible
         attribute :name
         validates :name, presence: true
 
-        # @return [Object, nil] A message to include with notifications for this monitor. Email notifications can be sent to specific users by using the same '@username' notation as events.
+        # @return [Object, nil] A message to include with notifications for this monitor. Email notifications can be sent to specific users by using the same '@username' notation as events. Monitor message template variables can be accessed by using double square brackets, i.e '[[' and ']]'.
         attribute :message
 
         # @return [String, nil] Dictionary of scopes to timestamps or None. Each scope will be muted until the given POSIX timestamp or forever if the value is None. 
@@ -62,6 +66,10 @@ module Ansible
         # @return [Array<String>, String, nil] A dictionary of thresholds by status. This option is only available for service checks and metric alerts. Because each of them can have multiple thresholds, we don't define them directly in the query.
         attribute :thresholds
         validates :thresholds, type: TypeGeneric.new(String)
+
+        # @return [Boolean, nil] A boolean indicating whether changes to this monitor should be restricted to the creator or admins.
+        attribute :locked
+        validates :locked, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
       end
     end
   end

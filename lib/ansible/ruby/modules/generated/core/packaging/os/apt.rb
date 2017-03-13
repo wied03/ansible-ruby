@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # See LICENSE.txt at root of repository
 # GENERATED FILE - DO NOT EDIT!!
 require 'ansible/ruby/modules/base'
@@ -19,9 +20,9 @@ module Ansible
         attribute :update_cache
         validates :update_cache, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
-        # @return [Boolean, nil] If C(update_cache) is specified and the last run is less or equal than I(cache_valid_time) seconds ago, the C(update_cache) gets skipped.
+        # @return [Integer, nil] Update the apt cache if its older than the I(cache_valid_time). This option is set in seconds.
         attribute :cache_valid_time
-        validates :cache_valid_time, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :cache_valid_time, type: Integer
 
         # @return [Boolean, nil] Will force purging of configuration files if the module state is set to I(absent).
         attribute :purge

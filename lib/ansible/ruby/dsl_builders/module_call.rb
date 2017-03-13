@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'ansible/ruby/dsl_builders/base'
 require 'ansible/ruby/dsl_builders/args'
 require 'ansible/ruby/modules/base'

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # See LICENSE.txt at root of repository
 # GENERATED FILE - DO NOT EDIT!!
 require 'ansible/ruby/modules/base'
@@ -45,6 +46,10 @@ module Ansible
         # @return [Boolean, nil] Whether to use an SSL connection when connecting to the database
         attribute :ssl
         validates :ssl, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+
+        # @return [:CERT_REQUIRED, :CERT_OPTIONAL, :CERT_NONE, nil] Specifies whether a certificate is required from the other side of the connection, and whether it will be validated if provided.
+        attribute :ssl_cert_reqs
+        validates :ssl_cert_reqs, inclusion: {:in=>[:CERT_REQUIRED, :CERT_OPTIONAL, :CERT_NONE], :message=>"%{value} needs to be :CERT_REQUIRED, :CERT_OPTIONAL, :CERT_NONE"}, allow_nil: true
 
         # @return [String, nil] The database user roles valid values could either be one or more of the following strings: 'read', 'readWrite', 'dbAdmin', 'userAdmin', 'clusterAdmin', 'readAnyDatabase', 'readWriteAnyDatabase', 'userAdminAnyDatabase', 'dbAdminAnyDatabase',Or the following dictionary '{ db: DATABASE_NAME, role: ROLE_NAME }'.,This param requires pymongo 2.5+. If it is a string, mongodb 2.4+ is also required. If it is a dictionary, mongo 2.6+  is required.
         attribute :roles

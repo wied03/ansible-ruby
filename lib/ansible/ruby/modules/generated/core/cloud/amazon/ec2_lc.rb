@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # See LICENSE.txt at root of repository
 # GENERATED FILE - DO NOT EDIT!!
 require 'ansible/ruby/modules/base'
@@ -28,7 +29,7 @@ module Ansible
         attribute :key_name
         validates :key_name, type: String
 
-        # @return [Array<String>, String, nil] A list of security groups into which instances should be found
+        # @return [Array<String>, String, nil] A list of security groups to apply to the instances. For VPC instances, specify security group IDs. For EC2-Classic, specify either security group names or IDs.
         attribute :security_groups
         validates :security_groups, type: TypeGeneric.new(String)
 

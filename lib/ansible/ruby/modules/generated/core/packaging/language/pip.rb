@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # See LICENSE.txt at root of repository
 # GENERATED FILE - DO NOT EDIT!!
 require 'ansible/ruby/modules/base'
@@ -7,7 +8,7 @@ module Ansible
     module Modules
       # Manage Python library dependencies. To use this module, one of the following keys is required: C(name) or C(requirements).
       class Pip < Base
-        # @return [String, nil] The name of a Python library to install or the url of the remote package.
+        # @return [String, nil] The name of a Python library to install or the url of the remote package.,As of 2.2 you can supply a list of names.
         attribute :name
         validates :name, type: String
 
@@ -19,7 +20,7 @@ module Ansible
         attribute :requirements
         validates :requirements, type: String
 
-        # @return [String, nil] An optional path to a I(virtualenv) directory to install into. It cannot be specified together with the 'executable' parameter (added in 2.1).
+        # @return [String, nil] An optional path to a I(virtualenv) directory to install into. It cannot be specified together with the 'executable' parameter (added in 2.1). If the virtualenv does not exist, it will be created before installing packages. The optional virtualenv_site_packages, virtualenv_command, and virtualenv_python options affect the creation of the virtualenv.
         attribute :virtualenv
         validates :virtualenv, type: String
 
@@ -31,7 +32,7 @@ module Ansible
         attribute :virtualenv_command
         validates :virtualenv_command, type: String
 
-        # @return [Object, nil] The Python executable used for creating the virtual environment. For example C(python3.4), C(python2.7). When not specified, the system Python version is used.
+        # @return [Object, nil] The Python executable used for creating the virtual environment. For example C(python3.5), C(python2.7). When not specified, the Python version used to run the ansible module is used.
         attribute :virtualenv_python
 
         # @return [:present, :absent, :latest, :forcereinstall, nil] The state of module,The 'forcereinstall' option is only available in Ansible 2.1 and above.
@@ -49,7 +50,7 @@ module Ansible
         # @return [Object, nil] cd into this directory before running the command
         attribute :chdir
 
-        # @return [String, nil] The explicit executable or a pathname to the executable to be used to run pip for a specific version of Python installed in the system. For example C(pip-3.3), if there are both Python 2.7 and 3.3 installations in the system and you want to run pip for the Python 3.3 installation. It cannot be specified together with the 'virtualenv' parameter (added in 2.1).
+        # @return [String, nil] The explicit executable or a pathname to the executable to be used to run pip for a specific version of Python installed in the system. For example C(pip-3.3), if there are both Python 2.7 and 3.3 installations in the system and you want to run pip for the Python 3.3 installation. It cannot be specified together with the 'virtualenv' parameter (added in 2.1). By default, it will take the appropriate version for the python interpreter use by ansible, e.g. pip3 on python 3, and pip2 or pip on python 2.
         attribute :executable
         validates :executable, type: String
 

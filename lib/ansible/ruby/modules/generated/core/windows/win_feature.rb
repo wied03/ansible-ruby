@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # See LICENSE.txt at root of repository
 # GENERATED FILE - DO NOT EDIT!!
 require 'ansible/ruby/modules/base'
@@ -5,7 +6,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
-      # Installs or uninstalls Windows Roles or Features
+      # Installs or uninstalls Windows Roles or Features on Windows Server. This module uses the Add/Remove-WindowsFeature Cmdlets, which is not available on client os machines.
       class Win_feature < Base
         # @return [Object] Names of roles or features to install as a single feature or a comma-separated list of features
         attribute :name

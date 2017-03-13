@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # See LICENSE.txt at root of repository
 # GENERATED FILE - DO NOT EDIT!!
 require 'ansible/ruby/modules/base'
@@ -15,9 +16,9 @@ module Ansible
         attribute :name
         validates :name, type: String
 
-        # @return [String, nil] the optional lock delay that can be attached to the session when it is created. Locks for invalidated sessions ar blocked from being acquired until this delay has expired. Valid units for delays include 'ns', 'us', 'ms', 's', 'm', 'h'
+        # @return [Integer, nil] the optional lock delay that can be attached to the session when it is created. Locks for invalidated sessions ar blocked from being acquired until this delay has expired. Durations are in seconds
         attribute :delay
-        validates :delay, type: String
+        validates :delay, type: Integer
 
         # @return [Object, nil] the name of the node that with which the session will be associated. by default this is the name of the agent.
         attribute :node
@@ -44,6 +45,10 @@ module Ansible
         # @return [Boolean, nil] whether to verify the tls certificate of the consul agent
         attribute :validate_certs
         validates :validate_certs, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+
+        # @return [String, nil] the optional behavior that can be attached to the session when it is created. This can be set to either ‘release’ or ‘delete’. This controls the behavior when a session is invalidated.
+        attribute :behavior
+        validates :behavior, type: String
       end
     end
   end

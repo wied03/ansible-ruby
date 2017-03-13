@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # See LICENSE.txt for license
 module Ansible
   module Ruby
@@ -20,7 +21,7 @@ module Ansible
 
           def remove_line_continuation(yaml)
             # code doesn't always indent these right
-            yaml.gsub(/\\\n/, '')
+            yaml.gsub(/ \\\n/, '')
           end
 
           def with_yaml_lines(yaml)
@@ -131,12 +132,95 @@ module Ansible
               # rds - non parseable defaults
               'default: 3306 for mysql, 1521 for Oracle, 1433 for SQL Server, 5432 for PostgreSQL.' => 'default: 5432',
               # datadog_monitor
-              'default: 2x timeframe for metric, 2 minutes for service' => 'default: 2'
+              'default: 2x timeframe for metric, 2 minutes for service' => 'default: 2',
+              # bad spacing
+              '   docker_image:' => '  docker_image:',
+              # bad spacing
+              '     dellos10_command:' => '    dellos10_command:',
+              # forgot : on key
+              'provider "{{ cli }}"' => 'provider: "{{ cli }}"',
+              # Forgot 'tasks' list
+              /(?<=transport: cli).*?- name: run show version on remote devices.*?eos_command/m => "\ntasks:\n- name: run show version on remote devices\n  eos_command",
+              # Spacing problem
+              '   eos_command:' => '  eos_command:',
+              '    sros_config:' => '  sros_config:',
+              '     sros_command:' => '    sros_command:',
+              # Vars/hash
+              /vars:.*?- eos_config:/m => '- eos_config:',
+              /vars:.*?- eos_facts:/m => '- eos_facts:',
+              /vars:.*?- ios_facts:/m => '- ios_facts:',
+              /vars:.*?- asa_config:/m => '- asa_config:',
+              /vars:.*?- asa_command:/m => '- asa_command:',
+              /vars:.*?- vyos_command:/m => '- vyos_command:',
+              /vars:.*?- ops_command:/m => '- ops_command:',
+              /vars:.*?- ops_facts:/m => '- ops_facts:',
+              /vars:.*?- nxos_facts:/m => '- nxos_facts:',
+              /vars:.*?- asa_acl:/m => '- asa_acl:',
+              /vars:.*?  eos_eapi:/m => "- name: foo\n  eos_eapi:",
+              /vars:.*?  ios_config:/m => "- name: foo\n  ios_config:",
+              '     ios_command:' => '    ios_command:',
+              '     iosxr_command:' => '    iosxr_command:',
+              /vars:.*?  iosxr_config:/m => "- name: foo\n  iosxr_config:",
+              /vars:.*?  junos_command:/m => "- name: foo\n  junos_command:",
+              /vars:.*?  junos_config:/m => "- name: foo\n  junos_config:",
+              /vars:.*?  junos_netconf:/m => "- name: foo\n  junos_netconf:",
+              'configure RR client' => '# configure RR client',
+              /vars:.*?  nxos_command:/m => "- name: foo\n  nxos_command:",
+              '   nxos_command:' => '  nxos_command:',
+              /vars:.*?  nxos_config:/m => "- name: foo\n  nxos_config:",
+              /vars:.*?  vyos_facts:/m => "- name: foo\n  vyos_facts:",
+              /vars:.*?  vyos_config:/m => "- name: foo\n  vyos_config:",
+              /vars:.*?  sros_rollback:/m => "- name: foo\n  sros_rollback:",
+              /vars:.*?  sros_config:/m => "- name: foo\n  sros_config:",
+              /vars:.*?  ops_config:/m => "- name: foo\n  ops_config:",
+              /vars:.*?  nxos_nxapi:/m => "- name: foo\n  nxos_nxapi:",
+              # quotes not closed
+              'src: "C:\\\\DirectoryOne' => 'src: "C:/DirectoryOne"',
+              # Not labeled correctly and not formatted right
+              /# Create a DNS record on a UCS.*- udm_dns_zone:.*/m => "- udm_dns_record:\n   name: www\n   zone: example.com\n   type: host_record\n   data: ['a': '192.0.2.1']",
+              'api_url: "{{ netapp_api_url }}"/' => 'api_url: "{{ netapp_api_url }}"',
+              # unquoted comment
+              'send a message to chat in playbook' => '# send a message to chat in playbook',
+              # Incorrect YAML escaping in F5 example, this will result in strings anyways
+              'host: "{{ ansible_default_ipv4["address"] }}"' => 'host: a string',
+              '     context: customer_a' => '    context: customer_a',
+              'automation to stop the maintenance.' => '# automation to stop the maintenance.',
+              # Lack of closing quotes
+              '- "server1.example.com' => '- "server1.example.com"',
+              # markdown in the middle of the YAML example
+              /^```/ => '',
+              # this doesn't help much with how we're using this
+              '    ---' => '',
+              # hard to fix this
+              /datadog_event:.*/m => '',
+              # unescaped colon
+              'Obtain SSO token with using username/password credentials:' => 'Obtain SSO token with using username/password credentials',
+              # tasks/block interference
+              /tasks:.*- block:/m => '',
+              # Quotes left open
+              /cluster: "centos$/ => 'cluster: "centos"',
+              # Invalig YAML
+              /# Create a Redshift.*/m => '',
+              # Example turns into JSON for some reason in cloudformation_facts
+              /"stack_outputs": {.*/m => '',
+              # unescaped command
+              /ansible winhost.*/ => '# ansible winhost...',
+              # unmatched quotes
+              /'{{roleinput\d}}"/ => '"{{roleinput2222}}"',
+              # not quoted properly
+              '- include: {{hostvar}}.yml' => '- include: "{{hostvar}}.yml"',
+              'src: {{ inventory_hostname }}.cfg' => 'src: "{{ inventory_hostname }}.cfg"',
+              # = should be colon in nxos_interface_ospf
+              '    cost=default' => '    cost: default',
+              # block
+              /- block:.*name: Install OS/m => "tasks:\n    - name: Install OS",
+              /transport: nxapi.*rescue.*/m => 'transport: nxapi'
             }
             dirty_patterns.inject(yaml) do |fixed_yaml, find_replace|
               fixed_yaml.gsub find_replace[0], find_replace[1]
             end
           end
+
           # rubocop:enable Metrics/MethodLength
 
           def fix_missing_hash_entry(yaml, module_name)
