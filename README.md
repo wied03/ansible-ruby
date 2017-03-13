@@ -16,6 +16,10 @@ Attempts to create a Ruby DSL on top of Ansible's YML files. Currently this is a
 ## Why does this exist?
 YAML is OK but can suffer from the same problems that exist with any markup language. If you can write in a first class language that is syntaxually easier, that might be of some benefit.
 
+## Why Ruby?
+
+It's a productive language for me that's easy to write DSLs in. One could argue that are more strongly typed language like Crystal could be good for this as well.
+
 ## How does this relate to Python and modules?
 Python is widely installed (probably moreso than Ruby :()) on machines to be managed. We recognize Ansible's choice here. This tool does not try and change how Ansible modules work. It only tries to avoid editing lots of YML directly.
 
