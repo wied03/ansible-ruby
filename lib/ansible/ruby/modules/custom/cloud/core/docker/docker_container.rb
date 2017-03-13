@@ -1,4 +1,4 @@
-# VALIDATED_CHECKSUM: HoHvaFYbnOUeU03yrUaG8NMWRHEC9ofwjEVNquhM7Dw=
+# VALIDATED_CHECKSUM: pt3kbmbhxlsBF6TacRBnZbk+VEk8d5HzG2ugwHE/ajY=
 # See LICENSE.txt for license
 
 require 'ansible/ruby/modules/generated/core/cloud/docker/docker_container'
