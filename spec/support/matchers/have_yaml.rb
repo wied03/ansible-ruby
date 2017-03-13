@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 RSpec::Matchers.define :have_yaml do |*expected|
   match do |_|
     filename = expected[0]

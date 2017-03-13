@@ -1,4 +1,5 @@
-# VALIDATED_CHECKSUM: 9JallgUysKJIyHfAPqGtC5OEbyuq4elfgTdiAnipb3M=
+# frozen_string_literal: true
+# VALIDATED_CHECKSUM: w7CVlblEfVzRNfEnY9mviyLc0xffRwO7BFYtCGzdfzM=
 # See LICENSE.txt for license
 
 require 'ansible/ruby/modules/free_form'

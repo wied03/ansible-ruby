@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # See LICENSE.txt for license
 class TypeGeneric
   attr_reader :klasses

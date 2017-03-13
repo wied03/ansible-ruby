@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # See LICENSE.txt at root of repository
 # GENERATED FILE - DO NOT EDIT!!
 require 'ansible/ruby/modules/base'

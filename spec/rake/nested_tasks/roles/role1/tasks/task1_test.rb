@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 task 'Copy something over' do
   copy do
     src '/file1.conf'

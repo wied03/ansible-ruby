@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # See LICENSE.txt for license
 require 'spec_helper'
 require_relative './option_formatter'

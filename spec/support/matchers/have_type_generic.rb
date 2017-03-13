@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 RSpec::Matchers.define :have_type_generic do |*expected|
   match do |actual|
     @types = actual.types

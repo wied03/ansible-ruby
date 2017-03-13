@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # See LICENSE.txt for license
 require 'spec_helper'
 require 'ansible-ruby'
@@ -66,6 +67,7 @@ YAML
     context 'standard' do
       it do
         is_expected.to eq <<RUBY
+# frozen_string_literal: true
 # See LICENSE.txt at root of repository
 # GENERATED FILE - DO NOT EDIT!!
 require 'ansible/ruby/modules/base'
@@ -138,6 +140,7 @@ YAML
         end
         it do
           is_expected.to eq <<RUBY
+# frozen_string_literal: true
 # See LICENSE.txt at root of repository
 # GENERATED FILE - DO NOT EDIT!!
 require 'ansible/ruby/modules/base'
@@ -207,6 +210,7 @@ YAML
         end
         it do
           is_expected.to eq <<RUBY
+# frozen_string_literal: true
 # See LICENSE.txt at root of repository
 # GENERATED FILE - DO NOT EDIT!!
 require 'ansible/ruby/modules/base'
@@ -257,6 +261,7 @@ YAML
 
       it do
         is_expected.to eq <<RUBY
+# frozen_string_literal: true
 # See LICENSE.txt at root of repository
 # GENERATED FILE - DO NOT EDIT!!
 require 'ansible/ruby/modules/base'

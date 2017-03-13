@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 play 'the play name' do
   hosts %w(host1 host2)
 

@@ -1,4 +1,5 @@
-# VALIDATED_CHECKSUM: uU/puJauUkm7CNURp/4UBYobKtCu3QSfhIXjCbodSro=
+# frozen_string_literal: true
+# VALIDATED_CHECKSUM: rQYGJmNSbtiLlN+vntnz3SEl3YYK2k2uqMZq7VRYiHI=
 # See LICENSE.txt for license
 
 require 'ansible/ruby/modules/generated/core/files/fetch'
