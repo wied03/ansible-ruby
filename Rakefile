@@ -8,7 +8,11 @@ require_relative 'util/parser'
 require 'digest'
 require 'json'
 
-task default: [:spec, :update_modules, :rubocop, :reek, :compile_examples, :ansible_lint]
+task default: [:spec, :report_coverage, :update_modules, :rubocop, :reek, :compile_examples, :ansible_lint]
+
+task :report_coverage do
+  sh 'codeclimate-test-reporter' if ENV['TRAVIS']
+end
 
 desc 'Run specs'
 RSpec::Core::RakeTask.new :spec do |task|
