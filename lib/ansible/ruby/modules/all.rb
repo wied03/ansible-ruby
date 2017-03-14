@@ -164,7 +164,8 @@ ansible_mod.autoload(:Stat, 'ansible/ruby/modules/generated/core/files/stat')
 ansible_mod.autoload(:Synchronize, 'ansible/ruby/modules/generated/core/files/synchronize')
 # Using custom module
 ansible_mod.autoload(:Template, 'ansible/ruby/modules/custom/files/template')
-ansible_mod.autoload(:Unarchive, 'ansible/ruby/modules/generated/core/files/unarchive')
+# Using custom module
+ansible_mod.autoload(:Unarchive, 'ansible/ruby/modules/custom/files/unarchive')
 ansible_mod.autoload(:Xattr, 'ansible/ruby/modules/generated/core/files/xattr')
 ansible_mod.autoload(:Add_host, 'ansible/ruby/modules/generated/core/inventory/add_host')
 ansible_mod.autoload(:Group_by, 'ansible/ruby/modules/generated/core/inventory/group_by')
