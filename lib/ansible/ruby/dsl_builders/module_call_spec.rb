@@ -25,6 +25,24 @@ describe Ansible::Ruby::DslBuilders::ModuleCall do
       validates :dest, presence: true
     end
     stub_const 'Ansible::Ruby::Modules::Copy', klass
+    klass = Class.new(Ansible::Ruby::Modules::Base) do
+      attribute :src
+      validates :src, presence: true
+    end
+    stub_const 'Ansible::Ruby::Modules::Gem', klass
+  end
+
+  context 'gem keyword' do
+    let(:ruby) do
+      <<-RUBY
+      gem do
+        src '/file1.conf'
+      end
+      RUBY
+    end
+
+    it { is_expected.to be_a Ansible::Ruby::Modules::Gem }
+    it { is_expected.to have_attributes src: '/file1.conf' }
   end
 
   context 'non free-form module' do

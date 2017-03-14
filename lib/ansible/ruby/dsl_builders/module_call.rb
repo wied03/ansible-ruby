@@ -16,6 +16,11 @@ module Ansible
           MODULES_MOD.const_defined?(klass_name)
         end
 
+        # Gem is a reserved Ruby keyword, method_missing alone will not catch it
+        def gem(*module_args, &block)
+          _process_method 'gem', *module_args, &block
+        end
+
         private
 
         def _klass_name(id)

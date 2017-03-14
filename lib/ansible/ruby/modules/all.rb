@@ -295,7 +295,8 @@ ansible_mod.autoload(:Vyos_command, 'ansible/ruby/modules/generated/core/network
 ansible_mod.autoload(:Vyos_config, 'ansible/ruby/modules/generated/core/network/vyos/vyos_config')
 ansible_mod.autoload(:Vyos_facts, 'ansible/ruby/modules/generated/core/network/vyos/vyos_facts')
 ansible_mod.autoload(:Easy_install, 'ansible/ruby/modules/generated/core/packaging/language/easy_install')
-ansible_mod.autoload(:Gem, 'ansible/ruby/modules/generated/core/packaging/language/gem')
+# Using custom module
+ansible_mod.autoload(:Gem, 'ansible/ruby/modules/custom/core/packaging/language/gem')
 ansible_mod.autoload(:Pip, 'ansible/ruby/modules/generated/core/packaging/language/pip')
 ansible_mod.autoload(:Apt, 'ansible/ruby/modules/generated/core/packaging/os/apt')
 ansible_mod.autoload(:Apt_key, 'ansible/ruby/modules/generated/core/packaging/os/apt_key')
