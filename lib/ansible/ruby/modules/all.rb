@@ -335,7 +335,8 @@ ansible_mod.autoload(:Include_role, 'ansible/ruby/modules/generated/core/utiliti
 ansible_mod.autoload(:Pause, 'ansible/ruby/modules/generated/core/utilities/logic/pause')
 # Using custom module
 ansible_mod.autoload(:Set_fact, 'ansible/ruby/modules/custom/utilities/logic/set_fact')
-ansible_mod.autoload(:Wait_for, 'ansible/ruby/modules/generated/core/utilities/logic/wait_for')
+# Using custom module
+ansible_mod.autoload(:Wait_for, 'ansible/ruby/modules/custom/utilities/logic/wait_for')
 ansible_mod.autoload(:Apache2_module, 'ansible/ruby/modules/generated/core/web_infrastructure/apache2_module')
 ansible_mod.autoload(:Django_manage, 'ansible/ruby/modules/generated/core/web_infrastructure/django_manage')
 ansible_mod.autoload(:Htpasswd, 'ansible/ruby/modules/generated/core/web_infrastructure/htpasswd')

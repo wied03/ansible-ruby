@@ -3,7 +3,8 @@
 * `ec2` corrections for `count_tag`, `ebs_optimized`, `instance_profile_name`, `exact_count` parameters
 * `ec2_ami`, `ec2_vol`, `iam_policy`, `iam`, `ec2_eip` correction for region
 * `ec2_ami` `state` parameter validation correction
-* `get_url`, `unarchive` support for `owner`, `group`, `mode`, `setype`, `selevel` 
+* `get_url`, `unarchive` support for `owner`, `group`, `mode`, `setype`, `selevel`
+* `wait_for` module `port` parameters validation fix - integer
 
 # 1.0.6 - 14 October 2016
 * Allow sharing variables between tasks (#29)
