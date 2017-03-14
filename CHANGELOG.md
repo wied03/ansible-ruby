@@ -1,7 +1,7 @@
 # 1.0.7 - Under Development
 * Ansible 2.2.1.0 compatibility
 * `ec2` corrections for `count_tag`, `ebs_optimized`, `instance_profile_name`, `exact_count` parameters
-* `ec2_ami`, `ec2_vol`, `iam_policy`, `iam`, `ec2_eip` correction for region
+* `ec2_ami`, `ec2_vol`, `iam_policy`, `iam`, `ec2_eip`, `ec2_group` correction for region
 * `ec2_ami` `state` parameter validation correction
 * `get_url`, `unarchive` support for `owner`, `group`, `mode`, `setype`, `selevel`
 * `wait_for` module `port` parameters validation fix - integer
@@ -9,6 +9,7 @@
 * `pause` validation fix for `minutes` and `seconds`
 * `user` `groups` correction until Ansible 2.3
 * `gem` module now works and does not conflict with the Ruby keyword
+* `ec2_group` validation fixes for `vpc_id`, `purge_rules`, `purge_rules_egress`
 
 # 1.0.6 - 14 October 2016
 * Allow sharing variables between tasks (#29)
