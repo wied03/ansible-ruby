@@ -2,6 +2,7 @@
 * Ansible 2.2.1.0 compatibility
 * `ec2` corrections for `count_tag`, `ebs_optimized`, `instance_profile_name`, `exact_count` parameters
 * `ec2_ami`, `ec2_vol` correction for region
+* `ec2_ami` `state` parameter validation correction
 
 # 1.0.6 - 14 October 2016
 * Allow sharing variables between tasks (#29)
