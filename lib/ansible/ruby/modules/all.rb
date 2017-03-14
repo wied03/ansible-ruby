@@ -5,7 +5,8 @@ ansible_mod = Ansible::Ruby::Modules
 
 ansible_mod.autoload(:Ec2_ami_search, 'ansible/ruby/modules/generated/core/cloud/amazon/ec2_ami_search')
 ansible_mod.autoload(:Cloudformation, 'ansible/ruby/modules/generated/core/cloud/amazon/cloudformation')
-ansible_mod.autoload(:Ec2, 'ansible/ruby/modules/generated/core/cloud/amazon/ec2')
+# Using custom module
+ansible_mod.autoload(:Ec2, 'ansible/ruby/modules/custom/cloud/core/amazon/ec2')
 ansible_mod.autoload(:Ec2_ami, 'ansible/ruby/modules/generated/core/cloud/amazon/ec2_ami')
 ansible_mod.autoload(:Ec2_ami_find, 'ansible/ruby/modules/generated/core/cloud/amazon/ec2_ami_find')
 # Using custom module
