@@ -29,7 +29,8 @@ ansible_mod.autoload(:Ec2_vpc, 'ansible/ruby/modules/generated/core/cloud/amazon
 ansible_mod.autoload(:Ec2_vpc_net, 'ansible/ruby/modules/generated/core/cloud/amazon/ec2_vpc_net')
 ansible_mod.autoload(:Elasticache, 'ansible/ruby/modules/generated/core/cloud/amazon/elasticache')
 ansible_mod.autoload(:Elasticache_subnet_group, 'ansible/ruby/modules/generated/core/cloud/amazon/elasticache_subnet_group')
-ansible_mod.autoload(:Iam, 'ansible/ruby/modules/generated/core/cloud/amazon/iam')
+# Using custom module
+ansible_mod.autoload(:Iam, 'ansible/ruby/modules/custom/cloud/core/amazon/iam')
 ansible_mod.autoload(:Iam_cert, 'ansible/ruby/modules/generated/core/cloud/amazon/iam_cert')
 # Using custom module
 ansible_mod.autoload(:Iam_policy, 'ansible/ruby/modules/custom/cloud/core/amazon/iam_policy')
