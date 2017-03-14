@@ -12,7 +12,8 @@ ansible_mod.autoload(:Ec2_ami, 'ansible/ruby/modules/custom/cloud/core/amazon/ec
 ansible_mod.autoload(:Ec2_ami_find, 'ansible/ruby/modules/generated/core/cloud/amazon/ec2_ami_find')
 # Using custom module
 ansible_mod.autoload(:Ec2_asg, 'ansible/ruby/modules/custom/cloud/core/amazon/ec2_asg')
-ansible_mod.autoload(:Ec2_eip, 'ansible/ruby/modules/generated/core/cloud/amazon/ec2_eip')
+# Using custom module
+ansible_mod.autoload(:Ec2_eip, 'ansible/ruby/modules/custom/cloud/core/amazon/ec2_eip')
 ansible_mod.autoload(:Ec2_elb, 'ansible/ruby/modules/generated/core/cloud/amazon/ec2_elb')
 ansible_mod.autoload(:Ec2_elb_lb, 'ansible/ruby/modules/generated/core/cloud/amazon/ec2_elb_lb')
 ansible_mod.autoload(:Ec2_facts, 'ansible/ruby/modules/generated/core/cloud/amazon/ec2_facts')
