@@ -23,7 +23,8 @@ ansible_mod.autoload(:Ec2_metric_alarm, 'ansible/ruby/modules/generated/core/clo
 ansible_mod.autoload(:Ec2_scaling_policy, 'ansible/ruby/modules/generated/core/cloud/amazon/ec2_scaling_policy')
 ansible_mod.autoload(:Ec2_snapshot, 'ansible/ruby/modules/generated/core/cloud/amazon/ec2_snapshot')
 ansible_mod.autoload(:Ec2_tag, 'ansible/ruby/modules/generated/core/cloud/amazon/ec2_tag')
-ansible_mod.autoload(:Ec2_vol, 'ansible/ruby/modules/generated/core/cloud/amazon/ec2_vol')
+# Using custom module
+ansible_mod.autoload(:Ec2_vol, 'ansible/ruby/modules/custom/cloud/core/amazon/ec2_vol')
 ansible_mod.autoload(:Ec2_vpc, 'ansible/ruby/modules/generated/core/cloud/amazon/ec2_vpc')
 ansible_mod.autoload(:Ec2_vpc_net, 'ansible/ruby/modules/generated/core/cloud/amazon/ec2_vpc_net')
 ansible_mod.autoload(:Elasticache, 'ansible/ruby/modules/generated/core/cloud/amazon/elasticache')
