@@ -729,7 +729,8 @@ ansible_mod.autoload(:Crypttab, 'ansible/ruby/modules/generated/extras/system/cr
 ansible_mod.autoload(:Debconf, 'ansible/ruby/modules/generated/extras/system/debconf')
 ansible_mod.autoload(:Facter, 'ansible/ruby/modules/generated/extras/system/facter')
 ansible_mod.autoload(:Filesystem, 'ansible/ruby/modules/generated/extras/system/filesystem')
-ansible_mod.autoload(:Firewalld, 'ansible/ruby/modules/generated/extras/system/firewalld')
+# Using custom module
+ansible_mod.autoload(:Firewalld, 'ansible/ruby/modules/custom/extras/system/firewalld')
 ansible_mod.autoload(:Getent, 'ansible/ruby/modules/generated/extras/system/getent')
 ansible_mod.autoload(:Gluster_volume, 'ansible/ruby/modules/generated/extras/system/gluster_volume')
 ansible_mod.autoload(:Iptables, 'ansible/ruby/modules/generated/extras/system/iptables')
