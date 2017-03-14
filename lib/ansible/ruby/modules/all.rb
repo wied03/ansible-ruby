@@ -329,7 +329,8 @@ ansible_mod.autoload(:Systemd, 'ansible/ruby/modules/generated/core/system/syste
 ansible_mod.autoload(:User, 'ansible/ruby/modules/custom/core/system/user')
 ansible_mod.autoload(:Accelerate, 'ansible/ruby/modules/generated/core/utilities/helper/accelerate')
 ansible_mod.autoload(:Fireball, 'ansible/ruby/modules/generated/core/utilities/helper/fireball')
-ansible_mod.autoload(:Meta, 'ansible/ruby/modules/generated/core/utilities/helper/meta')
+# Using custom module
+ansible_mod.autoload(:Meta, 'ansible/ruby/modules/custom/core/utilities/helper/meta')
 ansible_mod.autoload(:Assert, 'ansible/ruby/modules/generated/core/utilities/logic/assert')
 ansible_mod.autoload(:Async_status, 'ansible/ruby/modules/generated/core/utilities/logic/async_status')
 ansible_mod.autoload(:Debug, 'ansible/ruby/modules/generated/core/utilities/logic/debug')
