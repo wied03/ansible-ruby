@@ -3,13 +3,13 @@
 # see LICENSE.txt in project root
 
 require 'ansible/ruby/modules/generated/core/files/template'
-require 'ansible/ruby/modules/missing_file_stuff'
+require 'ansible/ruby/modules/helpers/file_attributes'
 
 module Ansible
   module Ruby
     module Modules
       class Template
-        include MissingFileStuff
+        include Helpers::FileAttributes
       end
     end
   end
