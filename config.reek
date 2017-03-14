@@ -34,6 +34,11 @@ ManualDispatch:
   UncommunicativeModuleName:
     enabled: false
 
+# module names driven by DSL, don't want complaints from customized modules either
+"lib/ansible/ruby/modules/custom":
+  UncommunicativeModuleName:
+    enabled: false
+
 "lib/ansible/ruby/dsl_builders":
   # DSLs will have a lot of methods
   TooManyMethods:
