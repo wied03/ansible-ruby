@@ -332,7 +332,8 @@ ansible_mod.autoload(:Debug, 'ansible/ruby/modules/generated/core/utilities/logi
 ansible_mod.autoload(:Fail, 'ansible/ruby/modules/generated/core/utilities/logic/fail')
 ansible_mod.autoload(:Include, 'ansible/ruby/modules/generated/core/utilities/logic/include')
 ansible_mod.autoload(:Include_role, 'ansible/ruby/modules/generated/core/utilities/logic/include_role')
-ansible_mod.autoload(:Pause, 'ansible/ruby/modules/generated/core/utilities/logic/pause')
+# Using custom module
+ansible_mod.autoload(:Pause, 'ansible/ruby/modules/custom/utilities/logic/pause')
 # Using custom module
 ansible_mod.autoload(:Set_fact, 'ansible/ruby/modules/custom/utilities/logic/set_fact')
 # Using custom module
