@@ -10,6 +10,10 @@ module Ansible
     module Modules
       class Meta
         include FreeForm
+
+        # we want this to be a symbol but the FreeForm module will expect a string, so clear out its validation
+        remove_existing_validations :free_form
+        validates :free_form, presence: true, inclusion: { in: [:noop, :flush_handlers, :refresh_inventory, :clear_facts, :clear_host_errors, :end_play], message: '%{value} needs to be :noop, :flush_handlers, :refresh_inventory, :clear_facts, :clear_host_errors, :end_play' }
       end
     end
   end
