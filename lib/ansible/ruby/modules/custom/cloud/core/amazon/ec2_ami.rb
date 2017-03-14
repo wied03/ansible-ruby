@@ -12,7 +12,7 @@ module Ansible
         include Helpers::Aws
 
         remove_existing_validations :state
-        validates :state, inclusion: { :in => [:present, :absent], :message => "%{value} needs to be :present, :absent" }, allow_nil: true
+        validates :state, inclusion: { in: [:present, :absent], message: '%{value} needs to be :present, :absent' }, allow_nil: true
       end
     end
   end

@@ -9,7 +9,7 @@ module Ansible
     module Modules
       class Firewalld
         remove_existing_validations :permanent
-        validates :permanent, inclusion: { :in => [true, false], :message => "%{value} needs to be true, false" }, allow_nil: true
+        validates :permanent, inclusion: { in: [true, false], message: '%{value} needs to be true, false' }, allow_nil: true
       end
     end
   end

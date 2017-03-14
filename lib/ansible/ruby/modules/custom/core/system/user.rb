@@ -13,9 +13,7 @@ module Ansible
           result = super
           user = result[:user]
           groups = user[:groups]
-          if groups
-            user[:groups] = groups.join ','
-          end
+          user[:groups] = groups.join ',' if groups
           result
         end
       end

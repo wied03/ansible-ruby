@@ -7,7 +7,7 @@ module Ansible
     module Modules
       class Wait_for
         remove_existing_validations :port
-        validates :port, type: Fixnum
+        validates :port, type: Integer
       end
     end
   end

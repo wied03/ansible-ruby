@@ -7,9 +7,9 @@ module Ansible
     module Modules
       class Pause
         remove_existing_validations :minutes
-        validates :minutes, type: Fixnum
+        validates :minutes, type: Integer
         remove_existing_validations :seconds
-        validates :seconds, type: Fixnum
+        validates :seconds, type: Integer
       end
     end
   end
