@@ -7,6 +7,7 @@
 * `wait_for` module `port` parameters validation fix - integer
 * `firewalld` permanent type fix
 * `pause` validation fix for `minutes` and `seconds`
+* `user` `groups` correction until Ansible 2.3
 
 # 1.0.6 - 14 October 2016
 * Allow sharing variables between tasks (#29)
