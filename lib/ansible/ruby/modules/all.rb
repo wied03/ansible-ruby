@@ -31,7 +31,8 @@ ansible_mod.autoload(:Elasticache, 'ansible/ruby/modules/generated/core/cloud/am
 ansible_mod.autoload(:Elasticache_subnet_group, 'ansible/ruby/modules/generated/core/cloud/amazon/elasticache_subnet_group')
 ansible_mod.autoload(:Iam, 'ansible/ruby/modules/generated/core/cloud/amazon/iam')
 ansible_mod.autoload(:Iam_cert, 'ansible/ruby/modules/generated/core/cloud/amazon/iam_cert')
-ansible_mod.autoload(:Iam_policy, 'ansible/ruby/modules/generated/core/cloud/amazon/iam_policy')
+# Using custom module
+ansible_mod.autoload(:Iam_policy, 'ansible/ruby/modules/custom/cloud/core/amazon/iam_policy')
 ansible_mod.autoload(:Rds, 'ansible/ruby/modules/generated/core/cloud/amazon/rds')
 ansible_mod.autoload(:Rds_param_group, 'ansible/ruby/modules/generated/core/cloud/amazon/rds_param_group')
 ansible_mod.autoload(:Rds_subnet_group, 'ansible/ruby/modules/generated/core/cloud/amazon/rds_subnet_group')
