@@ -18,7 +18,7 @@ YAML is OK but can suffer from the same problems that exist with any markup lang
 
 ## Why Ruby?
 
-It's a productive language for me that's easy to write DSLs in. One could argue that are more strongly typed language like Crystal could be good for this as well.
+It's a productive language for me that's easy to write DSLs in. One could argue that more strongly typed languages like Crystal could be better fit for this.
 
 ## How does this relate to Python and modules?
 Python is widely installed (probably moreso than Ruby :()) on machines to be managed. We recognize Ansible's choice here. This tool does not try and change how Ansible modules work. It only tries to avoid editing lots of YML directly.
