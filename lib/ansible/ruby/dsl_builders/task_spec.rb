@@ -229,8 +229,8 @@ describe Ansible::Ruby::DslBuilders::Task do
     end
 
     context 'splat' do
-          let(:ruby) do
-            <<-RUBY
+      let(:ruby) do
+        <<-RUBY
             with_items(jinja('servers1'), jinja('servers2')) do |item|
               copy do
                 src item
@@ -238,14 +238,14 @@ describe Ansible::Ruby::DslBuilders::Task do
               end
             end
             RUBY
-          end
+      end
 
-          it do
-            is_expected.to have_attributes name: 'Copy something',
-                                           with_items: ['{{ servers1 }}', '{{ servers2 }}'],
-                                           module: have_attributes(src: '{{ item }}')
-          end
-        end
+      it do
+        is_expected.to have_attributes name: 'Copy something',
+                                       with_items: ['{{ servers1 }}', '{{ servers2 }}'],
+                                       module: have_attributes(src: '{{ item }}')
+      end
+    end
 
     context 'free form' do
       before do
