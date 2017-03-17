@@ -12,6 +12,7 @@
 * `ec2_group` validation fixes for `vpc_id`, `purge_rules`, `purge_rules_egress`
 * `lineinfile` module - added missing `validate` parameter
 * `meta` should now work properly like `command` as a free form module
+* `with_items` supports splat style array parsing
 
 # 1.0.6 - 14 October 2016
 * Allow sharing variables between tasks (#29)

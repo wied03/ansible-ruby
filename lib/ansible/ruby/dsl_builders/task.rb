@@ -48,8 +48,9 @@ module Ansible
           yield [hash_key, hash_value]
         end
 
-        def with_items(clause)
-          @task_args[:with_items] = clause
+        def with_items(*clause)
+          # 1 arg is probably a variable reference, so don't use an array
+          @task_args[:with_items] = clause.length == 1 ? clause[0] : clause
           yield JinjaItemNode.new if block_given?
         end
 
