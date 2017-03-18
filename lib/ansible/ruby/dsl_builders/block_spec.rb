@@ -56,6 +56,24 @@ describe Ansible::Ruby::DslBuilders::Block do
     end
   end
 
+  context 'vars' do
+    let(:ruby) do
+      <<-RUBY
+          task 'Copy something' do
+            copy do
+              src '/file1.conf'
+            end
+          end
+          vars foo: 123
+          ansible_when "ansible_distribution == 'CentOS'"
+      RUBY
+    end
+
+    it { is_expected.to be_a Ansible::Ruby::Models::Block }
+    it { is_expected.to have_attributes when: "ansible_distribution == 'CentOS'",
+                                        vars: { foo: 123 } }
+  end
+
   context 'other attributes' do
     let(:ruby) do
       <<-RUBY
@@ -85,7 +103,7 @@ describe Ansible::Ruby::DslBuilders::Block do
 
     subject { -> { evaluate } }
 
-    it { is_expected.to raise_error "Invalid method/local variable `foobar'. Only valid options are [:ansible_when, :become, :become_user, :ignore_errors, :jinja, :task]" }
+    it { is_expected.to raise_error "Invalid method/local variable `foobar'. Only valid options are [:ansible_when, :become, :become_user, :ignore_errors, :jinja, :task, :vars]" }
   end
 
   context 'register' do

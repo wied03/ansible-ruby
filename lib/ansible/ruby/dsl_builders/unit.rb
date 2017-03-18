@@ -27,6 +27,10 @@ module Ansible
           value = _implicit_bool args
           @task_args[:ignore_errors] = value
         end
+
+        def vars(hash)
+          @task_args[:vars] = hash
+        end
       end
     end
   end

@@ -51,6 +51,26 @@ describe Ansible::Ruby::DslBuilders::Task do
     end
   end
 
+  context 'vars' do
+    let(:ruby) do
+      <<-RUBY
+        copy do
+          src '/file1.conf'
+          dest '/file2.conf'
+        end
+        vars foo: 123
+      RUBY
+    end
+
+    it { is_expected.to be_a Ansible::Ruby::Models::Task }
+
+    describe 'hash keys' do
+      subject { task.to_h.stringify_keys.keys }
+
+      it { is_expected.to eq %w(name copy vars) }
+    end
+  end
+
   context 'handler' do
     context 'no include' do
       let(:context) { Ansible::Ruby::Models::Handler }
@@ -237,7 +257,7 @@ describe Ansible::Ruby::DslBuilders::Task do
                 dest '/file2.conf'
               end
             end
-            RUBY
+        RUBY
       end
 
       it do
