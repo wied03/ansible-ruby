@@ -70,8 +70,10 @@ describe Ansible::Ruby::DslBuilders::Block do
     end
 
     it { is_expected.to be_a Ansible::Ruby::Models::Block }
-    it { is_expected.to have_attributes when: "ansible_distribution == 'CentOS'",
-                                        vars: { foo: 123 } }
+    it do
+      is_expected.to have_attributes when: "ansible_distribution == 'CentOS'",
+                                     vars: { foo: 123 }
+    end
   end
 
   context 'other attributes' do
