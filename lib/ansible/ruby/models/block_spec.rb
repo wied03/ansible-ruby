@@ -48,4 +48,31 @@ describe Ansible::Ruby::Models::Block do
       ]
     end
   end
+
+  context 'vars' do
+    let(:instance) do
+      Ansible::Ruby::Models::Block.new tasks: [task1, task2],
+                                       vars: { howdy: 123 }
+    end
+
+    it do
+      is_expected.to eq block: [
+        {
+          name: 'do stuff on EC2',
+          ec2: {
+            foo: 123
+          }
+        },
+        {
+          name: 'do more stuff on EC2',
+          ec2: {
+            foo: 456
+          }
+        }
+      ],
+                        vars: {
+                          howdy: 123
+                        }
+    end
+  end
 end

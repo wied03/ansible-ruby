@@ -108,4 +108,22 @@ describe Ansible::Ruby::Models::Task do
 
     it { is_expected.to raise_error 'Validation failed: Module You must either use an include or a module but not both!' }
   end
+
+  context 'vars' do
+    let(:instance) do
+      Ansible::Ruby::Models::Task.new name: 'do stuff on EC2',
+                                      module: module_klass.new(foo: 123),
+                                      vars: { howdy: 123 }
+    end
+
+    it do
+      is_expected.to eq(name: 'do stuff on EC2',
+                        ec2: {
+                          foo: 123
+                        },
+                        vars: {
+                          howdy: 123
+                        })
+    end
+  end
 end

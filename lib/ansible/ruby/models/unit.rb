@@ -14,6 +14,8 @@ module Ansible
         validates :when, type: String
         attribute :ignore_errors
         validates :ignore_errors, type: MultipleTypes.new(TrueClass, FalseClass)
+        attribute :vars
+        validates :vars, type: Hash
 
         def to_h
           result = super
