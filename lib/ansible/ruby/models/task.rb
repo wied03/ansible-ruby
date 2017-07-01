@@ -51,6 +51,8 @@ module Ansible
             flatten = {
               local_action: {
                 module: module_name.to_s,
+                # Will almost always do this when we have a local_action
+                sudo: false
               }.merge(flatten[module_name])
             }
           end
