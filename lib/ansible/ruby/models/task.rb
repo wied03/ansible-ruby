@@ -46,9 +46,14 @@ module Ansible
           new_result = {
             name: result.delete(:name)
           }
-          flatten = {
-            local_action: flatten
-          } if @local_action
+          if @local_action
+            module_name = flatten.keys.first
+            flatten = {
+              local_action: {
+                module: module_name.to_s,
+              }.merge(flatten[module_name])
+            }
+          end
           new_result.merge! flatten
           result.each do |key, value|
             new_result[key] = value

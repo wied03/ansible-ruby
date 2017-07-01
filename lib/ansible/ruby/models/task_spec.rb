@@ -67,9 +67,8 @@ describe Ansible::Ruby::Models::Task do
     it do
       is_expected.to eq(name: 'do stuff on EC2',
                         local_action: {
-                          ec2: {
-                            foo: 123
-                          }
+                          module: 'ec2',
+                          foo: 123
                         })
     end
   end
