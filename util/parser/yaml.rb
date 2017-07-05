@@ -191,8 +191,6 @@ module Ansible
               /^```/ => '',
               # this doesn't help much with how we're using this
               '    ---' => '',
-              # hard to fix this
-              /datadog_event:.*/m => '',
               # unescaped colon
               'Obtain SSO token with using username/password credentials:' => 'Obtain SSO token with using username/password credentials',
               # tasks/block interference
