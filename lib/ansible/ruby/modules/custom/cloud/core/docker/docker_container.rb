@@ -2,7 +2,7 @@
 # VALIDATED_CHECKSUM: g5tmkBPDgh5dTr2CzD1kgN3tgCwBjK9fPUYOP52absI=
 # See LICENSE.txt for license
 
-require 'ansible/ruby/modules/generated/core/cloud/docker/docker_container'
+require 'ansible/ruby/modules/generated/cloud/docker/docker_container'
 
 module Ansible
   module Ruby

@@ -3,7 +3,7 @@
 # See LICENSE.txt for license
 
 require 'ansible/ruby/modules/free_form'
-require 'ansible/ruby/modules/generated/core/commands/shell'
+require 'ansible/ruby/modules/generated/commands/shell'
 
 module Ansible
   module Ruby

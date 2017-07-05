@@ -7,8 +7,16 @@ require 'ansible/ruby/rake/tasks'
 require_relative 'util/parser'
 require 'digest'
 require 'json'
+$: << '.'
 
-task default: [:spec, :report_coverage, :update_modules, :rubocop, :reek, :compile_examples, :ansible_lint]
+task default: [:spec,
+               :report_coverage,
+               :update_modules,
+               :rubocop,
+               :reek,
+               :compile_examples,
+               :ansible_lint,
+               :verify_custom_mods]
 
 task :report_coverage do
   sh 'codeclimate-test-reporter' if ENV['TRAVIS']
@@ -84,6 +92,11 @@ task update_modules: [:generate_modules, :verify_checksums]
 
 NEW_CHECKSUMS = 'util/checksums_new.json'
 task generate_modules: :python_dependencies do
+  generated_dir = 'lib/ansible/ruby/modules/generated'
+  sh "rm -rf #{generated_dir}"
+  mkdir generated_dir
+  cp 'lib/ansible/ruby/modules/rubocop_generated.yml',
+     "#{generated_dir}/.rubocop.yml"
   python_path = FileList['.eggs/*.egg'].join ':'
   ansible_dir = `PYTHONPATH=#{python_path} python util/get_ansible.py`.strip
   puts "Ansible directory #{ansible_dir}"
@@ -183,31 +196,33 @@ HEADER
   end
 end
 
+def custom_module_files
+  FileList['lib/ansible/ruby/modules/custom/**/*.rb'].exclude('**/*_spec.rb')
+end
+
 task :verify_checksums do
   existing_sums = 'util/checksums_existing.json'
   new_checksums = JSON.parse File.read(NEW_CHECKSUMS)
-  valid_custom_checksums = Hash[FileList['lib/ansible/ruby/modules/custom/**/*.rb']
-                           .exclude('**/*_spec.rb')
-                           .map do |filename|
-                                  file_contents = File.read filename
-                                  module_only = File.basename(filename)
-                                  match = /# VALIDATED_CHECKSUM: (.*)$/.match(file_contents)
-                                  validated_checksum = match && match[1]
-                                  unless validated_checksum
-                                    validated_checksum = new_checksums[module_only]
-                                    # No need for empty checksums
-                                    if validated_checksum
-                                      puts "Adding checksum to #{filename}"
-                                      lines = file_contents.split "\n"
-                                      index = lines.find_index '# frozen_string_literal: true'
-                                      lines.insert index + 1, "# VALIDATED_CHECKSUM: #{validated_checksum}"
-                                      # trailing new line for file
-                                      lines << ''
-                                      File.write filename, lines.join("\n")
-                                    end
-                                  end
-                                  [module_only, validated_checksum]
-                                end]
+  valid_custom_checksums = Hash[custom_module_files.map do |filename|
+    file_contents = File.read filename
+    module_only = File.basename(filename)
+    match = /# VALIDATED_CHECKSUM: (.*)$/.match(file_contents)
+    validated_checksum = match && match[1]
+    unless validated_checksum
+      validated_checksum = new_checksums[module_only]
+      # No need for empty checksums
+      if validated_checksum
+        puts "Adding checksum to #{filename}"
+        lines = file_contents.split "\n"
+        index = lines.find_index '# frozen_string_literal: true'
+        lines.insert index + 1, "# VALIDATED_CHECKSUM: #{validated_checksum}"
+        # trailing new line for file
+        lines << ''
+        File.write filename, lines.join("\n")
+      end
+    end
+    [module_only, validated_checksum]
+  end]
 
   problems = new_checksums.map do |changed_file, new_checksum|
     next unless valid_custom_checksums.include? changed_file
@@ -223,4 +238,11 @@ task :verify_checksums do
     raise 'Failed checksum'
   end
   mv NEW_CHECKSUMS, existing_sums
+end
+
+task :verify_custom_mods do
+  custom_module_files.each do |file|
+    puts "Verifying we can require custom file #{file}"
+    require file
+  end
 end
