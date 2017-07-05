@@ -222,7 +222,9 @@ module Ansible
               /key: \|.*--END PRIVATE KEY-----/m => 'key: foo',
               /certificate: \|.*--END CERTIFICATE-----/m => 'certificate: foo',
               # pagerduty
-              '                      name=companyabc' => '    name: companyabc'
+              '                      name=companyabc' => '    name: companyabc',
+              # vca_vapp
+              'vapp_name=tower' => 'vapp_name: tower'
             }
             dirty_patterns.inject(yaml) do |fixed_yaml, find_replace|
               fixed_yaml.gsub find_replace[0], find_replace[1]
