@@ -14,6 +14,7 @@
 * `meta` should now work properly like `command` as a free form module
 * `with_items` supports splat style array parsing
 * `vars` now supported in task and blocks
+* `local_action` support
 
 # 1.0.6 - 14 October 2016
 * Allow sharing variables between tasks (#29)
