@@ -35,6 +35,7 @@ module Ansible
         validates :connection,
                   allow_nil: true,
                   inclusion: { in: [:local, :docker, :ssh], message: '%{value} needs to be :local, :docker, or :ssh' }
+        attr_accessor :local_action
 
         def to_h
           result = super
@@ -45,6 +46,14 @@ module Ansible
           new_result = {
             name: result.delete(:name)
           }
+          if @local_action
+            module_name = flatten.keys.first
+            flatten = {
+              local_action: {
+                module: module_name.to_s,
+              }.merge(flatten[module_name])
+            }
+          end
           new_result.merge! flatten
           result.each do |key, value|
             new_result[key] = value

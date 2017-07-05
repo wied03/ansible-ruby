@@ -66,6 +66,11 @@ module Ansible
           @task_args[:notify] = value
         end
 
+        def local_action
+          @task_args[:local_action] = true
+          yield
+        end
+
         def respond_to_missing?(*)
           !@module || super
         end
