@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-# VALIDATED_CHECKSUM: 3c3FIG1LhkzEeEoHqaj2TaABAUoSpW82wnVJsbgnt2w=
+# VALIDATED_CHECKSUM: X05FRgPWIlGqAEyi5DWPxwkr3xIRH1z8685tRYJ3+rY=
 # See LICENSE.txt for license
 
 require 'ansible/ruby/modules/generated/core/system/user'

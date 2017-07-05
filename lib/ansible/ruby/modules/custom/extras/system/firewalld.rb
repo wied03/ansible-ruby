@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-# VALIDATED_CHECKSUM: 7hWaAT6Ug4w7K0vcArWaGB5L9ovbrp7/MQ3UaimnsUs=
+# VALIDATED_CHECKSUM: ZmZ71tAPirypEDqr9qtRVynamdz9SxAv3bOyNlQQJMc=
 # see LICENSE.txt in project root
 
 require 'ansible/ruby/modules/generated/extras/system/firewalld'
