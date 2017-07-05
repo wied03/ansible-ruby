@@ -217,7 +217,14 @@ module Ansible
               /transport: nxapi.*rescue.*/m => 'transport: nxapi',
               # win_acl spacing
               '-   name: Remove FullControl AccessRule for IIS_IUSRS' => '- name: Remove FullControl AccessRule for IIS_IUSRS',
-              '-   name: Deny Deny' => '- name: Deny Deny'
+              '-   name: Deny Deny' => '- name: Deny Deny',
+              "msg: '{{ inventory_hostname }} has exploded in flames, It is now time to panic\" app_token=wxfdksl user_key=baa5fe97f2c5ab3ca8f0bb59" =>
+                "msg: '{{ inventory_hostname }} has exploded in flames, It is now time to panic'\n    app_token: wxfdksl\n    user_key: baa5fe97f2c5ab3ca8f0bb59",
+              # avi/avi_sslkeyandcertificate.py
+              /key: \|.*--END PRIVATE KEY-----/m => 'key: foo',
+              /certificate: \|.*--END CERTIFICATE-----/m => 'certificate: foo',
+              # pagerduty
+              '                      name=companyabc' => '    name: companyabc'
             }
             dirty_patterns.inject(yaml) do |fixed_yaml, find_replace|
               fixed_yaml.gsub find_replace[0], find_replace[1]
