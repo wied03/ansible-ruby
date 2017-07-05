@@ -50,7 +50,7 @@ module Ansible
             module_name = flatten.keys.first
             flatten = {
               local_action: {
-                module: module_name.to_s,
+                module: module_name.to_s
               }.merge(flatten[module_name])
             }
           end
