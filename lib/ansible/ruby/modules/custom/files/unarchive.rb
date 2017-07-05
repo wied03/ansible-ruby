@@ -1,8 +1,8 @@
 # frozen_string_literal: true
-# VALIDATED_CHECKSUM: DomrKrMMfhXNXOCs8gbgv/npDHeKn5t++LitWRHyXdA=
+# VALIDATED_CHECKSUM: yZbGN4O7Xt3nEhkX3dtGsqhX1eQGSPvpJJRVJdsroIg=
 # see LICENSE.txt in project root
 
-require 'ansible/ruby/modules/generated/core/files/unarchive'
+require 'ansible/ruby/modules/generated/files/unarchive'
 require 'ansible/ruby/modules/helpers/file_attributes'
 
 module Ansible

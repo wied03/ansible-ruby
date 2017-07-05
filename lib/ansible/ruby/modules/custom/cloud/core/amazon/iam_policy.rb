@@ -2,7 +2,7 @@
 # VALIDATED_CHECKSUM: uXTQHVrw8/ioo0GdmuhpuxtTefuzwwITrFupi/yVYjY=
 # See LICENSE.txt for license
 
-require 'ansible/ruby/modules/generated/core/cloud/amazon/iam_policy'
+require 'ansible/ruby/modules/generated/cloud/amazon/iam_policy'
 require 'ansible/ruby/modules/helpers/aws'
 
 module Ansible

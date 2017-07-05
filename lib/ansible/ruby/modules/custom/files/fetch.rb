@@ -1,8 +1,8 @@
 # frozen_string_literal: true
-# VALIDATED_CHECKSUM: rQYGJmNSbtiLlN+vntnz3SEl3YYK2k2uqMZq7VRYiHI=
+# VALIDATED_CHECKSUM: afEES2BGIfkPNw3UGZJliWFPYyeC/43pcKJ27cDQfec=
 # See LICENSE.txt for license
 
-require 'ansible/ruby/modules/generated/core/files/fetch'
+require 'ansible/ruby/modules/generated/files/fetch'
 
 module Ansible
   module Ruby

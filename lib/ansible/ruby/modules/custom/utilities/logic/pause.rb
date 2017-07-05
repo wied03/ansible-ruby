@@ -1,6 +1,6 @@
 # frozen_string_literal: true
-# VALIDATED_CHECKSUM: +7Kl3P/74NokR1r+LreDc2v2yBNNC4UKveTkNNv/Xbk=
-require 'ansible/ruby/modules/generated/core/utilities/logic/pause'
+# VALIDATED_CHECKSUM: kCwkdKkY3hHURoTxOU60KC5tk3ck3veDWbRv54LDE18=
+require 'ansible/ruby/modules/generated/utilities/logic/pause'
 
 module Ansible
   module Ruby

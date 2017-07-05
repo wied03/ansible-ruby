@@ -1,6 +1,6 @@
 # frozen_string_literal: true
-# VALIDATED_CHECKSUM: Y24/Z6RmgYm+VkLGY6LlIBSs3THEhOqq5iMGFBKLwV4=
-require 'ansible/ruby/modules/generated/core/utilities/logic/wait_for'
+# VALIDATED_CHECKSUM: 8KxkY3s+CA8c0FwXPV/dVqkftm528JxC0P/7Y7DtEz8=
+require 'ansible/ruby/modules/generated/utilities/logic/wait_for'
 
 module Ansible
   module Ruby

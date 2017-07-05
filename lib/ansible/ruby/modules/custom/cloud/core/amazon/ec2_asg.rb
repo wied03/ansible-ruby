@@ -1,8 +1,8 @@
 # frozen_string_literal: true
-# VALIDATED_CHECKSUM: blMzhx6c6ZPwDsLuc9GJuEF9avbbimbZQ0qCYEdlQUg=
+# VALIDATED_CHECKSUM: zBso57qMjSAQpbZImtFvOjGPE93yHiMbuqaEyuefYcM=
 # See LICENSE.txt for license
 
-require 'ansible/ruby/modules/generated/core/cloud/amazon/ec2_asg'
+require 'ansible/ruby/modules/generated/cloud/amazon/ec2_asg'
 
 module Ansible
   module Ruby
