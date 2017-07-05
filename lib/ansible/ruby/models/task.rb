@@ -35,6 +35,7 @@ module Ansible
         validates :connection,
                   allow_nil: true,
                   inclusion: { in: [:local, :docker, :ssh], message: '%{value} needs to be :local, :docker, or :ssh' }
+        # :reek:Attribute - This is a simple flag
         attr_accessor :local_action
 
         def to_h
