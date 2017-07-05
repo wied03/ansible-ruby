@@ -108,7 +108,9 @@ task generate_modules: :python_dependencies do
       description, example = get_yaml file
       for_file << 'Parsing YAML'
       example_fail_is_ok = skip_example?(file)
-      ruby_result = Ansible::Ruby::Parser.from_yaml_string description, example, example_fail_is_ok
+      ruby_result = Ansible::Ruby::Parser.from_yaml_string description,
+                                                           example,
+                                                           example_fail_is_ok
       python_dir = File.dirname(file)
       ruby_filename = File.basename(file, '.py') + '.rb'
       # don't want leading _ in front of stuff

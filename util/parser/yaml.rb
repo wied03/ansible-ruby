@@ -214,7 +214,10 @@ module Ansible
               '    cost=default' => '    cost: default',
               # block
               /- block:.*name: Install OS/m => "tasks:\n    - name: Install OS",
-              /transport: nxapi.*rescue.*/m => 'transport: nxapi'
+              /transport: nxapi.*rescue.*/m => 'transport: nxapi',
+              # win_acl spacing
+              '-   name: Remove FullControl AccessRule for IIS_IUSRS' => '- name: Remove FullControl AccessRule for IIS_IUSRS',
+              '-   name: Deny Deny' => '- name: Deny Deny'
             }
             dirty_patterns.inject(yaml) do |fixed_yaml, find_replace|
               fixed_yaml.gsub find_replace[0], find_replace[1]
