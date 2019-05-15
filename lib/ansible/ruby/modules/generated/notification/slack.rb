@@ -19,9 +19,9 @@ module Ansible
         attribute :msg
         validates :msg, type: String
 
-        # @return [NilClass, nil] Channel to send the message to. If absent, the message goes to the channel selected for the I(token).
+        # @return [String, nil] Channel to send the message to. If absent, the message goes to the channel selected for the I(token).
         attribute :channel
-        validates :channel, type: NilClass
+        validates :channel, type: String
 
         # @return [String, nil] This is the sender of the message.
         attribute :username
@@ -42,15 +42,15 @@ module Ansible
         attribute :parse
         validates :parse, inclusion: {:in=>[:full, :none], :message=>"%{value} needs to be :full, :none"}, allow_nil: true
 
-        # @return [:yes, :no, nil] If C(no), SSL certificates will not be validated. This should only be used on personally controlled sites using self-signed certificates.
+        # @return [String, nil] If C(no), SSL certificates will not be validated. This should only be used on personally controlled sites using self-signed certificates.
         attribute :validate_certs
-        validates :validate_certs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :validate_certs, type: String
 
         # @return [:normal, :good, :warning, :danger, nil] Allow text to use default colors - use the default of 'normal' to not send a custom color bar at the start of the message
         attribute :color
         validates :color, inclusion: {:in=>[:normal, :good, :warning, :danger], :message=>"%{value} needs to be :normal, :good, :warning, :danger"}, allow_nil: true
 
-        # @return [Array<Hash>, Hash, nil] Define a list of attachments. This list mirrors the Slack JSON API. For more information, see https://api.slack.com/docs/attachments
+        # @return [Array<Hash>, Hash, nil] Define a list of attachments. This list mirrors the Slack JSON API.,For more information, see also in the (U(https://api.slack.com/docs/attachments)).
         attribute :attachments
         validates :attachments, type: TypeGeneric.new(Hash)
       end

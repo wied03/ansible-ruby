@@ -32,9 +32,8 @@ module Ansible
         # @return [Object, nil] A hypervisor type type to match (e.g. xen).
         attribute :hypervisor
 
-        # @return [:yes, :no, nil] Whether or not the image(s) are public.
+        # @return [Object, nil] Whether or not the image(s) are public.
         attribute :is_public
-        validates :is_public, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] An AMI name to match.
         attribute :name
@@ -70,6 +69,9 @@ module Ansible
 
         # @return [Object, nil] Virtualization type to match (e.g. hvm).
         attribute :virtualization_type
+
+        # @return [Object, nil] Root device type to match (e.g. ebs, instance-store).
+        attribute :root_device_type
 
         # @return [:success, :fail, nil] What to do when no results are found.,'success' reports success and returns an empty array,'fail' causes the module to report failure
         attribute :no_result_action

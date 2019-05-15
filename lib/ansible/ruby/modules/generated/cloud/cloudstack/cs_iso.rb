@@ -12,6 +12,9 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
+        # @return [Object, nil] Display text of the ISO.,If not specified, C(name) will be used.
+        attribute :display_text
+
         # @return [String, nil] URL where the ISO can be downloaded from. Required if C(state) is present.
         attribute :url
         validates :url, type: String
@@ -20,29 +23,25 @@ module Ansible
         attribute :os_type
         validates :os_type, type: String
 
-        # @return [Boolean, nil] This flag is used for searching existing ISOs. If set to C(true), it will only list ISO ready for deployment e.g. successfully downloaded and installed. Recommended to set it to C(false).
+        # @return [Boolean, nil] This flag is used for searching existing ISOs. If set to C(yes), it will only list ISO ready for deployment e.g. successfully downloaded and installed. Recommended to set it to C(no).
         attribute :is_ready
         validates :is_ready, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
-        # @return [Boolean, nil] Register the ISO to be publicly available to all users. Only used if C(state) is present.
+        # @return [Object, nil] Register the ISO to be publicly available to all users. Only used if C(state) is present.
         attribute :is_public
-        validates :is_public, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
-        # @return [Boolean, nil] Register the ISO to be featured. Only used if C(state) is present.
+        # @return [Object, nil] Register the ISO to be featured. Only used if C(state) is present.
         attribute :is_featured
-        validates :is_featured, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
-        # @return [Boolean, nil] Register the ISO having XS/VMWare tools installed inorder to support dynamic scaling of VM cpu/memory. Only used if C(state) is present.
+        # @return [Object, nil] Register the ISO having XS/VMWare tools installed inorder to support dynamic scaling of VM cpu/memory. Only used if C(state) is present.
         attribute :is_dynamically_scalable
-        validates :is_dynamically_scalable, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
-        # @return [Boolean, nil] The MD5 checksum value of this ISO. If set, we search by checksum instead of name.
+        # @return [String, nil] The MD5 checksum value of this ISO. If set, we search by checksum instead of name.
         attribute :checksum
-        validates :checksum, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :checksum, type: String
 
-        # @return [Boolean, nil] Register the ISO to be bootable. Only used if C(state) is present.
+        # @return [Object, nil] Register the ISO to be bootable. Only used if C(state) is present.
         attribute :bootable
-        validates :bootable, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Object, nil] Domain the ISO is related to.
         attribute :domain
@@ -53,8 +52,12 @@ module Ansible
         # @return [Object, nil] Name of the project the ISO to be registered in.
         attribute :project
 
-        # @return [Object, nil] Name of the zone you wish the ISO to be registered or deleted from. If not specified, first zone found will be used.
+        # @return [Object, nil] Name of the zone you wish the ISO to be registered or deleted from.,If not specified, first zone found will be used.
         attribute :zone
+
+        # @return [String, nil] Whether the ISO should be synced or removed across zones.,Mutually exclusive with C(zone).
+        attribute :cross_zones
+        validates :cross_zones, type: String
 
         # @return [:featured, :self, :selfexecutable, :sharedexecutable, :executable, :community, nil] Name of the filter used to search for the ISO.
         attribute :iso_filter
@@ -64,9 +67,12 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [Boolean, nil] Poll async jobs until job has finished.
+        # @return [String, nil] Poll async jobs until job has finished.
         attribute :poll_async
-        validates :poll_async, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :poll_async, type: String
+
+        # @return [Object, nil] List of tags. Tags are a list of dictionaries having keys C(key) and C(value).,To delete all tags, set a empty list e.g. C(tags: []).
+        attribute :tags
       end
     end
   end

@@ -16,20 +16,20 @@ module Ansible
         attribute :value
         validates :value, type: String
 
-        # @return [:int, :bool, :float, :string, nil] The type of value being set. This is ignored if the state is "get".
+        # @return [:bool, :float, :int, :string, nil] The type of value being set. This is ignored if the state is "get".
         attribute :value_type
-        validates :value_type, inclusion: {:in=>[:int, :bool, :float, :string], :message=>"%{value} needs to be :int, :bool, :float, :string"}, allow_nil: true
+        validates :value_type, inclusion: {:in=>[:bool, :float, :int, :string], :message=>"%{value} needs to be :bool, :float, :int, :string"}, allow_nil: true
 
-        # @return [:get, :present, :absent] The action to take upon the key/value.
+        # @return [:absent, :get, :present] The action to take upon the key/value.
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:get, :present, :absent], :message=>"%{value} needs to be :get, :present, :absent"}
+        validates :state, presence: true, inclusion: {:in=>[:absent, :get, :present], :message=>"%{value} needs to be :absent, :get, :present"}
 
         # @return [Object, nil] Specify a configuration source to use rather than the default path. See man gconftool-2(1)
         attribute :config_source
 
-        # @return [Boolean, nil] Access the config database directly, bypassing server.  If direct is specified then the config_source must be specified as well. See man gconftool-2(1)
+        # @return [String, nil] Access the config database directly, bypassing server.  If direct is specified then the config_source must be specified as well. See man gconftool-2(1)
         attribute :direct
-        validates :direct, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :direct, type: String
       end
     end
   end

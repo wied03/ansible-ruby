@@ -6,7 +6,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
-      # The S3 module is great, but it is very slow for a large volume of files- even a dozen will be noticeable. In addition to speed, it handles globbing, inclusions/exclusions, mime types, expiration mapping, recursion, and smart directory mapping.
+      # The S3 module is great, but it is very slow for a large volume of files- even a dozen will be noticeable. In addition to speed, it handles globbing, inclusions/exclusions, mime types, expiration mapping, recursion, cache control and smart directory mapping.
       class S3_sync < Base
         # @return [:push] sync direction.
         attribute :mode
@@ -32,7 +32,7 @@ module Ansible
         attribute :permission
         validates :permission, inclusion: {:in=>[:"", :private, :"public-read", :"public-read-write", :"authenticated-read", :"aws-exec-read", :"bucket-owner-read", :"bucket-owner-full-control"], :message=>"%{value} needs to be :\"\", :private, :\"public-read\", :\"public-read-write\", :\"authenticated-read\", :\"aws-exec-read\", :\"bucket-owner-read\", :\"bucket-owner-full-control\""}, allow_nil: true
 
-        # @return [Hash, nil] Dict entry from extension to MIME type. This will override any default/sniffed MIME type. For example C({".txt": "application/text", ".yml": "appication/text"})
+        # @return [Hash, nil] Dict entry from extension to MIME type. This will override any default/sniffed MIME type. For example C({".txt": "application/text", ".yml": "application/text"})\r\n
         attribute :mime_map
         validates :mime_map, type: Hash
 
@@ -43,6 +43,14 @@ module Ansible
         # @return [String, nil] Shell pattern-style file matching.,Used after include to remove files (for instance, skip "*.txt"),For multiple patterns, comma-separate them.
         attribute :exclude
         validates :exclude, type: String
+
+        # @return [Array<String>, String, nil] This is a string.,Cache-Control header set on uploaded objects.,Directives are separated by commmas.
+        attribute :cache_control
+        validates :cache_control, type: TypeGeneric.new(String)
+
+        # @return [Boolean, nil] Remove remote files that exist in bucket but are not present in the file root.
+        attribute :delete
+        validates :delete, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
       end
     end
   end

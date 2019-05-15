@@ -8,9 +8,9 @@ module Ansible
     module Modules
       # This module can create and destroy unformatted GCE persistent disks U(https://developers.google.com/compute/docs/disks#persistentdisks). It also supports attaching and detaching disks from running instances. Full install/configuration instructions for the gce* modules can be found in the comments of ansible/test/gce_tests.py.
       class Gce_pd < Base
-        # @return [:yes, :no, nil] do not destroy the disk, merely detach it from an instance
+        # @return [String, nil] do not destroy the disk, merely detach it from an instance
         attribute :detach_only
-        validates :detach_only, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :detach_only, type: String
 
         # @return [String, nil] instance name if you wish to attach or detach the disk
         attribute :instance_name
@@ -58,9 +58,9 @@ module Ansible
         attribute :disk_type
         validates :disk_type, inclusion: {:in=>[:"pd-standard", :"pd-ssd"], :message=>"%{value} needs to be :\"pd-standard\", :\"pd-ssd\""}, allow_nil: true
 
-        # @return [Boolean, nil] If yes, deletes the volume when instance is terminated
+        # @return [String, nil] If C(yes), deletes the volume when instance is terminated
         attribute :delete_on_termination
-        validates :delete_on_termination, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :delete_on_termination, type: String
       end
     end
   end

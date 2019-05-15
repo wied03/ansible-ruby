@@ -16,8 +16,9 @@ module Ansible
         attribute :domain_name
         validates :domain_name, type: String
 
-        # @return [Object, nil] Provides the list of domain suffixes to append to the hostname for the purpose of doing name resolution. This argument accepts a list of names and will be reconciled with the current active configuration on the running node.
+        # @return [Array<String>, String, nil] Provides the list of domain suffixes to append to the hostname for the purpose of doing name resolution. This argument accepts a list of names and will be reconciled with the current active configuration on the running node.
         attribute :domain_search
+        validates :domain_search, type: TypeGeneric.new(String)
 
         # @return [String, nil] Provides one or more source interfaces to use for performing DNS lookups.  The interface provided in C(lookup_source) must be a valid interface configured on the device.
         attribute :lookup_source

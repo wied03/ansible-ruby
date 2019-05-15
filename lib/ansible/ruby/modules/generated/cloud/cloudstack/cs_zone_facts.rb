@@ -7,6 +7,7 @@ module Ansible
   module Ruby
     module Modules
       # Gathering facts from the API of a zone.
+      # Sets Ansible facts accessable by the key C(cloudstack_zone) and since version 2.6 also returns results.
       class Cs_zone_facts < Base
         # @return [String] Name of the zone.
         attribute :name

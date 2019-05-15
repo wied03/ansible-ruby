@@ -13,6 +13,14 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
+        # @return [:put, :patch, nil] Default method for object update is HTTP PUT.,Setting to patch will override that behavior to use HTTP PATCH.
+        attribute :avi_api_update_method
+        validates :avi_api_update_method, inclusion: {:in=>[:put, :patch], :message=>"%{value} needs to be :put, :patch"}, allow_nil: true
+
+        # @return [:add, :replace, :delete, nil] Patch operation to use when using avi_api_update_method as patch.
+        attribute :avi_api_patch_op
+        validates :avi_api_patch_op, inclusion: {:in=>[:add, :replace, :delete], :message=>"%{value} needs to be :add, :replace, :delete"}, allow_nil: true
+
         # @return [String, nil] Ciphers suites represented as defined by U(http://www.openssl.org/docs/apps/ciphers.html).,Default value when not specified in API or module is interpreted by Avi Controller as AES:3DES:RC4.
         attribute :accepted_ciphers
         validates :accepted_ciphers, type: String
@@ -21,7 +29,7 @@ module Ansible
         attribute :accepted_versions
         validates :accepted_versions, type: TypeGeneric.new(Hash)
 
-        # @return [Array<String>, String, nil] Cipher_enums of sslprofile.
+        # @return [Array<String>, String, nil] Enum options - tls_ecdhe_ecdsa_with_aes_128_gcm_sha256, tls_ecdhe_ecdsa_with_aes_256_gcm_sha384, tls_ecdhe_rsa_with_aes_128_gcm_sha256,,tls_ecdhe_rsa_with_aes_256_gcm_sha384, tls_ecdhe_ecdsa_with_aes_128_cbc_sha256, tls_ecdhe_ecdsa_with_aes_256_cbc_sha384,,tls_ecdhe_rsa_with_aes_128_cbc_sha256, tls_ecdhe_rsa_with_aes_256_cbc_sha384, tls_rsa_with_aes_128_gcm_sha256, tls_rsa_with_aes_256_gcm_sha384,,tls_rsa_with_aes_128_cbc_sha256, tls_rsa_with_aes_256_cbc_sha256, tls_ecdhe_ecdsa_with_aes_128_cbc_sha, tls_ecdhe_ecdsa_with_aes_256_cbc_sha,,tls_ecdhe_rsa_with_aes_128_cbc_sha, tls_ecdhe_rsa_with_aes_256_cbc_sha, tls_rsa_with_aes_128_cbc_sha, tls_rsa_with_aes_256_cbc_sha,,tls_rsa_with_3des_ede_cbc_sha, tls_rsa_with_rc4_128_sha.
         attribute :cipher_enums
         validates :cipher_enums, type: TypeGeneric.new(String)
 
@@ -49,7 +57,7 @@ module Ansible
         attribute :ssl_rating
         validates :ssl_rating, type: Hash
 
-        # @return [Object, nil] The amount of time before an ssl session expires.,Default value when not specified in API or module is interpreted by Avi Controller as 86400.
+        # @return [Object, nil] The amount of time before an ssl session expires.,Default value when not specified in API or module is interpreted by Avi Controller as 86400.,Units(SEC).
         attribute :ssl_session_timeout
 
         # @return [Object, nil] List of tag.
@@ -58,6 +66,9 @@ module Ansible
         # @return [String, nil] It is a reference to an object of type tenant.
         attribute :tenant_ref
         validates :tenant_ref, type: String
+
+        # @return [Object, nil] Ssl profile type.,Enum options - SSL_PROFILE_TYPE_APPLICATION, SSL_PROFILE_TYPE_SYSTEM.,Field introduced in 17.2.8.,Default value when not specified in API or module is interpreted by Avi Controller as SSL_PROFILE_TYPE_APPLICATION.
+        attribute :type
 
         # @return [Object, nil] Avi controller URL of the object.
         attribute :url

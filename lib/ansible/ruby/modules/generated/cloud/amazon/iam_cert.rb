@@ -12,41 +12,36 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [Object, nil] When present, this will update the name of the cert with the value passed here.
+        # @return [String, nil] When state is present, this will update the name of the cert.,The cert, key and cert_chain parameters will be ignored if this is defined.
         attribute :new_name
+        validates :new_name, type: String
 
-        # @return [Object, nil] When present, this will update the path of the cert with the value passed here.
+        # @return [Object, nil] When state is present, this will update the path of the cert.,The cert, key and cert_chain parameters will be ignored if this is defined.
         attribute :new_path
 
-        # @return [:present, :absent] Whether to create, delete certificate. When present is specified it will attempt to make an update if new_path or new_name is specified.
+        # @return [:present, :absent] Whether to create(or update) or delete certificate.,If new_path or new_name is defined, specifying present will attempt to make an update these.
         attribute :state
         validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
 
-        # @return [String, nil] When creating or updating, specify the desired path of the certificate
+        # @return [String, nil] When creating or updating, specify the desired path of the certificate.
         attribute :path
         validates :path, type: String
 
-        # @return [String, nil] The path to the CA certificate chain in PEM encoded format.
+        # @return [String, nil] The path to, or content of the CA certificate chain in PEM encoded format. As of 2.4 content is accepted. If the parameter is not a file, it is assumed to be content.
         attribute :cert_chain
         validates :cert_chain, type: String
 
-        # @return [String, nil] The path to the certificate body in PEM encoded format.
+        # @return [String, nil] The path to, or content of the certificate body in PEM encoded format. As of 2.4 content is accepted. If the parameter is not a file, it is assumed to be content.
         attribute :cert
         validates :cert, type: String
 
-        # @return [String, nil] The path to the private key of the certificate in PEM encoded format.
+        # @return [String, nil] The path to, or content of the private key in PEM encoded format. As of 2.4 content is accepted. If the parameter is not a file, it is assumed to be content.
         attribute :key
         validates :key, type: String
 
         # @return [Boolean, nil] By default the module will not upload a certificate that is already uploaded into AWS. If set to True, it will upload the certificate as long as the name is unique.
         attribute :dup_ok
         validates :dup_ok, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
-
-        # @return [Object, nil] AWS secret key. If not set then the value of the AWS_SECRET_KEY environment variable is used.
-        attribute :aws_secret_key
-
-        # @return [Object, nil] AWS access key. If not set then the value of the AWS_ACCESS_KEY environment variable is used.
-        attribute :aws_access_key
       end
     end
   end

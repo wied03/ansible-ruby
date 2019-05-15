@@ -16,20 +16,23 @@ module Ansible
         attribute :pvs
         validates :pvs, type: TypeGeneric.new(String)
 
-        # @return [Integer, nil] The size of the physical extent in megabytes. Must be a power of 2.
+        # @return [Integer, nil] The size of the physical extent. pesize must be a power of 2, or multiple of 128KiB. Since version 2.6, pesize can be optionally suffixed by a UNIT (k/K/m/M/g/G), default unit is megabyte.
         attribute :pesize
         validates :pesize, type: Integer
+
+        # @return [Object, nil] Additional options to pass to C(pvcreate) when creating the volume group.
+        attribute :pv_options
 
         # @return [Object, nil] Additional options to pass to C(vgcreate) when creating the volume group.
         attribute :vg_options
 
-        # @return [:present, :absent, nil] Control if the volume group exists.
+        # @return [:absent, :present, nil] Control if the volume group exists.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
-        # @return [:yes, :no, nil] If yes, allows to remove volume group with logical volumes.
+        # @return [String, nil] If C(yes), allows to remove volume group with logical volumes.
         attribute :force
-        validates :force, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :force, type: String
       end
     end
   end

@@ -6,19 +6,20 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
-      # Add and remove local groups
+      # Add and remove local groups.
+      # For non-Windows targets, please use the M(group) module instead.
       class Win_group < Base
-        # @return [String] Name of the group
+        # @return [String] Name of the group.
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [String, nil] Description of the group
+        # @return [String, nil] Description of the group.
         attribute :description
         validates :description, type: String
 
-        # @return [:present, :absent, nil] Create or remove the group
+        # @return [:absent, :present, nil] Create or remove the group.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
       end
     end
   end

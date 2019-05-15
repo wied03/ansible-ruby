@@ -36,28 +36,29 @@ module Ansible
         # @return [Object, nil] The memory allocated to the instance, used with custom service offerings
         attribute :memory
 
-        # @return [String, nil] Name or id of the template to be used for creating the new instance.,Required when using C(state=present).,Mutually exclusive with C(ISO) option.
+        # @return [String, nil] Name, display text or id of the template to be used for creating the new instance.,Required when using I(state=present).,Mutually exclusive with C(ISO) option.
         attribute :template
         validates :template, type: String
 
-        # @return [String, nil] Name or id of the ISO to be used for creating the new instance.,Required when using C(state=present).,Mutually exclusive with C(template) option.
+        # @return [String, nil] Name or id of the ISO to be used for creating the new instance.,Required when using I(state=present).,Mutually exclusive with C(template) option.
         attribute :iso
         validates :iso, type: String
 
-        # @return [:featured, :self, :selfexecutable, :sharedexecutable, :executable, :community, nil] Name of the filter used to search for the template or iso.,Used for params C(iso) or C(template) on C(state=present).
+        # @return [:all, :featured, :self, :selfexecutable, :sharedexecutable, :executable, :community, nil] Name of the filter used to search for the template or iso.,Used for params C(iso) or C(template) on I(state=present).,The filter C(all) was added in 2.6.
         attribute :template_filter
-        validates :template_filter, inclusion: {:in=>[:featured, :self, :selfexecutable, :sharedexecutable, :executable, :community], :message=>"%{value} needs to be :featured, :self, :selfexecutable, :sharedexecutable, :executable, :community"}, allow_nil: true
+        validates :template_filter, inclusion: {:in=>[:all, :featured, :self, :selfexecutable, :sharedexecutable, :executable, :community], :message=>"%{value} needs to be :all, :featured, :self, :selfexecutable, :sharedexecutable, :executable, :community"}, allow_nil: true
 
-        # @return [:KVM, :VMware, :BareMetal, :XenServer, :LXC, :HyperV, :UCS, :OVM, nil] Name the hypervisor to be used for creating the new instance.,Relevant when using C(state=present), but only considered if not set on ISO/template.,If not set or found on ISO/template, first found hypervisor will be used.
+        # @return [:KVM, :kvm, :VMware, :vmware, :BareMetal, :baremetal, :XenServer, :xenserver, :LXC, :lxc, :HyperV, :hyperv, :UCS, :ucs, :OVM, :ovm, :Simulator, :simulator, nil] Name the hypervisor to be used for creating the new instance.,Relevant when using I(state=present), but only considered if not set on ISO/template.,If not set or found on ISO/template, first found hypervisor will be used.
         attribute :hypervisor
-        validates :hypervisor, inclusion: {:in=>[:KVM, :VMware, :BareMetal, :XenServer, :LXC, :HyperV, :UCS, :OVM], :message=>"%{value} needs to be :KVM, :VMware, :BareMetal, :XenServer, :LXC, :HyperV, :UCS, :OVM"}, allow_nil: true
+        validates :hypervisor, inclusion: {:in=>[:KVM, :kvm, :VMware, :vmware, :BareMetal, :baremetal, :XenServer, :xenserver, :LXC, :lxc, :HyperV, :hyperv, :UCS, :ucs, :OVM, :ovm, :Simulator, :simulator], :message=>"%{value} needs to be :KVM, :kvm, :VMware, :vmware, :BareMetal, :baremetal, :XenServer, :xenserver, :LXC, :lxc, :HyperV, :hyperv, :UCS, :ucs, :OVM, :ovm, :Simulator, :simulator"}, allow_nil: true
 
         # @return [:de, :"de-ch", :es, :fi, :fr, :"fr-be", :"fr-ch", :is, :it, :jp, :"nl-be", :no, :pt, :uk, :us, nil] Keyboard device type for the instance.
         attribute :keyboard
         validates :keyboard, inclusion: {:in=>[:de, :"de-ch", :es, :fi, :fr, :"fr-be", :"fr-ch", :is, :it, :jp, :"nl-be", :no, :pt, :uk, :us], :message=>"%{value} needs to be :de, :\"de-ch\", :es, :fi, :fr, :\"fr-be\", :\"fr-ch\", :is, :it, :jp, :\"nl-be\", :no, :pt, :uk, :us"}, allow_nil: true
 
-        # @return [Object, nil] List of networks to use for the new instance.
+        # @return [Array<String>, String, nil] List of networks to use for the new instance.
         attribute :networks
+        validates :networks, type: TypeGeneric.new(String)
 
         # @return [Object, nil] IPv4 address for default instance's network during creation.
         attribute :ip_address
@@ -65,7 +66,7 @@ module Ansible
         # @return [Object, nil] IPv6 address for default instance's network.
         attribute :ip6_address
 
-        # @return [Array<Hash>, Hash, nil] List of mappings in the form {'network': NetworkName, 'ip': 1.2.3.4},Mutually exclusive with C(networks) option.
+        # @return [Array<Hash>, Hash, nil] List of mappings in the form I({'network': NetworkName, 'ip': 1.2.3.4}),Mutually exclusive with C(networks) option.
         attribute :ip_to_networks
         validates :ip_to_networks, type: TypeGeneric.new(Hash)
 
@@ -82,6 +83,9 @@ module Ansible
 
         # @return [Object, nil] List of security groups the instance to be applied to.
         attribute :security_groups
+
+        # @return [Object, nil] Host on which an instance should be deployed or started on.,Only considered when I(state=started) or instance is running.,Requires root admin privileges.
+        attribute :host
 
         # @return [Object, nil] Domain the instance is related to.
         attribute :domain
@@ -104,7 +108,7 @@ module Ansible
         # @return [Object, nil] Affinity groups names to be applied to the new instance.
         attribute :affinity_groups
 
-        # @return [String, nil] Optional data (ASCII) that can be sent to the instance upon a successful deployment.,The data will be automatically base64 encoded.,Consider switching to HTTP_POST by using C(CLOUDSTACK_METHOD=post) to increase the HTTP_GET size limit of 2KB to 32 KB.
+        # @return [String, nil] Optional data (ASCII) that can be sent to the instance upon a successful deployment.,The data will be automatically base64 encoded.,Consider switching to HTTP_POST by using I(CLOUDSTACK_METHOD=post) to increase the HTTP_GET size limit of 2KB to 32 KB.
         attribute :user_data
         validates :user_data, type: String
 
@@ -112,13 +116,20 @@ module Ansible
         attribute :force
         validates :force, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
-        # @return [Array<Hash>, Hash, nil] List of tags. Tags are a list of dictionaries having keys C(key) and C(value).,If you want to delete all tags, set a empty list e.g. C(tags: []).
+        # @return [Boolean, nil] Enables a volume shrinkage when the new size is smaller than the old one.
+        attribute :allow_root_disk_shrink
+        validates :allow_root_disk_shrink, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+
+        # @return [Array<Hash>, Hash, nil] List of tags. Tags are a list of dictionaries having keys C(key) and C(value).,If you want to delete all tags, set a empty list e.g. I(tags: []).
         attribute :tags
         validates :tags, type: TypeGeneric.new(Hash)
 
         # @return [Boolean, nil] Poll async jobs until job has finished.
         attribute :poll_async
         validates :poll_async, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+
+        # @return [Object, nil] Map to specify custom parameters.
+        attribute :details
       end
     end
   end

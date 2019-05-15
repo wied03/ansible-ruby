@@ -16,23 +16,25 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [String, nil] Specifies source interface name.
+        # @return [String, nil] Specifies source interface name(s).
         attribute :src_intf
         validates :src_intf, type: String
 
-        # @return [String, nil] Specifies destination interface name.
+        # @return [String, nil] Specifies destination interface name(s).
         attribute :dst_intf
         validates :dst_intf, type: String
 
-        # @return [Object, nil] Specifies source address (or group) object name(s). Required when I(state=present).
+        # @return [Array<String>, String, nil] Specifies source address (or group) object name(s). Required when I(state=present).
         attribute :src_addr
+        validates :src_addr, type: TypeGeneric.new(String)
 
         # @return [Boolean, nil] Negate source address param.
         attribute :src_addr_negate
         validates :src_addr_negate, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
-        # @return [Object, nil] Specifies destination address (or group) object name(s). Required when I(state=present).
+        # @return [String, nil] Specifies destination address (or group) object name(s). Required when I(state=present).
         attribute :dst_addr
+        validates :dst_addr, type: String
 
         # @return [Boolean, nil] Negate destination address param.
         attribute :dst_addr_negate
@@ -77,8 +79,17 @@ module Ansible
         # @return [Object, nil] Specifies Application Control name.
         attribute :application_list
 
-        # @return [Object, nil] free text to describe policy.
+        # @return [:disable, :utm, :all, nil] Logs sessions that matched policy.
+        attribute :logtraffic
+        validates :logtraffic, inclusion: {:in=>[:disable, :utm, :all], :message=>"%{value} needs to be :disable, :utm, :all"}, allow_nil: true
+
+        # @return [Boolean, nil] Logs beginning of session as well.
+        attribute :logtraffic_start
+        validates :logtraffic_start, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+
+        # @return [String, nil] free text to describe policy.
         attribute :comment
+        validates :comment, type: String
       end
     end
   end

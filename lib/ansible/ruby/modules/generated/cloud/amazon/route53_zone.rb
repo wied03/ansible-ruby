@@ -12,9 +12,9 @@ module Ansible
         attribute :zone
         validates :zone, presence: true, type: String
 
-        # @return [Boolean, nil] whether or not the zone should exist or not
+        # @return [:present, :absent, nil] whether or not the zone should exist or not
         attribute :state
-        validates :state, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String, nil] The VPC ID the zone should be a part of (if this is going to be a private zone)
         attribute :vpc_id
@@ -27,6 +27,13 @@ module Ansible
         # @return [String, nil] Comment associated with the zone
         attribute :comment
         validates :comment, type: String
+
+        # @return [Object, nil] The unique zone identifier you want to delete or "all" if there are many zones with the same domain name. Required if there are multiple zones identified with the above options
+        attribute :hosted_zone_id
+
+        # @return [String, nil] The reusable delegation set ID to be associated with the zone. Note that you can't associate a reusable delegation set with a private hosted zone.
+        attribute :delegation_set_id
+        validates :delegation_set_id, type: String
       end
     end
   end

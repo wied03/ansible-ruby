@@ -20,9 +20,9 @@ module Ansible
         attribute :login_user
         validates :login_user, type: String
 
-        # @return [Boolean, nil] rabbitMQ password for connection
+        # @return [String, nil] rabbitMQ password for connection
         attribute :login_password
-        validates :login_password, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :login_password, type: String
 
         # @return [String, nil] rabbitMQ host for connection
         attribute :login_host
@@ -36,13 +36,13 @@ module Ansible
         attribute :vhost
         validates :vhost, type: String
 
-        # @return [Boolean, nil] whether queue is durable or not
+        # @return [String, nil] whether queue is durable or not
         attribute :durable
-        validates :durable, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :durable, type: String
 
-        # @return [Boolean, nil] if the queue should delete itself after all queues/queues unbound from it
+        # @return [String, nil] if the queue should delete itself after all queues/queues unbound from it
         attribute :auto_delete
-        validates :auto_delete, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :auto_delete, type: String
 
         # @return [String, nil] How long a message can live in queue before it is discarded (milliseconds)
         attribute :message_ttl
@@ -61,6 +61,9 @@ module Ansible
 
         # @return [Object, nil] Optional replacement routing key to use when a message is dead-lettered.,Original routing key will be used if unset
         attribute :dead_letter_routing_key
+
+        # @return [Object, nil] Maximum number of priority levels for the queue to support.,If not set, the queue will not support message priorities.,Larger numbers indicate higher priority.
+        attribute :max_priority
 
         # @return [Object, nil] extra arguments for queue. If defined this argument is a key/value dictionary
         attribute :arguments

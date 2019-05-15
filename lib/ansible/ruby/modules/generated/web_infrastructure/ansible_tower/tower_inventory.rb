@@ -20,29 +20,19 @@ module Ansible
         attribute :organization
         validates :organization, presence: true, type: String
 
-        # @return [Object, nil] Inventory variables. Use '@' to get from file.
+        # @return [Object, nil] Inventory variables. Use C(@) to get from file.
         attribute :variables
+
+        # @return [:"", :smart, nil] The kind field. Cannot be modified after created.
+        attribute :kind
+        validates :kind, inclusion: {:in=>[:"", :smart], :message=>"%{value} needs to be :\"\", :smart"}, allow_nil: true
+
+        # @return [Object, nil] The host_filter field. Only useful when C(kind=smart).
+        attribute :host_filter
 
         # @return [:present, :absent, nil] Desired state of the resource.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
-
-        # @return [Object, nil] URL to your Tower instance.
-        attribute :tower_host
-
-        # @return [Object, nil] Username for your Tower instance.
-        attribute :tower_username
-
-        # @return [Object, nil] Password for your Tower instance.
-        attribute :tower_password
-
-        # @return [Boolean, nil] Dis/allow insecure connections to Tower. If C(no), SSL certificates will not be validated. This should only be used on personally controlled sites using self-signed certificates.
-        attribute :tower_verify_ssl
-        validates :tower_verify_ssl, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
-
-        # @return [String, nil] Path to the Tower config file. See notes.
-        attribute :tower_config_file
-        validates :tower_config_file, type: String
       end
     end
   end

@@ -12,7 +12,7 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [Object, nil] uuid of the exising pod.
+        # @return [Object, nil] uuid of the existing pod.
         attribute :id
 
         # @return [String, nil] Starting IP address for the Pod.,Required on C(state=present)

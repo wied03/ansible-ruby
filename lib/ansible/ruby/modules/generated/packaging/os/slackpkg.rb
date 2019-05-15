@@ -12,7 +12,7 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: TypeGeneric.new(String)
 
-        # @return [:present, :absent, :latest, nil] state of the package, you can use "installed" as an alias for C(present) and removed as one for c(absent).
+        # @return [:present, :absent, :latest, nil] state of the package, you can use "installed" as an alias for C(present) and removed as one for C(absent).
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent, :latest], :message=>"%{value} needs to be :present, :absent, :latest"}, allow_nil: true
 

@@ -6,7 +6,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
-      # Use this module to add or remove hosts to a stacki front-end via API
+      # Use this module to add or remove hosts to a stacki front-end via API.
       # U(https://github.com/StackIQ/stacki)
       class Stacki_host < Base
         # @return [String] Name of the host to be added to Stacki.

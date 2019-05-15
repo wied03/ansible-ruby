@@ -67,6 +67,9 @@ module Ansible
         # @return [Boolean, nil] Poll async jobs until job has finished.
         attribute :poll_async
         validates :poll_async, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+
+        # @return [Object, nil] List of tags. Tags are a list of dictionaries having keys C(key) and C(value).,To delete all tags, set a empty list e.g. C(tags: []).
+        attribute :tags
       end
     end
   end

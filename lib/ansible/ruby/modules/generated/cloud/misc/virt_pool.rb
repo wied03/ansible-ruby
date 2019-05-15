@@ -20,9 +20,9 @@ module Ansible
         attribute :command
         validates :command, inclusion: {:in=>[:define, :build, :create, :start, :stop, :destroy, :delete, :undefine, :get_xml, :list_pools, :facts, :info, :status], :message=>"%{value} needs to be :define, :build, :create, :start, :stop, :destroy, :delete, :undefine, :get_xml, :list_pools, :facts, :info, :status"}, allow_nil: true
 
-        # @return [:yes, :no, nil] Specify if a given storage pool should be started automatically on system boot.
+        # @return [TrueClass, FalseClass, nil] Specify if a given storage pool should be started automatically on system boot.
         attribute :autostart
-        validates :autostart, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :autostart, type: MultipleTypes.new(TrueClass, FalseClass)
 
         # @return [String, nil] I(libvirt) connection uri.
         attribute :uri

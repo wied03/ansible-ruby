@@ -20,12 +20,20 @@ module Ansible
         attribute :description
         validates :description, type: String
 
-        # @return [Object, nil] The router-distinguisher value uniquely identifies the VRF to routing processes on the remote IOS system.  The RD value takes the form of C(A:B) where C(A) and C(B) are both numeric values.
+        # @return [String, nil] The router-distinguisher value uniquely identifies the VRF to routing processes on the remote IOS system.  The RD value takes the form of C(A:B) where C(A) and C(B) are both numeric values.
         attribute :rd
+        validates :rd, type: String
 
         # @return [Array<String>, String, nil] Identifies the set of interfaces that should be configured in the VRF.  Interfaces must be routed interfaces in order to be placed into a VRF.
         attribute :interfaces
         validates :interfaces, type: TypeGeneric.new(String)
+
+        # @return [Object, nil] This is a intent option and checks the operational state of the for given vrf C(name) for associated interfaces. If the value in the C(associated_interfaces) does not match with the operational state of vrf interfaces on device it will result in failure.
+        attribute :associated_interfaces
+
+        # @return [Integer, nil] Time in seconds to wait before checking for the operational state on remote device.
+        attribute :delay
+        validates :delay, type: Integer
 
         # @return [Boolean, nil] Instructs the module to consider the VRF definition absolute.  It will remove any previously configured VRFs on the device.
         attribute :purge
@@ -34,6 +42,42 @@ module Ansible
         # @return [:present, :absent, nil] Configures the state of the VRF definition as it relates to the device operational configuration.  When set to I(present), the VRF should be configured in the device active configuration and when set to I(absent) the VRF should not be in the device active configuration
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+
+        # @return [Array<String>, String, nil] Adds an export and import list of extended route target communities to the VRF.
+        attribute :route_both
+        validates :route_both, type: TypeGeneric.new(String)
+
+        # @return [Array<String>, String, nil] Adds an export list of extended route target communities to the VRF.
+        attribute :route_export
+        validates :route_export, type: TypeGeneric.new(String)
+
+        # @return [Array<String>, String, nil] Adds an import list of extended route target communities to the VRF.
+        attribute :route_import
+        validates :route_import, type: TypeGeneric.new(String)
+
+        # @return [Array<String>, String, nil] Adds an export and import list of extended route target communities in address-family configuration submode to the VRF.
+        attribute :route_both_ipv4
+        validates :route_both_ipv4, type: TypeGeneric.new(String)
+
+        # @return [Array<String>, String, nil] Adds an export list of extended route target communities in address-family configuration submode to the VRF.
+        attribute :route_export_ipv4
+        validates :route_export_ipv4, type: TypeGeneric.new(String)
+
+        # @return [Array<String>, String, nil] Adds an import list of extended route target communities in address-family configuration submode to the VRF.
+        attribute :route_import_ipv4
+        validates :route_import_ipv4, type: TypeGeneric.new(String)
+
+        # @return [Array<String>, String, nil] Adds an export and import list of extended route target communities in address-family configuration submode to the VRF.
+        attribute :route_both_ipv6
+        validates :route_both_ipv6, type: TypeGeneric.new(String)
+
+        # @return [Array<String>, String, nil] Adds an export list of extended route target communities in address-family configuration submode to the VRF.
+        attribute :route_export_ipv6
+        validates :route_export_ipv6, type: TypeGeneric.new(String)
+
+        # @return [Array<String>, String, nil] Adds an import list of extended route target communities in address-family configuration submode to the VRF.
+        attribute :route_import_ipv6
+        validates :route_import_ipv6, type: TypeGeneric.new(String)
       end
     end
   end

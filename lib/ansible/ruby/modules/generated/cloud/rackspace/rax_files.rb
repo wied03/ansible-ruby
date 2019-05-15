@@ -8,9 +8,9 @@ module Ansible
     module Modules
       # Manipulate Rackspace Cloud Files Containers
       class Rax_files < Base
-        # @return [:yes, :no, nil] Optionally clear existing metadata when applying metadata to existing containers. Selecting this option is only appropriate when setting type=meta
+        # @return [String, nil] Optionally clear existing metadata when applying metadata to existing containers. Selecting this option is only appropriate when setting type=meta
         attribute :clear_meta
-        validates :clear_meta, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :clear_meta, type: String
 
         # @return [Object] The container to use for container or metadata operations.
         attribute :container

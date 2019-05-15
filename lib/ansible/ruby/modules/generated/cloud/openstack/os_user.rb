@@ -24,6 +24,9 @@ module Ansible
         attribute :email
         validates :email, type: String
 
+        # @return [Object, nil] Description about the user
+        attribute :description
+
         # @return [String, nil] Project name or ID that the user should be associated with by default
         attribute :default_project
         validates :default_project, type: String
@@ -32,15 +35,15 @@ module Ansible
         attribute :domain
         validates :domain, type: String
 
-        # @return [Boolean, nil] Is the user enabled
+        # @return [String, nil] Is the user enabled
         attribute :enabled
-        validates :enabled, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :enabled, type: String
 
         # @return [:present, :absent, nil] Should the resource be present or absent.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [Object, nil] Ignored. Present for backwards compatability
+        # @return [Object, nil] Ignored. Present for backwards compatibility
         attribute :availability_zone
       end
     end

@@ -8,9 +8,9 @@ module Ansible
     module Modules
       # Create snapshots of the running states of selected features, add new show commands for snapshot creation, delete and compare existing snapshots.
       class Nxos_snapshot < Base
-        # @return [:create, :add, :compare, :delete] Define what snapshot action the module would perform.
+        # @return [:add, :compare, :create, :delete, :delete_all] Define what snapshot action the module would perform.
         attribute :action
-        validates :action, presence: true, inclusion: {:in=>[:create, :add, :compare, :delete], :message=>"%{value} needs to be :create, :add, :compare, :delete"}
+        validates :action, presence: true, inclusion: {:in=>[:add, :compare, :create, :delete, :delete_all], :message=>"%{value} needs to be :add, :compare, :create, :delete, :delete_all"}
 
         # @return [String, nil] Snapshot name, to be used when C(action=create) or C(action=delete).
         attribute :snapshot_name
@@ -28,7 +28,7 @@ module Ansible
         attribute :snapshot2
         validates :snapshot2, type: String
 
-        # @return [String, nil] Name of the file where snapshots comparison will be store.
+        # @return [String, nil] Name of the file where snapshots comparison will be stored when C(action=compare).
         attribute :comparison_results_file
         validates :comparison_results_file, type: String
 
@@ -55,9 +55,9 @@ module Ansible
         # @return [Object, nil] Specify the tags used to distinguish among row entries, to be used when C(action=add).
         attribute :element_key2
 
-        # @return [Boolean, nil] Specify to locally store a new created snapshot, to be used when C(action=create).
+        # @return [String, nil] Specify to locally store a new created snapshot, to be used when C(action=create).
         attribute :save_snapshot_locally
-        validates :save_snapshot_locally, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :save_snapshot_locally, type: String
 
         # @return [String, nil] Specify the path of the file where new created snapshot or snapshots comparison will be stored, to be used when C(action=create) and C(save_snapshot_locally=true) or C(action=compare).
         attribute :path

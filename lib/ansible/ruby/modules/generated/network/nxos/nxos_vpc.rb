@@ -32,16 +32,17 @@ module Ansible
         attribute :pkl_vrf
         validates :pkl_vrf, type: String
 
-        # @return [:true, :false] Enables/Disables peer gateway
+        # @return [Boolean, nil] Enables/Disables peer gateway
         attribute :peer_gw
-        validates :peer_gw, presence: true, inclusion: {:in=>[:true, :false], :message=>"%{value} needs to be :true, :false"}
+        validates :peer_gw, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
-        # @return [:true, :false] Enables/Disables auto recovery
+        # @return [Boolean, nil] Enables/Disables auto recovery
         attribute :auto_recovery
-        validates :auto_recovery, presence: true, inclusion: {:in=>[:true, :false], :message=>"%{value} needs to be :true, :false"}
+        validates :auto_recovery, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
-        # @return [Object, nil] manages delay restore command and config value in seconds
+        # @return [Integer, nil] manages delay restore command and config value in seconds
         attribute :delay_restore
+        validates :delay_restore, type: Integer
 
         # @return [:present, :absent] Manages desired state of the resource
         attribute :state

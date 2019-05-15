@@ -8,7 +8,7 @@ module Ansible
     module Modules
       # Manages SELinux network port type definitions.
       class Seport < Base
-        # @return [Integer, Array<String>, String] Ports or port ranges, separated by a comma
+        # @return [Integer, Array<String>, String] Ports or port ranges. Can be a list (since 2.6) or comma separated string.
         attribute :ports
         validates :ports, presence: true, type: TypeGeneric.new(String)
 
@@ -20,13 +20,13 @@ module Ansible
         attribute :setype
         validates :setype, presence: true, type: String
 
-        # @return [:present, :absent] Desired boolean value.
+        # @return [:absent, :present] Desired boolean value.
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
+        validates :state, presence: true, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}
 
-        # @return [Boolean, nil] Reload SELinux policy after commit.
+        # @return [String, nil] Reload SELinux policy after commit.
         attribute :reload
-        validates :reload, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :reload, type: String
       end
     end
   end

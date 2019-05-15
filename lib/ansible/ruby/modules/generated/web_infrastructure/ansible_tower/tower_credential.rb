@@ -29,9 +29,9 @@ module Ansible
         attribute :organization
         validates :organization, type: String
 
-        # @return [:ssh, :net, :scm, :aws, :rax, :vmware, :satellite6, :cloudforms, :gce, :azure, :azure_rm, :openstack] Type of credential being added.
+        # @return [:ssh, :vault, :net, :scm, :aws, :vmware, :satellite6, :cloudforms, :gce, :azure_rm, :openstack, :rhv, :insights, :tower] Type of credential being added.
         attribute :kind
-        validates :kind, presence: true, inclusion: {:in=>[:ssh, :net, :scm, :aws, :rax, :vmware, :satellite6, :cloudforms, :gce, :azure, :azure_rm, :openstack], :message=>"%{value} needs to be :ssh, :net, :scm, :aws, :rax, :vmware, :satellite6, :cloudforms, :gce, :azure, :azure_rm, :openstack"}
+        validates :kind, presence: true, inclusion: {:in=>[:ssh, :vault, :net, :scm, :aws, :vmware, :satellite6, :cloudforms, :gce, :azure_rm, :openstack, :rhv, :insights, :tower], :message=>"%{value} needs to be :ssh, :vault, :net, :scm, :aws, :vmware, :satellite6, :cloudforms, :gce, :azure_rm, :openstack, :rhv, :insights, :tower"}
 
         # @return [Object, nil] Host for this credential.
         attribute :host
@@ -48,15 +48,18 @@ module Ansible
         # @return [Object, nil] Unlock password for ssh_key. Use ASK for prompting.
         attribute :ssh_key_unlock
 
-        # @return [Boolean, nil] Should use authroize for net type.
+        # @return [String, nil] Should use authorize for net type.
         attribute :authorize
-        validates :authorize, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :authorize, type: String
 
-        # @return [Object, nil] Password for net credentials that require authroize.
+        # @return [Object, nil] Password for net credentials that require authorize.
         attribute :authorize_password
 
         # @return [Object, nil] Client or application ID for azure_rm type.
         attribute :client
+
+        # @return [Object, nil] STS token for aws type.
+        attribute :security_token
 
         # @return [Object, nil] Secret token for azure_rm type.
         attribute :secret
@@ -70,9 +73,9 @@ module Ansible
         # @return [Object, nil] Domain for openstack type.
         attribute :domain
 
-        # @return [:None, :sudo, :su, :pbrun, :pfexec, nil] Become method to Use for privledge escalation.
+        # @return [:None, :sudo, :su, :pbrun, :pfexec, :pmrun, nil] Become method to Use for privledge escalation.
         attribute :become_method
-        validates :become_method, inclusion: {:in=>[:None, :sudo, :su, :pbrun, :pfexec], :message=>"%{value} needs to be :None, :sudo, :su, :pbrun, :pfexec"}, allow_nil: true
+        validates :become_method, inclusion: {:in=>[:None, :sudo, :su, :pbrun, :pfexec, :pmrun], :message=>"%{value} needs to be :None, :sudo, :su, :pbrun, :pfexec, :pmrun"}, allow_nil: true
 
         # @return [Object, nil] Become username. Use ASK for prompting.
         attribute :become_username
@@ -80,29 +83,12 @@ module Ansible
         # @return [Object, nil] Become password. Use ASK for prompting.
         attribute :become_password
 
-        # @return [Object, nil] Valut password. Use ASK for prompting.
+        # @return [Object, nil] Vault password. Use ASK for prompting.
         attribute :vault_password
 
         # @return [:present, :absent, nil] Desired state of the resource.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
-
-        # @return [Object, nil] URL to your Tower instance.
-        attribute :tower_host
-
-        # @return [Object, nil] Username for your Tower instance.
-        attribute :tower_username
-
-        # @return [Object, nil] Password for your Tower instance.
-        attribute :tower_password
-
-        # @return [Boolean, nil] Dis/allow insecure connections to Tower. If C(no), SSL certificates will not be validated. This should only be used on personally controlled sites using self-signed certificates.
-        attribute :tower_verify_ssl
-        validates :tower_verify_ssl, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
-
-        # @return [String, nil] Path to the Tower config file. See notes.
-        attribute :tower_config_file
-        validates :tower_config_file, type: String
       end
     end
   end

@@ -7,7 +7,6 @@ module Ansible
   module Ruby
     module Modules
       # Creates or terminates ec2 instances.
-      # C(state=restarted) was added in 2.2
       class Ec2 < Base
         # @return [String, nil] key pair to use on the instance
         attribute :key_name
@@ -57,9 +56,9 @@ module Ansible
         # @return [Object, nil] ramdisk I(eri) to use for the instance
         attribute :ramdisk
 
-        # @return [:yes, :no, nil] wait for the instance to reach its desired state before returning.  Does not wait for SSH, see 'wait_for' example for details.
+        # @return [String, nil] wait for the instance to reach its desired state before returning.  Does not wait for SSH, see 'wait_for_connection' example for details.
         attribute :wait
-        validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :wait, type: String
 
         # @return [Integer, nil] how long before wait gives up, in seconds
         attribute :wait_timeout
@@ -73,9 +72,9 @@ module Ansible
         attribute :count
         validates :count, type: Integer
 
-        # @return [:yes, :no, nil] enable detailed monitoring (CloudWatch) for instance
+        # @return [String, nil] enable detailed monitoring (CloudWatch) for instance
         attribute :monitoring
-        validates :monitoring, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :monitoring, type: String
 
         # @return [Object, nil] opaque blob of data which is made available to the ec2 instance
         attribute :user_data
@@ -91,37 +90,36 @@ module Ansible
         attribute :vpc_subnet_id
         validates :vpc_subnet_id, type: String
 
-        # @return [:yes, :no, nil] when provisioning within vpc, assign a public IP address. Boto library must be 2.13.0+
+        # @return [Boolean, nil] when provisioning within vpc, assign a public IP address. Boto library must be 2.13.0+
         attribute :assign_public_ip
-        validates :assign_public_ip, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :assign_public_ip, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Object, nil] the private ip address to assign the instance (from the vpc subnet)
         attribute :private_ip
 
-        # @return [Object, nil] Name of the IAM instance profile to use. Boto library must be 2.5.0+
+        # @return [Object, nil] Name of the IAM instance profile (i.e. what the EC2 console refers to as an "IAM Role") to use. Boto library must be 2.5.0+
         attribute :instance_profile_name
 
         # @return [Array<String>, String, nil] list of instance ids, currently used for states: absent, running, stopped
         attribute :instance_ids
         validates :instance_ids, type: TypeGeneric.new(String)
 
-        # @return [Boolean, nil] Enable or Disable the Source/Destination checks (for NAT instances and Virtual Routers)
+        # @return [Object, nil] Enable or Disable the Source/Destination checks (for NAT instances and Virtual Routers). When initially creating an instance the EC2 API defaults this to True.
         attribute :source_dest_check
-        validates :source_dest_check, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
-        # @return [Boolean, nil] Enable or Disable the Termination Protection
+        # @return [String, nil] Enable or Disable the Termination Protection
         attribute :termination_protection
-        validates :termination_protection, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :termination_protection, type: String
 
-        # @return [:stop, :terminate, nil] Set whether AWS will Stop or Terminate an instance on shutdown
+        # @return [:stop, :terminate, nil] Set whether AWS will Stop or Terminate an instance on shutdown. This parameter is ignored when using instance-store images (which require termination on shutdown).
         attribute :instance_initiated_shutdown_behavior
         validates :instance_initiated_shutdown_behavior, inclusion: {:in=>[:stop, :terminate], :message=>"%{value} needs to be :stop, :terminate"}, allow_nil: true
 
-        # @return [:present, :absent, :running, :restarted, :stopped, nil] create or terminate instances
+        # @return [:present, :absent, :running, :restarted, :stopped, nil] create, terminate, start, stop or restart instances. The state 'restarted' was added in 2.2
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent, :running, :restarted, :stopped], :message=>"%{value} needs to be :present, :absent, :running, :restarted, :stopped"}, allow_nil: true
 
-        # @return [Array<Hash>, Hash, nil] a list of hash/dictionaries of volumes to add to the new instance; '[{"key":"value", "key":"value"}]'; keys allowed are - device_name (str; required), delete_on_termination (bool; False), device_type (deprecated), ephemeral (str), encrypted (bool; False), snapshot (str), volume_type (str), iops (int) - device_type is deprecated use volume_type, iops must be set when volume_type='io1', ephemeral and snapshot are mutually exclusive.
+        # @return [Array<Hash>, Hash, nil] a list of hash/dictionaries of volumes to add to the new instance; '[{"key":"value", "key":"value"}]'; keys allowed are - device_name (str; required), delete_on_termination (bool; False), device_type (deprecated), ephemeral (str), encrypted (bool; False), snapshot (str), volume_type (str), volume_size (int, GB), iops (int) - device_type is deprecated use volume_type, iops must be set when volume_type='io1', ephemeral and snapshot are mutually exclusive.
         attribute :volumes
         validates :volumes, type: TypeGeneric.new(Hash)
 
@@ -133,7 +131,7 @@ module Ansible
         attribute :exact_count
         validates :exact_count, type: Integer
 
-        # @return [Array<String>, String, nil] Used with 'exact_count' to determine how many nodes based on a specific tag criteria should be running.  This can be expressed in multiple ways and is shown in the EXAMPLES section.  For instance, one can request 25 servers that are tagged with "class=webserver". The specified tag must already exist or be passed in as the 'instance_tags' option.
+        # @return [Hash, Array<String>, String, nil] Used with 'exact_count' to determine how many nodes based on a specific tag criteria should be running. This can be expressed in multiple ways and is shown in the EXAMPLES section.  For instance, one can request 25 servers that are tagged with "class=webserver". The specified tag must already exist or be passed in as the 'instance_tags' option.
         attribute :count_tag
         validates :count_tag, type: TypeGeneric.new(String)
 

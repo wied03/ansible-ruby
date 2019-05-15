@@ -7,6 +7,7 @@ module Ansible
   module Ruby
     module Modules
       # The C(shell) module takes the command name followed by a list of space-delimited arguments. It is almost exactly like the M(command) module but runs the command through a shell (C(/bin/sh)) on the remote node.
+      # For Windows targets, use the M(win_shell) module instead.
       class Shell < Base
         # @return [Object] The shell module takes a free form command to run, as a string.  There's not an actual option named "free form".  See the examples!
         attribute :free_form
@@ -27,9 +28,12 @@ module Ansible
         attribute :executable
         validates :executable, type: String
 
-        # @return [Boolean, nil] if command warnings are on in ansible.cfg, do not warn about this particular line if set to no/false.
+        # @return [String, nil] if command warnings are on in ansible.cfg, do not warn about this particular line if set to no/false.
         attribute :warn
-        validates :warn, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :warn, type: String
+
+        # @return [Object, nil] Set the stdin of the command directly to the specified value.
+        attribute :stdin
       end
     end
   end

@@ -12,7 +12,7 @@ module Ansible
         attribute :job_id
         validates :job_id, presence: true, type: String
 
-        # @return [Boolean, nil] Fail loudly if the job_id does not reference a running job.
+        # @return [Boolean, nil] Fail loudly if the I(job_id) does not reference a running job.
         attribute :fail_if_not_running
         validates :fail_if_not_running, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
       end

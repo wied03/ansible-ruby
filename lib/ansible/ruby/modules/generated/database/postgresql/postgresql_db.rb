@@ -31,9 +31,21 @@ module Ansible
         attribute :lc_ctype
         validates :lc_ctype, type: String
 
-        # @return [:present, :absent, nil] The database state
+        # @return [:present, :absent, :dump, :restore, nil] The database state. present implies that the database should be created if necessary.\r\nabsent implies that the database should be removed if present.\r\ndump requires a target definition to which the database will be backed up.\r\n(Added in 2.4) restore also requires a target definition from which the database will be restored.\r\n(Added in 2.4) The format of the backup will be detected based on the target name.\r\nSupported compression formats for dump and restore are: .bz2, .gz, and .xz\r\nSupported formats for dump and restore are: .sql and .tar\r\n
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, inclusion: {:in=>[:present, :absent, :dump, :restore], :message=>"%{value} needs to be :present, :absent, :dump, :restore"}, allow_nil: true
+
+        # @return [String, nil] File to back up or restore from. Used when state is "dump" or "restore"
+        attribute :target
+        validates :target, type: String
+
+        # @return [String, nil] Further arguments for pg_dump or pg_restore. Used when state is "dump" or "restore"
+        attribute :target_opts
+        validates :target_opts, type: String
+
+        # @return [String, nil] The value specifies the initial database (which is also called as maintenance DB) that Ansible connects to.
+        attribute :maintenance_db
+        validates :maintenance_db, type: String
       end
     end
   end

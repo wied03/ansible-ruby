@@ -13,6 +13,14 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
+        # @return [:put, :patch, nil] Default method for object update is HTTP PUT.,Setting to patch will override that behavior to use HTTP PATCH.
+        attribute :avi_api_update_method
+        validates :avi_api_update_method, inclusion: {:in=>[:put, :patch], :message=>"%{value} needs to be :put, :patch"}, allow_nil: true
+
+        # @return [:add, :replace, :delete, nil] Patch operation to use when using avi_api_update_method as patch.
+        attribute :avi_api_patch_op
+        validates :avi_api_patch_op, inclusion: {:in=>[:add, :replace, :delete], :message=>"%{value} needs to be :add, :replace, :delete"}, allow_nil: true
+
         # @return [Object, nil] List of certificate authorities (root and intermediate) trusted that is used for certificate validation.
         attribute :ca_certs
 
@@ -27,6 +35,9 @@ module Ansible
 
         # @return [Object, nil] When enabled, avi will not trust intermediate and root certs presented by a client.,Instead, only the chain certs configured in the certificate authority section will be used to verify trust of the client's cert.,Default value when not specified in API or module is interpreted by Avi Controller as False.
         attribute :ignore_peer_chain
+
+        # @return [Object, nil] This field describes the object's replication scope.,If the field is set to false, then the object is visible within the controller-cluster and its associated service-engines.,If the field is set to true, then the object is replicated across the federation.,Field introduced in 17.1.3.,Default value when not specified in API or module is interpreted by Avi Controller as False.
+        attribute :is_federated
 
         # @return [String] Name of the pki profile.
         attribute :name

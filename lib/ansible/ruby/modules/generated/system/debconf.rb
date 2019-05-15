@@ -12,19 +12,19 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [String, nil] A debconf configuration setting
+        # @return [String, nil] A debconf configuration setting.
         attribute :question
         validates :question, type: String
 
-        # @return [:string, :password, :boolean, :select, :multiselect, :note, :error, :title, :text, :seen, nil] The type of the value supplied.,C(seen) was added in 2.2.
+        # @return [:boolean, :error, :multiselect, :note, :password, :seen, :select, :string, :text, :title, :text, nil] The type of the value supplied.,C(seen) was added in 2.2.
         attribute :vtype
-        validates :vtype, inclusion: {:in=>[:string, :password, :boolean, :select, :multiselect, :note, :error, :title, :text, :seen], :message=>"%{value} needs to be :string, :password, :boolean, :select, :multiselect, :note, :error, :title, :text, :seen"}, allow_nil: true
+        validates :vtype, inclusion: {:in=>[:boolean, :error, :multiselect, :note, :password, :seen, :select, :string, :text, :title, :text], :message=>"%{value} needs to be :boolean, :error, :multiselect, :note, :password, :seen, :select, :string, :text, :title, :text"}, allow_nil: true
 
-        # @return [Boolean, nil] Value to set the configuration to
+        # @return [Array<String>, String, nil] Value to set the configuration to.
         attribute :value
-        validates :value, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :value, type: TypeGeneric.new(String)
 
-        # @return [Boolean, nil] Do not set 'seen' flag when pre-seeding
+        # @return [Boolean, nil] Do not set 'seen' flag when pre-seeding.
         attribute :unseen
         validates :unseen, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
       end

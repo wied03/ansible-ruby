@@ -33,9 +33,9 @@ module Ansible
         attribute :zone
         validates :zone, inclusion: {:in=>[:current, :all], :message=>"%{value} needs to be :current, :all"}, allow_nil: true
 
-        # @return [:true, :false, nil] Install/Remove category instead of a single package.
+        # @return [Boolean, nil] Install/Remove category instead of a single package.
         attribute :category
-        validates :category, inclusion: {:in=>[:true, :false], :message=>"%{value} needs to be :true, :false"}, allow_nil: true
+        validates :category, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
       end
     end
   end

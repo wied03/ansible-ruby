@@ -32,9 +32,9 @@ module Ansible
         attribute :iops
         validates :iops, type: Integer
 
-        # @return [Boolean, nil] Enable encryption at rest for this volume.
+        # @return [String, nil] Enable encryption at rest for this volume.
         attribute :encrypted
-        validates :encrypted, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :encrypted, type: String
 
         # @return [Object, nil] Specify the id of the KMS key to use.
         attribute :kms_key_id
@@ -43,9 +43,9 @@ module Ansible
         attribute :device_name
         validates :device_name, type: String
 
-        # @return [:yes, :no, nil] When set to "yes", the volume will be deleted upon instance termination.
+        # @return [String, nil] When set to "yes", the volume will be deleted upon instance termination.
         attribute :delete_on_termination
-        validates :delete_on_termination, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :delete_on_termination, type: String
 
         # @return [String, nil] zone in which to create the volume, if unset uses the zone the instance is in (if set)
         attribute :zone
@@ -55,9 +55,9 @@ module Ansible
         attribute :snapshot
         validates :snapshot, type: String
 
-        # @return [:yes, :no, nil] When set to "no", SSL certificates will not be validated for boto versions >= 2.6.0.
+        # @return [String, nil] When set to "no", SSL certificates will not be validated for boto versions >= 2.6.0.
         attribute :validate_certs
-        validates :validate_certs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :validate_certs, type: String
 
         # @return [:absent, :present, :list, nil] whether to ensure the volume is present or absent, or to list existing volumes (The C(list) option was added in version 1.8).
         attribute :state

@@ -16,7 +16,7 @@ module Ansible
         attribute :address
         validates :address, presence: true, type: String
 
-        # @return [String, nil] Shared secret for the specified host.
+        # @return [String, nil] Shared secret for the specified host or keyword 'default'.
         attribute :key
         validates :key, type: String
 
@@ -24,18 +24,18 @@ module Ansible
         attribute :encrypt_type
         validates :encrypt_type, inclusion: {:in=>[0, 7], :message=>"%{value} needs to be 0, 7"}, allow_nil: true
 
-        # @return [Integer, nil] Timeout period for specified host, in seconds. Range is 1-60.
+        # @return [Integer, nil] Timeout period for specified host, in seconds or keyword 'default. Range is 1-60.
         attribute :host_timeout
         validates :host_timeout, type: Integer
 
-        # @return [Object, nil] Alternate UDP port for RADIUS authentication.
+        # @return [Object, nil] Alternate UDP port for RADIUS authentication or keyword 'default'.
         attribute :auth_port
 
-        # @return [Integer, nil] Alternate UDP port for RADIUS accounting.
+        # @return [Integer, nil] Alternate UDP port for RADIUS accounting or keyword 'default'.
         attribute :acct_port
         validates :acct_port, type: Integer
 
-        # @return [Integer, nil] Alternate TCP port TACACS Server.
+        # @return [Integer, nil] Alternate TCP port TACACS Server or keyword 'default'.
         attribute :tacacs_port
         validates :tacacs_port, type: Integer
 

@@ -20,9 +20,9 @@ module Ansible
         attribute :source_instance
         validates :source_instance, type: String
 
-        # @return [:mariadb, :MySQL, :"oracle-se1", :"oracle-se", :"oracle-ee", :"sqlserver-ee", :"sqlserver-se", :"sqlserver-ex", :"sqlserver-web", :postgres, :aurora, nil] The type of database.  Used only when command=create.,mariadb was added in version 2.2
+        # @return [:mariadb, :MySQL, :"oracle-se1", :"oracle-se2", :"oracle-se", :"oracle-ee", :"sqlserver-ee", :"sqlserver-se", :"sqlserver-ex", :"sqlserver-web", :postgres, :aurora, nil] The type of database.  Used only when command=create.,mariadb was added in version 2.2
         attribute :db_engine
-        validates :db_engine, inclusion: {:in=>[:mariadb, :MySQL, :"oracle-se1", :"oracle-se", :"oracle-ee", :"sqlserver-ee", :"sqlserver-se", :"sqlserver-ex", :"sqlserver-web", :postgres, :aurora], :message=>"%{value} needs to be :mariadb, :MySQL, :\"oracle-se1\", :\"oracle-se\", :\"oracle-ee\", :\"sqlserver-ee\", :\"sqlserver-se\", :\"sqlserver-ex\", :\"sqlserver-web\", :postgres, :aurora"}, allow_nil: true
+        validates :db_engine, inclusion: {:in=>[:mariadb, :MySQL, :"oracle-se1", :"oracle-se2", :"oracle-se", :"oracle-ee", :"sqlserver-ee", :"sqlserver-se", :"sqlserver-ex", :"sqlserver-web", :postgres, :aurora], :message=>"%{value} needs to be :mariadb, :MySQL, :\"oracle-se1\", :\"oracle-se2\", :\"oracle-se\", :\"oracle-ee\", :\"sqlserver-ee\", :\"sqlserver-se\", :\"sqlserver-ex\", :\"sqlserver-web\", :postgres, :aurora"}, allow_nil: true
 
         # @return [Integer, nil] Size in gigabytes of the initial storage for the DB instance. Used only when command=create or command=modify.
         attribute :size
@@ -47,7 +47,7 @@ module Ansible
         # @return [Object, nil] Name of a database to create within the instance.  If not specified then no database is created. Used only when command=create.
         attribute :db_name
 
-        # @return [Object, nil] Version number of the database engine to use. Used only when command=create. If not specified then the current Amazon RDS default engine version is used.
+        # @return [Object, nil] Version number of the database engine to use. Used only when command=create. If not specified then the current Amazon RDS default engine version is used
         attribute :engine_version
 
         # @return [Object, nil] Name of the DB parameter group to associate with this instance.  If omitted then the RDS default DBParameterGroup will be used. Used only when command=create or command=modify.
@@ -57,9 +57,8 @@ module Ansible
         attribute :license_model
         validates :license_model, inclusion: {:in=>[:"license-included", :"bring-your-own-license", :"general-public-license", :"postgresql-license"], :message=>"%{value} needs to be :\"license-included\", :\"bring-your-own-license\", :\"general-public-license\", :\"postgresql-license\""}, allow_nil: true
 
-        # @return [:yes, :no, nil] Specifies if this is a Multi-availability-zone deployment. Can not be used in conjunction with zone parameter. Used only when command=create or command=modify.
+        # @return [Object, nil] Specifies if this is a Multi-availability-zone deployment. Can not be used in conjunction with zone parameter. Used only when command=create or command=modify.
         attribute :multi_zone
-        validates :multi_zone, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] Specifies the number of IOPS for the instance.  Used only when command=create or command=modify. Must be an integer greater than 1000.
         attribute :iops
@@ -71,24 +70,24 @@ module Ansible
         attribute :vpc_security_groups
         validates :vpc_security_groups, type: String
 
-        # @return [Integer, nil] Port number that the DB instance uses for connections. Used only when command=create or command=replicate.,Prior to 2.0 it always defaults to null and the API would use 3306, it had to be set to other DB default values when not using MySql. Starting at 2.0 it automatically defaults to what is expected for each c(db_engine).
+        # @return [Integer, nil] Port number that the DB instance uses for connections. Used only when command=create or command=replicate.,Prior to 2.0 it always defaults to null and the API would use 3306, it had to be set to other DB default values when not using MySql. Starting at 2.0 it automatically defaults to what is expected for each C(db_engine).
         attribute :port
         validates :port, type: Integer
 
-        # @return [Boolean, nil] Indicates that minor version upgrades should be applied automatically. Used only when command=create or command=replicate.
+        # @return [String, nil] Indicates that minor version upgrades should be applied automatically. Used only when command=create or command=replicate.
         attribute :upgrade
-        validates :upgrade, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :upgrade, type: String
 
         # @return [Object, nil] The name of the option group to use.  If not specified then the default option group is used. Used only when command=create.
         attribute :option_group
 
-        # @return [Object, nil] Maintenance window in format of ddd:hh24:mi-ddd:hh24:mi.  (Example: Mon:22:00-Mon:23:15) If not specified then a random maintenance window is assigned. Used only when command=create or command=modify.
+        # @return [Object, nil] Maintenance window in format of ddd:hh24:mi-ddd:hh24:mi.  (Example: Mon:22:00-Mon:23:15) If not specified then a random maintenance window is assigned. Used only when command=create or command=modify.\r\n
         attribute :maint_window
 
         # @return [Object, nil] Backup window in format of hh24:mi-hh24:mi.  If not specified then a random backup window is assigned. Used only when command=create or command=modify.
         attribute :backup_window
 
-        # @return [Object, nil] Number of days backups are retained.  Set to 0 to disable backups.  Default is 1 day.  Valid range: 0-35. Used only when command=create or command=modify.
+        # @return [Object, nil] Number of days backups are retained.  Set to 0 to disable backups.  Default is 1 day.  Valid range: 0-35. Used only when command=create or command=modify.\r\n
         attribute :backup_retention
 
         # @return [String, nil] availability zone in which to launch the instance. Used only when command=create, command=replicate or command=restore.
@@ -109,21 +108,21 @@ module Ansible
         # @return [Object, nil] AWS access key. If not set then the value of the AWS_ACCESS_KEY environment variable is used.
         attribute :aws_access_key
 
-        # @return [:yes, :no, nil] When command=create, replicate, modify or restore then wait for the database to enter the 'available' state.  When command=delete wait for the database to be terminated.
+        # @return [String, nil] When command=create, replicate, modify or restore then wait for the database to enter the 'available' state.  When command=delete wait for the database to be terminated.
         attribute :wait
-        validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :wait, type: String
 
         # @return [Integer, nil] how long before wait gives up, in seconds
         attribute :wait_timeout
         validates :wait_timeout, type: Integer
 
-        # @return [Boolean, nil] Used only when command=modify.  If enabled, the modifications will be applied as soon as possible rather than waiting for the next preferred maintenance window.
+        # @return [String, nil] Used only when command=modify.  If enabled, the modifications will be applied as soon as possible rather than waiting for the next preferred maintenance window.
         attribute :apply_immediately
-        validates :apply_immediately, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :apply_immediately, type: String
 
-        # @return [:yes, :no, nil] Used only when command=reboot.  If enabled, the reboot is done using a MultiAZ failover.
+        # @return [String, nil] Used only when command=reboot.  If enabled, the reboot is done using a MultiAZ failover.
         attribute :force_failover
-        validates :force_failover, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :force_failover, type: String
 
         # @return [String, nil] Name to rename an instance to. Used only when command=modify.
         attribute :new_instance_name

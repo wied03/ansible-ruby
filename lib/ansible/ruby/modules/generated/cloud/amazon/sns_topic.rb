@@ -6,9 +6,9 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
-      # The C(sns_topic) module allows you to create, delete, and manage subscriptions for AWS SNS topics.
+      # The C(sns_topic) module allows you to create, delete, and manage subscriptions for AWS SNS topics. As of 2.6, this module can be use to subscribe and unsubscribe to topics outside of your AWS account.
       class Sns_topic < Base
-        # @return [String] The name or ARN of the SNS topic to converge
+        # @return [String] The name or ARN of the SNS topic to manage
         attribute :name
         validates :name, presence: true, type: String
 
@@ -30,9 +30,9 @@ module Ansible
         # @return [Object, nil] List of subscriptions to apply to the topic. Note that AWS requires subscriptions to be confirmed, so you will need to confirm any new subscriptions.
         attribute :subscriptions
 
-        # @return [Boolean, nil] Whether to purge any subscriptions not listed here. NOTE: AWS does not allow you to purge any PendingConfirmation subscriptions, so if any exist and would be purged, they are silently skipped. This means that somebody could come back later and confirm the subscription. Sorry. Blame Amazon.
+        # @return [String, nil] Whether to purge any subscriptions not listed here. NOTE: AWS does not allow you to purge any PendingConfirmation subscriptions, so if any exist and would be purged, they are silently skipped. This means that somebody could come back later and confirm the subscription. Sorry. Blame Amazon.
         attribute :purge_subscriptions
-        validates :purge_subscriptions, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :purge_subscriptions, type: String
       end
     end
   end

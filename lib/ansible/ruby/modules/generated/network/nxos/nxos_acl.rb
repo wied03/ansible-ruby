@@ -92,7 +92,7 @@ module Ansible
         validates :fragments, inclusion: {:in=>[:enable], :message=>"%{value} needs to be :enable"}, allow_nil: true
 
         # @return [Object, nil] Name of time-range to apply.
-        attribute :time_range, original_name: 'time-range'
+        attribute :time_range
 
         # @return [:critical, :flash, :"flash-override", :immediate, :internet, :network, :priority, :routine, nil] Match packets with given precedence.
         attribute :precedence

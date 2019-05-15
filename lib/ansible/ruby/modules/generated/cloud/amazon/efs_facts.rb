@@ -20,7 +20,7 @@ module Ansible
         attribute :tags
         validates :tags, type: Hash
 
-        # @return [Array<String>, String, nil] List of mounted targets. It should be a list of dictionaries, every dictionary should include next attributes: - SubnetId - Mandatory. The ID of the subnet to add the mount target in. - IpAddress - Optional. A valid IPv4 address within the address range of the specified subnet. - SecurityGroups - Optional. List of security group IDs, of the form 'sg-xxxxxxxx'. These must be for the same VPC as subnet specified.
+        # @return [Array<String>, String, nil] list of targets on which to filter the returned results,result must match all of the specified targets, each of which can be a security group ID, a subnet ID or an IP address
         attribute :targets
         validates :targets, type: TypeGeneric.new(String)
       end

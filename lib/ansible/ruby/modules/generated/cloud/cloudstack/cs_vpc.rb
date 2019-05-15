@@ -16,19 +16,23 @@ module Ansible
         attribute :display_text
         validates :display_text, type: String
 
-        # @return [String, nil] CIDR of the VPC, e.g. 10.1.0.0/16,All VPC guest networks' CIDRs must be within this CIDR.,Required on C(state=present).
+        # @return [String, nil] CIDR of the VPC, e.g. 10.1.0.0/16,All VPC guest networks' CIDRs must be within this CIDR.,Required on I(state=present).
         attribute :cidr
         validates :cidr, type: String
 
-        # @return [Object, nil] Network domain for the VPC.,All networks inside the VPC will belong to this domain.
+        # @return [Object, nil] Network domain for the VPC.,All networks inside the VPC will belong to this domain.,Only considered while creating the VPC, can not be changed.
         attribute :network_domain
 
         # @return [Object, nil] Name of the VPC offering.,If not set, default VPC offering is used.
         attribute :vpc_offering
 
-        # @return [:present, :absent, :restarted, nil] State of the VPC.
+        # @return [Boolean, nil] Whether to redeploy a VPC router or not when I(state=restarted)
+        attribute :clean_up
+        validates :clean_up, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+
+        # @return [:present, :absent, :stopped, :restarted, nil] State of the VPC.,The state C(present) creates a started VPC.,The state C(stopped) is only considered while creating the VPC, added in version 2.6.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent, :restarted], :message=>"%{value} needs to be :present, :absent, :restarted"}, allow_nil: true
+        validates :state, inclusion: {:in=>[:present, :absent, :stopped, :restarted], :message=>"%{value} needs to be :present, :absent, :stopped, :restarted"}, allow_nil: true
 
         # @return [Object, nil] Domain the VPC is related to.
         attribute :domain
@@ -42,7 +46,7 @@ module Ansible
         # @return [Object, nil] Name of the zone.,If not set, default zone is used.
         attribute :zone
 
-        # @return [Object, nil] List of tags. Tags are a list of dictionaries having keys C(key) and C(value).,For deleting all tags, set an empty list e.g. C(tags: []).
+        # @return [Object, nil] List of tags. Tags are a list of dictionaries having keys C(key) and C(value).,For deleting all tags, set an empty list e.g. I(tags: []).
         attribute :tags
 
         # @return [Boolean, nil] Poll async jobs until job has finished.

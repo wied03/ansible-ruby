@@ -6,23 +6,23 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
-      # Runs getent against one of it's various databases and returns information into the host's facts, in a getent_<database> prefixed variable
+      # Runs getent against one of it's various databases and returns information into the host's facts, in a getent_<database> prefixed variable.
       class Getent < Base
-        # @return [String] the name of a getent database supported by the target system (passwd, group, hosts, etc).
+        # @return [String] The name of a getent database supported by the target system (passwd, group, hosts, etc).
         attribute :database
         validates :database, presence: true, type: String
 
-        # @return [String, nil] key from which to return values from the specified database, otherwise the full contents are returned.
+        # @return [String, nil] Key from which to return values from the specified database, otherwise the full contents are returned.
         attribute :key
         validates :key, type: String
 
-        # @return [String, nil] character used to split the database values into lists/arrays such as ':' or '	', otherwise  it will try to pick one depending on the database
+        # @return [String, nil] Character used to split the database values into lists/arrays such as ':' or '	', otherwise  it will try to pick one depending on the database.
         attribute :split
         validates :split, type: String
 
-        # @return [Boolean, nil] If a supplied key is missing this will make the task fail if True
+        # @return [String, nil] If a supplied key is missing this will make the task fail if C(yes).
         attribute :fail_key
-        validates :fail_key, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :fail_key, type: String
       end
     end
   end

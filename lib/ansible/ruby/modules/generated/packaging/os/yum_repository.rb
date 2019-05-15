@@ -7,16 +7,17 @@ module Ansible
   module Ruby
     module Modules
       # Add or remove YUM repositories in RPM-based Linux distributions.
+      # If you wish to update an existing repository definition use M(ini_file) instead.
       class Yum_repository < Base
-        # @return [:yes, :no, nil] If set to C(yes) Yum will download packages and metadata from this repo in parallel, if possible.
+        # @return [String, nil] If set to C(yes) Yum will download packages and metadata from this repo in parallel, if possible.
         attribute :async
-        validates :async, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :async, type: String
 
         # @return [Integer, nil] Maximum available network bandwidth in bytes/second. Used with the I(throttle) option.,If I(throttle) is a percentage and bandwidth is C(0) then bandwidth throttling will be disabled. If I(throttle) is expressed as a data rate (bytes/sec) then this option is ignored. Default is C(0) (no bandwidth throttling).
         attribute :bandwidth
         validates :bandwidth, type: Integer
 
-        # @return [String, nil] URL to the directory where the yum repository's 'repodata' directory lives.,This or the I(mirrorlist) parameter is required if I(state) is set to C(present).
+        # @return [String, nil] URL to the directory where the yum repository's 'repodata' directory lives.,It can also be a list of multiple URLs.,This, the I(metalink) or I(mirrorlist) parameters are required if I(state) is set to C(present).
         attribute :baseurl
         validates :baseurl, type: String
 
@@ -32,17 +33,17 @@ module Ansible
         attribute :deltarpm_percentage
         validates :deltarpm_percentage, type: Integer
 
-        # @return [String, nil] A human readable string describing the repository.,This parameter is only required if I(state) is set to C(present).
+        # @return [String, nil] A human readable string describing the repository. This option corresponds to the "name" property in the repo file.,This parameter is only required if I(state) is set to C(present).
         attribute :description
         validates :description, type: String
 
-        # @return [:yes, :no, nil] This tells yum whether or not use this repository.
+        # @return [String, nil] This tells yum whether or not use this repository.
         attribute :enabled
-        validates :enabled, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :enabled, type: String
 
-        # @return [:yes, :no, nil] Determines whether yum will allow the use of package groups for this repository.
+        # @return [String, nil] Determines whether yum will allow the use of package groups for this repository.
         attribute :enablegroups
-        validates :enablegroups, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :enablegroups, type: String
 
         # @return [Object, nil] List of packages to exclude from updates or installs. This should be a space separated list. Shell globs using wildcards (eg. C(*) and C(?)) are allowed.,The list can also be a regular YAML array.
         attribute :exclude
@@ -51,20 +52,19 @@ module Ansible
         attribute :failovermethod
         validates :failovermethod, inclusion: {:in=>[:roundrobin, :priority], :message=>"%{value} needs to be :roundrobin, :priority"}, allow_nil: true
 
-        # @return [String, nil] File to use to save the repo in. Defaults to the value of I(name).
+        # @return [String, nil] File name without the C(.repo) extension to save the repo in. Defaults to the value of I(name).
         attribute :file
         validates :file, type: String
 
         # @return [Object, nil] A URL pointing to the ASCII-armored CA key file for the repository.
         attribute :gpgcakey
 
-        # @return [:yes, :no, nil] Tells yum whether or not it should perform a GPG signature check on packages.
+        # @return [Boolean, nil] Tells yum whether or not it should perform a GPG signature check on packages.
         attribute :gpgcheck
-        validates :gpgcheck, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :gpgcheck, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
-        # @return [String, nil] A URL pointing to the ASCII-armored GPG key file for the repository.
+        # @return [Object, nil] A URL pointing to the ASCII-armored GPG key file for the repository.,It can also be a list of multiple URLs.
         attribute :gpgkey
-        validates :gpgkey, type: String
 
         # @return [:all, :packages, :none, nil] Determines how upstream HTTP caches are instructed to handle any HTTP downloads that Yum does.,C(all) means that all HTTP downloads should be cached.,C(packages) means that only RPM package downloads should be cached (but not repository metadata downloads).,C(none) means that no HTTP downloads should be cached.
         attribute :http_caching
@@ -80,9 +80,9 @@ module Ansible
         attribute :ip_resolve
         validates :ip_resolve, inclusion: {:in=>[4, 6, :IPv4, :IPv6, :whatever], :message=>"%{value} needs to be 4, 6, :IPv4, :IPv6, :whatever"}, allow_nil: true
 
-        # @return [:yes, :no, nil] This tells yum whether or not HTTP/1.1 keepalive should be used with this repository. This can improve transfer speeds by using one connection when downloading multiple files from a repository.
+        # @return [String, nil] This tells yum whether or not HTTP/1.1 keepalive should be used with this repository. This can improve transfer speeds by using one connection when downloading multiple files from a repository.
         attribute :keepalive
-        validates :keepalive, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :keepalive, type: String
 
         # @return [0, 1, nil] Either C(1) or C(0). Determines whether or not yum keeps the cache of headers and packages after successful installation.
         attribute :keepcache
@@ -96,10 +96,10 @@ module Ansible
         attribute :metadata_expire_filter
         validates :metadata_expire_filter, inclusion: {:in=>[:never, :"read-only:past", :"read-only:present", :"read-only:future"], :message=>"%{value} needs to be :never, :\"read-only:past\", :\"read-only:present\", :\"read-only:future\""}, allow_nil: true
 
-        # @return [Object, nil] Specifies a URL to a metalink file for the repomd.xml, a list of mirrors for the entire repository are generated by converting the mirrors for the repomd.xml file to a I(baseurl).
+        # @return [Object, nil] Specifies a URL to a metalink file for the repomd.xml, a list of mirrors for the entire repository are generated by converting the mirrors for the repomd.xml file to a I(baseurl).,This, the I(baseurl) or I(mirrorlist) parameters are required if I(state) is set to C(present).
         attribute :metalink
 
-        # @return [String, nil] Specifies a URL to a file containing a list of baseurls.,This or the I(baseurl) parameter is required if I(state) is set to C(present).
+        # @return [String, nil] Specifies a URL to a file containing a list of baseurls.,This, the I(baseurl) or I(metalink) parameters are required if I(state) is set to C(present).
         attribute :mirrorlist
         validates :mirrorlist, type: String
 
@@ -107,13 +107,9 @@ module Ansible
         attribute :mirrorlist_expire
         validates :mirrorlist_expire, type: Integer
 
-        # @return [String] Unique repository ID.,This parameter is only required if I(state) is set to C(present) or C(absent).
+        # @return [String] Unique repository ID. This option builds the section name of the repository in the repo file.,This parameter is only required if I(state) is set to C(present) or C(absent).
         attribute :name
         validates :name, presence: true, type: String
-
-        # @return [String, nil] Option used to allow the user to overwrite any of the other options. To remove an option, set the value of the option to C(null).
-        attribute :params
-        validates :params, type: String
 
         # @return [Object, nil] Password to use with the username for basic authentication.
         attribute :password
@@ -122,9 +118,9 @@ module Ansible
         attribute :priority
         validates :priority, type: Integer
 
-        # @return [:yes, :no, nil] Protect packages from updates from other repositories.
+        # @return [String, nil] Protect packages from updates from other repositories.
         attribute :protect
-        validates :protect, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :protect, type: String
 
         # @return [Object, nil] URL to the proxy server that yum should use. Set to C(_none_) to disable the global proxy setting.
         attribute :proxy
@@ -135,9 +131,9 @@ module Ansible
         # @return [Object, nil] Password for this proxy.
         attribute :proxy_username
 
-        # @return [:yes, :no, nil] This tells yum whether or not it should perform a GPG signature check on the repodata from this repository.
+        # @return [String, nil] This tells yum whether or not it should perform a GPG signature check on the repodata from this repository.
         attribute :repo_gpgcheck
-        validates :repo_gpgcheck, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :repo_gpgcheck, type: String
 
         # @return [String, nil] Directory where the C(.repo) files will be stored.
         attribute :reposdir
@@ -147,17 +143,17 @@ module Ansible
         attribute :retries
         validates :retries, type: Integer
 
-        # @return [:yes, :no, nil] Enables support for S3 repositories.,This option only works if the YUM S3 plugin is installed.
+        # @return [String, nil] Enables support for S3 repositories.,This option only works if the YUM S3 plugin is installed.
         attribute :s3_enabled
-        validates :s3_enabled, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :s3_enabled, type: String
 
-        # @return [:yes, :no, nil] If set to C(yes) yum will continue running if this repository cannot be contacted for any reason. This should be set carefully as all repos are consulted for any given command.
+        # @return [String, nil] If set to C(yes) yum will continue running if this repository cannot be contacted for any reason. This should be set carefully as all repos are consulted for any given command.
         attribute :skip_if_unavailable
-        validates :skip_if_unavailable, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :skip_if_unavailable, type: String
 
-        # @return [:yes, :no, nil] Whether yum should check the permissions on the paths for the certificates on the repository (both remote and local).,If we can't read any of the files then yum will force I(skip_if_unavailable) to be C(yes). This is most useful for non-root processes which use yum on repos that have client cert files which are readable only by root.
+        # @return [String, nil] Whether yum should check the permissions on the paths for the certificates on the repository (both remote and local).,If we can't read any of the files then yum will force I(skip_if_unavailable) to be C(yes). This is most useful for non-root processes which use yum on repos that have client cert files which are readable only by root.
         attribute :ssl_check_cert_permissions
-        validates :ssl_check_cert_permissions, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :ssl_check_cert_permissions, type: String
 
         # @return [Object, nil] Path to the directory containing the databases of the certificate authorities yum should use to verify SSL certificates.
         attribute :sslcacert
@@ -168,9 +164,9 @@ module Ansible
         # @return [Object, nil] Path to the SSL client key yum should use to connect to repos/remote sites.
         attribute :sslclientkey
 
-        # @return [:yes, :no, nil] Defines whether yum should verify SSL certificates/hosts at all.
+        # @return [String, nil] Defines whether yum should verify SSL certificates/hosts at all.
         attribute :sslverify
-        validates :sslverify, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :sslverify, type: String
 
         # @return [:absent, :present, nil] State of the repo file.
         attribute :state

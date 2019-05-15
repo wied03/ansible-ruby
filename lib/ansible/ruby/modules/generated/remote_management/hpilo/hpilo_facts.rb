@@ -20,6 +20,10 @@ module Ansible
         # @return [String, nil] The password to authenticate to the HP iLO interface.
         attribute :password
         validates :password, type: String
+
+        # @return [:SSLv3, :SSLv23, :TLSv1, :TLSv1_1, :TLSv1_2, nil] Change the ssl_version used.
+        attribute :ssl_version
+        validates :ssl_version, inclusion: {:in=>[:SSLv3, :SSLv23, :TLSv1, :TLSv1_1, :TLSv1_2], :message=>"%{value} needs to be :SSLv3, :SSLv23, :TLSv1, :TLSv1_1, :TLSv1_2"}, allow_nil: true
       end
     end
   end

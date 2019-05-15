@@ -6,7 +6,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
-      # Add or remove applications on a Webfaction host.  Further documentation at http://github.com/quentinsf/ansible-webfaction.
+      # Add or remove applications on a Webfaction host. Further documentation at U(https://github.com/quentinsf/ansible-webfaction).
       class Webfaction_app < Base
         # @return [String] The name of the application
         attribute :name
@@ -16,20 +16,21 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [String] The type of application to create. See the Webfaction docs at http://docs.webfaction.com/xmlrpc-api/apps.html for a list.
+        # @return [String] The type of application to create. See the Webfaction docs at U(https://docs.webfaction.com/xmlrpc-api/apps.html) for a list.
         attribute :type
         validates :type, presence: true, type: String
 
-        # @return [String, nil] Whether the app should restart with an autostart.cgi script
+        # @return [String, nil] Whether the app should restart with an C(autostart.cgi) script
         attribute :autostart
         validates :autostart, type: String
 
-        # @return [Object, nil] Any extra parameters required by the app
+        # @return [String, nil] Any extra parameters required by the app
         attribute :extra_info
+        validates :extra_info, type: String
 
-        # @return [Boolean, nil] IF the port should be opened
+        # @return [String, nil] IF the port should be opened
         attribute :port_open
-        validates :port_open, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :port_open, type: String
 
         # @return [String] The webfaction account to use
         attribute :login_name

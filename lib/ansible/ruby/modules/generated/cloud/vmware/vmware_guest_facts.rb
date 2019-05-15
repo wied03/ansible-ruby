@@ -8,9 +8,8 @@ module Ansible
     module Modules
       # Gather facts about a single VM on a VMware ESX cluster
       class Vmware_guest_facts < Base
-        # @return [Object] Name of the VM to work with
+        # @return [Object, nil] Name of the VM to work with,This is required if UUID is not supplied.
         attribute :name
-        validates :name, presence: true
 
         # @return [:first, :last, nil] If multiple VMs matching the name, use the first or last found
         attribute :name_match
@@ -20,12 +19,13 @@ module Ansible
         attribute :uuid
         validates :uuid, type: String
 
-        # @return [Object, nil] Destination folder, absolute path to find an existing guest.,This is required if name is supplied.
+        # @return [String, nil] Destination folder, absolute or relative path to find an existing guest.,This is required if name is supplied.,The folder should include the datacenter. ESX's datacenter is ha-datacenter,Examples:,   folder: /ha-datacenter/vm,   folder: ha-datacenter/vm,   folder: /datacenter1/vm,   folder: datacenter1/vm,   folder: /datacenter1/vm/folder1,   folder: datacenter1/vm/folder1,   folder: /folder1/datacenter1/vm,   folder: folder1/datacenter1/vm,   folder: /folder1/datacenter1/vm/folder2,   folder: vm/folder2,   folder: folder2
         attribute :folder
+        validates :folder, type: String
 
-        # @return [Object] Destination datacenter for the deploy operation
+        # @return [String] Destination datacenter for the deploy operation
         attribute :datacenter
-        validates :datacenter, presence: true
+        validates :datacenter, presence: true, type: String
       end
     end
   end

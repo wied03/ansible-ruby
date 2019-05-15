@@ -12,9 +12,9 @@ module Ansible
         attribute :vcenter_hostname
         validates :vcenter_hostname, presence: true, type: String
 
-        # @return [Boolean, nil] Validate SSL certs.  Note, if running on python without SSLContext support (typically, python < 2.7.9) you will have to set this to C(no) as pysphere does not support validating certificates on older python. Prior to 2.1, this module would always validate on python >= 2.7.9 and never validate on python <= 2.7.8.
+        # @return [String, nil] Validate SSL certs.  Note, if running on python without SSLContext support (typically, python < 2.7.9) you will have to set this to C(no) as pysphere does not support validating certificates on older python. Prior to 2.1, this module would always validate on python >= 2.7.9 and never validate on python <= 2.7.8.
         attribute :validate_certs
-        validates :validate_certs, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :validate_certs, type: String
 
         # @return [String] The virtual server name you wish to manage.
         attribute :guest
@@ -38,24 +38,23 @@ module Ansible
         attribute :esxi
         validates :esxi, type: Hash
 
-        # @return [:present, :powered_off, :absent, :powered_on, :restarted, :reconfigured, nil] Indicate desired state of the vm. 'reconfigured' only applies changes to 'vm_cdrom', 'memory_mb', and 'num_cpus' in vm_hardware parameter. The 'memory_mb' and 'num_cpus' changes are applied to powered-on vms when hot-plugging is enabled for the guest.
+        # @return [:present, :powered_off, :absent, :powered_on, :restarted, :reconfigured, :reboot_guest, :poweroff_guest, nil] Indicate desired state of the vm. 'reconfigured' only applies changes to 'vm_cdrom', 'memory_mb', and 'num_cpus' in vm_hardware parameter. The 'memory_mb' and 'num_cpus' changes are applied to powered-on vms when hot-plugging is enabled for the guest.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :powered_off, :absent, :powered_on, :restarted, :reconfigured], :message=>"%{value} needs to be :present, :powered_off, :absent, :powered_on, :restarted, :reconfigured"}, allow_nil: true
+        validates :state, inclusion: {:in=>[:present, :powered_off, :absent, :powered_on, :restarted, :reconfigured, :reboot_guest, :poweroff_guest], :message=>"%{value} needs to be :present, :powered_off, :absent, :powered_on, :restarted, :reconfigured, :reboot_guest, :poweroff_guest"}, allow_nil: true
 
-        # @return [Boolean, nil] Specifies if the VM should be deployed from a template (mutually exclusive with 'state' parameter). No guest customization changes to hardware such as CPU, RAM, NICs or Disks can be applied when launching from template.
+        # @return [String, nil] Specifies if the VM should be deployed from a template (mutually exclusive with 'state' parameter). No guest customization changes to hardware such as CPU, RAM, NICs or Disks can be applied when launching from template.
         attribute :from_template
-        validates :from_template, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :from_template, type: String
 
         # @return [Object, nil] Name of the source template to deploy from
         attribute :template_src
 
-        # @return [String, nil] A string that when specified, will create a linked clone copy of the VM. Snapshot must already be taken in vCenter.
+        # @return [Object, nil] A string that when specified, will create a linked clone copy of the VM. Snapshot must already be taken in vCenter.
         attribute :snapshot_to_clone
-        validates :snapshot_to_clone, type: String
 
-        # @return [Boolean, nil] Specifies if the VM should be powered on after the clone.
+        # @return [String, nil] Specifies if the VM should be powered on after the clone.
         attribute :power_on_after_clone
-        validates :power_on_after_clone, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :power_on_after_clone, type: String
 
         # @return [Hash, nil] A key, value list of disks and their sizes and which datastore to keep it in.
         attribute :vm_disk
@@ -65,7 +64,7 @@ module Ansible
         attribute :vm_hardware
         validates :vm_hardware, type: Hash
 
-        # @return [Hash, nil] A key, value list of nics, their types and what network to put them on.
+        # @return [Hash, nil] A key, value list of nics, their types and what network to put them on.,Optionaly with their MAC address.
         attribute :vm_nic
         validates :vm_nic, type: Hash
 
@@ -79,9 +78,9 @@ module Ansible
         # @return [Object, nil] Gather facts from vCenter on a particular VM
         attribute :vmware_guest_facts
 
-        # @return [:yes, :no, nil] Boolean. Allows you to run commands which may alter the running state of a guest. Also used to reconfigure and destroy.
+        # @return [String, nil] Boolean. Allows you to run commands which may alter the running state of a guest. Also used to reconfigure and destroy.
         attribute :force
-        validates :force, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :force, type: String
       end
     end
   end

@@ -20,7 +20,7 @@ module Ansible
         attribute :local_ip
 
         # @return [Object, nil] Identifies a network flow by the remote IP address.
-        attribute :remove_ip
+        attribute :remote_ip
 
         # @return [String, nil] - Specifies a Layer 4 protocol to be used. It is typically used in combination with I(local_port) to identify the service that needs special attention.\r\n
         attribute :transport

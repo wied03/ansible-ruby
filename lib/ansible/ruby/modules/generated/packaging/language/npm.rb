@@ -28,7 +28,7 @@ module Ansible
         attribute :executable
         validates :executable, type: String
 
-        # @return [Boolean, nil] Use the --ignore-scripts flag when installing.
+        # @return [Boolean, nil] Use the C(--ignore-scripts) flag when installing.
         attribute :ignore_scripts
         validates :ignore_scripts, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 

@@ -6,7 +6,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
-      # Allows to post events to DataDog (www.datadoghq.com) service.
+      # Allows to post events to Datadog (www.datadoghq.com) service.
       # Uses http://docs.datadoghq.com/api/#events API.
       class Datadog_event < Base
         # @return [String] Your DataDog API key.
@@ -33,6 +33,10 @@ module Ansible
         attribute :priority
         validates :priority, inclusion: {:in=>[:normal, :low], :message=>"%{value} needs to be :normal, :low"}, allow_nil: true
 
+        # @return [String, nil] Host name to associate with the event.
+        attribute :host
+        validates :host, type: String
+
         # @return [Array<String>, String, nil] Comma separated list of tags to apply to the event.
         attribute :tags
         validates :tags, type: TypeGeneric.new(String)
@@ -44,9 +48,9 @@ module Ansible
         # @return [Object, nil] An arbitrary string to use for aggregation.
         attribute :aggregation_key
 
-        # @return [:yes, :no, nil] If C(no), SSL certificates will not be validated. This should only be used on personally controlled sites using self-signed certificates.
+        # @return [String, nil] If C(no), SSL certificates will not be validated. This should only be used on personally controlled sites using self-signed certificates.
         attribute :validate_certs
-        validates :validate_certs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :validate_certs, type: String
       end
     end
   end

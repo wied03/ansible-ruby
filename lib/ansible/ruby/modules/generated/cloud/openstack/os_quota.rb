@@ -67,12 +67,20 @@ module Ansible
         attribute :key_pairs
         validates :key_pairs, type: String
 
+        # @return [String, nil] Number of load balancers to allow.
+        attribute :loadbalancer
+        validates :loadbalancer, type: String
+
         # @return [Object, nil] Number of networks to allow.
         attribute :network
 
         # @return [String, nil] Maximum size in GB's of individual volumes.
         attribute :per_volume_gigabytes
         validates :per_volume_gigabytes, type: String
+
+        # @return [String, nil] Number of load balancer pools to allow.
+        attribute :pool
+        validates :pool, type: String
 
         # @return [String, nil] Number of Network ports to allow, this needs to be greater than the instances limit.
         attribute :port
@@ -128,7 +136,7 @@ module Ansible
         # @return [Object, nil] Number of LVM volumes to allow.
         attribute :volumes_lvm
 
-        # @return [Object, nil] Ignored. Present for backwards compatability
+        # @return [Object, nil] Ignored. Present for backwards compatibility
         attribute :availability_zone
       end
     end

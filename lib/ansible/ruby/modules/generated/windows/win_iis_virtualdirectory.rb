@@ -8,11 +8,11 @@ module Ansible
     module Modules
       # Creates, Removes and configures a virtual directory in IIS.
       class Win_iis_virtualdirectory < Base
-        # @return [String] The name of the virtual directory to create or remove
+        # @return [String] The name of the virtual directory to create or remove.
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [:absent, :present, nil] Whether to add or remove the specified virtual directory
+        # @return [:absent, :present, nil] Whether to add or remove the specified virtual directory.
         attribute :state
         validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
@@ -24,7 +24,7 @@ module Ansible
         attribute :application
         validates :application, type: String
 
-        # @return [String, nil] The physical path to the folder in which the new virtual directory is created. The specified folder must already exist.
+        # @return [String, nil] The physical path to the folder in which the new virtual directory is created.,The specified folder must already exist.
         attribute :physical_path
         validates :physical_path, type: String
       end

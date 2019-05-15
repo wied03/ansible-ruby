@@ -20,9 +20,9 @@ module Ansible
         attribute :description
         validates :description, type: String
 
-        # @return [:"aurora5.6", :"mariadb10.0", :"mariadb10.1", :"mysql5.1", :"mysql5.5", :"mysql5.6", :"mysql5.7", :"oracle-ee-11.2", :"oracle-ee-12.1", :"oracle-se-11.2", :"oracle-se-12.1", :"oracle-se1-11.2", :"oracle-se1-12.1", :"postgres9.3", :"postgres9.4", :"postgres9.5", :"postgres9.6", :"sqlserver-ee-10.5'", :"sqlserver-ee-11.0", :"sqlserver-ex-10.5", :"sqlserver-ex-11.0", :"sqlserver-ex-12.0", :"sqlserver-se-10.5", :"sqlserver-se-11.0", :"sqlserver-se-12.0", :"sqlserver-web-10.5", :"sqlserver-web-11.0", :"sqlserver-web-12.0", nil] The type of database for this group. Required for state=present.
+        # @return [:"aurora5.6", :"mariadb10.0", :"mariadb10.1", :"mysql5.1", :"mysql5.5", :"mysql5.6", :"mysql5.7", :"oracle-ee-11.2", :"oracle-ee-12.1", :"oracle-se-11.2", :"oracle-se-12.1", :"oracle-se1-11.2", :"oracle-se1-12.1", :"postgres9.3", :"postgres9.4", :"postgres9.5", :"postgres9.6", :"sqlserver-ee-10.5", :"sqlserver-ee-11.0", :"sqlserver-ex-10.5", :"sqlserver-ex-11.0", :"sqlserver-ex-12.0", :"sqlserver-se-10.5", :"sqlserver-se-11.0", :"sqlserver-se-12.0", :"sqlserver-web-10.5", :"sqlserver-web-11.0", :"sqlserver-web-12.0", nil] The type of database for this group. Required for state=present.
         attribute :engine
-        validates :engine, inclusion: {:in=>[:"aurora5.6", :"mariadb10.0", :"mariadb10.1", :"mysql5.1", :"mysql5.5", :"mysql5.6", :"mysql5.7", :"oracle-ee-11.2", :"oracle-ee-12.1", :"oracle-se-11.2", :"oracle-se-12.1", :"oracle-se1-11.2", :"oracle-se1-12.1", :"postgres9.3", :"postgres9.4", :"postgres9.5", :"postgres9.6", :"sqlserver-ee-10.5'", :"sqlserver-ee-11.0", :"sqlserver-ex-10.5", :"sqlserver-ex-11.0", :"sqlserver-ex-12.0", :"sqlserver-se-10.5", :"sqlserver-se-11.0", :"sqlserver-se-12.0", :"sqlserver-web-10.5", :"sqlserver-web-11.0", :"sqlserver-web-12.0"], :message=>"%{value} needs to be :\"aurora5.6\", :\"mariadb10.0\", :\"mariadb10.1\", :\"mysql5.1\", :\"mysql5.5\", :\"mysql5.6\", :\"mysql5.7\", :\"oracle-ee-11.2\", :\"oracle-ee-12.1\", :\"oracle-se-11.2\", :\"oracle-se-12.1\", :\"oracle-se1-11.2\", :\"oracle-se1-12.1\", :\"postgres9.3\", :\"postgres9.4\", :\"postgres9.5\", :\"postgres9.6\", :\"sqlserver-ee-10.5'\", :\"sqlserver-ee-11.0\", :\"sqlserver-ex-10.5\", :\"sqlserver-ex-11.0\", :\"sqlserver-ex-12.0\", :\"sqlserver-se-10.5\", :\"sqlserver-se-11.0\", :\"sqlserver-se-12.0\", :\"sqlserver-web-10.5\", :\"sqlserver-web-11.0\", :\"sqlserver-web-12.0\""}, allow_nil: true
+        validates :engine, inclusion: {:in=>[:"aurora5.6", :"mariadb10.0", :"mariadb10.1", :"mysql5.1", :"mysql5.5", :"mysql5.6", :"mysql5.7", :"oracle-ee-11.2", :"oracle-ee-12.1", :"oracle-se-11.2", :"oracle-se-12.1", :"oracle-se1-11.2", :"oracle-se1-12.1", :"postgres9.3", :"postgres9.4", :"postgres9.5", :"postgres9.6", :"sqlserver-ee-10.5", :"sqlserver-ee-11.0", :"sqlserver-ex-10.5", :"sqlserver-ex-11.0", :"sqlserver-ex-12.0", :"sqlserver-se-10.5", :"sqlserver-se-11.0", :"sqlserver-se-12.0", :"sqlserver-web-10.5", :"sqlserver-web-11.0", :"sqlserver-web-12.0"], :message=>"%{value} needs to be :\"aurora5.6\", :\"mariadb10.0\", :\"mariadb10.1\", :\"mysql5.1\", :\"mysql5.5\", :\"mysql5.6\", :\"mysql5.7\", :\"oracle-ee-11.2\", :\"oracle-ee-12.1\", :\"oracle-se-11.2\", :\"oracle-se-12.1\", :\"oracle-se1-11.2\", :\"oracle-se1-12.1\", :\"postgres9.3\", :\"postgres9.4\", :\"postgres9.5\", :\"postgres9.6\", :\"sqlserver-ee-10.5\", :\"sqlserver-ee-11.0\", :\"sqlserver-ex-10.5\", :\"sqlserver-ex-11.0\", :\"sqlserver-ex-12.0\", :\"sqlserver-se-10.5\", :\"sqlserver-se-11.0\", :\"sqlserver-se-12.0\", :\"sqlserver-web-10.5\", :\"sqlserver-web-11.0\", :\"sqlserver-web-12.0\""}, allow_nil: true
 
         # @return [Object, nil] Whether to apply the changes immediately, or after the next reboot of any associated instances.
         attribute :immediate
@@ -30,6 +30,13 @@ module Ansible
         # @return [Hash, nil] Map of parameter names and values. Numeric values may be represented as K for kilo (1024), M for mega (1024^2), G for giga (1024^3), or T for tera (1024^4), and these values will be expanded into the appropriate number before being set in the parameter group.
         attribute :params
         validates :params, type: Hash
+
+        # @return [Hash, nil] Dictionary of tags to attach to the parameter group
+        attribute :tags
+        validates :tags, type: Hash
+
+        # @return [Object, nil] Whether or not to remove tags that do not appear in the I(tags) list. Defaults to false.
+        attribute :purge_tags
       end
     end
   end

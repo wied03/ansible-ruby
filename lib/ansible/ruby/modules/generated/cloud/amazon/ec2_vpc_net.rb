@@ -6,15 +6,19 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
-      # Create or terminate AWS virtual private clouds.  This module has a dependency on python-boto.
+      # Create, modify, and terminate AWS virtual private clouds.
       class Ec2_vpc_net < Base
-        # @return [String] The name to give your VPC. This is used in combination with the cidr_block parameter to determine if a VPC already exists.
+        # @return [String] The name to give your VPC. This is used in combination with C(cidr_block) to determine if a VPC already exists.
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [String] The CIDR of the VPC
+        # @return [String] The primary CIDR of the VPC. After 2.5 a list of CIDRs can be provided. The first in the list will be used as the primary CIDR and is used in conjunction with the C(name) to ensure idempotence.
         attribute :cidr_block
         validates :cidr_block, presence: true, type: String
+
+        # @return [Boolean, nil] Remove CIDRs that are associated with the VPC and are not specified in C(cidr_block).
+        attribute :purge_cidrs
+        validates :purge_cidrs, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [:default, :dedicated, nil] Whether to be default or dedicated tenancy. This cannot be changed after the VPC has been created.
         attribute :tenancy

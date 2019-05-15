@@ -42,11 +42,11 @@ module Ansible
         attribute :properties
         validates :properties, type: Hash
 
-        # @return [Boolean, nil] Allows the code that would assert changes to nodes to skip the update if the change is a single line consisting of the password field.  As of Kilo, by default, passwords are always masked to API requests, which means the logic as a result always attempts to re-assert the password field.
+        # @return [String, nil] Allows the code that would assert changes to nodes to skip the update if the change is a single line consisting of the password field.  As of Kilo, by default, passwords are always masked to API requests, which means the logic as a result always attempts to re-assert the password field.
         attribute :skip_update_of_driver_password
-        validates :skip_update_of_driver_password, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :skip_update_of_driver_password, type: String
 
-        # @return [Object, nil] Ignored. Present for backwards compatability
+        # @return [Object, nil] Ignored. Present for backwards compatibility
         attribute :availability_zone
       end
     end

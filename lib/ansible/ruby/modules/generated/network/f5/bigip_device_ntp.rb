@@ -6,10 +6,11 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
-      # Manage NTP servers on a BIG-IP
+      # Manage NTP servers on a BIG-IP.
       class Bigip_device_ntp < Base
-        # @return [Object, nil] A list of NTP servers to set on the device. At least one of C(ntp_servers) or C(timezone) is required.
+        # @return [Array<String>, String, nil] A list of NTP servers to set on the device. At least one of C(ntp_servers) or C(timezone) is required.
         attribute :ntp_servers
+        validates :ntp_servers, type: TypeGeneric.new(String)
 
         # @return [:absent, :present, nil] The state of the NTP servers on the system. When C(present), guarantees that the NTP servers are set on the system. When C(absent), removes the specified NTP servers from the device configuration.
         attribute :state

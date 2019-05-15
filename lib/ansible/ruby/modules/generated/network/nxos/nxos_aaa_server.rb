@@ -12,7 +12,7 @@ module Ansible
         attribute :server_type
         validates :server_type, presence: true, inclusion: {:in=>[:radius, :tacacs], :message=>"%{value} needs to be :radius, :tacacs"}
 
-        # @return [String, nil] Global AAA shared secret.
+        # @return [String, nil] Global AAA shared secret or keyword 'default'.
         attribute :global_key
         validates :global_key, type: String
 
@@ -20,21 +20,21 @@ module Ansible
         attribute :encrypt_type
         validates :encrypt_type, inclusion: {:in=>[0, 7], :message=>"%{value} needs to be 0, 7"}, allow_nil: true
 
-        # @return [Integer, nil] Duration for which a non-reachable AAA server is skipped, in minutes. Range is 1-1440. Device default is 0.
+        # @return [Integer, nil] Duration for which a non-reachable AAA server is skipped, in minutes or keyword 'default. Range is 1-1440. Device default is 0.
         attribute :deadtime
         validates :deadtime, type: Integer
 
-        # @return [Integer, nil] Global AAA server timeout period, in seconds. Range is 1-60. Device default is 5.
+        # @return [Integer, nil] Global AAA server timeout period, in seconds or keyword 'default. Range is 1-60. Device default is 5.
         attribute :server_timeout
         validates :server_timeout, type: Integer
 
-        # @return [:enabled, :disabled, nil] Enables direct authentication requests to AAA server. Device default is disabled.
+        # @return [:enabled, :disabled, nil] Enables direct authentication requests to AAA server or keyword 'default' Device default is disabled.
         attribute :directed_request
         validates :directed_request, inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
 
-        # @return [:present, :default] Manage the state of the resource.
+        # @return [:present, :default, nil] Manage the state of the resource.
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:present, :default], :message=>"%{value} needs to be :present, :default"}
+        validates :state, inclusion: {:in=>[:present, :default], :message=>"%{value} needs to be :present, :default"}, allow_nil: true
       end
     end
   end

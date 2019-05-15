@@ -8,13 +8,13 @@ module Ansible
     module Modules
       # Manage packages with the I(pacman) package manager, which is used by Arch Linux and its variants.
       class Pacman < Base
-        # @return [Array<String>, String, nil] Name of the package to install, upgrade, or remove.
+        # @return [Array<String>, String, nil] Name or list of names of the packages to install, upgrade, or remove.
         attribute :name
         validates :name, type: TypeGeneric.new(String)
 
-        # @return [:present, :absent, :latest, nil] Desired state of the package.
+        # @return [:absent, :latest, :present, nil] Desired state of the package.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent, :latest], :message=>"%{value} needs to be :present, :absent, :latest"}, allow_nil: true
+        validates :state, inclusion: {:in=>[:absent, :latest, :present], :message=>"%{value} needs to be :absent, :latest, :present"}, allow_nil: true
 
         # @return [Boolean, nil] When removing a package, also remove its dependencies, provided that they are not required by other packages and were not explicitly installed by a user.
         attribute :recurse
@@ -28,7 +28,7 @@ module Ansible
         attribute :update_cache
         validates :update_cache, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
-        # @return [Boolean, nil] Whether or not to upgrade whole system
+        # @return [Boolean, nil] Whether or not to upgrade whole system.
         attribute :upgrade
         validates :upgrade, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
       end

@@ -70,9 +70,9 @@ module Ansible
         attribute :service
         validates :service, type: String
 
-        # @return [Boolean, nil] Whether to log at session start.
+        # @return [FalseClass, TrueClass, nil] Whether to log at session start.
         attribute :log_start
-        validates :log_start, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :log_start, type: MultipleTypes.new(FalseClass, TrueClass)
 
         # @return [Boolean, nil] Whether to log at session end.
         attribute :log_end

@@ -61,30 +61,6 @@ module Ansible
         # @return [Array<String>, String, nil] List of user group names to assign.,If an empty list if passed all assigned user groups will be removed from the rule.,If option is omitted user groups will not be checked or changed.
         attribute :usergroup
         validates :usergroup, type: TypeGeneric.new(String)
-
-        # @return [Integer, nil] Port of IPA server
-        attribute :ipa_port
-        validates :ipa_port, type: Integer
-
-        # @return [String, nil] IP or hostname of IPA server
-        attribute :ipa_host
-        validates :ipa_host, type: String
-
-        # @return [String, nil] Administrative account used on IPA server
-        attribute :ipa_user
-        validates :ipa_user, type: String
-
-        # @return [String] Password of administrative user
-        attribute :ipa_pass
-        validates :ipa_pass, presence: true, type: String
-
-        # @return [:http, :https, nil] Protocol used by IPA server
-        attribute :ipa_prot
-        validates :ipa_prot, inclusion: {:in=>[:http, :https], :message=>"%{value} needs to be :http, :https"}, allow_nil: true
-
-        # @return [Boolean, nil] This only applies if C(ipa_prot) is I(https).,If set to C(no), the SSL certificates will not be validated.,This should only set to C(no) used on personally controlled sites using self-signed certificates.
-        attribute :validate_certs
-        validates :validate_certs, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
       end
     end
   end

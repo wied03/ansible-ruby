@@ -29,6 +29,24 @@ module Ansible
         # @return [String, nil] Tag number for the VLAN. The tag number can be any integer between 1 and 4094. The system automatically assigns a tag number if you do not specify a value.
         attribute :tag
         validates :tag, type: String
+
+        # @return [Object, nil] Specifies the maximum transmission unit (MTU) for traffic on this VLAN. When creating a new VLAN, if this parameter is not specified, the default value used will be C(1500).,This number must be between 576 to 9198.
+        attribute :mtu
+
+        # @return [:default, :"destination-address", :"source-address", :"dst-ip", :"src-ip", :dest, :destination, :source, :dst, :src, nil] Specifies how the traffic on the VLAN will be disaggregated. The value selected determines the traffic disaggregation method. You can choose to disaggregate traffic based on C(source-address) (the source IP address), C(destination-address) (destination IP address), or C(default), which specifies that the default CMP hash uses L4 ports.,When creating a new VLAN, if this parameter is not specified, the default of C(default) is used.
+        attribute :cmp_hash
+        validates :cmp_hash, inclusion: {:in=>[:default, :"destination-address", :"source-address", :"dst-ip", :"src-ip", :dest, :destination, :source, :dst, :src], :message=>"%{value} needs to be :default, :\"destination-address\", :\"source-address\", :\"dst-ip\", :\"src-ip\", :dest, :destination, :source, :dst, :src"}, allow_nil: true
+
+        # @return [:inner, :outer, nil] Specifies how the disaggregator (DAG) distributes received tunnel-encapsulated packets to TMM instances. Select C(inner) to distribute packets based on information in inner headers. Select C(outer) to distribute packets based on information in outer headers without inspecting inner headers.,When creating a new VLAN, if this parameter is not specified, the default of C(outer) is used.,This parameter is not supported on Virtual Editions of BIG-IP.
+        attribute :dag_tunnel
+        validates :dag_tunnel, inclusion: {:in=>[:inner, :outer], :message=>"%{value} needs to be :inner, :outer"}, allow_nil: true
+
+        # @return [Object, nil] Specifies whether some of the stateless traffic on the VLAN should be disaggregated in a round-robin order instead of using a static hash. The stateless traffic includes non-IP L2 traffic, ICMP, some UDP protocols, and so on.,When creating a new VLAN, if this parameter is not specified, the default of (no) is used.
+        attribute :dag_round_robin
+
+        # @return [String, nil] Device partition to manage resources on.
+        attribute :partition
+        validates :partition, type: String
       end
     end
   end

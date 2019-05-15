@@ -26,24 +26,28 @@ module Ansible
         attribute :value
         validates :value, type: String
 
-        # @return [:yes, :no, nil] Create a backup file including the timestamp information so you can get the original file back if you somehow clobbered it incorrectly.
+        # @return [String, nil] Create a backup file including the timestamp information so you can get the original file back if you somehow clobbered it incorrectly.
         attribute :backup
-        validates :backup, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :backup, type: String
 
         # @return [Object, nil] All arguments accepted by the M(file) module also work here
         attribute :others
 
-        # @return [:present, :absent, nil] If set to C(absent) the option or section will be removed if present instead of created.
+        # @return [:absent, :present, nil] If set to C(absent) the option or section will be removed if present instead of created.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
-        # @return [Boolean, nil] Do not insert spaces before and after '=' symbol
+        # @return [String, nil] Do not insert spaces before and after '=' symbol
         attribute :no_extra_spaces
-        validates :no_extra_spaces, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :no_extra_spaces, type: String
 
-        # @return [:yes, :no, nil] If set to 'no', the module will fail if the file does not already exist. By default it will create the file if it is missing.
+        # @return [String, nil] If set to 'no', the module will fail if the file does not already exist. By default it will create the file if it is missing.
         attribute :create
-        validates :create, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :create, type: String
+
+        # @return [Boolean, nil] allow option without value and without '=' symbol
+        attribute :allow_no_value
+        validates :allow_no_value, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
       end
     end
   end

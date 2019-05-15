@@ -6,7 +6,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
-      # maintains ec2 key pairs. This module has a dependency on python-boto >= 2.5
+      # create or delete an ec2 key pair.
       class Ec2_key < Base
         # @return [String] Name of the key pair.
         attribute :name
@@ -20,15 +20,15 @@ module Ansible
         attribute :force
         validates :force, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
-        # @return [String, nil] create or delete keypair
+        # @return [:present, :absent, nil] create or delete keypair
         attribute :state
-        validates :state, type: String
+        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [Boolean, nil] Wait for the specified action to complete before returning.
+        # @return [Boolean, nil] Wait for the specified action to complete before returning. This option has no effect since version 2.5.
         attribute :wait
         validates :wait, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
-        # @return [Integer, nil] How long before wait gives up, in seconds
+        # @return [Integer, nil] How long before wait gives up, in seconds. This option has no effect since version 2.5.
         attribute :wait_timeout
         validates :wait_timeout, type: Integer
       end

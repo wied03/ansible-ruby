@@ -9,12 +9,13 @@ module Ansible
       # Create or Delete a Kinesis Stream.
       # Update the retention period of a Kinesis Stream.
       # Update Tags on a Kinesis Stream.
+      # Enable/disable server side encryption on a Kinesis Stream.
       class Kinesis_stream < Base
         # @return [String] The name of the Kinesis Stream you are managing.
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [Integer, nil] The number of shards you want to have with this stream. This can not be modified after being created.,This is required when state == present
+        # @return [Integer, nil] The number of shards you want to have with this stream.,This is required when state == present
         attribute :shards
         validates :shards, type: Integer
 
@@ -37,6 +38,18 @@ module Ansible
         # @return [Hash, nil] A dictionary of resource tags of the form: { tag1: value1, tag2: value2 }.
         attribute :tags
         validates :tags, type: Hash
+
+        # @return [:enabled, :disabled, nil] Enable or Disable encryption on the Kinesis Stream.
+        attribute :encryption_state
+        validates :encryption_state, inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
+
+        # @return [String, nil] The type of encryption.
+        attribute :encryption_type
+        validates :encryption_type, type: String
+
+        # @return [String, nil] The GUID or alias for the KMS key.
+        attribute :key_id
+        validates :key_id, type: String
       end
     end
   end

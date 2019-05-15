@@ -16,7 +16,7 @@ module Ansible
         attribute :parent
         validates :parent, type: String
 
-        # @return [Integer, nil] The VLAN id of the fake bridge to manage (must be between 0 and 4095)
+        # @return [Integer, nil] The VLAN id of the fake bridge to manage (must be between 0 and 4095). This parameter is required if I(parent) parameter is set.
         attribute :vlan
         validates :vlan, type: Integer
 
@@ -36,7 +36,7 @@ module Ansible
         attribute :fail_mode
         validates :fail_mode, inclusion: {:in=>[:secure, :standalone], :message=>"%{value} needs to be :secure, :standalone"}, allow_nil: true
 
-        # @return [Object, nil] Set a single property on a bridge.
+        # @return [Object, nil] Run set command after bridge configuration. This parameter is non-idempotent, play will always return I(changed) state if present
         attribute :set
       end
     end

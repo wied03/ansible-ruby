@@ -24,13 +24,13 @@ module Ansible
         attribute :validate_certs
         validates :validate_certs, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
-        # @return [Object, nil] The the id of the volume copy source.,If used, must be paired with destination_volume_id,Mutually exclusive with volume_copy_pair_id, and search_volume_id
+        # @return [Object, nil] The id of the volume copy source.,If used, must be paired with destination_volume_id,Mutually exclusive with volume_copy_pair_id, and search_volume_id
         attribute :source_volume_id
 
-        # @return [Object, nil] The the id of the volume copy destination.,If used, must be paired with source_volume_id,Mutually exclusive with volume_copy_pair_id, and search_volume_id
+        # @return [Object, nil] The id of the volume copy destination.,If used, must be paired with source_volume_id,Mutually exclusive with volume_copy_pair_id, and search_volume_id
         attribute :destination_volume_id
 
-        # @return [Object, nil] The the id of a given volume copy pair,Mutually exclusive with destination_volume_id, source_volume_id, and search_volume_id,Can use to delete or check presence of volume pairs,Must specify this or (destination_volume_id and source_volume_id)
+        # @return [Object, nil] The id of a given volume copy pair,Mutually exclusive with destination_volume_id, source_volume_id, and search_volume_id,Can use to delete or check presence of volume pairs,Must specify this or (destination_volume_id and source_volume_id)
         attribute :volume_copy_pair_id
 
         # @return [:present, :absent] Whether the specified volume copy pair should exist or not.

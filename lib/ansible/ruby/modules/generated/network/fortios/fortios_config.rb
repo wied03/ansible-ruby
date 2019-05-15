@@ -8,7 +8,7 @@ module Ansible
     module Modules
       # This module provides management of FortiOS Devices configuration.
       class Fortios_config < Base
-        # @return [String, nil] The I(src) argument provides a path to the configuration file to load into the remote device.
+        # @return [String, nil] The I(src) argument provides a path to the configuration template to load into the remote device.
         attribute :src
         validates :src, type: String
 

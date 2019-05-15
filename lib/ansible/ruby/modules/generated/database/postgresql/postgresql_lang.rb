@@ -15,25 +15,25 @@ module Ansible
         attribute :lang
         validates :lang, presence: true, type: String
 
-        # @return [Boolean, nil] make this language trusted for the selected db
+        # @return [String, nil] make this language trusted for the selected db
         attribute :trust
-        validates :trust, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :trust, type: String
 
         # @return [String, nil] name of database where the language will be added, removed or changed
         attribute :db
         validates :db, type: String
 
-        # @return [Boolean, nil] marks the language as trusted, even if it's marked as untrusted in pg_pltemplate.,use with care!
+        # @return [String, nil] marks the language as trusted, even if it's marked as untrusted in pg_pltemplate.,use with care!
         attribute :force_trust
-        validates :force_trust, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :force_trust, type: String
 
-        # @return [:yes, :no, nil] if C(yes), fail when removing a language. Otherwise just log and continue,in some cases, it is not possible to remove a language (used by the db-system). When         dependencies block the removal, consider using C(cascade).
+        # @return [String, nil] if C(yes), fail when removing a language. Otherwise just log and continue,in some cases, it is not possible to remove a language (used by the db-system). When         dependencies block the removal, consider using C(cascade).
         attribute :fail_on_drop
-        validates :fail_on_drop, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :fail_on_drop, type: String
 
-        # @return [Boolean, nil] when dropping a language, also delete object that depend on this language.,only used when C(state=absent).
+        # @return [String, nil] when dropping a language, also delete object that depend on this language.,only used when C(state=absent).
         attribute :cascade
-        validates :cascade, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :cascade, type: String
 
         # @return [Integer, nil] Database port to connect to.
         attribute :port

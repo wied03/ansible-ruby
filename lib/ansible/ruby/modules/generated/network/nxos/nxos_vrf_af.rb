@@ -8,21 +8,21 @@ module Ansible
     module Modules
       # Manages VRF AF
       class Nxos_vrf_af < Base
-        # @return [Object] Name of the VRF.
+        # @return [String] Name of the VRF.
         attribute :vrf
-        validates :vrf, presence: true
+        validates :vrf, presence: true, type: String
 
         # @return [:ipv4, :ipv6] Address-Family Identifier (AFI).
         attribute :afi
         validates :afi, presence: true, inclusion: {:in=>[:ipv4, :ipv6], :message=>"%{value} needs to be :ipv4, :ipv6"}
 
-        # @return [:unicast, :multicast] Sub Address-Family Identifier (SAFI).
+        # @return [:unicast, :multicast] Sub Address-Family Identifier (SAFI).,Deprecated in 2.4
         attribute :safi
         validates :safi, presence: true, inclusion: {:in=>[:unicast, :multicast], :message=>"%{value} needs to be :unicast, :multicast"}
 
-        # @return [:true, :false, nil] Enable/Disable the EVPN route-target 'auto' setting for both import and export target communities.
+        # @return [Boolean, nil] Enable/Disable the EVPN route-target 'auto' setting for both import and export target communities.
         attribute :route_target_both_auto_evpn
-        validates :route_target_both_auto_evpn, inclusion: {:in=>[:true, :false], :message=>"%{value} needs to be :true, :false"}, allow_nil: true
+        validates :route_target_both_auto_evpn, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [:present, :absent, nil] Determines whether the config should be present or not on the device.
         attribute :state

@@ -6,14 +6,11 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
-      # Create/delete a DNS record in DigitalOcean.
+      # Create/delete a DNS domain in DigitalOcean.
       class Digital_ocean_domain < Base
         # @return [:present, :absent, nil] Indicate desired state of the target.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
-
-        # @return [Object, nil] DigitalOcean api token.
-        attribute :api_token
 
         # @return [Object, nil] Numeric, the droplet id you want to operate on.
         attribute :id
@@ -22,7 +19,7 @@ module Ansible
         attribute :name
         validates :name, type: String
 
-        # @return [String, nil] The IP address to point a domain at.
+        # @return [String, nil] An 'A' record for '@' ($ORIGIN) will be created with the value 'ip'.  'ip' is an IP version 4 address.
         attribute :ip
         validates :ip, type: String
       end

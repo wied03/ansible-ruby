@@ -20,9 +20,9 @@ module Ansible
         attribute :floating_ip_address
         validates :floating_ip_address, type: String
 
-        # @return [Boolean, nil] When I(state) is present, and I(floating_ip_address) is not present, this parameter can be used to specify whether we should try to reuse a floating IP address already allocated to the project.
+        # @return [String, nil] When I(state) is present, and I(floating_ip_address) is not present, this parameter can be used to specify whether we should try to reuse a floating IP address already allocated to the project.
         attribute :reuse
-        validates :reuse, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :reuse, type: String
 
         # @return [String, nil] To which fixed IP of server the floating IP address should be attached to.
         attribute :fixed_address
@@ -32,9 +32,9 @@ module Ansible
         attribute :nat_destination
         validates :nat_destination, type: String
 
-        # @return [Boolean, nil] When attaching a floating IP address, specify whether we should wait for it to appear as attached.
+        # @return [String, nil] When attaching a floating IP address, specify whether we should wait for it to appear as attached.
         attribute :wait
-        validates :wait, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :wait, type: String
 
         # @return [Integer, nil] Time to wait for an IP address to appear as attached. See wait.
         attribute :timeout
@@ -44,11 +44,11 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [Boolean, nil] When I(state) is absent, indicates whether or not to delete the floating IP completely, or only detach it from the server. Default is to detach only.
+        # @return [String, nil] When I(state) is absent, indicates whether or not to delete the floating IP completely, or only detach it from the server. Default is to detach only.
         attribute :purge
-        validates :purge, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :purge, type: String
 
-        # @return [Object, nil] Ignored. Present for backwards compatability
+        # @return [Object, nil] Ignored. Present for backwards compatibility
         attribute :availability_zone
       end
     end

@@ -16,7 +16,7 @@ module Ansible
         attribute :port
         validates :port, presence: true, type: String
 
-        # @return [Integer, nil] VLAN tag for this port
+        # @return [Integer, nil] VLAN tag for this port. Must be a value between 0 and 4095.
         attribute :tag
         validates :tag, type: Integer
 

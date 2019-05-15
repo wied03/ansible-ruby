@@ -30,9 +30,9 @@ module Ansible
         attribute :security_groups
         validates :security_groups, type: TypeGeneric.new(String)
 
-        # @return [Boolean, nil] Do not associate a security group with this port.
+        # @return [String, nil] Do not associate a security group with this port.
         attribute :no_security_groups
-        validates :no_security_groups, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :no_security_groups, type: String
 
         # @return [Object, nil] Allowed address pairs list.  Allowed address pairs are supported with dictionary structure. e.g.  allowed_address_pairs: - ip_address: 10.1.0.12 mac_address: ab:cd:ef:12:34:56 - ip_address: ...
         attribute :allowed_address_pairs
@@ -50,7 +50,7 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [Object, nil] Ignored. Present for backwards compatability
+        # @return [Object, nil] Ignored. Present for backwards compatibility
         attribute :availability_zone
       end
     end

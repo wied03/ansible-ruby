@@ -40,8 +40,9 @@ module Ansible
         # @return [Object, nil] Regular expression that matches the query digest. The dialect of regular expressions used is that of re2 - https://github.com/google/re2
         attribute :match_digest
 
-        # @return [Object, nil] Regular expression that matches the query text. The dialect of regular expressions used is that of re2 - https://github.com/google/re2
+        # @return [String, nil] Regular expression that matches the query text. The dialect of regular expressions used is that of re2 - https://github.com/google/re2
         attribute :match_pattern
+        validates :match_pattern, type: String
 
         # @return [Object, nil] If I(negate_match_pattern) is set to C(True), only queries not matching the query text will be considered as a match. This acts as a NOT operator in front of the regular expression matching against match_pattern.
         attribute :negate_match_pattern
@@ -94,34 +95,6 @@ module Ansible
         # @return [Boolean, nil] By default we avoid deleting more than one schedule in a single batch, however if you need this behaviour and you're not concerned about the schedules deleted, you can set I(force_delete) to C(True).
         attribute :force_delete
         validates :force_delete, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
-
-        # @return [Boolean, nil] Save mysql host config to sqlite db on disk to persist the configuration.
-        attribute :save_to_disk
-        validates :save_to_disk, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
-
-        # @return [Boolean, nil] Dynamically load mysql host config to runtime memory.
-        attribute :load_to_runtime
-        validates :load_to_runtime, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
-
-        # @return [String, nil] The username used to authenticate to ProxySQL admin interface.
-        attribute :login_user
-        validates :login_user, type: String
-
-        # @return [String, nil] The password used to authenticate to ProxySQL admin interface.
-        attribute :login_password
-        validates :login_password, type: String
-
-        # @return [String, nil] The host used to connect to ProxySQL admin interface.
-        attribute :login_host
-        validates :login_host, type: String
-
-        # @return [Integer, nil] The port used to connect to ProxySQL admin interface.
-        attribute :login_port
-        validates :login_port, type: Integer
-
-        # @return [String, nil] Specify a config file from which login_user and login_password are to be read.
-        attribute :config_file
-        validates :config_file, type: String
       end
     end
   end

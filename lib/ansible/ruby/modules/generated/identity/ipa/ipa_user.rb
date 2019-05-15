@@ -15,6 +15,10 @@ module Ansible
         attribute :givenname
         validates :givenname, type: String
 
+        # @return [Integer, nil] Date at which the user password will expire,In the format YYYYMMddHHmmss,e.g. 20180121182022 will expire on 21 January 2018 at 18:20:22
+        attribute :krbpasswordexpiration
+        validates :krbpasswordexpiration, type: Integer
+
         # @return [Object, nil] Login shell
         attribute :loginshell
 
@@ -22,15 +26,16 @@ module Ansible
         attribute :mail
         validates :mail, type: TypeGeneric.new(String)
 
-        # @return [Object, nil] Password
+        # @return [Object, nil] Password for new user
         attribute :password
 
         # @return [String, nil] Surname
         attribute :sn
         validates :sn, type: String
 
-        # @return [Object, nil] List of public SSH key.,If an empty list is passed all assigned public keys will be deleted.,If None is passed SSH public keys will not be checked or changed.
+        # @return [Array<String>, String, nil] List of public SSH key.,If an empty list is passed all assigned public keys will be deleted.,If None is passed SSH public keys will not be checked or changed.
         attribute :sshpubkey
+        validates :sshpubkey, type: TypeGeneric.new(String)
 
         # @return [:present, :absent, :enabled, :disabled, nil] State to ensure
         attribute :state
@@ -47,29 +52,13 @@ module Ansible
         attribute :uid
         validates :uid, presence: true
 
-        # @return [Integer, nil] Port of IPA server
-        attribute :ipa_port
-        validates :ipa_port, type: Integer
+        # @return [Integer, nil] Account Settings UID/Posix User ID number
+        attribute :uidnumber
+        validates :uidnumber, type: Integer
 
-        # @return [String, nil] IP or hostname of IPA server
-        attribute :ipa_host
-        validates :ipa_host, type: String
-
-        # @return [String, nil] Administrative account used on IPA server
-        attribute :ipa_user
-        validates :ipa_user, type: String
-
-        # @return [String] Password of administrative user
-        attribute :ipa_pass
-        validates :ipa_pass, presence: true, type: String
-
-        # @return [:http, :https, nil] Protocol used by IPA server
-        attribute :ipa_prot
-        validates :ipa_prot, inclusion: {:in=>[:http, :https], :message=>"%{value} needs to be :http, :https"}, allow_nil: true
-
-        # @return [Boolean, nil] This only applies if C(ipa_prot) is I(https).,If set to C(no), the SSL certificates will not be validated.,This should only set to C(no) used on personally controlled sites using self-signed certificates.
-        attribute :validate_certs
-        validates :validate_certs, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        # @return [Integer, nil] Posix Group ID
+        attribute :gidnumber
+        validates :gidnumber, type: Integer
       end
     end
   end

@@ -8,7 +8,7 @@ module Ansible
     module Modules
       # Create or Remove compute instances from OpenStack.
       class Os_server < Base
-        # @return [String] Name that has to be given to the instance
+        # @return [String] Name that has to be given to the instance. It is also possible to specify the ID of the instance instead of its name if I(state) is I(absent).
         attribute :name
         validates :name, presence: true, type: String
 
@@ -74,9 +74,9 @@ module Ansible
         # @return [Object, nil] Opaque blob of data which is made available to the instance
         attribute :userdata
 
-        # @return [Boolean, nil] Should the instance boot from a persistent volume created based on the image given. Mututally exclusive with boot_volume.
+        # @return [String, nil] Should the instance boot from a persistent volume created based on the image given. Mututally exclusive with boot_volume.
         attribute :boot_from_volume
-        validates :boot_from_volume, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :boot_from_volume, type: String
 
         # @return [Object, nil] The size of the volume to create in GB if booting from volume based on an image.
         attribute :volume_size
@@ -84,9 +84,9 @@ module Ansible
         # @return [Object, nil] Volume name or id to use as the volume to boot from. Implies boot_from_volume. Mutually exclusive with image and boot_from_volume.
         attribute :boot_volume
 
-        # @return [Boolean, nil] If true, delete volume when deleting instance (if booted from volume)
+        # @return [String, nil] If C(yes), delete volume when deleting instance (if booted from volume)
         attribute :terminate_volume
-        validates :terminate_volume, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :terminate_volume, type: String
 
         # @return [Object, nil] A list of preexisting volumes names or ids to attach to the instance
         attribute :volumes
@@ -98,13 +98,13 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [Boolean, nil] When I(state) is absent and this option is true, any floating IP associated with the instance will be deleted along with the instance.
+        # @return [String, nil] When I(state) is absent and this option is true, any floating IP associated with the instance will be deleted along with the instance.
         attribute :delete_fip
-        validates :delete_fip, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :delete_fip, type: String
 
-        # @return [Boolean, nil] When I(auto_ip) is true and this option is true, the I(auto_ip) code will attempt to re-use unassigned floating ips in the project before creating a new one. It is important to note that it is impossible to safely do this concurrently, so if your use case involves concurrent server creation, it is highly recommended to set this to false and to delete the floating ip associated with a server when the server is deleted using I(delete_fip).
+        # @return [String, nil] When I(auto_ip) is true and this option is true, the I(auto_ip) code will attempt to re-use unassigned floating ips in the project before creating a new one. It is important to note that it is impossible to safely do this concurrently, so if your use case involves concurrent server creation, it is highly recommended to set this to false and to delete the floating ip associated with a server when the server is deleted using I(delete_fip).
         attribute :reuse_ips
-        validates :reuse_ips, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :reuse_ips, type: String
 
         # @return [Object, nil] Availability zone in which to create the server.
         attribute :availability_zone

@@ -8,9 +8,9 @@ module Ansible
     module Modules
       # Manage IP tunnel interfaces on Solaris/illumos systems.
       class Dladm_iptun < Base
-        # @return [Object] IP tunnel interface name.
+        # @return [String] IP tunnel interface name.
         attribute :name
-        validates :name, presence: true
+        validates :name, presence: true, type: String
 
         # @return [Boolean, nil] Specifies that the IP tunnel interface is temporary. Temporary IP tunnel interfaces do not persist across reboots.
         attribute :temporary
@@ -20,11 +20,13 @@ module Ansible
         attribute :type
         validates :type, inclusion: {:in=>[:ipv4, :ipv6, :"6to4"], :message=>"%{value} needs to be :ipv4, :ipv6, :\"6to4\""}, allow_nil: true
 
-        # @return [Object, nil] Literat IP address or hostname corresponding to the tunnel source.
+        # @return [String, nil] Literat IP address or hostname corresponding to the tunnel source.
         attribute :local_address
+        validates :local_address, type: String
 
-        # @return [Object, nil] Literal IP address or hostname corresponding to the tunnel destination.
+        # @return [String, nil] Literal IP address or hostname corresponding to the tunnel destination.
         attribute :remote_address
+        validates :remote_address, type: String
 
         # @return [:present, :absent, nil] Create or delete Solaris/illumos VNIC.
         attribute :state

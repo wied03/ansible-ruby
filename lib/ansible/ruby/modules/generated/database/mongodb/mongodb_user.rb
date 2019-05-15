@@ -51,7 +51,7 @@ module Ansible
         attribute :ssl_cert_reqs
         validates :ssl_cert_reqs, inclusion: {:in=>[:CERT_REQUIRED, :CERT_OPTIONAL, :CERT_NONE], :message=>"%{value} needs to be :CERT_REQUIRED, :CERT_OPTIONAL, :CERT_NONE"}, allow_nil: true
 
-        # @return [String, nil] The database user roles valid values could either be one or more of the following strings: 'read', 'readWrite', 'dbAdmin', 'userAdmin', 'clusterAdmin', 'readAnyDatabase', 'readWriteAnyDatabase', 'userAdminAnyDatabase', 'dbAdminAnyDatabase',Or the following dictionary '{ db: DATABASE_NAME, role: ROLE_NAME }'.,This param requires pymongo 2.5+. If it is a string, mongodb 2.4+ is also required. If it is a dictionary, mongo 2.6+  is required.
+        # @return [String, nil] The database user roles valid values could either be one or more of the following strings: 'read', 'readWrite', 'dbAdmin', 'userAdmin', 'clusterAdmin', 'readAnyDatabase', 'readWriteAnyDatabase', 'userAdminAnyDatabase', 'dbAdminAnyDatabase'\r\n,Or the following dictionary '{ db: DATABASE_NAME, role: ROLE_NAME }'.,This param requires pymongo 2.5+. If it is a string, mongodb 2.4+ is also required. If it is a dictionary, mongo 2.6+  is required.
         attribute :roles
         validates :roles, type: String
 

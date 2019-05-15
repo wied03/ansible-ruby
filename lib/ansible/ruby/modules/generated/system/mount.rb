@@ -20,9 +20,9 @@ module Ansible
         attribute :fstype
         validates :fstype, type: String
 
-        # @return [String, nil] Mount options (see fstab(5), or vfstab(4) on Solaris).
+        # @return [Array<String>, String, nil] Mount options (see fstab(5), or vfstab(4) on Solaris).
         attribute :opts
-        validates :opts, type: String
+        validates :opts, type: TypeGeneric.new(String)
 
         # @return [Integer, nil] Dump (see fstab(5)). Note that if set to C(null) and I(state) set to C(present), it will cease to work and duplicate entries will be made with subsequent runs.,Has no effect on Solaris systems.
         attribute :dump
@@ -32,17 +32,21 @@ module Ansible
         attribute :passno
         validates :passno, type: Integer
 
-        # @return [:present, :absent, :mounted, :unmounted] If C(mounted) or C(unmounted), the device will be actively mounted or unmounted as needed and appropriately configured in I(fstab).,C(absent) and C(present) only deal with I(fstab) but will not affect current mounting.,If specifying C(mounted) and the mount point is not present, the mount point will be created.,Similarly, specifying C(absent) will remove the mount point directory.
+        # @return [:absent, :mounted, :present, :unmounted] If C(mounted), the device will be actively mounted and appropriately configured in I(fstab). If the mount point is not present, the mount point will be created.,If C(unmounted), the device will be unmounted without changing I(fstab).,C(present) only specifies that the device is to be configured in I(fstab) and does not trigger or require a mount.,C(absent) specifies that the device mount's entry will be removed from I(fstab) and will also unmount the device and remove the mount point.
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:present, :absent, :mounted, :unmounted], :message=>"%{value} needs to be :present, :absent, :mounted, :unmounted"}
+        validates :state, presence: true, inclusion: {:in=>[:absent, :mounted, :present, :unmounted], :message=>"%{value} needs to be :absent, :mounted, :present, :unmounted"}
 
         # @return [String, nil] File to use instead of C(/etc/fstab). You shouldn't use this option unless you really know what you are doing. This might be useful if you need to configure mountpoints in a chroot environment.  OpenBSD does not allow specifying alternate fstab files with mount so do not use this on OpenBSD with any state that operates on the live filesystem.
         attribute :fstab
         validates :fstab, type: String
 
-        # @return [Boolean, nil] Determines if the filesystem should be mounted on boot.,Only applies to Solaris systems.
+        # @return [String, nil] Determines if the filesystem should be mounted on boot.,Only applies to Solaris systems.
         attribute :boot
-        validates :boot, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :boot, type: String
+
+        # @return [String, nil] Create a backup file including the timestamp information so you can get the original file back if you somehow clobbered it incorrectly.
+        attribute :backup
+        validates :backup, type: String
       end
     end
   end

@@ -23,9 +23,9 @@ module Ansible
         attribute :path
         validates :path, type: String
 
-        # @return [Boolean, nil] Create a backup file (if yes), including the timestamp information so,you can get the original file back if you somehow clobbered it incorrectly.
+        # @return [String, nil] Create a backup file (if yes), including the timestamp information so,you can get the original file back if you somehow clobbered it incorrectly.
         attribute :backup
-        validates :backup, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :backup, type: String
 
         # @return [String] Path to the sensu check to run (not required when I(state=absent))
         attribute :command
@@ -45,9 +45,12 @@ module Ansible
         attribute :timeout
         validates :timeout, type: Integer
 
-        # @return [Boolean, nil] Whether the check should be handled or not
+        # @return [Object, nil] Time to live in seconds until the check is considered stale
+        attribute :ttl
+
+        # @return [String, nil] Whether the check should be handled or not
         attribute :handle
-        validates :handle, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :handle, type: String
 
         # @return [Object, nil] When to disable handling of check failures
         attribute :subdue_begin
@@ -58,17 +61,17 @@ module Ansible
         # @return [Object, nil] Other checks this check depends on, if dependencies fail,,handling of this check will be disabled
         attribute :dependencies
 
-        # @return [Boolean, nil] Whether the check is a metric
+        # @return [String, nil] Whether the check is a metric
         attribute :metric
-        validates :metric, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :metric, type: String
 
-        # @return [Boolean, nil] Whether the check should be scheduled by the sensu client or server,This option obviates the need for specifying the I(subscribers) option
+        # @return [String, nil] Whether the check should be scheduled by the sensu client or server,This option obviates the need for specifying the I(subscribers) option
         attribute :standalone
-        validates :standalone, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :standalone, type: String
 
-        # @return [Boolean, nil] Whether the check should be scheduled at all.,You can still issue it via the sensu api
+        # @return [String, nil] Whether the check should be scheduled at all.,You can still issue it via the sensu api
         attribute :publish
-        validates :publish, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :publish, type: String
 
         # @return [Integer, nil] Number of event occurrences before the handler should take action
         attribute :occurrences
@@ -77,14 +80,14 @@ module Ansible
         # @return [Object, nil] Number of seconds handlers should wait before taking second action
         attribute :refresh
 
-        # @return [Boolean, nil] Classifies the check as an aggregate check,,making it available via the aggregate API
+        # @return [String, nil] Classifies the check as an aggregate check,,making it available via the aggregate API
         attribute :aggregate
-        validates :aggregate, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :aggregate, type: String
 
-        # @return [Object, nil] The low threshhold for flap detection
+        # @return [Object, nil] The low threshold for flap detection
         attribute :low_flap_threshold
 
-        # @return [Object, nil] The high threshhold for flap detection
+        # @return [Object, nil] The high threshold for flap detection
         attribute :high_flap_threshold
 
         # @return [Object, nil] A hash/dictionary of custom parameters for mixing to the configuration.,You can't rewrite others module parameters using this

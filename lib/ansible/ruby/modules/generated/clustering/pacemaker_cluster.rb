@@ -8,9 +8,9 @@ module Ansible
     module Modules
       # This module can manage a pacemaker cluster and nodes from Ansible using the pacemaker cli.
       class Pacemaker_cluster < Base
-        # @return [:online, :offline, :restart, :cleanup] Indicate desired state of the cluster
+        # @return [:cleanup, :offline, :online, :restart] Indicate desired state of the cluster
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:online, :offline, :restart, :cleanup], :message=>"%{value} needs to be :online, :offline, :restart, :cleanup"}
+        validates :state, presence: true, inclusion: {:in=>[:cleanup, :offline, :online, :restart], :message=>"%{value} needs to be :cleanup, :offline, :online, :restart"}
 
         # @return [Object, nil] Specify which node of the cluster you want to manage. None == the cluster status itself, 'all' == check the status of all nodes.
         attribute :node
@@ -19,9 +19,9 @@ module Ansible
         attribute :timeout
         validates :timeout, type: Integer
 
-        # @return [Boolean, nil] Force the change of the cluster state
+        # @return [String, nil] Force the change of the cluster state
         attribute :force
-        validates :force, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :force, type: String
       end
     end
   end

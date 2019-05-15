@@ -20,15 +20,19 @@ module Ansible
         attribute :version
         validates :version, inclusion: {:in=>[1, 2], :message=>"%{value} needs to be 1, 2"}, allow_nil: true
 
-        # @return [Integer, nil] HSRP priority.
+        # @return [Integer, nil] HSRP priority or keyword 'default'.
         attribute :priority
         validates :priority, type: Integer
 
-        # @return [String, nil] HSRP virtual IP address.
+        # @return [:enabled, :disabled, nil] Enable/Disable preempt.
+        attribute :preempt
+        validates :preempt, inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
+
+        # @return [String, nil] HSRP virtual IP address or keyword 'default'
         attribute :vip
         validates :vip, type: String
 
-        # @return [String, nil] Authentication string.
+        # @return [String, nil] Authentication string. If this needs to be hidden(for md5 type), the string should be 7 followed by the key string. Otherwise, it can be 0 followed by key string or just key string (for backward compatibility). For text type, this should be just be a key string. if this is 'default', authentication is removed.
         attribute :auth_string
         validates :auth_string, type: String
 

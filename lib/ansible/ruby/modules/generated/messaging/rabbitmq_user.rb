@@ -12,7 +12,7 @@ module Ansible
         attribute :user
         validates :user, presence: true, type: String
 
-        # @return [String, nil] Password of user to add.,To change the password of an existing user, you must also specify C(force=yes).
+        # @return [String, nil] Password of user to add.,To change the password of an existing user, you must also specify C(update_password=always).
         attribute :password
         validates :password, type: String
 
@@ -42,13 +42,17 @@ module Ansible
         attribute :read_priv
         validates :read_priv, type: String
 
-        # @return [:yes, :no, nil] Deletes and recreates the user.
+        # @return [String, nil] Deletes and recreates the user.
         attribute :force
-        validates :force, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :force, type: String
 
         # @return [:present, :absent, nil] Specify if user is to be added or removed
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+
+        # @return [:on_create, :always, nil] C(on_create) will only set the password for newly created users.  C(always) will update passwords if they differ.
+        attribute :update_password
+        validates :update_password, inclusion: {:in=>[:on_create, :always], :message=>"%{value} needs to be :on_create, :always"}, allow_nil: true
       end
     end
   end

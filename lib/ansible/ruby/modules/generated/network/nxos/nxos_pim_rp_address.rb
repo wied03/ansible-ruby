@@ -21,9 +21,12 @@ module Ansible
         # @return [Object, nil] Route map policy for static RP. Valid values are route-map policy names.
         attribute :route_map
 
-        # @return [:true, :false, nil] Group range is treated in PIM bidirectional mode.
+        # @return [Object, nil] Group range is treated in PIM bidirectional mode.
         attribute :bidir
-        validates :bidir, inclusion: {:in=>[:true, :false], :message=>"%{value} needs to be :true, :false"}, allow_nil: true
+
+        # @return [:present, :absent, :default] Specify desired state of the resource.
+        attribute :state
+        validates :state, presence: true, inclusion: {:in=>[:present, :absent, :default], :message=>"%{value} needs to be :present, :absent, :default"}
       end
     end
   end

@@ -13,6 +13,14 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
+        # @return [:put, :patch, nil] Default method for object update is HTTP PUT.,Setting to patch will override that behavior to use HTTP PATCH.
+        attribute :avi_api_update_method
+        validates :avi_api_update_method, inclusion: {:in=>[:put, :patch], :message=>"%{value} needs to be :put, :patch"}, allow_nil: true
+
+        # @return [:add, :replace, :delete, nil] Patch operation to use when using avi_api_update_method as patch.
+        attribute :avi_api_patch_op
+        validates :avi_api_patch_op, inclusion: {:in=>[:add, :replace, :delete], :message=>"%{value} needs to be :add, :replace, :delete"}, allow_nil: true
+
         # @return [Object, nil] Name of container cloud application that constitutes a pool in a a-b pool configuration, if different from vs app.
         attribute :a_pool
 
@@ -28,7 +36,7 @@ module Ansible
         # @return [Object, nil] Persistence will ensure the same user sticks to the same server for a desired duration of time.,It is a reference to an object of type applicationpersistenceprofile.
         attribute :application_persistence_profile_ref
 
-        # @return [Object, nil] Reference to the launch configuration profile.,It is a reference to an object of type autoscalelaunchconfig.
+        # @return [Object, nil] If configured then avi will trigger orchestration of pool server creation and deletion.,It is only supported for container clouds like mesos, opensift, kubernates, docker etc.,It is a reference to an object of type autoscalelaunchconfig.
         attribute :autoscale_launch_config_ref
 
         # @return [Object, nil] Network ids for the launch configuration.
@@ -40,7 +48,7 @@ module Ansible
         # @return [Object, nil] Inline estimation of capacity of servers.,Default value when not specified in API or module is interpreted by Avi Controller as False.
         attribute :capacity_estimation
 
-        # @return [Object, nil] The maximum time-to-first-byte of a server.,Default value when not specified in API or module is interpreted by Avi Controller as 0.
+        # @return [Object, nil] The maximum time-to-first-byte of a server.,Allowed values are 1-5000.,Special values are 0 - 'automatic'.,Default value when not specified in API or module is interpreted by Avi Controller as 0.,Units(MILLISECONDS).
         attribute :capacity_estimation_ttfb_thresh
 
         # @return [Object, nil] Checksum of cloud configuration for pool.,Internally set by cloud connector.
@@ -49,13 +57,13 @@ module Ansible
         # @return [Object, nil] It is a reference to an object of type cloud.
         attribute :cloud_ref
 
-        # @return [Object, nil] Duration for which new connections will be gradually ramped up to a server recently brought online.,Useful for lb algorithms that are least connection based.,Default value when not specified in API or module is interpreted by Avi Controller as 10.
+        # @return [Object, nil] Duration for which new connections will be gradually ramped up to a server recently brought online.,Useful for lb algorithms that are least connection based.,Allowed values are 1-300.,Special values are 0 - 'immediate'.,Default value when not specified in API or module is interpreted by Avi Controller as 10.,Units(MIN).
         attribute :connection_ramp_duration
 
         # @return [Object, nil] Creator name.
         attribute :created_by
 
-        # @return [Object, nil] Traffic sent to servers will use this destination server port unless overridden by the server's specific port attribute.,The ssl checkbox enables avi to server encryption.,Default value when not specified in API or module is interpreted by Avi Controller as 80.
+        # @return [Object, nil] Traffic sent to servers will use this destination server port unless overridden by the server's specific port attribute.,The ssl checkbox enables avi to server encryption.,Allowed values are 1-65535.,Default value when not specified in API or module is interpreted by Avi Controller as 80.
         attribute :default_server_port
 
         # @return [String, nil] A description of the pool.
@@ -71,14 +79,20 @@ module Ansible
         # @return [Object, nil] Enable or disable the pool.,Disabling will terminate all open connections and pause health monitors.,Default value when not specified in API or module is interpreted by Avi Controller as True.
         attribute :enabled
 
-        # @return [Object, nil] Enable an action - close connection, http redirect, local http response, or backup pool - when a pool failure happens.,By default, a connection will be closed, in case the pool experiences a failure.
+        # @return [Object, nil] Names of external auto-scale groups for pool servers.,Currently available only for aws and azure.,Field introduced in 17.1.2.
+        attribute :external_autoscale_groups
+
+        # @return [Object, nil] Enable an action - close connection, http redirect or local http response - when a pool failure happens.,By default, a connection will be closed, in case the pool experiences a failure.
         attribute :fail_action
 
-        # @return [Object, nil] Periodicity of feedback for fewest tasks server selection algorithm.,Default value when not specified in API or module is interpreted by Avi Controller as 10.
+        # @return [Object, nil] Periodicity of feedback for fewest tasks server selection algorithm.,Allowed values are 1-300.,Default value when not specified in API or module is interpreted by Avi Controller as 10.,Units(SEC).
         attribute :fewest_tasks_feedback_delay
 
-        # @return [Object, nil] Used to gracefully disable a server.,Virtual service waits for the specified time before terminating the existing connections  to the servers that are disabled.,Default value when not specified in API or module is interpreted by Avi Controller as 1.
+        # @return [Object, nil] Used to gracefully disable a server.,Virtual service waits for the specified time before terminating the existing connections  to the servers that are disabled.,Allowed values are 1-7200.,Special values are 0 - 'immediate', -1 - 'infinite'.,Default value when not specified in API or module is interpreted by Avi Controller as 1.,Units(MIN).
         attribute :graceful_disable_timeout
+
+        # @return [Object, nil] Indicates if the pool is a site-persistence pool.,Field introduced in 17.2.1.
+        attribute :gslb_sp_enabled
 
         # @return [Array<String>, String, nil] Verify server health by applying one or more health monitors.,Active monitors generate synthetic traffic from each service engine and mark a server up or down based on the response.,The passive monitor listens only to client to server communication.,It raises or lowers the ratio of traffic destined to a server based on successful responses.,It is a reference to an object of type healthmonitor.
         attribute :health_monitor_refs
@@ -93,16 +107,22 @@ module Ansible
         # @return [Object, nil] Use list of servers from ip address group.,It is a reference to an object of type ipaddrgroup.
         attribute :ipaddrgroup_ref
 
-        # @return [Object, nil] The load balancing algorithm will pick a server within the pool's list of available servers.,Default value when not specified in API or module is interpreted by Avi Controller as LB_ALGORITHM_LEAST_CONNECTIONS.
+        # @return [Object, nil] The load balancing algorithm will pick a server within the pool's list of available servers.,Enum options - LB_ALGORITHM_LEAST_CONNECTIONS, LB_ALGORITHM_ROUND_ROBIN, LB_ALGORITHM_FASTEST_RESPONSE, LB_ALGORITHM_CONSISTENT_HASH,,LB_ALGORITHM_LEAST_LOAD, LB_ALGORITHM_FEWEST_SERVERS, LB_ALGORITHM_RANDOM, LB_ALGORITHM_FEWEST_TASKS, LB_ALGORITHM_NEAREST_SERVER,,LB_ALGORITHM_CORE_AFFINITY.,Default value when not specified in API or module is interpreted by Avi Controller as LB_ALGORITHM_LEAST_CONNECTIONS.
         attribute :lb_algorithm
 
         # @return [Object, nil] Http header name to be used for the hash key.
         attribute :lb_algorithm_consistent_hash_hdr
 
-        # @return [Object, nil] Criteria used as a key for determining the hash between the client and  server.,Default value when not specified in API or module is interpreted by Avi Controller as LB_ALGORITHM_CONSISTENT_HASH_SOURCE_IP_ADDRESS.
+        # @return [Object, nil] Degree of non-affinity for core afffinity based server selection.,Allowed values are 1-65535.,Field introduced in 17.1.3.,Default value when not specified in API or module is interpreted by Avi Controller as 2.
+        attribute :lb_algorithm_core_nonaffinity
+
+        # @return [Object, nil] Criteria used as a key for determining the hash between the client and  server.,Enum options - LB_ALGORITHM_CONSISTENT_HASH_SOURCE_IP_ADDRESS, LB_ALGORITHM_CONSISTENT_HASH_SOURCE_IP_ADDRESS_AND_PORT,,LB_ALGORITHM_CONSISTENT_HASH_URI, LB_ALGORITHM_CONSISTENT_HASH_CUSTOM_HEADER, LB_ALGORITHM_CONSISTENT_HASH_CUSTOM_STRING.,Default value when not specified in API or module is interpreted by Avi Controller as LB_ALGORITHM_CONSISTENT_HASH_SOURCE_IP_ADDRESS.
         attribute :lb_algorithm_hash
 
-        # @return [Object, nil] The maximum number of concurrent connections allowed to each server within the pool.,Default value when not specified in API or module is interpreted by Avi Controller as 0.
+        # @return [Object, nil] Allow server lookup by name.,Field introduced in 17.1.11,17.2.4.,Default value when not specified in API or module is interpreted by Avi Controller as False.
+        attribute :lookup_server_by_name
+
+        # @return [Object, nil] The maximum number of concurrent connections allowed to each server within the pool.,Note  applied value will be no less than the number of service engines that the pool is placed on.,If set to 0, no limit is applied.,Default value when not specified in API or module is interpreted by Avi Controller as 0.
         attribute :max_concurrent_connections_per_server
 
         # @return [Object, nil] Rate limit connections to each server.
@@ -114,6 +134,9 @@ module Ansible
 
         # @return [Object, nil] (internal-use) networks designated as containing servers for this pool.,The servers may be further narrowed down by a filter.,This field is used internally by avi, not editable by the user.
         attribute :networks
+
+        # @return [Object, nil] A list of nsx service groups where the servers for the pool are created.,Field introduced in 17.1.1.
+        attribute :nsx_securitygroup
 
         # @return [Object, nil] Avi will validate the ssl certificate present by a server against the selected pki profile.,It is a reference to an object of type pkiprofile.
         attribute :pki_profile_ref

@@ -13,6 +13,14 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
+        # @return [:put, :patch, nil] Default method for object update is HTTP PUT.,Setting to patch will override that behavior to use HTTP PATCH.
+        attribute :avi_api_update_method
+        validates :avi_api_update_method, inclusion: {:in=>[:put, :patch], :message=>"%{value} needs to be :put, :patch"}, allow_nil: true
+
+        # @return [:add, :replace, :delete, nil] Patch operation to use when using avi_api_update_method as patch.
+        attribute :avi_api_patch_op
+        validates :avi_api_patch_op, inclusion: {:in=>[:add, :replace, :delete], :message=>"%{value} needs to be :add, :replace, :delete"}, allow_nil: true
+
         # @return [Object, nil] Ca certificates in certificate chain.
         attribute :ca_certs
 
@@ -49,13 +57,13 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [Object, nil] Status of sslkeyandcertificate.,Default value when not specified in API or module is interpreted by Avi Controller as SSL_CERTIFICATE_FINISHED.
+        # @return [Object, nil] Enum options - ssl_certificate_finished, ssl_certificate_pending.,Default value when not specified in API or module is interpreted by Avi Controller as SSL_CERTIFICATE_FINISHED.
         attribute :status
 
         # @return [Object, nil] It is a reference to an object of type tenant.
         attribute :tenant_ref
 
-        # @return [String, nil] Type of sslkeyandcertificate.,Default value when not specified in API or module is interpreted by Avi Controller as SSL_CERTIFICATE_TYPE_VIRTUALSERVICE.
+        # @return [String, nil] Enum options - ssl_certificate_type_virtualservice, ssl_certificate_type_system, ssl_certificate_type_ca.,Default value when not specified in API or module is interpreted by Avi Controller as SSL_CERTIFICATE_TYPE_VIRTUALSERVICE.
         attribute :type
         validates :type, type: String
 

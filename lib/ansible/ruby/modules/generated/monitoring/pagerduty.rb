@@ -12,29 +12,28 @@ module Ansible
         attribute :state
         validates :state, presence: true, inclusion: {:in=>[:running, :started, :ongoing, :absent], :message=>"%{value} needs to be :running, :started, :ongoing, :absent"}
 
-        # @return [String] PagerDuty unique subdomain.
+        # @return [String, nil] PagerDuty unique subdomain. Obsolete. It is not used with PagerDuty REST v2 API.
         attribute :name
-        validates :name, presence: true, type: String
+        validates :name, type: String
 
-        # @return [String] PagerDuty user ID.
+        # @return [String, nil] PagerDuty user ID. Obsolete. Please, use I(token) for authorization.
         attribute :user
-        validates :user, presence: true, type: String
+        validates :user, type: String
 
-        # @return [String] PagerDuty user password.
-        attribute :passwd
-        validates :passwd, presence: true, type: String
-
-        # @return [String] A pagerduty token, generated on the pagerduty site. Can be used instead of user/passwd combination.
+        # @return [String] A pagerduty token, generated on the pagerduty site. It is used for authorization.
         attribute :token
         validates :token, presence: true, type: String
 
-        # @return [Object] ID of user making the request. Only needed when using a token and creating a maintenance_window.
+        # @return [Object, nil] ID of user making the request. Only needed when creating a maintenance_window.
         attribute :requester_id
-        validates :requester_id, presence: true
 
         # @return [String, nil] A comma separated list of PagerDuty service IDs.
         attribute :service
         validates :service, type: String
+
+        # @return [String, nil] ID of maintenance window. Only needed when absent a maintenance_window.
+        attribute :window_id
+        validates :window_id, type: String
 
         # @return [Integer, nil] Length of maintenance window in hours.
         attribute :hours
@@ -48,9 +47,9 @@ module Ansible
         attribute :desc
         validates :desc, type: String
 
-        # @return [:yes, :no, nil] If C(no), SSL certificates will not be validated. This should only be used on personally controlled sites using self-signed certificates.
+        # @return [String, nil] If C(no), SSL certificates will not be validated. This should only be used on personally controlled sites using self-signed certificates.
         attribute :validate_certs
-        validates :validate_certs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :validate_certs, type: String
       end
     end
   end

@@ -8,9 +8,8 @@ module Ansible
     module Modules
       # Manipulate Rackspace Cloud Block Storage Volume Attachments
       class Rax_cbs_attachments < Base
-        # @return [Object] The device path to attach the volume to, e.g. /dev/xvde
+        # @return [Object, nil] The device path to attach the volume to, e.g. /dev/xvde.,Before 2.4 this was a required field. Now it can be left to null to auto assign the device name.
         attribute :device
-        validates :device, presence: true
 
         # @return [Object] Name or id of the volume to attach/detach
         attribute :volume
@@ -24,9 +23,9 @@ module Ansible
         attribute :state
         validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
 
-        # @return [:yes, :no, nil] wait for the volume to be in 'in-use'/'available' state before returning
+        # @return [String, nil] wait for the volume to be in 'in-use'/'available' state before returning
         attribute :wait
-        validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :wait, type: String
 
         # @return [Integer, nil] how long before wait gives up, in seconds
         attribute :wait_timeout

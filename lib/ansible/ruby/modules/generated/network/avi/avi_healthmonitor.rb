@@ -13,6 +13,14 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
+        # @return [:put, :patch, nil] Default method for object update is HTTP PUT.,Setting to patch will override that behavior to use HTTP PATCH.
+        attribute :avi_api_update_method
+        validates :avi_api_update_method, inclusion: {:in=>[:put, :patch], :message=>"%{value} needs to be :put, :patch"}, allow_nil: true
+
+        # @return [:add, :replace, :delete, nil] Patch operation to use when using avi_api_update_method as patch.
+        attribute :avi_api_patch_op
+        validates :avi_api_patch_op, inclusion: {:in=>[:add, :replace, :delete], :message=>"%{value} needs to be :add, :replace, :delete"}, allow_nil: true
+
         # @return [Object, nil] User defined description for the object.
         attribute :description
 
@@ -22,7 +30,7 @@ module Ansible
         # @return [Object, nil] Healthmonitorexternal settings for healthmonitor.
         attribute :external_monitor
 
-        # @return [Integer, nil] Number of continuous failed health checks before the server is marked down.,Default value when not specified in API or module is interpreted by Avi Controller as 2.
+        # @return [Integer, nil] Number of continuous failed health checks before the server is marked down.,Allowed values are 1-50.,Default value when not specified in API or module is interpreted by Avi Controller as 2.
         attribute :failed_checks
         validates :failed_checks, type: Integer
 
@@ -33,22 +41,25 @@ module Ansible
         attribute :https_monitor
         validates :https_monitor, type: Hash
 
-        # @return [Object, nil] Use this port instead of the port defined for the server in the pool.,If the monitor succeeds to this port, the load balanced traffic will still be sent to the port of the server defined within the pool.
+        # @return [Object, nil] This field describes the object's replication scope.,If the field is set to false, then the object is visible within the controller-cluster and its associated service-engines.,If the field is set to true, then the object is replicated across the federation.,Field introduced in 17.1.3.,Default value when not specified in API or module is interpreted by Avi Controller as False.
+        attribute :is_federated
+
+        # @return [Object, nil] Use this port instead of the port defined for the server in the pool.,If the monitor succeeds to this port, the load balanced traffic will still be sent to the port of the server defined within the pool.,Allowed values are 1-65535.,Special values are 0 - 'use server port'.
         attribute :monitor_port
 
         # @return [String] A user friendly name for this health monitor.
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [Integer, nil] A valid response from the server is expected within the receive timeout window.,This timeout must be less than the send interval.,If server status is regularly flapping up and down, consider increasing this value.,Default value when not specified in API or module is interpreted by Avi Controller as 4.
+        # @return [Integer, nil] A valid response from the server is expected within the receive timeout window.,This timeout must be less than the send interval.,If server status is regularly flapping up and down, consider increasing this value.,Allowed values are 1-2400.,Default value when not specified in API or module is interpreted by Avi Controller as 4.,Units(SEC).
         attribute :receive_timeout
         validates :receive_timeout, type: Integer
 
-        # @return [Integer, nil] Frequency, in seconds, that monitors are sent to a server.,Default value when not specified in API or module is interpreted by Avi Controller as 10.
+        # @return [Integer, nil] Frequency, in seconds, that monitors are sent to a server.,Allowed values are 1-3600.,Default value when not specified in API or module is interpreted by Avi Controller as 10.,Units(SEC).
         attribute :send_interval
         validates :send_interval, type: Integer
 
-        # @return [Integer, nil] Number of continuous successful health checks before server is marked up.,Default value when not specified in API or module is interpreted by Avi Controller as 2.
+        # @return [Integer, nil] Number of continuous successful health checks before server is marked up.,Allowed values are 1-50.,Default value when not specified in API or module is interpreted by Avi Controller as 2.
         attribute :successful_checks
         validates :successful_checks, type: Integer
 
@@ -58,7 +69,7 @@ module Ansible
         # @return [Object, nil] It is a reference to an object of type tenant.
         attribute :tenant_ref
 
-        # @return [String] Type of the health monitor.
+        # @return [String] Type of the health monitor.,Enum options - HEALTH_MONITOR_PING, HEALTH_MONITOR_TCP, HEALTH_MONITOR_HTTP, HEALTH_MONITOR_HTTPS, HEALTH_MONITOR_EXTERNAL, HEALTH_MONITOR_UDP,,HEALTH_MONITOR_DNS, HEALTH_MONITOR_GSLB.
         attribute :type
         validates :type, presence: true, type: String
 

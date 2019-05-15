@@ -8,7 +8,7 @@ module Ansible
     module Modules
       # Create, manage and delete Windows shortcuts
       class Win_shortcut < Base
-        # @return [String, nil] Executable or URL the shortcut points to.
+        # @return [String, nil] Executable or URL the shortcut points to.,The executable needs to be in your PATH, or has to be an absolute path to the executable.
         attribute :src
         validates :src, type: String
 
@@ -28,20 +28,21 @@ module Ansible
         attribute :directory
         validates :directory, type: String
 
-        # @return [Array<String>, String, nil] Icon used for the shortcut,File name should have a C(.ico) extension.,The file name is followed by a comma and the number in the library file (.dll) or use 0 for an image file.
+        # @return [Array<String>, String, nil] Icon used for the shortcut.,File name should have a C(.ico) extension.,The file name is followed by a comma and the number in the library file (.dll) or use 0 for an image file.
         attribute :icon
         validates :icon, type: TypeGeneric.new(String)
 
-        # @return [Object, nil] Key combination for the shortcut.
+        # @return [String, nil] Key combination for the shortcut.,This is a combination of one or more modifiers and a key.,Possible modifiers are Alt, Ctrl, Shift, Ext.,Possible keys are [A-Z] and [0-9].
         attribute :hotkey
+        validates :hotkey, type: String
 
-        # @return [:default, :maximized, :minimized, nil] Influences how the application is displayed when it is launched.
+        # @return [:maximized, :minimized, :normal, nil] Influences how the application is displayed when it is launched.
         attribute :windowstyle
-        validates :windowstyle, inclusion: {:in=>[:default, :maximized, :minimized], :message=>"%{value} needs to be :default, :maximized, :minimized"}, allow_nil: true
+        validates :windowstyle, inclusion: {:in=>[:maximized, :minimized, :normal], :message=>"%{value} needs to be :maximized, :minimized, :normal"}, allow_nil: true
 
-        # @return [:present, :absent, nil] When C(present), creates or updates the shortcut.  When C(absent), removes the shortcut if it exists.
+        # @return [:absent, :present, nil] When C(absent), removes the shortcut if it exists.,When C(present), creates or updates the shortcut.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
       end
     end
   end

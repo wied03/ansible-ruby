@@ -6,11 +6,11 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
-      # Unified utility to interact with redis instances. 'slave' sets a redis instance in slave or master mode. 'flush' flushes all the instance or a specified db. 'config' (new in 1.6), ensures a configuration setting on an instance.
+      # Unified utility to interact with redis instances.
       class Redis < Base
-        # @return [:slave, :flush, :config] The selected redis command
+        # @return [:config, :flush, :slave] The selected redis command,C(config) (new in 1.6), ensures a configuration setting on an instance.,C(flush) flushes all the instance or a specified db.,C(slave) sets a redis instance in slave or master mode.
         attribute :command
-        validates :command, presence: true, inclusion: {:in=>[:slave, :flush, :config], :message=>"%{value} needs to be :slave, :flush, :config"}
+        validates :command, presence: true, inclusion: {:in=>[:config, :flush, :slave], :message=>"%{value} needs to be :config, :flush, :slave"}
 
         # @return [Object, nil] The password used to authenticate with (usually not used)
         attribute :login_password

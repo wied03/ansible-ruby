@@ -8,9 +8,9 @@ module Ansible
     module Modules
       # Create, start, stop and delete Solaris zones. This module doesn't currently allow changing of options for a zone that's already been created.
       class Solaris_zone < Base
-        # @return [:present, :installed, :started, :running, :stopped, :absent, :configured, :attached, :detached] C(present), configure and install the zone.,C(installed), synonym for C(present).,C(running), if the zone already exists, boot it, otherwise, configure and install the zone first, then boot it.,C(started), synonym for C(running).,C(stopped), shutdown a zone.,C(absent), destroy the zone.,C(configured), configure the ready so that it's to be attached.,C(attached), attach a zone, but do not boot it.,C(detached), shutdown and detach a zone
+        # @return [:absent, :attached, :configured, :detached, :installed, :present, :running, :started, :stopped] C(present), configure and install the zone.,C(installed), synonym for C(present).,C(running), if the zone already exists, boot it, otherwise, configure and install the zone first, then boot it.,C(started), synonym for C(running).,C(stopped), shutdown a zone.,C(absent), destroy the zone.,C(configured), configure the ready so that it's to be attached.,C(attached), attach a zone, but do not boot it.,C(detached), shutdown and detach a zone
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:present, :installed, :started, :running, :stopped, :absent, :configured, :attached, :detached], :message=>"%{value} needs to be :present, :installed, :started, :running, :stopped, :absent, :configured, :attached, :detached"}
+        validates :state, presence: true, inclusion: {:in=>[:absent, :attached, :configured, :detached, :installed, :present, :running, :started, :stopped], :message=>"%{value} needs to be :absent, :attached, :configured, :detached, :installed, :present, :running, :started, :stopped"}
 
         # @return [String] Zone name.
         attribute :name
@@ -20,9 +20,9 @@ module Ansible
         attribute :path
         validates :path, type: String
 
-        # @return [Boolean, nil] Whether to create a sparse (C(true)) or whole root (C(false)) zone.
+        # @return [String, nil] Whether to create a sparse (C(true)) or whole root (C(false)) zone.
         attribute :sparse
-        validates :sparse, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :sparse, type: String
 
         # @return [String, nil] The password hash for the root account. If not specified, the zone's root account will not have a password.
         attribute :root_password

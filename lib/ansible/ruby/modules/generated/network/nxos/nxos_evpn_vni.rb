@@ -24,7 +24,7 @@ module Ansible
         attribute :route_target_import
         validates :route_target_import, type: TypeGeneric.new(String)
 
-        # @return [String, nil] Sets the route-target 'import' extended communities.
+        # @return [String, nil] Sets the route-target 'export' extended communities.
         attribute :route_target_export
         validates :route_target_export, type: String
 

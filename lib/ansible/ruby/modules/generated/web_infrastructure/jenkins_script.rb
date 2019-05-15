@@ -16,9 +16,9 @@ module Ansible
         attribute :url
         validates :url, type: String
 
-        # @return [Boolean, nil] If set to C(no), the SSL certificates will not be validated. This should only set to C(no) used on personally controlled sites using self-signed certificates as it avoids verifying the source site.
+        # @return [String, nil] If set to C(no), the SSL certificates will not be validated. This should only set to C(no) used on personally controlled sites using self-signed certificates as it avoids verifying the source site.
         attribute :validate_certs
-        validates :validate_certs, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :validate_certs, type: String
 
         # @return [String, nil] The username to connect to the jenkins server with.
         attribute :user
@@ -28,7 +28,11 @@ module Ansible
         attribute :password
         validates :password, type: String
 
-        # @return [Hash, nil] A dict of key-value pairs used in formatting the script.
+        # @return [Integer, nil] The request timeout in seconds
+        attribute :timeout
+        validates :timeout, type: Integer
+
+        # @return [Hash, nil] A dict of key-value pairs used in formatting the script using string.Template (see https://docs.python.org/2/library/string.html#template-strings).
         attribute :args
         validates :args, type: Hash
       end

@@ -6,11 +6,15 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
-      # This module provides declarative management of node system attributes on Cisco IOS XR devices.  It provides an option to configure host system parameters or remove those parameters from the device active configuration.
+      # This module provides declarative management of node system attributes on Cisco IOS XR devices. It provides an option to configure host system parameters or remove those parameters from the device active configuration.
       class Iosxr_system < Base
         # @return [String, nil] Configure the device hostname parameter. This option takes an ASCII string value.
         attribute :hostname
         validates :hostname, type: String
+
+        # @return [String, nil] VRF name for domain services
+        attribute :vrf
+        validates :vrf, type: String
 
         # @return [String, nil] Configure the IP domain name on the remote device to the provided value. Value should be in the dotted name form and will be appended to the C(hostname) to create a fully-qualified domain name.
         attribute :domain_name

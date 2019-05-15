@@ -8,11 +8,11 @@ module Ansible
     module Modules
       # Manage Jenkins jobs by using Jenkins REST API.
       class Jenkins_job < Base
-        # @return [String, nil] config in XML format.,Required if job does not yet exist.,Mututally exclusive with C(enabled).,Considered if C(state=present).
+        # @return [String, nil] config in XML format.,Required if job does not yet exist.,Mutually exclusive with C(enabled).,Considered if C(state=present).
         attribute :config
         validates :config, type: String
 
-        # @return [Boolean, nil] Whether the job should be enabled or disabled.,Mututally exclusive with C(config).,Considered if C(state=present).
+        # @return [Boolean, nil] Whether the job should be enabled or disabled.,Mutually exclusive with C(config).,Considered if C(state=present).
         attribute :enabled
         validates :enabled, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
@@ -32,7 +32,7 @@ module Ansible
         attribute :token
         validates :token, type: String
 
-        # @return [String, nil] Url where the Jenkins server is accessible.
+        # @return [String, nil] URL where the Jenkins server is accessible.
         attribute :url
         validates :url, type: String
 

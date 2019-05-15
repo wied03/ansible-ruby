@@ -16,9 +16,8 @@ module Ansible
         attribute :load_path
         validates :load_path, type: String
 
-        # @return [String, nil] Use with state C(present) to provide an alternate name for the Dockerfile to use when building an image.
+        # @return [Object, nil] Use with state C(present) to provide an alternate name for the Dockerfile to use when building an image.
         attribute :dockerfile
-        validates :dockerfile, type: String
 
         # @return [Boolean, nil] Use with state I(absent) to un-tag and remove all images matching the specified name. Use with state C(present) to build, load or pull an image when the image already exists.
         attribute :force
@@ -70,9 +69,9 @@ module Ansible
         # @return [Object, nil] A dictionary of limits applied to each container created by the build process.
         attribute :container_limits
 
-        # @return [false, :encrypt, :verify, nil] DEPRECATED. Whether to use tls to connect to the docker server. Set to C(no) when TLS will not be used. Set to C(encrypt) to use TLS. And set to C(verify) to use TLS and verify that the server's certificate is valid for the server. NOTE: If you specify this option, it will set the value of the tls or tls_verify parameters.
+        # @return [:no, :encrypt, :verify, nil] DEPRECATED. Whether to use tls to connect to the docker server. Set to C(no) when TLS will not be used. Set to C(encrypt) to use TLS. And set to C(verify) to use TLS and verify that the server's certificate is valid for the server. NOTE: If you specify this option, it will set the value of the tls or tls_verify parameters.
         attribute :use_tls
-        validates :use_tls, inclusion: {:in=>[false, :encrypt, :verify], :message=>"%{value} needs to be false, :encrypt, :verify"}, allow_nil: true
+        validates :use_tls, inclusion: {:in=>[:no, :encrypt, :verify], :message=>"%{value} needs to be :no, :encrypt, :verify"}, allow_nil: true
       end
     end
   end

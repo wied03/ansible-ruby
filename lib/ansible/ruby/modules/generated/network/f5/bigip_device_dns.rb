@@ -6,18 +6,15 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
-      # Manage BIG-IP device DNS settings
+      # Manage BIG-IP device DNS settings.
       class Bigip_device_dns < Base
-        # @return [:enable, :disable, nil] Specifies whether the system caches DNS lookups or performs the operation each time a lookup is needed. Please note that this applies only to Access Policy Manager features, such as ACLs, web application rewrites, and authentication.
+        # @return [:enabled, :disabled, :enable, :disable, nil] Specifies whether the system caches DNS lookups or performs the operation each time a lookup is needed. Please note that this applies only to Access Policy Manager features, such as ACLs, web application rewrites, and authentication.
         attribute :cache
-        validates :cache, inclusion: {:in=>[:enable, :disable], :message=>"%{value} needs to be :enable, :disable"}, allow_nil: true
+        validates :cache, inclusion: {:in=>[:enabled, :disabled, :enable, :disable], :message=>"%{value} needs to be :enabled, :disabled, :enable, :disable"}, allow_nil: true
 
-        # @return [Array<String>, String, nil] A list of name serverz that the system uses to validate DNS lookups
+        # @return [Array<String>, String, nil] A list of name servers that the system uses to validate DNS lookups
         attribute :name_servers
         validates :name_servers, type: TypeGeneric.new(String)
-
-        # @return [Object, nil] A list of BIND servers that the system can use to perform DNS lookups
-        attribute :forwarders
 
         # @return [Array<String>, String, nil] A list of domains that the system searches for local domain lookups, to resolve local host names.
         attribute :search

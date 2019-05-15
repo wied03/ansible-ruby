@@ -74,9 +74,9 @@ module Ansible
         attribute :override
         validates :override, type: String
 
-        # @return [Boolean, nil] commit if changed
+        # @return [String, nil] commit if changed
         attribute :commit
-        validates :commit, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :commit, type: String
       end
     end
   end

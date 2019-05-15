@@ -12,6 +12,12 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
+        # @return [Object, nil] The Id of the image
+        attribute :id
+
+        # @return [Object, nil] The checksum of the image
+        attribute :checksum
+
         # @return [String, nil] The format of the disk that is getting uploaded
         attribute :disk_format
         validates :disk_format, type: String
@@ -52,7 +58,7 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [Object, nil] Ignored. Present for backwards compatability
+        # @return [Object, nil] Ignored. Present for backwards compatibility
         attribute :availability_zone
       end
     end

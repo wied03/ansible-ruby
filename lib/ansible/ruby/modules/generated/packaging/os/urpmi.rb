@@ -8,25 +8,29 @@ module Ansible
     module Modules
       # Manages packages with I(urpmi) (such as for Mageia or Mandriva)
       class Urpmi < Base
-        # @return [Array<String>, String] name of package to install, upgrade or remove.
-        attribute :pkg
-        validates :pkg, presence: true, type: TypeGeneric.new(String)
+        # @return [String] A list of package names to install, upgrade or remove.
+        attribute :name
+        validates :name, presence: true, type: String
 
-        # @return [:absent, :present, nil] Indicates the desired package state
+        # @return [:absent, :present, nil] Indicates the desired package state.
         attribute :state
         validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
-        # @return [Boolean, nil] update the package database first C(urpmi.update -a).
+        # @return [String, nil] Update the package database first C(urpmi.update -a).
         attribute :update_cache
-        validates :update_cache, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :update_cache, type: String
 
-        # @return [Boolean, nil] Corresponds to the C(--no-recommends) option for I(urpmi).
+        # @return [String, nil] Corresponds to the C(--no-recommends) option for I(urpmi).
         attribute :no_recommends, original_name: 'no-recommends'
-        validates :no_recommends, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :no_recommends, type: String
 
-        # @return [Boolean, nil] Assume "yes" is the answer to any question urpmi has to ask. Corresponds to the C(--force) option for I(urpmi).
+        # @return [String, nil] Assume "yes" is the answer to any question urpmi has to ask. Corresponds to the C(--force) option for I(urpmi).
         attribute :force
-        validates :force, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :force, type: String
+
+        # @return [String, nil] Specifies an alternative install root, relative to which all packages will be installed. Corresponds to the C(--root) option for I(urpmi).
+        attribute :root
+        validates :root, type: String
       end
     end
   end

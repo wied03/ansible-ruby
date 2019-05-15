@@ -20,20 +20,23 @@ module Ansible
         attribute :vrf
         validates :vrf, type: String
 
-        # @return [Object, nil] Route tag value (numeric).
+        # @return [Object, nil] Route tag value (numeric) or keyword 'default'.
         attribute :tag
 
-        # @return [String, nil] Name of the route. Used with the name parameter on the CLI.
+        # @return [String, nil] Name of the route or keyword 'default'. Used with the name parameter on the CLI.
         attribute :route_name
         validates :route_name, type: String
 
-        # @return [Integer, nil] Preference or administrative difference of route (range 1-255).
+        # @return [Integer, nil] Preference or administrative difference of route (range 1-255) or keyword 'default'.
         attribute :pref
         validates :pref, type: Integer
 
-        # @return [:present, :absent] Manage the state of the resource.
+        # @return [Object, nil] List of static route definitions
+        attribute :aggregate
+
+        # @return [:present, :absent, nil] Manage the state of the resource.
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
+        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

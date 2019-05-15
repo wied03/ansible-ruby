@@ -8,9 +8,9 @@ module Ansible
     module Modules
       # Upload, download, and delete objects in Rackspace Cloud Files
       class Rax_files_objects < Base
-        # @return [:yes, :no, nil] Optionally clear existing metadata when applying metadata to existing objects. Selecting this option is only appropriate when setting type=meta
+        # @return [String, nil] Optionally clear existing metadata when applying metadata to existing objects. Selecting this option is only appropriate when setting type=meta
         attribute :clear_meta
-        validates :clear_meta, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :clear_meta, type: String
 
         # @return [Object] The container to use for file object operations.
         attribute :container
@@ -32,9 +32,9 @@ module Ansible
         # @return [Object, nil] Source from which to upload files.  Used to specify a remote object as a source for an operation, i.e. a file name, "file1", or a comma-separated list of remote objects, "file1,file2,file17".  src and dest are mutually exclusive on remote-only object operations
         attribute :src
 
-        # @return [true, :no, nil] Used to specify whether to maintain nested directory structure when downloading objects from Cloud Files.  Setting to false downloads the contents of a container to a single, flat directory
+        # @return [String, nil] Used to specify whether to maintain nested directory structure when downloading objects from Cloud Files.  Setting to false downloads the contents of a container to a single, flat directory
         attribute :structure
-        validates :structure, inclusion: {:in=>[true, :no], :message=>"%{value} needs to be true, :no"}, allow_nil: true
+        validates :structure, type: String
 
         # @return [:present, :absent, nil] Indicate desired state of the resource
         attribute :state

@@ -32,9 +32,9 @@ module Ansible
         attribute :interval
         validates :interval, type: Integer
 
-        # @return [:text, :json, :xml, nil] Encoding scheme to use when serializing output from the device. This handles how to properly understand the output and apply the conditionals path to the result set. For I(rpcs) argument default display is C(xml) and for I(commands) argument default display is C(text).
+        # @return [:text, :json, :xml, :set, nil] Encoding scheme to use when serializing output from the device. This handles how to properly understand the output and apply the conditionals path to the result set. For I(rpcs) argument default display is C(xml) and for I(commands) argument default display is C(text). Value C(set) is applicable only for fetching configuration from device.
         attribute :display
-        validates :display, inclusion: {:in=>[:text, :json, :xml], :message=>"%{value} needs to be :text, :json, :xml"}, allow_nil: true
+        validates :display, inclusion: {:in=>[:text, :json, :xml, :set], :message=>"%{value} needs to be :text, :json, :xml, :set"}, allow_nil: true
       end
     end
   end

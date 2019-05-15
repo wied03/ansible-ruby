@@ -19,13 +19,6 @@ module Ansible
         # @return [:present, :absent, nil] Specify desired state of the resource.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
-
-        # @return [Boolean, nil] Specify to retrieve or not the complete running configuration for module operations.
-        attribute :include_defaults
-        validates :include_defaults, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
-
-        # @return [Object, nil] Specify the configuration string to be used for module operations.
-        attribute :config
       end
     end
   end

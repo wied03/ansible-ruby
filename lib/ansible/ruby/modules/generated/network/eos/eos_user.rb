@@ -9,12 +9,16 @@ module Ansible
       # This module provides declarative management of the local usernames configured on Arista EOS devices.  It allows playbooks to manage either individual usernames or the collection of usernames in the current running config.  It also supports purging usernames from the configuration that are not explicitly defined.
       class Eos_user < Base
         # @return [Array<Hash>, Hash, nil] The set of username objects to be configured on the remote Arista EOS device.  The list entries can either be the username or a hash of username and properties.  This argument is mutually exclusive with the C(username) argument.
-        attribute :users
-        validates :users, type: TypeGeneric.new(Hash)
+        attribute :aggregate
+        validates :aggregate, type: TypeGeneric.new(Hash)
 
-        # @return [String, nil] The username to be configured on the remote Arista EOS device.  This argument accepts a stringv value and is mutually exclusive with the C(users) argument. Please note that this option is not same as C(provider username).
-        attribute :username
-        validates :username, type: String
+        # @return [String, nil] The username to be configured on the remote Arista EOS device.  This argument accepts a stringv value and is mutually exclusive with the C(aggregate) argument. Please note that this option is not same as C(provider username).
+        attribute :name
+        validates :name, type: String
+
+        # @return [String, nil] The password to be configured on the remote Arista EOS device. The password needs to be provided in clear and it will be encrypted on the device. Please note that this option is not same as C(provider password).
+        attribute :configured_password
+        validates :configured_password, type: String
 
         # @return [:on_create, :always, nil] Since passwords are encrypted in the device running config, this argument will instruct the module when to change the password.  When set to C(always), the password will always be updated in the device and when set to C(on_create) the password will be updated only if the username is created.
         attribute :update_password

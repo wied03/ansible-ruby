@@ -9,11 +9,14 @@ module Ansible
       # This module provides declarative management of the local usernames configured on Cisco Nexus devices.  It allows playbooks to manage either individual usernames or the collection of usernames in the current running config.  It also supports purging usernames from the configuration that are not explicitly defined.
       class Nxos_user < Base
         # @return [Object, nil] The set of username objects to be configured on the remote Cisco Nexus device.  The list entries can either be the username or a hash of username and properties.  This argument is mutually exclusive with the C(name) argument.
-        attribute :users
+        attribute :aggregate
 
-        # @return [String, nil] The username to be configured on the remote Cisco Nexus device.  This argument accepts a stringv value and is mutually exclusive with the C(users) argument.
+        # @return [String, nil] The username to be configured on the remote Cisco Nexus device.  This argument accepts a string value and is mutually exclusive with the C(aggregate) argument.
         attribute :name
         validates :name, type: String
+
+        # @return [Object, nil] The password to be configured on the network device. The password needs to be provided in cleartext and it will be encrypted on the device. Please note that this option is not same as C(provider password).
+        attribute :configured_password
 
         # @return [:on_create, :always, nil] Since passwords are encrypted in the device running config, this argument will instruct the module when to change the password.  When set to C(always), the password will always be updated in the device and when set to C(on_create) the password will be updated only if the username is created.
         attribute :update_password
@@ -26,9 +29,9 @@ module Ansible
         attribute :sshkey
         validates :sshkey, type: String
 
-        # @return [Boolean, nil] The C(purge) argument instructs the module to consider the resource definition absolute.  It will remove any previously configured usernames on the device with the exception of the `admin` user which cannot be deleted per nxos constraints.
+        # @return [String, nil] The C(purge) argument instructs the module to consider the resource definition absolute.  It will remove any previously configured usernames on the device with the exception of the `admin` user which cannot be deleted per nxos constraints.
         attribute :purge
-        validates :purge, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :purge, type: String
 
         # @return [:present, :absent, nil] The C(state) argument configures the state of the username definition as it relates to the device operational configuration.  When set to I(present), the username(s) should be configured in the device active configuration and when set to I(absent) the username(s) should not be in the device active configuration
         attribute :state

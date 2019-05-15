@@ -8,10 +8,6 @@ module Ansible
     module Modules
       # Manage SNAT pools on a BIG-IP.
       class Bigip_snat_pool < Base
-        # @return [Boolean, nil] When C(yes), will only add members to the SNAT pool. When C(no), will replace the existing member list with the provided member list.
-        attribute :append
-        validates :append, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
-
         # @return [Array<String>, String, nil] List of members to put in the SNAT pool. When a C(state) of present is provided, this parameter is required. Otherwise, it is optional.
         attribute :members
         validates :members, type: TypeGeneric.new(String)
@@ -23,6 +19,10 @@ module Ansible
         # @return [:present, :absent, nil] Whether the SNAT pool should exist or not.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+
+        # @return [String, nil] Device partition to manage resources on.
+        attribute :partition
+        validates :partition, type: String
       end
     end
   end

@@ -20,6 +20,10 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
+        # @return [:static, :dynamic, nil] The type of routing.
+        attribute :routing
+        validates :routing, inclusion: {:in=>[:static, :dynamic], :message=>"%{value} needs to be :static, :dynamic"}, allow_nil: true
+
         # @return [:present, :absent, nil] Create or terminate the Customer Gateway.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true

@@ -16,7 +16,7 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [Object, nil] The list  of source addresses for traffic on the originating firewall. This is required when state is 'present"
+        # @return [Object, nil] The list  of source addresses for traffic on the originating firewall. This is required when state is 'present'
         attribute :source
 
         # @return [Object, nil] The list of destination addresses for traffic on the terminating firewall. This is required when state is 'present'
@@ -36,9 +36,9 @@ module Ansible
         # @return [Object, nil] CLC alias for the destination account
         attribute :destination_account_alias
 
-        # @return [Boolean, nil] Whether to wait for the provisioning tasks to finish before returning.
+        # @return [String, nil] Whether to wait for the provisioning tasks to finish before returning.
         attribute :wait
-        validates :wait, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :wait, type: String
 
         # @return [Boolean, nil] Whether the firewall policy is enabled or disabled
         attribute :enabled

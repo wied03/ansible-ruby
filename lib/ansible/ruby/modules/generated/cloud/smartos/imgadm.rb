@@ -8,9 +8,8 @@ module Ansible
     module Modules
       # Manage SmartOS virtual machine images through imgadm(1M)
       class Imgadm < Base
-        # @return [Boolean, nil] Force a given operation (where supported by imgadm(1M)).
+        # @return [Object, nil] Force a given operation (where supported by imgadm(1M)).
         attribute :force
-        validates :force, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [String, nil] zpool to import to or delete images from.
         attribute :pool

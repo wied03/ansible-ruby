@@ -16,9 +16,9 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :reset], :message=>"%{value} needs to be :present, :reset"}, allow_nil: true
 
-        # @return [String, nil] The value to set the key to. At least one of value and state C(reset) are required.
+        # @return [Boolean, nil] The value to set the key to. At least one of value and state C(reset) are required.
         attribute :value
-        validates :value, type: String
+        validates :value, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
       end
     end
   end

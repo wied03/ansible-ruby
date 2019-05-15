@@ -46,9 +46,8 @@ module Ansible
         # @return [Object, nil] Display name (not gecos)
         attribute :display_name
 
-        # @return [String, nil] A list of e-mail addresses.
+        # @return [Object, nil] A list of e-mail addresses.
         attribute :email
-        validates :email, type: String
 
         # @return [Object, nil] Employee number
         attribute :employee_number
@@ -89,13 +88,13 @@ module Ansible
         # @return [Object, nil] Organisation
         attribute :organisation
 
-        # @return [Boolean, nil] Override password history
+        # @return [String, nil] Override password history
         attribute :override_pw_history
-        validates :override_pw_history, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :override_pw_history, type: String
 
-        # @return [Boolean, nil] Override password check
+        # @return [String, nil] Override password check
         attribute :override_pw_length
-        validates :override_pw_length, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :override_pw_length, type: String
 
         # @return [Object, nil] List of pager telephone numbers.
         attribute :pager_telephonenumber
@@ -135,9 +134,8 @@ module Ansible
         # @return [Object, nil] A list of superiors as LDAP DNs.
         attribute :secretary
 
-        # @return [String, nil] Enable user for the following service providers.
+        # @return [Object, nil] Enable user for the following service providers.
         attribute :serviceprovider
-        validates :serviceprovider, type: String
 
         # @return [String, nil] Login shell
         attribute :shell

@@ -8,15 +8,15 @@ module Ansible
     module Modules
       # Retrieve facts about server instances from OpenStack.
       class Os_server_facts < Base
-        # @return [String, nil] restrict results to servers with names or UUID matching this glob expression (e.g., C<web*>).
+        # @return [String, nil] restrict results to servers with names or UUID matching this glob expression (e.g., <web*>).
         attribute :server
         validates :server, type: String
 
-        # @return [Boolean, nil] when true, return additional detail about servers at the expense of additional API calls.
+        # @return [String, nil] when true, return additional detail about servers at the expense of additional API calls.
         attribute :detailed
-        validates :detailed, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :detailed, type: String
 
-        # @return [Object, nil] Ignored. Present for backwards compatability
+        # @return [Object, nil] Ignored. Present for backwards compatibility
         attribute :availability_zone
       end
     end

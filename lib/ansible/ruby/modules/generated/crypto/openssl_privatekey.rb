@@ -20,13 +20,21 @@ module Ansible
         attribute :type
         validates :type, inclusion: {:in=>[:RSA, :DSA], :message=>"%{value} needs to be :RSA, :DSA"}, allow_nil: true
 
-        # @return [Boolean, nil] Should the key be regenerated even it it already exists
+        # @return [Boolean, nil] Should the key be regenerated even if it already exists
         attribute :force
         validates :force, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [String] Name of the file in which the generated TLS/SSL private key will be written. It will have 0600 mode.
         attribute :path
         validates :path, presence: true, type: String
+
+        # @return [String, nil] The passphrase for the private key.
+        attribute :passphrase
+        validates :passphrase, type: String
+
+        # @return [String, nil] The cipher to encrypt the private key. (cipher can be found by running `openssl list-cipher-algorithms`)
+        attribute :cipher
+        validates :cipher, type: String
       end
     end
   end

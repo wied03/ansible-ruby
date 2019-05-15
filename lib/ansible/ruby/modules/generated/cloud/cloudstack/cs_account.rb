@@ -8,24 +8,29 @@ module Ansible
     module Modules
       # Create, disable, lock, enable and remove accounts.
       class Cs_account < Base
-        # @return [Object] Name of account.
+        # @return [String] Name of account.
         attribute :name
-        validates :name, presence: true
+        validates :name, presence: true, type: String
 
-        # @return [Object, nil] Username of the user to be created if account did not exist.,Required on C(state=present).
+        # @return [String, nil] Username of the user to be created if account did not exist.,Required on C(state=present).
         attribute :username
+        validates :username, type: String
 
-        # @return [Object, nil] Password of the user to be created if account did not exist.,Required on C(state=present).
+        # @return [String, nil] Password of the user to be created if account did not exist.,Required on C(state=present).
         attribute :password
+        validates :password, type: String
 
-        # @return [Object, nil] First name of the user to be created if account did not exist.,Required on C(state=present).
+        # @return [String, nil] First name of the user to be created if account did not exist.,Required on C(state=present).
         attribute :first_name
+        validates :first_name, type: String
 
-        # @return [Object, nil] Last name of the user to be created if account did not exist.,Required on C(state=present).
+        # @return [String, nil] Last name of the user to be created if account did not exist.,Required on C(state=present).
         attribute :last_name
+        validates :last_name, type: String
 
-        # @return [Object, nil] Email of the user to be created if account did not exist.,Required on C(state=present).
+        # @return [String, nil] Email of the user to be created if account did not exist.,Required on C(state=present).
         attribute :email
+        validates :email, type: String
 
         # @return [Object, nil] Timezone of the user to be created if account did not exist.
         attribute :timezone
@@ -45,9 +50,9 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent, :enabled, :disabled, :locked, :unlocked], :message=>"%{value} needs to be :present, :absent, :enabled, :disabled, :locked, :unlocked"}, allow_nil: true
 
-        # @return [Boolean, nil] Poll async jobs until job has finished.
+        # @return [String, nil] Poll async jobs until job has finished.
         attribute :poll_async
-        validates :poll_async, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :poll_async, type: String
       end
     end
   end

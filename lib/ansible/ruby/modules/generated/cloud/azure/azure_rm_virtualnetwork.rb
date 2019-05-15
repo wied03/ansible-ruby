@@ -20,21 +20,20 @@ module Ansible
         attribute :dns_servers
         validates :dns_servers, type: TypeGeneric.new(String)
 
-        # @return [String, nil] Valid azure location. Defaults to location of the resource group.
+        # @return [Object, nil] Valid azure location. Defaults to location of the resource group.
         attribute :location
-        validates :location, type: String
 
         # @return [String] name of the virtual network.
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [Boolean, nil] Use with state present to remove any existing address_prefixes.
+        # @return [String, nil] Use with state present to remove any existing address_prefixes.
         attribute :purge_address_prefixes
-        validates :purge_address_prefixes, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :purge_address_prefixes, type: String
 
-        # @return [Boolean, nil] Use with state present to remove existing DNS servers, reverting to default Azure servers. Mutually exclusive with dns_servers.
+        # @return [String, nil] Use with state present to remove existing DNS servers, reverting to default Azure servers. Mutually exclusive with dns_servers.
         attribute :purge_dns_servers
-        validates :purge_dns_servers, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :purge_dns_servers, type: String
 
         # @return [:absent, :present, nil] Assert the state of the virtual network. Use 'present' to create or update and 'absent' to delete.
         attribute :state

@@ -16,6 +16,10 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
+        # @return [String, nil] Tag for the stack that should be created, name could be char and digit, no space
+        attribute :tag
+        validates :tag, type: String
+
         # @return [String, nil] Path of the template file to use for the stack creation
         attribute :template
         validates :template, type: String
@@ -28,15 +32,15 @@ module Ansible
         attribute :parameters
         validates :parameters, type: Hash
 
-        # @return [Boolean, nil] Rollback stack creation
+        # @return [String, nil] Rollback stack creation
         attribute :rollback
-        validates :rollback, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :rollback, type: String
 
         # @return [Integer, nil] Maximum number of seconds to wait for the stack creation
         attribute :timeout
         validates :timeout, type: Integer
 
-        # @return [Object, nil] Ignored. Present for backwards compatability
+        # @return [Object, nil] Ignored. Present for backwards compatibility
         attribute :availability_zone
       end
     end

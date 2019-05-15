@@ -8,15 +8,15 @@ module Ansible
     module Modules
       # Retrieve facts about a one or more OpenStack domains
       class Os_keystone_domain_facts < Base
-        # @return [String] Name or ID of the domain
+        # @return [String, nil] Name or ID of the domain
         attribute :name
-        validates :name, presence: true, type: String
+        validates :name, type: String
 
         # @return [Hash, nil] A dictionary of meta data to use for further filtering.  Elements of this dictionary may be additional dictionaries.
         attribute :filters
         validates :filters, type: Hash
 
-        # @return [Object, nil] Ignored. Present for backwards compatability
+        # @return [Object, nil] Ignored. Present for backwards compatibility
         attribute :availability_zone
       end
     end

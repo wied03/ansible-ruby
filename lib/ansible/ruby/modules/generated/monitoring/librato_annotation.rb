@@ -32,11 +32,11 @@ module Ansible
         attribute :description
         validates :description, type: String
 
-        # @return [Integer, nil] The unix timestamp indicating the the time at which the event referenced by this annotation started
+        # @return [Integer, nil] The unix timestamp indicating the time at which the event referenced by this annotation started
         attribute :start_time
         validates :start_time, type: Integer
 
-        # @return [Integer, nil] The unix timestamp indicating the the time at which the event referenced by this annotation ended,For events that have a duration, this is a useful way to annotate the duration of the event
+        # @return [Integer, nil] The unix timestamp indicating the time at which the event referenced by this annotation ended,For events that have a duration, this is a useful way to annotate the duration of the event
         attribute :end_time
         validates :end_time, type: Integer
 

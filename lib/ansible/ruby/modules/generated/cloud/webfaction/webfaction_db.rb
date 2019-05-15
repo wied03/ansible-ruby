@@ -6,7 +6,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
-      # Add or remove a database on a Webfaction host. Further documentation at http://github.com/quentinsf/ansible-webfaction.
+      # Add or remove a database on a Webfaction host. Further documentation at https://github.com/quentinsf/ansible-webfaction.
       class Webfaction_db < Base
         # @return [String] The name of the database
         attribute :name

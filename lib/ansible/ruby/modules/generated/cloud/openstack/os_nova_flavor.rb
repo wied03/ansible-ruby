@@ -40,15 +40,15 @@ module Ansible
         attribute :rxtx_factor
         validates :rxtx_factor, type: Float
 
-        # @return [Boolean, nil] Make flavor accessible to the public.
+        # @return [String, nil] Make flavor accessible to the public.
         attribute :is_public
-        validates :is_public, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :is_public, type: String
 
         # @return [String, nil] ID for the flavor. This is optional as a unique UUID will be assigned if a value is not specified.
         attribute :flavorid
         validates :flavorid, type: String
 
-        # @return [Object, nil] Ignored. Present for backwards compatability
+        # @return [Object, nil] Ignored. Present for backwards compatibility
         attribute :availability_zone
 
         # @return [Hash, nil] Metadata dictionary

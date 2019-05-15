@@ -14,28 +14,24 @@ module Ansible
         # @return [Object, nil] Specifies the number of seconds of inactivity before the system logs off a user that is logged on.
         attribute :console_timeout
 
-        # @return [:enabled, :disabled, nil] C(enable) or C(disabled) the Setup utility in the browser-based Configuration utility
+        # @return [Boolean, nil] C(enable) or C(disabled) the Setup utility in the browser-based Configuration utility.
         attribute :gui_setup
-        validates :gui_setup, inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
+        validates :gui_setup, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
-        # @return [:enabled, :disabled, nil] Specifies, when C(enabled), that the system menu displays on the LCD screen on the front of the unit. This setting has no effect when used on the VE platform.
+        # @return [Object, nil] Specifies, when C(enabled), that the system menu displays on the LCD screen on the front of the unit. This setting has no effect when used on the VE platform.
         attribute :lcd_display
-        validates :lcd_display, inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
 
-        # @return [:enabled, :disabled, nil] Specifies whether or not to enable DHCP client on the management interface
+        # @return [Object, nil] Specifies whether or not to enable DHCP client on the management interface
         attribute :mgmt_dhcp
-        validates :mgmt_dhcp, inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
 
-        # @return [:enabled, :disabled, nil] Specifies, when C(enabled), that the next time you reboot the system, the system boots to an ISO image on the network, rather than an internal media drive.
+        # @return [Object, nil] Specifies, when C(enabled), that the next time you reboot the system, the system boots to an ISO image on the network, rather than an internal media drive.
         attribute :net_reboot
-        validates :net_reboot, inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
 
         # @return [Object, nil] Specifies, when C(enabled), that the system suppresses informational text on the console during the boot cycle. When C(disabled), the system presents messages and informational text on the console during the boot cycle.
         attribute :quiet_boot
 
-        # @return [:enabled, :disabled, nil] Specifies whether the system displays an advisory message on the login screen.
+        # @return [Object, nil] Specifies whether the system displays an advisory message on the login screen.
         attribute :security_banner
-        validates :security_banner, inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
 
         # @return [:present, nil] The state of the variable on the system. When C(present), guarantees that an existing variable is set to C(value).
         attribute :state

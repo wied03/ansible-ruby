@@ -20,7 +20,7 @@ module Ansible
         attribute :name
         validates :name, type: String
 
-        # @return [Hash, nil] Blueprint parameter value.  This value may be transformed by using the I(param_map) field; used when the the blueprint parameter requires an AOS unique ID value.
+        # @return [Hash, nil] Blueprint parameter value.  This value may be transformed by using the I(param_map) field; used when the blueprint parameter requires an AOS unique ID value.
         attribute :value
         validates :value, type: Hash
 

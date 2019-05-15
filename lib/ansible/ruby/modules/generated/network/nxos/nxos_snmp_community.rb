@@ -20,13 +20,12 @@ module Ansible
         attribute :group
         validates :group, type: String
 
-        # @return [Integer, nil] ACL name to filter snmp requests.
+        # @return [Object, nil] ACL name to filter snmp requests or keyword 'default'.
         attribute :acl
-        validates :acl, type: Integer
 
-        # @return [:present, :absent] Manage the state of the resource.
+        # @return [:present, :absent, nil] Manage the state of the resource.
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
+        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

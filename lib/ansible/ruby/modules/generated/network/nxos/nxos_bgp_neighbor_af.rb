@@ -45,19 +45,20 @@ module Ansible
         # @return [Object, nil] Activate allowas-in property
         attribute :allowas_in
 
-        # @return [Object, nil] Optional max-occurrences value for allowas_in. Valid values are an integer value or 'default'. Can be used independently or in conjunction with allowas_in.
+        # @return [Object, nil] Max-occurrences value for allowas_in. Valid values are an integer value or 'default'. This is mutually exclusive with allowas_in.
         attribute :allowas_in_max
 
-        # @return [:true, :false, nil] Activate the as-override feature.
+        # @return [Object, nil] Activate the as-override feature.
         attribute :as_override
-        validates :as_override, inclusion: {:in=>[:true, :false], :message=>"%{value} needs to be :true, :false"}, allow_nil: true
 
-        # @return [:true, :false, nil] Activate the default-originate feature.
+        # @return [Object, nil] Activate the default-originate feature.
         attribute :default_originate
-        validates :default_originate, inclusion: {:in=>[:true, :false], :message=>"%{value} needs to be :true, :false"}, allow_nil: true
 
-        # @return [Object, nil] Optional route-map for the default_originate property. Can be used independently or in conjunction with C(default_originate). Valid values are a string defining a route-map name, or 'default'.
+        # @return [Object, nil] Route-map for the default_originate property. Valid values are a string defining a route-map name, or 'default'. This is mutually exclusive with default_originate.
         attribute :default_originate_route_map
+
+        # @return [Object, nil] Disable checking of peer AS-number while advertising
+        attribute :disable_peer_as_check
 
         # @return [Object, nil] Valid values are a string defining a filter-list name, or 'default'.
         attribute :filter_list_in
@@ -68,23 +69,20 @@ module Ansible
         # @return [Object, nil] maximum-prefix limit value. Valid values are an integer value or 'default'.
         attribute :max_prefix_limit
 
-        # @return [Object, nil] Optional restart interval. Valid values are an integer. Requires max_prefix_limit.
+        # @return [Object, nil] Optional restart interval. Valid values are an integer. Requires max_prefix_limit. May not be combined with max_prefix_warning.
         attribute :max_prefix_interval
 
         # @return [Object, nil] Optional threshold percentage at which to generate a warning. Valid values are an integer value. Requires max_prefix_limit.
         attribute :max_prefix_threshold
 
-        # @return [:true, :false, nil] Optional warning-only keyword. Requires max_prefix_limit.
+        # @return [Object, nil] Optional warning-only keyword. Requires max_prefix_limit. May not be combined with max_prefix_interval.
         attribute :max_prefix_warning
-        validates :max_prefix_warning, inclusion: {:in=>[:true, :false], :message=>"%{value} needs to be :true, :false"}, allow_nil: true
 
-        # @return [:true, :false, nil] Activate the next-hop-self feature.
+        # @return [Object, nil] Activate the next-hop-self feature.
         attribute :next_hop_self
-        validates :next_hop_self, inclusion: {:in=>[:true, :false], :message=>"%{value} needs to be :true, :false"}, allow_nil: true
 
-        # @return [:true, :false, nil] Activate the next-hop-third-party feature.
+        # @return [Object, nil] Activate the next-hop-third-party feature.
         attribute :next_hop_third_party
-        validates :next_hop_third_party, inclusion: {:in=>[:true, :false], :message=>"%{value} needs to be :true, :false"}, allow_nil: true
 
         # @return [Object, nil] Valid values are a string defining a prefix-list name, or 'default'.
         attribute :prefix_list_in
@@ -98,9 +96,9 @@ module Ansible
         # @return [Object, nil] Valid values are a string defining a route-map name, or 'default'.
         attribute :route_map_out
 
-        # @return [:true, :false, nil] Router reflector client.
+        # @return [Boolean, nil] Router reflector client.
         attribute :route_reflector_client
-        validates :route_reflector_client, inclusion: {:in=>[:true, :false], :message=>"%{value} needs to be :true, :false"}, allow_nil: true
+        validates :route_reflector_client, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [:none, :both, :extended, :standard, :default, nil] send-community attribute.
         attribute :send_community
@@ -113,9 +111,8 @@ module Ansible
         # @return [Object, nil] Site-of-origin. Valid values are a string defining a VPN extcommunity or 'default'.
         attribute :soo
 
-        # @return [:true, :false, :default, nil] suppress-inactive feature.
+        # @return [Object, nil] suppress-inactive feature.
         attribute :suppress_inactive
-        validates :suppress_inactive, inclusion: {:in=>[:true, :false, :default], :message=>"%{value} needs to be :true, :false, :default"}, allow_nil: true
 
         # @return [Object, nil] unsuppress-map. Valid values are a string defining a route-map name or 'default'.
         attribute :unsuppress_map

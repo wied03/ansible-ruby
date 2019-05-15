@@ -6,27 +6,30 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
-      # Add a VMware Standard Switch to an ESXi host
+      # This module can be used to add, remove and update a VMware Standard Switch to an ESXi host.
       class Vmware_vswitch < Base
-        # @return [String] vSwitch name to add
-        attribute :switch_name
-        validates :switch_name, presence: true, type: String
+        # @return [String] vSwitch name to add.,Alias C(switch) is added in version 2.4.
+        attribute :switch
+        validates :switch, presence: true, type: String
 
-        # @return [String] vmnic name to attach to vswitch
-        attribute :nic_name
-        validates :nic_name, presence: true, type: String
+        # @return [Object, nil] A list of vmnic names or vmnic name to attach to vSwitch.,Alias C(nics) is added in version 2.4.
+        attribute :nics
 
-        # @return [Integer, nil] Number of port to configure on vswitch
+        # @return [Integer, nil] Number of port to configure on vSwitch.
         attribute :number_of_ports
         validates :number_of_ports, type: Integer
 
-        # @return [Integer, nil] MTU to configure on vswitch
+        # @return [Integer, nil] MTU to configure on vSwitch.
         attribute :mtu
         validates :mtu, type: Integer
 
-        # @return [:present, :absent, nil] Add or remove the switch
+        # @return [:absent, :present, nil] Add or remove the switch.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
+
+        # @return [String, nil] Manage the vSwitch using this ESXi host system.
+        attribute :esxi_hostname
+        validates :esxi_hostname, type: String
       end
     end
   end

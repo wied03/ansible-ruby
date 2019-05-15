@@ -22,19 +22,18 @@ module Ansible
         attribute :password
         validates :password, presence: true, type: String
 
-        # @return [String, nil] The email address for the registry account. NOTE: private registries may not require this, but Docker Hub requires it.
+        # @return [Object, nil] The email address for the registry account.
         attribute :email
-        validates :email, type: String
 
-        # @return [Boolean, nil] Refresh exiting authentication found in the configuration file.
+        # @return [String, nil] Refresh existing authentication found in the configuration file.
         attribute :reauthorize
-        validates :reauthorize, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :reauthorize, type: String
 
         # @return [String, nil] Custom path to the Docker CLI configuration file.
         attribute :config_path
         validates :config_path, type: String
 
-        # @return [:present, :absent, nil] This controls the current state of the user. C(present) will login in a user, C(absent) will log him out.,To logout you only need the registry server, which defaults to DockerHub.,Before 2.1 you could ONLY log in.,docker does not support 'logout' with a custom config file.
+        # @return [:present, :absent, nil] This controls the current state of the user. C(present) will login in a user, C(absent) will log them out.,To logout you only need the registry server, which defaults to DockerHub.,Before 2.1 you could ONLY log in.,docker does not support 'logout' with a custom config file.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end

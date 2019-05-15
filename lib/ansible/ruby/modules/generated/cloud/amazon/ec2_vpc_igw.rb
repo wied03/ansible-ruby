@@ -12,6 +12,9 @@ module Ansible
         attribute :vpc_id
         validates :vpc_id, presence: true
 
+        # @return [Object, nil] A dict of tags to apply to the internet gateway. Any tags currently applied to the internet gateway and not present here will be removed.
+        attribute :tags
+
         # @return [:present, :absent, nil] Create or terminate the IGW
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true

@@ -6,7 +6,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
-      # osx_defaults allows users to read, write, and delete Mac OS X user defaults from Ansible scripts. Mac OS X applications and other programs use the defaults system to record user preferences and other information that must be maintained when the applications aren't running (such as default font for new documents, or the position of an Info panel).
+      # osx_defaults allows users to read, write, and delete macOS user defaults from Ansible scripts. macOS applications and other programs use the defaults system to record user preferences and other information that must be maintained when the applications aren't running (such as default font for new documents, or the position of an Info panel).
       class Osx_defaults < Base
         # @return [String, nil] The domain is a domain name of the form com.companyname.appname.
         attribute :domain
@@ -24,9 +24,9 @@ module Ansible
         attribute :type
         validates :type, inclusion: {:in=>[:array, :bool, :boolean, :date, :float, :int, :integer, :string], :message=>"%{value} needs to be :array, :bool, :boolean, :date, :float, :int, :integer, :string"}, allow_nil: true
 
-        # @return [Boolean, nil] Add new elements to the array for a key which has an array as its value.
+        # @return [String, nil] Add new elements to the array for a key which has an array as its value.
         attribute :array_add
-        validates :array_add, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :array_add, type: String
 
         # @return [Boolean, nil] The value to write. Only required when state = present.
         attribute :value

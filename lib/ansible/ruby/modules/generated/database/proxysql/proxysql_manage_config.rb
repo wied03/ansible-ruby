@@ -23,26 +23,6 @@ module Ansible
         # @return [:MEMORY, :DISK, :RUNTIME, :CONFIG] RUNTIME - represents the in-memory data structures of ProxySQL used by the threads that are handling the requests. MEMORY - (sometimes also referred as main) represents the in-memory SQLite3 database. DISK - represents the on-disk SQLite3 database. CONFIG - is the classical config file. You can only LOAD FROM the config file.
         attribute :config_layer
         validates :config_layer, presence: true, inclusion: {:in=>[:MEMORY, :DISK, :RUNTIME, :CONFIG], :message=>"%{value} needs to be :MEMORY, :DISK, :RUNTIME, :CONFIG"}
-
-        # @return [String, nil] The username used to authenticate to ProxySQL admin interface.
-        attribute :login_user
-        validates :login_user, type: String
-
-        # @return [String, nil] The password used to authenticate to ProxySQL admin interface.
-        attribute :login_password
-        validates :login_password, type: String
-
-        # @return [String, nil] The host used to connect to ProxySQL admin interface.
-        attribute :login_host
-        validates :login_host, type: String
-
-        # @return [Integer, nil] The port used to connect to ProxySQL admin interface.
-        attribute :login_port
-        validates :login_port, type: Integer
-
-        # @return [String, nil] Specify a config file from which login_user and login_password are to be read.
-        attribute :config_file
-        validates :config_file, type: String
       end
     end
   end

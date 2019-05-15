@@ -36,6 +36,10 @@ module Ansible
         # @return [Boolean, nil] Whether to force a reboot (even when the system is already booted).,As a safeguard, without force, hpilo_boot will refuse to reboot a server that is already running.
         attribute :force
         validates :force, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+
+        # @return [:SSLv3, :SSLv23, :TLSv1, :TLSv1_1, :TLSv1_2, nil] Change the ssl_version used.
+        attribute :ssl_version
+        validates :ssl_version, inclusion: {:in=>[:SSLv3, :SSLv23, :TLSv1, :TLSv1_1, :TLSv1_2], :message=>"%{value} needs to be :SSLv3, :SSLv23, :TLSv1, :TLSv1_1, :TLSv1_2"}, allow_nil: true
       end
     end
   end

@@ -11,9 +11,9 @@ module Ansible
         # @return [Object, nil] The list of additional disks for the server
         attribute :additional_disks
 
-        # @return [Boolean, nil] Whether to add a public ip to the server
+        # @return [String, nil] Whether to add a public ip to the server
         attribute :add_public_ip
-        validates :add_public_ip, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :add_public_ip, type: String
 
         # @return [Object, nil] The account alias to provision the servers under.
         attribute :alias
@@ -65,9 +65,9 @@ module Ansible
         # @return [Object, nil] The Datacenter to create servers in.
         attribute :location
 
-        # @return [Boolean, nil] Whether to create the server as 'Managed' or not.
+        # @return [String, nil] Whether to create the server as 'Managed' or not.
         attribute :managed_os
-        validates :managed_os, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :managed_os, type: String
 
         # @return [Integer, nil] Memory in GB.
         attribute :memory
@@ -131,9 +131,9 @@ module Ansible
         attribute :os_type
         validates :os_type, inclusion: {:in=>[:redHat6_64Bit, :centOS6_64Bit, :windows2012R2Standard_64Bit, :ubuntu14_64Bit], :message=>"%{value} needs to be :redHat6_64Bit, :centOS6_64Bit, :windows2012R2Standard_64Bit, :ubuntu14_64Bit"}, allow_nil: true
 
-        # @return [Boolean, nil] Whether to wait for the provisioning tasks to finish before returning.
+        # @return [String, nil] Whether to wait for the provisioning tasks to finish before returning.
         attribute :wait
-        validates :wait, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :wait, type: String
       end
     end
   end

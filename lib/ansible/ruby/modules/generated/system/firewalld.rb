@@ -28,21 +28,21 @@ module Ansible
         attribute :interface
         validates :interface, type: String
 
-        # @return [:work, :drop, :internal, :external, :trusted, :home, :dmz, :public, :block, nil] The firewalld zone to add/remove to/from (NOTE: default zone can be configured per system but "public" is default from upstream. Available choices can be extended based on per-system configs, listed here are "out of the box" defaults).
+        # @return [:work, :drop, :internal, :external, :trusted, :home, :dmz, :public, :block, nil] The firewalld zone to add/remove to/from (NOTE: default zone can be configured per system but "public" is default from upstream. Available choices can be extended based on per-system configs, listed here are "out of the box" defaults).\r\n
         attribute :zone
         validates :zone, inclusion: {:in=>[:work, :drop, :internal, :external, :trusted, :home, :dmz, :public, :block], :message=>"%{value} needs to be :work, :drop, :internal, :external, :trusted, :home, :dmz, :public, :block"}, allow_nil: true
 
-        # @return [Boolean, nil] Should this configuration be in the running firewalld configuration or persist across reboots. As of Ansible version 2.3, permanent operations can operate on firewalld configs when it's not running (requires firewalld >= 3.0.9)
+        # @return [Boolean, nil] Should this configuration be in the running firewalld configuration or persist across reboots. As of Ansible version 2.3, permanent operations can operate on firewalld configs when it's not running (requires firewalld >= 3.0.9). (NOTE: If this is false, immediate is assumed true.)\r\n
         attribute :permanent
         validates :permanent, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
-        # @return [Boolean, nil] Should this configuration be applied immediately, if set as permanent
+        # @return [String, nil] Should this configuration be applied immediately, if set as permanent
         attribute :immediate
-        validates :immediate, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :immediate, type: String
 
-        # @return [:enabled, :disabled] Should this port accept(enabled) or reject(disabled) connections.
+        # @return [:enabled, :disabled, :present, :absent] Enable or disable a setting. For ports: Should this port accept(enabled) or reject(disabled) connections. The states "present" and "absent" can only be used in zone level operations (i.e. when no other parameters but zone and state are set).\r\n
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}
+        validates :state, presence: true, inclusion: {:in=>[:enabled, :disabled, :present, :absent], :message=>"%{value} needs to be :enabled, :disabled, :present, :absent"}
 
         # @return [Integer, nil] The amount of time the rule should be in effect for when non-permanent.
         attribute :timeout

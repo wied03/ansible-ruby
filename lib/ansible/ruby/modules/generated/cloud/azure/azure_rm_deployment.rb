@@ -42,9 +42,9 @@ module Ansible
         attribute :deployment_name
         validates :deployment_name, type: String
 
-        # @return [Boolean, nil] Whether or not to block until the deployment has completed.
+        # @return [String, nil] Whether or not to block until the deployment has completed.
         attribute :wait_for_deployment_completion
-        validates :wait_for_deployment_completion, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :wait_for_deployment_completion, type: String
 
         # @return [Integer, nil] Time (in seconds) to wait between polls when waiting for deployment completion.
         attribute :wait_for_deployment_polling_period

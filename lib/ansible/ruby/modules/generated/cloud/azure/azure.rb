@@ -60,9 +60,9 @@ module Ansible
         attribute :hostname
         validates :hostname, type: String
 
-        # @return [:yes, :no, nil] wait for the instance to be in state 'running' before returning
+        # @return [String, nil] wait for the instance to be in state 'running' before returning
         attribute :wait
-        validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :wait, type: String
 
         # @return [Integer, nil] how long before wait gives up, in seconds
         attribute :wait_timeout
@@ -72,17 +72,17 @@ module Ansible
         attribute :wait_timeout_redirects
         validates :wait_timeout_redirects, type: Integer
 
-        # @return [String, nil] create or terminate instances
+        # @return [:absent, :present, nil] create or terminate instances
         attribute :state
-        validates :state, type: String
+        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
-        # @return [:yes, :no, nil] Enable Auto Updates on Windows Machines
+        # @return [String, nil] Enable Auto Updates on Windows Machines
         attribute :auto_updates
-        validates :auto_updates, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :auto_updates, type: String
 
-        # @return [:yes, :no, nil] Enable winrm on Windows Machines
+        # @return [String, nil] Enable winrm on Windows Machines
         attribute :enable_winrm
-        validates :enable_winrm, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :enable_winrm, type: String
 
         # @return [:windows, :linux, nil] The type of the os that is gettings provisioned
         attribute :os_type

@@ -8,16 +8,17 @@ module Ansible
     module Modules
       # Modify IP address properties on Solaris/illumos systems.
       class Ipadm_addrprop < Base
-        # @return [Object] Specifies the address object we want to manage.
+        # @return [String] Specifies the address object we want to manage.
         attribute :addrobj
-        validates :addrobj, presence: true
+        validates :addrobj, presence: true, type: String
 
-        # @return [Object] Specifies the name of the address property we want to manage.
+        # @return [String] Specifies the name of the address property we want to manage.
         attribute :property
-        validates :property, presence: true
+        validates :property, presence: true, type: String
 
-        # @return [Object, nil] Specifies the value we want to set for the address property.
+        # @return [String, nil] Specifies the value we want to set for the address property.
         attribute :value
+        validates :value, type: String
 
         # @return [Boolean, nil] Specifies that the address property value is temporary. Temporary values do not persist across reboots.
         attribute :temporary

@@ -24,13 +24,13 @@ module Ansible
         attribute :units
         validates :units, presence: true, inclusion: {:in=>[:minutes, :hours, :days, :weeks], :message=>"%{value} needs to be :minutes, :hours, :days, :weeks"}
 
-        # @return [:present, :absent, nil] The state dictates if the command or script file should be evaluated as present(added) or absent(deleted).
+        # @return [:absent, :present, nil] The state dictates if the command or script file should be evaluated as present(added) or absent(deleted).
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
-        # @return [Boolean, nil] If a matching job is present a new job will not be added.
+        # @return [String, nil] If a matching job is present a new job will not be added.
         attribute :unique
-        validates :unique, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :unique, type: String
       end
     end
   end

@@ -8,9 +8,9 @@ module Ansible
     module Modules
       # Manages Layer 2 interfaces
       class Nxos_switchport < Base
-        # @return [String] Full name of the interface, i.e. Ethernet1/1.
+        # @return [String, nil] Full name of the interface, i.e. Ethernet1/1.
         attribute :interface
-        validates :interface, presence: true, type: String
+        validates :interface, type: String
 
         # @return [:access, :trunk, nil] Mode for the Layer 2 port.
         attribute :mode

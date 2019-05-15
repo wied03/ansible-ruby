@@ -32,13 +32,13 @@ module Ansible
         attribute :if_exist_do_not_create
         validates :if_exist_do_not_create, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
-        # @return [Boolean, nil] Deallocate the EIP from the VPC.,Option is only valid with the absent state.,You should use this with the wait option. Since you can not release an address while a delete operation is happening.
+        # @return [String, nil] Deallocate the EIP from the VPC.,Option is only valid with the absent state.,You should use this with the wait option. Since you can not release an address while a delete operation is happening.
         attribute :release_eip
-        validates :release_eip, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :release_eip, type: String
 
-        # @return [Boolean, nil] Wait for operation to complete before returning.
+        # @return [String, nil] Wait for operation to complete before returning.
         attribute :wait
-        validates :wait, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :wait, type: String
 
         # @return [Integer, nil] How many seconds to wait for an operation to complete before timing out.
         attribute :wait_timeout

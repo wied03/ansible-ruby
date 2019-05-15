@@ -8,27 +8,26 @@ module Ansible
     module Modules
       # Manages virtual machines supported by I(libvirt).
       class Virt < Base
-        # @return [String] name of the guest VM being managed. Note that VM must be previously defined with xml.
+        # @return [String, nil] name of the guest VM being managed. Note that VM must be previously defined with xml.,This option is required unless I(command) is C(list_vms).
         attribute :name
-        validates :name, presence: true, type: String
+        validates :name, type: String
 
-        # @return [:running, :shutdown, :destroyed, :paused, nil] Note that there may be some lag for state requests like C(shutdown) since these refer only to VM states. After starting a guest, it may not be immediately accessible.
+        # @return [:destroyed, :paused, :running, :shutdown, nil] Note that there may be some lag for state requests like C(shutdown) since these refer only to VM states. After starting a guest, it may not be immediately accessible.
         attribute :state
-        validates :state, inclusion: {:in=>[:running, :shutdown, :destroyed, :paused], :message=>"%{value} needs to be :running, :shutdown, :destroyed, :paused"}, allow_nil: true
+        validates :state, inclusion: {:in=>[:destroyed, :paused, :running, :shutdown], :message=>"%{value} needs to be :destroyed, :paused, :running, :shutdown"}, allow_nil: true
 
-        # @return [:create, :status, :start, :stop, :pause, :unpause, :shutdown, :undefine, :destroy, :get_xml, :freemem, :list_vms, :info, :nodeinfo, :virttype, :define, nil] in addition to state management, various non-idempotent commands are available. See examples
+        # @return [:create, :define, :destroy, :freemem, :get_xml, :info, :list_vms, :nodeinfo, :pause, :shutdown, :start, :status, :stop, :undefine, :unpause, :virttype, nil] In addition to state management, various non-idempotent commands are available.
         attribute :command
-        validates :command, inclusion: {:in=>[:create, :status, :start, :stop, :pause, :unpause, :shutdown, :undefine, :destroy, :get_xml, :freemem, :list_vms, :info, :nodeinfo, :virttype, :define], :message=>"%{value} needs to be :create, :status, :start, :stop, :pause, :unpause, :shutdown, :undefine, :destroy, :get_xml, :freemem, :list_vms, :info, :nodeinfo, :virttype, :define"}, allow_nil: true
+        validates :command, inclusion: {:in=>[:create, :define, :destroy, :freemem, :get_xml, :info, :list_vms, :nodeinfo, :pause, :shutdown, :start, :status, :stop, :undefine, :unpause, :virttype], :message=>"%{value} needs to be :create, :define, :destroy, :freemem, :get_xml, :info, :list_vms, :nodeinfo, :pause, :shutdown, :start, :status, :stop, :undefine, :unpause, :virttype"}, allow_nil: true
 
-        # @return [Boolean, nil] start VM at host startup
+        # @return [Object, nil] start VM at host startup.
         attribute :autostart
-        validates :autostart, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
-        # @return [String, nil] libvirt connection uri
+        # @return [String, nil] libvirt connection uri.
         attribute :uri
         validates :uri, type: String
 
-        # @return [Object, nil] XML document used with the define command
+        # @return [Object, nil] XML document used with the define command.,Must be raw XML content using C(lookup). XML cannot be reference to a file.
         attribute :xml
       end
     end

@@ -8,9 +8,9 @@ module Ansible
     module Modules
       # Manages SNMP traps configurations.
       class Nxos_snmp_traps < Base
-        # @return [:aaa, :bridge, :callhome, :cfs, :config, :entity, :"feature-control", :hsrp, :license, :link, :lldp, :ospf, :pim, :rf, :rmon, :snmp, :"storm-control", :stpx, :sysmgr, :system, :upgrade, :vtp, :all] Case sensitive group.
+        # @return [:aaa, :bfd, :bgp, :bridge, :callhome, :cfs, :config, :eigrp, :entity, :"feature-control", :generic, :hsrp, :license, :link, :lldp, :mmode, :ospf, :pim, :rf, :rmon, :snmp, :"storm-control", :stpx, :switchfabric, :syslog, :sysmgr, :system, :upgrade, :vtp, :all] Case sensitive group.
         attribute :group
-        validates :group, presence: true, inclusion: {:in=>[:aaa, :bridge, :callhome, :cfs, :config, :entity, :"feature-control", :hsrp, :license, :link, :lldp, :ospf, :pim, :rf, :rmon, :snmp, :"storm-control", :stpx, :sysmgr, :system, :upgrade, :vtp, :all], :message=>"%{value} needs to be :aaa, :bridge, :callhome, :cfs, :config, :entity, :\"feature-control\", :hsrp, :license, :link, :lldp, :ospf, :pim, :rf, :rmon, :snmp, :\"storm-control\", :stpx, :sysmgr, :system, :upgrade, :vtp, :all"}
+        validates :group, presence: true, inclusion: {:in=>[:aaa, :bfd, :bgp, :bridge, :callhome, :cfs, :config, :eigrp, :entity, :"feature-control", :generic, :hsrp, :license, :link, :lldp, :mmode, :ospf, :pim, :rf, :rmon, :snmp, :"storm-control", :stpx, :switchfabric, :syslog, :sysmgr, :system, :upgrade, :vtp, :all], :message=>"%{value} needs to be :aaa, :bfd, :bgp, :bridge, :callhome, :cfs, :config, :eigrp, :entity, :\"feature-control\", :generic, :hsrp, :license, :link, :lldp, :mmode, :ospf, :pim, :rf, :rmon, :snmp, :\"storm-control\", :stpx, :switchfabric, :syslog, :sysmgr, :system, :upgrade, :vtp, :all"}
 
         # @return [:enabled, :disabled, nil] Manage the state of the resource.
         attribute :state

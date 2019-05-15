@@ -8,13 +8,13 @@ module Ansible
     module Modules
       # creates / deletes a Rackspace Public Cloud instance and optionally waits for it to be 'running'.
       class Rax < Base
-        # @return [Boolean, nil] Whether or not to increment a single number with the name of the created servers. Only applicable when used with the I(group) attribute or meta key.
+        # @return [String, nil] Whether or not to increment a single number with the name of the created servers. Only applicable when used with the I(group) attribute or meta key.
         attribute :auto_increment
-        validates :auto_increment, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :auto_increment, type: String
 
-        # @return [:yes, :no, nil] Whether or not to boot the instance from a Cloud Block Storage volume. If C(yes) and I(image) is specified a new volume will be created at boot time. I(boot_volume_size) is required with I(image) to create a new volume at boot time.
+        # @return [String, nil] Whether or not to boot the instance from a Cloud Block Storage volume. If C(yes) and I(image) is specified a new volume will be created at boot time. I(boot_volume_size) is required with I(image) to create a new volume at boot time.
         attribute :boot_from_volume
-        validates :boot_from_volume, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :boot_from_volume, type: String
 
         # @return [Object, nil] Cloud Block Storage ID or Name to use as the boot volume of the instance
         attribute :boot_volume
@@ -23,13 +23,13 @@ module Ansible
         attribute :boot_volume_size
         validates :boot_volume_size, type: Integer
 
-        # @return [Boolean, nil] Whether the I(boot_volume) or newly created volume from I(image) will be terminated when the server is terminated
+        # @return [String, nil] Whether the I(boot_volume) or newly created volume from I(image) will be terminated when the server is terminated
         attribute :boot_volume_terminate
-        validates :boot_volume_terminate, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :boot_volume_terminate, type: String
 
-        # @return [Boolean, nil] Attach read-only configuration drive to server as label config-2
+        # @return [String, nil] Attach read-only configuration drive to server as label config-2
         attribute :config_drive
-        validates :config_drive, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :config_drive, type: String
 
         # @return [Integer, nil] number of instances to launch
         attribute :count
@@ -43,9 +43,9 @@ module Ansible
         attribute :disk_config
         validates :disk_config, inclusion: {:in=>[:auto, :manual], :message=>"%{value} needs to be :auto, :manual"}, allow_nil: true
 
-        # @return [Boolean, nil] Explicitly ensure an exact count of instances, used with state=active/present. If specified as C(yes) and I(count) is less than the servers matched, servers will be deleted to match the count. If the number of matched servers is fewer than specified in I(count) additional servers will be added.
+        # @return [String, nil] Explicitly ensure an exact count of instances, used with state=active/present. If specified as C(yes) and I(count) is less than the servers matched, servers will be deleted to match the count. If the number of matched servers is fewer than specified in I(count) additional servers will be added.
         attribute :exact_count
-        validates :exact_count, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :exact_count, type: String
 
         # @return [Object, nil] A hash of key/value pairs to be used when creating the cloudservers client. This is considered an advanced option, use it wisely and with caution.
         attribute :extra_client_args
@@ -89,9 +89,9 @@ module Ansible
         # @return [Object, nil] Data to be uploaded to the servers config drive. This option implies I(config_drive). Can be a file path or a string
         attribute :user_data
 
-        # @return [:yes, :no, nil] wait for the instance to be in state 'running' before returning
+        # @return [String, nil] wait for the instance to be in state 'running' before returning
         attribute :wait
-        validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :wait, type: String
 
         # @return [Integer, nil] how long before wait gives up, in seconds
         attribute :wait_timeout

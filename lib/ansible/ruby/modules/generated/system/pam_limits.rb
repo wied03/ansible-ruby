@@ -6,13 +6,13 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
-      # The C(pam_limits) module modify PAM limits, default in /etc/security/limits.conf. For the full documentation, see man limits.conf(5).
+      # The C(pam_limits) module modifies PAM limits. The default file is C(/etc/security/limits.conf). For the full documentation, see C(man 5 limits.conf).
       class Pam_limits < Base
         # @return [String] A username, @groupname, wildcard, uid/gid range.
         attribute :domain
         validates :domain, presence: true, type: String
 
-        # @return [:hard, :soft, :-] Limit type, see C(man limits) for an explanation
+        # @return [:hard, :soft, :-] Limit type, see C(man 5 limits.conf) for an explanation
         attribute :limit_type
         validates :limit_type, presence: true, inclusion: {:in=>[:hard, :soft, :-], :message=>"%{value} needs to be :hard, :soft, :-"}
 
@@ -24,17 +24,17 @@ module Ansible
         attribute :value
         validates :value, presence: true, type: MultipleTypes.new(Integer, String)
 
-        # @return [:yes, :no, nil] Create a backup file including the timestamp information so you can get the original file back if you somehow clobbered it incorrectly.
+        # @return [String, nil] Create a backup file including the timestamp information so you can get the original file back if you somehow clobbered it incorrectly.
         attribute :backup
-        validates :backup, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :backup, type: String
 
-        # @return [:yes, :no, nil] If set to C(yes), the minimal value will be used or conserved. If the specified value is inferior to the value in the file, file content is replaced with the new value, else content is not modified.
+        # @return [String, nil] If set to C(yes), the minimal value will be used or conserved. If the specified value is inferior to the value in the file, file content is replaced with the new value, else content is not modified.
         attribute :use_min
-        validates :use_min, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :use_min, type: String
 
-        # @return [:yes, :no, nil] If set to C(yes), the maximal value will be used or conserved. If the specified value is superior to the value in the file, file content is replaced with the new value, else content is not modified.
+        # @return [String, nil] If set to C(yes), the maximal value will be used or conserved. If the specified value is superior to the value in the file, file content is replaced with the new value, else content is not modified.
         attribute :use_max
-        validates :use_max, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :use_max, type: String
 
         # @return [String, nil] Modify the limits.conf path.
         attribute :dest

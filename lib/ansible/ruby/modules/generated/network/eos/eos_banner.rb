@@ -8,9 +8,9 @@ module Ansible
     module Modules
       # This will configure both login and motd banners on remote devices running Arista EOS.  It allows playbooks to add or remote banner text from the active running configuration.
       class Eos_banner < Base
-        # @return [:login, :banner] Specifies which banner that should be configured on the remote device.
+        # @return [:login, :motd] Specifies which banner that should be configured on the remote device.
         attribute :banner
-        validates :banner, presence: true, inclusion: {:in=>[:login, :banner], :message=>"%{value} needs to be :login, :banner"}
+        validates :banner, presence: true, inclusion: {:in=>[:login, :motd], :message=>"%{value} needs to be :login, :motd"}
 
         # @return [String, nil] The banner text that should be present in the remote device running configuration.  This argument accepts a multiline string. Requires I(state=present).
         attribute :text

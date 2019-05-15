@@ -16,6 +16,10 @@ module Ansible
         attribute :blob
         validates :blob, type: String
 
+        # @return [:block, :page, nil] Type of Blob Object.
+        attribute :blob_type
+        validates :blob_type, inclusion: {:in=>[:block, :page], :message=>"%{value} needs to be :block, :page"}, allow_nil: true
+
         # @return [String] Name of a blob container within the storage account.
         attribute :container
         validates :container, presence: true, type: String

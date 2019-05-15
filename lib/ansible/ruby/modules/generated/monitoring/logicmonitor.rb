@@ -9,7 +9,7 @@ module Ansible
       # LogicMonitor is a hosted, full-stack, infrastructure monitoring platform.
       # This module manages hosts, host groups, and collectors within your LogicMonitor account.
       class Logicmonitor < Base
-        # @return [:collector, :host, :datsource, :hostgroup] The type of LogicMonitor object you wish to manage.,Collector: Perform actions on a LogicMonitor collector.,NOTE You should use Ansible service modules such as M(service) or M(supervisorctl) for managing the Collector 'logicmonitor-agent' and 'logicmonitor-watchdog' services. Specifically, you'll probably want to start these services after a Collector add and stop these services before a Collector remove.,Host: Perform actions on a host device.,Hostgroup: Perform actions on a LogicMonitor host group.,NOTE Host and Hostgroup tasks should always be performed via delegate_to: localhost. There are no benefits to running these tasks on the remote host and doing so will typically cause problems.
+        # @return [:collector, :host, :datsource, :hostgroup] The type of LogicMonitor object you wish to manage.,Collector: Perform actions on a LogicMonitor collector.,NOTE You should use Ansible service modules such as M(service) or M(supervisorctl) for managing the Collector 'logicmonitor-agent' and 'logicmonitor-watchdog' services. Specifically, you'll probably want to start these services after a Collector add and stop these services before a Collector remove.,Host: Perform actions on a host device.,Hostgroup: Perform actions on a LogicMonitor host group.,NOTE Host and Hostgroup tasks should always be performed via delegate_to: localhost. There are no benefits to running these tasks on the remote host and doing so will typically cause problems.\r\n
         attribute :target
         validates :target, presence: true, inclusion: {:in=>[:collector, :host, :datsource, :hostgroup], :message=>"%{value} needs to be :collector, :host, :datsource, :hostgroup"}
 
@@ -56,9 +56,9 @@ module Ansible
         # @return [Object, nil] The fullpath of the host group object you would like to manage.,Recommend running on a single Ansible host.,Required for management of LogicMonitor host groups (target=hostgroup).
         attribute :fullpath
 
-        # @return [Boolean, nil] A boolean flag to turn alerting on or off for an object.,Optional for managing all hosts (action=add or action=update).
+        # @return [String, nil] A boolean flag to turn alerting on or off for an object.,Optional for managing all hosts (action=add or action=update).
         attribute :alertenable
-        validates :alertenable, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :alertenable, type: String
 
         # @return [String, nil] The time that the Scheduled Down Time (SDT) should begin.,Optional for managing SDT (action=sdt).,Y-m-d H:M
         attribute :starttime

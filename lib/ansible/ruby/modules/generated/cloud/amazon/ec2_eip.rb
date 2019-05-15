@@ -13,27 +13,32 @@ module Ansible
         attribute :device_id
         validates :device_id, type: String
 
-        # @return [Object, nil] The IP address of a previously allocated EIP.,If present and device is specified, the EIP is associated with the device.,If absent and device is specified, the EIP is disassociated from the device.
+        # @return [String, nil] The IP address of a previously allocated EIP.,If present and device is specified, the EIP is associated with the device.,If absent and device is specified, the EIP is disassociated from the device.
         attribute :public_ip
+        validates :public_ip, type: String
 
         # @return [:present, :absent, nil] If present, allocate an EIP or associate an existing EIP with a device.,If absent, disassociate the EIP from the device and optionally release it.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [Boolean, nil] allocate an EIP inside a VPC or not
+        # @return [String, nil] Allocate an EIP inside a VPC or not. Required if specifying an ENI.
         attribute :in_vpc
-        validates :in_vpc, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :in_vpc, type: String
 
-        # @return [Boolean, nil] Reuse an EIP that is not associated to a device (when available), instead of allocating a new one.
+        # @return [String, nil] Reuse an EIP that is not associated to a device (when available), instead of allocating a new one.
         attribute :reuse_existing_ip_allowed
-        validates :reuse_existing_ip_allowed, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :reuse_existing_ip_allowed, type: String
 
-        # @return [Boolean, nil] whether or not to automatically release the EIP when it is disassociated
+        # @return [String, nil] whether or not to automatically release the EIP when it is disassociated
         attribute :release_on_disassociation
-        validates :release_on_disassociation, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :release_on_disassociation, type: String
 
         # @return [Object, nil] The primary or secondary private IP address to associate with the Elastic IP address.
         attribute :private_ip_address
+
+        # @return [String, nil] Specify this option to allow an Elastic IP address that is already associated with another network interface or instance to be re-associated with the specified instance or interface.
+        attribute :allow_reassociation
+        validates :allow_reassociation, type: String
       end
     end
   end

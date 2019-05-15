@@ -8,9 +8,9 @@ module Ansible
     module Modules
       # Create, destroy, update, start, stop, and reboot a ProfitBricks virtual machine. When the virtual machine is created it can optionally wait for it to be 'running' before returning. This module has a dependency on profitbricks >= 1.0.0
       class Profitbricks < Base
-        # @return [Boolean, nil] Whether or not to increment a single number in the name for created virtual machines.
+        # @return [String, nil] Whether or not to increment a single number in the name for created virtual machines.
         attribute :auto_increment
-        validates :auto_increment, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :auto_increment, type: String
 
         # @return [String] The name of the virtual machine.
         attribute :name
@@ -62,9 +62,9 @@ module Ansible
         attribute :location
         validates :location, inclusion: {:in=>[:"us/las", :"de/fra", :"de/fkb"], :message=>"%{value} needs to be :\"us/las\", :\"de/fra\", :\"de/fkb\""}, allow_nil: true
 
-        # @return [Boolean, nil] This will assign the machine to the public LAN. If no LAN exists with public Internet access it is created.
+        # @return [String, nil] This will assign the machine to the public LAN. If no LAN exists with public Internet access it is created.
         attribute :assign_public_ip
-        validates :assign_public_ip, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :assign_public_ip, type: String
 
         # @return [Integer, nil] The ID of the LAN you wish to add the servers to.
         attribute :lan
@@ -76,17 +76,17 @@ module Ansible
         # @return [Object, nil] THe ProfitBricks password. Overrides the PB_PASSWORD environment variable.
         attribute :subscription_password
 
-        # @return [:yes, :no, nil] wait for the instance to be in state 'running' before returning
+        # @return [String, nil] wait for the instance to be in state 'running' before returning
         attribute :wait
-        validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :wait, type: String
 
         # @return [Integer, nil] how long before wait gives up, in seconds
         attribute :wait_timeout
         validates :wait_timeout, type: Integer
 
-        # @return [:yes, :no, nil] remove the bootVolume of the virtual machine you're destroying.
+        # @return [String, nil] remove the bootVolume of the virtual machine you're destroying.
         attribute :remove_boot_volume
-        validates :remove_boot_volume, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :remove_boot_volume, type: String
 
         # @return [:running, :stopped, :absent, :present, nil] create or terminate instances
         attribute :state

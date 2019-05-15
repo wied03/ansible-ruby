@@ -56,8 +56,8 @@ module Ansible
         validates :streaming_distribution, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Boolean, nil] Get the configuration information about a specified RTMP distribution. Requires I(distribution_id) or I(domain_name_alias) to be specified.
-        attribute :streaming_distribution_configuration
-        validates :streaming_distribution_configuration, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        attribute :streaming_distribution_config
+        validates :streaming_distribution_config, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Boolean, nil] Get a list of cloudfront origin access identities. Requires I(origin_access_identity_id) to be set.
         attribute :list_origin_access_identities

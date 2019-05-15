@@ -24,9 +24,9 @@ module Ansible
         attribute :unit
         validates :unit, inclusion: {:in=>[:s, :B, :KB, :KiB, :MB, :MiB, :GB, :GiB, :TB, :TiB, :%, :cyl, :chs, :compact], :message=>"%{value} needs to be :s, :B, :KB, :KiB, :MB, :MiB, :GB, :GiB, :TB, :TiB, :%, :cyl, :chs, :compact"}, allow_nil: true
 
-        # @return [:aix, :amiga, :bsd, :dvh, :gpt, :loop, :mac, :msdos, :pc98, :sun, :"", nil] Creates a new disk label.
+        # @return [:aix, :amiga, :bsd, :dvh, :gpt, :loop, :mac, :msdos, :pc98, :sun, nil] Creates a new disk label.
         attribute :label
-        validates :label, inclusion: {:in=>[:aix, :amiga, :bsd, :dvh, :gpt, :loop, :mac, :msdos, :pc98, :sun, :""], :message=>"%{value} needs to be :aix, :amiga, :bsd, :dvh, :gpt, :loop, :mac, :msdos, :pc98, :sun, :\"\""}, allow_nil: true
+        validates :label, inclusion: {:in=>[:aix, :amiga, :bsd, :dvh, :gpt, :loop, :mac, :msdos, :pc98, :sun], :message=>"%{value} needs to be :aix, :amiga, :bsd, :dvh, :gpt, :loop, :mac, :msdos, :pc98, :sun"}, allow_nil: true
 
         # @return [:primary, :extended, :logical, nil] Is one of 'primary', 'extended' or 'logical' and may be specified only with 'msdos' or 'dvh' partition tables. A name must be specified for a 'gpt' partition table. Neither part-type nor name may be used with a 'sun' partition table.
         attribute :part_type

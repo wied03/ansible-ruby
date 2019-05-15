@@ -8,7 +8,7 @@ module Ansible
     module Modules
       # Gather facts about internet gateways in AWS.
       class Ec2_vpc_igw_facts < Base
-        # @return [Hash, nil] A dict of filters to apply. Each dict item consists of a filter key and a filter value. See U(http://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeRouteTables.html) for possible filters.
+        # @return [Hash, nil] A dict of filters to apply. Each dict item consists of a filter key and a filter value. See U(http://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeInternetGateways.html) for possible filters.
         attribute :filters
         validates :filters, type: Hash
 

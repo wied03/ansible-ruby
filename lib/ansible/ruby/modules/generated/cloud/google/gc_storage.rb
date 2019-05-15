@@ -24,17 +24,16 @@ module Ansible
         attribute :dest
         validates :dest, type: String
 
-        # @return [Boolean, nil] Forces an overwrite either locally on the filesystem or remotely with the object/key. Used with PUT and GET operations.
+        # @return [String, nil] Forces an overwrite either locally on the filesystem or remotely with the object/key. Used with PUT and GET operations.
         attribute :force
-        validates :force, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :force, type: String
 
         # @return [String, nil] This option let's the user set the canned permissions on the object/bucket that are created. The permissions that can be set are 'private', 'public-read', 'authenticated-read'.
         attribute :permission
         validates :permission, type: String
 
-        # @return [Hash, nil] Headers to attach to object.
+        # @return [Object, nil] Headers to attach to object.
         attribute :headers
-        validates :headers, type: Hash
 
         # @return [Object, nil] Time limit (in seconds) for the URL generated and returned by GCA when performing a mode=put or mode=get_url operation. This url is only available when public-read is the acl for the object.
         attribute :expiration
@@ -50,6 +49,14 @@ module Ansible
         # @return [Object] GS access key. If not set then the value of the GS_ACCESS_KEY_ID environment variable is used.
         attribute :gs_access_key
         validates :gs_access_key, presence: true
+
+        # @return [String, nil] The gs region to use. If not defined then the value 'US' will be used. See U(https://cloud.google.com/storage/docs/bucket-locations)
+        attribute :region
+        validates :region, type: String
+
+        # @return [Boolean, nil] Whether versioning is enabled or disabled (note that once versioning is enabled, it can only be suspended)
+        attribute :versioning
+        validates :versioning, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
       end
     end
   end

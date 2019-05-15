@@ -16,21 +16,29 @@ module Ansible
         attribute :interface
         validates :interface, presence: true, type: String
 
-        # @return [Integer, nil] VRRP priority.
+        # @return [Integer, nil] Time interval between advertisement or 'default' keyword
+        attribute :interval
+        validates :interval, type: Integer
+
+        # @return [Integer, nil] VRRP priority or 'default' keyword
         attribute :priority
         validates :priority, type: Integer
 
-        # @return [String, nil] VRRP virtual IP address.
+        # @return [String, nil] Enable/Disable preempt.
+        attribute :preempt
+        validates :preempt, type: String
+
+        # @return [String, nil] VRRP virtual IP address or 'default' keyword
         attribute :vip
         validates :vip, type: String
 
-        # @return [String, nil] Clear text authentication string.
+        # @return [String, nil] Clear text authentication string or 'default' keyword
         attribute :authentication
         validates :authentication, type: String
 
-        # @return [:shutdown, :"no shutdown", nil] Used to enable or disable the VRRP process.
+        # @return [:shutdown, :"no shutdown", :default, nil] Used to enable or disable the VRRP process.
         attribute :admin_state
-        validates :admin_state, inclusion: {:in=>[:shutdown, :"no shutdown"], :message=>"%{value} needs to be :shutdown, :\"no shutdown\""}, allow_nil: true
+        validates :admin_state, inclusion: {:in=>[:shutdown, :"no shutdown", :default], :message=>"%{value} needs to be :shutdown, :\"no shutdown\", :default"}, allow_nil: true
 
         # @return [:present, :absent, nil] Specify desired state of the resource.
         attribute :state

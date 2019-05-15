@@ -12,13 +12,17 @@ module Ansible
         attribute :target
         validates :target, type: String
 
-        # @return [String, nil] Any extra parameters to pass to make
+        # @return [Hash, nil] Any extra parameters to pass to make
         attribute :params
-        validates :params, type: String
+        validates :params, type: Hash
 
         # @return [String] cd into this directory before running make
         attribute :chdir
         validates :chdir, presence: true, type: String
+
+        # @return [String, nil] Use file as a Makefile
+        attribute :file
+        validates :file, type: String
       end
     end
   end

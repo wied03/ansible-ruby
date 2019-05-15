@@ -12,9 +12,9 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [String] The name of the GCE instance template.
+        # @return [String, nil] The name of the GCE instance template.
         attribute :name
-        validates :name, presence: true, type: String
+        validates :name, type: String
 
         # @return [String, nil] The desired machine type for the instance template.
         attribute :size
@@ -45,11 +45,11 @@ module Ansible
         # @return [Object, nil] The Subnetwork resource name for this instance.
         attribute :subnetwork
 
-        # @return [Boolean, nil] Set to True to allow instance to send/receive non-matching src/dst packets.
+        # @return [String, nil] Set to C(yes) to allow instance to send/receive non-matching src/dst packets.
         attribute :can_ip_forward
-        validates :can_ip_forward, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :can_ip_forward, type: String
 
-        # @return [String, nil] The external IP address to use. If C(ephemeral), a new non-static address will be used.  If C(None), then no external address will be used.  To use an existing static IP address specify adress name.
+        # @return [String, nil] The external IP address to use. If C(ephemeral), a new non-static address will be used.  If C(None), then no external address will be used.  To use an existing static IP address specify address name.
         attribute :external_ip
         validates :external_ip, type: String
 
@@ -82,6 +82,9 @@ module Ansible
         # @return [Object, nil] Support passing in the GCE-specific formatted networkInterfaces[] structure.
         attribute :nic_gce_struct
 
+        # @return [Object, nil] Support passing in the GCE-specific formatted formatted disks[] structure. Case sensitive. see U(https://cloud.google.com/compute/docs/reference/latest/instanceTemplates#resource) for detailed information
+        attribute :disks_gce_struct
+
         # @return [String, nil] your GCE project ID
         attribute :project_id
         validates :project_id, type: String
@@ -92,6 +95,9 @@ module Ansible
         # @return [String, nil] path to the JSON file associated with the service account email
         attribute :credentials_file
         validates :credentials_file, type: String
+
+        # @return [Object, nil] Region that subnetwork resides in. (Required for subnetwork to successfully complete)
+        attribute :subnetwork_region
       end
     end
   end

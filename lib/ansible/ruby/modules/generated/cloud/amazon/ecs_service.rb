@@ -34,7 +34,7 @@ module Ansible
         # @return [Object, nil] Unique, case-sensitive identifier you provide to ensure the idempotency of the request. Up to 32 ASCII characters are allowed.
         attribute :client_token
 
-        # @return [Object, nil] The name or full Amazon Resource Name (ARN) of the IAM role that allows your Amazon ECS container agent to make calls to your load balancer on your behalf. This parameter is only required if you are using a load balancer with your service.
+        # @return [Object, nil] The name or full Amazon Resource Name (ARN) of the IAM role that allows your Amazon ECS container agent to make calls to your load balancer on your behalf. This parameter is only required if you are using a load balancer with your service, in a network mode other than `awsvpc`.
         attribute :role
 
         # @return [Integer, nil] The time to wait before checking that the service is available
@@ -48,6 +48,22 @@ module Ansible
         # @return [Hash, nil] Optional parameters that control the deployment_configuration; format is '{"maximum_percent":<integer>, "minimum_healthy_percent":<integer>}
         attribute :deployment_configuration
         validates :deployment_configuration, type: Hash
+
+        # @return [Array<Hash>, Hash, nil] The placement constraints for the tasks in the service
+        attribute :placement_constraints
+        validates :placement_constraints, type: TypeGeneric.new(Hash)
+
+        # @return [Array<Hash>, Hash, nil] The placement strategy objects to use for tasks in your service. You can specify a maximum of 5 strategy rules per service
+        attribute :placement_strategy
+        validates :placement_strategy, type: TypeGeneric.new(Hash)
+
+        # @return [Hash, nil] network configuration of the service. Only applicable for task definitions created with C(awsvpc) I(network_mode).,assign_public_ip requires botocore >= 1.8.4
+        attribute :network_configuration
+        validates :network_configuration, type: Hash
+
+        # @return [:EC2, :FARGATE, nil] The launch type on which to run your service
+        attribute :launch_type
+        validates :launch_type, inclusion: {:in=>[:EC2, :FARGATE], :message=>"%{value} needs to be :EC2, :FARGATE"}, allow_nil: true
       end
     end
   end

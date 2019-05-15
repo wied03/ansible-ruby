@@ -25,8 +25,9 @@ module Ansible
         attribute :path
         validates :path, type: String
 
-        # @return [Object, nil] Timeout (in seconds) for Avi API calls.
+        # @return [Integer, nil] Timeout (in seconds) for Avi API calls.
         attribute :timeout
+        validates :timeout, type: Integer
       end
     end
   end

@@ -8,23 +8,7 @@ module Ansible
     module Modules
       # Manage InfluxDB retention policies
       class Influxdb_retention_policy < Base
-        # @return [String] The hostname or IP address on which InfluxDB server is listening
-        attribute :hostname
-        validates :hostname, presence: true, type: String
-
-        # @return [String, nil] Username that will be used to authenticate against InfluxDB server
-        attribute :username
-        validates :username, type: String
-
-        # @return [String, nil] Password that will be used to authenticate against InfluxDB server
-        attribute :password
-        validates :password, type: String
-
-        # @return [Integer, nil] The port on which InfluxDB server is listening
-        attribute :port
-        validates :port, type: Integer
-
-        # @return [String] Name of the database where retention policy will be created
+        # @return [String] Name of the database.
         attribute :database_name
         validates :database_name, presence: true, type: String
 

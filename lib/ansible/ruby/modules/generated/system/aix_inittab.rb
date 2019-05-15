@@ -16,9 +16,9 @@ module Ansible
         attribute :runlevel
         validates :runlevel, presence: true, type: Integer
 
-        # @return [:respawn, :wait, :once, :boot, :bootwait, :powerfail, :powerwait, :off, :hold, :ondemand, :initdefault, :sysinit] Action what the init has to do with this entry.
+        # @return [:boot, :bootwait, :hold, :initdefault, false, :once, :ondemand, :powerfail, :powerwait, :respawn, :sysinit, :wait] Action what the init has to do with this entry.
         attribute :action
-        validates :action, presence: true, inclusion: {:in=>[:respawn, :wait, :once, :boot, :bootwait, :powerfail, :powerwait, :off, :hold, :ondemand, :initdefault, :sysinit], :message=>"%{value} needs to be :respawn, :wait, :once, :boot, :bootwait, :powerfail, :powerwait, :off, :hold, :ondemand, :initdefault, :sysinit"}
+        validates :action, presence: true, inclusion: {:in=>[:boot, :bootwait, :hold, :initdefault, false, :once, :ondemand, :powerfail, :powerwait, :respawn, :sysinit, :wait], :message=>"%{value} needs to be :boot, :bootwait, :hold, :initdefault, false, :once, :ondemand, :powerfail, :powerwait, :respawn, :sysinit, :wait"}
 
         # @return [String] What command has to run.
         attribute :command
@@ -28,9 +28,9 @@ module Ansible
         attribute :insertafter
         validates :insertafter, type: String
 
-        # @return [:present, :absent, nil] Whether the entry should be present or absent in the inittab file
+        # @return [:absent, :present, nil] Whether the entry should be present or absent in the inittab file.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
       end
     end
   end

@@ -8,25 +8,27 @@ module Ansible
     module Modules
       # Read the AWS documentation for Network ACLS U(http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_ACLs.html)
       class Ec2_vpc_nacl < Base
-        # @return [String] Tagged name identifying a network ACL.
+        # @return [String, nil] Tagged name identifying a network ACL.,One and only one of the I(name) or I(nacl_id) is required.
         attribute :name
-        validates :name, presence: true, type: String
+        validates :name, type: String
 
-        # @return [String] VPC id of the requesting VPC.
+        # @return [String, nil] NACL id identifying a network ACL.,One and only one of the I(name) or I(nacl_id) is required.
+        attribute :nacl_id
+        validates :nacl_id, type: String
+
+        # @return [String, nil] VPC id of the requesting VPC.,Required when state present.
         attribute :vpc_id
-        validates :vpc_id, presence: true, type: String
+        validates :vpc_id, type: String
 
         # @return [Array<String>, String, nil] The list of subnets that should be associated with the network ACL.,Must be specified as a list,Each subnet can be specified as subnet ID, or its tagged name.
         attribute :subnets
         validates :subnets, type: TypeGeneric.new(String)
 
-        # @return [Array<Array>, Array, nil] A list of rules for outgoing traffic.,Each rule must be specified as a list.
+        # @return [Object, nil] A list of rules for outgoing traffic. Each rule must be specified as a list. Each rule may contain the rule number (integer 1-32766), protocol (one of ['tcp', 'udp', 'icmp', '-1', 'all']), the rule action ('allow' or 'deny') the CIDR of the IPv4 network range to allow or deny, the ICMP type (-1 means all types), the ICMP code (-1 means all codes), the last port in the range for TCP or UDP protocols, and the first port in the range for TCP or UDP protocols. See examples.
         attribute :egress
-        validates :egress, type: TypeGeneric.new(Array)
 
-        # @return [Array<Array>, Array, nil] List of rules for incoming traffic.,Each rule must be specified as a list.
+        # @return [Object, nil] List of rules for incoming traffic. Each rule must be specified as a list. Each rule may contain the rule number (integer 1-32766), protocol (one of ['tcp', 'udp', 'icmp', '-1', 'all']), the rule action ('allow' or 'deny') the CIDR of the IPv4 network range to allow or deny, the ICMP type (-1 means all types), the ICMP code (-1 means all codes), the last port in the range for TCP or UDP protocols, and the first port in the range for TCP or UDP protocols. See examples.
         attribute :ingress
-        validates :ingress, type: TypeGeneric.new(Array)
 
         # @return [Hash, nil] Dictionary of tags to look for and apply when creating a network ACL.
         attribute :tags

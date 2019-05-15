@@ -12,15 +12,15 @@ module Ansible
         attribute :user
         validates :user, presence: true, type: String
 
-        # @return [String] The oauth key provided by github. It can be found/generated on github under "Edit Your Profile" >> "Applications" >> "Personal Access Tokens"
+        # @return [String] The oauth key provided by GitHub. It can be found/generated on GitHub under "Edit Your Profile" >> "Developer settings" >> "Personal Access Tokens"
         attribute :oauthkey
         validates :oauthkey, presence: true, type: String
 
-        # @return [String] This is the API url for the repository you want to manage hooks for. It should be in the form of: https://api.github.com/repos/user:/repo:. Note this is different than the normal repo url.
+        # @return [String] This is the API url for the repository you want to manage hooks for. It should be in the form of: https://api.github.com/repos/user:/repo:. Note this is different than the normal repo url.\r\n
         attribute :repo
         validates :repo, presence: true, type: String
 
-        # @return [String, nil] When creating a new hook, this is the url that you want github to post to. It is only required when creating a new hook.
+        # @return [String, nil] When creating a new hook, this is the url that you want GitHub to post to. It is only required when creating a new hook.
         attribute :hookurl
         validates :hookurl, type: String
 
@@ -28,9 +28,9 @@ module Ansible
         attribute :action
         validates :action, presence: true, inclusion: {:in=>[:create, :cleanall, :list, :clean504], :message=>"%{value} needs to be :create, :cleanall, :list, :clean504"}
 
-        # @return [:yes, :no, nil] If C(no), SSL certificates for the target repo will not be validated. This should only be used on personally controlled sites using self-signed certificates.
+        # @return [String, nil] If C(no), SSL certificates for the target repo will not be validated. This should only be used on personally controlled sites using self-signed certificates.
         attribute :validate_certs
-        validates :validate_certs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :validate_certs, type: String
 
         # @return [:json, :form, nil] Content type to use for requests made to the webhook
         attribute :content_type

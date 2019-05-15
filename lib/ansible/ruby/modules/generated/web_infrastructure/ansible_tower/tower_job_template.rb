@@ -8,38 +8,35 @@ module Ansible
     module Modules
       # Create, update, or destroy Ansible Tower job templates. See U(https://www.ansible.com/tower) for an overview.
       class Tower_job_template < Base
-        # @return [String] Name to use for the job_template.
+        # @return [String] Name to use for the job template.
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [Object, nil] Description to use for the job_template.
+        # @return [Object, nil] Description to use for the job template.
         attribute :description
 
-        # @return [:run, :check, :scan] The job_type to use for the job_template.
+        # @return [:run, :check, :scan] The job type to use for the job template.
         attribute :job_type
         validates :job_type, presence: true, inclusion: {:in=>[:run, :check, :scan], :message=>"%{value} needs to be :run, :check, :scan"}
 
-        # @return [String, nil] Inventory to use for the job_template.
+        # @return [String, nil] Name of the inventory to use for the job template.
         attribute :inventory
         validates :inventory, type: String
 
-        # @return [String] Project to use for the job_template.
+        # @return [String] Name of the project to use for the job template.
         attribute :project
         validates :project, presence: true, type: String
 
-        # @return [String] Playbook to use for the job_template.
+        # @return [String] Path to the playbook to use for the job template within the project provided.
         attribute :playbook
         validates :playbook, presence: true, type: String
 
-        # @return [String, nil] Machine_credential to use for the job_template.
-        attribute :machine_credential
-        validates :machine_credential, type: String
+        # @return [String, nil] Name of the credential to use for the job template.
+        attribute :credential
+        validates :credential, type: String
 
-        # @return [Object, nil] Cloud_credential to use for the job_template.
-        attribute :cloud_credential
-
-        # @return [Object, nil] The network_credential to use for the job_template.
-        attribute :network_credential
+        # @return [Object, nil] Name of the vault credential to use for the job template.
+        attribute :vault_credential
 
         # @return [Object, nil] The number of parallel or simultaneous processes to use while executing the playbook.
         attribute :forks
@@ -47,66 +44,84 @@ module Ansible
         # @return [Object, nil] A host pattern to further constrain the list of hosts managed or affected by the playbook
         attribute :limit
 
-        # @return [:verbose, :debug, nil] Control the output level Ansible produces as the playbook runs.
+        # @return [0, 1, 2, 3, 4, nil] Control the output level Ansible produces as the playbook runs. 0 - Normal, 1 - Verbose, 2 - More Verbose, 3 - Debug, 4 - Connection Debug.
         attribute :verbosity
-        validates :verbosity, inclusion: {:in=>[:verbose, :debug], :message=>"%{value} needs to be :verbose, :debug"}, allow_nil: true
+        validates :verbosity, inclusion: {:in=>[0, 1, 2, 3, 4], :message=>"%{value} needs to be 0, 1, 2, 3, 4"}, allow_nil: true
 
-        # @return [Object, nil] The job_tags to use for the job_template.
+        # @return [Object, nil] Path to the C(extra_vars) YAML file.
+        attribute :extra_vars_path
+
+        # @return [Object, nil] Comma separated list of the tags to use for the job template.
         attribute :job_tags
 
-        # @return [Object, nil] The skip_tags to use for the job_template.
+        # @return [String, nil] Enable forcing playbook handlers to run even if a task fails.
+        attribute :force_handlers_enabled
+        validates :force_handlers_enabled, type: String
+
+        # @return [Object, nil] Comma separated list of the tags to skip for the job template.
         attribute :skip_tags
+
+        # @return [Object, nil] Start the playbook at the task matching this name.
+        attribute :start_at_task
+
+        # @return [String, nil] Enable use of fact caching for the job template.
+        attribute :fact_caching_enabled
+        validates :fact_caching_enabled, type: String
 
         # @return [Object, nil] Allow provisioning callbacks using this host config key.
         attribute :host_config_key
 
-        # @return [Object, nil] Path to the extra_vars yaml file.
-        attribute :extra_vars_path
+        # @return [String, nil] Prompt user to enable diff mode (show changes) to files when supported by modules.
+        attribute :ask_diff_mode
+        validates :ask_diff_mode, type: String
 
-        # @return [Boolean, nil] Prompt user for extra_vars on launch.
+        # @return [String, nil] Prompt user for (extra_vars) on launch.
         attribute :ask_extra_vars
-        validates :ask_extra_vars, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :ask_extra_vars, type: String
 
-        # @return [Boolean, nil] Prompt user for job tags on launch.
+        # @return [String, nil] Prompt user for a limit on launch.
+        attribute :ask_limit
+        validates :ask_limit, type: String
+
+        # @return [String, nil] Prompt user for job tags on launch.
         attribute :ask_tags
-        validates :ask_tags, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :ask_tags, type: String
 
-        # @return [Boolean, nil] Prompt user for job type on launch.
+        # @return [String, nil] Prompt user for job tags to skip on launch.
+        attribute :ask_skip_tags
+        validates :ask_skip_tags, type: String
+
+        # @return [String, nil] Prompt user for job type on launch.
         attribute :ask_job_type
-        validates :ask_job_type, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :ask_job_type, type: String
 
-        # @return [Boolean, nil] Propmt user for inventory on launch.
+        # @return [String, nil] Prompt user to choose a verbosity level on launch.
+        attribute :ask_verbosity
+        validates :ask_verbosity, type: String
+
+        # @return [String, nil] Propmt user for inventory on launch.
         attribute :ask_inventory
-        validates :ask_inventory, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :ask_inventory, type: String
 
-        # @return [Boolean, nil] Prompt user for credential on launch.
+        # @return [String, nil] Prompt user for credential on launch.
         attribute :ask_credential
-        validates :ask_credential, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :ask_credential, type: String
 
-        # @return [Boolean, nil] Should become_enabled.
+        # @return [String, nil] Enable a survey on the job template.
+        attribute :survey_enabled
+        validates :survey_enabled, type: String
+
+        # @return [String, nil] Activate privilege escalation.
         attribute :become_enabled
-        validates :become_enabled, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :become_enabled, type: String
+
+        # @return [String, nil] Allow simultaneous runs of the job template.
+        attribute :concurrent_jobs_enabled
+        validates :concurrent_jobs_enabled, type: String
 
         # @return [:present, :absent, nil] Desired state of the resource.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
-
-        # @return [Object, nil] URL to your Tower instance.
-        attribute :tower_host
-
-        # @return [Object, nil] Username for your Tower instance.
-        attribute :tower_username
-
-        # @return [Object, nil] Password for your Tower instance.
-        attribute :tower_password
-
-        # @return [Boolean, nil] Dis/allow insecure connections to Tower. If C(no), SSL certificates will not be validated. This should only be used on personally controlled sites using self-signed certificates.
-        attribute :tower_verify_ssl
-        validates :tower_verify_ssl, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
-
-        # @return [String, nil] Path to the Tower config file. See notes.
-        attribute :tower_config_file
-        validates :tower_config_file, type: String
       end
     end
   end

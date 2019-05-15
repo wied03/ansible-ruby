@@ -23,13 +23,14 @@ module Ansible
         # @return [Object, nil] Should the volume provide 512-byte sector emulation?,Required when C(state=present)
         attribute :"512emulation"
 
-        # @return [Object, nil] Initial quality of service settings for this volume.
+        # @return [Hash, nil] Initial quality of service settings for this volume. Configure as dict in playbooks.
         attribute :qos
+        validates :qos, type: Hash
 
         # @return [Object, nil] A YAML dictionary of attributes that you would like to apply on this volume.
         attribute :attributes
 
-        # @return [Object, nil] The ID of the volume to manage or update.,In order to create multiple volumes with the same name, but different volume_ids, please declare the I(volume_id) parameter with an arbitary value. However, the specified volume_id will not be assigned to the newly created volume (since it's an auto-generated property).
+        # @return [Object, nil] The ID of the volume to manage or update.,In order to create multiple volumes with the same name, but different volume_ids, please declare the I(volume_id) parameter with an arbitrary value. However, the specified volume_id will not be assigned to the newly created volume (since it's an auto-generated property).
         attribute :volume_id
 
         # @return [Integer, nil] The size of the volume in (size_unit).,Required when C(state = present).

@@ -8,27 +8,36 @@ module Ansible
     module Modules
       # Create, update, disable, lock, enable and remove users.
       class Cs_user < Base
-        # @return [Object] Username of the user.
+        # @return [String] Username of the user.
         attribute :username
-        validates :username, presence: true
+        validates :username, presence: true, type: String
 
-        # @return [Object, nil] Account the user will be created under.,Required on C(state=present).
+        # @return [String, nil] Account the user will be created under.,Required on C(state=present).
         attribute :account
+        validates :account, type: String
 
-        # @return [Object, nil] Password of the user to be created.,Required on C(state=present).,Only considered on creation and will not be updated if user exists.
+        # @return [String, nil] Password of the user to be created.,Required on C(state=present).,Only considered on creation and will not be updated if user exists.
         attribute :password
+        validates :password, type: String
 
-        # @return [Object, nil] First name of the user.,Required on C(state=present).
+        # @return [String, nil] First name of the user.,Required on C(state=present).
         attribute :first_name
+        validates :first_name, type: String
 
-        # @return [Object, nil] Last name of the user.,Required on C(state=present).
+        # @return [String, nil] Last name of the user.,Required on C(state=present).
         attribute :last_name
+        validates :last_name, type: String
 
-        # @return [Object, nil] Email of the user.,Required on C(state=present).
+        # @return [String, nil] Email of the user.,Required on C(state=present).
         attribute :email
+        validates :email, type: String
 
         # @return [Object, nil] Timezone of the user.
         attribute :timezone
+
+        # @return [Boolean, nil] If API keys of the user should be generated.,Note: Keys can not be removed by the API again.
+        attribute :keys_registered
+        validates :keys_registered, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [String, nil] Domain the user is related to.
         attribute :domain

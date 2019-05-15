@@ -21,9 +21,9 @@ module Ansible
         attribute :privs
         validates :privs, type: TypeGeneric.new(String)
 
-        # @return [:table, :sequence, :function, :database, :schema, :language, :tablespace, :group, nil] Type of database object to set privileges on.
+        # @return [:table, :sequence, :function, :database, :schema, :language, :tablespace, :group, :default_privs, nil] Type of database object to set privileges on.,The `default_prives` choice is available starting at version 2.7.
         attribute :type
-        validates :type, inclusion: {:in=>[:table, :sequence, :function, :database, :schema, :language, :tablespace, :group], :message=>"%{value} needs to be :table, :sequence, :function, :database, :schema, :language, :tablespace, :group"}, allow_nil: true
+        validates :type, inclusion: {:in=>[:table, :sequence, :function, :database, :schema, :language, :tablespace, :group, :default_privs], :message=>"%{value} needs to be :table, :sequence, :function, :database, :schema, :language, :tablespace, :group, :default_privs"}, allow_nil: true
 
         # @return [Array<String>, String, nil] Comma separated list of database objects to set privileges on.,If I(type) is C(table) or C(sequence), the special value C(ALL_IN_SCHEMA) can be provided instead to specify all database objects of type I(type) in the schema specified via I(schema). (This also works with PostgreSQL < 9.0.),If I(type) is C(database), this parameter can be omitted, in which case privileges are set for the database specified via I(database).,If I(type) is I(function), colons (":") in object names will be replaced with commas (needed to specify function signatures, see examples),Alias: I(obj)
         attribute :objs
@@ -37,9 +37,9 @@ module Ansible
         attribute :roles
         validates :roles, presence: true, type: TypeGeneric.new(String)
 
-        # @return [:yes, :no, nil] Whether C(role) may grant/revoke the specified privileges/group memberships to others.,Set to C(no) to revoke GRANT OPTION, leave unspecified to make no changes.,I(grant_option) only has an effect if I(state) is C(present).,Alias: I(admin_option)
+        # @return [TrueClass, FalseClass, nil] Whether C(role) may grant/revoke the specified privileges/group memberships to others.,Set to C(no) to revoke GRANT OPTION, leave unspecified to make no changes.,I(grant_option) only has an effect if I(state) is C(present).,Alias: I(admin_option)
         attribute :grant_option
-        validates :grant_option, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :grant_option, type: MultipleTypes.new(TrueClass, FalseClass)
 
         # @return [Object, nil] Database host address. If unspecified, connect via Unix socket.,Alias: I(login_host)
         attribute :host

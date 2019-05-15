@@ -12,23 +12,23 @@ module Ansible
         attribute :name
         validates :name, type: String
 
-        # @return [Boolean, nil] A string used for filtering flavors based on the amount of RAM (in MB) desired. This string accepts the following special values: 'MIN' (return flavors with the minimum amount of RAM), and 'MAX' (return flavors with the maximum amount of RAM).,A specific amount of RAM may also be specified. Any flavors with this exact amount of RAM will be returned.,A range of acceptable RAM may be given using a special syntax. Simply prefix the amount of RAM with one of these acceptable range values: '<', '>', '<=', '>='. These values represent less than, greater than, less than or equal to, and greater than or equal to, respectively.
+        # @return [String, nil] A string used for filtering flavors based on the amount of RAM (in MB) desired. This string accepts the following special values: 'MIN' (return flavors with the minimum amount of RAM), and 'MAX' (return flavors with the maximum amount of RAM).,A specific amount of RAM may also be specified. Any flavors with this exact amount of RAM will be returned.,A range of acceptable RAM may be given using a special syntax. Simply prefix the amount of RAM with one of these acceptable range values: '<', '>', '<=', '>='. These values represent less than, greater than, less than or equal to, and greater than or equal to, respectively.
         attribute :ram
-        validates :ram, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :ram, type: String
 
-        # @return [Boolean, nil] A string used for filtering flavors based on the number of virtual CPUs desired. Format is the same as the I(ram) parameter.
+        # @return [String, nil] A string used for filtering flavors based on the number of virtual CPUs desired. Format is the same as the I(ram) parameter.
         attribute :vcpus
-        validates :vcpus, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :vcpus, type: String
 
         # @return [Integer, nil] Limits the number of flavors returned. All matching flavors are returned by default.
         attribute :limit
         validates :limit, type: Integer
 
-        # @return [Boolean, nil] A string used for filtering flavors based on the amount of ephemeral storage. Format is the same as the I(ram) parameter
+        # @return [String, nil] A string used for filtering flavors based on the amount of ephemeral storage. Format is the same as the I(ram) parameter
         attribute :ephemeral
-        validates :ephemeral, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :ephemeral, type: String
 
-        # @return [Object, nil] Ignored. Present for backwards compatability
+        # @return [Object, nil] Ignored. Present for backwards compatibility
         attribute :availability_zone
       end
     end

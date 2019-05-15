@@ -15,7 +15,7 @@ module Ansible
         # @return [Object, nil] Additional description of the network domain.
         attribute :description
 
-        # @return [:ESSENTIALS, :ADVANCED, nil] The service plan, either “ESSENTIALS” or “ADVANCED”.,MCP 2.0 Only.
+        # @return [:ESSENTIALS, :ADVANCED, nil] The service plan, either "ESSENTIALS" or "ADVANCED".,MCP 2.0 Only.
         attribute :service_plan
         validates :service_plan, inclusion: {:in=>[:ESSENTIALS, :ADVANCED], :message=>"%{value} needs to be :ESSENTIALS, :ADVANCED"}, allow_nil: true
 

@@ -16,23 +16,27 @@ module Ansible
         attribute :dest
         validates :dest, type: String
 
-        # @return [String] Path of the patch file as accepted by the GNU patch tool. If C(remote_src) is 'no', the patch source file is looked up from the module's "files" directory.
+        # @return [String] Path of the patch file as accepted by the GNU patch tool. If C(remote_src) is 'no', the patch source file is looked up from the module's I(files) directory.
         attribute :src
         validates :src, presence: true, type: String
 
-        # @return [:yes, :no, nil] If C(no), it will search for src at originating/master machine, if C(yes) it will go to the remote/target machine for the src. Default is C(no).
+        # @return [:absent, :present, nil] Whether the patch should be applied or reverted.
+        attribute :state
+        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
+
+        # @return [String, nil] If C(no), it will search for src at originating/master machine, if C(yes) it will go to the remote/target machine for the C(src).
         attribute :remote_src
-        validates :remote_src, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :remote_src, type: String
 
-        # @return [String, nil] Number that indicates the smallest prefix containing leading slashes that will be stripped from each file name found in the patch file. For more information see the strip parameter of the GNU patch tool.
+        # @return [Integer, nil] Number that indicates the smallest prefix containing leading slashes that will be stripped from each file name found in the patch file. For more information see the strip parameter of the GNU patch tool.
         attribute :strip
-        validates :strip, type: String
+        validates :strip, type: Integer
 
-        # @return [:yes, :no, nil] passes --backup --version-control=numbered to patch, producing numbered backup copies
+        # @return [String, nil] Passes C(--backup --version-control=numbered) to patch, producing numbered backup copies.
         attribute :backup
-        validates :backup, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :backup, type: String
 
-        # @return [String, nil] Setting to C(yes) will disable patch's heuristic for transforming CRLF line endings into LF. Line endings of src and dest must match. If set to C(no), patch will replace CRLF in src files on POSIX.
+        # @return [String, nil] Setting to C(yes) will disable patch's heuristic for transforming CRLF line endings into LF. Line endings of src and dest must match. If set to C(no), C(patch) will replace CRLF in C(src) files on POSIX.
         attribute :binary
         validates :binary, type: String
       end

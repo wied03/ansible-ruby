@@ -6,8 +6,8 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
-      # Manage the atomic host platform
-      # Rebooting of Atomic host platform should be done outside this module
+      # Manage the atomic host platform.
+      # Rebooting of Atomic host platform should be done outside this module.
       class Atomic_host < Base
         # @return [String, nil] The version number of the atomic host to be deployed. Providing C(latest) will upgrade to the latest available version.
         attribute :revision

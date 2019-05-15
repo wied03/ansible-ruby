@@ -8,13 +8,20 @@ module Ansible
     module Modules
       # This module will let you trigger, acknowledge or resolve a PagerDuty incident by sending events
       class Pagerduty_alert < Base
-        # @return [String] PagerDuty unique subdomain.
+        # @return [String, nil] PagerDuty unique subdomain. Obsolete. It is not used with PagerDuty REST v2 API.
         attribute :name
-        validates :name, presence: true, type: String
+        validates :name, type: String
 
-        # @return [String] The GUID of one of your "Generic API" services.,This is the "service key" listed on a Generic API's service detail page.
+        # @return [String] ID of PagerDuty service when incidents will be triggered, acknowledged or resolved.
+        attribute :service_id
+        validates :service_id, presence: true, type: String
+
+        # @return [Object, nil] The GUID of one of your "Generic API" services. Obsolete. Please use I(integration_key).
         attribute :service_key
-        validates :service_key, presence: true, type: String
+
+        # @return [String] The GUID of one of your "Generic API" services.,This is the "integration key" listed on a "Integrations" tab of PagerDuty service.
+        attribute :integration_key
+        validates :integration_key, presence: true, type: String
 
         # @return [:triggered, :acknowledged, :resolved] Type of event to be sent.
         attribute :state

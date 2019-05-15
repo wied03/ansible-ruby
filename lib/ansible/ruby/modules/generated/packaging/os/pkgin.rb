@@ -16,25 +16,25 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [Boolean, nil] Update repository database. Can be run with other steps or on it's own.
+        # @return [String, nil] Update repository database. Can be run with other steps or on it's own.
         attribute :update_cache
-        validates :update_cache, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :update_cache, type: String
 
-        # @return [Boolean, nil] Upgrade main packages to their newer versions
+        # @return [String, nil] Upgrade main packages to their newer versions
         attribute :upgrade
-        validates :upgrade, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :upgrade, type: String
 
-        # @return [Boolean, nil] Upgrade all packages to their newer versions
+        # @return [String, nil] Upgrade all packages to their newer versions
         attribute :full_upgrade
-        validates :full_upgrade, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :full_upgrade, type: String
 
-        # @return [Boolean, nil] Clean packages cache
+        # @return [String, nil] Clean packages cache
         attribute :clean
-        validates :clean, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :clean, type: String
 
-        # @return [Boolean, nil] Force package reinstall
+        # @return [String, nil] Force package reinstall
         attribute :force
-        validates :force, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :force, type: String
       end
     end
   end

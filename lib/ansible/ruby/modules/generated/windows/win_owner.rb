@@ -16,9 +16,9 @@ module Ansible
         attribute :user
         validates :user, presence: true, type: String
 
-        # @return [Boolean, nil] Indicates if the owner should be changed recursively
+        # @return [String, nil] Indicates if the owner should be changed recursively
         attribute :recurse
-        validates :recurse, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :recurse, type: String
       end
     end
   end

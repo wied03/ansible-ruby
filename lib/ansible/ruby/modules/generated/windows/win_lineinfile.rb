@@ -17,17 +17,17 @@ module Ansible
         attribute :regexp
         validates :regexp, type: String
 
-        # @return [:present, :absent, nil] Whether the line should be there or not.
+        # @return [:absent, :present, nil] Whether the line should be there or not.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
-        # @return [String, nil] Required for C(state=present). The line to insert/replace into the file. If C(backrefs) is set, may contain backreferences that will get expanded with the C(regexp) capture groups if the regexp matches.
+        # @return [String, nil] Required for C(state=present). The line to insert/replace into the file. If C(backrefs) is set, may contain backreferences that will get expanded with the C(regexp) capture groups if the regexp matches.,Be aware that the line is processed first on the controller and thus is dependent on yaml quoting rules. Any double quoted line will have control characters, such as '\r\n', expanded. To print such characters literally, use single or no quotes.
         attribute :line
         validates :line, type: String
 
-        # @return [:yes, :no, nil] Used with C(state=present). If set, line can contain backreferences (both positional and named) that will get populated if the C(regexp) matches. This flag changes the operation of the module slightly; C(insertbefore) and C(insertafter) will be ignored, and if the C(regexp) doesn't match anywhere in the file, the file will be left unchanged.,If the C(regexp) does match, the last matching line will be replaced by the expanded line parameter.
+        # @return [String, nil] Used with C(state=present). If set, line can contain backreferences (both positional and named) that will get populated if the C(regexp) matches. This flag changes the operation of the module slightly; C(insertbefore) and C(insertafter) will be ignored, and if the C(regexp) doesn't match anywhere in the file, the file will be left unchanged.,If the C(regexp) does match, the last matching line will be replaced by the expanded line parameter.
         attribute :backrefs
-        validates :backrefs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :backrefs, type: String
 
         # @return [:EOF, :"*regex*", nil] Used with C(state=present). If specified, the line will be inserted after the last match of specified regular expression. A special value is available; C(EOF) for inserting the line at the end of the file.,If specified regular expression has no matches, EOF will be used instead. May not be used with C(backrefs).
         attribute :insertafter
@@ -37,13 +37,13 @@ module Ansible
         attribute :insertbefore
         validates :insertbefore, inclusion: {:in=>[:BOF, :"*regex*"], :message=>"%{value} needs to be :BOF, :\"*regex*\""}, allow_nil: true
 
-        # @return [:yes, :no, nil] Used with C(state=present). If specified, the file will be created if it does not already exist. By default it will fail if the file is missing.
+        # @return [String, nil] Used with C(state=present). If specified, the file will be created if it does not already exist. By default it will fail if the file is missing.
         attribute :create
-        validates :create, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :create, type: String
 
-        # @return [:yes, :no, nil] Create a backup file including the timestamp information so you can get the original file back if you somehow clobbered it incorrectly.
+        # @return [String, nil] Create a backup file including the timestamp information so you can get the original file back if you somehow clobbered it incorrectly.
         attribute :backup
-        validates :backup, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :backup, type: String
 
         # @return [Object, nil] Validation to run before copying into place. Use %s in the command to indicate the current file to validate.,The command is passed securely so shell features like expansion and pipes won't work.
         attribute :validate
@@ -52,9 +52,9 @@ module Ansible
         attribute :encoding
         validates :encoding, type: String
 
-        # @return [:windows, :unix, nil] Specifies the line separator style to use for the modified file. This defaults to the windows line separator (C(\r\n)). Note that the indicated line separator will be used for file output regardless of the original line separator that appears in the input file.
+        # @return [:unix, :windows, nil] Specifies the line separator style to use for the modified file. This defaults to the windows line separator (C(\r\n)). Note that the indicated line separator will be used for file output regardless of the original line separator that appears in the input file.
         attribute :newline
-        validates :newline, inclusion: {:in=>[:windows, :unix], :message=>"%{value} needs to be :windows, :unix"}, allow_nil: true
+        validates :newline, inclusion: {:in=>[:unix, :windows], :message=>"%{value} needs to be :unix, :windows"}, allow_nil: true
       end
     end
   end

@@ -13,6 +13,14 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
+        # @return [:put, :patch, nil] Default method for object update is HTTP PUT.,Setting to patch will override that behavior to use HTTP PATCH.
+        attribute :avi_api_update_method
+        validates :avi_api_update_method, inclusion: {:in=>[:put, :patch], :message=>"%{value} needs to be :put, :patch"}, allow_nil: true
+
+        # @return [:add, :replace, :delete, nil] Patch operation to use when using avi_api_update_method as patch.
+        attribute :avi_api_patch_op
+        validates :avi_api_patch_op, inclusion: {:in=>[:add, :replace, :delete], :message=>"%{value} needs to be :add, :replace, :delete"}, allow_nil: true
+
         # @return [Object, nil] User defined description for the object.
         attribute :description
 
@@ -33,6 +41,9 @@ module Ansible
         # @return [Object, nil] Specifies if client ip needs to be preserved for backend connection.,Not compatible with connection multiplexing.,Default value when not specified in API or module is interpreted by Avi Controller as False.
         attribute :preserve_client_ip
 
+        # @return [Object, nil] Specifies if we need to preserve client port while preseving client ip for backend connections.,Field introduced in 17.2.7.,Default value when not specified in API or module is interpreted by Avi Controller as False.
+        attribute :preserve_client_port
+
         # @return [Object, nil] Specifies the tcp application proxy profile parameters.
         attribute :tcp_app_profile
 
@@ -40,7 +51,7 @@ module Ansible
         attribute :tenant_ref
         validates :tenant_ref, type: String
 
-        # @return [String] Specifies which application layer proxy is enabled for the virtual service.
+        # @return [String] Specifies which application layer proxy is enabled for the virtual service.,Enum options - APPLICATION_PROFILE_TYPE_L4, APPLICATION_PROFILE_TYPE_HTTP, APPLICATION_PROFILE_TYPE_SYSLOG, APPLICATION_PROFILE_TYPE_DNS,,APPLICATION_PROFILE_TYPE_SSL.
         attribute :type
         validates :type, presence: true, type: String
 

@@ -25,7 +25,7 @@ module Ansible
         attribute :timeout
         validates :timeout, type: Integer
 
-        # @return [Object, nil] Ignored. Present for backwards compatability
+        # @return [Object, nil] Ignored. Present for backwards compatibility
         attribute :availability_zone
       end
     end

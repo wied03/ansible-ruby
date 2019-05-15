@@ -28,6 +28,10 @@ module Ansible
         attribute :hostgroup
         validates :hostgroup, type: TypeGeneric.new(String)
 
+        # @return [Array<String>, String, nil] List of privileges granted to the role.,If an empty list is passed all assigned privileges will be removed.,If option is omitted privileges will not be checked or changed.,If option is passed all assigned privileges that are not passed will be removed.
+        attribute :privilege
+        validates :privilege, type: TypeGeneric.new(String)
+
         # @return [Array<String>, String, nil] List of service names to assign.,If an empty list is passed all assigned services will be removed from the role.,If option is omitted services will not be checked or changed.,If option is passed all assigned services that are not passed will be removed from the role.
         attribute :service
         validates :service, type: TypeGeneric.new(String)
@@ -39,30 +43,6 @@ module Ansible
         # @return [Array<String>, String, nil] List of user names to assign.,If an empty list is passed all assigned users will be removed from the role.,If option is omitted users will not be checked or changed.
         attribute :user
         validates :user, type: TypeGeneric.new(String)
-
-        # @return [Integer, nil] Port of IPA server
-        attribute :ipa_port
-        validates :ipa_port, type: Integer
-
-        # @return [String, nil] IP or hostname of IPA server
-        attribute :ipa_host
-        validates :ipa_host, type: String
-
-        # @return [String, nil] Administrative account used on IPA server
-        attribute :ipa_user
-        validates :ipa_user, type: String
-
-        # @return [String] Password of administrative user
-        attribute :ipa_pass
-        validates :ipa_pass, presence: true, type: String
-
-        # @return [:http, :https, nil] Protocol used by IPA server
-        attribute :ipa_prot
-        validates :ipa_prot, inclusion: {:in=>[:http, :https], :message=>"%{value} needs to be :http, :https"}, allow_nil: true
-
-        # @return [Boolean, nil] This only applies if C(ipa_prot) is I(https).,If set to C(no), the SSL certificates will not be validated.,This should only set to C(no) used on personally controlled sites using self-signed certificates.
-        attribute :validate_certs
-        validates :validate_certs, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
       end
     end
   end

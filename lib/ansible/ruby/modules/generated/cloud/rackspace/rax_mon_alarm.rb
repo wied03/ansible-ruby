@@ -31,9 +31,8 @@ module Ansible
         # @return [Object, nil] Alarm DSL that describes alerting conditions and their output states. Must be between 1 and 16384 characters long. See http://docs.rackspace.com/cm/api/v1.0/cm-devguide/content/alerts-language.html for a reference on the alerting language.
         attribute :criteria
 
-        # @return [:yes, :no, nil] If yes, create this alarm, but leave it in an inactive state. Defaults to no.
+        # @return [Object, nil] If yes, create this alarm, but leave it in an inactive state. Defaults to no.
         attribute :disabled
-        validates :disabled, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] Arbitrary key/value pairs to accompany the alarm. Must be a hash of String keys and values between 1 and 255 characters long.
         attribute :metadata

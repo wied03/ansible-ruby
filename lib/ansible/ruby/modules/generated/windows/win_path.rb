@@ -8,7 +8,7 @@ module Ansible
     module Modules
       # Allows element-based ordering, addition, and removal of Windows path environment variables.
       class Win_path < Base
-        # @return [String, nil] Target path environment variable name
+        # @return [String, nil] Target path environment variable name.
         attribute :name
         validates :name, type: String
 
@@ -16,9 +16,9 @@ module Ansible
         attribute :elements
         validates :elements, presence: true, type: TypeGeneric.new(String)
 
-        # @return [:present, :absent, nil] Whether the path elements specified in C(elements) should be present or absent.
+        # @return [:absent, :present, nil] Whether the path elements specified in C(elements) should be present or absent.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
         # @return [:machine, :user, nil] The level at which the environment variable specified by C(name) should be managed (either for the current user or global machine scope).
         attribute :scope

@@ -16,37 +16,37 @@ module Ansible
         attribute :password
         validates :password, type: MultipleTypes.new(Integer, String)
 
-        # @return [:yes, :no, nil] Indicate that the 'password' field is a `mysql_native_password` hash
+        # @return [String, nil] Indicate that the 'password' field is a `mysql_native_password` hash
         attribute :encrypted
-        validates :encrypted, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :encrypted, type: String
 
         # @return [String, nil] the 'host' part of the MySQL username
         attribute :host
         validates :host, type: String
 
-        # @return [:yes, :no, nil] override the host option, making ansible apply changes to all hostnames for a given user.  This option cannot be used when creating users
+        # @return [String, nil] override the host option, making ansible apply changes to all hostnames for a given user.  This option cannot be used when creating users
         attribute :host_all
-        validates :host_all, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :host_all, type: String
 
         # @return [Array<String>, String, nil] MySQL privileges string in the format: C(db.table:priv1,priv2).,Multiple privileges can be specified by separating each one using a forward slash: C(db.table:priv/db.table:priv).,The format is based on MySQL C(GRANT) statement.,Database and table names can be quoted, MySQL-style.,If column privileges are used, the C(priv1,priv2) part must be exactly as returned by a C(SHOW GRANT) statement. If not followed, the module will always report changes. It includes grouping columns by permission (C(SELECT(col1,col2)) instead of C(SELECT(col1),SELECT(col2))).
         attribute :priv
         validates :priv, type: TypeGeneric.new(String)
 
-        # @return [:yes, :no, nil] Append the privileges defined by priv to the existing ones for this user instead of overwriting existing ones.
+        # @return [String, nil] Append the privileges defined by priv to the existing ones for this user instead of overwriting existing ones.
         attribute :append_privs
-        validates :append_privs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :append_privs, type: String
 
-        # @return [:yes, :no, nil] Whether binary logging should be enabled or disabled for the connection.
+        # @return [String, nil] Whether binary logging should be enabled or disabled for the connection.
         attribute :sql_log_bin
-        validates :sql_log_bin, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :sql_log_bin, type: String
 
         # @return [:present, :absent, nil] Whether the user should exist.  When C(absent), removes the user.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [:yes, :no, nil] Check if mysql allows login as root/nopassword before trying supplied credentials.
+        # @return [String, nil] Check if mysql allows login as root/nopassword before trying supplied credentials.
         attribute :check_implicit_admin
-        validates :check_implicit_admin, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :check_implicit_admin, type: String
 
         # @return [:always, :on_create, nil] C(always) will update passwords if they differ.  C(on_create) will only set the password for newly created users.
         attribute :update_password

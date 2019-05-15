@@ -13,8 +13,19 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
+        # @return [:put, :patch, nil] Default method for object update is HTTP PUT.,Setting to patch will override that behavior to use HTTP PATCH.
+        attribute :avi_api_update_method
+        validates :avi_api_update_method, inclusion: {:in=>[:put, :patch], :message=>"%{value} needs to be :put, :patch"}, allow_nil: true
+
+        # @return [:add, :replace, :delete, nil] Patch operation to use when using avi_api_update_method as patch.
+        attribute :avi_api_patch_op
+        validates :avi_api_patch_op, inclusion: {:in=>[:add, :replace, :delete], :message=>"%{value} needs to be :add, :replace, :delete"}, allow_nil: true
+
         # @return [Object, nil] Adminauthconfiguration settings for systemconfiguration.
         attribute :admin_auth_configuration
+
+        # @return [Object, nil] Specifies the default license tier which would be used by new clouds.,Enum options - ENTERPRISE_16, ENTERPRISE_18.,Field introduced in 17.2.5.,Default value when not specified in API or module is interpreted by Avi Controller as ENTERPRISE_18.
+        attribute :default_license_tier
 
         # @return [Object, nil] Dnsconfiguration settings for systemconfiguration.
         attribute :dns_configuration
@@ -54,9 +65,6 @@ module Ansible
 
         # @return [Object, nil] Allowed hmac list for ssh to the management interface on the controller and service engines.,If this is not specified, all the default hmacs are allowed.,Ssh -q mac provides the list of default hmacs supported.
         attribute :ssh_hmacs
-
-        # @return [Object, nil] Techsupportuploaderconfiguration settings for systemconfiguration.
-        attribute :tech_support_uploader_configuration
 
         # @return [Object, nil] Avi controller URL of the object.
         attribute :url

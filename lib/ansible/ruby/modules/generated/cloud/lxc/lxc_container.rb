@@ -67,9 +67,9 @@ module Ansible
         attribute :container_log_level
         validates :container_log_level, inclusion: {:in=>[:INFO, :ERROR, :DEBUG], :message=>"%{value} needs to be :INFO, :ERROR, :DEBUG"}, allow_nil: true
 
-        # @return [Boolean, nil] Name of the new cloned server. This is only used when state is clone.
+        # @return [String, nil] Name of the new cloned server. This is only used when state is clone.
         attribute :clone_name
-        validates :clone_name, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :clone_name, type: String
 
         # @return [Boolean, nil] Create a snapshot a container when cloning. This is not supported by all container storage backends. Enabling this may fail if the backing store does not support snapshots.
         attribute :clone_snapshot

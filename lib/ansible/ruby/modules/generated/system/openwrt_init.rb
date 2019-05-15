@@ -16,9 +16,9 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:started, :stopped, :restarted, :reloaded], :message=>"%{value} needs to be :started, :stopped, :restarted, :reloaded"}, allow_nil: true
 
-        # @return [:yes, :no, nil] Whether the service should start on boot. B(At least one of state and enabled are required.)
+        # @return [Boolean, nil] Whether the service should start on boot. B(At least one of state and enabled are required.)
         attribute :enabled
-        validates :enabled, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :enabled, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Object, nil] If the service does not respond to the 'running' command, name a substring to look for as would be found in the output of the I(ps) command as a stand-in for a 'running' result.  If the string is found, the service will be assumed to be running.
         attribute :pattern

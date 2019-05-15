@@ -13,8 +13,8 @@ module Ansible
         validates :name, presence: true, type: String
 
         # @return [String, nil] Type of the affinity group. If not specified, first found affinity type is used.
-        attribute :affinty_type
-        validates :affinty_type, type: String
+        attribute :affinity_type
+        validates :affinity_type, type: String
 
         # @return [Object, nil] Description of the affinity group.
         attribute :description
@@ -32,9 +32,9 @@ module Ansible
         # @return [Object, nil] Name of the project the affinity group is related to.
         attribute :project
 
-        # @return [Boolean, nil] Poll async jobs until job has finished.
+        # @return [String, nil] Poll async jobs until job has finished.
         attribute :poll_async
-        validates :poll_async, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :poll_async, type: String
       end
     end
   end

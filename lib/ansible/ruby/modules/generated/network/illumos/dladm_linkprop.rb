@@ -12,12 +12,13 @@ module Ansible
         attribute :link
         validates :link, presence: true
 
-        # @return [Object] Specifies the name of the property we want to manage.
+        # @return [String] Specifies the name of the property we want to manage.
         attribute :property
-        validates :property, presence: true
+        validates :property, presence: true, type: String
 
-        # @return [Object, nil] Specifies the value we want to set for the link property.
+        # @return [String, nil] Specifies the value we want to set for the link property.
         attribute :value
+        validates :value, type: String
 
         # @return [Boolean, nil] Specifies that lin property configuration is temporary. Temporary link property configuration does not persist across reboots.
         attribute :temporary

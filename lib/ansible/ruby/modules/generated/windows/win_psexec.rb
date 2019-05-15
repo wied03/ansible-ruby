@@ -32,25 +32,32 @@ module Ansible
         # @return [Object, nil] Run the command from this (remote) directory.
         attribute :chdir
 
-        # @return [Boolean, nil] Run the command without loading the account's profile.
+        # @return [String, nil] Do not display the startup banner and copyright message.,This only works for specific versions of the PsExec binary.
+        attribute :nobanner
+        validates :nobanner, type: String
+
+        # @return [String, nil] Run the command without loading the account's profile.
         attribute :noprofile
-        validates :noprofile, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :noprofile, type: String
 
-        # @return [Boolean, nil] Run the command with elevated privileges.
+        # @return [String, nil] Run the command with elevated privileges.
         attribute :elevated
-        validates :elevated, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :elevated, type: String
 
-        # @return [Boolean, nil] Run the program so that it interacts with the desktop on the remote system.
+        # @return [String, nil] Run the program so that it interacts with the desktop on the remote system.
         attribute :interactive
-        validates :interactive, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :interactive, type: String
 
-        # @return [Boolean, nil] Run the command as limited user (strips the Administrators group and allows only privileges assigned to the Users group).
+        # @return [Object, nil] Specifies the session ID to use.,This parameter works in conjunction with I(interactive).,It has no effect when I(interactive) is set to C(no).
+        attribute :session
+
+        # @return [String, nil] Run the command as limited user (strips the Administrators group and allows only privileges assigned to the Users group).
         attribute :limited
-        validates :limited, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :limited, type: String
 
-        # @return [Boolean, nil] Run the remote command in the System account.
+        # @return [String, nil] Run the remote command in the System account.
         attribute :system
-        validates :system, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :system, type: String
 
         # @return [:background, :low, :belownormal, :abovenormal, :high, :realtime, nil] Used to run the command at a different priority.
         attribute :priority
@@ -59,9 +66,9 @@ module Ansible
         # @return [Object, nil] The connection timeout in seconds
         attribute :timeout
 
-        # @return [Boolean, nil] Wait for the application to terminate.,Only use for non-interactive applications.
+        # @return [String, nil] Wait for the application to terminate.,Only use for non-interactive applications.
         attribute :wait
-        validates :wait, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :wait, type: String
       end
     end
   end

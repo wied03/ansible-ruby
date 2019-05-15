@@ -8,26 +8,6 @@ module Ansible
     module Modules
       # Create or remove disk groups and disk pools for NetApp E-series storage arrays.
       class Netapp_e_storagepool < Base
-        # @return [String] The username to authenticate with the SANtricity WebServices Proxy or embedded REST API.
-        attribute :api_username
-        validates :api_username, presence: true, type: String
-
-        # @return [String] The password to authenticate with the SANtricity WebServices Proxy or embedded REST API.
-        attribute :api_password
-        validates :api_password, presence: true, type: String
-
-        # @return [String] The url to the SANtricity WebServices Proxy or embedded REST API.
-        attribute :api_url
-        validates :api_url, presence: true, type: String
-
-        # @return [Boolean, nil] Should https certificates be validated?
-        attribute :validate_certs
-        validates :validate_certs, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
-
-        # @return [String] The ID of the array to manage (as configured on the web services proxy).
-        attribute :ssid
-        validates :ssid, presence: true, type: String
-
         # @return [:present, :absent] Whether the specified storage pool should exist or not.,Note that removing a storage pool currently requires the removal of all defined volumes first.
         attribute :state
         validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
@@ -64,13 +44,11 @@ module Ansible
         attribute :raid_level
         validates :raid_level, presence: true, inclusion: {:in=>[:raidAll, :raid0, :raid1, :raid3, :raid5, :raid6, :raidDiskPool], :message=>"%{value} needs to be :raidAll, :raid0, :raid1, :raid3, :raid5, :raid6, :raidDiskPool"}
 
-        # @return [:true, :false, nil] Whether to erase secured disks before adding to storage pool
+        # @return [Object, nil] Whether to erase secured disks before adding to storage pool
         attribute :erase_secured_drives
-        validates :erase_secured_drives, inclusion: {:in=>[:true, :false], :message=>"%{value} needs to be :true, :false"}, allow_nil: true
 
-        # @return [:true, :false, nil] Whether to convert to a secure storage pool. Will only work if all drives in the pool are security capable.
+        # @return [Object, nil] Whether to convert to a secure storage pool. Will only work if all drives in the pool are security capable.
         attribute :secure_pool
-        validates :secure_pool, inclusion: {:in=>[:true, :false], :message=>"%{value} needs to be :true, :false"}, allow_nil: true
 
         # @return [Object, nil] Set the number of drives reserved by the storage pool for reconstruction operations. Only valide on raid disk pools.
         attribute :reserve_drive_count

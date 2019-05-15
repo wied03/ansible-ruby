@@ -8,17 +8,17 @@ module Ansible
     module Modules
       # Manages IGMP global configuration configuration settings.
       class Nxos_igmp < Base
-        # @return [:true, :false, nil] Removes routes when the IGMP process is restarted. By default, routes are not flushed.
+        # @return [Boolean, nil] Removes routes when the IGMP process is restarted. By default, routes are not flushed.
         attribute :flush_routes
-        validates :flush_routes, inclusion: {:in=>[:true, :false], :message=>"%{value} needs to be :true, :false"}, allow_nil: true
+        validates :flush_routes, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
-        # @return [:true, :false, nil] Enables or disables the enforce router alert option check for IGMPv2 and IGMPv3 packets.
+        # @return [Boolean, nil] Enables or disables the enforce router alert option check for IGMPv2 and IGMPv3 packets.
         attribute :enforce_rtr_alert
-        validates :enforce_rtr_alert, inclusion: {:in=>[:true, :false], :message=>"%{value} needs to be :true, :false"}, allow_nil: true
+        validates :enforce_rtr_alert, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
-        # @return [:true, :false, nil] Restarts the igmp process (using an exec config command).
+        # @return [Boolean, nil] Restarts the igmp process (using an exec config command).
         attribute :restart
-        validates :restart, inclusion: {:in=>[:true, :false], :message=>"%{value} needs to be :true, :false"}, allow_nil: true
+        validates :restart, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [:present, :default, nil] Manages desired state of the resource.
         attribute :state

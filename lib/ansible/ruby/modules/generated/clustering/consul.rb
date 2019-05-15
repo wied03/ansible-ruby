@@ -35,14 +35,14 @@ module Ansible
         attribute :scheme
         validates :scheme, type: String
 
-        # @return [Boolean, nil] whether to verify the tls certificate of the consul agent
+        # @return [String, nil] whether to verify the tls certificate of the consul agent
         attribute :validate_certs
-        validates :validate_certs, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :validate_certs, type: String
 
         # @return [Object, nil] Notes to attach to check when registering it.
         attribute :notes
 
-        # @return [Integer, nil] the port on which the service is listening required for registration of a service, i.e. if service_name or service_id is set
+        # @return [Integer, nil] the port on which the service is listening. Can optionally be supplied for registration of a service, i.e. if service_name or service_id is set
         attribute :service_port
         validates :service_port, type: Integer
 

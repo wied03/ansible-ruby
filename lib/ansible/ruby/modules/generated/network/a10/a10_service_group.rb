@@ -8,6 +8,10 @@ module Ansible
     module Modules
       # Manage SLB (Server Load Balancing) service-group objects on A10 Networks devices via aXAPIv2.
       class A10_service_group < Base
+        # @return [:present, :absent, nil] If the specified service group should exists.
+        attribute :state
+        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+
         # @return [String, nil] set active-partition
         attribute :partition
         validates :partition, type: String
@@ -28,9 +32,9 @@ module Ansible
         attribute :servers
         validates :servers, type: TypeGeneric.new(Hash)
 
-        # @return [:yes, :no, nil] If C(no), SSL certificates will not be validated. This should only be used on personally controlled devices using self-signed certificates.
+        # @return [String, nil] If C(no), SSL certificates will not be validated. This should only be used on personally controlled devices using self-signed certificates.
         attribute :validate_certs
-        validates :validate_certs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :validate_certs, type: String
       end
     end
   end

@@ -6,14 +6,14 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
-      # Manages SELinux file context mapping definitions
-      # Similar to the C(semanage fcontext) command
+      # Manages SELinux file context mapping definitions.
+      # Similar to the C(semanage fcontext) command.
       class Sefcontext < Base
         # @return [String] Target path (expression).
         attribute :target
         validates :target, presence: true, type: String
 
-        # @return [String, nil] File type.
+        # @return [String, nil] File type.,The following file type options can be passed; C(a) for all files, C(b) for block devices, C(c) for character devices, C(d) for directories, C(f) for regular files, C(l) for symbolic links, C(p) for named pipes, C(s) for socket files.
         attribute :ftype
         validates :ftype, type: String
 
@@ -27,13 +27,13 @@ module Ansible
         # @return [Object, nil] SELinux range for the specified target.
         attribute :selevel
 
-        # @return [:present, :absent, nil] Desired boolean value.
+        # @return [:absent, :present, nil] Whether the SELinux file context must be C(absent) or C(present).
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
-        # @return [Boolean, nil] Reload SELinux policy after commit.
+        # @return [String, nil] Reload SELinux policy after commit.,Note that this does not apply SELinux file contexts to existing files.
         attribute :reload
-        validates :reload, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :reload, type: String
       end
     end
   end

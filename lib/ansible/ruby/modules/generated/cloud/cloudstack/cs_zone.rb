@@ -12,7 +12,7 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [Object, nil] uuid of the exising zone.
+        # @return [Object, nil] uuid of the existing zone.
         attribute :id
 
         # @return [:present, :enabled, :disabled, :absent, nil] State of the zone.

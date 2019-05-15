@@ -20,9 +20,9 @@ module Ansible
         attribute :target
         validates :target, type: String
 
-        # @return [Boolean, nil] whether the target node should be connected
+        # @return [TrueClass, FalseClass, nil] whether the target node should be connected
         attribute :login
-        validates :login, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :login, type: MultipleTypes.new(TrueClass, FalseClass)
 
         # @return [String, nil] discovery.sendtargets.auth.authmethod
         attribute :node_auth
@@ -34,9 +34,8 @@ module Ansible
         # @return [Object, nil] discovery.sendtargets.auth.password
         attribute :node_pass
 
-        # @return [Boolean, nil] whether the target node should be automatically connected at startup
+        # @return [Object, nil] whether the target node should be automatically connected at startup
         attribute :auto_node_startup
-        validates :auto_node_startup, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Boolean, nil] whether the list of target nodes on the portal should be (re)discovered and added to the persistent iscsi database. Keep in mind that iscsiadm discovery resets configurtion, like node.startup to manual, hence combined with auto_node_startup=yes will always return a changed state.
         attribute :discover

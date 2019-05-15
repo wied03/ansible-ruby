@@ -6,19 +6,23 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
-      # Manages MacPorts packages
+      # Manages MacPorts packages (ports)
       class Macports < Base
-        # @return [String] name of package to install/remove
+        # @return [String] A list of port names.
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [:present, :absent, :active, :inactive, nil] state of the package
+        # @return [:present, :absent, :active, :inactive, nil] Indicates the desired state of the port.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent, :active, :inactive], :message=>"%{value} needs to be :present, :absent, :active, :inactive"}, allow_nil: true
 
-        # @return [:yes, :no, nil] update the package db first
-        attribute :update_cache
-        validates :update_cache, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        # @return [String, nil] Update the ports tree first.
+        attribute :update_ports
+        validates :update_ports, type: String
+
+        # @return [String, nil] A port variant specification.,C(variant) is only supported with state: I(installed)/I(present).
+        attribute :variant
+        validates :variant, type: String
       end
     end
   end

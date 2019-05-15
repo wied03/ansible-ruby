@@ -37,9 +37,9 @@ module Ansible
         attribute :unfinished_filename
         validates :unfinished_filename, type: String
 
-        # @return [Boolean, nil] Whether to run the clean procedure in case of C(state=finalize).
+        # @return [String, nil] Whether to run the clean procedure in case of C(state=finalize).
         attribute :clean
-        validates :clean, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :clean, type: String
 
         # @return [Integer, nil] the number of old releases to keep when cleaning. Used in C(finalize) and C(clean). Any unfinished builds will be deleted first, so only correct releases will count. The current version will not count.
         attribute :keep_releases

@@ -16,6 +16,10 @@ module Ansible
         attribute :switch_name
         validates :switch_name, presence: true, type: String
 
+        # @return [String, nil] The version of the switch to create. Can be 6.5.0, 6.0.0, 5.5.0, 5.1.0, 5.0.0 with a vcenter running vSphere 6.5,Needed if you have a vcenter version > ESXi version to join DVS. If not specified version=version of vcenter
+        attribute :switch_version
+        validates :switch_version, type: String
+
         # @return [Integer] The switch maximum transmission unit
         attribute :mtu
         validates :mtu, presence: true, type: Integer

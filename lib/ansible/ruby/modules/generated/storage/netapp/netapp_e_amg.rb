@@ -20,9 +20,9 @@ module Ansible
         attribute :syncIntervalMinutes
         validates :syncIntervalMinutes, type: Integer
 
-        # @return [Boolean, nil] Setting this to true will cause other synchronization values to be ignored
+        # @return [String, nil] Setting this to true will cause other synchronization values to be ignored
         attribute :manualSync
-        validates :manualSync, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :manualSync, type: String
 
         # @return [Integer, nil] Recovery point warning threshold (minutes). The user will be warned when the age of the last good failures point exceeds this value
         attribute :recoveryWarnThresholdMinutes
@@ -40,9 +40,9 @@ module Ansible
         attribute :syncWarnThresholdMinutes
         validates :syncWarnThresholdMinutes, type: Integer
 
-        # @return [String] A C(state) of present will either create or update the async mirror group.,A C(state) of absent will remove the async mirror group.
+        # @return [:absent, :present] A C(state) of present will either create or update the async mirror group.,A C(state) of absent will remove the async mirror group.
         attribute :state
-        validates :state, presence: true, type: String
+        validates :state, presence: true, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}
       end
     end
   end

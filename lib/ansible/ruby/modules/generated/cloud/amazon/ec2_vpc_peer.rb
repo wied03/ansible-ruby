@@ -16,6 +16,10 @@ module Ansible
         attribute :peering_id
         validates :peering_id, type: String
 
+        # @return [String, nil] Region of the accepting VPC.
+        attribute :peer_region
+        validates :peer_region, type: String
+
         # @return [String, nil] VPC id of the accepting VPC.
         attribute :peer_vpc_id
         validates :peer_vpc_id, type: String

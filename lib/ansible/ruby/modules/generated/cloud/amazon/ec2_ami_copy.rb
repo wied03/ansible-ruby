@@ -32,17 +32,21 @@ module Ansible
         attribute :kms_key_id
         validates :kms_key_id, type: String
 
-        # @return [:yes, :no, nil] Wait for the copied AMI to be in state 'available' before returning.
+        # @return [String, nil] Wait for the copied AMI to be in state 'available' before returning.
         attribute :wait
-        validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :wait, type: String
 
-        # @return [Integer, nil] How long before wait gives up, in seconds. (As of 2.3 this option is deprecated. See boto3 Waiters)
+        # @return [Integer, nil] How long before wait gives up, in seconds. Prior to 2.3 the default was 1200.,From 2.3-2.5 this option was deprecated in favor of boto3 waiter defaults. This was reenabled in 2.6 to allow timeouts greater than 10 minutes.
         attribute :wait_timeout
         validates :wait_timeout, type: Integer
 
         # @return [Hash, nil] A hash/dictionary of tags to add to the new copied AMI; '{"key":"value"}' and '{"key":"value","key":"value"}'
         attribute :tags
         validates :tags, type: Hash
+
+        # @return [Boolean, nil] Whether to use tags if the source AMI already exists in the target region. If this is set, and all tags match in an existing AMI, the AMI will not be copied again.
+        attribute :tag_equality
+        validates :tag_equality, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
       end
     end
   end

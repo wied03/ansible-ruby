@@ -8,7 +8,7 @@ module Ansible
     module Modules
       # Adds or removes nat rules from a gateway in a vca environment
       class Vca_nat < Base
-        # @return [Boolean, nil] If set to true, it will delete all rules in the gateway that are not given as paramter to this module.
+        # @return [Boolean, nil] If set to true, it will delete all rules in the gateway that are not given as parameter to this module.
         attribute :purge_rules
         validates :purge_rules, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 

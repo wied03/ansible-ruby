@@ -8,21 +8,29 @@ module Ansible
     module Modules
       # Manages I(apk) packages for Alpine Linux.
       class Apk < Base
-        # @return [Array<String>, String, nil] A package name, like C(foo), or mutliple packages, like C(foo, bar).
+        # @return [String, nil] During upgrade, reset versioned world dependencies and change logic to prefer replacing or downgrading packages (instead of holding them) if the currently installed package is no longer available from any repository.
+        attribute :available
+        validates :available, type: String
+
+        # @return [Array<String>, String, nil] A package name, like C(foo), or multiple packages, like C(foo, bar).
         attribute :name
         validates :name, type: TypeGeneric.new(String)
+
+        # @return [String, nil] A package repository or multiple repositories. Unlike with the underlying apk command, this list will override the system repositories rather than supplement them.
+        attribute :repository
+        validates :repository, type: String
 
         # @return [:present, :absent, :latest, nil] Indicates the desired package(s) state.,C(present) ensures the package(s) is/are present.,C(absent) ensures the package(s) is/are absent.,C(latest) ensures the package(s) is/are present and the latest version(s).
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent, :latest], :message=>"%{value} needs to be :present, :absent, :latest"}, allow_nil: true
 
-        # @return [Boolean, nil] Update repository indexes. Can be run with other steps or on it's own.
+        # @return [String, nil] Update repository indexes. Can be run with other steps or on it's own.
         attribute :update_cache
-        validates :update_cache, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :update_cache, type: String
 
-        # @return [Boolean, nil] Upgrade all installed packages to their latest version.
+        # @return [String, nil] Upgrade all installed packages to their latest version.
         attribute :upgrade
-        validates :upgrade, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :upgrade, type: String
       end
     end
   end

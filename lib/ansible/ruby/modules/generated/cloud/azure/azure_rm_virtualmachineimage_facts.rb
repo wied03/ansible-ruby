@@ -8,9 +8,6 @@ module Ansible
     module Modules
       # Get facts for virtual machine images.
       class Azure_rm_virtualmachineimage_facts < Base
-        # @return [Object, nil] Only show results for a specific security group.
-        attribute :name
-
         # @return [String] Azure location value (ie. westus, eastus, eastus2, northcentralus, etc.). Supplying only a location value will yield a list of available publishers for the location.
         attribute :location
         validates :location, presence: true, type: String

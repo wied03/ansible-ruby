@@ -20,7 +20,7 @@ module Ansible
         attribute :filters
         validates :filters, type: Hash
 
-        # @return [Object, nil] Ignored. Present for backwards compatability
+        # @return [Object, nil] Ignored. Present for backwards compatibility
         attribute :availability_zone
       end
     end

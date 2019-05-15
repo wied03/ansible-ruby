@@ -20,9 +20,9 @@ module Ansible
         attribute :match
         validates :match, inclusion: {:in=>[:line, :none], :message=>"%{value} needs to be :line, :none"}, allow_nil: true
 
-        # @return [Boolean, nil] The C(backup) argument will backup the current devices active configuration to the Ansible control host prior to making any changes.  The backup file will be located in the backup folder in the root of the playbook
+        # @return [String, nil] The C(backup) argument will backup the current devices active configuration to the Ansible control host prior to making any changes.  The backup file will be located in the backup folder in the playbook root directory or role root directory, if playbook is part of an ansible role. If the directory does not exist, it is created.
         attribute :backup
-        validates :backup, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :backup, type: String
 
         # @return [String, nil] Allows a commit description to be specified to be included when the configuration is committed.  If the configuration is not changed or committed, this argument is ignored.
         attribute :comment
@@ -31,9 +31,9 @@ module Ansible
         # @return [Object, nil] The C(config) argument specifies the base configuration to use to compare against the desired configuration.  If this value is not specified, the module will automatically retrieve the current active configuration from the remote device.
         attribute :config
 
-        # @return [Boolean, nil] The C(save) argument controls whether or not changes made to the active configuration are saved to disk.  This is independent of committing the config.  When set to True, the active configuration is saved.
+        # @return [String, nil] The C(save) argument controls whether or not changes made to the active configuration are saved to disk.  This is independent of committing the config.  When set to True, the active configuration is saved.
         attribute :save
-        validates :save, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :save, type: String
       end
     end
   end

@@ -22,34 +22,6 @@ module Ansible
         # @return [:present, :absent, nil] When C(present) - adds the replication hostgroup, when C(absent) - removes the replication hostgroup.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
-
-        # @return [Boolean, nil] Save mysql host config to sqlite db on disk to persist the configuration.
-        attribute :save_to_disk
-        validates :save_to_disk, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
-
-        # @return [Boolean, nil] Dynamically load mysql host config to runtime memory.
-        attribute :load_to_runtime
-        validates :load_to_runtime, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
-
-        # @return [String, nil] The username used to authenticate to ProxySQL admin interface.
-        attribute :login_user
-        validates :login_user, type: String
-
-        # @return [String, nil] The password used to authenticate to ProxySQL admin interface.
-        attribute :login_password
-        validates :login_password, type: String
-
-        # @return [String, nil] The host used to connect to ProxySQL admin interface.
-        attribute :login_host
-        validates :login_host, type: String
-
-        # @return [Integer, nil] The port used to connect to ProxySQL admin interface.
-        attribute :login_port
-        validates :login_port, type: Integer
-
-        # @return [String, nil] Specify a config file from which login_user and login_password are to be read.
-        attribute :config_file
-        validates :config_file, type: String
       end
     end
   end

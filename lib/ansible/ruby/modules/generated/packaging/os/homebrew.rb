@@ -8,11 +8,11 @@ module Ansible
     module Modules
       # Manages Homebrew packages
       class Homebrew < Base
-        # @return [Array<String>, String, nil] name of package to install/remove
+        # @return [Array<String>, String, nil] list of names of packages to install/remove
         attribute :name
         validates :name, type: TypeGeneric.new(String)
 
-        # @return [String, nil] ':' separated list of paths to search for 'brew' executable. Since A package (I(formula) in homebrew parlance) location is prefixed relative to the actual path of I(brew) command, providing an alternative I(brew) path enables managing different set of packages in an alternative location in the system.
+        # @return [String, nil] A ':' separated list of paths to search for 'brew' executable. Since a package (I(formula) in homebrew parlance) location is prefixed relative to the actual path of I(brew) command, providing an alternative I(brew) path enables managing different set of packages in an alternative location in the system.
         attribute :path
         validates :path, type: String
 
@@ -20,13 +20,13 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:head, :latest, :present, :absent, :linked, :unlinked], :message=>"%{value} needs to be :head, :latest, :present, :absent, :linked, :unlinked"}, allow_nil: true
 
-        # @return [Boolean, nil] update homebrew itself first
+        # @return [String, nil] update homebrew itself first
         attribute :update_homebrew
-        validates :update_homebrew, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :update_homebrew, type: String
 
-        # @return [Boolean, nil] upgrade all homebrew packages
+        # @return [String, nil] upgrade all homebrew packages
         attribute :upgrade_all
-        validates :upgrade_all, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :upgrade_all, type: String
 
         # @return [Array<String>, String, nil] options flags to install a package
         attribute :install_options

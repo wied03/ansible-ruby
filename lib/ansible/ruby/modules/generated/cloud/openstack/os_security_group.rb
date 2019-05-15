@@ -20,7 +20,11 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [Object, nil] Ignored. Present for backwards compatability
+        # @return [String, nil] Unique name or ID of the project.
+        attribute :project
+        validates :project, type: String
+
+        # @return [Object, nil] Ignored. Present for backwards compatibility
         attribute :availability_zone
       end
     end

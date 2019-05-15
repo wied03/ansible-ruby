@@ -8,13 +8,13 @@ module Ansible
     module Modules
       # Create (reserve) or Destroy (release) Regional or Global IP Addresses. See U(https://cloud.google.com/compute/docs/configure-instance-ip-addresses#reserve_new_static) for more on reserving static addresses.
       class Gce_eip < Base
-        # @return [Object] Name of Address.
+        # @return [String] Name of Address.
         attribute :name
-        validates :name, presence: true
+        validates :name, presence: true, type: String
 
-        # @return [Object] Region to create the address in. Set to 'global' to create a global address.
+        # @return [String] Region to create the address in. Set to 'global' to create a global address.
         attribute :region
-        validates :region, presence: true
+        validates :region, presence: true, type: String
 
         # @return [:present, :absent, nil] The state the address should be in. C(present) or C(absent) are the only valid options.
         attribute :state

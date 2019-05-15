@@ -9,98 +9,106 @@ module Ansible
       # This module only supports oVirt/RHEV version 3. A newer module M(ovirt_vms) supports oVirt/RHV version 4.
       # Allows you to create new instances, either from scratch or an image, in addition to deleting or stopping instances on the oVirt/RHEV platform.
       class Ovirt < Base
-        # @return [Object] the user to authenticate with
+        # @return [String] The user to authenticate with.
         attribute :user
-        validates :user, presence: true
+        validates :user, presence: true, type: String
 
-        # @return [Object] the url of the oVirt instance
+        # @return [String] The url of the oVirt instance.
         attribute :url
-        validates :url, presence: true
+        validates :url, presence: true, type: String
 
-        # @return [Object] the name of the instance to use
+        # @return [String] The name of the instance to use.
         attribute :instance_name
-        validates :instance_name, presence: true
+        validates :instance_name, presence: true, type: String
 
-        # @return [Object] password of the user to authenticate with
+        # @return [String] Password of the user to authenticate with.
         attribute :password
-        validates :password, presence: true
+        validates :password, presence: true, type: String
 
-        # @return [Object, nil] template to use for the instance
+        # @return [String, nil] The template to use for the instance.
         attribute :image
+        validates :image, type: String
 
-        # @return [:new, :template, nil] whether you want to deploy an image or create an instance from scratch.
+        # @return [:new, :template, nil] Whether you want to deploy an image or create an instance from scratch.
         attribute :resource_type
         validates :resource_type, inclusion: {:in=>[:new, :template], :message=>"%{value} needs to be :new, :template"}, allow_nil: true
 
-        # @return [Object, nil] deploy the image to this oVirt cluster
+        # @return [String, nil] Deploy the image to this oVirt cluster.
         attribute :zone
+        validates :zone, type: String
 
-        # @return [Object, nil] size of the instance's disk in GB
+        # @return [Integer, nil] Size of the instance's disk in GB.
         attribute :instance_disksize
+        validates :instance_disksize, type: Integer
 
-        # @return [Integer, nil] the instance's number of cpu's
+        # @return [Integer, nil] The instance's number of CPUs.
         attribute :instance_cpus
         validates :instance_cpus, type: Integer
 
-        # @return [Object, nil] name of the network interface in oVirt/RHEV
+        # @return [String, nil] The name of the network interface in oVirt/RHEV.
         attribute :instance_nic
+        validates :instance_nic, type: String
 
-        # @return [String, nil] the logical network the machine should belong to
+        # @return [String, nil] The logical network the machine should belong to.
         attribute :instance_network
         validates :instance_network, type: String
 
-        # @return [Object, nil] the instance's amount of memory in MB
+        # @return [Integer, nil] The instance's amount of memory in MB.
         attribute :instance_mem
+        validates :instance_mem, type: Integer
 
-        # @return [:server, :desktop, nil] define if the instance is a server or desktop
+        # @return [:desktop, :server, :high_performance, nil] Define whether the instance is a server, desktop or high_performance.,I(high_performance) is supported since Ansible 2.5 and oVirt/RHV 4.2.
         attribute :instance_type
-        validates :instance_type, inclusion: {:in=>[:server, :desktop], :message=>"%{value} needs to be :server, :desktop"}, allow_nil: true
+        validates :instance_type, inclusion: {:in=>[:desktop, :server, :high_performance], :message=>"%{value} needs to be :desktop, :server, :high_performance"}, allow_nil: true
 
-        # @return [:thin, :preallocated, nil] define if disk is thin or preallocated
+        # @return [:preallocated, :thin, nil] Define whether disk is thin or preallocated.
         attribute :disk_alloc
-        validates :disk_alloc, inclusion: {:in=>[:thin, :preallocated], :message=>"%{value} needs to be :thin, :preallocated"}, allow_nil: true
+        validates :disk_alloc, inclusion: {:in=>[:preallocated, :thin], :message=>"%{value} needs to be :preallocated, :thin"}, allow_nil: true
 
-        # @return [:virtio, :ide, nil] interface type of the disk
+        # @return [:ide, :virtio, nil] Interface type of the disk.
         attribute :disk_int
-        validates :disk_int, inclusion: {:in=>[:virtio, :ide], :message=>"%{value} needs to be :virtio, :ide"}, allow_nil: true
+        validates :disk_int, inclusion: {:in=>[:ide, :virtio], :message=>"%{value} needs to be :ide, :virtio"}, allow_nil: true
 
-        # @return [Object, nil] type of Operating System
+        # @return [String, nil] Type of Operating System.
         attribute :instance_os
+        validates :instance_os, type: String
 
-        # @return [Integer, nil] define the instance's number of cores
+        # @return [Integer, nil] Define the instance's number of cores.
         attribute :instance_cores
         validates :instance_cores, type: Integer
 
-        # @return [Object, nil] the Storage Domain where you want to create the instance's disk on.
+        # @return [String, nil] The Storage Domain where you want to create the instance's disk on.
         attribute :sdomain
+        validates :sdomain, type: String
 
-        # @return [Object, nil] the oVirt/RHEV datacenter where you want to deploy to
+        # @return [String, nil] The oVirt/RHEV datacenter where you want to deploy to.
         attribute :region
+        validates :region, type: String
 
-        # @return [Object, nil] define the instance's Primary DNS server
+        # @return [Object, nil] Define the instance's Primary DNS server.
         attribute :instance_dns
 
-        # @return [Object, nil] define the instance's Domain
+        # @return [Object, nil] Define the instance's Domain.
         attribute :instance_domain
 
-        # @return [Object, nil] define the instance's Hostname
+        # @return [Object, nil] Define the instance's Hostname.
         attribute :instance_hostname
 
-        # @return [Object, nil] define the instance's IP
+        # @return [Object, nil] Define the instance's IP.
         attribute :instance_ip
 
-        # @return [Object, nil] define the instance's Netmask
+        # @return [Object, nil] Define the instance's Netmask.
         attribute :instance_netmask
 
-        # @return [Object, nil] define the instance's Root password
+        # @return [Object, nil] Define the instance's Root password.
         attribute :instance_rootpw
 
-        # @return [Object, nil] define the instance's Authorized key
+        # @return [Object, nil] Define the instance's Authorized key.
         attribute :instance_key
 
-        # @return [:present, :absent, :shutdown, :started, :restarted, nil] create, terminate or remove instances
+        # @return [:absent, :present, :restarted, :shutdown, :started, nil] Create, terminate or remove instances.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent, :shutdown, :started, :restarted], :message=>"%{value} needs to be :present, :absent, :shutdown, :started, :restarted"}, allow_nil: true
+        validates :state, inclusion: {:in=>[:absent, :present, :restarted, :shutdown, :started], :message=>"%{value} needs to be :absent, :present, :restarted, :shutdown, :started"}, allow_nil: true
       end
     end
   end

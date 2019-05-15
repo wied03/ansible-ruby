@@ -8,11 +8,11 @@ module Ansible
     module Modules
       # This will configure both login and motd banners on remote devices running Cisco IOS.  It allows playbooks to add or remote banner text from the active running configuration.
       class Ios_banner < Base
-        # @return [:login, :banner] Specifies which banner that should be configured on the remote device.
+        # @return [:login, :motd, :exec, :incoming, :"slip-ppp"] Specifies which banner should be configured on the remote device. In Ansible 2.4 and earlier only I(login) and I(motd) were supported.
         attribute :banner
-        validates :banner, presence: true, inclusion: {:in=>[:login, :banner], :message=>"%{value} needs to be :login, :banner"}
+        validates :banner, presence: true, inclusion: {:in=>[:login, :motd, :exec, :incoming, :"slip-ppp"], :message=>"%{value} needs to be :login, :motd, :exec, :incoming, :\"slip-ppp\""}
 
-        # @return [String, nil] The banner text that should be present in the remote device running configuration.  This argument accepts a multiline string. Requires I(state=present).
+        # @return [String, nil] The banner text that should be present in the remote device running configuration.  This argument accepts a multiline string, with no empty lines. Requires I(state=present).
         attribute :text
         validates :text, type: String
 

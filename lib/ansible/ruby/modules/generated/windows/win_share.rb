@@ -8,25 +8,25 @@ module Ansible
     module Modules
       # Add, modify or remove Windows share and set share permissions.
       class Win_share < Base
-        # @return [String] Share name
+        # @return [String] Share name.
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [String] Share directory
+        # @return [String] Share directory.
         attribute :path
         validates :path, presence: true, type: String
 
-        # @return [:present, :absent, nil] Specify whether to add C(present) or remove C(absent) the specified share
+        # @return [:absent, :present, nil] Specify whether to add C(present) or remove C(absent) the specified share.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
-        # @return [String, nil] Share description
+        # @return [String, nil] Share description.
         attribute :description
         validates :description, type: String
 
-        # @return [Boolean, nil] Specify whether to allow or deny file listing, in case user got no permission on share
+        # @return [String, nil] Specify whether to allow or deny file listing, in case user has no permission on share. Also known as Access-Based Enumeration.
         attribute :list
-        validates :list, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :list, type: String
 
         # @return [String, nil] Specify user list that should get read access on share, separated by comma.
         attribute :read
@@ -46,6 +46,10 @@ module Ansible
         # @return [:BranchCache, :Documents, :Manual, :None, :Programs, :Unknown, nil] Set the CachingMode for this share.
         attribute :caching_mode
         validates :caching_mode, inclusion: {:in=>[:BranchCache, :Documents, :Manual, :None, :Programs, :Unknown], :message=>"%{value} needs to be :BranchCache, :Documents, :Manual, :None, :Programs, :Unknown"}, allow_nil: true
+
+        # @return [String, nil] Sets whether to encrypt the traffic to the share or not.
+        attribute :encrypt
+        validates :encrypt, type: String
       end
     end
   end

@@ -21,17 +21,17 @@ module Ansible
         # @return [Object, nil] List of ELB names, required for registration. The ec2_elbs fact should be used if there was a previous de-register.
         attribute :ec2_elbs
 
-        # @return [Boolean, nil] Whether to enable the availability zone of the instance on the target ELB if the availability zone has not already been enabled. If set to no, the task will fail if the availability zone is not enabled on the ELB.
+        # @return [String, nil] Whether to enable the availability zone of the instance on the target ELB if the availability zone has not already been enabled. If set to no, the task will fail if the availability zone is not enabled on the ELB.
         attribute :enable_availability_zone
-        validates :enable_availability_zone, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :enable_availability_zone, type: String
 
-        # @return [Boolean, nil] Wait for instance registration or deregistration to complete successfully before returning.
+        # @return [String, nil] Wait for instance registration or deregistration to complete successfully before returning.
         attribute :wait
-        validates :wait, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :wait, type: String
 
-        # @return [:yes, :no, nil] When set to "no", SSL certificates will not be validated for boto versions >= 2.6.0.
+        # @return [String, nil] When set to "no", SSL certificates will not be validated for boto versions >= 2.6.0.
         attribute :validate_certs
-        validates :validate_certs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :validate_certs, type: String
 
         # @return [Integer, nil] Number of seconds to wait for an instance to change state. If 0 then this module may return an error if a transient error occurs. If non-zero then any transient errors are ignored until the timeout is reached. Ignored when wait=no.
         attribute :wait_timeout

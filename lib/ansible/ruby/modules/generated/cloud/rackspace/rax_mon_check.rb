@@ -36,9 +36,8 @@ module Ansible
         # @return [Object, nil] Additional details specific to the check type. Must be a hash of strings between 1 and 255 characters long, or an array or object containing 0 to 256 items.
         attribute :details
 
-        # @return [:yes, :no, nil] If "yes", ensure the check is created, but don't actually use it yet.
+        # @return [Object, nil] If "yes", ensure the check is created, but don't actually use it yet.
         attribute :disabled
-        validates :disabled, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] Hash of arbitrary key-value pairs to accompany this check if it fires. Keys and values must be strings between 1 and 255 characters long.
         attribute :metadata

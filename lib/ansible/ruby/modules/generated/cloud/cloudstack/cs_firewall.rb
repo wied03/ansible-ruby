@@ -24,26 +24,26 @@ module Ansible
         attribute :type
         validates :type, inclusion: {:in=>[:ingress, :egress], :message=>"%{value} needs to be :ingress, :egress"}, allow_nil: true
 
-        # @return [:tcp, :udp, :icmp, :all, nil] Protocol of the firewall rule.,C(all) is only available if C(type=egress)
+        # @return [:tcp, :udp, :icmp, :all, nil] Protocol of the firewall rule.,C(all) is only available if C(type=egress).
         attribute :protocol
         validates :protocol, inclusion: {:in=>[:tcp, :udp, :icmp, :all], :message=>"%{value} needs to be :tcp, :udp, :icmp, :all"}, allow_nil: true
 
-        # @return [String, nil] CIDR (full notation) to be used for firewall rule.
-        attribute :cidr
-        validates :cidr, type: String
+        # @return [String, nil] List of CIDRs (full notation) to be used for firewall rule.,Since version 2.5, it is a list of CIDR.
+        attribute :cidrs
+        validates :cidrs, type: String
 
-        # @return [Integer, nil] Start port for this rule. Considered if C(protocol=tcp) or C(protocol=udp).
+        # @return [Integer, nil] Start port for this rule.,Considered if C(protocol=tcp) or C(protocol=udp).
         attribute :start_port
         validates :start_port, type: Integer
 
-        # @return [Integer, nil] End port for this rule. Considered if C(protocol=tcp) or C(protocol=udp). If not specified, equal C(start_port).
+        # @return [Integer, nil] End port for this rule. Considered if C(protocol=tcp) or C(protocol=udp).,If not specified, equal C(start_port).
         attribute :end_port
         validates :end_port, type: Integer
 
-        # @return [Object, nil] Type of the icmp message being sent. Considered if C(protocol=icmp).
+        # @return [Object, nil] Type of the icmp message being sent.,Considered if C(protocol=icmp).
         attribute :icmp_type
 
-        # @return [Object, nil] Error code for this icmp message. Considered if C(protocol=icmp).
+        # @return [Object, nil] Error code for this icmp message.,Considered if C(protocol=icmp).
         attribute :icmp_code
 
         # @return [Object, nil] Domain the firewall rule is related to.
@@ -61,6 +61,9 @@ module Ansible
         # @return [Boolean, nil] Poll async jobs until job has finished.
         attribute :poll_async
         validates :poll_async, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+
+        # @return [Object, nil] List of tags. Tags are a list of dictionaries having keys C(key) and C(value).,To delete all tags, set a empty list e.g. C(tags: []).
+        attribute :tags
       end
     end
   end

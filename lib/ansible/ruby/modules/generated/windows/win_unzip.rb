@@ -7,10 +7,11 @@ module Ansible
   module Ruby
     module Modules
       # Unzips compressed files and archives.
-      # Supports .zip files natively
-      # Supports other formats supported by the Powershell Community Extensions (PSCX) module (basically everything 7zip supports)
+      # Supports .zip files natively.
+      # Supports other formats supported by the Powershell Community Extensions (PSCX) module (basically everything 7zip supports).
+      # For non-Windows targets, use the M(unarchive) module instead.
       class Win_unzip < Base
-        # @return [String] File to be unzipped (provide absolute path)
+        # @return [String] File to be unzipped (provide absolute path).
         attribute :src
         validates :src, presence: true, type: String
 
@@ -18,13 +19,13 @@ module Ansible
         attribute :dest
         validates :dest, presence: true, type: String
 
-        # @return [Boolean, nil] Remove the zip file, after unzipping
-        attribute :rm
-        validates :rm, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        # @return [String, nil] Remove the zip file, after unzipping.
+        attribute :delete_archive
+        validates :delete_archive, type: String
 
-        # @return [Boolean, nil] Recursively expand zipped files within the src file.
+        # @return [String, nil] Recursively expand zipped files within the src file.,Setting to a value of C(yes) requires the PSCX module to be installed.
         attribute :recurse
-        validates :recurse, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :recurse, type: String
 
         # @return [String, nil] If this file or directory exists the specified src will not be extracted.
         attribute :creates

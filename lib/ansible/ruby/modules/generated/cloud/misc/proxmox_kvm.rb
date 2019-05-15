@@ -8,13 +8,12 @@ module Ansible
     module Modules
       # Allows you to create/delete/stop Qemu(KVM) Virtual Machines in Proxmox VE cluster.
       class Proxmox_kvm < Base
-        # @return [:yes, :no, nil] Specify if ACPI should be enables/disabled.
+        # @return [String, nil] Specify if ACPI should be enabled/disabled.
         attribute :acpi
-        validates :acpi, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :acpi, type: String
 
-        # @return [:yes, :no, nil] Specify if the QEMU GuestAgent should be enabled/disabled.
+        # @return [Object, nil] Specify if the QEMU Guest Agent should be enabled/disabled.
         attribute :agent
-        validates :agent, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Array<String>, String, nil] Pass arbitrary arguments to kvm.,This option is for experts only!
         attribute :args
@@ -32,9 +31,9 @@ module Ansible
         attribute :api_password
         validates :api_password, type: String
 
-        # @return [:yes, :no, nil] Specify, if the VM should be automatically restarted after crash (currently ignored in PVE API).
+        # @return [String, nil] Specify if the VM should be automatically restarted after crash (currently ignored in PVE API).
         attribute :autostart
-        validates :autostart, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :autostart, type: String
 
         # @return [Integer, nil] Specify the amount of RAM for the VM in MB.,Using zero disables the balloon driver.
         attribute :balloon
@@ -80,23 +79,22 @@ module Ansible
         # @return [Object, nil] Specify if to prevent changes if current configuration file has different SHA1 digest.,This can be used to prevent concurrent modifications.
         attribute :digest
 
-        # @return [:yes, :no, nil] Allow to force stop VM.,Can be used only with states C(stopped), C(restarted).
+        # @return [Boolean, nil] Allow to force stop VM.,Can be used only with states C(stopped), C(restarted).
         attribute :force
-        validates :force, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :force, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
-        # @return [:cloop, :cow, :qcow, :qcow2, :qed, :raw, :vmdk, nil] Target drive’s backing file’s data format.,Used only with clone
+        # @return [:cloop, :cow, :qcow, :qcow2, :qed, :raw, :vmdk, nil] Target drive's backing file's data format.,Used only with clone
         attribute :format
         validates :format, inclusion: {:in=>[:cloop, :cow, :qcow, :qcow2, :qed, :raw, :vmdk], :message=>"%{value} needs to be :cloop, :cow, :qcow, :qcow2, :qed, :raw, :vmdk"}, allow_nil: true
 
-        # @return [:yes, :no, nil] Specify if PVE should freeze CPU at startup (use 'c' monitor command to start execution).
+        # @return [Object, nil] Specify if PVE should freeze CPU at startup (use 'c' monitor command to start execution).
         attribute :freeze
-        validates :freeze, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [Boolean, nil] Create a full copy of all disk. This is always done when you clone a normal VM.,For VM templates, we try to create a linked clone by default.,Used only with clone
+        # @return [String, nil] Create a full copy of all disk. This is always done when you clone a normal VM.,For VM templates, we try to create a linked clone by default.,Used only with clone
         attribute :full
-        validates :full, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :full, type: String
 
-        # @return [Object, nil] Specify a hash/dictionary of map host pci devices into guest. C(hostpci='{"key":"value", "key":"value"}').,Keys allowed are - C(hostpci[n]) where 0 ≤ n ≤ N.,Values allowed are -  C("host="HOSTPCIID[;HOSTPCIID2...]",pcie="1|0",rombar="1|0",x-vga="1|0"").,The C(host) parameter is Host PCI device pass through. HOSTPCIID syntax is C(bus:dev.func) (hexadecimal numbers).,C(pcie=boolean) I(default=0) Choose the PCI-express bus (needs the q35 machine model).,C(rombar=boolean) I(default=1) Specify whether or not the device’s ROM will be visible in the guest’s memory map.,C(x-vga=boolean) I(default=0) Enable vfio-vga device support.,/!\ This option allows direct access to host hardware. So it is no longer possible to migrate such machines - use with special care.
+        # @return [Object, nil] Specify a hash/dictionary of map host pci devices into guest. C(hostpci='{"key":"value", "key":"value"}').,Keys allowed are - C(hostpci[n]) where 0 ≤ n ≤ N.,Values allowed are -  C("host="HOSTPCIID[;HOSTPCIID2...]",pcie="1|0",rombar="1|0",x-vga="1|0"").,The C(host) parameter is Host PCI device pass through. HOSTPCIID syntax is C(bus:dev.func) (hexadecimal numbers).,C(pcie=boolean) I(default=0) Choose the PCI-express bus (needs the q35 machine model).,C(rombar=boolean) I(default=1) Specify whether or not the device's ROM will be visible in the guest's memory map.,C(x-vga=boolean) I(default=0) Enable vfio-vga device support.,/!\ This option allows direct access to host hardware. So it is no longer possible to migrate such machines - use with special care.
         attribute :hostpci
 
         # @return [Object, nil] Selectively enable hotplug features.,This is a comma separated list of hotplug features C('network', 'disk', 'cpu', 'memory' and 'usb').,Value 0 disables hotplug completely and value 1 is an alias for the default C('network,disk,usb').
@@ -106,19 +104,18 @@ module Ansible
         attribute :hugepages
         validates :hugepages, inclusion: {:in=>[:any, 2, 1024], :message=>"%{value} needs to be :any, 2, 1024"}, allow_nil: true
 
-        # @return [Object, nil] A hash/dictionary of volume used as IDE hard disk or CD-ROM. C(ide='{"key":"value", "key":"value"}').,Keys allowed are - C(ide[n]) where 0 ≤ n ≤ 3.,Values allowed are - C("storage:size,format=value").,C(storage) is the storage identifier where to create the disk.,C(size) is the size of the disk in GB.,C(format) is the drive’s backing file’s data format. C(qcow2|raw|subvol).
+        # @return [Object, nil] A hash/dictionary of volume used as IDE hard disk or CD-ROM. C(ide='{"key":"value", "key":"value"}').,Keys allowed are - C(ide[n]) where 0 ≤ n ≤ 3.,Values allowed are - C("storage:size,format=value").,C(storage) is the storage identifier where to create the disk.,C(size) is the size of the disk in GB.,C(format) is the drive's backing file's data format. C(qcow2|raw|subvol).
         attribute :ide
 
         # @return [Object, nil] Sets the keyboard layout for VNC server.
         attribute :keyboard
 
-        # @return [:yes, :no, nil] Enable/disable KVM hardware virtualization.
+        # @return [String, nil] Enable/disable KVM hardware virtualization.
         attribute :kvm
-        validates :kvm, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :kvm, type: String
 
-        # @return [:yes, :no, nil] Sets the real time clock to local time.,This is enabled by default if ostype indicates a Microsoft OS.
+        # @return [Object, nil] Sets the real time clock to local time.,This is enabled by default if ostype indicates a Microsoft OS.
         attribute :localtime
-        validates :localtime, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:migrate, :backup, :snapshot, :rollback, nil] Lock/unlock the VM.
         attribute :lock
@@ -156,9 +153,9 @@ module Ansible
         # @return [Object, nil] A hash/dictionaries of NUMA topology. C(numa='{"key":"value", "key":"value"}').,Keys allowed are - C(numa[n]) where 0 ≤ n ≤ N.,Values allowed are - C("cpu="<id[-id];...>",hostnodes="<id[-id];...>",memory="number",policy="(bind|interleave|preferred)"").,C(cpus) CPUs accessing this NUMA node.,C(hostnodes) Host NUMA nodes to use.,C(memory) Amount of memory this NUMA node provides.,C(policy) NUMA allocation policy.
         attribute :numa
 
-        # @return [:yes, :no, nil] Specifies whether a VM will be started during system bootup.
+        # @return [String, nil] Specifies whether a VM will be started during system bootup.
         attribute :onboot
-        validates :onboot, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :onboot, type: String
 
         # @return [:other, :wxp, :w2k, :w2k3, :w2k8, :wvista, :win7, :win8, :l24, :l26, :solaris, nil] Specifies guest operating system. This is used to enable special optimization/features for specific operating systems.,The l26 is Linux 2.6/3.X Kernel.
         attribute :ostype
@@ -170,22 +167,21 @@ module Ansible
         # @return [Object, nil] Add the new VM to the specified pool.
         attribute :pool
 
-        # @return [:yes, :no, nil] Enable/disable the protection flag of the VM. This will enable/disable the remove VM and remove disk operations.
+        # @return [Boolean, nil] Enable/disable the protection flag of the VM. This will enable/disable the remove VM and remove disk operations.
         attribute :protection
-        validates :protection, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :protection, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
-        # @return [:yes, :no, nil] Allow reboot. If set to yes, the VM exit on reboot.
+        # @return [Object, nil] Allow reboot. If set to C(yes), the VM exit on reboot.
         attribute :reboot
-        validates :reboot, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Array<String>, String, nil] Revert a pending change.
         attribute :revert
         validates :revert, type: TypeGeneric.new(String)
 
-        # @return [Object, nil] A hash/dictionary of volume used as sata hard disk or CD-ROM. C(sata='{"key":"value", "key":"value"}').,Keys allowed are - C(sata[n]) where 0 ≤ n ≤ 5.,Values allowed are -  C("storage:size,format=value").,C(storage) is the storage identifier where to create the disk.,C(size) is the size of the disk in GB.,C(format) is the drive’s backing file’s data format. C(qcow2|raw|subvol).
+        # @return [Object, nil] A hash/dictionary of volume used as sata hard disk or CD-ROM. C(sata='{"key":"value", "key":"value"}').,Keys allowed are - C(sata[n]) where 0 ≤ n ≤ 5.,Values allowed are -  C("storage:size,format=value").,C(storage) is the storage identifier where to create the disk.,C(size) is the size of the disk in GB.,C(format) is the drive's backing file's data format. C(qcow2|raw|subvol).
         attribute :sata
 
-        # @return [Object, nil] A hash/dictionary of volume used as SCSI hard disk or CD-ROM. C(scsi='{"key":"value", "key":"value"}').,Keys allowed are - C(sata[n]) where 0 ≤ n ≤ 13.,Values allowed are -  C("storage:size,format=value").,C(storage) is the storage identifier where to create the disk.,C(size) is the size of the disk in GB.,C(format) is the drive’s backing file’s data format. C(qcow2|raw|subvol).
+        # @return [Object, nil] A hash/dictionary of volume used as SCSI hard disk or CD-ROM. C(scsi='{"key":"value", "key":"value"}').,Keys allowed are - C(sata[n]) where 0 ≤ n ≤ 13.,Values allowed are -  C("storage:size,format=value").,C(storage) is the storage identifier where to create the disk.,C(size) is the size of the disk in GB.,C(format) is the drive's backing file's data format. C(qcow2|raw|subvol).
         attribute :scsi
 
         # @return [:lsi, :lsi53c810, :"virtio-scsi-pci", :"virtio-scsi-single", :megasas, :pvscsi, nil] Specifies the SCSI controller model.
@@ -225,32 +221,31 @@ module Ansible
         attribute :storage
         validates :storage, type: String
 
-        # @return [:yes, :no, nil] Enables/disables the USB tablet device.
+        # @return [String, nil] Enables/disables the USB tablet device.
         attribute :tablet
-        validates :tablet, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :tablet, type: String
 
         # @return [Object, nil] Target node. Only allowed if the original VM is on shared storage.,Used only with clone
         attribute :target
 
-        # @return [:yes, :no, nil] Enables/disables time drift fix.
+        # @return [Object, nil] Enables/disables time drift fix.
         attribute :tdf
-        validates :tdf, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [:yes, :no, nil] Enables/disables the template.
+        # @return [String, nil] Enables/disables the template.
         attribute :template
-        validates :template, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :template, type: String
 
         # @return [Integer, nil] Timeout for operations.
         attribute :timeout
         validates :timeout, type: Integer
 
-        # @return [:yes, :no, nil] If C(yes), the VM will be update with new value.,Cause of the operations of the API and security reasons, I have disabled the update of the following parameters,C(net, virtio, ide, sata, scsi). Per example updating C(net) update the MAC address and C(virtio) create always new disk...
+        # @return [String, nil] If C(yes), the VM will be update with new value.,Cause of the operations of the API and security reasons, I have disabled the update of the following parameters,C(net, virtio, ide, sata, scsi). Per example updating C(net) update the MAC address and C(virtio) create always new disk...
         attribute :update
-        validates :update, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :update, type: String
 
-        # @return [:yes, :no, nil] If C(no), SSL certificates will not be validated. This should only be used on personally controlled sites using self-signed certificates.
+        # @return [String, nil] If C(no), SSL certificates will not be validated. This should only be used on personally controlled sites using self-signed certificates.
         attribute :validate_certs
-        validates :validate_certs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :validate_certs, type: String
 
         # @return [Integer, nil] Sets number of hotplugged vcpus.
         attribute :vcpus
@@ -260,7 +255,7 @@ module Ansible
         attribute :vga
         validates :vga, inclusion: {:in=>[:std, :cirrus, :vmware, :qxl, :serial0, :serial1, :serial2, :serial3, :qxl2, :qxl3, :qxl4], :message=>"%{value} needs to be :std, :cirrus, :vmware, :qxl, :serial0, :serial1, :serial2, :serial3, :qxl2, :qxl3, :qxl4"}, allow_nil: true
 
-        # @return [Hash, nil] A hash/dictionary of volume used as VIRTIO hard disk. C(virtio='{"key":"value", "key":"value"}').,Keys allowed are - C(virto[n]) where 0 ≤ n ≤ 15.,Values allowed are -  C("storage:size,format=value").,C(storage) is the storage identifier where to create the disk.,C(size) is the size of the disk in GB.,C(format) is the drive’s backing file’s data format. C(qcow2|raw|subvol).
+        # @return [Hash, nil] A hash/dictionary of volume used as VIRTIO hard disk. C(virtio='{"key":"value", "key":"value"}').,Keys allowed are - C(virto[n]) where 0 ≤ n ≤ 15.,Values allowed are -  C("storage:size,format=value").,C(storage) is the storage identifier where to create the disk.,C(size) is the size of the disk in GB.,C(format) is the drive's backing file's data format. C(qcow2|raw|subvol).
         attribute :virtio
         validates :virtio, type: Hash
 

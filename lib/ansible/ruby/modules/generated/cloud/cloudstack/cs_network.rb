@@ -26,11 +26,13 @@ module Ansible
         # @return [Object, nil] The ending IPv4 address of the network belongs to.,If not specified, value of C(start_ip) is used.,Only considered on create.
         attribute :end_ip
 
-        # @return [Object, nil] The gateway of the network.,Required for shared networks and isolated networks when it belongs to a VPC.,Only considered on create.
+        # @return [String, nil] The gateway of the network.,Required for shared networks and isolated networks when it belongs to a VPC.,Only considered on create.
         attribute :gateway
+        validates :gateway, type: String
 
-        # @return [Object, nil] The netmask of the network.,Required for shared networks and isolated networks when it belongs to a VPC.,Only considered on create.
+        # @return [String, nil] The netmask of the network.,Required for shared networks and isolated networks when it belongs to a VPC.,Only considered on create.
         attribute :netmask
+        validates :netmask, type: String
 
         # @return [Object, nil] The beginning IPv6 address of the network belongs to.,Only considered on create.
         attribute :start_ipv6
@@ -47,8 +49,9 @@ module Ansible
         # @return [Object, nil] The ID or VID of the network.
         attribute :vlan
 
-        # @return [Object, nil] Name of the VPC of the network.
+        # @return [String, nil] Name of the VPC of the network.
         attribute :vpc
+        validates :vpc, type: String
 
         # @return [Object, nil] The isolated private VLAN for this network.
         attribute :isolated_pvlan
@@ -57,9 +60,16 @@ module Ansible
         attribute :clean_up
         validates :clean_up, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
-        # @return [:account, :domain, nil] Access control type.,Only considered on create.
+        # @return [:account, :domain, nil] Access control type for the VPC network tier.,Only considered on create.
         attribute :acl_type
         validates :acl_type, inclusion: {:in=>[:account, :domain], :message=>"%{value} needs to be :account, :domain"}, allow_nil: true
+
+        # @return [String, nil] The name of the access control list for the VPC network tier.
+        attribute :acl
+        validates :acl, type: String
+
+        # @return [Object, nil] Defines whether to allow subdomains to use networks dedicated to their parent domain(s).,Should be used with C(acl_type=domain).,Only considered on create.
+        attribute :subdomain_access
 
         # @return [String, nil] The network domain.
         attribute :network_domain

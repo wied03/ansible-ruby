@@ -8,13 +8,13 @@ module Ansible
     module Modules
       # Manage binary packages for FreeBSD using 'pkgng' which is available in versions after 9.0.
       class Pkgng < Base
-        # @return [Array<String>, String] Name of package to install/remove.
+        # @return [Array<String>, String] Name or list of names of packages to install/remove.
         attribute :name
         validates :name, presence: true, type: TypeGeneric.new(String)
 
-        # @return [:present, :absent, nil] State of the package.
+        # @return [:present, :latest, :absent, nil] State of the package.,Note: "latest" added in 2.7
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, inclusion: {:in=>[:present, :latest, :absent], :message=>"%{value} needs to be :present, :latest, :absent"}, allow_nil: true
 
         # @return [Boolean, nil] Use local package base instead of fetching an updated one.
         attribute :cached
@@ -27,11 +27,14 @@ module Ansible
         # @return [Object, nil] For pkgng versions before 1.1.4, specify packagesite to use for downloading packages. If not specified, use settings from C(/usr/local/etc/pkg.conf).,For newer pkgng versions, specify a the name of a repository configured in C(/usr/local/etc/pkg/repos).
         attribute :pkgsite
 
-        # @return [Object, nil] For pkgng versions 1.5 and later, pkg will install all packages within the specified root directory.,Can not be used together with I(chroot) option.
+        # @return [Object, nil] For pkgng versions 1.5 and later, pkg will install all packages within the specified root directory.,Can not be used together with I(chroot) or I(jail) options.
         attribute :rootdir
 
-        # @return [Object, nil] Pkg will chroot in the specified environment.,Can not be used together with I(rootdir) option.
+        # @return [Object, nil] Pkg will chroot in the specified environment.,Can not be used together with I(rootdir) or I(jail) options.
         attribute :chroot
+
+        # @return [Object, nil] Pkg will execute in the given jail name or id.,Can not be used together with I(chroot) or I(rootdir) options.
+        attribute :jail
 
         # @return [Boolean, nil] Remove automatically installed packages which are no longer needed.
         attribute :autoremove

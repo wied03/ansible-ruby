@@ -12,17 +12,17 @@ module Ansible
         attribute :state
         validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
 
-        # @return [String] The name of the lun to manage.
+        # @return [String] The name of the volume to manage.
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [:True, :False, nil] Set True if the volume is an Infinite Volume.
+        # @return [String, nil] Set True if the volume is an Infinite Volume.
         attribute :infinite
-        validates :infinite, inclusion: {:in=>[:True, :False], :message=>"%{value} needs to be :True, :False"}, allow_nil: true
+        validates :infinite, type: String
 
-        # @return [:True, :False, nil] Whether the specified volume is online, or not.
+        # @return [String, nil] Whether the specified volume is online, or not.
         attribute :online
-        validates :online, inclusion: {:in=>[:True, :False], :message=>"%{value} needs to be :True, :False"}, allow_nil: true
+        validates :online, type: String
 
         # @return [String, nil] The name of the aggregate the flexvol should exist on. Required when C(state=present).
         attribute :aggregate_name
@@ -39,6 +39,18 @@ module Ansible
         # @return [String] Name of the vserver to use.
         attribute :vserver
         validates :vserver, presence: true, type: String
+
+        # @return [String, nil] Junction path where to mount the volume
+        attribute :junction_path
+        validates :junction_path, type: String
+
+        # @return [String, nil] Export policy to set for the specified junction path.
+        attribute :export_policy
+        validates :export_policy, type: String
+
+        # @return [String, nil] Snapshot policy to set for the specified volume.
+        attribute :snapshot_policy
+        validates :snapshot_policy, type: String
       end
     end
   end

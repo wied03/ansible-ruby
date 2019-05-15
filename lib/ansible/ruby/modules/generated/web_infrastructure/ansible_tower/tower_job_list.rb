@@ -15,11 +15,11 @@ module Ansible
         # @return [Object, nil] Page number of the results to fetch.
         attribute :page
 
-        # @return [Boolean, nil] Fetch all the pages and return a single result.
+        # @return [String, nil] Fetch all the pages and return a single result.
         attribute :all_pages
-        validates :all_pages, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :all_pages, type: String
 
-        # @return [Hash, nil] Query used to further filter the list of jobs. {"foo":"bar"} will be passed at ?foo=bar
+        # @return [Hash, nil] Query used to further filter the list of jobs. C({"foo":"bar"}) will be passed at C(?foo=bar)
         attribute :query
         validates :query, type: Hash
       end

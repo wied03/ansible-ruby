@@ -17,15 +17,18 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [Array<String>, String, nil] List of ELB names to use for the group
+        # @return [Array<String>, String, nil] List of ELB names to use for the group. Use for classic load balancers.
         attribute :load_balancers
         validates :load_balancers, type: TypeGeneric.new(String)
+
+        # @return [Object, nil] List of target group ARNs to use for the group. Use for application load balancers.
+        attribute :target_group_arns
 
         # @return [Array<String>, String, nil] List of availability zone names in which to create the group.  Defaults to all the availability zones in the region if vpc_zone_identifier is not set.
         attribute :availability_zones
         validates :availability_zones, type: TypeGeneric.new(String)
 
-        # @return [String] Name of the Launch configuration to use for the group. See the ec2_lc module for managing these.
+        # @return [String] Name of the Launch configuration to use for the group. See the ec2_lc module for managing these. If unspecified then the current group value will be used.
         attribute :launch_config_name
         validates :launch_config_name, presence: true, type: String
 
@@ -44,9 +47,9 @@ module Ansible
         attribute :desired_capacity
         validates :desired_capacity, type: Integer
 
-        # @return [Boolean, nil] In a rolling fashion, replace all instances with an old launch configuration with one from the current launch configuration.
+        # @return [String, nil] In a rolling fashion, replace all instances with an old launch configuration with one from the current launch configuration.
         attribute :replace_all_instances
-        validates :replace_all_instances, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :replace_all_instances, type: String
 
         # @return [Integer, nil] Number of instances you'd like to replace at a time.  Used with replace_all_instances.
         attribute :replace_batch_size
@@ -56,9 +59,9 @@ module Ansible
         attribute :replace_instances
         validates :replace_instances, type: TypeGeneric.new(String)
 
-        # @return [Boolean, nil] Check to make sure instances that are being replaced with replace_instances do not already have the current launch_config.
+        # @return [String, nil] Check to make sure instances that are being replaced with replace_instances do not already have the current launch_config.
         attribute :lc_check
-        validates :lc_check, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :lc_check, type: String
 
         # @return [Array<String>, String, nil] List of VPC subnets to use
         attribute :vpc_zone_identifier
@@ -80,13 +83,13 @@ module Ansible
         attribute :default_cooldown
         validates :default_cooldown, type: String
 
-        # @return [Integer, nil] how long before wait instances to become viable when replaced.  Used in conjunction with instance_ids option.
+        # @return [Integer, nil] How long to wait for instances to become viable when replaced.  If you experience the error "Waited too long for ELB instances to be healthy", try increasing this value.
         attribute :wait_timeout
         validates :wait_timeout, type: Integer
 
-        # @return [Boolean, nil] Wait for the ASG instances to be in a ready state before exiting.  If instances are behind an ELB, it will wait until the ELB determines all instances have a lifecycle_state of  "InService" and  a health_status of "Healthy".
+        # @return [String, nil] Wait for the ASG instances to be in a ready state before exiting.  If instances are behind an ELB, it will wait until the ELB determines all instances have a lifecycle_state of  "InService" and  a health_status of "Healthy".
         attribute :wait_for_instances
-        validates :wait_for_instances, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :wait_for_instances, type: String
 
         # @return [:OldestInstance, :NewestInstance, :OldestLaunchConfiguration, :ClosestToNextInstanceHour, :Default, nil] An ordered list of criteria used for selecting instances to be removed from the Auto Scaling group when reducing capacity.,For 'Default', when used to create a new autoscaling group, the "Default"i value is used. When used to change an existent autoscaling group, the current termination policies are maintained.
         attribute :termination_policies
@@ -102,6 +105,18 @@ module Ansible
         # @return [:Launch, :Terminate, :HealthCheck, :ReplaceUnhealthy, :AZRebalance, :AlarmNotification, :ScheduledActions, :AddToLoadBalancer, nil] A list of scaling processes to suspend.
         attribute :suspend_processes
         validates :suspend_processes, inclusion: {:in=>[:Launch, :Terminate, :HealthCheck, :ReplaceUnhealthy, :AZRebalance, :AlarmNotification, :ScheduledActions, :AddToLoadBalancer], :message=>"%{value} needs to be :Launch, :Terminate, :HealthCheck, :ReplaceUnhealthy, :AZRebalance, :AlarmNotification, :ScheduledActions, :AddToLoadBalancer"}, allow_nil: true
+
+        # @return [String, nil] Enable ASG metrics collection
+        attribute :metrics_collection
+        validates :metrics_collection, type: String
+
+        # @return [String, nil] When metrics_collection is enabled this will determine granularity of metrics collected by CloudWatch
+        attribute :metrics_granularity
+        validates :metrics_granularity, type: String
+
+        # @return [String, nil] List of autoscaling metrics to collect when enabling metrics_collection
+        attribute :metrics_list
+        validates :metrics_list, type: String
       end
     end
   end

@@ -16,6 +16,34 @@ module Ansible
         # @return [String] Location to render the template to on the remote machine.
         attribute :dest
         validates :dest, presence: true, type: String
+
+        # @return [:"\\n", :"\\r", :"\\r\\n", nil] Specify the newline sequence to use for templating files.
+        attribute :newline_sequence
+        validates :newline_sequence, inclusion: {:in=>[:"\\n", :"\\r", :"\\r\\n"], :message=>"%{value} needs to be :\"\\\\n\", :\"\\\\r\", :\"\\\\r\\\\n\""}, allow_nil: true
+
+        # @return [String, nil] The string marking the beginning of a block.
+        attribute :block_start_string
+        validates :block_start_string, type: String
+
+        # @return [String, nil] The string marking the end of a block.
+        attribute :block_end_string
+        validates :block_end_string, type: String
+
+        # @return [String, nil] The string marking the beginning of a print statement.
+        attribute :variable_start_string
+        validates :variable_start_string, type: String
+
+        # @return [String, nil] The string marking the end of a print statement.
+        attribute :variable_end_string
+        validates :variable_end_string, type: String
+
+        # @return [String, nil] If this is set to C(yes) the first newline after a block is removed (block, not variable tag!).
+        attribute :trim_blocks
+        validates :trim_blocks, type: String
+
+        # @return [String, nil] If C(yes), will replace the remote file when contents are different from the source.,If C(no), the file will only be transferred if the destination does not exist.
+        attribute :force
+        validates :force, type: String
       end
     end
   end

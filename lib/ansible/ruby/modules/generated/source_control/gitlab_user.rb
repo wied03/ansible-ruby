@@ -6,7 +6,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
-      # When the user does not exists in Gitlab, it will be created.
+      # When the user does not exist in Gitlab, it will be created.
       # When the user does exists and state=absent, the user will be deleted.
       # When changes are made to user, the user will be updated.
       class Gitlab_user < Base
@@ -14,9 +14,9 @@ module Ansible
         attribute :server_url
         validates :server_url, presence: true, type: String
 
-        # @return [Boolean, nil] When using https if SSL certificate needs to be verified.
+        # @return [String, nil] When using https if SSL certificate needs to be verified.
         attribute :validate_certs
-        validates :validate_certs, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :validate_certs, type: String
 
         # @return [String, nil] Gitlab user name.
         attribute :login_user
@@ -38,7 +38,7 @@ module Ansible
         attribute :username
         validates :username, presence: true, type: String
 
-        # @return [String] The password of the user.
+        # @return [String] The password of the user.,GitLab server enforces minimum password length to 8, set this value with 8 or more characters.
         attribute :password
         validates :password, presence: true, type: String
 
@@ -63,6 +63,10 @@ module Ansible
         # @return [:present, :absent, nil] create or delete group.,Possible values are present and absent.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+
+        # @return [String, nil] Require confirmation.
+        attribute :confirm
+        validates :confirm, type: String
       end
     end
   end

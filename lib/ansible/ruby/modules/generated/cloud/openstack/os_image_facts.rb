@@ -8,11 +8,11 @@ module Ansible
     module Modules
       # Retrieve facts about a image image from OpenStack.
       class Os_image_facts < Base
-        # @return [String] Name or ID of the image
+        # @return [String, nil] Name or ID of the image
         attribute :image
-        validates :image, presence: true, type: String
+        validates :image, type: String
 
-        # @return [Object, nil] Ignored. Present for backwards compatability
+        # @return [Object, nil] Ignored. Present for backwards compatibility
         attribute :availability_zone
       end
     end

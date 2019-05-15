@@ -9,16 +9,15 @@ module Ansible
       # Runs one or more commands on remote devices running VyOS. This module can also be introspected to validate key parameters before returning successfully.
       class Vyos_system < Base
         # @return [String, nil] Configure the device hostname parameter. This option takes an ASCII string value.
-        attribute :hostname
-        validates :hostname, type: String
+        attribute :host_name
+        validates :host_name, type: String
 
         # @return [String, nil] The new domain name to apply to the device.
         attribute :domain_name
         validates :domain_name, type: String
 
-        # @return [Array<String>, String, nil] A list of name servers to use with the device. Mutually exclusive with I(domain_search)
-        attribute :name_server
-        validates :name_server, type: TypeGeneric.new(String)
+        # @return [Object, nil] A list of name servers to use with the device. Mutually exclusive with I(domain_search)
+        attribute :name_servers
 
         # @return [Array<String>, String, nil] A list of domain names to search. Mutually exclusive with I(name_server)
         attribute :domain_search

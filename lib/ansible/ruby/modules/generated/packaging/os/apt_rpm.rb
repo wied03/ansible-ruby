@@ -12,13 +12,13 @@ module Ansible
         attribute :pkg
         validates :pkg, presence: true, type: TypeGeneric.new(String)
 
-        # @return [:absent, :present, nil] Indicates the desired package state
+        # @return [:absent, :present, nil] Indicates the desired package state.
         attribute :state
         validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
-        # @return [Boolean, nil] update the package database first C(apt-get update).
+        # @return [String, nil] update the package database first C(apt-get update).
         attribute :update_cache
-        validates :update_cache, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :update_cache, type: String
       end
     end
   end

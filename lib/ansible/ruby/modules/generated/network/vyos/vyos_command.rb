@@ -11,7 +11,7 @@ module Ansible
       class Vyos_command < Base
         # @return [Array<String>, String] The ordered set of commands to execute on the remote device running VyOS.  The output from the command execution is returned to the playbook.  If the I(wait_for) argument is provided, the module is not returned until the condition is satisfied or the number of retries has been exceeded.
         attribute :commands
-        validates :commands, presence: true, type: TypeGeneric.new(String)
+        validates :commands, presence: true, type: TypeGeneric.new(String, Hash)
 
         # @return [Array<String>, String, nil] Specifies what to evaluate from the output of the command and what conditionals to apply.  This argument will cause the task to wait for a particular conditional to be true before moving forward.  If the conditional is not true by the configured I(retries), the task fails. See examples.
         attribute :wait_for

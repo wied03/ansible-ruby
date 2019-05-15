@@ -8,16 +8,17 @@ module Ansible
     module Modules
       # Modify protocol properties on Solaris/illumos systems.
       class Ipadm_prop < Base
-        # @return [Object] Specifies the procotol for which we want to manage properties.
+        # @return [String] Specifies the procotol for which we want to manage properties.
         attribute :protocol
-        validates :protocol, presence: true
+        validates :protocol, presence: true, type: String
 
-        # @return [Object] Specifies the name of property we want to manage.
+        # @return [String] Specifies the name of property we want to manage.
         attribute :property
-        validates :property, presence: true
+        validates :property, presence: true, type: String
 
-        # @return [Object, nil] Specifies the value we want to set for the property.
+        # @return [String, nil] Specifies the value we want to set for the property.
         attribute :value
+        validates :value, type: String
 
         # @return [Boolean, nil] Specifies that the property value is temporary. Temporary property values do not persist across reboots.
         attribute :temporary

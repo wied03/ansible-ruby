@@ -20,7 +20,7 @@ module Ansible
         attribute :inventory
         validates :inventory, presence: true, type: String
 
-        # @return [Object, nil] Variables to use for the group, use '@' for a file.
+        # @return [Object, nil] Variables to use for the group, use C(@) for a file.
         attribute :variables
 
         # @return [Object, nil] Credential to use for the group.
@@ -42,40 +42,23 @@ module Ansible
         # @return [Object, nil] Limit groups automatically created from inventory source.
         attribute :group_by
 
-        # @return [Object, nil] Inventory script to be used when group type is "custom".
+        # @return [Object, nil] Inventory script to be used when group type is C(custom).
         attribute :source_script
 
-        # @return [Boolean, nil] Delete child roups and hosts not found in source.
+        # @return [String, nil] Delete child groups and hosts not found in source.
         attribute :overwrite
-        validates :overwrite, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :overwrite, type: String
 
         # @return [Object, nil] Override vars in child groups and hosts with those from external source.
         attribute :overwrite_vars
 
-        # @return [Boolean, nil] Refresh inventory data from its source each time a job is run.
+        # @return [String, nil] Refresh inventory data from its source each time a job is run.
         attribute :update_on_launch
-        validates :update_on_launch, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :update_on_launch, type: String
 
         # @return [:present, :absent, nil] Desired state of the resource.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
-
-        # @return [Object, nil] URL to your Tower instance.
-        attribute :tower_host
-
-        # @return [Object, nil] Username for your Tower instance.
-        attribute :tower_username
-
-        # @return [Object, nil] Password for your Tower instance.
-        attribute :tower_password
-
-        # @return [Boolean, nil] Dis/allow insecure connections to Tower. If C(no), SSL certificates will not be validated. This should only be used on personally controlled sites using self-signed certificates.
-        attribute :tower_verify_ssl
-        validates :tower_verify_ssl, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
-
-        # @return [String, nil] Path to the Tower config file. See notes.
-        attribute :tower_config_file
-        validates :tower_config_file, type: String
       end
     end
   end

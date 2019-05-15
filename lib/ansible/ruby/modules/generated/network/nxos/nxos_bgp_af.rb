@@ -24,35 +24,30 @@ module Ansible
         attribute :safi
         validates :safi, presence: true, inclusion: {:in=>[:unicast, :multicast, :evpn], :message=>"%{value} needs to be :unicast, :multicast, :evpn"}
 
-        # @return [:true, :false, nil] Install a backup path into the forwarding table and provide prefix independent convergence (PIC) in case of a PE-CE link failure.
+        # @return [Object, nil] Install a backup path into the forwarding table and provide prefix independent convergence (PIC) in case of a PE-CE link failure.
         attribute :additional_paths_install
-        validates :additional_paths_install, inclusion: {:in=>[:true, :false], :message=>"%{value} needs to be :true, :false"}, allow_nil: true
 
-        # @return [:true, :false, nil] Enables the receive capability of additional paths for all of the neighbors under this address family for which the capability has not been disabled.
+        # @return [Object, nil] Enables the receive capability of additional paths for all of the neighbors under this address family for which the capability has not been disabled.
         attribute :additional_paths_receive
-        validates :additional_paths_receive, inclusion: {:in=>[:true, :false], :message=>"%{value} needs to be :true, :false"}, allow_nil: true
 
         # @return [Object, nil] Configures the capability of selecting additional paths for a prefix. Valid values are a string defining the name of the route-map.
         attribute :additional_paths_selection
 
-        # @return [:true, :false, nil] Enables the send capability of additional paths for all of the neighbors under this address family for which the capability has not been disabled.
+        # @return [Object, nil] Enables the send capability of additional paths for all of the neighbors under this address family for which the capability has not been disabled.
         attribute :additional_paths_send
-        validates :additional_paths_send, inclusion: {:in=>[:true, :false], :message=>"%{value} needs to be :true, :false"}, allow_nil: true
 
-        # @return [:true, :false, nil] Advertise evpn routes.
+        # @return [Boolean, nil] Advertise evpn routes.
         attribute :advertise_l2vpn_evpn
-        validates :advertise_l2vpn_evpn, inclusion: {:in=>[:true, :false], :message=>"%{value} needs to be :true, :false"}, allow_nil: true
+        validates :advertise_l2vpn_evpn, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
-        # @return [:true, :false, nil] Configure client-to-client route reflection.
+        # @return [Object, nil] Configure client-to-client route reflection.
         attribute :client_to_client
-        validates :client_to_client, inclusion: {:in=>[:true, :false], :message=>"%{value} needs to be :true, :false"}, allow_nil: true
 
         # @return [Object, nil] Specify dampen value for IGP metric-related changes, in seconds. Valid values are integer and keyword 'default'.
         attribute :dampen_igp_metric
 
-        # @return [:true, :false, nil] Enable/disable route-flap dampening.
+        # @return [Object, nil] Enable/disable route-flap dampening.
         attribute :dampening_state
-        validates :dampening_state, inclusion: {:in=>[:true, :false], :message=>"%{value} needs to be :true, :false"}, allow_nil: true
 
         # @return [Object, nil] Specify decay half-life in minutes for route-flap dampening. Valid values are integer and keyword 'default'.
         attribute :dampening_half_time
@@ -69,9 +64,8 @@ module Ansible
         # @return [Object, nil] Specify route suppress time for route-flap dampening. Valid values are integer and keyword 'default'.
         attribute :dampening_suppress_time
 
-        # @return [:true, :false, nil] Default information originate.
+        # @return [Object, nil] Default information originate.
         attribute :default_information_originate
-        validates :default_information_originate, inclusion: {:in=>[:true, :false], :message=>"%{value} needs to be :true, :false"}, allow_nil: true
 
         # @return [Object, nil] Sets default metrics for routes redistributed into BGP. Valid values are Integer or keyword 'default'
         attribute :default_metric
@@ -94,7 +88,7 @@ module Ansible
         # @return [Object, nil] Configures the maximum number of ibgp equal-cost paths for load sharing. Valid value is an integer in the range 1-64.
         attribute :maximum_paths_ibgp
 
-        # @return [Object, nil] Networks to configure. Valid value is a list of network prefixes to advertise. The list must be in the form of an array. Each entry in the array must include a prefix address and an optional route-map. For example [['10.0.0.0/16', 'routemap_LA'], ['192.168.1.1', 'Chicago'], ['192.168.2.0/24], ['192.168.3.0/24', 'routemap_NYC']].
+        # @return [Object, nil] Networks to configure. Valid value is a list of network prefixes to advertise. The list must be in the form of an array. Each entry in the array must include a prefix address and an optional route-map. For example [['10.0.0.0/16', 'routemap_LA'], ['192.168.1.1', 'Chicago'], ['192.168.2.0/24'], ['192.168.3.0/24', 'routemap_NYC']].
         attribute :networks
 
         # @return [Object, nil] Configure a route-map for valid nexthops. Valid values are a string defining the name of the route-map.
@@ -103,16 +97,14 @@ module Ansible
         # @return [Object, nil] A list of redistribute directives. Multiple redistribute entries are allowed. The list must be in the form of a nested array. the first entry of each array defines the source-protocol to redistribute from; the second entry defines a route-map name. A route-map is highly advised but may be optional on some platforms, in which case it may be omitted from the array list. For example [['direct', 'rm_direct'], ['lisp', 'rm_lisp']].
         attribute :redistribute
 
-        # @return [:true, :false, nil] Advertises only active routes to peers.
+        # @return [Object, nil] Advertises only active routes to peers.
         attribute :suppress_inactive
-        validates :suppress_inactive, inclusion: {:in=>[:true, :false], :message=>"%{value} needs to be :true, :false"}, allow_nil: true
 
         # @return [Object, nil] Apply table-map to filter routes downloaded into URIB. Valid values are a string.
         attribute :table_map
 
-        # @return [:true, :false, nil] Filters routes rejected by the route-map and does not download them to the RIB.
+        # @return [Object, nil] Filters routes rejected by the route-map and does not download them to the RIB.
         attribute :table_map_filter
-        validates :table_map_filter, inclusion: {:in=>[:true, :false], :message=>"%{value} needs to be :true, :false"}, allow_nil: true
 
         # @return [:present, :absent, nil] Determines whether the config should be present or not on the device.
         attribute :state

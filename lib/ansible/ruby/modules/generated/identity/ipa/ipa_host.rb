@@ -39,37 +39,21 @@ module Ansible
         attribute :ns_os_version
         validates :ns_os_version, type: String
 
-        # @return [Array<NilClass>, NilClass, nil] List of Base-64 encoded server certificates.,If option is omitted certificates will not be checked or changed.,If an emtpy list is passed all assigned certificates will be removed.,Certificates already assigned but not passed will be removed.
+        # @return [Array<NilClass>, NilClass, nil] List of Base-64 encoded server certificates.,If option is omitted certificates will not be checked or changed.,If an empty list is passed all assigned certificates will be removed.,Certificates already assigned but not passed will be removed.
         attribute :user_certificate
         validates :user_certificate, type: TypeGeneric.new(NilClass)
 
-        # @return [:present, :absent, :disabled, nil] State to ensure
+        # @return [:present, :absent, :enabled, :disabled, nil] State to ensure
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent, :disabled], :message=>"%{value} needs to be :present, :absent, :disabled"}, allow_nil: true
+        validates :state, inclusion: {:in=>[:present, :absent, :enabled, :disabled], :message=>"%{value} needs to be :present, :absent, :enabled, :disabled"}, allow_nil: true
 
-        # @return [Integer, nil] Port of IPA server
-        attribute :ipa_port
-        validates :ipa_port, type: Integer
+        # @return [Boolean, nil] If set C("True") with state as C("absent"), then removes DNS records of the host managed by FreeIPA DNS.,This option has no effect for states other than "absent".
+        attribute :update_dns
+        validates :update_dns, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
-        # @return [String, nil] IP or hostname of IPA server
-        attribute :ipa_host
-        validates :ipa_host, type: String
-
-        # @return [String, nil] Administrative account used on IPA server
-        attribute :ipa_user
-        validates :ipa_user, type: String
-
-        # @return [String] Password of administrative user
-        attribute :ipa_pass
-        validates :ipa_pass, presence: true, type: String
-
-        # @return [:http, :https, nil] Protocol used by IPA server
-        attribute :ipa_prot
-        validates :ipa_prot, inclusion: {:in=>[:http, :https], :message=>"%{value} needs to be :http, :https"}, allow_nil: true
-
-        # @return [Boolean, nil] This only applies if C(ipa_prot) is I(https).,If set to C(no), the SSL certificates will not be validated.,This should only set to C(no) used on personally controlled sites using self-signed certificates.
-        attribute :validate_certs
-        validates :validate_certs, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        # @return [Boolean, nil] Generate a random password to be used in bulk enrollment
+        attribute :random_password
+        validates :random_password, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
       end
     end
   end

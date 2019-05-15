@@ -12,7 +12,7 @@ module Ansible
         attribute :url
         validates :url, presence: true, type: String
 
-        # @return [String] Mattermost webhook api key. Log into your mattermost site, go to Menu -> Integration -> Incomming Webhook -> Add Incomming Webhook. This will give you full URL. api_key is the last part. http://mattermost.example.com/hooks/C(API_KEY)
+        # @return [String] Mattermost webhook api key. Log into your mattermost site, go to Menu -> Integration -> Incoming Webhook -> Add Incoming Webhook. This will give you full URL. api_key is the last part. http://mattermost.example.com/hooks/C(API_KEY)
         attribute :api_key
         validates :api_key, presence: true, type: String
 

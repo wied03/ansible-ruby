@@ -8,28 +8,33 @@ module Ansible
     module Modules
       # The C(command) module takes the command name followed by a list of space-delimited arguments.
       # The given command will be executed on all selected nodes. It will not be processed through the shell, so variables like C($HOME) and operations like C("<"), C(">"), C("|"), C(";") and C("&") will not work (use the M(shell) module if you need these features).
+      # For Windows targets, use the M(win_command) module instead.
       class Command < Base
-        # @return [Object] the command module takes a free form command to run.  There is no parameter actually named 'free form'. See the examples!
+        # @return [Object] The command module takes a free form command to run.  There is no parameter actually named 'free form'. See the examples!
         attribute :free_form
         validates :free_form, presence: true
 
-        # @return [String, nil] a filename or (since 2.0) glob pattern, when it already exists, this step will B(not) be run.
+        # @return [Array<String>, String, nil] Allows the user to provide the command as a list vs. a string.  Only the string or the list form can be provided, not both.  One or the other must be provided.
+        attribute :argv
+        validates :argv, type: TypeGeneric.new(String)
+
+        # @return [String, nil] A filename or (since 2.0) glob pattern. If it already exists, this step B(won't) be run.
         attribute :creates
         validates :creates, type: String
 
-        # @return [Object, nil] a filename or (since 2.0) glob pattern, when it does not exist, this step will B(not) be run.
+        # @return [Object, nil] A filename or (since 2.0) glob pattern. If it already exists, this step B(will) be run.
         attribute :removes
 
-        # @return [String, nil] cd into this directory before running the command
+        # @return [String, nil] Change into this directory before running the command.
         attribute :chdir
         validates :chdir, type: String
 
-        # @return [Object, nil] change the shell used to execute the command. Should be an absolute path to the executable.
-        attribute :executable
-
-        # @return [Boolean, nil] if command warnings are on in ansible.cfg, do not warn about this particular line if set to no/false.
+        # @return [String, nil] If command_warnings are on in ansible.cfg, do not warn about this particular line if set to C(no).
         attribute :warn
-        validates :warn, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :warn, type: String
+
+        # @return [Object, nil] Set the stdin of the command directly to the specified value.
+        attribute :stdin
       end
     end
   end

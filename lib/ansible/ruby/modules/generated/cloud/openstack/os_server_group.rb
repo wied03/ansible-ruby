@@ -20,7 +20,7 @@ module Ansible
         attribute :policies
         validates :policies, type: TypeGeneric.new(String)
 
-        # @return [Object, nil] Ignored. Present for backwards compatability
+        # @return [Object, nil] Ignored. Present for backwards compatibility
         attribute :availability_zone
       end
     end

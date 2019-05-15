@@ -6,7 +6,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
-      # When the project does not exists in Gitlab, it will be created.
+      # When the project does not exist in Gitlab, it will be created.
       # When the project does exists and state=absent, the project will be deleted.
       # When changes are made to the project, the project will be updated.
       class Gitlab_project < Base
@@ -14,9 +14,9 @@ module Ansible
         attribute :server_url
         validates :server_url, presence: true, type: String
 
-        # @return [Boolean, nil] When using https if SSL certificate needs to be verified.
+        # @return [String, nil] When using https if SSL certificate needs to be verified.
         attribute :validate_certs
-        validates :validate_certs, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :validate_certs, type: String
 
         # @return [String, nil] Gitlab user name.
         attribute :login_user
@@ -44,33 +44,33 @@ module Ansible
         # @return [Object, nil] An description for the project.
         attribute :description
 
-        # @return [Boolean, nil] Whether you want to create issues or not.,Possible values are true and false.
+        # @return [String, nil] Whether you want to create issues or not.,Possible values are true and false.
         attribute :issues_enabled
-        validates :issues_enabled, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :issues_enabled, type: String
 
-        # @return [Boolean, nil] If merge requests can be made or not.,Possible values are true and false.
+        # @return [String, nil] If merge requests can be made or not.,Possible values are true and false.
         attribute :merge_requests_enabled
-        validates :merge_requests_enabled, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :merge_requests_enabled, type: String
 
-        # @return [Boolean, nil] If an wiki for this project should be available or not.,Possible values are true and false.
+        # @return [String, nil] If an wiki for this project should be available or not.,Possible values are true and false.
         attribute :wiki_enabled
-        validates :wiki_enabled, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :wiki_enabled, type: String
 
-        # @return [Boolean, nil] If creating snippets should be available or not.,Possible values are true and false.
+        # @return [String, nil] If creating snippets should be available or not.,Possible values are true and false.
         attribute :snippets_enabled
-        validates :snippets_enabled, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :snippets_enabled, type: String
 
-        # @return [Boolean, nil] If the project is public available or not.,Setting this to true is same as setting visibility_level to 20.,Possible values are true and false.
+        # @return [String, nil] If the project is public available or not.,Setting this to true is same as setting visibility_level to 20.,Possible values are true and false.
         attribute :public
-        validates :public, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :public, type: String
 
         # @return [Integer, nil] Private. visibility_level is 0. Project access must be granted explicitly for each user.,Internal. visibility_level is 10. The project can be cloned by any logged in user.,Public. visibility_level is 20. The project can be cloned without any authentication.,Possible values are 0, 10 and 20.
         attribute :visibility_level
         validates :visibility_level, type: Integer
 
-        # @return [Boolean, nil] Git repository which will me imported into gitlab.,Gitlab server needs read access to this git repository.
+        # @return [String, nil] Git repository which will be imported into gitlab.,Gitlab server needs read access to this git repository.
         attribute :import_url
-        validates :import_url, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :import_url, type: String
 
         # @return [:present, :absent, nil] create or delete project.,Possible values are present and absent.
         attribute :state

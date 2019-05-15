@@ -16,21 +16,16 @@ module Ansible
         attribute :jenkins_home
         validates :jenkins_home, type: String
 
-        # @return [String, nil] File mode applied on versioned plugins.
+        # @return [Object, nil] File mode applied on versioned plugins.
         attribute :mode
-        validates :mode, type: String
 
-        # @return [String] Plugin name.
+        # @return [String, nil] Plugin name.
         attribute :name
-        validates :name, presence: true, type: String
+        validates :name, type: String
 
         # @return [String, nil] Name of the Jenkins user on the OS.
         attribute :owner
         validates :owner, type: String
-
-        # @return [String, nil] Option used to allow the user to overwrite any of the other options. To remove an option, set the value of the option to C(null).
-        attribute :params
-        validates :params, type: String
 
         # @return [:absent, :present, :pinned, :unpinned, :enabled, :disabled, :latest, nil] Desired plugin state.,If the C(latest) is set, the check for new version will be performed every time. This is suitable to keep the plugin up-to-date.
         attribute :state
@@ -56,9 +51,9 @@ module Ansible
         attribute :version
         validates :version, type: String
 
-        # @return [:yes, :no, nil] Defines whether to install plugin dependencies.,This option takes effect only if the I(version) is not defined.
+        # @return [String, nil] Defines whether to install plugin dependencies.,This option takes effect only if the I(version) is not defined.
         attribute :with_dependencies
-        validates :with_dependencies, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :with_dependencies, type: String
       end
     end
   end

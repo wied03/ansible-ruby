@@ -16,13 +16,12 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [Boolean, nil] Desired admin state of the created or existing router.
+        # @return [String, nil] Desired admin state of the created or existing router.
         attribute :admin_state_up
-        validates :admin_state_up, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :admin_state_up, type: String
 
-        # @return [Boolean, nil] Enable Source NAT (SNAT) attribute.
+        # @return [Object, nil] Enable Source NAT (SNAT) attribute.
         attribute :enable_snat
-        validates :enable_snat, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [String, nil] Unique name or ID of the external gateway network.,required I(interfaces) or I(enable_snat) are provided.
         attribute :network
@@ -36,11 +35,11 @@ module Ansible
         attribute :external_fixed_ips
         validates :external_fixed_ips, type: TypeGeneric.new(Hash)
 
-        # @return [Array<String>, String, nil] List of subnets to attach to the router internal interface.
+        # @return [Array<String>, String, nil] List of subnets to attach to the router internal interface. Default gateway associated with the subnet will be automatically attached with the router's internal interface. In order to provide an ip address different from the default gateway,parameters are passed as dictionary with keys as network name or ID(net), subnet name or ID (subnet) and the IP of port (portip) from the network. User defined portip is often required when a multiple router need to be connected to a single subnet for which the default gateway has been already used.
         attribute :interfaces
-        validates :interfaces, type: TypeGeneric.new(String)
+        validates :interfaces, type: TypeGeneric.new(String, Hash)
 
-        # @return [Object, nil] Ignored. Present for backwards compatability
+        # @return [Object, nil] Ignored. Present for backwards compatibility
         attribute :availability_zone
       end
     end

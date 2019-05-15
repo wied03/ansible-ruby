@@ -16,19 +16,19 @@ module Ansible
         attribute :description
         validates :description, type: String
 
-        # @return [String, nil] Domain id to create the project in if the cloud supports domains. The domain_id parameter requires shade >= 1.8.0
+        # @return [String, nil] Domain id to create the project in if the cloud supports domains.
         attribute :domain_id
         validates :domain_id, type: String
 
-        # @return [Boolean, nil] Is the project enabled
+        # @return [String, nil] Is the project enabled
         attribute :enabled
-        validates :enabled, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :enabled, type: String
 
         # @return [:present, :absent, nil] Should the resource be present or absent.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [Object, nil] Ignored. Present for backwards compatability
+        # @return [Object, nil] Ignored. Present for backwards compatibility
         attribute :availability_zone
       end
     end

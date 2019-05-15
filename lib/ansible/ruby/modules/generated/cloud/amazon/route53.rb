@@ -8,9 +8,9 @@ module Ansible
     module Modules
       # Creates and deletes DNS records in Amazons Route53 service
       class Route53 < Base
-        # @return [:get, :create, :delete] Specifies the action to take.
-        attribute :command
-        validates :command, presence: true, inclusion: {:in=>[:get, :create, :delete], :message=>"%{value} needs to be :get, :create, :delete"}
+        # @return [:present, :absent, :get, :create, :delete] Specifies the state of the resource record. As of Ansible 2.4, the I(command) option has been changed to I(state) as default and the choices 'present' and 'absent' have been added, but I(command) still works as well.
+        attribute :state
+        validates :state, presence: true, inclusion: {:in=>[:present, :absent, :get, :create, :delete], :message=>"%{value} needs to be :present, :absent, :get, :create, :delete"}
 
         # @return [String] The DNS zone to modify
         attribute :zone
@@ -28,13 +28,13 @@ module Ansible
         attribute :ttl
         validates :ttl, type: String
 
-        # @return [:A, :CNAME, :MX, :AAAA, :TXT, :PTR, :SRV, :SPF, :NS, :SOA] The type of DNS record to create
+        # @return [:A, :CNAME, :MX, :AAAA, :TXT, :PTR, :SRV, :SPF, :CAA, :NS, :SOA] The type of DNS record to create
         attribute :type
-        validates :type, presence: true, inclusion: {:in=>[:A, :CNAME, :MX, :AAAA, :TXT, :PTR, :SRV, :SPF, :NS, :SOA], :message=>"%{value} needs to be :A, :CNAME, :MX, :AAAA, :TXT, :PTR, :SRV, :SPF, :NS, :SOA"}
+        validates :type, presence: true, inclusion: {:in=>[:A, :CNAME, :MX, :AAAA, :TXT, :PTR, :SRV, :SPF, :CAA, :NS, :SOA], :message=>"%{value} needs to be :A, :CNAME, :MX, :AAAA, :TXT, :PTR, :SRV, :SPF, :CAA, :NS, :SOA"}
 
-        # @return [Boolean, nil] Indicates if this is an alias record.
+        # @return [String, nil] Indicates if this is an alias record.
         attribute :alias
-        validates :alias, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :alias, type: String
 
         # @return [String, nil] The hosted zone identifier.
         attribute :alias_hosted_zone_id
@@ -44,7 +44,7 @@ module Ansible
         attribute :alias_evaluate_target_health
         validates :alias_evaluate_target_health, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
-        # @return [Array<String>, String, nil] The new value when creating a DNS record.  Multiple comma-spaced values are allowed for non-alias records.  When deleting a record all values for the record must be specified or Route53 will not delete it.
+        # @return [Array<String>, String, nil] The new value when creating a DNS record.  YAML lists or multiple comma-spaced values are allowed for non-alias records.,When deleting a record all values for the record must be specified or Route53 will not delete it.
         attribute :value
         validates :value, type: TypeGeneric.new(String)
 
@@ -55,9 +55,9 @@ module Ansible
         attribute :retry_interval
         validates :retry_interval, type: Integer
 
-        # @return [Boolean, nil] If set to true, the private zone matching the requested name within the domain will be used if there are both public and private zones. The default is to use the public zone.
+        # @return [String, nil] If set to C(yes), the private zone matching the requested name within the domain will be used if there are both public and private zones. The default is to use the public zone.
         attribute :private_zone
-        validates :private_zone, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :private_zone, type: String
 
         # @return [String, nil] Have to be specified for Weighted, latency-based and failover resource record sets only. An identifier that differentiates among multiple resource record sets that have the same combination of DNS name and type.
         attribute :identifier
@@ -80,9 +80,9 @@ module Ansible
         # @return [Object, nil] When used in conjunction with private_zone: true, this will only modify records in the private hosted zone attached to this VPC.,This allows you to have multiple private hosted zones, all with the same name, attached to different VPCs.
         attribute :vpc_id
 
-        # @return [Boolean, nil] Wait until the changes have been replicated to all Amazon Route 53 DNS servers.
+        # @return [String, nil] Wait until the changes have been replicated to all Amazon Route 53 DNS servers.
         attribute :wait
-        validates :wait, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :wait, type: String
 
         # @return [Integer, nil] How long to wait for the changes to be replicated, in seconds.
         attribute :wait_timeout

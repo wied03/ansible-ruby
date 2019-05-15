@@ -46,6 +46,9 @@ module Ansible
         # @return [Object, nil] Domain value for C(/etc/hosts).
         attribute :dns_domain
 
+        # @return [Object, nil] Docker images need this flag enabled along with the I(brand) set to C(lx).
+        attribute :docker
+
         # @return [Object, nil] Mount additional filesystems into an OS VM.
         attribute :filesystems
 

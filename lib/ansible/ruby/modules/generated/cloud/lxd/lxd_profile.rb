@@ -12,6 +12,9 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
+        # @return [Object, nil] Description of the profile.
+        attribute :description
+
         # @return [Object, nil] The config for the container (e.g. {"limits.memory": "4GB"}). See U(https://github.com/lxc/lxd/blob/master/doc/rest-api.md#patch-3),If the profile already exists and its "config" value in metadata obtained from GET /1.0/profiles/<name> U(https://github.com/lxc/lxd/blob/master/doc/rest-api.md#get-19) are different, they this module tries to apply the configurations.,Not all config values are supported to apply the existing profile. Maybe you need to delete and recreate a profile.
         attribute :config
 

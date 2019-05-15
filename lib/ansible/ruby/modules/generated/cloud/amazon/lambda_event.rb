@@ -23,11 +23,11 @@ module Ansible
         # @return [Object, nil] Version of the Lambda function. Mutually exclusive with C(alias).
         attribute :version
 
-        # @return [:stream, nil] Source of the event that triggers the lambda function.
+        # @return [:stream, :sqs, nil] Source of the event that triggers the lambda function.,For DynamoDB and Kinesis events, select 'stream',For SQS queues, select 'sqs'
         attribute :event_source
-        validates :event_source, inclusion: {:in=>[:stream], :message=>"%{value} needs to be :stream"}, allow_nil: true
+        validates :event_source, inclusion: {:in=>[:stream, :sqs], :message=>"%{value} needs to be :stream, :sqs"}, allow_nil: true
 
-        # @return [Object] Sub-parameters required for event source.,I(== stream event source ==),C(source_arn) The Amazon Resource Name (ARN) of the Kinesis or DynamoDB stream that is the event source.,C(enabled) Indicates whether AWS Lambda should begin polling the event source. Default is True.,C(batch_size) The largest number of records that AWS Lambda will retrieve from your event source at the time of invoking your function. Default is 100.,C(starting_position) The position in the stream where AWS Lambda should start reading. Choices are TRIM_HORIZON or LATEST.
+        # @return [Object] Sub-parameters required for event source.,I(== stream event source ==),C(source_arn) The Amazon Resource Name (ARN) of the Kinesis or DynamoDB stream that is the event source.,C(enabled) Indicates whether AWS Lambda should begin polling the event source. Default is True.,C(batch_size) The largest number of records that AWS Lambda will retrieve from your event source at the time of invoking your function. Default is 100.,C(starting_position) The position in the stream where AWS Lambda should start reading. Choices are TRIM_HORIZON or LATEST.,I(== sqs event source ==),C(source_arn) The Amazon Resource Name (ARN) of the SQS queue to read events from.,C(enabled) Indicates whether AWS Lambda should begin reading from the event source. Default is True.,C(batch_size) The largest number of records that AWS Lambda will retrieve from your event source at the time of invoking your function. Default is 100.
         attribute :source_params
         validates :source_params, presence: true
       end

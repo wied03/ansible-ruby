@@ -12,6 +12,9 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
+        # @return [Object, nil] Url of the host used to create a host.,If not provided, C(http://) and param C(name) is used as url.,Only considered if C(state=present) and host does not yet exist.
+        attribute :url
+
         # @return [Object, nil] Username for the host.,Required if C(state=present) and host does not yet exist.
         attribute :username
 

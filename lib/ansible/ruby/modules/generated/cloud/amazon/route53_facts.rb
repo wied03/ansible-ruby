@@ -23,8 +23,9 @@ module Ansible
         attribute :max_items
         validates :max_items, type: Integer
 
-        # @return [Object, nil] Some requests such as list_command: hosted_zones will return a maximum number of entries - EG 100. If the number of entries exceeds this maximum another request can be sent using the NextMarker entry from the first response to get the next page of results
+        # @return [String, nil] Some requests such as list_command: hosted_zones will return a maximum number of entries - EG 100 or the number specified by max_items. If the number of entries exceeds this maximum another request can be sent using the NextMarker entry from the first response to get the next page of results
         attribute :next_marker
+        validates :next_marker, type: String
 
         # @return [String, nil] The DNS Zone delegation set ID
         attribute :delegation_set_id
@@ -33,9 +34,9 @@ module Ansible
         # @return [Object, nil] The first name in the lexicographic ordering of domain names that you want the list_command: record_sets to start listing from
         attribute :start_record_name
 
-        # @return [:A, :CNAME, :MX, :AAAA, :TXT, :PTR, :SRV, :SPF, :NS, nil] The type of DNS record
+        # @return [:A, :CNAME, :MX, :AAAA, :TXT, :PTR, :SRV, :SPF, :CAA, :NS, nil] The type of DNS record
         attribute :type
-        validates :type, inclusion: {:in=>[:A, :CNAME, :MX, :AAAA, :TXT, :PTR, :SRV, :SPF, :NS], :message=>"%{value} needs to be :A, :CNAME, :MX, :AAAA, :TXT, :PTR, :SRV, :SPF, :NS"}, allow_nil: true
+        validates :type, inclusion: {:in=>[:A, :CNAME, :MX, :AAAA, :TXT, :PTR, :SRV, :SPF, :CAA, :NS], :message=>"%{value} needs to be :A, :CNAME, :MX, :AAAA, :TXT, :PTR, :SRV, :SPF, :CAA, :NS"}, allow_nil: true
 
         # @return [Object, nil] The first name in the lexicographic ordering of domain names that you want the list_command to start listing from
         attribute :dns_name

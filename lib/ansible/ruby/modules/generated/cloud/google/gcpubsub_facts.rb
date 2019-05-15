@@ -8,15 +8,17 @@ module Ansible
     module Modules
       # List Topics/Subscriptions from Google PubSub.  Use the gcpubsub module for topic/subscription management. See U(https://cloud.google.com/pubsub/docs) for an overview.
       class Gcpubsub_facts < Base
-        # @return [Object, nil] GCP pubsub topic name.  Only the name, not the full path, is required.
+        # @return [String, nil] GCP pubsub topic name.  Only the name, not the full path, is required.
         attribute :topic
+        validates :topic, type: String
 
-        # @return [Object] Choices are 'topics' or 'subscriptions'
+        # @return [String] Choices are 'topics' or 'subscriptions'
         attribute :view
-        validates :view, presence: true
+        validates :view, presence: true, type: String
 
-        # @return [Object, nil] list is the only valid option.
+        # @return [String, nil] list is the only valid option.
         attribute :state
+        validates :state, type: String
       end
     end
   end

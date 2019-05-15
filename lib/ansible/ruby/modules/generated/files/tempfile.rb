@@ -7,10 +7,11 @@ module Ansible
   module Ruby
     module Modules
       # The C(tempfile) module creates temporary files and directories. C(mktemp) command takes different parameters on various systems, this module helps to avoid troubles related to that. Files/directories created by module are accessible only by creator. In case you need to make them world-accessible you need to use M(file) module.
+      # For Windows targets, use the M(win_tempfile) module instead.
       class Tempfile < Base
-        # @return [:file, :directory, nil] Whether to create file or directory.
+        # @return [:directory, :file, nil] Whether to create file or directory.
         attribute :state
-        validates :state, inclusion: {:in=>[:file, :directory], :message=>"%{value} needs to be :file, :directory"}, allow_nil: true
+        validates :state, inclusion: {:in=>[:directory, :file], :message=>"%{value} needs to be :directory, :file"}, allow_nil: true
 
         # @return [Object, nil] Location where temporary file or directory should be created. If path is not specified default system temporary directory will be used.
         attribute :path

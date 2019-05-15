@@ -17,9 +17,9 @@ module Ansible
         attribute :addrtype
         validates :addrtype, inclusion: {:in=>[:static, :dhcp, :addrconf], :message=>"%{value} needs to be :static, :dhcp, :addrconf"}, allow_nil: true
 
-        # @return [Object] Specifies an unique IP address on the system.
+        # @return [String] Specifies an unique IP address on the system.
         attribute :addrobj
-        validates :addrobj, presence: true
+        validates :addrobj, presence: true, type: String
 
         # @return [Boolean, nil] Specifies that the configured IP address is temporary. Temporary IP addresses do not persist across reboots.
         attribute :temporary

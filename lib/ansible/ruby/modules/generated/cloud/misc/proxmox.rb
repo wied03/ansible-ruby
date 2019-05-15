@@ -25,9 +25,9 @@ module Ansible
         attribute :vmid
         validates :vmid, type: Integer
 
-        # @return [Boolean, nil] enable / disable https certificate verification
+        # @return [String, nil] enable / disable https certificate verification
         attribute :validate_certs
-        validates :validate_certs, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :validate_certs, type: String
 
         # @return [String, nil] Proxmox VE node, when new VM will be created,required only for C(state=present),for another states will be autodiscovered
         attribute :node
@@ -52,6 +52,10 @@ module Ansible
         attribute :disk
         validates :disk, type: Integer
 
+        # @return [Integer, nil] Specify number of cores per socket.
+        attribute :cores
+        validates :cores, type: Integer
+
         # @return [Integer, nil] numbers of allocated cpus for instance
         attribute :cpus
         validates :cpus, type: Integer
@@ -75,9 +79,9 @@ module Ansible
         # @return [Object, nil] specifies the address the container will be assigned
         attribute :ip_address
 
-        # @return [Boolean, nil] specifies whether a VM will be started during system bootup
+        # @return [String, nil] specifies whether a VM will be started during system bootup
         attribute :onboot
-        validates :onboot, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :onboot, type: String
 
         # @return [String, nil] target storage
         attribute :storage
@@ -97,9 +101,9 @@ module Ansible
         attribute :timeout
         validates :timeout, type: Integer
 
-        # @return [Boolean, nil] forcing operations,can be used only with states C(present), C(stopped), C(restarted),with C(state=present) force option allow to overwrite existing container,with states C(stopped) , C(restarted) allow to force stop instance
+        # @return [String, nil] forcing operations,can be used only with states C(present), C(stopped), C(restarted),with C(state=present) force option allow to overwrite existing container,with states C(stopped) , C(restarted) allow to force stop instance
         attribute :force
-        validates :force, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :force, type: String
 
         # @return [:present, :started, :absent, :stopped, :restarted, nil] Indicate desired state of the instance
         attribute :state
@@ -108,9 +112,9 @@ module Ansible
         # @return [Object, nil] Public key to add to /root/.ssh/authorized_keys. This was added on Proxmox 4.2, it is ignored for earlier versions
         attribute :pubkey
 
-        # @return [Boolean, nil] Indicate if the container should be unprivileged
+        # @return [String, nil] Indicate if the container should be unprivileged
         attribute :unprivileged
-        validates :unprivileged, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :unprivileged, type: String
       end
     end
   end

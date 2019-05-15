@@ -6,11 +6,10 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
-      # Manage the SSHD settings of a BIG-IP
+      # Manage the SSHD settings of a BIG-IP.
       class Bigip_device_sshd < Base
-        # @return [:all, :"IP address, such as 172.27.1.10", :"IP range, such as 172.27.*.* or 172.27.0.0/255.255.0.0", nil] Specifies, if you have enabled SSH access, the IP address or address range for other systems that can use SSH to communicate with this system.
+        # @return [Object, nil] Specifies, if you have enabled SSH access, the IP address or address range for other systems that can use SSH to communicate with this system.,To specify all addresses, use the value C(all).,IP address can be specified, such as 172.27.1.10.,IP rangees can be specified, such as 172.27.*.* or 172.27.0.0/255.255.0.0.
         attribute :allow
-        validates :allow, inclusion: {:in=>[:all, :"IP address, such as 172.27.1.10", :"IP range, such as 172.27.*.* or 172.27.0.0/255.255.0.0"], :message=>"%{value} needs to be :all, :\"IP address, such as 172.27.1.10\", :\"IP range, such as 172.27.*.* or 172.27.0.0/255.255.0.0\""}, allow_nil: true
 
         # @return [:enabled, :disabled, nil] Whether to enable the banner or not.
         attribute :banner

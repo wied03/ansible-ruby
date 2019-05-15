@@ -16,9 +16,9 @@ module Ansible
         attribute :identifier
         validates :identifier, presence: true, type: String
 
-        # @return [:"ds1.xlarge", :"ds1.8xlarge", :"ds2.xlarge", :"ds2.8xlarge", :"dc1.large", :"dc1.8xlarge", :"dw1.xlarge", :"dw1.8xlarge", :"dw2.large", :"dw2.8xlarge", nil] The node type of the cluster. Must be specified when command=create.
+        # @return [:"ds1.xlarge", :"ds1.8xlarge", :"ds2.xlarge", :"ds2.8xlarge", :"dc1.large", :"dc1.8xlarge", :"dc2.large", :"dc2.8xlarge", :"dw1.xlarge", :"dw1.8xlarge", :"dw2.large", :"dw2.8xlarge", nil] The node type of the cluster. Must be specified when command=create.
         attribute :node_type
-        validates :node_type, inclusion: {:in=>[:"ds1.xlarge", :"ds1.8xlarge", :"ds2.xlarge", :"ds2.8xlarge", :"dc1.large", :"dc1.8xlarge", :"dw1.xlarge", :"dw1.8xlarge", :"dw2.large", :"dw2.8xlarge"], :message=>"%{value} needs to be :\"ds1.xlarge\", :\"ds1.8xlarge\", :\"ds2.xlarge\", :\"ds2.8xlarge\", :\"dc1.large\", :\"dc1.8xlarge\", :\"dw1.xlarge\", :\"dw1.8xlarge\", :\"dw2.large\", :\"dw2.8xlarge\""}, allow_nil: true
+        validates :node_type, inclusion: {:in=>[:"ds1.xlarge", :"ds1.8xlarge", :"ds2.xlarge", :"ds2.8xlarge", :"dc1.large", :"dc1.8xlarge", :"dc2.large", :"dc2.8xlarge", :"dw1.xlarge", :"dw1.8xlarge", :"dw2.large", :"dw2.8xlarge"], :message=>"%{value} needs to be :\"ds1.xlarge\", :\"ds1.8xlarge\", :\"ds2.xlarge\", :\"ds2.8xlarge\", :\"dc1.large\", :\"dc1.8xlarge\", :\"dc2.large\", :\"dc2.8xlarge\", :\"dw1.xlarge\", :\"dw1.8xlarge\", :\"dw2.large\", :\"dw2.8xlarge\""}, allow_nil: true
 
         # @return [String, nil] Master database username. Used only when command=create.
         attribute :username
@@ -50,6 +50,13 @@ module Ansible
         # @return [Object, nil] VPC security group
         attribute :vpc_security_group_ids
 
+        # @return [String, nil] skip a final snapshot before deleting the cluster. Used only when command=delete.
+        attribute :skip_final_cluster_snapshot
+        validates :skip_final_cluster_snapshot, type: String
+
+        # @return [Object, nil] identifier of the final snapshot to be created before deleting the cluster. If this parameter is provided, final_cluster_snapshot_identifier must be false. Used only when command=delete.
+        attribute :final_cluster_snapshot_identifier
+
         # @return [Object, nil] maintenance window
         attribute :preferred_maintenance_window
 
@@ -66,17 +73,17 @@ module Ansible
         attribute :cluster_version
         validates :cluster_version, inclusion: {:in=>[1.0], :message=>"%{value} needs to be 1.0"}, allow_nil: true
 
-        # @return [Boolean, nil] flag to determinate if upgrade of version is possible
+        # @return [String, nil] flag to determinate if upgrade of version is possible
         attribute :allow_version_upgrade
-        validates :allow_version_upgrade, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :allow_version_upgrade, type: String
 
-        # @return [Boolean, nil] if the cluster is accessible publicly or not
+        # @return [String, nil] if the cluster is accessible publicly or not
         attribute :publicly_accessible
-        validates :publicly_accessible, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :publicly_accessible, type: String
 
-        # @return [Boolean, nil] if the cluster is encrypted or not
+        # @return [String, nil] if the cluster is encrypted or not
         attribute :encrypted
-        validates :encrypted, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :encrypted, type: String
 
         # @return [Object, nil] if the cluster has an elastic IP or not
         attribute :elastic_ip
@@ -84,9 +91,9 @@ module Ansible
         # @return [Object, nil] Only used when command=modify.
         attribute :new_cluster_identifier
 
-        # @return [:yes, :no, nil] When command=create, modify or restore then wait for the database to enter the 'available' state. When command=delete wait for the database to be terminated.
+        # @return [String, nil] When command=create, modify or restore then wait for the database to enter the 'available' state. When command=delete wait for the database to be terminated.
         attribute :wait
-        validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :wait, type: String
 
         # @return [Integer, nil] how long before wait gives up, in seconds
         attribute :wait_timeout

@@ -34,13 +34,13 @@ module Ansible
         # @return [Object, nil] Name of the zone in which the instance is deployed in.,If not set, default zone is used.
         attribute :zone
 
-        # @return [:present, :absent, nil] State of the ipaddress.
+        # @return [:absent, :present, nil] State of the ipaddress.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
-        # @return [Boolean, nil] Poll async jobs until job has finished.
+        # @return [String, nil] Poll async jobs until job has finished.
         attribute :poll_async
-        validates :poll_async, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :poll_async, type: String
       end
     end
   end

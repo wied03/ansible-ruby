@@ -15,6 +15,9 @@ module Ansible
         # @return [:present, :absent, :latest, nil] Desired state of the package.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent, :latest], :message=>"%{value} needs to be :present, :absent, :latest"}, allow_nil: true
+
+        # @return [Object, nil] Path to the pear executable
+        attribute :executable
       end
     end
   end

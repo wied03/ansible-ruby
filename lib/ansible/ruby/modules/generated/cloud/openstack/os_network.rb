@@ -12,17 +12,17 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [Boolean, nil] Whether this network is shared or not.
+        # @return [String, nil] Whether this network is shared or not.
         attribute :shared
-        validates :shared, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :shared, type: String
 
-        # @return [Boolean, nil] Whether the state should be marked as up or down.
+        # @return [String, nil] Whether the state should be marked as up or down.
         attribute :admin_state_up
-        validates :admin_state_up, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :admin_state_up, type: String
 
-        # @return [Boolean, nil] Whether this network is externally accessible.
+        # @return [String, nil] Whether this network is externally accessible.
         attribute :external
-        validates :external, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :external, type: String
 
         # @return [:present, :absent, nil] Indicate desired state of the resource.
         attribute :state
@@ -40,7 +40,7 @@ module Ansible
         # @return [Object, nil] Project name or ID containing the network (name admin-only)
         attribute :project
 
-        # @return [Object, nil] Ignored. Present for backwards compatability
+        # @return [Object, nil] Ignored. Present for backwards compatibility
         attribute :availability_zone
       end
     end

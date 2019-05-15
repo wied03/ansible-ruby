@@ -25,7 +25,7 @@ module Ansible
         attribute :cert_friendly_name
         validates :cert_friendly_name, presence: true, type: String
 
-        # @return [String] Certificate CN (common name) embeded in the certificate signature.
+        # @return [String] Certificate CN (common name) embedded in the certificate signature.
         attribute :cert_cn
         validates :cert_cn, presence: true, type: String
 

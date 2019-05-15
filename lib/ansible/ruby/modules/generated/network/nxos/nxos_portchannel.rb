@@ -23,9 +23,9 @@ module Ansible
         attribute :members
         validates :members, type: TypeGeneric.new(String)
 
-        # @return [Boolean, nil] When true it forces port-channel members to match what is declared in the members param. This can be used to remove members.
+        # @return [:false, :true, nil] When true it forces port-channel members to match what is declared in the members param. This can be used to remove members.
         attribute :force
-        validates :force, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :force, inclusion: {:in=>[:false, :true], :message=>"%{value} needs to be :false, :true"}, allow_nil: true
 
         # @return [:present, :absent, nil] Manage the state of the resource.
         attribute :state

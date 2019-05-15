@@ -6,7 +6,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
-      # Creates, removes and lists tags from any EC2 resource.  The resource is referenced by its resource id (e.g. an instance being i-XXXXXXX). It is designed to be used with complex args (tags), see the examples.  This module has a dependency on python-boto.
+      # Creates, removes and lists tags for any EC2 resource.  The resource is referenced by its resource id (e.g. an instance being i-XXXXXXX). It is designed to be used with complex args (tags), see the examples.
       class Ec2_tag < Base
         # @return [String] The EC2 resource id.
         attribute :resource
@@ -19,6 +19,10 @@ module Ansible
         # @return [Hash] a hash/dictionary of tags to add to the resource; '{"key":"value"}' and '{"key":"value","key":"value"}'
         attribute :tags
         validates :tags, presence: true, type: Hash
+
+        # @return [Boolean, nil] Whether unspecified tags should be removed from the resource.,Note that when combined with C(state: absent), specified tags with non-matching values are not purged.
+        attribute :purge_tags
+        validates :purge_tags, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
       end
     end
   end

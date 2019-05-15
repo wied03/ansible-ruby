@@ -8,19 +8,7 @@ module Ansible
     module Modules
       # Import file on PAN-OS device
       class Panos_import < Base
-        # @return [String] IP address (or hostname) of PAN-OS device.
-        attribute :ip_address
-        validates :ip_address, presence: true, type: String
-
-        # @return [String] Password for device authentication.
-        attribute :password
-        validates :password, presence: true, type: String
-
-        # @return [String, nil] Username for device authentication.
-        attribute :username
-        validates :username, type: String
-
-        # @return [String, nil] Category of file uploaded. The default is software.
+        # @return [String, nil] Category of file uploaded. The default is software.,See API > Import section of the API reference for category options.
         attribute :category
         validates :category, type: String
 
@@ -30,6 +18,10 @@ module Ansible
 
         # @return [Object, nil] URL of the file that will be imported to device.
         attribute :url
+
+        # @return [Boolean, nil] If C(no), SSL certificates will not be validated. Disabling certificate validation is not recommended.
+        attribute :validate_certs
+        validates :validate_certs, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
       end
     end
   end

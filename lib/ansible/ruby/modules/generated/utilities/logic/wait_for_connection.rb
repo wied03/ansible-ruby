@@ -10,6 +10,7 @@ module Ansible
       # Retries the transport connection after a timeout of C(connect_timeout).
       # Tests the transport connection every C(sleep) seconds.
       # This module makes use of internal ansible transport (and configuration) and the ping/win_ping module to guarantee correct end-to-end functioning.
+      # This module is also supported for Windows targets.
       class Wait_for_connection < Base
         # @return [Integer, nil] Maximum number of seconds to wait for a connection to happen before closing and retrying.
         attribute :connect_timeout

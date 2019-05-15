@@ -30,24 +30,22 @@ module Ansible
         # @return [Object, nil] Time interval an ospf neighbor waits for a hello packet before tearing down adjacencies. Valid values are an integer or the keyword 'default'.
         attribute :dead_interval
 
-        # @return [:true, :false, nil] Setting to true will prevent this interface from receiving HELLO packets. Valid values are 'true' and 'false'.
+        # @return [Object, nil] Setting to true will prevent this interface from receiving HELLO packets.
         attribute :passive_interface
-        validates :passive_interface, inclusion: {:in=>[:true, :false], :message=>"%{value} needs to be :true, :false"}, allow_nil: true
 
-        # @return [:true, :false, nil] Enables or disables the usage of message digest authentication. Valid values are 'true' and 'false'.
+        # @return [Object, nil] Enables or disables the usage of message digest authentication.
         attribute :message_digest
-        validates :message_digest, inclusion: {:in=>[:true, :false], :message=>"%{value} needs to be :true, :false"}, allow_nil: true
 
         # @return [Object, nil] Md5 authentication key-id associated with the ospf instance. If this is present, message_digest_encryption_type, message_digest_algorithm_type and message_digest_password are mandatory. Valid value is an integer and 'default'.
         attribute :message_digest_key_id
 
-        # @return [:md5, nil] Algorithm used for authentication among neighboring routers within an area. Valid values is 'md5'.
+        # @return [:md5, :default, nil] Algorithm used for authentication among neighboring routers within an area. Valid values are 'md5' and 'default'.
         attribute :message_digest_algorithm_type
-        validates :message_digest_algorithm_type, inclusion: {:in=>[:md5], :message=>"%{value} needs to be :md5"}, allow_nil: true
+        validates :message_digest_algorithm_type, inclusion: {:in=>[:md5, :default], :message=>"%{value} needs to be :md5, :default"}, allow_nil: true
 
-        # @return [:cisco_type_7, :"3des", nil] Specifies the scheme used for encrypting message_digest_password. Valid values are '3des' or 'cisco_type_7' encryption.
+        # @return [:cisco_type_7, :"3des", :default, nil] Specifies the scheme used for encrypting message_digest_password. Valid values are '3des' or 'cisco_type_7' encryption or 'default'.
         attribute :message_digest_encryption_type
-        validates :message_digest_encryption_type, inclusion: {:in=>[:cisco_type_7, :"3des"], :message=>"%{value} needs to be :cisco_type_7, :\"3des\""}, allow_nil: true
+        validates :message_digest_encryption_type, inclusion: {:in=>[:cisco_type_7, :"3des", :default], :message=>"%{value} needs to be :cisco_type_7, :\"3des\", :default"}, allow_nil: true
 
         # @return [Object, nil] Specifies the message_digest password. Valid value is a string.
         attribute :message_digest_password

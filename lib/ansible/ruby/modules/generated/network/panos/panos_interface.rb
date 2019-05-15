@@ -8,18 +8,6 @@ module Ansible
     module Modules
       # Configure data-port (DP) network interface for DHCP. By default DP interfaces are static.
       class Panos_interface < Base
-        # @return [String] IP address (or hostname) of PAN-OS device being configured.
-        attribute :ip_address
-        validates :ip_address, presence: true, type: String
-
-        # @return [String, nil] Username credentials to use for auth.
-        attribute :username
-        validates :username, type: String
-
-        # @return [String] Password credentials to use for auth.
-        attribute :password
-        validates :password, presence: true, type: String
-
         # @return [String] Name of the interface to configure.
         attribute :if_name
         validates :if_name, presence: true, type: String

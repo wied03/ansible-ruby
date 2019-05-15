@@ -16,11 +16,11 @@ module Ansible
         attribute :display_seconds
         validates :display_seconds, type: Integer
 
-        # @return [Boolean, nil] Whether to wait for users to respond.  Module will only wait for the number of seconds specified in display_seconds or 10 seconds if not specified. However, if I(wait) is true, the message is sent to each logged on user in turn, waiting for the user to either press 'ok' or for the timeout to elapse before moving on to the next user.
+        # @return [String, nil] Whether to wait for users to respond.  Module will only wait for the number of seconds specified in display_seconds or 10 seconds if not specified. However, if I(wait) is C(yes), the message is sent to each logged on user in turn, waiting for the user to either press 'ok' or for the timeout to elapse before moving on to the next user.
         attribute :wait
-        validates :wait, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :wait, type: String
 
-        # @return [String, nil] The text of the message to be displayed.
+        # @return [String, nil] The text of the message to be displayed.,The message must be less than 256 characters.
         attribute :msg
         validates :msg, type: String
       end

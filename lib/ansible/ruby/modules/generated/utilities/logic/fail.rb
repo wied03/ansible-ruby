@@ -7,6 +7,7 @@ module Ansible
   module Ruby
     module Modules
       # This module fails the progress with a custom message. It can be useful for bailing out when a certain condition is met using C(when).
+      # This module is also supported for Windows targets.
       class Fail < Base
         # @return [String, nil] The customized message used for failing execution. If omitted, fail will simply bail out with a generic message.
         attribute :msg

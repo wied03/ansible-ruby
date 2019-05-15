@@ -8,9 +8,9 @@ module Ansible
     module Modules
       # Allows for the management of IAM users, user API keys, groups, roles.
       class Iam < Base
-        # @return [:user, :group, :role] Type of IAM resource
+        # @return [:user, :group, :role, nil] Type of IAM resource
         attribute :iam_type
-        validates :iam_type, presence: true, inclusion: {:in=>[:user, :group, :role], :message=>"%{value} needs to be :user, :group, :role"}
+        validates :iam_type, inclusion: {:in=>[:user, :group, :role], :message=>"%{value} needs to be :user, :group, :role"}, allow_nil: true
 
         # @return [String] Name of IAM resource to create or identify
         attribute :name

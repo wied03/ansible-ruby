@@ -6,7 +6,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
-      # Add or remove a website on a Webfaction host.  Further documentation at http://github.com/quentinsf/ansible-webfaction.
+      # Add or remove a website on a Webfaction host.  Further documentation at https://github.com/quentinsf/ansible-webfaction.
       class Webfaction_site < Base
         # @return [String] The name of the website
         attribute :name
@@ -20,17 +20,15 @@ module Ansible
         attribute :host
         validates :host, presence: true, type: String
 
-        # @return [Boolean, nil] Whether or not to use HTTPS
+        # @return [String, nil] Whether or not to use HTTPS
         attribute :https
-        validates :https, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :https, type: String
 
-        # @return [Array<Array>, Array, nil] A mapping of URLs to apps
+        # @return [Object, nil] A mapping of URLs to apps
         attribute :site_apps
-        validates :site_apps, type: TypeGeneric.new(Array)
 
-        # @return [Array<String>, String, nil] A list of subdomains associated with this site.
+        # @return [Object, nil] A list of subdomains associated with this site.
         attribute :subdomains
-        validates :subdomains, type: TypeGeneric.new(String)
 
         # @return [String] The webfaction account to use
         attribute :login_name

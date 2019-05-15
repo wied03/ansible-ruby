@@ -15,7 +15,7 @@ module Ansible
         # @return [Object, nil] Path to a directory containing a docker-compose.yml or docker-compose.yaml file.,Mutually exclusive with C(definition).,Required when no C(definition) is provided.
         attribute :project_src
 
-        # @return [Object, nil] Provide a project name. If not provided, the project name is taken from the basename of C(project_src).,Required when no C(definition) is provided.
+        # @return [Object, nil] Provide a project name. If not provided, the project name is taken from the basename of C(project_src).,Required when C(definition) is provided.
         attribute :project_name
 
         # @return [Object, nil] List of file names relative to C(project_src). Overrides docker-compose.yml or docker-compose.yaml.,Files are loaded and merged in the order given.
@@ -31,51 +31,56 @@ module Ansible
         # @return [Object, nil] When C(state) is I(present) scale services. Provide a dictionary of key/value pairs where the key is the name of the service and the value is an integer count for the number of containers.
         attribute :scale
 
-        # @return [Boolean, nil] When C(state) is I(present) specify whether or not to include linked services.
+        # @return [String, nil] When C(state) is I(present) specify whether or not to include linked services.
         attribute :dependencies
-        validates :dependencies, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :dependencies, type: String
 
         # @return [Object, nil] Provide docker-compose yaml describing one or more services, networks and volumes.,Mutually exclusive with C(project_src) and C(files).
         attribute :definition
 
-        # @return [Boolean, nil] Whether or not to check the Docker daemon's hostname against the name provided in the client certificate.
+        # @return [String, nil] Whether or not to check the Docker daemon's hostname against the name provided in the client certificate.
         attribute :hostname_check
-        validates :hostname_check, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :hostname_check, type: String
 
         # @return [:always, :never, :smart, nil] By default containers will be recreated when their configuration differs from the service definition.,Setting to I(never) ignores configuration differences and leaves existing containers unchanged.,Setting to I(always) forces recreation of all existing containers.
         attribute :recreate
         validates :recreate, inclusion: {:in=>[:always, :never, :smart], :message=>"%{value} needs to be :always, :never, :smart"}, allow_nil: true
 
-        # @return [Boolean, nil] Use with state I(present) to always build images prior to starting the application.,Same as running docker-compose build with the pull option.,Images will only be rebuilt if Docker detects a change in the Dockerfile or build directory contents.,Use the C(nocache) option to ignore the image cache when performing the build.,If an existing image is replaced, services using the image will be recreated unless C(recreate) is I(never).
+        # @return [String, nil] Use with state I(present) to always build images prior to starting the application.,Same as running docker-compose build with the pull option.,Images will only be rebuilt if Docker detects a change in the Dockerfile or build directory contents.,Use the C(nocache) option to ignore the image cache when performing the build.,If an existing image is replaced, services using the image will be recreated unless C(recreate) is I(never).
         attribute :build
-        validates :build, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :build, type: String
 
-        # @return [Boolean, nil] Use with state I(present) to always pull images prior to starting the application.,Same as running docker-compose pull.,When a new image is pulled, services using the image will be recreated unless C(recreate) is I(never).
+        # @return [String, nil] Use with state I(present) to always pull images prior to starting the application.,Same as running docker-compose pull.,When a new image is pulled, services using the image will be recreated unless C(recreate) is I(never).
         attribute :pull
-        validates :pull, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :pull, type: String
 
-        # @return [Boolean, nil] Use with the build option to ignore the cache during the image build process.
+        # @return [String, nil] Use with the build option to ignore the cache during the image build process.
         attribute :nocache
-        validates :nocache, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :nocache, type: String
 
-        # @return [Object, nil] Use with state I(absent) to remove the all images or only local images.
+        # @return [:all, :local, nil] Use with state I(absent) to remove the all images or only local images.
         attribute :remove_images
+        validates :remove_images, inclusion: {:in=>[:all, :local], :message=>"%{value} needs to be :all, :local"}, allow_nil: true
 
-        # @return [Boolean, nil] Use with state I(absent) to remove data volumes.
+        # @return [String, nil] Use with state I(absent) to remove data volumes.
         attribute :remove_volumes
-        validates :remove_volumes, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :remove_volumes, type: String
 
-        # @return [Boolean, nil] Use with state I(present) to leave the containers in an exited or non-running state.
+        # @return [String, nil] Use with state I(present) to leave the containers in an exited or non-running state.
         attribute :stopped
-        validates :stopped, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :stopped, type: String
 
-        # @return [Boolean, nil] Use with state I(present) to restart all containers.
+        # @return [String, nil] Use with state I(present) to restart all containers.
         attribute :restarted
-        validates :restarted, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :restarted, type: String
 
-        # @return [Boolean, nil] Include I(actions) in the return values.
-        attribute :debug
-        validates :debug, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        # @return [Boolean, nil] Remove containers for services not defined in the compose file.
+        attribute :remove_orphans
+        validates :remove_orphans, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+
+        # @return [Integer, nil] timeout in seconds for container shutdown when attached or when containers are already running.
+        attribute :timeout
+        validates :timeout, type: Integer
       end
     end
   end

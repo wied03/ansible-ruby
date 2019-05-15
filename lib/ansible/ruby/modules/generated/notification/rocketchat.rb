@@ -24,7 +24,7 @@ module Ansible
         attribute :msg
         validates :msg, type: String
 
-        # @return [NilClass, nil] Channel to send the message to. If absent, the message goes to the channel selected for the I(token) specifed during the creation of webhook.
+        # @return [NilClass, nil] Channel to send the message to. If absent, the message goes to the channel selected for the I(token) specified during the creation of webhook.
         attribute :channel
         validates :channel, type: NilClass
 
@@ -43,9 +43,9 @@ module Ansible
         attribute :link_names
         validates :link_names, inclusion: {:in=>[1, 0], :message=>"%{value} needs to be 1, 0"}, allow_nil: true
 
-        # @return [:yes, :no, nil] If C(no), SSL certificates will not be validated. This should only be used on personally controlled sites using self-signed certificates.
+        # @return [String, nil] If C(no), SSL certificates will not be validated. This should only be used on personally controlled sites using self-signed certificates.
         attribute :validate_certs
-        validates :validate_certs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :validate_certs, type: String
 
         # @return [:normal, :good, :warning, :danger, nil] Allow text to use default colors - use the default of 'normal' to not send a custom color bar at the start of the message
         attribute :color

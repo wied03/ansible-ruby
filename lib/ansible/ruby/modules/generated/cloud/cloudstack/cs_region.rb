@@ -8,15 +8,17 @@ module Ansible
     module Modules
       # Add, update and remove regions.
       class Cs_region < Base
-        # @return [Object] ID of the region.,Must be an number (int).
+        # @return [Integer] ID of the region.,Must be an number (int).
         attribute :id
-        validates :id, presence: true
+        validates :id, presence: true, type: Integer
 
-        # @return [Object, nil] Name of the region.,Required if C(state=present)
+        # @return [String, nil] Name of the region.,Required if C(state=present)
         attribute :name
+        validates :name, type: String
 
-        # @return [Object, nil] Endpoint URL of the region.,Required if C(state=present)
+        # @return [String, nil] Endpoint URL of the region.,Required if C(state=present)
         attribute :endpoint
+        validates :endpoint, type: String
 
         # @return [:present, :absent, nil] State of the region.
         attribute :state

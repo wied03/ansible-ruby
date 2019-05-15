@@ -44,29 +44,29 @@ module Ansible
         # @return [Object, nil] The given name of your container (data center)
         attribute :containers
 
-        # @return [Boolean, nil] If it affects all components and containers
+        # @return [String, nil] If it affects all components and containers
         attribute :all_infrastructure_affected
-        validates :all_infrastructure_affected, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :all_infrastructure_affected, type: String
 
-        # @return [Boolean, nil] Automatically start and end the maintenance window
+        # @return [String, nil] Automatically start and end the maintenance window
         attribute :automation
-        validates :automation, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :automation, type: String
 
-        # @return [Boolean, nil] Notify subscribers now
+        # @return [String, nil] Notify subscribers now
         attribute :maintenance_notify_now
-        validates :maintenance_notify_now, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :maintenance_notify_now, type: String
 
-        # @return [Boolean, nil] Notify subscribers 72 hours before maintenance start time
+        # @return [String, nil] Notify subscribers 72 hours before maintenance start time
         attribute :maintenance_notify_72_hr
-        validates :maintenance_notify_72_hr, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :maintenance_notify_72_hr, type: String
 
-        # @return [Boolean, nil] Notify subscribers 24 hours before maintenance start time
+        # @return [String, nil] Notify subscribers 24 hours before maintenance start time
         attribute :maintenance_notify_24_hr
-        validates :maintenance_notify_24_hr, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :maintenance_notify_24_hr, type: String
 
-        # @return [Boolean, nil] Notify subscribers 1 hour before maintenance start time
+        # @return [String, nil] Notify subscribers 1 hour before maintenance start time
         attribute :maintenance_notify_1_hr
-        validates :maintenance_notify_1_hr, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :maintenance_notify_1_hr, type: String
 
         # @return [String, nil] The maintenance id number when deleting a maintenance window
         attribute :maintenance_id

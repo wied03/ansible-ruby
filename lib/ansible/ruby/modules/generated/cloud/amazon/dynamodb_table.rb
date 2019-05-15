@@ -44,6 +44,14 @@ module Ansible
 
         # @return [Object, nil] list of dictionaries describing indexes to add to the table. global indexes can be updated. local indexes don't support updates or have throughput.,required options: ['name', 'type', 'hash_key_name'],valid types: ['all', 'global_all', 'global_include', 'global_keys_only', 'include', 'keys_only'],other options: ['hash_key_type', 'range_key_name', 'range_key_type', 'includes', 'read_capacity', 'write_capacity']
         attribute :indexes
+
+        # @return [Hash, nil] a hash/dictionary of tags to add to the new instance or for starting/stopping instance by tag; '{"key":"value"}' and '{"key":"value","key":"value"}'
+        attribute :tags
+        validates :tags, type: Hash
+
+        # @return [Integer, nil] how long before wait gives up, in seconds. only used when tags is set
+        attribute :wait_for_active_timeout
+        validates :wait_for_active_timeout, type: Integer
       end
     end
   end

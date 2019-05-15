@@ -43,9 +43,9 @@ module Ansible
         # @return [Object, nil] the name you want to appear in the from field, i.e 'John Doe'
         attribute :from_name
 
-        # @return [Boolean, nil] whether the body is html content that should be rendered
+        # @return [String, nil] whether the body is html content that should be rendered
         attribute :html_body
-        validates :html_body, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :html_body, type: String
 
         # @return [Object, nil] a dict to pass on as headers
         attribute :headers

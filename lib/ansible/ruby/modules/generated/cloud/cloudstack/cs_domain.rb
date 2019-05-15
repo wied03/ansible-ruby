@@ -8,12 +8,13 @@ module Ansible
     module Modules
       # Create, update and remove domains.
       class Cs_domain < Base
-        # @return [Object] Path of the domain.,Prefix C(ROOT/) or C(/ROOT/) in path is optional.
+        # @return [String] Path of the domain.,Prefix C(ROOT/) or C(/ROOT/) in path is optional.
         attribute :path
-        validates :path, presence: true
+        validates :path, presence: true, type: String
 
-        # @return [Object, nil] Network domain for networks in the domain.
+        # @return [String, nil] Network domain for networks in the domain.
         attribute :network_domain
+        validates :network_domain, type: String
 
         # @return [Boolean, nil] Clean up all domain resources like child domains and accounts.,Considered on C(state=absent).
         attribute :clean_up

@@ -12,17 +12,21 @@ module Ansible
         attribute :path
         validates :path, presence: true, type: TypeGeneric.new(String)
 
-        # @return [:gz, :bz2, :zip, nil] The type of compression to use.
+        # @return [:bz2, :gz, :tar, :xz, :zip, nil] The type of compression to use.,Support for xz was added in version 2.5.
         attribute :format
-        validates :format, inclusion: {:in=>[:gz, :bz2, :zip], :message=>"%{value} needs to be :gz, :bz2, :zip"}, allow_nil: true
+        validates :format, inclusion: {:in=>[:bz2, :gz, :tar, :xz, :zip], :message=>"%{value} needs to be :bz2, :gz, :tar, :xz, :zip"}, allow_nil: true
 
         # @return [String, nil] The file name of the destination archive. This is required when C(path) refers to multiple files by either specifying a glob, a directory or multiple paths in a list.
         attribute :dest
         validates :dest, type: String
 
-        # @return [Boolean, nil] Remove any added source files and trees after adding to archive.
+        # @return [Array<String>, String, nil] Remote absolute path, glob, or list of paths or globs for the file or files to exclude from the archive
+        attribute :exclude_path
+        validates :exclude_path, type: TypeGeneric.new(String)
+
+        # @return [String, nil] Remove any added source files and trees after adding to archive.
         attribute :remove
-        validates :remove, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :remove, type: String
       end
     end
   end

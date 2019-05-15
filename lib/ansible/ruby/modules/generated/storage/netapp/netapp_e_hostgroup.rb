@@ -42,7 +42,7 @@ module Ansible
         attribute :id
 
         # @return [Object, nil] a list of host names/labels to add to the group
-        attribute :"hosts:"
+        attribute :hosts
       end
     end
   end

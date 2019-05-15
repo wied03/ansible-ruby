@@ -16,11 +16,13 @@ module Ansible
         attribute :limit
         validates :limit, type: Integer
 
-        # @return [Object, nil] Domain the resource is related to.
+        # @return [String, nil] Domain the resource is related to.
         attribute :domain
+        validates :domain, type: String
 
-        # @return [Object, nil] Account the resource is related to.
+        # @return [String, nil] Account the resource is related to.
         attribute :account
+        validates :account, type: String
 
         # @return [Object, nil] Name of the project the resource is related to.
         attribute :project

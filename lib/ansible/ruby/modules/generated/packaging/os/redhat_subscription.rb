@@ -20,21 +20,33 @@ module Ansible
         attribute :password
         validates :password, type: String
 
-        # @return [String, nil] Specify an alternative Red Hat Subscription Management or Sat6 server
+        # @return [Object, nil] Specify an alternative Red Hat Subscription Management or Sat6 server
         attribute :server_hostname
-        validates :server_hostname, type: String
 
-        # @return [String, nil] Enable or disable https server certificate verification when connecting to C(server_hostname)
+        # @return [Object, nil] Enable or disable https server certificate verification when connecting to C(server_hostname)
         attribute :server_insecure
-        validates :server_insecure, type: String
 
-        # @return [String, nil] Specify CDN baseurl
+        # @return [Object, nil] Specify CDN baseurl
         attribute :rhsm_baseurl
-        validates :rhsm_baseurl, type: String
 
-        # @return [Boolean, nil] Upon successful registration, auto-consume available subscriptions
-        attribute :autosubscribe
-        validates :autosubscribe, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        # @return [Object, nil] Specify an alternative location for a CA certificate for CDN
+        attribute :rhsm_repo_ca_cert
+
+        # @return [Object, nil] Specify a HTTP proxy hostname
+        attribute :server_proxy_hostname
+
+        # @return [Object, nil] Specify a HTTP proxy port
+        attribute :server_proxy_port
+
+        # @return [Object, nil] Specify a user for HTTP proxy with basic authentication
+        attribute :server_proxy_user
+
+        # @return [Object, nil] Specify a password for HTTP proxy with basic authentication
+        attribute :server_proxy_password
+
+        # @return [String, nil] Upon successful registration, auto-consume available subscriptions,Added in favor of deprecated autosubscribe in 2.5.
+        attribute :auto_attach
+        validates :auto_attach, type: String
 
         # @return [String, nil] supply an activation key for use with registration
         attribute :activationkey
@@ -48,9 +60,12 @@ module Ansible
         attribute :environment
         validates :environment, type: String
 
-        # @return [String, nil] Specify a subscription pool name to consume.  Regular expressions accepted.
+        # @return [String, nil] Specify a subscription pool name to consume.  Regular expressions accepted. Use I(pool_ids) instead if\r\npossible, as it is much faster. Mutually exclusive with I(pool_ids).\r\n
         attribute :pool
         validates :pool, type: String
+
+        # @return [Object, nil] Specify subscription pool IDs to consume. Prefer over I(pool) when possible as it is much faster.\r\nA pool ID may be specified as a C(string) - just the pool ID (ex. C(0123456789abcdef0123456789abcdef)),\r\nor as a C(dict) with the pool ID as the key, and a quantity as the value (ex.\r\nC(0123456789abcdef0123456789abcdef: 2). If the quantity is provided, it is used to consume multiple\r\nentitlements from a pool (the pool must support this). Mutually exclusive with I(pool).\r\n
+        attribute :pool_ids
 
         # @return [Object, nil] The type of unit to register, defaults to system
         attribute :consumer_type
@@ -62,9 +77,9 @@ module Ansible
         attribute :consumer_id
         validates :consumer_id, type: String
 
-        # @return [Boolean, nil] Register the system even if it is already registered
+        # @return [String, nil] Register the system even if it is already registered
         attribute :force_register
-        validates :force_register, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :force_register, type: String
       end
     end
   end

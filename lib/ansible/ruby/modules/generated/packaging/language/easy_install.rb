@@ -16,9 +16,9 @@ module Ansible
         attribute :virtualenv
         validates :virtualenv, type: String
 
-        # @return [:yes, :no, nil] Whether the virtual environment will inherit packages from the global site-packages directory.  Note that if this setting is changed on an already existing virtual environment it will not have any effect, the environment must be deleted and newly created.
+        # @return [String, nil] Whether the virtual environment will inherit packages from the global site-packages directory.  Note that if this setting is changed on an already existing virtual environment it will not have any effect, the environment must be deleted and newly created.
         attribute :virtualenv_site_packages
-        validates :virtualenv_site_packages, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :virtualenv_site_packages, type: String
 
         # @return [String, nil] The command to create the virtual environment with. For example C(pyvenv), C(virtualenv), C(virtualenv2).
         attribute :virtualenv_command

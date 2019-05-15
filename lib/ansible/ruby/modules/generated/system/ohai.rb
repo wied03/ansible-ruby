@@ -6,7 +6,7 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
-      # Similar to the M(facter) module, this runs the I(Ohai) discovery program (U(http://wiki.opscode.com/display/chef/Ohai)) on the remote host and returns JSON inventory data. I(Ohai) data is a bit more verbose and nested than I(facter).
+      # Similar to the M(facter) module, this runs the I(Ohai) discovery program (U(https://docs.chef.io/ohai.html)) on the remote host and returns JSON inventory data. I(Ohai) data is a bit more verbose and nested than I(facter).
       class Ohai < Base
 
       end

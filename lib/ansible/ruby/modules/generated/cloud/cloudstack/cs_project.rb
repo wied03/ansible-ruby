@@ -30,9 +30,9 @@ module Ansible
         attribute :tags
         validates :tags, type: TypeGeneric.new(Hash)
 
-        # @return [Boolean, nil] Poll async jobs until job has finished.
+        # @return [String, nil] Poll async jobs until job has finished.
         attribute :poll_async
-        validates :poll_async, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :poll_async, type: String
       end
     end
   end

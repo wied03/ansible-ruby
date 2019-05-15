@@ -16,11 +16,11 @@ module Ansible
         attribute :record
         validates :record, presence: true, type: String
 
-        # @return [String, nil] The DNS domain name of the zone (e.g., example.com).,One of either I(zone) or I(zone_id) must be specified as an option, or the module will fail.,If both I(zone) and I(zone_id) are specifed, I(zone_id) will be used.
+        # @return [String, nil] The DNS domain name of the zone (e.g., example.com).,One of either I(zone) or I(zone_id) must be specified as an option, or the module will fail.,If both I(zone) and I(zone_id) are specified, I(zone_id) will be used.
         attribute :zone
         validates :zone, type: String
 
-        # @return [String, nil] The Google Cloud ID of the zone (e.g., example-com).,One of either I(zone) or I(zone_id) must be specified as an option, or the module will fail.,These usually take the form of domain names with the dots replaced with dashes. A zone ID will never have any dots in it.,I(zone_id) can be faster than I(zone) in projects with a large number of zones.,If both I(zone) and I(zone_id) are specifed, I(zone_id) will be used.
+        # @return [String, nil] The Google Cloud ID of the zone (e.g., example-com).,One of either I(zone) or I(zone_id) must be specified as an option, or the module will fail.,These usually take the form of domain names with the dots replaced with dashes. A zone ID will never have any dots in it.,I(zone_id) can be faster than I(zone) in projects with a large number of zones.,If both I(zone) and I(zone_id) are specified, I(zone_id) will be used.
         attribute :zone_id
         validates :zone_id, type: String
 
@@ -36,9 +36,9 @@ module Ansible
         attribute :ttl
         validates :ttl, type: Integer
 
-        # @return [Boolean, nil] Whether an attempt to overwrite an existing record should succeed or fail. The behavior of this option depends on I(state).,If I(state) is C(present) and I(overwrite) is C(True), this module will replace an existing resource record of the same name with the provided I(record_data). If I(state) is C(present) and I(overwrite) is C(False), this module will fail if there is an existing resource record with the same name and type, but different resource data.,If I(state) is C(absent) and I(overwrite) is C(True), this module will remove the given resource record unconditionally. If I(state) is C(absent) and I(overwrite) is C(False), this module will fail if the provided record_data do not match exactly with the existing resource record's record_data.
+        # @return [String, nil] Whether an attempt to overwrite an existing record should succeed or fail. The behavior of this option depends on I(state).,If I(state) is C(present) and I(overwrite) is C(True), this module will replace an existing resource record of the same name with the provided I(record_data). If I(state) is C(present) and I(overwrite) is C(False), this module will fail if there is an existing resource record with the same name and type, but different resource data.,If I(state) is C(absent) and I(overwrite) is C(True), this module will remove the given resource record unconditionally. If I(state) is C(absent) and I(overwrite) is C(False), this module will fail if the provided record_data do not match exactly with the existing resource record's record_data.
         attribute :overwrite
-        validates :overwrite, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :overwrite, type: String
 
         # @return [Object, nil] The e-mail address for a service account with access to Google Cloud DNS.
         attribute :service_account_email

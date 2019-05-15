@@ -8,15 +8,19 @@ module Ansible
     module Modules
       # Enables or disables a specified module of the Apache2 webserver.
       class Apache2_module < Base
-        # @return [String] name of the module to enable/disable
+        # @return [String] Name of the module to enable/disable as given to C(a2enmod/a2dismod).
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [Boolean, nil] force disabling of default modules and override Debian warnings
+        # @return [String, nil] Identifier of the module as listed by C(apache2ctl -M). This is optional and usually determined automatically by the common convention of appending C(_module) to I(name) as well as custom exception for popular modules.
+        attribute :identifier
+        validates :identifier, type: String
+
+        # @return [Boolean, nil] Force disabling of default modules and override Debian warnings.
         attribute :force
         validates :force, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
-        # @return [:present, :absent, nil] indicate the desired state of the resource
+        # @return [:present, :absent, nil] Desired state of the module.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 

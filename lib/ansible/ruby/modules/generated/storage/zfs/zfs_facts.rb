@@ -12,13 +12,13 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [Boolean, nil] Specifies if properties for any children should be recursively displayed.
+        # @return [String, nil] Specifies if properties for any children should be recursively displayed.
         attribute :recurse
-        validates :recurse, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :recurse, type: String
 
-        # @return [Boolean, nil] Specifies if property values should be displayed in machine friendly format.
+        # @return [String, nil] Specifies if property values should be displayed in machine friendly format.
         attribute :parsable
-        validates :parsable, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :parsable, type: String
 
         # @return [String, nil] Specifies which dataset properties should be queried in comma-separated format. For more information about dataset properties, check zfs(1M) man page.
         attribute :properties

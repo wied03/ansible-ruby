@@ -20,67 +20,67 @@ module Ansible
         attribute :dest_port
         validates :dest_port, type: TypeGeneric.new(String)
 
-        # @return [:push, :pull, nil] Specify the direction of the synchronization. In push mode the localhost or delegate is the source; In pull mode the remote host in context is the source.
+        # @return [:pull, :push, nil] Specify the direction of the synchronization. In push mode the localhost or delegate is the source; In pull mode the remote host in context is the source.
         attribute :mode
-        validates :mode, inclusion: {:in=>[:push, :pull], :message=>"%{value} needs to be :push, :pull"}, allow_nil: true
+        validates :mode, inclusion: {:in=>[:pull, :push], :message=>"%{value} needs to be :pull, :push"}, allow_nil: true
 
-        # @return [:yes, :no, nil] Mirrors the rsync archive flag, enables recursive, links, perms, times, owner, group flags and -D.
+        # @return [String, nil] Mirrors the rsync archive flag, enables recursive, links, perms, times, owner, group flags and -D.
         attribute :archive
-        validates :archive, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :archive, type: String
 
-        # @return [:yes, :no, nil] Skip based on checksum, rather than mod-time & size; Note that that "archive" option is still enabled by default - the "checksum" option will not disable it.
+        # @return [String, nil] Skip based on checksum, rather than mod-time & size; Note that that "archive" option is still enabled by default - the "checksum" option will not disable it.
         attribute :checksum
-        validates :checksum, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :checksum, type: String
 
-        # @return [:yes, :no, nil] Compress file data during the transfer. In most cases, leave this enabled unless it causes problems.
+        # @return [String, nil] Compress file data during the transfer. In most cases, leave this enabled unless it causes problems.
         attribute :compress
-        validates :compress, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :compress, type: String
 
-        # @return [:yes, :no, nil] Skip creating new files on receiver.
+        # @return [String, nil] Skip creating new files on receiver.
         attribute :existing_only
-        validates :existing_only, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :existing_only, type: String
 
-        # @return [:yes, :no, nil] Delete files in C(dest) that don't exist (after transfer, not before) in the C(src) path. This option requires C(recursive=yes).
+        # @return [String, nil] Delete files in C(dest) that don't exist (after transfer, not before) in the C(src) path. This option requires C(recursive=yes).
         attribute :delete
-        validates :delete, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :delete, type: String
 
-        # @return [:yes, :no, nil] Transfer directories without recursing
+        # @return [String, nil] Transfer directories without recursing
         attribute :dirs
-        validates :dirs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :dirs, type: String
 
-        # @return [:yes, :no, nil] Recurse into directories.
+        # @return [String, nil] Recurse into directories.
         attribute :recursive
-        validates :recursive, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :recursive, type: String
 
-        # @return [:yes, :no, nil] Copy symlinks as symlinks.
+        # @return [String, nil] Copy symlinks as symlinks.
         attribute :links
-        validates :links, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :links, type: String
 
-        # @return [:yes, :no, nil] Copy symlinks as the item that they point to (the referent) is copied, rather than the symlink.
+        # @return [String, nil] Copy symlinks as the item that they point to (the referent) is copied, rather than the symlink.
         attribute :copy_links
-        validates :copy_links, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :copy_links, type: String
 
-        # @return [:yes, :no, nil] Preserve permissions.
+        # @return [String, nil] Preserve permissions.
         attribute :perms
-        validates :perms, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :perms, type: String
 
-        # @return [:yes, :no, nil] Preserve modification times
+        # @return [String, nil] Preserve modification times
         attribute :times
-        validates :times, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :times, type: String
 
-        # @return [:yes, :no, nil] Preserve owner (super user only)
+        # @return [String, nil] Preserve owner (super user only)
         attribute :owner
-        validates :owner, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :owner, type: String
 
-        # @return [:yes, :no, nil] Preserve group
+        # @return [String, nil] Preserve group
         attribute :group
-        validates :group, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :group, type: String
 
-        # @return [String, nil] Specify the rsync command to run on the remote host. See C(--rsync-path) on the rsync man page.
+        # @return [String, nil] Specify the rsync command to run on the remote host. See C(--rsync-path) on the rsync man page.,To specify the rsync command to run on the local host, you need to set this your task var C(ansible_rsync_path).
         attribute :rsync_path
         validates :rsync_path, type: String
 
-        # @return [Integer, nil] Specify a --timeout for the rsync command in seconds.
+        # @return [Integer, nil] Specify a C(--timeout) for the rsync command in seconds.
         attribute :rsync_timeout
         validates :rsync_timeout, type: Integer
 
@@ -88,21 +88,28 @@ module Ansible
         attribute :set_remote_user
         validates :set_remote_user, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
-        # @return [:yes, :no, nil] Use the ssh_args specified in ansible.cfg
+        # @return [String, nil] Use the ssh_args specified in ansible.cfg
         attribute :use_ssh_args
-        validates :use_ssh_args, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :use_ssh_args, type: String
 
         # @return [Array<String>, String, nil] Specify additional rsync options by passing in an array.
         attribute :rsync_opts
         validates :rsync_opts, type: TypeGeneric.new(String)
 
-        # @return [Boolean, nil] Tells rsync to keep the partial file which should make a subsequent transfer of the rest of the file much faster.
+        # @return [String, nil] Tells rsync to keep the partial file which should make a subsequent transfer of the rest of the file much faster.
         attribute :partial
-        validates :partial, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :partial, type: String
 
-        # @return [Boolean, nil] Verify destination host key.
+        # @return [String, nil] Verify destination host key.
         attribute :verify_host
-        validates :verify_host, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :verify_host, type: String
+
+        # @return [Object, nil] Specify the private key to use for SSH-based rsync connections (e.g. C(~/.ssh/id_rsa))
+        attribute :private_key
+
+        # @return [String, nil] add a destination to hard link against during the rsync.
+        attribute :link_dest
+        validates :link_dest, type: String
       end
     end
   end

@@ -16,9 +16,9 @@ module Ansible
         attribute :node
         validates :node, type: String
 
-        # @return [:yes, :no, nil] Enable/disable tracing for a vhost
+        # @return [String, nil] Enable/disable tracing for a vhost
         attribute :tracing
-        validates :tracing, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :tracing, type: String
 
         # @return [:present, :absent, nil] The state of vhost
         attribute :state

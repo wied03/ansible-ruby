@@ -8,18 +8,6 @@ module Ansible
     module Modules
       # Configure management settings of device
       class Panos_mgtconfig < Base
-        # @return [String] IP address (or hostname) of PAN-OS device
-        attribute :ip_address
-        validates :ip_address, presence: true, type: String
-
-        # @return [String] password for authentication
-        attribute :password
-        validates :password, presence: true, type: String
-
-        # @return [String, nil] username for authentication
-        attribute :username
-        validates :username, type: String
-
         # @return [String, nil] address of primary DNS server
         attribute :dns_server_primary
         validates :dns_server_primary, type: String
@@ -36,9 +24,9 @@ module Ansible
         attribute :panorama_secondary
         validates :panorama_secondary, type: String
 
-        # @return [Boolean, nil] commit if changed
+        # @return [String, nil] commit if changed
         attribute :commit
-        validates :commit, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :commit, type: String
       end
     end
   end

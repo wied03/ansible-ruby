@@ -6,31 +6,31 @@ require 'ansible/ruby/modules/base'
 module Ansible
   module Ruby
     module Modules
-      # The C(expect) module executes a command and responds to prompts
-      # The given command will be executed on all selected nodes. It will not be processed through the shell, so variables like C($HOME) and operations like C("<"), C(">"), C("|"), and C("&") will not work
+      # The C(expect) module executes a command and responds to prompts.
+      # The given command will be executed on all selected nodes. It will not be processed through the shell, so variables like C($HOME) and operations like C("<"), C(">"), C("|"), and C("&") will not work.
       class Expect < Base
-        # @return [String] the command module takes command to run.
+        # @return [String] The command module takes command to run.
         attribute :command
         validates :command, presence: true, type: String
 
-        # @return [Object, nil] a filename, when it already exists, this step will B(not) be run.
+        # @return [Object, nil] A filename, when it already exists, this step will B(not) be run.
         attribute :creates
 
-        # @return [Object, nil] a filename, when it does not exist, this step will B(not) be run.
+        # @return [Object, nil] A filename, when it does not exist, this step will B(not) be run.
         attribute :removes
 
-        # @return [Object, nil] cd into this directory before running the command
+        # @return [Object, nil] Change into this directory before running the command.
         attribute :chdir
 
         # @return [Hash] Mapping of expected string/regex and string to respond with. If the response is a list, successive matches return successive responses. List functionality is new in 2.1.
         attribute :responses
         validates :responses, presence: true, type: Hash
 
-        # @return [Integer, nil] Amount of time in seconds to wait for the expected strings
+        # @return [Integer, nil] Amount of time in seconds to wait for the expected strings. Use C(null) to disable timeout.
         attribute :timeout
         validates :timeout, type: Integer
 
-        # @return [Boolean, nil] Whether or not to echo out your response strings
+        # @return [Boolean, nil] Whether or not to echo out your response strings.
         attribute :echo
         validates :echo, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
       end

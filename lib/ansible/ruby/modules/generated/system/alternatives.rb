@@ -17,7 +17,7 @@ module Ansible
         attribute :path
         validates :path, presence: true, type: String
 
-        # @return [String, nil] The path to the symbolic link that should point to the real executable.,This option is required on RHEL-based distributions
+        # @return [String, nil] The path to the symbolic link that should point to the real executable.,This option is always required on RHEL-based distributions. On Debian-based distributions this option is required when the alternative I(name) is unknown to the system.
         attribute :link
         validates :link, type: String
 

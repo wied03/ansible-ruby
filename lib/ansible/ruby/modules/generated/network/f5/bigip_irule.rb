@@ -16,10 +16,6 @@ module Ansible
         attribute :module
         validates :module, presence: true, inclusion: {:in=>[:ltm, :gtm], :message=>"%{value} needs to be :ltm, :gtm"}
 
-        # @return [String, nil] The partition to create the iRule on.
-        attribute :partition
-        validates :partition, type: String
-
         # @return [String] The name of the iRule.
         attribute :name
         validates :name, presence: true, type: String
@@ -31,6 +27,10 @@ module Ansible
         # @return [:present, :absent, nil] Whether the iRule should exist or not.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+
+        # @return [String, nil] Device partition to manage resources on.
+        attribute :partition
+        validates :partition, type: String
       end
     end
   end

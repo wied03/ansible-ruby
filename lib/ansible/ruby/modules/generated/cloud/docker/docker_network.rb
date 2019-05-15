@@ -25,13 +25,13 @@ module Ansible
         attribute :driver_options
         validates :driver_options, type: Hash
 
-        # @return [Boolean, nil] With state I(absent) forces disconnecting all containers from the network prior to deleting the network. With state I(present) will disconnect all containers, delete the network and re-create the network.  This option is required if you have changed the IPAM or driver options and want an existing network to be updated to use the new options.
+        # @return [String, nil] With state I(absent) forces disconnecting all containers from the network prior to deleting the network. With state I(present) will disconnect all containers, delete the network and re-create the network.  This option is required if you have changed the IPAM or driver options and want an existing network to be updated to use the new options.
         attribute :force
-        validates :force, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :force, type: String
 
-        # @return [Boolean, nil] By default the connected list is canonical, meaning containers not on the list are removed from the network. Use C(appends) to leave existing containers connected.
+        # @return [String, nil] By default the connected list is canonical, meaning containers not on the list are removed from the network. Use C(appends) to leave existing containers connected.
         attribute :appends
-        validates :appends, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :appends, type: String
 
         # @return [Object, nil] Specify an IPAM driver.
         attribute :ipam_driver

@@ -12,22 +12,22 @@ module Ansible
         attribute :repo
         validates :repo, presence: true, type: String
 
-        # @return [String] Absolute path of where the repository should be checked out to. This parameter is required, unless C(clone) is set to C(no) This change was made in version 1.8.3. Prior to this version, the C(dest) parameter was always required.
+        # @return [String] The path of where the repository should be checked out. This parameter is required, unless C(clone) is set to C(no).
         attribute :dest
         validates :dest, presence: true, type: String
 
-        # @return [String, nil] What version of the repository to check out.  This can be the the literal string C(HEAD), a branch name, a tag name. It can also be a I(SHA-1) hash, in which case C(refspec) needs to be specified if the given revision is not already available.
+        # @return [String, nil] What version of the repository to check out.  This can be the literal string C(HEAD), a branch name, a tag name. It can also be a I(SHA-1) hash, in which case C(refspec) needs to be specified if the given revision is not already available.
         attribute :version
         validates :version, type: String
 
-        # @return [:yes, :no, nil] if C(yes), adds the hostkey for the repo url if not already added. If ssh_opts contains "-o StrictHostKeyChecking=no", this parameter is ignored.
+        # @return [String, nil] if C(yes), ensure that "-o StrictHostKeyChecking=no" is present as an ssh option.
         attribute :accept_hostkey
-        validates :accept_hostkey, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :accept_hostkey, type: String
 
         # @return [Object, nil] Creates a wrapper script and exports the path as GIT_SSH which git then automatically uses to override ssh arguments. An example value could be "-o StrictHostKeyChecking=no"
         attribute :ssh_opts
 
-        # @return [Object, nil] Specify an optional private key file to use for the checkout.
+        # @return [Object, nil] Specify an optional private key file path, on the target host, to use for the checkout.
         attribute :key_file
 
         # @return [Object, nil] Reference repository (see "git clone --reference ...")
@@ -41,42 +41,50 @@ module Ansible
         attribute :refspec
         validates :refspec, type: String
 
-        # @return [:yes, :no, nil] If C(yes), any modified files in the working repository will be discarded.  Prior to 0.7, this was always 'yes' and could not be disabled.  Prior to 1.9, the default was `yes`
+        # @return [String, nil] If C(yes), any modified files in the working repository will be discarded.  Prior to 0.7, this was always 'yes' and could not be disabled.  Prior to 1.9, the default was `yes`
         attribute :force
-        validates :force, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :force, type: String
 
         # @return [Object, nil] Create a shallow clone with a history truncated to the specified number or revisions. The minimum possible value is C(1), otherwise ignored. Needs I(git>=1.9.1) to work correctly.
         attribute :depth
 
-        # @return [:yes, :no, nil] If C(no), do not clone the repository if it does not exist locally
+        # @return [String, nil] If C(no), do not clone the repository if it does not exist locally
         attribute :clone
-        validates :clone, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :clone, type: String
 
-        # @return [:yes, :no, nil] If C(no), do not retrieve new revisions from the origin repository
+        # @return [String, nil] If C(no), do not retrieve new revisions from the origin repository,Operations like archive will work on the existing (old) repository and might not respond to changes to the options version or remote.
         attribute :update
-        validates :update, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :update, type: String
 
         # @return [Object, nil] Path to git executable to use. If not supplied, the normal mechanism for resolving binary paths will be used.
         attribute :executable
 
-        # @return [:yes, :no, nil] if C(yes), repository will be created as a bare repo, otherwise it will be a standard repo with a workspace.
+        # @return [String, nil] if C(yes), repository will be created as a bare repo, otherwise it will be a standard repo with a workspace.
         attribute :bare
-        validates :bare, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :bare, type: String
 
         # @return [Object, nil] The umask to set before doing any checkouts, or any other repository maintenance.
         attribute :umask
 
-        # @return [:yes, :no, nil] if C(no), repository will be cloned without the --recursive option, skipping sub-modules.
+        # @return [String, nil] if C(no), repository will be cloned without the --recursive option, skipping sub-modules.
         attribute :recursive
-        validates :recursive, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :recursive, type: String
 
-        # @return [:yes, :no, nil] if C(yes), submodules will track the latest commit on their master branch (or other branch specified in .gitmodules).  If C(no), submodules will be kept at the revision specified by the main project. This is equivalent to specifying the --remote flag to git submodule update.
+        # @return [String, nil] if C(yes), submodules will track the latest commit on their master branch (or other branch specified in .gitmodules).  If C(no), submodules will be kept at the revision specified by the main project. This is equivalent to specifying the --remote flag to git submodule update.
         attribute :track_submodules
-        validates :track_submodules, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :track_submodules, type: String
 
-        # @return [:yes, :no, nil] if C(yes), when cloning or checking out a C(version) verify the signature of a GPG signed commit. This requires C(git) version>=2.1.0 to be installed. The commit MUST be signed and the public key MUST be trusted in the GPG trustdb.
+        # @return [String, nil] if C(yes), when cloning or checking out a C(version) verify the signature of a GPG signed commit. This requires C(git) version>=2.1.0 to be installed. The commit MUST be signed and the public key MUST be present in the GPG keyring.
         attribute :verify_commit
-        validates :verify_commit, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :verify_commit, type: String
+
+        # @return [String, nil] Specify archive file path with extension. If specified, creates an archive file of the specified format containing the tree structure for the source tree. Allowed archive formats ["zip", "tar.gz", "tar", "tgz"],This will clone and perform git archive from local directory as not all git servers support git archive.
+        attribute :archive
+        validates :archive, type: String
+
+        # @return [String, nil] The path to place the cloned repository. If specified, Git repository can be separated from working tree.
+        attribute :separate_git_dir
+        validates :separate_git_dir, type: String
       end
     end
   end

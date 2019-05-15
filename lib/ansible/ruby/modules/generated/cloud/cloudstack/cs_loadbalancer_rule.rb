@@ -31,9 +31,9 @@ module Ansible
         attribute :ip_address
         validates :ip_address, presence: true
 
-        # @return [Boolean, nil] Whether the firewall rule for public port should be created, while creating the new rule.,Use M(cs_firewall) for managing firewall rules.
+        # @return [String, nil] Whether the firewall rule for public port should be created, while creating the new rule.,Use M(cs_firewall) for managing firewall rules.
         attribute :open_firewall
-        validates :open_firewall, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :open_firewall, type: String
 
         # @return [Object, nil] CIDR (full notation) to be used for firewall rule if required.
         attribute :cidr
@@ -44,9 +44,9 @@ module Ansible
         # @return [Object, nil] Name of the project the load balancer IP address is related to.
         attribute :project
 
-        # @return [:present, :absent] State of the rule.
+        # @return [:present, :absent, nil] State of the rule.
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
+        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [Object, nil] Domain the rule is related to.
         attribute :domain

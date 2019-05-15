@@ -15,7 +15,7 @@ module Ansible
         # @return [Object, nil] Network address of NTP peer.
         attribute :peer
 
-        # @return [Integer, nil] Authentication key identifier to use with given NTP server or peer.
+        # @return [Integer, nil] Authentication key identifier to use with given NTP server or peer or keyword 'default'.
         attribute :key_id
         validates :key_id, type: Integer
 
@@ -23,13 +23,13 @@ module Ansible
         attribute :prefer
         validates :prefer, inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
 
-        # @return [Object, nil] Makes the device communicate with the given NTP server or peer over a specific VRF.
+        # @return [Object, nil] Makes the device communicate with the given NTP server or peer over a specific VRF or keyword 'default'.
         attribute :vrf_name
 
-        # @return [Object, nil] Local source address from which NTP messages are sent.
+        # @return [Object, nil] Local source address from which NTP messages are sent or keyword 'default'
         attribute :source_addr
 
-        # @return [Object, nil] Local source interface from which NTP messages are sent. Must be fully qualified interface name.
+        # @return [Object, nil] Local source interface from which NTP messages are sent. Must be fully qualified interface name or keyword 'default'
         attribute :source_int
 
         # @return [:present, :absent, nil] Manage the state of the resource.

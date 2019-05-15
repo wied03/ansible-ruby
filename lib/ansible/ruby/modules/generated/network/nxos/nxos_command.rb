@@ -8,7 +8,7 @@ module Ansible
     module Modules
       # Sends an arbitrary command to an NXOS node and returns the results read from the device.  This module includes an argument that will cause the module to wait for a specific condition before returning or timing out if the condition is not met.
       class Nxos_command < Base
-        # @return [Array<String>, String] The commands to send to the remote NXOS device over the configured provider.  The resulting output from the command is returned.  If the I(wait_for) argument is provided, the module is not returned until the condition is satisfied or the number of retires as expired.,The I(commands) argument also accepts an alternative form that allows for complex values that specify the command to run and the output format to return.   This can be done on a command by command basis.  The complex argument supports the keywords C(command) and C(output) where C(command) is the command to run and C(output) is one of 'text' or 'json'.
+        # @return [Array<String>, String] The commands to send to the remote NXOS device.  The resulting output from the command is returned.  If the I(wait_for) argument is provided, the module is not returned until the condition is satisfied or the number of retires as expired.,The I(commands) argument also accepts an alternative form that allows for complex values that specify the command to run and the output format to return.   This can be done on a command by command basis.  The complex argument supports the keywords C(command) and C(output) where C(command) is the command to run and C(output) is one of 'text' or 'json'.
         attribute :commands
         validates :commands, presence: true, type: TypeGeneric.new(String, Hash)
 

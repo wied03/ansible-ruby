@@ -23,7 +23,7 @@ module Ansible
         # @return [Object, nil] Device you want to attach. Defaults to auto finding a device name.
         attribute :device
 
-        # @return [Object, nil] Ignored. Present for backwards compatability
+        # @return [Object, nil] Ignored. Present for backwards compatibility
         attribute :availability_zone
       end
     end

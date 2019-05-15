@@ -8,13 +8,13 @@ module Ansible
     module Modules
       # Create or delete VLAN interfaces on Solaris/illumos systems.
       class Dladm_vlan < Base
-        # @return [Object] VLAN interface name.
+        # @return [String] VLAN interface name.
         attribute :name
-        validates :name, presence: true
+        validates :name, presence: true, type: String
 
-        # @return [Object] VLAN underlying link name.
+        # @return [String] VLAN underlying link name.
         attribute :link
-        validates :link, presence: true
+        validates :link, presence: true, type: String
 
         # @return [Boolean, nil] Specifies that the VLAN interface is temporary. Temporary VLANs do not persist across reboots.
         attribute :temporary

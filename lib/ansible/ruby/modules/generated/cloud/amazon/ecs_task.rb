@@ -38,6 +38,10 @@ module Ansible
         # @return [String, nil] A value showing who or what started the task (for informational purposes)
         attribute :started_by
         validates :started_by, type: String
+
+        # @return [Hash, nil] network configuration of the service. Only applicable for task definitions created with C(awsvpc) I(network_mode).,I(network_configuration) has two keys, I(subnets), a list of subnet IDs to which the task is attached and I(security_groups), a list of group names or group IDs for the task
+        attribute :network_configuration
+        validates :network_configuration, type: Hash
       end
     end
   end

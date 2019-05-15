@@ -20,9 +20,9 @@ module Ansible
         attribute :gem_source
         validates :gem_source, type: String
 
-        # @return [:yes, :no, nil] Whether to include dependencies or not.
+        # @return [String, nil] Whether to include dependencies or not.
         attribute :include_dependencies
-        validates :include_dependencies, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :include_dependencies, type: String
 
         # @return [Object, nil] The repository from which the gem will be installed
         attribute :repository
@@ -33,6 +33,9 @@ module Ansible
 
         # @return [Object, nil] Override the path to the gem executable
         attribute :executable
+
+        # @return [Object, nil] Install the gems into a specific directory. These gems will be independant from the global installed ones. Specifying this requires user_install to be false.
+        attribute :install_dir
 
         # @return [String, nil] Rewrite the shebang line on installed scripts to use /usr/bin/env.
         attribute :env_shebang

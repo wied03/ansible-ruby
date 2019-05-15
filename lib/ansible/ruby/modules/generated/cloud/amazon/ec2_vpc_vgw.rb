@@ -31,6 +31,9 @@ module Ansible
         attribute :vpc_id
         validates :vpc_id, type: String
 
+        # @return [Object, nil] the BGP ASN of the amazon side
+        attribute :asn
+
         # @return [Integer, nil] number of seconds to wait for status during vpc attach and detach
         attribute :wait_timeout
         validates :wait_timeout, type: Integer

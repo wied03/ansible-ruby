@@ -20,16 +20,21 @@ module Ansible
         attribute :address_prefix_cidr
         validates :address_prefix_cidr, presence: true, type: String
 
-        # @return [Object, nil] Name of an existing security group with which to associate the subnet.
-        attribute :security_group_name
+        # @return [Hash, nil] Existing security group with which to associate the subnet.,It can be the security group name which is in the same resource group.,It can be the resource Id.,It can be a dict which contains C(name) and C(resource_group) of the security group.
+        attribute :security_group
+        validates :security_group, type: Hash
 
-        # @return [:absent, :present] Assert the state of the subnet. Use 'present' to create or update a subnet and 'absent' to delete a subnet.
+        # @return [:absent, :present, nil] Assert the state of the subnet. Use 'present' to create or update a subnet and 'absent' to delete a subnet.
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}
+        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
         # @return [String] Name of an existing virtual network with which the subnet is or will be associated.
         attribute :virtual_network_name
         validates :virtual_network_name, presence: true, type: String
+
+        # @return [String, nil] The reference of the RouteTable resource.,It can accept both a str or a dict.,The str can be the name or resource id of the route table.,The dict can contains C(name) and C(resource_group) of the route_table.
+        attribute :route_table
+        validates :route_table, type: String
       end
     end
   end

@@ -12,9 +12,9 @@ module Ansible
         attribute :uri
         validates :uri, presence: true, type: String
 
-        # @return [:create, :comment, :edit, :fetch, :transition] The operation to perform.
+        # @return [:create, :comment, :edit, :fetch, :transition, :link] The operation to perform.
         attribute :operation
-        validates :operation, presence: true, inclusion: {:in=>[:create, :comment, :edit, :fetch, :transition], :message=>"%{value} needs to be :create, :comment, :edit, :fetch, :transition"}
+        validates :operation, presence: true, inclusion: {:in=>[:create, :comment, :edit, :fetch, :transition, :link], :message=>"%{value} needs to be :create, :comment, :edit, :fetch, :transition, :link"}
 
         # @return [String] The username to log-in with.
         attribute :username
@@ -75,6 +75,10 @@ module Ansible
         # @return [Integer, nil] Set timeout, in seconds, on requests to JIRA API.
         attribute :timeout
         validates :timeout, type: Integer
+
+        # @return [Boolean, nil] Require valid SSL certificates (set to `false` if you'd like to use self-signed certificates)
+        attribute :validate_certs
+        validates :validate_certs, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
       end
     end
   end
