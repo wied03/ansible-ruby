@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # VALIDATED_CHECKSUM: 2NwxN/FxvzHOUj8TDmDV7STdEo+dSSTCUEBPVOtFY0Q=
 # see LICENSE.txt in project root
 

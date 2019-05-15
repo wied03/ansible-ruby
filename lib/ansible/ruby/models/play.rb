@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'ansible/ruby/models/base'
 require 'ansible/ruby/models/tasks'
 
@@ -25,7 +26,7 @@ module Ansible
         attribute :connection
         validates :connection,
                   allow_nil: true,
-                  inclusion: { in: [:local, :docker, :ssh], message: '%{value} needs to be :local, :docker, or :ssh' }
+                  inclusion: { in: %i[local docker ssh], message: '%{value} needs to be :local, :docker, or :ssh' }
         attribute :user
         validates :user, type: String
         attribute :serial
@@ -42,7 +43,7 @@ module Ansible
           name = result.delete :name
           # Be consistent with Ansible order
           new_result = {
-            hosts: [*hosts].join(':'), # Ansible doesn't specify this as an array
+            hosts: [*hosts].join(':') # Ansible doesn't specify this as an array
           }
           new_result[:name] = name if name
           new_result[:tasks] = tasks.is_a?(Array) ? tasks : [tasks] if tasks # ensure we have an array

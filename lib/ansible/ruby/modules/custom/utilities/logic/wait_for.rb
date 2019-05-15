@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # VALIDATED_CHECKSUM: IniBE/dGvYB1H6Yz7JW1p52js4RVEIp0r+70AdvwegY=
 require 'ansible/ruby/modules/generated/utilities/logic/wait_for'
 

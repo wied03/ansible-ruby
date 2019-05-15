@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # See LICENSE.txt for license
 class TypeGeneric
   attr_reader :klasses
@@ -11,6 +12,7 @@ class TypeGeneric
     validation_object = validation_object(value)
     # Don't worry about nil
     return true unless validation_object
+
     @klasses.any? { |klass| validation_object.is_a? klass }
   end
 

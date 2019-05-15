@@ -1,6 +1,7 @@
 # frozen_string_literal: true
+
 task 'say hello' do
-  with_items(%w(a b c)) do |item|
+  with_items(%w[a b c]) do |item|
     result = shell "ls #{item} || true" do
       chdir '/tmp'
     end

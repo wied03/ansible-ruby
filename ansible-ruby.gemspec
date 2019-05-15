@@ -1,6 +1,6 @@
-# -*- encoding: utf-8 -*-
 # frozen_string_literal: true
-require File.expand_path('../lib/ansible/ruby/version', __FILE__)
+
+require File.expand_path('lib/ansible/ruby/version', __dir__)
 
 Gem::Specification.new do |s|
   s.name = 'ansible-ruby'
@@ -16,6 +16,6 @@ Gem::Specification.new do |s|
 
   s.require_paths = ['lib']
 
-  s.add_dependency 'rake'
   s.add_dependency 'activemodel', '~> 5.0'
+  s.add_dependency 'rake'
 end

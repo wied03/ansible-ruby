@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # See LICENSE.txt in root of repository
 require 'spec_helper'
 require 'ansible/ruby/rake/clean'
@@ -17,8 +18,7 @@ describe Ansible::Ruby::Rake::Clean do
     Rake::Task[:default].invoke
   end
 
-  def create_test_files
-  end
+  def create_test_files; end
 
   context 'only ansible-ruby generated YAML' do
     def create_test_files
@@ -37,7 +37,7 @@ describe Ansible::Ruby::Rake::Clean do
 
   context 'other YAML too' do
     def create_test_files
-      FileUtils.touch %w(something.yml else.yml)
+      FileUtils.touch %w[something.yml else.yml]
     end
 
     let(:task) do

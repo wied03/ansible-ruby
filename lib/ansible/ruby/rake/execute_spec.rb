@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'spec_helper'
 require 'ansible-ruby'
 require 'ansible/ruby/rake/execute'
@@ -21,15 +22,15 @@ describe Ansible::Ruby::Rake::Execute do
       subject { rake '-T' }
 
       it do
-        is_expected.to eq <<OUTPUT
-rake compile          # explicit compile task
-rake default          # the ansible task default
-rake default_clean    # Cleans YAML files for :default task
-rake default_compile  # Compiles YAML files for :default task
-rake stuff            # named ansible task
-rake stuff_clean      # Cleans YAML files for :stuff task
-rake stuff_compile    # Compiles YAML files for :stuff task
-OUTPUT
+        is_expected.to eq <<~OUTPUT
+          rake compile          # explicit compile task
+          rake default          # the ansible task default
+          rake default_clean    # Cleans YAML files for :default task
+          rake default_compile  # Compiles YAML files for :default task
+          rake stuff            # named ansible task
+          rake stuff_clean      # Cleans YAML files for :stuff task
+          rake stuff_compile    # Compiles YAML files for :stuff task
+        OUTPUT
       end
     end
   end
@@ -55,7 +56,7 @@ OUTPUT
     context 'multiple playbook files' do
       let(:task) do
         Ansible::Ruby::Rake::Execute.new do |task|
-          task.playbooks = %w(playbook1_test.rb playbook2_test.rb)
+          task.playbooks = %w[playbook1_test.rb playbook2_test.rb]
         end
       end
 

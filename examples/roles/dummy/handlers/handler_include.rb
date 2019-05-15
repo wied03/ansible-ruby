@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 task 'another one' do
   debug { msg 'stuff' }
 end

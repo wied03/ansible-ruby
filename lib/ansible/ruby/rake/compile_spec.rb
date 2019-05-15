@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # See LICENSE.txt in root of repository
 require 'spec_helper'
 require 'ansible-ruby'
@@ -49,7 +50,7 @@ describe Ansible::Ruby::Rake::Compile do
 
     let(:task) do
       Ansible::Ruby::Rake::Compile.new do |task|
-        task.files = %w(playbook1_test.rb sample3_test.yml)
+        task.files = %w[playbook1_test.rb sample3_test.yml]
       end
     end
 
@@ -71,7 +72,7 @@ describe Ansible::Ruby::Rake::Compile do
     end
 
     it do
-      error = "Invalid method/local variable `ansible_iinclude'\\. Only valid options are \\[:ansible_include.*.*Error Location:.*playbook_error.rb:5.*playbook_error.rb:2"
+      error = "Invalid method/local variable `ansible_iinclude'\\. Only valid options are \\[:ansible_include.*.*Error Location:.*playbook_error.rb:6.*playbook_error.rb:3"
       is_expected.to raise_error Regexp.new(error.strip, Regexp::MULTILINE)
     end
   end

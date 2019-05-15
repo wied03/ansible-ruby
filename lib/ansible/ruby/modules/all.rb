@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # Generated file, DO NOT EDIT!
 
 ansible_mod = Ansible::Ruby::Modules

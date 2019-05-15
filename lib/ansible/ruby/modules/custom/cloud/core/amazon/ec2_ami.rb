@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # VALIDATED_CHECKSUM: NIc3KnEPaXW8FMNNnfCnUnLGB9YCa8BY4wqoiK6xRDg=
 # See LICENSE.txt for license
 
@@ -12,7 +13,7 @@ module Ansible
         include Helpers::Aws
 
         remove_existing_validations :state
-        validates :state, inclusion: { in: [:present, :absent], message: '%{value} needs to be :present, :absent' }, allow_nil: true
+        validates :state, inclusion: { in: %i[present absent], message: '%{value} needs to be :present, :absent' }, allow_nil: true
       end
     end
   end

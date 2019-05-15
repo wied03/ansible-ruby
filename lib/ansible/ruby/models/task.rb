@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'ansible/ruby/models/unit'
 require 'ansible/ruby/models/inclusion'
 require 'ansible/ruby/modules/base'
@@ -34,7 +35,7 @@ module Ansible
         attribute :connection
         validates :connection,
                   allow_nil: true,
-                  inclusion: { in: [:local, :docker, :ssh], message: '%{value} needs to be :local, :docker, or :ssh' }
+                  inclusion: { in: %i[local docker ssh], message: '%{value} needs to be :local, :docker, or :ssh' }
         # :reek:Attribute - This is a simple flag
         attr_accessor :local_action
 
@@ -66,8 +67,10 @@ module Ansible
 
         # :reek:NilCheck - ^ doesn't work with falsey, you would have to overload the operator
         def inclusion_module
-          errors.add :module,
-                     'You must either use an include or a module but not both!' unless @inclusion.nil? ^ @module.nil?
+          unless @inclusion.nil? ^ @module.nil?
+            errors.add :module,
+                       'You must either use an include or a module but not both!'
+          end
         end
 
         def loop_and_dict

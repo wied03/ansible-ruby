@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'spec_helper'
 require 'ansible-ruby'
 
@@ -25,7 +26,7 @@ describe Ansible::Ruby::Models::Playbook do
   let(:play1) do
     Ansible::Ruby::Models::Play.new tasks: tasks_model,
                                     name: 'play 1',
-                                    hosts: %w(host1 host2)
+                                    hosts: %w[host1 host2]
   end
 
   let(:play2) do

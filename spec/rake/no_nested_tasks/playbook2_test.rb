@@ -1,6 +1,7 @@
 # frozen_string_literal: true
+
 play 'the play name' do
-  hosts %w(host1 host2)
+  hosts %w[host1 host2]
 
   task 'Copy something else over' do
     copy do

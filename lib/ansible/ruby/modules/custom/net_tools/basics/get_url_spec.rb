@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # see LICENSE.txt in project root
 require 'spec_helper'
 

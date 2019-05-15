@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'rake/tasklib'
 require 'ansible-ruby'
 require 'ansible/ruby/rake/task_util'
@@ -20,6 +21,7 @@ module Ansible
           name, deps = parse_params parameters
           yield self if block_given?
           raise 'You did not supply any playbooks!' unless playbooks.any?
+
           deps ||= []
           compile_task_name = "#{name}_compile".to_sym
           deps = [*deps] << compile_task_name

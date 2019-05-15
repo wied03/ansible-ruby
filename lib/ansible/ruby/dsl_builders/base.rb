@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Ansible
   module Ruby
     module DslBuilders
@@ -20,7 +21,6 @@ module Ansible
         end
 
         # For the DSL, don't want to defer to regular method_missing
-        # rubocop:disable Style/MethodMissing
         def method_missing(id, *args, &block)
           result = _process_method id, *args, &block
           method_missing_return id, result, *args
@@ -39,7 +39,7 @@ module Ansible
         end
 
         def _valid_attributes
-          (self.class.instance_methods - Object.instance_methods - [:_result, :method_missing, :validate?]).sort
+          (self.class.instance_methods - Object.instance_methods - %i[_result method_missing validate?]).sort
         end
 
         def no_method_error(method, only_valid_clause)

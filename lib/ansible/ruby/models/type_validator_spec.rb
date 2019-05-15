@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # See LICENSE.txt for license
 require 'spec_helper'
 require 'ansible/ruby/models/base'

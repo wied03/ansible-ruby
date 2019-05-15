@@ -1,6 +1,7 @@
 # frozen_string_literal: true
+
 play 'the play name' do
-  hosts %w(host1 host2)
+  hosts %w[host1 host2]
 
   ansible_include 'included_file.yml'
   task 'Copy something over' do

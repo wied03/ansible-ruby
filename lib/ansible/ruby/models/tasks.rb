@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'ansible/ruby/models/base'
 require 'ansible/ruby/models/task'
 require 'ansible/ruby/models/block'

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'spec_helper'
 require 'ansible-ruby'
 
@@ -12,11 +13,11 @@ describe Ansible::Ruby::Serializer do
       end
 
       it do
-        text = <<-YAML
----
-# This is a generated YAML file by ansible-ruby, DO NOT EDIT
-ec2:
-  foo: 123
+        text = <<~YAML
+          ---
+          # This is a generated YAML file by ansible-ruby, DO NOT EDIT
+          ec2:
+            foo: 123
         YAML
         # Don't expecte a trailing CR
         is_expected.to eq text.rstrip
@@ -29,11 +30,11 @@ ec2:
       end
 
       it do
-        text = <<-YAML
----
-# This is a generated YAML file by ansible-ruby, DO NOT EDIT
-- ec2:
-    foo: 123
+        text = <<~YAML
+          ---
+          # This is a generated YAML file by ansible-ruby, DO NOT EDIT
+          - ec2:
+              foo: 123
         YAML
         # Don't expecte a trailing CR
         is_expected.to eq text.rstrip
@@ -57,11 +58,11 @@ ec2:
       end
 
       it do
-        text = <<-YAML
----
-# This is a generated YAML file by ansible-ruby, DO NOT EDIT
-- ec2:
-    foo: howdy
+        text = <<~YAML
+          ---
+          # This is a generated YAML file by ansible-ruby, DO NOT EDIT
+          - ec2:
+              foo: howdy
         YAML
         # Don't expecte a trailing CR
         is_expected.to eq text.rstrip

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 if ENV['TRAVIS']
   require 'simplecov'
   SimpleCov.start

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # VALIDATED_CHECKSUM: +JAIZ+xtGz02CikxF1DO4uO1H0zmtSVKXxqQCtwJzz8=
 # See LICENSE.txt for license
 

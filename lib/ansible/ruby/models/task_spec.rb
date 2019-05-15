@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'spec_helper'
 require 'ansible-ruby'
 
@@ -37,7 +38,7 @@ describe Ansible::Ruby::Models::Task do
                                       become: true,
                                       become_user: 'root',
                                       module: module_klass.new(foo: 123),
-                                      notify: %w(handler1 handler2)
+                                      notify: %w[handler1 handler2]
     end
 
     it do
@@ -47,13 +48,13 @@ describe Ansible::Ruby::Models::Task do
                         },
                         become: true,
                         become_user: 'root',
-                        notify: %w(handler1 handler2))
+                        notify: %w[handler1 handler2])
     end
 
     describe 'key order' do
       subject { hash.stringify_keys.keys }
 
-      it { is_expected.to eq %w(name ec2 become become_user notify) }
+      it { is_expected.to eq %w[name ec2 become become_user notify] }
     end
   end
 
@@ -85,7 +86,7 @@ describe Ansible::Ruby::Models::Task do
                         ec2: {
                           foo: 123
                         },
-                        notify: %w(handler1))
+                        notify: %w[handler1])
     end
   end
 

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # see LICENSE.txt in project root
 module Ansible
   module Ruby
@@ -22,7 +23,6 @@ module Ansible
         end
 
         # we need to respond to everything, don't want super
-        # rubocop:disable Style/MethodMissing
         def method_missing(id, *)
           contexts = @contexts + [id]
           JinjaItemNode.new contexts

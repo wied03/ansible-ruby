@@ -1,11 +1,12 @@
 # frozen_string_literal: true
+
 require 'ansible/ruby/dsl_builders/base'
 
 module Ansible
   module Ruby
     module DslBuilders
       class Args < Base
-        KERNEL_METHOD_OVERRIDES = [:system, :test, :warn, :sleep].freeze
+        KERNEL_METHOD_OVERRIDES = %i[system test warn sleep].freeze
 
         def initialize(recipient, &block)
           super()

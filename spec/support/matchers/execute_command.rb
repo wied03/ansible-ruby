@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 RSpec::Matchers.define :execute_command do |expected|
   def commands(actual)
     actual[:commands]

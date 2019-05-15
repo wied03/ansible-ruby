@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # See LICENSE.txt in root of repository
 
 require 'rake/tasklib'
@@ -17,6 +18,7 @@ module Ansible
           name, deps = parse_params parameters
           yield self if block_given?
           raise 'You did not supply any files!' unless files && [*files].any?
+
           clean_files = yaml_filenames [*files]
           task name => deps do
             exist = clean_files.select { |file| File.exist? file }

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'spec_helper'
 require 'ansible-ruby'
 
@@ -316,16 +317,16 @@ describe Ansible::Ruby::DslBuilders::FileLevel do
         subject { result.message + "\n" }
 
         it do
-          is_expected.to eq <<ERROR
-Unknown attribute 'foobar' for Ansible::Ruby::Modules::Copy.
+          is_expected.to eq <<~ERROR
+            Unknown attribute 'foobar' for Ansible::Ruby::Modules::Copy.
 
-Valid attributes are: [:src, :dest]
+            Valid attributes are: [:src, :dest]
 
-****Error Location:****
-file_level_test.rb:4
-file_level_test.rb:2
-file_level_test.rb:1
-ERROR
+            ****Error Location:****
+            file_level_test.rb:4
+            file_level_test.rb:2
+            file_level_test.rb:1
+          ERROR
         end
       end
     end

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'ansible/ruby/dsl_builders/base'
 require 'ansible/ruby/dsl_builders/module_call'
 require 'ansible/ruby/dsl_builders/result'
@@ -43,6 +44,7 @@ module Ansible
         def with_dict(clause)
           @task_args[:with_dict] = clause
           return unless block_given?
+
           hash_key = JinjaItemNode.new('item.key')
           hash_value = JinjaItemNode.new('item.value')
           yield [hash_key, hash_value]
@@ -105,9 +107,8 @@ module Ansible
           end
           mcb = ModuleCall.new
           # only 1 module allowed per task, give a good error message
-          if @module && mcb.respond_to?(id)
-            raise "Invalid module call `#{id}' since `#{@module.ansible_name}' module has already been used in this task. Only valid options are #{_valid_attributes}"
-          end
+          raise "Invalid module call `#{id}' since `#{@module.ansible_name}' module has already been used in this task. Only valid options are #{_valid_attributes}" if @module && mcb.respond_to?(id)
+
           no_method_error id, "Only valid options are #{_valid_attributes}" if @module
           mcb.send(id, *args, &block)
           @module = mcb._result

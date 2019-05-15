@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'spec_helper'
 require 'ansible-ruby'
 
@@ -27,7 +28,7 @@ describe Ansible::Ruby::Models::Play do
   context 'basic' do
     let(:instance) do
       Ansible::Ruby::Models::Play.new tasks: tasks_model,
-                                      hosts: %w(host1 host2)
+                                      hosts: %w[host1 host2]
     end
 
     it do
@@ -47,7 +48,7 @@ describe Ansible::Ruby::Models::Play do
     let(:instance) do
       Ansible::Ruby::Models::Play.new tasks: tasks_model,
                                       name: 'play name',
-                                      hosts: %w(host1 host2)
+                                      hosts: %w[host1 host2]
     end
 
     it do
@@ -64,7 +65,7 @@ describe Ansible::Ruby::Models::Play do
     end
 
     it 'puts the name right after hosts for readability' do
-      expect(hash.stringify_keys.keys).to eq %w(hosts name tasks)
+      expect(hash.stringify_keys.keys).to eq %w[hosts name tasks]
     end
   end
 
@@ -118,19 +119,19 @@ describe Ansible::Ruby::Models::Play do
 
       it do
         is_expected.to eq(hosts: 'host1',
-                          roles: %w(role1))
+                          roles: %w[role1])
       end
     end
 
     context 'multiple' do
       let(:instance) do
-        Ansible::Ruby::Models::Play.new roles: %w(role1 role2),
+        Ansible::Ruby::Models::Play.new roles: %w[role1 role2],
                                         hosts: 'host1'
       end
 
       it do
         is_expected.to eq(hosts: 'host1',
-                          roles: %w(role1 role2))
+                          roles: %w[role1 role2])
       end
     end
   end

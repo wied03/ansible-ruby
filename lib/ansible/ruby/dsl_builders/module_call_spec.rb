@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'spec_helper'
 require 'ansible-ruby'
 
@@ -196,11 +197,11 @@ describe Ansible::Ruby::DslBuilders::ModuleCall do
         subject { -> { evaluate } }
 
         it do
-          is_expected.to raise_error <<ERROR
-Unknown attribute 'bar' for Ansible::Ruby::Modules::Command.
+          is_expected.to raise_error <<~ERROR
+            Unknown attribute 'bar' for Ansible::Ruby::Modules::Command.
 
-Valid attributes are: [:foo]
-ERROR
+            Valid attributes are: [:foo]
+          ERROR
         end
       end
     end

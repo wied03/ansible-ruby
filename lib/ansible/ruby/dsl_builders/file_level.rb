@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'ansible/ruby/dsl_builders/play'
 require 'ansible/ruby/models/playbook'
 require 'ansible/ruby/models/tasks'
@@ -45,11 +46,11 @@ module Ansible
           instance_eval ruby_code, ruby_filename
           # error code
           nil
-        rescue StandardError => error
-          only_user_code = error.backtrace_locations
-                                .select { |trace| trace.absolute_path == ruby_filename }
-                                .map { |trace| format_trace_line(trace) }
-          message = "#{error.message}\n****Error Location:****\n#{only_user_code.join("\n")}"
+        rescue StandardError => e
+          only_user_code = e.backtrace_locations
+                            .select { |trace| trace.absolute_path == ruby_filename }
+                            .map { |trace| format_trace_line(trace) }
+          message = "#{e.message}\n****Error Location:****\n#{only_user_code.join("\n")}"
           Exception.new message
         end
 

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 play 'block fun' do
   local_host
 

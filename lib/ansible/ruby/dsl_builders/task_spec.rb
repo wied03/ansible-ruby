@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'spec_helper'
 require 'ansible-ruby'
 
@@ -47,7 +48,7 @@ describe Ansible::Ruby::DslBuilders::Task do
     describe 'hash keys' do
       subject { task.to_h.stringify_keys.keys }
 
-      it { is_expected.to eq %w(name copy) }
+      it { is_expected.to eq %w[name copy] }
     end
   end
 
@@ -67,7 +68,7 @@ describe Ansible::Ruby::DslBuilders::Task do
     describe 'hash keys' do
       subject { task.to_h.stringify_keys.keys }
 
-      it { is_expected.to eq %w(name copy vars) }
+      it { is_expected.to eq %w[name copy vars] }
     end
   end
 
@@ -185,7 +186,7 @@ describe Ansible::Ruby::DslBuilders::Task do
     end
 
     # We don't build name or tasks the same way as others
-    (Ansible::Ruby::Models::Task.instance_methods - Object.instance_methods - [:name=, :module=, :register=, :when=, :inclusion=, :vars=, :local_action=, :attributes=])
+    (Ansible::Ruby::Models::Task.instance_methods - Object.instance_methods - %i[name= module= register= when= inclusion= vars= local_action= attributes=])
       .select { |method| method.to_s.end_with?('=') }
       .map { |method| method.to_s[0..-2] }
       .each do |method|

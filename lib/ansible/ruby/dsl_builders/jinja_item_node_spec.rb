@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # see LICENSE.txt in project root
 require 'spec_helper'
 require 'ansible/ruby/dsl_builders/jinja_item_node'
@@ -23,7 +24,7 @@ describe Ansible::Ruby::DslBuilders::JinjaItemNode do
   end
 
   context 'string conversions' do
-    [:to_s, :to_str].each do |method|
+    %i[to_s to_str].each do |method|
       describe "##{method}" do
         subject { instance.send(method) }
 

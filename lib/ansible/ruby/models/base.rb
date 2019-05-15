@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'active_model'
 require 'ansible/ruby/models/type_generic'
 require 'ansible/ruby/models/multiple_types'
@@ -58,7 +59,8 @@ module Ansible
             # avoid having to dupe this in the :attribute call
             hash = attributes.length > 1 && attributes[1]
             type_validator = hash && hash[:type]
-            return unless type_validator && type_validator.is_a?(TypeGeneric)
+            return unless type_validator&.is_a?(TypeGeneric)
+
             name = attributes[0]
             for_name = attr_options[name] ||= {}
             for_name[:generic] = type_validator.klasses

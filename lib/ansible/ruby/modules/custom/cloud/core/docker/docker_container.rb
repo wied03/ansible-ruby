@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # VALIDATED_CHECKSUM: e7Gmb5wQAnw17MBnYSIuinPyQlJxNUV0zXUorGWfQ1Q=
 # See LICENSE.txt for license
 
@@ -16,9 +17,7 @@ module Ansible
         def to_h
           result = super
           data = result[:docker_container]
-          if data.include? :volumes
-            data[:volumes] = transform_volumes data[:volumes]
-          end
+          data[:volumes] = transform_volumes data[:volumes] if data.include? :volumes
           result
         end
 

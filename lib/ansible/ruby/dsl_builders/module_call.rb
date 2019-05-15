@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'ansible/ruby/dsl_builders/base'
 require 'ansible/ruby/dsl_builders/args'
 require 'ansible/ruby/modules/base'
@@ -36,12 +37,9 @@ module Ansible
 
         def _arguments(block, module_args)
           free_form_module = @result.class.include?(Ansible::Ruby::Modules::FreeForm)
-          if module_args.any? && !free_form_module
-            raise "Can't use arguments #{module_args} on this type of module"
-          end
-          if !free_form_module && !block
-            raise 'You must supply a block when using this type of module'
-          end
+          raise "Can't use arguments #{module_args} on this type of module" if module_args.any? && !free_form_module
+          raise 'You must supply a block when using this type of module' if !free_form_module && !block
+
           free_form = free_form_module && _free_form_arg(module_args)
           args_builder = Args.new @result do |attribute|
             # More user friendly to get rid of = mutators
@@ -60,11 +58,13 @@ module Ansible
 
         def _module_klass(id)
           raise "Unknown module #{id}" unless respond_to_missing? id, true
+
           MODULES_MOD.const_get _klass_name(id)
         end
 
         def _block_args(args_builder, &block)
           return {} unless block
+
           # Delegate everything to the args builder and apply it to the module class we located
           args_builder.instance_eval(&block)
         end
@@ -72,6 +72,7 @@ module Ansible
         def _free_form_arg(module_args)
           raise 'Expected 1 argument for this type of module' unless module_args.any?
           raise 'Expected only 1 argument for this type of module' if module_args.length > 1
+
           module_args[0]
         end
       end

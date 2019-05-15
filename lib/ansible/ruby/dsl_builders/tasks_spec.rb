@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # See LICENSE.txt for license
 require 'spec_helper'
 require 'ansible-ruby'
@@ -44,7 +45,7 @@ describe Ansible::Ruby::DslBuilders::Tasks do
     describe 'hash keys' do
       subject { tasks.items.map { |task| task.to_h.stringify_keys.keys } }
 
-      it { is_expected.to eq [%w(name copy)] }
+      it { is_expected.to eq [%w[name copy]] }
     end
   end
 
@@ -296,7 +297,7 @@ describe Ansible::Ruby::DslBuilders::Tasks do
   end
 
   context 'no name supplied' do
-    [:handlers, :tasks].each do |type|
+    %i[handlers tasks].each do |type|
       context type do
         let(:context) { type }
         let(:singular) { type[0..-2] }
@@ -331,7 +332,7 @@ describe Ansible::Ruby::DslBuilders::Tasks do
     describe 'hash keys' do
       subject { tasks.items.map { |task| task.to_h.stringify_keys.keys } }
 
-      it { is_expected.to eq [%w(name copy)] }
+      it { is_expected.to eq [%w[name copy]] }
     end
   end
 end

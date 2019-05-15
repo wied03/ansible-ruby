@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'ansible/ruby/modules/free_form'
 
 module Ansible

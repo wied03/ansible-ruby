@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Ansible
   module Ruby
     module DslBuilders
@@ -8,7 +9,6 @@ module Ansible
         end
 
         # we need to respond to everything, don't want super
-        # rubocop:disable Style/MethodMissing
         def method_missing(id, *args)
           flat_args = args.map(&:inspect).map(&:to_s).join ', '
           "#{name}.#{id}#{flat_args.empty? ? '' : "(#{flat_args})"}"

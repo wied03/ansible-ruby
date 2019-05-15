@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'ansible/ruby/models/play'
 require 'ansible/ruby/dsl_builders/tasks'
 require 'ansible/ruby/dsl_builders/block'
@@ -69,9 +70,8 @@ module Ansible
         # allow any order
         def _result
           tasks = super
-          if tasks.inclusions.any? && @play_args[:roles]
-            raise 'Includes cannot be used in a play using a role. They can only be used in task files or in plays with a task list.'
-          end
+          raise 'Includes cannot be used in a play using a role. They can only be used in task files or in plays with a task list.' if tasks.inclusions.any? && @play_args[:roles]
+
           args = @play_args.merge({})
           # Don't want to trigger validation
           args[:tasks] = tasks if tasks.items.any?
@@ -82,6 +82,7 @@ module Ansible
 
         def _process_method(id, *args, &block)
           return super if respond_to_missing?(id, *args, &block)
+
           valid = _valid_attributes << :task
           no_method_error id, "Only valid options are #{valid}"
         end

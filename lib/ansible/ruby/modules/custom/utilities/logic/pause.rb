@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # VALIDATED_CHECKSUM: tWBo+YFRcbSrlJFU2zDvn6pqnYqovx+p3d0iD7j+nt4=
 require 'ansible/ruby/modules/generated/utilities/logic/pause'
 
