@@ -232,7 +232,8 @@ module Ansible
               'admin.pubnub.com. Used only if block doesn\\\'t exists and won\\\'t change' => 'admin.pubnub.com',
               # avi_cloudconnectoruser
               /private_key:.*?BEGIN RSA PRIVATE KEY.*?END RSA PRIVATE KEY-----'/m => 'private_key: foo',
-              #'description: The folder path where the task lives.\n                  default: \\' => 'description: The folder path where the task lives.\n                  default: foobar'
+              # win_scheduled_task_stat.py
+              'default:  name:' => "default: foobar\n  name:"
             }
             dirty_patterns.inject(yaml) do |fixed_yaml, find_replace|
               fixed_yaml.gsub find_replace[0], find_replace[1]
