@@ -235,7 +235,9 @@ module Ansible
               # win_scheduled_task_stat.py
               'default:  name:' => "default: foobar\n  name:",
               # win_scheduled_task
-              'default:  state:' => "default: foobar\n  state:"
+              'default:  state:' => "default: foobar\n  state:",
+              # java_keystore
+              /private_key:.*?BEGIN RSA PRIVATE KEY.*?END RSA PRIVATE KEY-----/m => 'private_key: foo',
             }
             dirty_patterns.inject(yaml) do |fixed_yaml, find_replace|
               fixed_yaml.gsub find_replace[0], find_replace[1]
