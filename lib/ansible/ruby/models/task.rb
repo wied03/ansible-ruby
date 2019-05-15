@@ -67,10 +67,10 @@ module Ansible
 
         # :reek:NilCheck - ^ doesn't work with falsey, you would have to overload the operator
         def inclusion_module
-          unless @inclusion.nil? ^ @module.nil?
-            errors.add :module,
-                       'You must either use an include or a module but not both!'
-          end
+          return if @inclusion.nil? ^ @module.nil?
+
+          errors.add :module,
+                     'You must either use an include or a module but not both!'
         end
 
         def loop_and_dict

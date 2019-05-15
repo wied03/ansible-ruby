@@ -12,7 +12,10 @@ module Ansible
             yaml_string = fix_missing_hash_entry(yaml_string, module_name) if module_name
             yaml_string = remove_difficult_strings yaml_string
             File.write "debug_#{description}_after.yml", yaml_string if ENV['DEBUG']
+            # For some reason, safe_load chokes on parsing modules
+            # rubocop:disable Security/YAMLLoad
             YAML.load yaml_string
+            # rubocop:enable Security/YAMLLoad
           rescue StandardError
             $stderr << "Problem parsing #{description}!"
             raise

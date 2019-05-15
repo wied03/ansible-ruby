@@ -6,7 +6,7 @@ Naming/ClassAndModuleCamelCase:
 Style/Documentation:
   Enabled: false
 
-Style/SpaceInsideHashLiteralBraces:
+Layout/SpaceInsideHashLiteralBraces:
   Enabled: false
 
 Metrics/LineLength:
@@ -18,20 +18,35 @@ Style/HashSyntax:
 Style/StringLiterals:
   Enabled: false
 
-Style/SpaceAroundOperators:
+Layout/SpaceAroundOperators:
   Enabled: false
 
-Style/StringLiterals:
+Layout/Tab:
   Enabled: false
 
 Style/AsciiComments:
   Enabled: false
 
-Style/TrailingWhitespace:
+Layout/TrailingWhitespace:
   Enabled: false
 
-Style/EmptyLinesAroundClassBody:
+Layout/EmptyLinesAroundClassBody:
   Enabled: false
 
 Metrics/ClassLength:
+  Enabled: false
+
+# don't control this
+Style/NumericLiterals:
+  Enabled: false
+
+# TODO: Fix this
+Style/SymbolArray:
+  Enabled: false
+
+Layout/EmptyLineAfterMagicComment:
+  Enabled: false
+
+# eg. [:true, :false]
+Lint/BooleanSymbol:
   Enabled: false

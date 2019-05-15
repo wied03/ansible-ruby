@@ -94,10 +94,13 @@ describe Ansible::Ruby::DslBuilders::Block do
 
     it { is_expected.to be_a Ansible::Ruby::Models::Block }
     it do
+      # This not an actual problem. it's an rspec assertion
+      # rubocop:disable Style/MixinUsage
       is_expected.to have_attributes tasks: include(Ansible::Ruby::Models::Task),
                                      become: true,
                                      become_user: 'root',
                                      ignore_errors: true
+      # rubocop:enable Style/MixinUsage
     end
   end
 

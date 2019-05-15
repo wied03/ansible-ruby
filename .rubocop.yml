@@ -50,3 +50,10 @@ Metrics/BlockLength:
 
 Style/MethodMissingSuper:
   Enabled: false
+
+Style/MissingRespondToMissing:
+  Enabled: false
+
+Layout/EmptyLineAfterMagicComment:
+  Exclude:
+    - 'lib/ansible/ruby/modules/all.rb'
