@@ -238,6 +238,8 @@ module Ansible
               'default:  state:' => "default: foobar\n  state:",
               # java_keystore
               /private_key:.*?BEGIN RSA PRIVATE KEY.*?END RSA PRIVATE KEY-----/m => 'private_key: foo',
+              # manageiq_provider
+              /certificate_authority:.*?BEGIN CERTIFICATE.*?END CERTIFICATE-----/m => 'certificate_authority: cagoeshere'
             }
             dirty_patterns.inject(yaml) do |fixed_yaml, find_replace|
               fixed_yaml.gsub find_replace[0], find_replace[1]
