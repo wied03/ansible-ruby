@@ -36,7 +36,7 @@ desc 'Runs Reek stuff'
 Reek::Rake::Task.new do |task|
   # rake task overrides all config.reek exclusions, which is annoying and it won't let us set a FileList directly
   files = FileList['**/*.rb']
-          .exclude('vendor/**/*') # Travis stuff
+            .exclude('vendor/**/*') # Travis stuff
   task.instance_variable_set :@source_files, files
 end
 
@@ -48,7 +48,7 @@ desc 'Compiles examples'
 task :compile_examples do
   Dir.chdir 'examples' do
     tasks = %w(ami block command default)
-    clean_compile = tasks.map { |task| "#{task}_clean" } + tasks.map { |task| "#{task}_compile" }
+    clean_compile = tasks.map {|task| "#{task}_clean"} + tasks.map {|task| "#{task}_compile"}
     sh "rake --trace #{clean_compile.join ' '}"
   end
 end
@@ -67,10 +67,10 @@ no_examples_ok = [
   'nmcli.py', # complex examples
   'slurp.py' # no examples that aren't command lines
 ]
-SKIP_EXAMPLES_REGEX = no_examples_ok.map { |text| Regexp.new text }
+SKIP_EXAMPLES_REGEX = no_examples_ok.map {|text| Regexp.new text}
 
 def skip_example?(file)
-  SKIP_EXAMPLES_REGEX.any? { |regex| regex.match(file) }
+  SKIP_EXAMPLES_REGEX.any? {|regex| regex.match(file)}
 end
 
 def get_yaml(file)
@@ -115,6 +115,7 @@ task generate_modules: :python_dependencies do
               .exclude(/__init__.py/)
               .exclude(/include_vars.py/)
               .exclude(/async_wrapper.py/)
+              .exclude(/netscaler_lb_vserver.py/) # TODO: Fix this module
           end
   processed_files = []
   checksums = {}
