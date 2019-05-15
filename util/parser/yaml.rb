@@ -227,6 +227,9 @@ module Ansible
               'vapp_name=tower' => 'vapp_name: tower',
               # gcp_compute_ssl_certificate
               /gcp_compute_ssl_certificate:.*state: present/m => "gcp_compute_ssl_certificate:\n                name: \"test_object\"\n                description: A certificate for testing. Do not use this certificate in production\n                certificate: somecert\n                private_key: somekey\n                project: \"test_project\"\n                auth_kind: \"service_account\"\n                service_account_file: \"/tmp/auth.pem\"\n                state: present",
+              # pubnub_blocks
+              '- "User\\\'s account will be used if value not set or empty."' => '- "user account"',
+              'admin.pubnub.com. Used only if block doesn\\\'t exists and won\\\'t change' => 'admin.pubnub.com',
               #'description: The folder path where the task lives.\n                  default: \\' => 'description: The folder path where the task lives.\n                  default: foobar'
             }
             dirty_patterns.inject(yaml) do |fixed_yaml, find_replace|
