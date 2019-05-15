@@ -230,6 +230,8 @@ module Ansible
               # pubnub_blocks
               '- "User\\\'s account will be used if value not set or empty."' => '- "user account"',
               'admin.pubnub.com. Used only if block doesn\\\'t exists and won\\\'t change' => 'admin.pubnub.com',
+              # avi_cloudconnectoruser
+              /private_key:.*?BEGIN RSA PRIVATE KEY.*?END RSA PRIVATE KEY-----'/m => 'private_key: foo',
               #'description: The folder path where the task lives.\n                  default: \\' => 'description: The folder path where the task lives.\n                  default: foobar'
             }
             dirty_patterns.inject(yaml) do |fixed_yaml, find_replace|
