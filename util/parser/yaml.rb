@@ -224,7 +224,10 @@ module Ansible
               # pagerduty
               '                      name=companyabc' => '    name: companyabc',
               # vca_vapp
-              'vapp_name=tower' => 'vapp_name: tower'
+              'vapp_name=tower' => 'vapp_name: tower',
+              # gcp_compute_ssl_certificate
+              /gcp_compute_ssl_certificate:.*state: present/m => "gcp_compute_ssl_certificate:\n                name: \"test_object\"\n                description: A certificate for testing. Do not use this certificate in production\n                certificate: somecert\n                private_key: somekey\n                project: \"test_project\"\n                auth_kind: \"service_account\"\n                service_account_file: \"/tmp/auth.pem\"\n                state: present",
+              #'description: The folder path where the task lives.\n                  default: \\' => 'description: The folder path where the task lives.\n                  default: foobar'
             }
             dirty_patterns.inject(yaml) do |fixed_yaml, find_replace|
               fixed_yaml.gsub find_replace[0], find_replace[1]
