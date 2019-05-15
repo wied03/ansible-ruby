@@ -143,7 +143,7 @@ describe TypeValidator do
       let(:instance) { klass.new foo: 123 }
 
       it { is_expected.to_not be_valid }
-      it { is_expected.to have_errors foo: 'stuff (123), 123 is expected to be a String but was a Fixnum' }
+      it { is_expected.to have_errors foo: 'stuff (123), 123 is expected to be a String but was a Integer' }
     end
 
     context 'valid' do

@@ -305,7 +305,7 @@ describe Ansible::Ruby::DslBuilders::Play do
 
   context 'other attributes' do
     # We don't build name or tasks the same way as others
-    (Ansible::Ruby::Models::Play.instance_methods - Object.instance_methods - [:name=, :tasks=, :inclusions=])
+    (Ansible::Ruby::Models::Play.instance_methods - Object.instance_methods - [:name=, :tasks=, :inclusions=, :attributes=])
       .select { |method| method.to_s.end_with?('=') }
       .map { |method| method.to_s[0..-2] }
       .each do |method|

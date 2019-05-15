@@ -36,7 +36,7 @@ describe Ansible::Ruby::Modules::FreeForm do
       let(:instance) { klass.new free_form: 123 }
 
       it { is_expected.to_not be_valid }
-      it { is_expected.to have_errors free_form: 'some_module(123), 123 is expected to be a String but was a Fixnum' }
+      it { is_expected.to have_errors free_form: 'some_module(123), 123 is expected to be a String but was a Integer' }
     end
 
     context 'valid' do
