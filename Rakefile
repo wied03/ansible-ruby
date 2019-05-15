@@ -75,6 +75,13 @@ end
 
 def get_yaml(file)
   python = File.read file
+  metadata_json = /^ANSIBLE_METADATA = (.*?\})/m.match(python).captures[0]
+  metadata_json = metadata_json.gsub("'", '"')
+  metadata = JSON.parse(metadata_json)
+  if metadata['status'].include? 'removed'
+    puts "Skipping #{file} because it has removed status"
+    return nil
+  end
   match = /^DOCUMENTATION.*?['"]{3}(.*?)['"]{3}/m.match(python)
   raise "Unable to find description in #{file}" unless match
   description = match[1]
@@ -118,7 +125,9 @@ task generate_modules: :python_dependencies do
     $stderr = out
     begin
       for_file << 'Retrieving description and example'
-      description, example = get_yaml file
+      results = get_yaml file
+      next unless results
+      description, example = results
       for_file << 'Parsing YAML'
       example_fail_is_ok = skip_example?(file)
       ruby_result = Ansible::Ruby::Parser.from_yaml_string description,
