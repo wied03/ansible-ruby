@@ -47,7 +47,7 @@ module Ansible
 
         def klass(mod, description)
           # indentation, etc.
-          description = description.map { |line| KLASS_INDENT + "# #{line}" }.join "\n"
+          description = [*description].map { |line| KLASS_INDENT + "# #{line}" }.join "\n"
           description += "\n" unless description.empty?
           klass_name = mod.capitalize
           <<RUBY
