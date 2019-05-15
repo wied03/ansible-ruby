@@ -13,7 +13,7 @@ module Ansible
         include TaskUtil
 
         # :reek:Attribute - Rake DSL gets ugly if we don't use a block
-        attr_accessor :playbooks
+        attr_writer :playbooks
         # :reek:Attribute - Rake DSL gets ugly if we don't use a block
         attr_accessor :options
 
