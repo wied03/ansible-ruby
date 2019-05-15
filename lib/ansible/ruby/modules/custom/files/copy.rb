@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-# VALIDATED_CHECKSUM: 1k2xSbSJRuPIByfZD6JPVMjSuT9mvoQGYZkX5bySbZo=
+# VALIDATED_CHECKSUM: wsS2vEcWFZ6HGhxV7bUg2tOa1hSm/Ondthcu+SQbkDs=
 # see LICENSE.txt in project root
 
 require 'ansible/ruby/modules/generated/files/copy'

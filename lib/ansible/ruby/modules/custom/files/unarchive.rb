@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-# VALIDATED_CHECKSUM: yZbGN4O7Xt3nEhkX3dtGsqhX1eQGSPvpJJRVJdsroIg=
+# VALIDATED_CHECKSUM: 2NwxN/FxvzHOUj8TDmDV7STdEo+dSSTCUEBPVOtFY0Q=
 # see LICENSE.txt in project root
 
 require 'ansible/ruby/modules/generated/files/unarchive'
