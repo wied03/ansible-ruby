@@ -32,6 +32,9 @@ Metrics/CyclomaticComplexity:
 Style/Documentation:
   Enabled: false
 
+Style/FormatStringToken:
+  Enabled: false
+
 # if this is really high, fine but 5 is too small
 Metrics/ParameterLists:
   Max: 8
@@ -44,3 +47,6 @@ Metrics/BlockLength:
     - '**/*_spec.rb'
     - 'spec/**/*'
     - Rakefile
+
+Style/MethodMissingSuper:
+  Enabled: false

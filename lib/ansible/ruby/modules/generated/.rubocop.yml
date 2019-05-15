@@ -21,6 +21,9 @@ Style/StringLiterals:
 Layout/SpaceAroundOperators:
   Enabled: false
 
+Layout/Tab:
+  Enabled: false
+
 Style/AsciiComments:
   Enabled: false
 
