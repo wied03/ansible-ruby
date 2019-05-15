@@ -25,7 +25,6 @@ module Ansible
           result = _process_method id, *args, &block
           method_missing_return id, result, *args
         end
-        # rubocop:enable Style/MethodMissing
 
         private
 

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'bundler/gem_tasks'
 require 'rspec/core/rake_task'
 require 'rubocop/rake_task'
@@ -9,14 +10,14 @@ require 'digest'
 require 'json'
 $: << '.'
 
-task default: [:spec,
-               :report_coverage,
-               :update_modules,
-               :rubocop,
-               :reek,
-               :compile_examples,
-               :ansible_lint,
-               :verify_custom_mods]
+task default: %i[spec
+                 report_coverage
+                 update_modules
+                 rubocop
+                 reek
+                 compile_examples
+                 ansible_lint
+                 verify_custom_mods]
 
 task :report_coverage do
   sh 'codeclimate-test-reporter' if ENV['TRAVIS']
@@ -29,14 +30,14 @@ end
 
 desc 'Runs Rubocop'
 RuboCop::RakeTask.new do |task|
-  task.options = %w(-D -S)
+  task.options = %w[-D -S]
 end
 
 desc 'Runs Reek stuff'
 Reek::Rake::Task.new do |task|
   # rake task overrides all config.reek exclusions, which is annoying and it won't let us set a FileList directly
   files = FileList['**/*.rb']
-            .exclude('vendor/**/*') # Travis stuff
+          .exclude('vendor/**/*') # Travis stuff
   task.instance_variable_set :@source_files, files
 end
 
@@ -47,14 +48,14 @@ end
 desc 'Compiles examples'
 task :compile_examples do
   Dir.chdir 'examples' do
-    tasks = %w(ami block command default)
-    clean_compile = tasks.map {|task| "#{task}_clean"} + tasks.map {|task| "#{task}_compile"}
+    tasks = %w[ami block command default]
+    clean_compile = tasks.map { |task| "#{task}_clean" } + tasks.map { |task| "#{task}_compile" }
     sh "rake --trace #{clean_compile.join ' '}"
   end
 end
 
 desc 'Runs a check against generated playbooks'
-task ansible_lint: [:compile_examples, :python_dependencies] do
+task ansible_lint: %i[compile_examples python_dependencies] do
   # Grab the first installed egg
   ansible_lint = FileList['.eggs/ansible_lint*.egg'][0]
   all_eggs = FileList['.eggs/*.egg']
@@ -67,10 +68,10 @@ no_examples_ok = [
   'nmcli.py', # complex examples
   'slurp.py' # no examples that aren't command lines
 ]
-SKIP_EXAMPLES_REGEX = no_examples_ok.map {|text| Regexp.new text}
+SKIP_EXAMPLES_REGEX = no_examples_ok.map { |text| Regexp.new text }
 
 def skip_example?(file)
-  SKIP_EXAMPLES_REGEX.any? {|regex| regex.match(file)}
+  SKIP_EXAMPLES_REGEX.any? { |regex| regex.match(file) }
 end
 
 def get_yaml(file)
@@ -84,6 +85,7 @@ def get_yaml(file)
   end
   match = /^DOCUMENTATION.*?['"]{3}(.*?)['"]{3}/m.match(python)
   raise "Unable to find description in #{file}" unless match
+
   description = match[1]
   match = /^EXAMPLES.*?['"]{3}(.*?)['"]{3}/m.match(python)
   examples = if match
@@ -95,7 +97,7 @@ def get_yaml(file)
 end
 
 desc 'Update/generate Ruby modules from Ansible modules'
-task update_modules: [:generate_modules, :verify_checksums]
+task update_modules: %i[generate_modules verify_checksums]
 
 NEW_CHECKSUMS = 'util/checksums_new.json'
 task generate_modules: :python_dependencies do
@@ -129,6 +131,7 @@ task generate_modules: :python_dependencies do
       for_file << 'Retrieving description and example'
       results = get_yaml file
       next unless results
+
       description, example = results
       for_file << 'Parsing YAML'
       example_fail_is_ok = skip_example?(file)
@@ -144,9 +147,8 @@ task generate_modules: :python_dependencies do
       mkdir_p File.dirname(ruby_path)
       for_file << "Writing Ruby code to #{ruby_path}"
       processed_files << ruby_path
-      if checksums.include? ruby_filename
-        raise "We've already processed a module by this name!"
-      end
+      raise "We've already processed a module by this name!" if checksums.include? ruby_filename
+
       checksums[ruby_filename] = Digest::SHA256.base64digest ruby_result
       File.write ruby_path, ruby_result
     rescue StandardError => e
@@ -172,18 +174,19 @@ task generate_modules: :python_dependencies do
 
   puts "#{processed_files.length} modules successfully processed. #{fails.length} failures"
   raise '1 or more files failed' if fails.any?
+
   base_dir = Pathname.new('lib')
   puts 'Writing checksums'
   File.write NEW_CHECKSUMS, JSON.pretty_generate(checksums)
   puts 'Writing requires'
   File.open 'lib/ansible/ruby/modules/all.rb', 'w' do |file|
-    file << <<HEADER
-# frozen_string_literal: true
-# Generated file, DO NOT EDIT!
+    file << <<~HEADER
+      # frozen_string_literal: true
+      # Generated file, DO NOT EDIT!
 
-ansible_mod = Ansible::Ruby::Modules
+      ansible_mod = Ansible::Ruby::Modules
 
-HEADER
+    HEADER
     overridden_modules = []
     processed_files.each do |ruby, _|
       relative = Pathname.new(ruby).relative_path_from(base_dir)
@@ -238,8 +241,10 @@ task :verify_checksums do
 
   problems = new_checksums.map do |changed_file, new_checksum|
     next unless valid_custom_checksums.include? changed_file
+
     existing_checksum = valid_custom_checksums[changed_file]
     next unless existing_checksum != new_checksum
+
     "Module #{changed_file} - old checksum - #{existing_checksum} - new checksum #{new_checksum}"
   end.compact
 

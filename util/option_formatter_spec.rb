@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # See LICENSE.txt for license
 require 'spec_helper'
 require_relative './option_formatter'
@@ -18,7 +19,7 @@ describe Ansible::Ruby::OptionFormatter do
 
     let(:option_data) do
       Ansible::Ruby::Parser::OptionData.new name: attribute,
-                                            description: %w(abc),
+                                            description: %w[abc],
                                             required: required,
                                             types: types,
                                             choices: choices
@@ -26,10 +27,10 @@ describe Ansible::Ruby::OptionFormatter do
 
     context 'no validations' do
       it do
-        is_expected.to eq <<RUBY
-# @return [Object, nil] abc
-attribute :the_attribute
-RUBY
+        is_expected.to eq <<~RUBY
+          # @return [Object, nil] abc
+          attribute :the_attribute
+        RUBY
       end
     end
 
@@ -37,11 +38,11 @@ RUBY
       let(:required) { true }
 
       it do
-        is_expected.to eq <<RUBY
-# @return [Object] abc
-attribute :the_attribute
-validates :the_attribute, presence: true
-RUBY
+        is_expected.to eq <<~RUBY
+          # @return [Object] abc
+          attribute :the_attribute
+          validates :the_attribute, presence: true
+        RUBY
       end
     end
 
@@ -49,28 +50,28 @@ RUBY
       context 'required' do
         let(:required) { true }
         let(:types) { [String] }
-        let(:choices) { [:present, :absent] }
+        let(:choices) { %i[present absent] }
 
         it do
-          is_expected.to eq <<RUBY
-# @return [:present, :absent] abc
-attribute :the_attribute
-validates :the_attribute, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
-RUBY
+          is_expected.to eq <<~RUBY
+            # @return [:present, :absent] abc
+            attribute :the_attribute
+            validates :the_attribute, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
+          RUBY
         end
       end
 
       context 'not required' do
         let(:required) { false }
         let(:types) { [String] }
-        let(:choices) { [:present, :absent] }
+        let(:choices) { %i[present absent] }
 
         it do
-          is_expected.to eq <<RUBY
-# @return [:present, :absent, nil] abc
-attribute :the_attribute
-validates :the_attribute, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
-RUBY
+          is_expected.to eq <<~RUBY
+            # @return [:present, :absent, nil] abc
+            attribute :the_attribute
+            validates :the_attribute, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+          RUBY
         end
       end
 
@@ -79,11 +80,11 @@ RUBY
         let(:choices) { [true, false] }
 
         it do
-          is_expected.to eq <<RUBY
-# @return [Boolean, nil] abc
-attribute :the_attribute
-validates :the_attribute, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
-RUBY
+          is_expected.to eq <<~RUBY
+            # @return [Boolean, nil] abc
+            attribute :the_attribute
+            validates :the_attribute, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+          RUBY
         end
       end
 
@@ -92,11 +93,11 @@ RUBY
         let(:choices) { [1, :abc] }
 
         it do
-          is_expected.to eq <<RUBY
-# @return [1, :abc, nil] abc
-attribute :the_attribute
-validates :the_attribute, inclusion: {:in=>[1, :abc], :message=>"%{value} needs to be 1, :abc"}, allow_nil: true
-RUBY
+          is_expected.to eq <<~RUBY
+            # @return [1, :abc, nil] abc
+            attribute :the_attribute
+            validates :the_attribute, inclusion: {:in=>[1, :abc], :message=>"%{value} needs to be 1, :abc"}, allow_nil: true
+          RUBY
         end
       end
     end
@@ -105,10 +106,10 @@ RUBY
       let(:attribute) { 'no-recommends' }
 
       it do
-        is_expected.to eq <<RUBY
-# @return [Object, nil] abc
-attribute :no_recommends, original_name: 'no-recommends'
-RUBY
+        is_expected.to eq <<~RUBY
+          # @return [Object, nil] abc
+          attribute :no_recommends, original_name: 'no-recommends'
+        RUBY
       end
     end
 
@@ -116,11 +117,11 @@ RUBY
       let(:types) { [TypeGeneric.new(Integer)] }
 
       it do
-        is_expected.to eq <<RUBY
-# @return [Array<Integer>, Integer, nil] abc
-attribute :the_attribute
-validates :the_attribute, type: TypeGeneric.new(Integer)
-RUBY
+        is_expected.to eq <<~RUBY
+          # @return [Array<Integer>, Integer, nil] abc
+          attribute :the_attribute
+          validates :the_attribute, type: TypeGeneric.new(Integer)
+        RUBY
       end
     end
 
@@ -128,11 +129,11 @@ RUBY
       let(:types) { [TypeGeneric.new(String, Hash)] }
 
       it do
-        is_expected.to eq <<RUBY
-# @return [Array<String>, String, nil] abc
-attribute :the_attribute
-validates :the_attribute, type: TypeGeneric.new(String, Hash)
-RUBY
+        is_expected.to eq <<~RUBY
+          # @return [Array<String>, String, nil] abc
+          attribute :the_attribute
+          validates :the_attribute, type: TypeGeneric.new(String, Hash)
+        RUBY
       end
     end
   end

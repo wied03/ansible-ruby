@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # See LICENSE.txt for license
 require 'json'
 
@@ -28,7 +29,7 @@ module Ansible
                            required: details[:required],
                            types: types,
                            choices: choices
-          rescue
+          rescue StandardError
             $stderr << "Problem parsing option #{name}!"
             raise
           ensure
@@ -79,7 +80,8 @@ module Ansible
 
           def parse_choices(details)
             choices = details[:choices]
-            return nil unless choices && choices.any?
+            return nil unless choices&.any?
+
             choices.map do |choice|
               result = parse_value_into_num choice
               result = result.to_sym if result.is_a?(String)
@@ -90,6 +92,7 @@ module Ansible
           def choice_classes(details)
             choices = parse_choices details
             return nil unless choices
+
             choices.map do |choice|
               case choice
               when TrueClass, FalseClass
@@ -132,6 +135,7 @@ module Ansible
             Hash[key_value_str.split(' ').map do |pair|
               equals = pair.split '='
               next unless equals.length >= 2
+
               # some attributes have data like attr=value=value2, only want attr=value
               equals[0..1]
             end.compact]
@@ -141,7 +145,7 @@ module Ansible
             types = values.map { |value| derive_type value }.uniq
             generic = types.find { |type| type.is_a?(TypeGeneric) }
             # No need to include generic and the generic's type
-            without_type_outside = types.reject { |type| generic && generic.klasses.include?(type) }
+            without_type_outside = types.reject { |type| generic&.klasses&.include?(type) }
             collapse_generics without_type_outside
           end
 
@@ -189,31 +193,34 @@ module Ansible
 
           def parse_value_into_num(item)
             return item unless item.is_a?(String)
+
             parsed_float(item) || parsed_integer(item) || item
           end
 
           # some sample values are foo='stuff,bar'
           def unquote_string(value)
             return value unless value.is_a?(String) && !variable_expression?(value)
+
             ((unquoted_match = /'(.*)'/.match(value)) && unquoted_match[1]) || value
           end
 
           def parsed_integer(value)
             Integer(value)
-          rescue
+          rescue StandardError
             false
           end
 
           def parsed_float(value)
             value.include?('.') && Float(value)
-          rescue
+          rescue StandardError
             false
           end
 
           def hash?(value)
             return false unless value.is_a?(String)
+
             JSON.parse(value).is_a?(Hash)
-          rescue
+          rescue StandardError
             # JSON.parse knows
             false
           end
@@ -221,15 +228,17 @@ module Ansible
           def flat_array(*values)
             # be conservative for now
             return nil unless values.length == 1
+
             value = values[0]
             return nil unless value.is_a?(String) && value.include?(',') && !variable_expression?(value)
+
             items = value.split(',').map do |item|
               item = parse_value_into_num(item)
               item.inspect
             end
             array_str = "[#{items.join(', ')}]"
             JSON.parse array_str
-          rescue
+          rescue StandardError
             # if we can't parse it with what we did, it's not an array
             false
           end

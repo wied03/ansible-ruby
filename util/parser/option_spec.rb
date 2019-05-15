@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # See LICENSE.txt for license
 require 'spec_helper'
 require 'ansible-ruby'
@@ -67,7 +68,7 @@ describe Ansible::Ruby::Parser::Option do
     end
 
     context 'choices' do
-      let(:choices) { %w(present absent) }
+      let(:choices) { %w[present absent] }
       let(:default) { 'present' }
       let(:required) { false }
 
@@ -78,7 +79,7 @@ describe Ansible::Ruby::Parser::Option do
           is_expected.to have_attributes name: 'login_user',
                                          required?: true,
                                          types: [String],
-                                         choices: [:present, :absent]
+                                         choices: %i[present absent]
         end
       end
 
@@ -89,7 +90,7 @@ describe Ansible::Ruby::Parser::Option do
           is_expected.to have_attributes name: 'login_user',
                                          required?: false,
                                          types: [String],
-                                         choices: [:present, :absent]
+                                         choices: %i[present absent]
         end
       end
 
@@ -112,7 +113,7 @@ describe Ansible::Ruby::Parser::Option do
           is_expected.to have_attributes name: 'login_user',
                                          required?: false,
                                          types: [Symbol],
-                                         choices: [:present, :absent]
+                                         choices: %i[present absent]
         end
       end
 
@@ -481,7 +482,7 @@ describe Ansible::Ruby::Parser::Option do
               'name' => 'some task',
               'become' => true,
               'gather_facts' => true,
-              'roles' => %w(role1 role2)
+              'roles' => %w[role1 role2]
             }
           ]
         end
@@ -576,7 +577,7 @@ describe Ansible::Ruby::Parser::Option do
             [
               {
                 'postgresql_db' => {
-                  'lines' => %w(hello there 123)
+                  'lines' => %w[hello there 123]
                 }
               }
             ]
@@ -596,12 +597,12 @@ describe Ansible::Ruby::Parser::Option do
             [
               {
                 'postgresql_db' => {
-                  'lines' => %w(hello there dude)
+                  'lines' => %w[hello there dude]
                 }
               },
               {
                 'postgresql_db' => {
-                  'lines' => %w(hello there again)
+                  'lines' => %w[hello there again]
                 }
               }
             ]
@@ -621,7 +622,7 @@ describe Ansible::Ruby::Parser::Option do
             [
               {
                 'postgresql_db' => {
-                  'lines' => %w(hello there dude)
+                  'lines' => %w[hello there dude]
                 }
               },
               {
@@ -651,7 +652,7 @@ describe Ansible::Ruby::Parser::Option do
               },
               {
                 'postgresql_db' => {
-                  'lines' => %w(hello there dude)
+                  'lines' => %w[hello there dude]
                 }
               }
             ]

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # See LICENSE.txt for license
 require 'spec_helper'
 require 'ansible-ruby'
@@ -13,19 +14,19 @@ describe Ansible::Ruby::Parser::Yaml do
 
     context 'standard' do
       let(:input_yaml) do
-        <<YAML
----
-  # Create a new database with name "acme"
-  - postgresql_db: name=acme
-  # Create a new database with name "acme" and specific encoding and locale
-  # settings. If a template different from "template0" is specified, encoding
-  # and locale settings must match those of the template.
-  - postgresql_db: name=acme
-                   encoding='UTF-8'
-                   lc_collate='de_DE.UTF-8'
-                   lc_ctype='de_DE.UTF-8'
-                   template='template0'
-YAML
+        <<~YAML
+          ---
+            # Create a new database with name "acme"
+            - postgresql_db: name=acme
+            # Create a new database with name "acme" and specific encoding and locale
+            # settings. If a template different from "template0" is specified, encoding
+            # and locale settings must match those of the template.
+            - postgresql_db: name=acme
+                             encoding='UTF-8'
+                             lc_collate='de_DE.UTF-8'
+                             lc_ctype='de_DE.UTF-8'
+                             template='template0'
+        YAML
       end
 
       it do
@@ -41,12 +42,12 @@ YAML
         let(:module_name) { 'postgresql_db' }
 
         let(:input_yaml) do
-          <<YAML
----
-- postgresql_db
-    aws_access_key: xxxxxxxxxxxxxxxxxxxxxxx
-  register: instance
-YAML
+          <<~YAML
+            ---
+            - postgresql_db
+                aws_access_key: xxxxxxxxxxxxxxxxxxxxxxx
+              register: instance
+          YAML
         end
 
         it do
@@ -65,16 +66,16 @@ YAML
         let(:module_name) { 'svc' }
 
         let(:input_yaml) do
-          <<YAML
+          <<~YAML
 
-# Example action to stop svc dnscache, if running
- - svc: name=dnscache state=stopped
+            # Example action to stop svc dnscache, if running
+             - svc: name=dnscache state=stopped
 
-# Example action to kill svc dnscache, in all cases
- - svc : name=dnscache state=killed
-# Example action to kill svc dnscache, in all cases
- - svc : name=dnscache state=restarted
-YAML
+            # Example action to kill svc dnscache, in all cases
+             - svc : name=dnscache state=killed
+            # Example action to kill svc dnscache, in all cases
+             - svc : name=dnscache state=restarted
+          YAML
         end
 
         it do
@@ -89,13 +90,13 @@ YAML
 
     context 'inline keys' do
       let(:input_yaml) do
-        <<YAML
-# Example action to start svc dnscache, if not running
- - svc: name=dnscache state=started
+        <<~YAML
+          # Example action to start svc dnscache, if not running
+           - svc: name=dnscache state=started
 
-# Example action to stop svc dnscache, if running
- - svc: name=dnscache state=stopped
-YAML
+          # Example action to stop svc dnscache, if running
+           - svc: name=dnscache state=stopped
+        YAML
       end
 
       it do
@@ -108,13 +109,13 @@ YAML
 
     context 'hash containing array' do
       let(:input_yaml) do
-        <<YAML
----
-module: datadog_monitor
-description:
-- "Manages monitors within Datadog"
-version_added: "2.0"
-YAML
+        <<~YAML
+          ---
+          module: datadog_monitor
+          description:
+          - "Manages monitors within Datadog"
+          version_added: "2.0"
+        YAML
       end
 
       it do
@@ -128,14 +129,14 @@ YAML
 
     context 'line continuation' do
       let(:input_yaml) do
-        <<YAML
----
-hash:
-  - value 1
-  - value 2 \\
-goes on to next line
-  - value 3
-YAML
+        <<~YAML
+          ---
+          hash:
+            - value 1
+            - value 2 \\
+          goes on to next line
+            - value 3
+        YAML
       end
 
       it do

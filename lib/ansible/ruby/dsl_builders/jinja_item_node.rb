@@ -27,7 +27,6 @@ module Ansible
           contexts = @contexts + [id]
           JinjaItemNode.new contexts
         end
-        # rubocop:enable Style/MethodMissing
       end
     end
   end

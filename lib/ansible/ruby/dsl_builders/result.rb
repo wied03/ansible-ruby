@@ -13,7 +13,6 @@ module Ansible
           flat_args = args.map(&:inspect).map(&:to_s).join ', '
           "#{name}.#{id}#{flat_args.empty? ? '' : "(#{flat_args})"}"
         end
-        # rubocop:enable Style/MethodMissing
 
         def respond_to_missing?(*)
           true

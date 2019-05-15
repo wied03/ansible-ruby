@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # See LICENSE.txt for license
 module Ansible
   module Ruby
@@ -21,7 +22,7 @@ module Ansible
           lines << "attribute #{symbol}#{flat_attr_args.empty? ? '' : ", #{flat_attr_args}"}"
           lines << format_validations(option_data)
           lines.compact
-        rescue
+        rescue StandardError
           $stderr << "Problem formatting option #{name}!"
           raise
         end
@@ -88,6 +89,7 @@ module Ansible
           end
 
           return nil unless validations.any?
+
           symbol = symbolize_attribute(option_data.name)
           "validates #{symbol}, #{validations.map { |key, value| "#{key}: #{value}" }.join(', ')}"
         end
@@ -95,6 +97,7 @@ module Ansible
         def locate_generics(types)
           generics = types.select { |type| type.is_a?(TypeGeneric) }.uniq
           raise "Only know how to deal with 1 generic type, found #{generics}" unless generics.length <= 1
+
           generics
         end
 

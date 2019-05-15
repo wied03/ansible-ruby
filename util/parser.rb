@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # See LICENSE.txt for license
 
 require_relative 'parser/option'
@@ -19,12 +20,13 @@ module Ansible
           mod = metadata['module']
           example = begin
             Yaml.parse example_yaml, 'example', mod
-          rescue
-            raise unless ENV['IGNORE_EXAMPLES'] || example_fail_is_ok
-            nil
+                    rescue StandardError
+                      raise unless ENV['IGNORE_EXAMPLES'] || example_fail_is_ok
+
+                      nil
           end
           klass_description = metadata['description']
-          klass_description = [*metadata['short_description']] unless klass_description
+          klass_description ||= [*metadata['short_description']]
           klass mod, klass_description do
             options(metadata['options'], example)
           end
@@ -50,22 +52,22 @@ module Ansible
           description = [*description].map { |line| KLASS_INDENT + "# #{line}" }.join "\n"
           description += "\n" unless description.empty?
           klass_name = mod.capitalize
-          <<RUBY
-# frozen_string_literal: true
-# See LICENSE.txt at root of repository
-# GENERATED FILE - DO NOT EDIT!!
-require 'ansible/ruby/modules/base'
+          <<~RUBY
+            # frozen_string_literal: true
+            # See LICENSE.txt at root of repository
+            # GENERATED FILE - DO NOT EDIT!!
+            require 'ansible/ruby/modules/base'
 
-module Ansible
-  module Ruby
-    module Modules
-#{description + KLASS_INDENT}class #{klass_name} < Base
-#{yield}
-      end
-    end
-  end
-end
-RUBY
+            module Ansible
+              module Ruby
+                module Modules
+            #{description + KLASS_INDENT}class #{klass_name} < Base
+            #{yield}
+                  end
+                end
+              end
+            end
+          RUBY
         end
       end
     end
