@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 # VALIDATED_CHECKSUM: OCJcQ7RvcOxQAYAIMRN4ihXatjP8PELZi/LY1xWrJjY=
-require 'ansible/ruby/modules/generated/network/basics/get_url'
+require 'ansible/ruby/modules/generated/net_tools/basics/get_url'
 require 'ansible/ruby/modules/helpers/file_attributes'
 
 module Ansible

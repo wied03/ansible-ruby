@@ -973,7 +973,7 @@ ansible_mod.autoload(:Zabbix_proxy, 'ansible/ruby/modules/generated/monitoring/z
 ansible_mod.autoload(:Zabbix_screen, 'ansible/ruby/modules/generated/monitoring/zabbix/zabbix_screen')
 ansible_mod.autoload(:Zabbix_template, 'ansible/ruby/modules/generated/monitoring/zabbix/zabbix_template')
 # Using custom module
-ansible_mod.autoload(:Get_url, 'ansible/ruby/modules/custom/network/basics/get_url')
+ansible_mod.autoload(:Get_url, 'ansible/ruby/modules/custom/net_tools/basics/get_url')
 ansible_mod.autoload(:Slurp, 'ansible/ruby/modules/generated/net_tools/basics/slurp')
 ansible_mod.autoload(:Uri, 'ansible/ruby/modules/generated/net_tools/basics/uri')
 ansible_mod.autoload(:Cloudflare_dns, 'ansible/ruby/modules/generated/net_tools/cloudflare_dns')
