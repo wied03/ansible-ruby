@@ -14,7 +14,6 @@ task default: %i[spec
                  report_coverage
                  update_modules
                  rubocop
-                 reek
                  compile_examples
                  ansible_lint
                  verify_custom_mods]
