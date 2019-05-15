@@ -32,3 +32,18 @@ Layout/EmptyLinesAroundClassBody:
 
 Metrics/ClassLength:
   Enabled: false
+
+# don't control this
+Style/NumericLiterals:
+  Enabled: false
+
+# TODO: Fix this
+Style/SymbolArray:
+  Enabled: false
+
+Layout/EmptyLineAfterMagicComment:
+  Enabled: false
+
+# eg. [:true, :false]
+Lint/BooleanSymbol:
+  Enabled: false
