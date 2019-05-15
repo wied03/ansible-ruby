@@ -115,7 +115,8 @@ task generate_modules: :python_dependencies do
               .exclude(/__init__.py/)
               .exclude(/include_vars.py/)
               .exclude(/async_wrapper.py/)
-              .exclude(/netscaler_lb_vserver.py/) # TODO: Fix this module
+              .exclude(/netscaler_lb_vserver.py/) # TODO: Fix these modules
+              .exclude(/netscaler_lb_monitor.py/) # TODO: Fix these modules
           end
   processed_files = []
   checksums = {}
