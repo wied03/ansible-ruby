@@ -62,7 +62,8 @@ ansible_mod.autoload(:Dynamodb_ttl, 'ansible/ruby/modules/generated/cloud/amazon
 ansible_mod.autoload(:Ec2, 'ansible/ruby/modules/custom/cloud/core/amazon/ec2')
 # Using custom module
 ansible_mod.autoload(:Ec2_ami, 'ansible/ruby/modules/custom/cloud/core/amazon/ec2_ami')
-ansible_mod.autoload(:Ec2_ami_copy, 'ansible/ruby/modules/generated/cloud/amazon/ec2_ami_copy')
+# Using custom module
+ansible_mod.autoload(:Ec2_ami_copy, 'ansible/ruby/modules/custom/cloud/core/amazon/ec2_ami_copy')
 ansible_mod.autoload(:Ec2_ami_facts, 'ansible/ruby/modules/generated/cloud/amazon/ec2_ami_facts')
 # Using custom module
 ansible_mod.autoload(:Ec2_asg, 'ansible/ruby/modules/custom/cloud/core/amazon/ec2_asg')
