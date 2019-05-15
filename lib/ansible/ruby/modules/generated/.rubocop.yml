@@ -1,12 +1,12 @@
 # These become Python module names
-Style/ClassAndModuleCamelCase:
+Naming/ClassAndModuleCamelCase:
   Enabled: false
 
 # code gen
 Style/Documentation:
   Enabled: false
 
-Style/SpaceInsideHashLiteralBraces:
+Layout/SpaceInsideHashLiteralBraces:
   Enabled: false
 
 Metrics/LineLength:
@@ -18,19 +18,16 @@ Style/HashSyntax:
 Style/StringLiterals:
   Enabled: false
 
-Style/SpaceAroundOperators:
-  Enabled: false
-
-Style/StringLiterals:
+Layout/SpaceAroundOperators:
   Enabled: false
 
 Style/AsciiComments:
   Enabled: false
 
-Style/TrailingWhitespace:
+Layout/TrailingWhitespace:
   Enabled: false
 
-Style/EmptyLinesAroundClassBody:
+Layout/EmptyLinesAroundClassBody:
   Enabled: false
 
 Metrics/ClassLength:

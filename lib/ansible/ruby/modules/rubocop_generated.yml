@@ -1,5 +1,5 @@
 # These become Python module names
-Style/ClassAndModuleCamelCase:
+Naming/ClassAndModuleCamelCase:
   Enabled: false
 
 # code gen
