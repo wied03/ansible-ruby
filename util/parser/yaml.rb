@@ -13,7 +13,7 @@ module Ansible
             File.write "debug_#{description}_after.yml", yaml_string if ENV['DEBUG']
             YAML.load yaml_string
           rescue StandardError
-            $stderr << "Problem parsing #{description}!"
+            $stderr << "Problem parsing #{description}, string was #{yaml_string}!"
             raise
           end
 
