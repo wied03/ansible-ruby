@@ -153,6 +153,7 @@ task generate_modules: :python_dependencies do
         exception: e,
         output: for_file.join("\n")
       }
+      raise fails[file] if ENV['STOP_AFTER_ONE']
     ensure
       $stderr = STDERR
     end
