@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # VALIDATED_CHECKSUM: zEUT/1FroHoYlOErFCb1SaTk/jDFt2sb9Ahrl65Ln5I=
 
 require 'ansible/ruby/modules/generated/net_tools/basics/get_url'

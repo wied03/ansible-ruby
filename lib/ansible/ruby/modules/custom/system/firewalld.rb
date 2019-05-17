@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # VALIDATED_CHECKSUM: ip23tisTReUfc1MZGw0hNQOlLVxf90rfNQlHDz2ASSM=
 
 # see LICENSE.txt in project root
