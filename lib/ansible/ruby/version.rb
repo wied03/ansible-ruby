@@ -2,6 +2,6 @@
 
 module Ansible
   module Ruby
-    VERSION = '1.0.7.dev'
+    VERSION = '1.0.7'
   end
 end

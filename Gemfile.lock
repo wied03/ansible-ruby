@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    ansible-ruby (1.0.7.dev)
+    ansible-ruby (1.0.7)
       activemodel (~> 5.0)
       rake
 
@@ -99,4 +99,4 @@ DEPENDENCIES
   rubocop (= 0.69)
 
 BUNDLED WITH
-   1.14.6
+   1.16.1
