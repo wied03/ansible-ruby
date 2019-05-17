@@ -1,8 +1,8 @@
 # Ansible-Ruby
 
 [![Build Status](http://img.shields.io/travis/wied03/ansible-ruby/master.svg?style=flat)](http://travis-ci.org/wied03/ansible-ruby)
-[![Quality](http://img.shields.io/codeclimate/github/wied03/ansible-ruby.svg?style=flat-square)](https://codeclimate.com/github/wied03/ansible-ruby)
-[![Coverage](https://codeclimate.com/github/wied03/ansible-ruby/badges/coverage.svg)](https://codeclimate.com/github/wied03/ansible-ruby/coverage)
+[![Maintainability](https://api.codeclimate.com/v1/badges/cbfe0b2fe408abc4dd08/maintainability)](https://codeclimate.com/github/wied03/ansible-ruby/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/cbfe0b2fe408abc4dd08/test_coverage)](https://codeclimate.com/github/wied03/ansible-ruby/test_coverage)
 [![Version](http://img.shields.io/gem/v/ansible-ruby.svg?style=flat-square)](https://rubygems.org/gems/ansible-ruby)
 
 Attempts to create a Ruby DSL on top of Ansible's YML files. Currently this is against Ansible 2.1.2.0.
