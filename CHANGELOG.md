@@ -1,5 +1,5 @@
-# 1.0.7 - Under Development
-* Ansible 2.3.1.0 compatibility
+# 1.0.7
+* Ansible 2.7.1.0 compatibility
 * `ec2` corrections for `count_tag`, `ebs_optimized`, `instance_profile_name`, `exact_count` parameters
 * `ec2_ami`, `ec2_vol`, `iam_policy`, `iam`, `ec2_eip`, `ec2_group` correction for region
 * `ec2_ami` `state` parameter validation correction
