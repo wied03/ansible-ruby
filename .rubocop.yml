@@ -13,6 +13,9 @@ Style/SpecialGlobalVars:
 
 Metrics/ModuleLength:
   Max: 200
+  # Parsing is a hairy business
+  Exclude:
+    - 'util/parser/option.rb'
 
 Metrics/ClassLength:
   Max: 200
