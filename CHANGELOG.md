@@ -1,3 +1,6 @@
+# 1.0.8
+* Use Ansible's `type` metadata attribute to regain some module precision
+
 # 1.0.7
 * Ansible 2.7.1.0 compatibility
 * `ec2` corrections for `count_tag`, `ebs_optimized`, `instance_profile_name`, `exact_count` parameters
