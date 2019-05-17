@@ -16,9 +16,9 @@ module Ansible
         attribute :tenants
         validates :tenants, type: TypeGeneric.new(String)
 
-        # @return [Boolean, nil] Force updates a declaration.,This parameter should be used in cases where your declaration includes items that are encrypted or in cases (such as WAF Policies) where you want a large reload to take place.
+        # @return [Symbol, nil] Force updates a declaration.,This parameter should be used in cases where your declaration includes items that are encrypted or in cases (such as WAF Policies) where you want a large reload to take place.
         attribute :force
-        validates :force, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :force, type: Symbol
 
         # @return [:present, :absent, nil] When C(state) is C(present), ensures the configuration exists.,When C(state) is C(absent), ensures that the configuration is removed.
         attribute :state

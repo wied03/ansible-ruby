@@ -16,13 +16,13 @@ module Ansible
         attribute :description
         validates :description, type: String
 
-        # @return [String, nil] Specify mechanism for host reachability advertisement.
+        # @return [Symbol, nil] Specify mechanism for host reachability advertisement.
         attribute :host_reachability
-        validates :host_reachability, type: String
+        validates :host_reachability, type: Symbol
 
-        # @return [String, nil] Administratively shutdown the NVE interface.
+        # @return [Symbol, nil] Administratively shutdown the NVE interface.
         attribute :shutdown
-        validates :shutdown, type: String
+        validates :shutdown, type: Symbol
 
         # @return [String, nil] Specify the loopback interface whose IP address should be used for the NVE interface.
         attribute :source_interface

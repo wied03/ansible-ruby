@@ -18,13 +18,13 @@ module Ansible
         attribute :name
         validates :name, type: String
 
-        # @return [String, nil] Remove any existing rules not matching those defined in the default_rules parameter.
+        # @return [:yes, :no, nil] Remove any existing rules not matching those defined in the default_rules parameter.
         attribute :purge_default_rules
-        validates :purge_default_rules, type: String
+        validates :purge_default_rules, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Remove any existing rules not matching those defined in the rules parameters.
+        # @return [:yes, :no, nil] Remove any existing rules not matching those defined in the rules parameters.
         attribute :purge_rules
-        validates :purge_rules, type: String
+        validates :purge_rules, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String] Name of the resource group the security group belongs to.
         attribute :resource_group

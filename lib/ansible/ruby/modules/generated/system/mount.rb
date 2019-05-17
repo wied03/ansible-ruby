@@ -40,13 +40,13 @@ module Ansible
         attribute :fstab
         validates :fstab, type: String
 
-        # @return [String, nil] Determines if the filesystem should be mounted on boot.,Only applies to Solaris systems.
+        # @return [:yes, :no, nil] Determines if the filesystem should be mounted on boot.,Only applies to Solaris systems.
         attribute :boot
-        validates :boot, type: String
+        validates :boot, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Create a backup file including the timestamp information so you can get the original file back if you somehow clobbered it incorrectly.
+        # @return [:yes, :no, nil] Create a backup file including the timestamp information so you can get the original file back if you somehow clobbered it incorrectly.
         attribute :backup
-        validates :backup, type: String
+        validates :backup, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

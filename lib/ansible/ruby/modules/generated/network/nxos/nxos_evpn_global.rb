@@ -8,9 +8,9 @@ module Ansible
     module Modules
       # Handles the EVPN control plane for VXLAN.
       class Nxos_evpn_global < Base
-        # @return [Boolean] EVPN control plane.
+        # @return [Symbol] EVPN control plane.
         attribute :nv_overlay_evpn
-        validates :nv_overlay_evpn, presence: true, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}
+        validates :nv_overlay_evpn, presence: true, type: Symbol
       end
     end
   end

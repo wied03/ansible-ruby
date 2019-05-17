@@ -12,9 +12,9 @@ module Ansible
         attribute :config
         validates :config, type: String
 
-        # @return [Boolean, nil] Whether the job should be enabled or disabled.,Mutually exclusive with C(config).,Considered if C(state=present).
+        # @return [Symbol, nil] Whether the job should be enabled or disabled.,Mutually exclusive with C(config).,Considered if C(state=present).
         attribute :enabled
-        validates :enabled, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :enabled, type: Symbol
 
         # @return [String] Name of the Jenkins job.
         attribute :name

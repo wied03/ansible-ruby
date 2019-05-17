@@ -27,9 +27,9 @@ module Ansible
         attribute :frame_distribution_hash
         validates :frame_distribution_hash, inclusion: {:in=>[:"destination-mac", :"source-destination-ip", :"source-destination-mac"], :message=>"%{value} needs to be :\"destination-mac\", :\"source-destination-ip\", :\"source-destination-mac\""}, allow_nil: true
 
-        # @return [Boolean, nil] When C(yes), specifies that the system supports the link aggregation control protocol (LACP), which monitors the trunk by exchanging control packets over the member links to determine the health of the links.,If LACP detects a failure in a member link, it removes the link from the link aggregation.,When creating a new trunk, if this parameter is not specified, LACP is C(no).,LACP is disabled by default for backward compatibility. If this does not apply to your network, we recommend that you enable LACP.
+        # @return [Symbol, nil] When C(yes), specifies that the system supports the link aggregation control protocol (LACP), which monitors the trunk by exchanging control packets over the member links to determine the health of the links.,If LACP detects a failure in a member link, it removes the link from the link aggregation.,When creating a new trunk, if this parameter is not specified, LACP is C(no).,LACP is disabled by default for backward compatibility. If this does not apply to your network, we recommend that you enable LACP.
         attribute :lacp_enabled
-        validates :lacp_enabled, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :lacp_enabled, type: Symbol
 
         # @return [:active, :passive, nil] Specifies the operation mode for link aggregation control protocol (LACP), if LACP is enabled for the trunk.,When creating a new trunk, if this parameter is not specified, the default is C(active).,When C(active), specifies that the system periodically sends control packets regardless of whether the partner system has issued a request.,When C(passive), specifies that the system sends control packets only when the partner system has issued a request.
         attribute :lacp_mode

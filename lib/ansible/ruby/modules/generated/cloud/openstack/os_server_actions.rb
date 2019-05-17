@@ -12,9 +12,9 @@ module Ansible
         attribute :server
         validates :server, presence: true, type: String
 
-        # @return [String, nil] If the module should wait for the instance action to be performed.
+        # @return [:yes, :no, nil] If the module should wait for the instance action to be performed.
         attribute :wait
-        validates :wait, type: String
+        validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] The amount of time the module should wait for the instance to perform the requested action.
         attribute :timeout

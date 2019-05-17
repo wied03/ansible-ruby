@@ -27,17 +27,21 @@ module Ansible
         attribute :update_password
         validates :update_password, inclusion: {:in=>[:always, :on_create], :message=>"%{value} needs to be :always, :on_create"}, allow_nil: true
 
-        # @return [Object, nil] C(yes) will require the user to change their password at next login.,C(no) will clear the expired password flag.
+        # @return [Symbol, nil] C(yes) will require the user to change their password at next login.,C(no) will clear the expired password flag.
         attribute :password_expired
+        validates :password_expired, type: Symbol
 
-        # @return [Object, nil] C(yes) will set the password to never expire.,C(no) will allow the password to expire.
+        # @return [Symbol, nil] C(yes) will set the password to never expire.,C(no) will allow the password to expire.
         attribute :password_never_expires
+        validates :password_never_expires, type: Symbol
 
-        # @return [Object, nil] C(yes) will prevent the user from changing their password.,C(no) will allow the user to change their password.
+        # @return [Symbol, nil] C(yes) will prevent the user from changing their password.,C(no) will allow the user to change their password.
         attribute :user_cannot_change_password
+        validates :user_cannot_change_password, type: Symbol
 
-        # @return [Object, nil] C(yes) will disable the user account.,C(no) will clear the disabled flag.
+        # @return [Symbol, nil] C(yes) will disable the user account.,C(no) will clear the disabled flag.
         attribute :account_disabled
+        validates :account_disabled, type: Symbol
 
         # @return [:no, nil] C(no) will unlock the user account if locked.
         attribute :account_locked

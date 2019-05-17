@@ -23,9 +23,9 @@ module Ansible
         # @return [Object, nil] Filter images by users with explicit launch permissions. Valid options are an AWS account ID, self, or all (public AMIs).
         attribute :executable_users
 
-        # @return [Boolean, nil] Describe attributes (like launchPermission) of the images found.
+        # @return [Symbol, nil] Describe attributes (like launchPermission) of the images found.
         attribute :describe_image_attributes
-        validates :describe_image_attributes, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :describe_image_attributes, type: Symbol
       end
     end
   end

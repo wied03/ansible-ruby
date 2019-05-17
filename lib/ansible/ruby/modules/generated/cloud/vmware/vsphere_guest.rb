@@ -12,9 +12,9 @@ module Ansible
         attribute :vcenter_hostname
         validates :vcenter_hostname, presence: true, type: String
 
-        # @return [String, nil] Validate SSL certs.  Note, if running on python without SSLContext support (typically, python < 2.7.9) you will have to set this to C(no) as pysphere does not support validating certificates on older python. Prior to 2.1, this module would always validate on python >= 2.7.9 and never validate on python <= 2.7.8.
+        # @return [:yes, :no, nil] Validate SSL certs.  Note, if running on python without SSLContext support (typically, python < 2.7.9) you will have to set this to C(no) as pysphere does not support validating certificates on older python. Prior to 2.1, this module would always validate on python >= 2.7.9 and never validate on python <= 2.7.8.
         attribute :validate_certs
-        validates :validate_certs, type: String
+        validates :validate_certs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String] The virtual server name you wish to manage.
         attribute :guest
@@ -42,9 +42,9 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :powered_off, :absent, :powered_on, :restarted, :reconfigured, :reboot_guest, :poweroff_guest], :message=>"%{value} needs to be :present, :powered_off, :absent, :powered_on, :restarted, :reconfigured, :reboot_guest, :poweroff_guest"}, allow_nil: true
 
-        # @return [String, nil] Specifies if the VM should be deployed from a template (mutually exclusive with 'state' parameter). No guest customization changes to hardware such as CPU, RAM, NICs or Disks can be applied when launching from template.
+        # @return [:yes, :no, nil] Specifies if the VM should be deployed from a template (mutually exclusive with 'state' parameter). No guest customization changes to hardware such as CPU, RAM, NICs or Disks can be applied when launching from template.
         attribute :from_template
-        validates :from_template, type: String
+        validates :from_template, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] Name of the source template to deploy from
         attribute :template_src
@@ -52,9 +52,9 @@ module Ansible
         # @return [Object, nil] A string that when specified, will create a linked clone copy of the VM. Snapshot must already be taken in vCenter.
         attribute :snapshot_to_clone
 
-        # @return [String, nil] Specifies if the VM should be powered on after the clone.
+        # @return [:yes, :no, nil] Specifies if the VM should be powered on after the clone.
         attribute :power_on_after_clone
-        validates :power_on_after_clone, type: String
+        validates :power_on_after_clone, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Hash, nil] A key, value list of disks and their sizes and which datastore to keep it in.
         attribute :vm_disk
@@ -75,12 +75,13 @@ module Ansible
         # @return [Object, nil] Desired hardware version identifier (for example, "vmx-08" for vms that needs to be managed with vSphere Client). Note that changing hardware version of existing vm is not supported.
         attribute :vm_hw_version
 
-        # @return [Object, nil] Gather facts from vCenter on a particular VM
+        # @return [Symbol, nil] Gather facts from vCenter on a particular VM
         attribute :vmware_guest_facts
+        validates :vmware_guest_facts, type: Symbol
 
-        # @return [String, nil] Boolean. Allows you to run commands which may alter the running state of a guest. Also used to reconfigure and destroy.
+        # @return [:yes, :no, nil] Boolean. Allows you to run commands which may alter the running state of a guest. Also used to reconfigure and destroy.
         attribute :force
-        validates :force, type: String
+        validates :force, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

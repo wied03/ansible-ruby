@@ -32,9 +32,9 @@ module Ansible
         attribute :description
         validates :description, type: TypeGeneric.new(String)
 
-        # @return [Boolean, nil] Boolean flag to set local.,Default value when not specified in API or module is interpreted by Avi Controller as True.
+        # @return [Symbol, nil] Boolean flag to set local.,Default value when not specified in API or module is interpreted by Avi Controller as True.
         attribute :local
-        validates :local, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :local, type: Symbol
 
         # @return [String] Name of the object.
         attribute :name

@@ -46,8 +46,9 @@ module Ansible
         # @return [Object, nil] List of staticroute.
         attribute :static_routes
 
-        # @return [Object, nil] Boolean flag to set system_default.,Default value when not specified in API or module is interpreted by Avi Controller as False.
+        # @return [Symbol, nil] Boolean flag to set system_default.,Default value when not specified in API or module is interpreted by Avi Controller as False.
         attribute :system_default
+        validates :system_default, type: Symbol
 
         # @return [Object, nil] It is a reference to an object of type tenant.
         attribute :tenant_ref

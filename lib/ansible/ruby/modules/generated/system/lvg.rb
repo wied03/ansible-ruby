@@ -30,9 +30,9 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
-        # @return [String, nil] If C(yes), allows to remove volume group with logical volumes.
+        # @return [:yes, :no, nil] If C(yes), allows to remove volume group with logical volumes.
         attribute :force
-        validates :force, type: String
+        validates :force, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

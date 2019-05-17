@@ -16,32 +16,33 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:reloaded, :restarted, :started, :stopped], :message=>"%{value} needs to be :reloaded, :restarted, :started, :stopped"}, allow_nil: true
 
-        # @return [Boolean, nil] Whether the service should start on boot. B(At least one of state and enabled are required.)
+        # @return [Symbol, nil] Whether the service should start on boot. B(At least one of state and enabled are required.)
         attribute :enabled
-        validates :enabled, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :enabled, type: Symbol
 
-        # @return [Object, nil] Whether to override existing symlinks.
+        # @return [Symbol, nil] Whether to override existing symlinks.
         attribute :force
+        validates :force, type: Symbol
 
-        # @return [Boolean, nil] Whether the unit should be masked or not, a masked unit is impossible to start.
+        # @return [Symbol, nil] Whether the unit should be masked or not, a masked unit is impossible to start.
         attribute :masked
-        validates :masked, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :masked, type: Symbol
 
-        # @return [String, nil] run daemon-reload before doing any other operations, to make sure systemd has read any changes.
+        # @return [:yes, :no, nil] run daemon-reload before doing any other operations, to make sure systemd has read any changes.
         attribute :daemon_reload
-        validates :daemon_reload, type: String
+        validates :daemon_reload, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] (deprecated) run ``systemctl`` talking to the service manager of the calling user, rather than the service manager of the system.,This option is deprecated and will eventually be removed in 2.11. The ``scope`` option should be used instead.
+        # @return [:yes, :no, nil] (deprecated) run ``systemctl`` talking to the service manager of the calling user, rather than the service manager of the system.,This option is deprecated and will eventually be removed in 2.11. The ``scope`` option should be used instead.
         attribute :user
-        validates :user, type: String
+        validates :user, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:system, :user, :global, nil] run systemctl within a given service manager scope, either as the default system scope (system), the current user's scope (user), or the scope of all users (global).
         attribute :scope
         validates :scope, inclusion: {:in=>[:system, :user, :global], :message=>"%{value} needs to be :system, :user, :global"}, allow_nil: true
 
-        # @return [String, nil] Do not synchronously wait for the requested operation to finish. Enqueued job will continue without Ansible blocking on its completion.
+        # @return [:yes, :no, nil] Do not synchronously wait for the requested operation to finish. Enqueued job will continue without Ansible blocking on its completion.
         attribute :no_block
-        validates :no_block, type: String
+        validates :no_block, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

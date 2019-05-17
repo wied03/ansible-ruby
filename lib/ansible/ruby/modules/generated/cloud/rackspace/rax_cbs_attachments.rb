@@ -23,9 +23,9 @@ module Ansible
         attribute :state
         validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
 
-        # @return [String, nil] wait for the volume to be in 'in-use'/'available' state before returning
+        # @return [:yes, :no, nil] wait for the volume to be in 'in-use'/'available' state before returning
         attribute :wait
-        validates :wait, type: String
+        validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] how long before wait gives up, in seconds
         attribute :wait_timeout

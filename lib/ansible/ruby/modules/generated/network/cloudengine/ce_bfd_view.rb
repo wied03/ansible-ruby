@@ -33,9 +33,9 @@ module Ansible
         # @return [Object, nil] Specifies a priority for BFD control packets. The value is an integer ranging from 0 to 7. The default value is 7, which is the highest priority.
         attribute :tos_exp
 
-        # @return [String, nil] Enables the BFD session to enter the AdminDown state. By default, a BFD session is enabled. The default value is bool type.
+        # @return [:yes, :no, nil] Enables the BFD session to enter the AdminDown state. By default, a BFD session is enabled. The default value is bool type.
         attribute :admin_down
-        validates :admin_down, type: String
+        validates :admin_down, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] Specifies the description of a BFD session. The value is a string of 1 to 51 case-sensitive characters with spaces.
         attribute :description

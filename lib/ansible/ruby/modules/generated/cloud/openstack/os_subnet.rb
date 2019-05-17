@@ -28,16 +28,16 @@ module Ansible
         attribute :ip_version
         validates :ip_version, type: Integer
 
-        # @return [String, nil] Whether DHCP should be enabled for this subnet.
+        # @return [:yes, :no, nil] Whether DHCP should be enabled for this subnet.
         attribute :enable_dhcp
-        validates :enable_dhcp, type: String
+        validates :enable_dhcp, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] The ip that would be assigned to the gateway for this subnet
         attribute :gateway_ip
 
-        # @return [String, nil] The gateway IP would not be assigned for this subnet
+        # @return [:yes, :no, nil] The gateway IP would not be assigned for this subnet
         attribute :no_gateway_ip
-        validates :no_gateway_ip, type: String
+        validates :no_gateway_ip, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Array<String>, String, nil] List of DNS nameservers for this subnet.
         attribute :dns_nameservers
@@ -61,9 +61,9 @@ module Ansible
         attribute :ipv6_address_mode
         validates :ipv6_address_mode, inclusion: {:in=>[:"dhcpv6-stateful", :"dhcpv6-stateless", :slaac], :message=>"%{value} needs to be :\"dhcpv6-stateful\", :\"dhcpv6-stateless\", :slaac"}, allow_nil: true
 
-        # @return [String, nil] Use the default subnetpool for I(ip_version) to obtain a CIDR.
+        # @return [:yes, :no, nil] Use the default subnetpool for I(ip_version) to obtain a CIDR.
         attribute :use_default_subnetpool
-        validates :use_default_subnetpool, type: String
+        validates :use_default_subnetpool, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] Project name or ID containing the subnet (name admin-only)
         attribute :project

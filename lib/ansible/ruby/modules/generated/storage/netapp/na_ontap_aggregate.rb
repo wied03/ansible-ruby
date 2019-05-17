@@ -43,9 +43,9 @@ module Ansible
         # @return [Object, nil] Specifies the type of RAID groups to use in the new aggregate.,The default value is raid4 on most platforms.
         attribute :raid_type
 
-        # @return [Boolean, nil] If set to "TRUE", this option specifies that all of the volumes hosted by the given aggregate are to be unmounted,before the offline operation is executed.,By default, the system will reject any attempt to offline an aggregate that hosts one or more online volumes.
+        # @return [Symbol, nil] If set to "TRUE", this option specifies that all of the volumes hosted by the given aggregate are to be unmounted,before the offline operation is executed.,By default, the system will reject any attempt to offline an aggregate that hosts one or more online volumes.
         attribute :unmount_volumes
-        validates :unmount_volumes, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :unmount_volumes, type: Symbol
       end
     end
   end

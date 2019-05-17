@@ -44,17 +44,17 @@ module Ansible
         # @return [Object, nil] Set the child-element(s) of a selected element for a given C(xpath).,Removes any existing children.,Child elements must be specified as in C(add_children).,This parameter requires C(xpath) to be set.
         attribute :set_children
 
-        # @return [String, nil] Search for a given C(xpath) and provide the count of any matches.,This parameter requires C(xpath) to be set.
+        # @return [:yes, :no, nil] Search for a given C(xpath) and provide the count of any matches.,This parameter requires C(xpath) to be set.
         attribute :count
-        validates :count, type: String
+        validates :count, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Search for a given C(xpath) and print out any matches.,This parameter requires C(xpath) to be set.
+        # @return [:yes, :no, nil] Search for a given C(xpath) and print out any matches.,This parameter requires C(xpath) to be set.
         attribute :print_match
-        validates :print_match, type: String
+        validates :print_match, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Pretty print XML output.
+        # @return [:yes, :no, nil] Pretty print XML output.
         attribute :pretty_print
-        validates :pretty_print, type: String
+        validates :pretty_print, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:attribute, :text, nil] Search for a given C(xpath) and get content.,This parameter requires C(xpath) to be set.
         attribute :content
@@ -64,13 +64,13 @@ module Ansible
         attribute :input_type
         validates :input_type, inclusion: {:in=>[:xml, :yaml], :message=>"%{value} needs to be :xml, :yaml"}, allow_nil: true
 
-        # @return [String, nil] Create a backup file including the timestamp information so you can get the original file back if you somehow clobbered it incorrectly.
+        # @return [:yes, :no, nil] Create a backup file including the timestamp information so you can get the original file back if you somehow clobbered it incorrectly.
         attribute :backup
-        validates :backup, type: String
+        validates :backup, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Remove CDATA tags surrounding text values.,Note that this might break your XML file if text values contain characters that could be interpreted as XML.
+        # @return [:yes, :no, nil] Remove CDATA tags surrounding text values.,Note that this might break your XML file if text values contain characters that could be interpreted as XML.
         attribute :strip_cdata_tags
-        validates :strip_cdata_tags, type: String
+        validates :strip_cdata_tags, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

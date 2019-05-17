@@ -39,8 +39,9 @@ module Ansible
         # @return [Object, nil] Enable an action - close connection, http redirect, or local http response - when a pool group failure happens.,By default, a connection will be closed, in case the pool group experiences a failure.
         attribute :fail_action
 
-        # @return [Object, nil] Whether an implicit set of priority labels is generated.,Field introduced in 17.1.9,17.2.3.,Default value when not specified in API or module is interpreted by Avi Controller as False.
+        # @return [Symbol, nil] Whether an implicit set of priority labels is generated.,Field introduced in 17.1.9,17.2.3.,Default value when not specified in API or module is interpreted by Avi Controller as False.
         attribute :implicit_priority_labels
+        validates :implicit_priority_labels, type: Symbol
 
         # @return [Object, nil] List of pool group members object of type poolgroupmember.
         attribute :members

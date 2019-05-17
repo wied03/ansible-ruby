@@ -8,9 +8,9 @@ module Ansible
     module Modules
       # Collect facts from F5 BIG-IP devices via iControl SOAP API
       class Bigip_facts < Base
-        # @return [Boolean, nil] BIG-IP session support; may be useful to avoid concurrency issues in certain circumstances.
+        # @return [Symbol, nil] BIG-IP session support; may be useful to avoid concurrency issues in certain circumstances.
         attribute :session
-        validates :session, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :session, type: Symbol
 
         # @return [:address_class, :certificate, :client_ssl_profile, :device, :device_group, :interface, :key, :node, :pool, :provision, :rule, :self_ip, :software, :system_info, :traffic_group, :trunk, :virtual_address, :virtual_server, :vlan] Fact category or list of categories to collect
         attribute :include

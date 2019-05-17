@@ -20,9 +20,9 @@ module Ansible
         attribute :api_url
         validates :api_url, presence: true, type: String
 
-        # @return [String, nil] Should https certificates be validated?
+        # @return [:yes, :no, nil] Should https certificates be validated?
         attribute :validate_certs
-        validates :validate_certs, type: String
+        validates :validate_certs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String] The ID of the array to manage. This value must be unique for each array.
         attribute :ssid
@@ -42,9 +42,9 @@ module Ansible
         # @return [Object, nil] The management password of the array to manage, if set.
         attribute :array_password
 
-        # @return [String, nil] Enable trace logging for SYMbol calls to the storage system.
+        # @return [:yes, :no, nil] Enable trace logging for SYMbol calls to the storage system.
         attribute :enable_trace
-        validates :enable_trace, type: String
+        validates :enable_trace, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] Optional meta tags to associate to this storage system
         attribute :meta_tags

@@ -44,13 +44,13 @@ module Ansible
         attribute :exchange_type
         validates :exchange_type, inclusion: {:in=>[:fanout, :direct, :headers, :topic], :message=>"%{value} needs to be :fanout, :direct, :headers, :topic"}, allow_nil: true
 
-        # @return [Boolean, nil] if the exchange should delete itself after all queues/exchanges unbound from it
+        # @return [Symbol, nil] if the exchange should delete itself after all queues/exchanges unbound from it
         attribute :auto_delete
-        validates :auto_delete, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :auto_delete, type: Symbol
 
-        # @return [Boolean, nil] exchange is available only for other exchanges
+        # @return [Symbol, nil] exchange is available only for other exchanges
         attribute :internal
-        validates :internal, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :internal, type: Symbol
 
         # @return [Object, nil] extra arguments for exchange. If defined this argument is a key/value dictionary
         attribute :arguments

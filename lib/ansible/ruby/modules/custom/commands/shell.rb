@@ -1,6 +1,6 @@
 # frozen_string_literal: true
+# VALIDATED_CHECKSUM: OX/3jV11XiTvfEQ2c3H7uBuwsz9cDw1BHAgg4Q7AZlI=
 
-# VALIDATED_CHECKSUM: ko4ailxvWz/5/r5LTUWYrCGQ0J0opoOvk9nBJFohzlA=
 # See LICENSE.txt for license
 
 require 'ansible/ruby/modules/free_form'

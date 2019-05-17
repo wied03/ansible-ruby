@@ -16,32 +16,37 @@ module Ansible
         attribute :description
         validates :description, type: String
 
-        # @return [String, nil] Maximum links.,Accepted values range between 1 and 16.,The APIC defaults to C(16) when unset during creation.
+        # @return [Integer, nil] Maximum links.,Accepted values range between 1 and 16.,The APIC defaults to C(16) when unset during creation.
         attribute :max_links
-        validates :max_links, type: String
+        validates :max_links, type: Integer
 
-        # @return [String, nil] Minimum links.,Accepted values range between 1 and 16.,The APIC defaults to C(1) when unset during creation.
+        # @return [Integer, nil] Minimum links.,Accepted values range between 1 and 16.,The APIC defaults to C(1) when unset during creation.
         attribute :min_links
-        validates :min_links, type: String
+        validates :min_links, type: Integer
 
         # @return [:active, :"mac-pin", :"mac-pin-nicload", :off, :passive, nil] Port channel interface policy mode.,Determines the LACP method to use for forming port-channels.,The APIC defaults to C(off) when unset during creation.
         attribute :mode
         validates :mode, inclusion: {:in=>[:active, :"mac-pin", :"mac-pin-nicload", :off, :passive], :message=>"%{value} needs to be :active, :\"mac-pin\", :\"mac-pin-nicload\", :off, :passive"}, allow_nil: true
 
-        # @return [Object, nil] Determines if Fast Select is enabled for Hot Standby Ports.,This makes up the LACP Policy Control Policy; if one setting is defined, then all other Control Properties left undefined or set to false will not exist after the task is ran.,The APIC defaults to C(yes) when unset during creation.
+        # @return [Symbol, nil] Determines if Fast Select is enabled for Hot Standby Ports.,This makes up the LACP Policy Control Policy; if one setting is defined, then all other Control Properties left undefined or set to false will not exist after the task is ran.,The APIC defaults to C(yes) when unset during creation.
         attribute :fast_select
+        validates :fast_select, type: Symbol
 
-        # @return [Object, nil] Determines if Graceful Convergence is enabled.,This makes up the LACP Policy Control Policy; if one setting is defined, then all other Control Properties left undefined or set to false will not exist after the task is ran.,The APIC defaults to C(yes) when unset during creation.
+        # @return [Symbol, nil] Determines if Graceful Convergence is enabled.,This makes up the LACP Policy Control Policy; if one setting is defined, then all other Control Properties left undefined or set to false will not exist after the task is ran.,The APIC defaults to C(yes) when unset during creation.
         attribute :graceful_convergence
+        validates :graceful_convergence, type: Symbol
 
-        # @return [Object, nil] Determines if Load Defer is enabled.,This makes up the LACP Policy Control Policy; if one setting is defined, then all other Control Properties left undefined or set to false will not exist after the task is ran.,The APIC defaults to C(no) when unset during creation.
+        # @return [Symbol, nil] Determines if Load Defer is enabled.,This makes up the LACP Policy Control Policy; if one setting is defined, then all other Control Properties left undefined or set to false will not exist after the task is ran.,The APIC defaults to C(no) when unset during creation.
         attribute :load_defer
+        validates :load_defer, type: Symbol
 
-        # @return [Object, nil] Determines if Suspend Individual is enabled.,This makes up the LACP Policy Control Policy; if one setting is defined, then all other Control Properties left undefined or set to false will not exist after the task is ran.,The APIC defaults to C(yes) when unset during creation.
+        # @return [Symbol, nil] Determines if Suspend Individual is enabled.,This makes up the LACP Policy Control Policy; if one setting is defined, then all other Control Properties left undefined or set to false will not exist after the task is ran.,The APIC defaults to C(yes) when unset during creation.
         attribute :suspend_individual
+        validates :suspend_individual, type: Symbol
 
-        # @return [Object, nil] Determines if Symmetric Hashing is enabled.,This makes up the LACP Policy Control Policy; if one setting is defined, then all other Control Properties left undefined or set to false will not exist after the task is ran.,The APIC defaults to C(no) when unset during creation.
+        # @return [Symbol, nil] Determines if Symmetric Hashing is enabled.,This makes up the LACP Policy Control Policy; if one setting is defined, then all other Control Properties left undefined or set to false will not exist after the task is ran.,The APIC defaults to C(no) when unset during creation.
         attribute :symmetric_hash
+        validates :symmetric_hash, type: Symbol
 
         # @return [:absent, :present, :query, nil] Use C(present) or C(absent) for adding or removing.,Use C(query) for listing an object or multiple objects.
         attribute :state

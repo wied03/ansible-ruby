@@ -34,9 +34,9 @@ module Ansible
         attribute :aggregate
         validates :aggregate, type: TypeGeneric.new(Hash)
 
-        # @return [String, nil] Purge VRFs not defined in the I(aggregate) parameter.
+        # @return [:yes, :no, nil] Purge VRFs not defined in the I(aggregate) parameter.
         attribute :purge
-        validates :purge, type: String
+        validates :purge, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:present, :absent, nil] Manages desired state of the resource.
         attribute :state

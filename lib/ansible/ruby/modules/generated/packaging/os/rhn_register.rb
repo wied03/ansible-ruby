@@ -41,13 +41,13 @@ module Ansible
         # @return [Object, nil] Optionally specify a list of comma-separated channels to subscribe to upon successful registration.
         attribute :channels
 
-        # @return [String, nil] If C(no), extended update support will be requested.
+        # @return [:yes, :no, nil] If C(no), extended update support will be requested.
         attribute :enable_eus
-        validates :enable_eus, type: String
+        validates :enable_eus, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] If C(yes), the registered node will not upload its installed packages information to Satellite server
+        # @return [:yes, :no, nil] If C(yes), the registered node will not upload its installed packages information to Satellite server
         attribute :nopackages
-        validates :nopackages, type: String
+        validates :nopackages, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

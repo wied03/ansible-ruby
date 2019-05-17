@@ -22,9 +22,9 @@ module Ansible
         attribute :files
         validates :files, presence: true, type: TypeGeneric.new(String)
 
-        # @return [String, nil] If C(yes), which will replace the remote file when contents are different than the source.,If C(no), the file will only be extracted and copied if the destination does not already exist.
+        # @return [:yes, :no, nil] If C(yes), which will replace the remote file when contents are different than the source.,If C(no), the file will only be extracted and copied if the destination does not already exist.
         attribute :force
-        validates :force, type: String
+        validates :force, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] The path to the C(7z) executable to use for extracting files from the ISO.
         attribute :executable

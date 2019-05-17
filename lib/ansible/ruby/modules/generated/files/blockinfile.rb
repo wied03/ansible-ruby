@@ -32,13 +32,13 @@ module Ansible
         attribute :insertbefore
         validates :insertbefore, inclusion: {:in=>[:BOF, :"*regex*"], :message=>"%{value} needs to be :BOF, :\"*regex*\""}, allow_nil: true
 
-        # @return [String, nil] Create a new file if it doesn't exist.
+        # @return [:yes, :no, nil] Create a new file if it doesn't exist.
         attribute :create
-        validates :create, type: String
+        validates :create, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Create a backup file including the timestamp information so you can get the original file back if you somehow clobbered it incorrectly.
+        # @return [:yes, :no, nil] Create a backup file including the timestamp information so you can get the original file back if you somehow clobbered it incorrectly.
         attribute :backup
-        validates :backup, type: String
+        validates :backup, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] This will be inserted at {mark} in the opening ansible block marker.
         attribute :marker_begin

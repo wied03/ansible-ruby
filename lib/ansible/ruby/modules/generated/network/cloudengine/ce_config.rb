@@ -31,20 +31,20 @@ module Ansible
         attribute :replace
         validates :replace, inclusion: {:in=>[:line, :block], :message=>"%{value} needs to be :line, :block"}, allow_nil: true
 
-        # @return [String, nil] This argument will cause the module to create a full backup of the current C(current-configuration) from the remote device before any changes are made.  The backup file is written to the C(backup) folder in the playbook root directory.  If the directory does not exist, it is created.
+        # @return [:yes, :no, nil] This argument will cause the module to create a full backup of the current C(current-configuration) from the remote device before any changes are made.  The backup file is written to the C(backup) folder in the playbook root directory.  If the directory does not exist, it is created.
         attribute :backup
-        validates :backup, type: String
+        validates :backup, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] The module, by default, will connect to the remote device and retrieve the current current-configuration to use as a base for comparing against the contents of source.  There are times when it is not desirable to have the task get the current-configuration for every task in a playbook.  The I(config) argument allows the implementer to pass in the configuration to use as the base config for comparison.
         attribute :config
 
-        # @return [String, nil] The I(defaults) argument will influence how the current-configuration is collected from the device.  When the value is set to true, the command used to collect the current-configuration is append with the all keyword.  When the value is set to false, the command is issued without the all keyword.
+        # @return [:yes, :no, nil] The I(defaults) argument will influence how the current-configuration is collected from the device.  When the value is set to true, the command used to collect the current-configuration is append with the all keyword.  When the value is set to false, the command is issued without the all keyword.
         attribute :defaults
-        validates :defaults, type: String
+        validates :defaults, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] The C(save) argument instructs the module to save the current-configuration to saved-configuration.  This operation is performed after any changes are made to the current running config.  If no changes are made, the configuration is still saved to the startup config.  This option will always cause the module to return changed.
+        # @return [:yes, :no, nil] The C(save) argument instructs the module to save the current-configuration to saved-configuration.  This operation is performed after any changes are made to the current running config.  If no changes are made, the configuration is still saved to the startup config.  This option will always cause the module to return changed.
         attribute :save
-        validates :save, type: String
+        validates :save, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

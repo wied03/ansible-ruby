@@ -16,13 +16,13 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:absent, :present, :query], :message=>"%{value} needs to be :absent, :present, :query"}, allow_nil: true
 
-        # @return [String, nil] whether to follow symlinks on the path if a symlink is encountered.
+        # @return [:yes, :no, nil] whether to follow symlinks on the path if a symlink is encountered.
         attribute :follow
-        validates :follow, type: String
+        validates :follow, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] if the target is a directory, setting this to yes will make it the default acl for entities created inside the directory. It causes an error if path is a file.
+        # @return [:yes, :no, nil] if the target is a directory, setting this to yes will make it the default acl for entities created inside the directory. It causes an error if path is a file.
         attribute :default
-        validates :default, type: String
+        validates :default, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] actual user or group that the ACL applies to when matching entity types user or group are selected.
         attribute :entity
@@ -40,9 +40,9 @@ module Ansible
         attribute :entry
         validates :entry, type: String
 
-        # @return [String, nil] Recursively sets the specified ACL (added in Ansible 2.0). Incompatible with C(state=query).
+        # @return [:yes, :no, nil] Recursively sets the specified ACL (added in Ansible 2.0). Incompatible with C(state=query).
         attribute :recursive
-        validates :recursive, type: String
+        validates :recursive, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:default, :mask, :no_mask, nil] Select if and when to recalculate the effective right masks of the files, see setfacl documentation for more info. Incompatible with C(state=query).
         attribute :recalculate_mask

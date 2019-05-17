@@ -32,9 +32,9 @@ module Ansible
         # @return [Object, nil] Specifies the name of a Virtual Private Network (VPN) instance that is bound to a BFD session. The value is a string of 1 to 31 case-sensitive characters, spaces not supported. When double quotation marks are used around the string, spaces are allowed in the string. The value _public_ is reserved and cannot be used as the VPN instance name.
         attribute :vrf_name
 
-        # @return [String, nil] Indicates the default multicast IP address that is bound to a BFD session. By default, BFD uses the multicast IP address 224.0.0.184. You can set the multicast IP address by running the default-ip-address command. The value is a bool type.
+        # @return [:yes, :no, nil] Indicates the default multicast IP address that is bound to a BFD session. By default, BFD uses the multicast IP address 224.0.0.184. You can set the multicast IP address by running the default-ip-address command. The value is a bool type.
         attribute :use_default_ip
-        validates :use_default_ip, type: String
+        validates :use_default_ip, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:present, :absent, nil] Determines whether the config should be present or not on the device.
         attribute :state

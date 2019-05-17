@@ -20,8 +20,9 @@ module Ansible
         attribute :qinq
         validates :qinq, inclusion: {:in=>[:core, :disabled, :edge], :message=>"%{value} needs to be :core, :disabled, :edge"}, allow_nil: true
 
-        # @return [Object, nil] Determines if Virtual Ethernet Port Aggregator is disabled or enabled.,The APIC defaults to C(no) when unset during creation.
+        # @return [Symbol, nil] Determines if Virtual Ethernet Port Aggregator is disabled or enabled.,The APIC defaults to C(no) when unset during creation.
         attribute :vepa
+        validates :vepa, type: Symbol
 
         # @return [:global, :portlocal, nil] The scope of the VLAN.,The APIC defaults to C(global) when unset during creation.
         attribute :vlan_scope

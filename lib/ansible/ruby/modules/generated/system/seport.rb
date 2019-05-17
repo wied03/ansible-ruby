@@ -24,9 +24,9 @@ module Ansible
         attribute :state
         validates :state, presence: true, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}
 
-        # @return [String, nil] Reload SELinux policy after commit.
+        # @return [:yes, :no, nil] Reload SELinux policy after commit.
         attribute :reload
-        validates :reload, type: String
+        validates :reload, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

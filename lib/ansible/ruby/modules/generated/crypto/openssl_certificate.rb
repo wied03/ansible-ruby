@@ -20,9 +20,9 @@ module Ansible
         attribute :provider
         validates :provider, presence: true, inclusion: {:in=>[:selfsigned, :ownca, :assertonly, :acme], :message=>"%{value} needs to be :selfsigned, :ownca, :assertonly, :acme"}
 
-        # @return [Boolean, nil] Generate the certificate, even if it already exists.
+        # @return [Symbol, nil] Generate the certificate, even if it already exists.
         attribute :force
-        validates :force, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :force, type: Symbol
 
         # @return [String, nil] Path to the Certificate Signing Request (CSR) used to generate this certificate. This is not required in C(assertonly) mode.
         attribute :csr_path
@@ -94,20 +94,20 @@ module Ansible
         attribute :issuer
         validates :issuer, type: Hash
 
-        # @return [Boolean, nil] If set to True, the I(issuer) field must contain only these values.
+        # @return [Symbol, nil] If set to True, the I(issuer) field must contain only these values.
         attribute :issuer_strict
-        validates :issuer_strict, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :issuer_strict, type: Symbol
 
         # @return [Object, nil] Key/value pairs that must be present in the subject name field of the certificate. If you need to specify more than one value with the same key, use a list as value.
         attribute :subject
 
-        # @return [Boolean, nil] If set to True, the I(subject) field must contain only these values.
+        # @return [Symbol, nil] If set to True, the I(subject) field must contain only these values.
         attribute :subject_strict
-        validates :subject_strict, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :subject_strict, type: Symbol
 
-        # @return [Boolean, nil] Checks if the certificate is expired/not expired at the time the module is executed.
+        # @return [Symbol, nil] Checks if the certificate is expired/not expired at the time the module is executed.
         attribute :has_expired
-        validates :has_expired, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :has_expired, type: Symbol
 
         # @return [Object, nil] Version of the certificate. Nowadays it should almost always be 3.
         attribute :version
@@ -133,25 +133,25 @@ module Ansible
         attribute :key_usage
         validates :key_usage, type: TypeGeneric.new(String)
 
-        # @return [Boolean, nil] If set to True, the I(key_usage) extension field must contain only these values.
+        # @return [Symbol, nil] If set to True, the I(key_usage) extension field must contain only these values.
         attribute :key_usage_strict
-        validates :key_usage_strict, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :key_usage_strict, type: Symbol
 
         # @return [Array<String>, String, nil] The I(extended_key_usage) extension field must contain all these values.
         attribute :extended_key_usage
         validates :extended_key_usage, type: TypeGeneric.new(String)
 
-        # @return [Boolean, nil] If set to True, the I(extended_key_usage) extension field must contain only these values.
+        # @return [Symbol, nil] If set to True, the I(extended_key_usage) extension field must contain only these values.
         attribute :extended_key_usage_strict
-        validates :extended_key_usage_strict, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :extended_key_usage_strict, type: Symbol
 
         # @return [Array<String>, String, nil] The I(subject_alt_name) extension field must contain these values.
         attribute :subject_alt_name
         validates :subject_alt_name, type: TypeGeneric.new(String)
 
-        # @return [Boolean, nil] If set to True, the I(subject_alt_name) extension field must contain only these values.
+        # @return [Symbol, nil] If set to True, the I(subject_alt_name) extension field must contain only these values.
         attribute :subject_alt_name_strict
-        validates :subject_alt_name_strict, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :subject_alt_name_strict, type: Symbol
       end
     end
   end

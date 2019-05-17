@@ -8,8 +8,9 @@ module Ansible
     module Modules
       # Used to register or deregister a target in a target group
       class Elb_target < Base
-        # @return [Object, nil] The default behaviour for targets that are unused is to leave them registered. If instead you would like to remove them set I(deregister_unused) to yes.
+        # @return [Symbol, nil] The default behaviour for targets that are unused is to leave them registered. If instead you would like to remove them set I(deregister_unused) to yes.
         attribute :deregister_unused
+        validates :deregister_unused, type: Symbol
 
         # @return [Object, nil] An Availability Zone or all. This determines whether the target receives traffic from the load balancer nodes in the specified Availability Zone or from all enabled Availability Zones for the load balancer. This parameter is not supported if the target type of the target group is instance.
         attribute :target_az

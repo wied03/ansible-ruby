@@ -44,13 +44,13 @@ module Ansible
         attribute :body
         validates :body, type: String
 
-        # @return [String, nil] Sets if the release is a draft or not. (boolean)
+        # @return [:yes, :no, nil] Sets if the release is a draft or not. (boolean)
         attribute :draft
-        validates :draft, type: String
+        validates :draft, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Sets if the release is a prerelease or not. (boolean)
+        # @return [:yes, :no, nil] Sets if the release is a prerelease or not. (boolean)
         attribute :prerelease
-        validates :prerelease, type: String
+        validates :prerelease, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

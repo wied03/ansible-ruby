@@ -31,9 +31,9 @@ module Ansible
         attribute :scheduled_at
         validates :scheduled_at, type: String
 
-        # @return [Boolean, nil] Ignore warnings and complete the actions.,This parameter is useful while forcing virtual machine state.
+        # @return [Symbol, nil] Ignore warnings and complete the actions.,This parameter is useful while forcing virtual machine state.
         attribute :force
-        validates :force, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :force, type: Symbol
 
         # @return [Integer, nil] If the C(state) is set to C(shutdown-guest), by default the module will return immediately after sending the shutdown signal.,If this argument is set to a positive integer, the module will instead wait for the VM to reach the poweredoff state.,The value sets a timeout in seconds for the module to wait for the state change.
         attribute :state_change_timeout

@@ -21,12 +21,13 @@ module Ansible
         attribute :comment
         validates :comment, type: String
 
-        # @return [Object, nil] macOS only, optionally hide the user from the login window and system preferences.,The default will be 'True' if the I(system) option is used.
+        # @return [Symbol, nil] macOS only, optionally hide the user from the login window and system preferences.,The default will be 'True' if the I(system) option is used.
         attribute :hidden
+        validates :hidden, type: Symbol
 
-        # @return [String, nil] Optionally when used with the -u option, this option allows to change the user ID to a non-unique value.
+        # @return [:yes, :no, nil] Optionally when used with the -u option, this option allows to change the user ID to a non-unique value.
         attribute :non_unique
-        validates :non_unique, type: String
+        validates :non_unique, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] Optionally sets the seuser type (user_u) on selinux enabled systems.
         attribute :seuser
@@ -39,9 +40,9 @@ module Ansible
         attribute :groups
         validates :groups, type: TypeGeneric.new(String)
 
-        # @return [String, nil] If C(yes), add the user to the groups specified in C(groups).,If C(no), user will only be added to the groups specified in C(groups), removing them from all other groups.
+        # @return [:yes, :no, nil] If C(yes), add the user to the groups specified in C(groups).,If C(no), user will only be added to the groups specified in C(groups), removing them from all other groups.
         attribute :append
-        validates :append, type: String
+        validates :append, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] Optionally set the user's shell.,On macOS, before version 2.5, the default shell for non-system users was /usr/bin/false. Since 2.5, the default shell for non-system users on macOS is /bin/bash.,On other operating systems, the default shell is determined by the underlying tool being used. See Notes for details.
         attribute :shell
@@ -60,32 +61,32 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
-        # @return [String, nil] Unless set to C(no), a home directory will be made for the user when the account is created or if the home directory does not exist.,Changed from C(createhome) to C(create_home) in version 2.5.
+        # @return [:yes, :no, nil] Unless set to C(no), a home directory will be made for the user when the account is created or if the home directory does not exist.,Changed from C(createhome) to C(create_home) in version 2.5.
         attribute :create_home
-        validates :create_home, type: String
+        validates :create_home, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] If set to C(yes) when used with C(home=), attempt to move the user's old home directory to the specified directory if it isn't there already and the old home exists.
+        # @return [:yes, :no, nil] If set to C(yes) when used with C(home=), attempt to move the user's old home directory to the specified directory if it isn't there already and the old home exists.
         attribute :move_home
-        validates :move_home, type: String
+        validates :move_home, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] When creating an account C(state=present), setting this to C(yes) makes the user a system account. This setting cannot be changed on existing users.
+        # @return [:yes, :no, nil] When creating an account C(state=present), setting this to C(yes) makes the user a system account. This setting cannot be changed on existing users.
         attribute :system
-        validates :system, type: String
+        validates :system, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] This only affects C(state=absent), it forces removal of the user and associated directories on supported platforms. The behavior is the same as C(userdel --force), check the man page for C(userdel) on your system for details and support.
+        # @return [:yes, :no, nil] This only affects C(state=absent), it forces removal of the user and associated directories on supported platforms. The behavior is the same as C(userdel --force), check the man page for C(userdel) on your system for details and support.
         attribute :force
-        validates :force, type: String
+        validates :force, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] This only affects C(state=absent), it attempts to remove directories associated with the user. The behavior is the same as C(userdel --remove), check the man page for details and support.
+        # @return [:yes, :no, nil] This only affects C(state=absent), it attempts to remove directories associated with the user. The behavior is the same as C(userdel --remove), check the man page for details and support.
         attribute :remove
-        validates :remove, type: String
+        validates :remove, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] Optionally sets the user's login class, a feature of most BSD OSs.
         attribute :login_class
 
-        # @return [String, nil] Whether to generate a SSH key for the user in question. This will B(not) overwrite an existing SSH key.
+        # @return [:yes, :no, nil] Whether to generate a SSH key for the user in question. This will B(not) overwrite an existing SSH key.
         attribute :generate_ssh_key
-        validates :generate_ssh_key, type: String
+        validates :generate_ssh_key, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] Optionally specify number of bits in SSH key to create.
         attribute :ssh_key_bits
@@ -114,12 +115,13 @@ module Ansible
         attribute :expires
         validates :expires, type: Integer
 
-        # @return [Object, nil] Lock the password (usermod -L, pw lock, usermod -C). BUT implementation differs on different platforms, this option does not always mean the user cannot login via other methods. This option does not disable the user, only lock the password. Do not change the password in the same task. Currently supported on Linux, FreeBSD, DragonFlyBSD, NetBSD.
+        # @return [Symbol, nil] Lock the password (usermod -L, pw lock, usermod -C). BUT implementation differs on different platforms, this option does not always mean the user cannot login via other methods. This option does not disable the user, only lock the password. Do not change the password in the same task. Currently supported on Linux, FreeBSD, DragonFlyBSD, NetBSD.
         attribute :password_lock
+        validates :password_lock, type: Symbol
 
-        # @return [String, nil] Forces the use of "local" command alternatives on platforms that implement it. This is useful in environments that use centralized authentification when you want to manipulate the local users. I.E. it uses `luseradd` instead of `useradd`.,This requires that these commands exist on the targeted host, otherwise it will be a fatal error.
+        # @return [:yes, :no, nil] Forces the use of "local" command alternatives on platforms that implement it. This is useful in environments that use centralized authentification when you want to manipulate the local users. I.E. it uses `luseradd` instead of `useradd`.,This requires that these commands exist on the targeted host, otherwise it will be a fatal error.
         attribute :local
-        validates :local, type: String
+        validates :local, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

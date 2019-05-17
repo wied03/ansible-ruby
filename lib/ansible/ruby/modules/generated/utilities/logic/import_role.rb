@@ -25,13 +25,13 @@ module Ansible
         attribute :defaults_from
         validates :defaults_from, type: String
 
-        # @return [String, nil] Overrides the role's metadata setting to allow using a role more than once with the same parameters.
+        # @return [:yes, :no, nil] Overrides the role's metadata setting to allow using a role more than once with the same parameters.
         attribute :allow_duplicates
-        validates :allow_duplicates, type: String
+        validates :allow_duplicates, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] This option is a no op, and the functionality described in previous versions was not implemented. This option will be removed in Ansible v2.8.
+        # @return [:yes, :no, nil] This option is a no op, and the functionality described in previous versions was not implemented. This option will be removed in Ansible v2.8.
         attribute :private
-        validates :private, type: String
+        validates :private, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

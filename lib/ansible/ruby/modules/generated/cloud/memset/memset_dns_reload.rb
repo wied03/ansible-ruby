@@ -12,9 +12,9 @@ module Ansible
         attribute :api_key
         validates :api_key, presence: true, type: String
 
-        # @return [Boolean, nil] Boolean value, if set will poll the reload job's status and return when the job has completed (unless the 30 second timeout is reached first). If the timeout is reached then the task will not be marked as failed, but stderr will indicate that the polling failed.
+        # @return [Symbol, nil] Boolean value, if set will poll the reload job's status and return when the job has completed (unless the 30 second timeout is reached first). If the timeout is reached then the task will not be marked as failed, but stderr will indicate that the polling failed.
         attribute :poll
-        validates :poll, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :poll, type: Symbol
       end
     end
   end

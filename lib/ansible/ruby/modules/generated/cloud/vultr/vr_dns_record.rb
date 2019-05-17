@@ -28,9 +28,9 @@ module Ansible
         attribute :ttl
         validates :ttl, type: Integer
 
-        # @return [Boolean, nil] Whether to use more than one record with similar C(name) including no name and C(record_type).,Only allowed for a few record types, e.g. C(record_type=A), C(record_type=NS) or C(record_type=MX).,C(data) will not be updated, instead it is used as a key to find existing records.
+        # @return [Symbol, nil] Whether to use more than one record with similar C(name) including no name and C(record_type).,Only allowed for a few record types, e.g. C(record_type=A), C(record_type=NS) or C(record_type=MX).,C(data) will not be updated, instead it is used as a key to find existing records.
         attribute :multiple
-        validates :multiple, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :multiple, type: Symbol
 
         # @return [Integer, nil] Priority of the record.
         attribute :priority

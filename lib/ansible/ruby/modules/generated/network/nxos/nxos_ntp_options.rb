@@ -8,17 +8,17 @@ module Ansible
     module Modules
       # Manages NTP options, e.g. authoritative server and logging.
       class Nxos_ntp_options < Base
-        # @return [Boolean, nil] Sets whether the device is an authoritative NTP server.
+        # @return [Symbol, nil] Sets whether the device is an authoritative NTP server.
         attribute :master
-        validates :master, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :master, type: Symbol
 
         # @return [Integer, nil] If C(master=true), an optional stratum can be supplied (1-15). The device default is 8.
         attribute :stratum
         validates :stratum, type: Integer
 
-        # @return [Boolean, nil] Sets whether NTP logging is enabled on the device.
+        # @return [Symbol, nil] Sets whether NTP logging is enabled on the device.
         attribute :logging
-        validates :logging, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :logging, type: Symbol
 
         # @return [:present, :absent, nil] Manage the state of the resource.
         attribute :state

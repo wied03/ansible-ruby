@@ -54,9 +54,9 @@ module Ansible
         # @return [Object, nil] Description about an ACL rule. The value is a string of 1 to 127 characters.
         attribute :rule_description
 
-        # @return [String, nil] Flag of logging matched data packets.
+        # @return [:yes, :no, nil] Flag of logging matched data packets.
         attribute :log_flag
-        validates :log_flag, type: String
+        validates :log_flag, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

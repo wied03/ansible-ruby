@@ -8,9 +8,9 @@ module Ansible
     module Modules
       # Manages I(apk) packages for Alpine Linux.
       class Apk < Base
-        # @return [String, nil] During upgrade, reset versioned world dependencies and change logic to prefer replacing or downgrading packages (instead of holding them) if the currently installed package is no longer available from any repository.
+        # @return [:yes, :no, nil] During upgrade, reset versioned world dependencies and change logic to prefer replacing or downgrading packages (instead of holding them) if the currently installed package is no longer available from any repository.
         attribute :available
-        validates :available, type: String
+        validates :available, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Array<String>, String, nil] A package name, like C(foo), or multiple packages, like C(foo, bar).
         attribute :name
@@ -24,13 +24,13 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent, :latest], :message=>"%{value} needs to be :present, :absent, :latest"}, allow_nil: true
 
-        # @return [String, nil] Update repository indexes. Can be run with other steps or on it's own.
+        # @return [:yes, :no, nil] Update repository indexes. Can be run with other steps or on it's own.
         attribute :update_cache
-        validates :update_cache, type: String
+        validates :update_cache, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Upgrade all installed packages to their latest version.
+        # @return [:yes, :no, nil] Upgrade all installed packages to their latest version.
         attribute :upgrade
-        validates :upgrade, type: String
+        validates :upgrade, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

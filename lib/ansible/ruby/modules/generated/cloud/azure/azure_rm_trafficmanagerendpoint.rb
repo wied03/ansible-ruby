@@ -24,8 +24,9 @@ module Ansible
         attribute :type
         validates :type, presence: true, inclusion: {:in=>[:azure_endpoints, :external_endpoints, :nested_endpoints], :message=>"%{value} needs to be :azure_endpoints, :external_endpoints, :nested_endpoints"}
 
-        # @return [Object, nil] The Azure Resource URI of the of the endpoint.,Not applicable to endpoints of I(type) C(external_endpoints).
+        # @return [String, nil] The Azure Resource URI of the of the endpoint.,Not applicable to endpoints of I(type) C(external_endpoints).
         attribute :target_resource_id
+        validates :target_resource_id, type: String
 
         # @return [String, nil] The fully-qualified DNS name of the endpoint.
         attribute :target
@@ -47,11 +48,13 @@ module Ansible
         attribute :location
         validates :location, type: String
 
-        # @return [Object, nil] The minimum number of endpoints that must be available in the child profile in order for the parent profile to be considered available.,Only applicable to endpoint of I(type) (nested_endpoints).
+        # @return [Integer, nil] The minimum number of endpoints that must be available in the child profile in order for the parent profile to be considered available.,Only applicable to endpoint of I(type) (nested_endpoints).
         attribute :min_child_endpoints
+        validates :min_child_endpoints, type: Integer
 
-        # @return [Object, nil] The list of countries/regions mapped to this endpoint when traffic manager profile has routing_method of C(geographic).
+        # @return [String, nil] The list of countries/regions mapped to this endpoint when traffic manager profile has routing_method of C(geographic).
         attribute :geo_mapping
+        validates :geo_mapping, type: String
 
         # @return [:absent, :present, nil] Assert the state of the Traffic Manager endpoint. Use C(present) to create or update a Traffic Manager endpoint and C(absent) to delete it.
         attribute :state

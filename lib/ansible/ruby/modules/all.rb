@@ -62,11 +62,9 @@ ansible_mod.autoload(:Dynamodb_ttl, 'ansible/ruby/modules/generated/cloud/amazon
 ansible_mod.autoload(:Ec2, 'ansible/ruby/modules/custom/cloud/core/amazon/ec2')
 # Using custom module
 ansible_mod.autoload(:Ec2_ami, 'ansible/ruby/modules/custom/cloud/core/amazon/ec2_ami')
-# Using custom module
-ansible_mod.autoload(:Ec2_ami_copy, 'ansible/ruby/modules/custom/cloud/core/amazon/ec2_ami_copy')
+ansible_mod.autoload(:Ec2_ami_copy, 'ansible/ruby/modules/generated/cloud/amazon/ec2_ami_copy')
 ansible_mod.autoload(:Ec2_ami_facts, 'ansible/ruby/modules/generated/cloud/amazon/ec2_ami_facts')
-# Using custom module
-ansible_mod.autoload(:Ec2_asg, 'ansible/ruby/modules/custom/cloud/core/amazon/ec2_asg')
+ansible_mod.autoload(:Ec2_asg, 'ansible/ruby/modules/generated/cloud/amazon/ec2_asg')
 ansible_mod.autoload(:Ec2_asg_facts, 'ansible/ruby/modules/generated/cloud/amazon/ec2_asg_facts')
 ansible_mod.autoload(:Ec2_asg_lifecycle_hook, 'ansible/ruby/modules/generated/cloud/amazon/ec2_asg_lifecycle_hook')
 ansible_mod.autoload(:Ec2_customer_gateway, 'ansible/ruby/modules/generated/cloud/amazon/ec2_customer_gateway')
@@ -881,8 +879,7 @@ ansible_mod.autoload(:Assemble, 'ansible/ruby/modules/generated/files/assemble')
 ansible_mod.autoload(:Blockinfile, 'ansible/ruby/modules/generated/files/blockinfile')
 # Using custom module
 ansible_mod.autoload(:Copy, 'ansible/ruby/modules/custom/files/copy')
-# Using custom module
-ansible_mod.autoload(:Fetch, 'ansible/ruby/modules/custom/files/fetch')
+ansible_mod.autoload(:Fetch, 'ansible/ruby/modules/generated/files/fetch')
 # Using custom module
 ansible_mod.autoload(:File, 'ansible/ruby/modules/custom/files/file')
 ansible_mod.autoload(:Find, 'ansible/ruby/modules/generated/files/find')
@@ -1719,8 +1716,7 @@ ansible_mod.autoload(:Bundler, 'ansible/ruby/modules/generated/packaging/languag
 ansible_mod.autoload(:Composer, 'ansible/ruby/modules/generated/packaging/language/composer')
 ansible_mod.autoload(:Cpanm, 'ansible/ruby/modules/generated/packaging/language/cpanm')
 ansible_mod.autoload(:Easy_install, 'ansible/ruby/modules/generated/packaging/language/easy_install')
-# Using custom module
-ansible_mod.autoload(:Gem, 'ansible/ruby/modules/custom/packaging/language/gem')
+ansible_mod.autoload(:Gem, 'ansible/ruby/modules/generated/packaging/language/gem')
 ansible_mod.autoload(:Maven_artifact, 'ansible/ruby/modules/generated/packaging/language/maven_artifact')
 ansible_mod.autoload(:Npm, 'ansible/ruby/modules/generated/packaging/language/npm')
 ansible_mod.autoload(:Pear, 'ansible/ruby/modules/generated/packaging/language/pear')
@@ -2025,8 +2021,7 @@ ansible_mod.autoload(:Systemd, 'ansible/ruby/modules/generated/system/systemd')
 ansible_mod.autoload(:Sysvinit, 'ansible/ruby/modules/generated/system/sysvinit')
 ansible_mod.autoload(:Timezone, 'ansible/ruby/modules/generated/system/timezone')
 ansible_mod.autoload(:Ufw, 'ansible/ruby/modules/generated/system/ufw')
-# Using custom module
-ansible_mod.autoload(:User, 'ansible/ruby/modules/custom/system/user')
+ansible_mod.autoload(:User, 'ansible/ruby/modules/generated/system/user')
 ansible_mod.autoload(:Vdo, 'ansible/ruby/modules/generated/system/vdo')
 # Using custom module
 ansible_mod.autoload(:Meta, 'ansible/ruby/modules/custom/utilities/helper/meta')

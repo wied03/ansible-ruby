@@ -31,41 +31,41 @@ module Ansible
         attribute :state
         validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
 
-        # @return [String, nil] Trigger hook on push events
+        # @return [:yes, :no, nil] Trigger hook on push events
         attribute :push_events
-        validates :push_events, type: String
+        validates :push_events, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Trigger hook on issues events
+        # @return [:yes, :no, nil] Trigger hook on issues events
         attribute :issues_events
-        validates :issues_events, type: String
+        validates :issues_events, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Trigger hook on merge requests events
+        # @return [:yes, :no, nil] Trigger hook on merge requests events
         attribute :merge_requests_events
-        validates :merge_requests_events, type: String
+        validates :merge_requests_events, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Trigger hook on tag push events
+        # @return [:yes, :no, nil] Trigger hook on tag push events
         attribute :tag_push_events
-        validates :tag_push_events, type: String
+        validates :tag_push_events, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Trigger hook on note events
+        # @return [:yes, :no, nil] Trigger hook on note events
         attribute :note_events
-        validates :note_events, type: String
+        validates :note_events, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Trigger hook on job events
+        # @return [:yes, :no, nil] Trigger hook on job events
         attribute :job_events
-        validates :job_events, type: String
+        validates :job_events, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Trigger hook on pipeline events
+        # @return [:yes, :no, nil] Trigger hook on pipeline events
         attribute :pipeline_events
-        validates :pipeline_events, type: String
+        validates :pipeline_events, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Trigger hook on wiki events
+        # @return [:yes, :no, nil] Trigger hook on wiki events
         attribute :wiki_page_events
-        validates :wiki_page_events, type: String
+        validates :wiki_page_events, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Whether GitLab will do SSL verification when triggering the hook
+        # @return [:yes, :no, nil] Whether GitLab will do SSL verification when triggering the hook
         attribute :enable_ssl_verification
-        validates :enable_ssl_verification, type: String
+        validates :enable_ssl_verification, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] Secret token to validate hook messages at the receiver.,If this is present it will always result in a change as it cannot be retrieved from GitLab.,Will show up in the X-Gitlab-Token HTTP request header
         attribute :token

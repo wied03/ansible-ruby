@@ -32,9 +32,9 @@ module Ansible
         attribute :prio
         validates :prio, type: Integer
 
-        # @return [Boolean, nil] Whether there are more than one records with similar C(name) and C(record_type).,Only allowed for a few record types, e.g. C(record_type=A), C(record_type=NS) or C(record_type=MX).,C(content) will not be updated, instead it is used as a key to find existing records.
+        # @return [Symbol, nil] Whether there are more than one records with similar C(name) and C(record_type).,Only allowed for a few record types, e.g. C(record_type=A), C(record_type=NS) or C(record_type=MX).,C(content) will not be updated, instead it is used as a key to find existing records.
         attribute :multiple
-        validates :multiple, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :multiple, type: Symbol
 
         # @return [:present, :absent, nil] State of the record.
         attribute :state

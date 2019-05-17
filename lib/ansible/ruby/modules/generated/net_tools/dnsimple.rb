@@ -47,8 +47,9 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [Object, nil] Whether the record should be the only one for that record type and record name.,Only use with C(state) is set to C(present) on a record.
+        # @return [Symbol, nil] Whether the record should be the only one for that record type and record name.,Only use with C(state) is set to C(present) on a record.
         attribute :solo
+        validates :solo, type: Symbol
       end
     end
   end

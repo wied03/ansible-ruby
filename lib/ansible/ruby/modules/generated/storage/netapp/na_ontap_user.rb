@@ -32,9 +32,9 @@ module Ansible
         attribute :role_name
         validates :role_name, type: String
 
-        # @return [Boolean, nil] Whether the specified user account is locked.
+        # @return [Symbol, nil] Whether the specified user account is locked.
         attribute :lock_user
-        validates :lock_user, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :lock_user, type: Symbol
 
         # @return [String] The name of the vserver to use.
         attribute :vserver

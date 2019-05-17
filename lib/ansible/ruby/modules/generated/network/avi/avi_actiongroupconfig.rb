@@ -24,8 +24,9 @@ module Ansible
         # @return [Object, nil] Reference of the action script configuration to be used.,It is a reference to an object of type alertscriptconfig.
         attribute :action_script_config_ref
 
-        # @return [Object, nil] Trigger notification to autoscale manager.,Default value when not specified in API or module is interpreted by Avi Controller as False.
+        # @return [Symbol, nil] Trigger notification to autoscale manager.,Default value when not specified in API or module is interpreted by Avi Controller as False.
         attribute :autoscale_trigger_notification
+        validates :autoscale_trigger_notification, type: Symbol
 
         # @return [Object, nil] User defined description for the object.
         attribute :description
@@ -33,9 +34,9 @@ module Ansible
         # @return [Object, nil] Select the email notification configuration to use when sending alerts via email.,It is a reference to an object of type alertemailconfig.
         attribute :email_config_ref
 
-        # @return [Object] Generate alert only to external destinations.,Default value when not specified in API or module is interpreted by Avi Controller as False.
+        # @return [Symbol] Generate alert only to external destinations.,Default value when not specified in API or module is interpreted by Avi Controller as False.
         attribute :external_only
-        validates :external_only, presence: true
+        validates :external_only, presence: true, type: Symbol
 
         # @return [Object] When an alert is generated, mark its priority via the alert level.,Enum options - ALERT_LOW, ALERT_MEDIUM, ALERT_HIGH.,Default value when not specified in API or module is interpreted by Avi Controller as ALERT_LOW.
         attribute :level

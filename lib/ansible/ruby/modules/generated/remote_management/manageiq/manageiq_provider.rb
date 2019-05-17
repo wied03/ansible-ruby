@@ -46,9 +46,9 @@ module Ansible
         attribute :azure_tenant_id
         validates :azure_tenant_id, type: String
 
-        # @return [String, nil] Whether to enable mapping of existing tenants. defaults to False.
+        # @return [:yes, :no, nil] Whether to enable mapping of existing tenants. defaults to False.
         attribute :tenant_mapping_enabled
-        validates :tenant_mapping_enabled, type: String
+        validates :tenant_mapping_enabled, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:v2, :v3, nil] The OpenStack Keystone API version. defaults to None.
         attribute :api_version

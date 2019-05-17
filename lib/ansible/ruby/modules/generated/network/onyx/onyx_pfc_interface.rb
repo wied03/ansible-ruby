@@ -15,9 +15,9 @@ module Ansible
         # @return [Object, nil] List of interfaces PFC should be configured on.
         attribute :aggregate
 
-        # @return [Boolean, nil] Purge interfaces not defined in the aggregate parameter.
+        # @return [Symbol, nil] Purge interfaces not defined in the aggregate parameter.
         attribute :purge
-        validates :purge, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :purge, type: Symbol
 
         # @return [:enabled, :disabled, nil] State of the PFC configuration.
         attribute :state

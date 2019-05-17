@@ -32,9 +32,9 @@ module Ansible
         attribute :file_type
         validates :file_type, inclusion: {:in=>[:any, :directory, :file, :link], :message=>"%{value} needs to be :any, :directory, :file, :link"}, allow_nil: true
 
-        # @return [String, nil] If target is a directory, recursively descend into the directory looking for files.
+        # @return [:yes, :no, nil] If target is a directory, recursively descend into the directory looking for files.
         attribute :recurse
-        validates :recurse, type: String
+        validates :recurse, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] Select files whose size is equal to or greater than the specified size. Use a negative size to find files equal to or less than the specified size. Unqualified values are in bytes but b, k, m, g, and t can be appended to specify bytes, kilobytes, megabytes, gigabytes, and terabytes, respectively. Size is not evaluated for directories.
         attribute :size
@@ -44,21 +44,21 @@ module Ansible
         attribute :age_stamp
         validates :age_stamp, inclusion: {:in=>[:atime, :ctime, :mtime], :message=>"%{value} needs to be :atime, :ctime, :mtime"}, allow_nil: true
 
-        # @return [String, nil] Set this to true to include hidden files, otherwise they'll be ignored.
+        # @return [:yes, :no, nil] Set this to true to include hidden files, otherwise they'll be ignored.
         attribute :hidden
-        validates :hidden, type: String
+        validates :hidden, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Set this to true to follow symlinks in path for systems with python 2.6+.
+        # @return [:yes, :no, nil] Set this to true to follow symlinks in path for systems with python 2.6+.
         attribute :follow
-        validates :follow, type: String
+        validates :follow, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Set this to true to retrieve a file's sha1 checksum.
+        # @return [:yes, :no, nil] Set this to true to retrieve a file's sha1 checksum.
         attribute :get_checksum
-        validates :get_checksum, type: String
+        validates :get_checksum, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] If false, the patterns are file globs (shell). If true, they are python regexes.
+        # @return [:yes, :no, nil] If false, the patterns are file globs (shell). If true, they are python regexes.
         attribute :use_regex
-        validates :use_regex, type: String
+        validates :use_regex, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] Set the maximum number of levels to decend into. Setting recurse to false will override this value, which is effectively depth 1. Default is unlimited depth.
         attribute :depth

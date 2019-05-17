@@ -29,9 +29,9 @@ module Ansible
         # @return [Object, nil] Hypervisor snapshot reserve space as a percent of a volume.,Only for managed storage using Xen or VMware.
         attribute :hypervisor_snapshot_reserve
 
-        # @return [Boolean, nil] Whether disk offering iops is custom or not.
+        # @return [Symbol, nil] Whether disk offering iops is custom or not.
         attribute :customized
-        validates :customized, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :customized, type: Symbol
 
         # @return [Object, nil] IO requests read rate of the disk offering.
         attribute :iops_read_rate
@@ -65,8 +65,9 @@ module Ansible
         attribute :storage_tags
         validates :storage_tags, type: String
 
-        # @return [Object, nil] An optional field, whether to display the offering to the end user or not.
+        # @return [Symbol, nil] An optional field, whether to display the offering to the end user or not.
         attribute :display_offering
+        validates :display_offering, type: Symbol
       end
     end
   end

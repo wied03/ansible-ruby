@@ -51,9 +51,9 @@ module Ansible
         attribute :vm_shell_cwd
         validates :vm_shell_cwd, type: String
 
-        # @return [Boolean, nil] If set to C(True), module will wait for process to complete in the given virtual machine.
+        # @return [Symbol, nil] If set to C(True), module will wait for process to complete in the given virtual machine.
         attribute :wait_for_process
-        validates :wait_for_process, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :wait_for_process, type: Symbol
 
         # @return [Integer, nil] Timeout in seconds.,If set to positive integers, then C(wait_for_process) will honor this parameter and will exit after this timeout.
         attribute :timeout

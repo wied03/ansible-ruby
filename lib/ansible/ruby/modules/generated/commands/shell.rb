@@ -28,9 +28,9 @@ module Ansible
         attribute :executable
         validates :executable, type: String
 
-        # @return [String, nil] if command warnings are on in ansible.cfg, do not warn about this particular line if set to no/false.
+        # @return [:yes, :no, nil] if command warnings are on in ansible.cfg, do not warn about this particular line if set to no/false.
         attribute :warn
-        validates :warn, type: String
+        validates :warn, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] Set the stdin of the command directly to the specified value.
         attribute :stdin

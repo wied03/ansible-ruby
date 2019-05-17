@@ -36,9 +36,9 @@ module Ansible
         attribute :key_pair_name
         validates :key_pair_name, type: String
 
-        # @return [String, nil] Wait for the instance to be in state 'running' before returning.  If wait is "no" an ip_address may not be returned
+        # @return [:yes, :no, nil] Wait for the instance to be in state 'running' before returning.  If wait is "no" an ip_address may not be returned
         attribute :wait
-        validates :wait, type: String
+        validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] How long before wait gives up, in seconds.
         attribute :wait_timeout

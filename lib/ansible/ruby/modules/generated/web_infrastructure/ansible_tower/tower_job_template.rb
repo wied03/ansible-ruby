@@ -54,9 +54,9 @@ module Ansible
         # @return [Object, nil] Comma separated list of the tags to use for the job template.
         attribute :job_tags
 
-        # @return [String, nil] Enable forcing playbook handlers to run even if a task fails.
+        # @return [:yes, :no, nil] Enable forcing playbook handlers to run even if a task fails.
         attribute :force_handlers_enabled
-        validates :force_handlers_enabled, type: String
+        validates :force_handlers_enabled, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] Comma separated list of the tags to skip for the job template.
         attribute :skip_tags
@@ -64,60 +64,60 @@ module Ansible
         # @return [Object, nil] Start the playbook at the task matching this name.
         attribute :start_at_task
 
-        # @return [String, nil] Enable use of fact caching for the job template.
+        # @return [:yes, :no, nil] Enable use of fact caching for the job template.
         attribute :fact_caching_enabled
-        validates :fact_caching_enabled, type: String
+        validates :fact_caching_enabled, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] Allow provisioning callbacks using this host config key.
         attribute :host_config_key
 
-        # @return [String, nil] Prompt user to enable diff mode (show changes) to files when supported by modules.
+        # @return [:yes, :no, nil] Prompt user to enable diff mode (show changes) to files when supported by modules.
         attribute :ask_diff_mode
-        validates :ask_diff_mode, type: String
+        validates :ask_diff_mode, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Prompt user for (extra_vars) on launch.
+        # @return [:yes, :no, nil] Prompt user for (extra_vars) on launch.
         attribute :ask_extra_vars
-        validates :ask_extra_vars, type: String
+        validates :ask_extra_vars, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Prompt user for a limit on launch.
+        # @return [:yes, :no, nil] Prompt user for a limit on launch.
         attribute :ask_limit
-        validates :ask_limit, type: String
+        validates :ask_limit, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Prompt user for job tags on launch.
+        # @return [:yes, :no, nil] Prompt user for job tags on launch.
         attribute :ask_tags
-        validates :ask_tags, type: String
+        validates :ask_tags, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Prompt user for job tags to skip on launch.
+        # @return [:yes, :no, nil] Prompt user for job tags to skip on launch.
         attribute :ask_skip_tags
-        validates :ask_skip_tags, type: String
+        validates :ask_skip_tags, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Prompt user for job type on launch.
+        # @return [:yes, :no, nil] Prompt user for job type on launch.
         attribute :ask_job_type
-        validates :ask_job_type, type: String
+        validates :ask_job_type, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Prompt user to choose a verbosity level on launch.
+        # @return [:yes, :no, nil] Prompt user to choose a verbosity level on launch.
         attribute :ask_verbosity
-        validates :ask_verbosity, type: String
+        validates :ask_verbosity, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Propmt user for inventory on launch.
+        # @return [:yes, :no, nil] Propmt user for inventory on launch.
         attribute :ask_inventory
-        validates :ask_inventory, type: String
+        validates :ask_inventory, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Prompt user for credential on launch.
+        # @return [:yes, :no, nil] Prompt user for credential on launch.
         attribute :ask_credential
-        validates :ask_credential, type: String
+        validates :ask_credential, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Enable a survey on the job template.
+        # @return [:yes, :no, nil] Enable a survey on the job template.
         attribute :survey_enabled
-        validates :survey_enabled, type: String
+        validates :survey_enabled, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Activate privilege escalation.
+        # @return [:yes, :no, nil] Activate privilege escalation.
         attribute :become_enabled
-        validates :become_enabled, type: String
+        validates :become_enabled, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Allow simultaneous runs of the job template.
+        # @return [:yes, :no, nil] Allow simultaneous runs of the job template.
         attribute :concurrent_jobs_enabled
-        validates :concurrent_jobs_enabled, type: String
+        validates :concurrent_jobs_enabled, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:present, :absent, nil] Desired state of the resource.
         attribute :state

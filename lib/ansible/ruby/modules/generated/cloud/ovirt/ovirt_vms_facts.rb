@@ -12,8 +12,9 @@ module Ansible
         attribute :pattern
         validates :pattern, type: String
 
-        # @return [Object, nil] If I(true) all the attributes of the virtual machines should be included in the response.
+        # @return [Symbol, nil] If I(true) all the attributes of the virtual machines should be included in the response.
         attribute :all_content
+        validates :all_content, type: Symbol
 
         # @return [Boolean, nil] If I(true) performed search will take case into account.
         attribute :case_sensitive

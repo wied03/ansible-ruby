@@ -32,8 +32,9 @@ module Ansible
         # @return [Object, nil] A hypervisor type type to match (e.g. xen).
         attribute :hypervisor
 
-        # @return [Object, nil] Whether or not the image(s) are public.
+        # @return [Symbol, nil] Whether or not the image(s) are public.
         attribute :is_public
+        validates :is_public, type: Symbol
 
         # @return [String, nil] An AMI name to match.
         attribute :name

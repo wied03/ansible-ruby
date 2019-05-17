@@ -22,9 +22,9 @@ module Ansible
         attribute :rights
         validates :rights, presence: true, type: TypeGeneric.new(String)
 
-        # @return [:ContainerInherit, :ObjectInherit, nil] Defines what objects inside of a folder or registry key will inherit the settings.,If you are setting a rule on a file, this value has to be changed to C(none).,For more information on the choices see MSDN PropagationFlags enumeration at U(https://msdn.microsoft.com/en-us/library/system.security.accesscontrol.inheritanceflags.aspx).
+        # @return [Array<String>, String, nil] Defines what objects inside of a folder or registry key will inherit the settings.,If you are setting a rule on a file, this value has to be changed to C(none).,For more information on the choices see MSDN PropagationFlags enumeration at U(https://msdn.microsoft.com/en-us/library/system.security.accesscontrol.inheritanceflags.aspx).
         attribute :inheritance_flags
-        validates :inheritance_flags, inclusion: {:in=>[:ContainerInherit, :ObjectInherit], :message=>"%{value} needs to be :ContainerInherit, :ObjectInherit"}, allow_nil: true
+        validates :inheritance_flags, type: TypeGeneric.new(String)
 
         # @return [:None, :InherityOnly, :NoPropagateInherit, nil] Propagation flag on the audit rules.,This value is ignored when the path type is a file.,For more information on the choices see MSDN PropagationFlags enumeration at U(https://msdn.microsoft.com/en-us/library/system.security.accesscontrol.propagationflags.aspx).
         attribute :propagation_flags

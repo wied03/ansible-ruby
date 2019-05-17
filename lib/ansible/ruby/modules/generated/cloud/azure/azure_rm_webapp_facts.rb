@@ -16,9 +16,9 @@ module Ansible
         attribute :resource_group
         validates :resource_group, type: String
 
-        # @return [Boolean, nil] Indicate wheather to return publishing profile of the web app.
+        # @return [Symbol, nil] Indicate wheather to return publishing profile of the web app.
         attribute :return_publish_profile
-        validates :return_publish_profile, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :return_publish_profile, type: Symbol
 
         # @return [Array<String>, String, nil] Limit results by providing a list of tags. Format tags as 'key' or 'key:value'.
         attribute :tags

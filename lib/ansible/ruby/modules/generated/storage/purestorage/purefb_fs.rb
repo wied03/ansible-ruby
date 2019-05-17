@@ -16,9 +16,9 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [Boolean, nil] Define whether to eradicate the filesystem on delete or leave in trash.
+        # @return [Symbol, nil] Define whether to eradicate the filesystem on delete or leave in trash.
         attribute :eradicate
-        validates :eradicate, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :eradicate, type: Symbol
 
         # @return [String, nil] Volume size in M, G, T or P units. See examples.
         attribute :size
@@ -32,21 +32,21 @@ module Ansible
         attribute :nfs_rules
         validates :nfs_rules, type: TypeGeneric.new(String)
 
-        # @return [Boolean, nil] Define whether to SMB protocol is enabled for the filesystem.
+        # @return [Symbol, nil] Define whether to SMB protocol is enabled for the filesystem.
         attribute :smb
-        validates :smb, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :smb, type: Symbol
 
-        # @return [Boolean, nil] Define whether to HTTP/HTTPS protocol is enabled for the filesystem.
+        # @return [Symbol, nil] Define whether to HTTP/HTTPS protocol is enabled for the filesystem.
         attribute :http
-        validates :http, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :http, type: Symbol
 
-        # @return [Boolean, nil] Define whether a snapshot directory is enabled for the filesystem.
+        # @return [Symbol, nil] Define whether a snapshot directory is enabled for the filesystem.
         attribute :snapshot
-        validates :snapshot, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :snapshot, type: Symbol
 
-        # @return [Boolean, nil] Define whether the fast remove directory is enabled for the filesystem.
+        # @return [Symbol, nil] Define whether the fast remove directory is enabled for the filesystem.
         attribute :fastremove
-        validates :fastremove, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :fastremove, type: Symbol
       end
     end
   end

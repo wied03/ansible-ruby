@@ -12,9 +12,9 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [Boolean, nil] Should the key be regenerated even it it already exists
+        # @return [Symbol, nil] Should the key be regenerated even it it already exists
         attribute :force
-        validates :force, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :force, type: Symbol
 
         # @return [:PEM, :OpenSSH, nil] The format of the public key.
         attribute :format

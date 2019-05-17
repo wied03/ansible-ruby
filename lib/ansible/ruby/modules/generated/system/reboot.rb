@@ -20,8 +20,9 @@ module Ansible
         attribute :reboot_timeout
         validates :reboot_timeout, type: Integer
 
-        # @return [Object, nil] Maximum seconds to wait for a successful connection to the managed hosts before trying again.,If unspecified, the default setting for the underlying connection plugin is used.
+        # @return [Integer, nil] Maximum seconds to wait for a successful connection to the managed hosts before trying again.,If unspecified, the default setting for the underlying connection plugin is used.
         attribute :connect_timeout
+        validates :connect_timeout, type: Integer
 
         # @return [String, nil] Command to run on the rebooted host and expect success from to determine the machine is ready for further tasks.
         attribute :test_command

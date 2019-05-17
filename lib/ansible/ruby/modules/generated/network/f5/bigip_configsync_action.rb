@@ -12,17 +12,17 @@ module Ansible
         attribute :device_group
         validates :device_group, presence: true, type: String
 
-        # @return [Boolean, nil] Specifies that the system synchronizes configuration data from this device to other members of the device group. In this case, the device will do a "push" to all the other devices in the group. This option is mutually exclusive with the C(sync_group_to_device) option.
+        # @return [Symbol, nil] Specifies that the system synchronizes configuration data from this device to other members of the device group. In this case, the device will do a "push" to all the other devices in the group. This option is mutually exclusive with the C(sync_group_to_device) option.
         attribute :sync_device_to_group
-        validates :sync_device_to_group, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :sync_device_to_group, type: Symbol
 
-        # @return [Boolean, nil] Specifies that the system synchronizes configuration data from the device with the most recent configuration. In this case, the device will do a "pull" from the most recently updated device. This option is mutually exclusive with the C(sync_device_to_group) options.
+        # @return [Symbol, nil] Specifies that the system synchronizes configuration data from the device with the most recent configuration. In this case, the device will do a "pull" from the most recently updated device. This option is mutually exclusive with the C(sync_device_to_group) options.
         attribute :sync_most_recent_to_device
-        validates :sync_most_recent_to_device, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :sync_most_recent_to_device, type: Symbol
 
-        # @return [Boolean, nil] Indicates that the sync operation overwrites the configuration on the target.
+        # @return [Symbol, nil] Indicates that the sync operation overwrites the configuration on the target.
         attribute :overwrite_config
-        validates :overwrite_config, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :overwrite_config, type: Symbol
       end
     end
   end

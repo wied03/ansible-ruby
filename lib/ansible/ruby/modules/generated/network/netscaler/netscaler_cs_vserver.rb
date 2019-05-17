@@ -45,8 +45,9 @@ module Ansible
         attribute :stateupdate
         validates :stateupdate, inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
 
-        # @return [Object, nil] Use this option to specify whether a virtual server, used for load balancing or content switching, routes requests to the cache redirection virtual server before sending it to the configured servers.
+        # @return [Symbol, nil] Use this option to specify whether a virtual server, used for load balancing or content switching, routes requests to the cache redirection virtual server before sending it to the configured servers.
         attribute :cacheable
+        validates :cacheable, type: Symbol
 
         # @return [Object, nil] URL to which traffic is redirected if the virtual server becomes unavailable. The service type of the virtual server should be either C(HTTP) or C(SSL).,Caution: Make sure that the domain in the URL does not match the domain specified for a content switching policy. If it does, requests are continuously redirected to the unavailable virtual server.,Minimum length = 1
         attribute :redirecturl
@@ -58,8 +59,9 @@ module Ansible
         attribute :precedence
         validates :precedence, inclusion: {:in=>[:RULE, :URL], :message=>"%{value} needs to be :RULE, :URL"}, allow_nil: true
 
-        # @return [Object, nil] Consider case in URLs (for policies that use URLs instead of RULES). For example, with the C(on) setting, the URLs /a/1.html and /A/1.HTML are treated differently and can have different targets (set by content switching policies). With the C(off) setting, /a/1.html and /A/1.HTML are switched to the same target.
+        # @return [Symbol, nil] Consider case in URLs (for policies that use URLs instead of RULES). For example, with the C(on) setting, the URLs /a/1.html and /A/1.HTML are treated differently and can have different targets (set by content switching policies). With the C(off) setting, /a/1.html and /A/1.HTML are switched to the same target.
         attribute :casesensitive
+        validates :casesensitive, type: Symbol
 
         # @return [:CONNECTION, :DYNAMICCONNECTION, :BANDWIDTH, :HEALTH, :NONE, nil] Type of spillover used to divert traffic to the backup virtual server when the primary virtual server reaches the spillover threshold. Connection spillover is based on the number of connections. Bandwidth spillover is based on the total Kbps of incoming and outgoing traffic.
         attribute :somethod
@@ -101,20 +103,23 @@ module Ansible
         # @return [Object, nil] Name of virtual server IP and port header, for use with the VServer IP Port Insertion parameter.,Minimum length = 1
         attribute :vipheader
 
-        # @return [Object, nil] Enable network address translation (NAT) for real-time streaming protocol (RTSP) connections.
+        # @return [Symbol, nil] Enable network address translation (NAT) for real-time streaming protocol (RTSP) connections.
         attribute :rtspnat
+        validates :rtspnat, type: Symbol
 
         # @return [Object, nil] FQDN of the authentication virtual server. The service type of the virtual server should be either C(HTTP) or C(SSL).,Minimum length = 3,Maximum length = 252
         attribute :authenticationhost
 
-        # @return [Object, nil] Authenticate users who request a connection to the content switching virtual server.
+        # @return [Symbol, nil] Authenticate users who request a connection to the content switching virtual server.
         attribute :authentication
+        validates :authentication, type: Symbol
 
         # @return [Object, nil] String specifying the listen policy for the content switching virtual server. Can be either the name of an existing expression or an in-line expression.
         attribute :listenpolicy
 
-        # @return [Object, nil] Enable HTTP 401-response based authentication.
+        # @return [Symbol, nil] Enable HTTP 401-response based authentication.
         attribute :authn401
+        validates :authn401, type: Symbol
 
         # @return [Object, nil] Name of authentication virtual server that authenticates the incoming user requests to this content switching virtual server. .,Minimum length = 1,Maximum length = 252
         attribute :authnvsname
@@ -129,8 +134,9 @@ module Ansible
         # @return [Object, nil] Expression for extracting the label from the response received from server. This string can be either an existing rule name or an inline expression. The service type of the virtual server should be either C(HTTP) or C(SSL).
         attribute :pushlabel
 
-        # @return [Object, nil] Allow multiple Web 2.0 connections from the same client to connect to the virtual server and expect updates.
+        # @return [Symbol, nil] Allow multiple Web 2.0 connections from the same client to connect to the virtual server and expect updates.
         attribute :pushmulticlients
+        validates :pushmulticlients, type: Symbol
 
         # @return [Object, nil] Name of the TCP profile containing TCP configuration settings for the virtual server.,Minimum length = 1,Maximum length = 127
         attribute :tcpprofilename
@@ -212,9 +218,9 @@ module Ansible
         # @return [Object, nil] The name of the ssl certificate that is bound to this service.,The ssl certificate must already exist.,Creating the certificate can be done with the M(netscaler_ssl_certkey) module.,This option is only applicable only when C(servicetype) is C(SSL).
         attribute :ssl_certkey
 
-        # @return [String, nil] When set to C(yes) the cs vserver will be disabled.,When set to C(no) the cs vserver will be enabled.,Note that due to limitations of the underlying NITRO API a C(disabled) state change alone does not cause the module result to report a changed status.
+        # @return [:yes, :no, nil] When set to C(yes) the cs vserver will be disabled.,When set to C(no) the cs vserver will be enabled.,Note that due to limitations of the underlying NITRO API a C(disabled) state change alone does not cause the module result to report a changed status.
         attribute :disabled
-        validates :disabled, type: String
+        validates :disabled, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

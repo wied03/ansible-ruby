@@ -20,13 +20,13 @@ module Ansible
         attribute :mode
         validates :mode, type: String
 
-        # @return [String, nil] Run the equivalent of C(apt-get update) when a change occurs.  Cache updates are run after making changes.
+        # @return [:yes, :no, nil] Run the equivalent of C(apt-get update) when a change occurs.  Cache updates are run after making changes.
         attribute :update_cache
-        validates :update_cache, type: String
+        validates :update_cache, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] If C(no), SSL certificates for the target repo will not be validated. This should only be used on personally controlled sites using self-signed certificates.
+        # @return [:yes, :no, nil] If C(no), SSL certificates for the target repo will not be validated. This should only be used on personally controlled sites using self-signed certificates.
         attribute :validate_certs
-        validates :validate_certs, type: String
+        validates :validate_certs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] Sets the name of the source list file in sources.list.d. Defaults to a file name based on the repository source url. The .list extension will be automatically added.
         attribute :filename

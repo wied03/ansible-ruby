@@ -32,9 +32,9 @@ module Ansible
         attribute :groups
         validates :groups, type: TypeGeneric.new(String)
 
-        # @return [Boolean, nil] Instructs the module to consider the resource definition absolute. It will remove any previously configured usernames on the device with the exception of the `admin` user and the current defined set of users.
+        # @return [Symbol, nil] Instructs the module to consider the resource definition absolute. It will remove any previously configured usernames on the device with the exception of the `admin` user and the current defined set of users.
         attribute :purge
-        validates :purge, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :purge, type: Symbol
 
         # @return [:present, :absent, nil] Configures the state of the username definition as it relates to the device operational configuration. When set to I(present), the username(s) should be configured in the device active configuration and when set to I(absent) the username(s) should not be in the device active configuration
         attribute :state

@@ -31,9 +31,9 @@ module Ansible
         attribute :lb_algorithm
         validates :lb_algorithm, inclusion: {:in=>[:LEAST_CONNECTIONS, :ROUND_ROBIN, :SOURCE_IP], :message=>"%{value} needs to be :LEAST_CONNECTIONS, :ROUND_ROBIN, :SOURCE_IP"}, allow_nil: true
 
-        # @return [String, nil] If the module should wait for the pool to be ACTIVE.
+        # @return [:yes, :no, nil] If the module should wait for the pool to be ACTIVE.
         attribute :wait
-        validates :wait, type: String
+        validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] The amount of time the module should wait for the pool to get into ACTIVE state.
         attribute :timeout

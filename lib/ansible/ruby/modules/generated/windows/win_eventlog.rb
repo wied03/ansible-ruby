@@ -28,8 +28,9 @@ module Ansible
         attribute :message_file
         validates :message_file, type: String
 
-        # @return [Object, nil] For one or more sources specified, the path to a custom parameter resource file.
+        # @return [String, nil] For one or more sources specified, the path to a custom parameter resource file.
         attribute :parameter_file
+        validates :parameter_file, type: String
 
         # @return [String, nil] The maximum size of the event log.,Value must be between 64KB and 4GB, and divisible by 64KB.,Size can be specified in KB, MB or GB (e.g. 128KB, 16MB, 2.5GB).
         attribute :maximum_size
@@ -39,8 +40,9 @@ module Ansible
         attribute :overflow_action
         validates :overflow_action, inclusion: {:in=>[:OverwriteOlder, :OverwriteAsNeeded, :DoNotOverwrite], :message=>"%{value} needs to be :OverwriteOlder, :OverwriteAsNeeded, :DoNotOverwrite"}, allow_nil: true
 
-        # @return [Object, nil] The minimum number of days event entries must remain in the log.,This option is only used when C(overflow_action) is C(OverwriteOlder).
+        # @return [Integer, nil] The minimum number of days event entries must remain in the log.,This option is only used when C(overflow_action) is C(OverwriteOlder).
         attribute :retention_days
+        validates :retention_days, type: Integer
       end
     end
   end

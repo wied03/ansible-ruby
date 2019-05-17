@@ -8,9 +8,9 @@ module Ansible
     module Modules
       # Manage SPAN source groups on Cisco ACI fabrics.
       class Aci_tenant_span_src_group < Base
-        # @return [String, nil] Enable or disable the span sources.,The APIC defaults to C(yes) when unset during creation.
+        # @return [Symbol, nil] Enable or disable the span sources.,The APIC defaults to C(yes) when unset during creation.
         attribute :admin_state
-        validates :admin_state, type: String
+        validates :admin_state, type: Symbol
 
         # @return [String, nil] The description for Span source group.
         attribute :description

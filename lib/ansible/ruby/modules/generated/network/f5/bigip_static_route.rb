@@ -33,8 +33,9 @@ module Ansible
         # @return [Object, nil] Specifies the pool through which the system forwards packets to the destination.
         attribute :pool
 
-        # @return [Object, nil] Specifies that the system drops packets sent to the destination.
+        # @return [Symbol, nil] Specifies that the system drops packets sent to the destination.
         attribute :reject
+        validates :reject, type: Symbol
 
         # @return [Object, nil] Specifies a specific maximum transmission unit (MTU).
         attribute :mtu

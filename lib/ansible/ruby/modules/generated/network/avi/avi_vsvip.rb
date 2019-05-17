@@ -27,8 +27,9 @@ module Ansible
         # @return [Object, nil] Service discovery specific data including fully qualified domain name, type and time-to-live of the dns record.,Field introduced in 17.1.1.
         attribute :dns_info
 
-        # @return [Object, nil] Force placement on all service engines in the service engine group (container clouds only).,Field introduced in 17.1.1.,Default value when not specified in API or module is interpreted by Avi Controller as False.
+        # @return [Symbol, nil] Force placement on all service engines in the service engine group (container clouds only).,Field introduced in 17.1.1.,Default value when not specified in API or module is interpreted by Avi Controller as False.
         attribute :east_west_placement
+        validates :east_west_placement, type: Symbol
 
         # @return [String] Name for the vsvip object.,Field introduced in 17.1.1.
         attribute :name

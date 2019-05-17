@@ -31,8 +31,9 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [Object, nil] Specifies if client ip needs to be preserved to clone destination.,Field introduced in 17.1.1.,Default value when not specified in API or module is interpreted by Avi Controller as False.
+        # @return [Symbol, nil] Specifies if client ip needs to be preserved to clone destination.,Field introduced in 17.1.1.,Default value when not specified in API or module is interpreted by Avi Controller as False.
         attribute :preserve_client_ip
+        validates :preserve_client_ip, type: Symbol
 
         # @return [Object, nil] It is a reference to an object of type tenant.,Field introduced in 17.1.1.
         attribute :tenant_ref

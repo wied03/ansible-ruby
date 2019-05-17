@@ -24,9 +24,9 @@ module Ansible
         attribute :dest
         validates :dest, type: String
 
-        # @return [String, nil] Forces an overwrite either locally on the filesystem or remotely with the object/key. Used with PUT and GET operations.
+        # @return [:yes, :no, nil] Forces an overwrite either locally on the filesystem or remotely with the object/key. Used with PUT and GET operations.
         attribute :force
-        validates :force, type: String
+        validates :force, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] This option let's the user set the canned permissions on the object/bucket that are created. The permissions that can be set are 'private', 'public-read', 'authenticated-read'.
         attribute :permission
@@ -54,9 +54,9 @@ module Ansible
         attribute :region
         validates :region, type: String
 
-        # @return [Boolean, nil] Whether versioning is enabled or disabled (note that once versioning is enabled, it can only be suspended)
+        # @return [Symbol, nil] Whether versioning is enabled or disabled (note that once versioning is enabled, it can only be suspended)
         attribute :versioning
-        validates :versioning, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :versioning, type: Symbol
       end
     end
   end

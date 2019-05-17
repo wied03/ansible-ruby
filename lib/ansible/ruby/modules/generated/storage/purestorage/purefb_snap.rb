@@ -20,9 +20,9 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
-        # @return [String, nil] Define whether to eradicate the snapshot on delete or leave in trash.
+        # @return [:yes, :no, nil] Define whether to eradicate the snapshot on delete or leave in trash.
         attribute :eradicate
-        validates :eradicate, type: String
+        validates :eradicate, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

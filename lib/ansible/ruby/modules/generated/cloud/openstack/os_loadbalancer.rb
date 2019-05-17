@@ -31,9 +31,9 @@ module Ansible
         attribute :vip_address
         validates :vip_address, type: String
 
-        # @return [String, nil] If the module should wait for the load balancer to be created.
+        # @return [:yes, :no, nil] If the module should wait for the load balancer to be created.
         attribute :wait
-        validates :wait, type: String
+        validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] The amount of time the module should wait for the load balancer to get into ACTIVE state.
         attribute :timeout

@@ -36,21 +36,21 @@ module Ansible
         attribute :comment
         validates :comment, type: String
 
-        # @return [String, nil] The C(replace) argument will instruct the remote device to replace the current configuration hierarchy with the one specified in the corresponding hierarchy of the source configuration loaded from this module.,Note this argument should be considered deprecated.  To achieve the equivalent, set the I(update) argument to C(replace). This argument will be removed in a future release. The C(replace) and C(update) argument is mutually exclusive.
+        # @return [:yes, :no, nil] The C(replace) argument will instruct the remote device to replace the current configuration hierarchy with the one specified in the corresponding hierarchy of the source configuration loaded from this module.,Note this argument should be considered deprecated.  To achieve the equivalent, set the I(update) argument to C(replace). This argument will be removed in a future release. The C(replace) and C(update) argument is mutually exclusive.
         attribute :replace
-        validates :replace, type: String
+        validates :replace, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] This argument will cause the module to create a full backup of the current C(running-config) from the remote device before any changes are made.  The backup file is written to the C(backup) folder in the playbook root directory or role root directory, if playbook is part of an ansible role. If the directory does not exist, it is created.
+        # @return [:yes, :no, nil] This argument will cause the module to create a full backup of the current C(running-config) from the remote device before any changes are made.  The backup file is written to the C(backup) folder in the playbook root directory or role root directory, if playbook is part of an ansible role. If the directory does not exist, it is created.
         attribute :backup
-        validates :backup, type: String
+        validates :backup, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:merge, :override, :replace, nil] This argument will decide how to load the configuration data particulary when the candidate configuration and loaded configuration contain conflicting statements. Following are accepted values. C(merge) combines the data in the loaded configuration with the candidate configuration. If statements in the loaded configuration conflict with statements in the candidate configuration, the loaded statements replace the candidate ones. C(override) discards the entire candidate configuration and replaces it with the loaded configuration. C(replace) substitutes each hierarchy level in the loaded configuration for the corresponding level.
         attribute :update
         validates :update, inclusion: {:in=>[:merge, :override, :replace], :message=>"%{value} needs to be :merge, :override, :replace"}, allow_nil: true
 
-        # @return [String, nil] This argument will execute commit operation on remote device. It can be used to confirm a previous commit.
+        # @return [:yes, :no, nil] This argument will execute commit operation on remote device. It can be used to confirm a previous commit.
         attribute :confirm_commit
-        validates :confirm_commit, type: String
+        validates :confirm_commit, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

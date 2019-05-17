@@ -17,9 +17,9 @@ module Ansible
         attribute :vsan
         validates :vsan, inclusion: {:in=>[:ensureObjectAccessibility, :evacuateAllData, :noAction], :message=>"%{value} needs to be :ensureObjectAccessibility, :evacuateAllData, :noAction"}, allow_nil: true
 
-        # @return [Boolean, nil] If set to C(True), evacuate all powered off VMs.
+        # @return [Symbol, nil] If set to C(True), evacuate all powered off VMs.
         attribute :evacuate
-        validates :evacuate, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :evacuate, type: Symbol
 
         # @return [Integer, nil] Specify a timeout for the operation.
         attribute :timeout

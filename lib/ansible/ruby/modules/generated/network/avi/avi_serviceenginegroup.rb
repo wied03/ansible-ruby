@@ -21,32 +21,38 @@ module Ansible
         attribute :avi_api_patch_op
         validates :avi_api_patch_op, inclusion: {:in=>[:add, :replace, :delete], :message=>"%{value} needs to be :add, :replace, :delete"}, allow_nil: true
 
-        # @return [Object, nil] Service engines in active/standby mode for ha failover.,Default value when not specified in API or module is interpreted by Avi Controller as False.
+        # @return [Symbol, nil] Service engines in active/standby mode for ha failover.,Default value when not specified in API or module is interpreted by Avi Controller as False.
         attribute :active_standby
+        validates :active_standby, type: Symbol
 
-        # @return [Object, nil] Advertise reach-ability of backend server networks via adc through bgp for default gateway feature.,Default value when not specified in API or module is interpreted by Avi Controller as False.
+        # @return [Symbol, nil] Advertise reach-ability of backend server networks via adc through bgp for default gateway feature.,Default value when not specified in API or module is interpreted by Avi Controller as False.
         attribute :advertise_backend_networks
+        validates :advertise_backend_networks, type: Symbol
 
-        # @return [Object, nil] Enable aggressive failover configuration for ha.,Default value when not specified in API or module is interpreted by Avi Controller as False.
+        # @return [Symbol, nil] Enable aggressive failover configuration for ha.,Default value when not specified in API or module is interpreted by Avi Controller as False.
         attribute :aggressive_failure_detection
+        validates :aggressive_failure_detection, type: Symbol
 
         # @return [Object, nil] In compact placement, virtual services are placed on existing ses until max_vs_per_se limit is reached.,Enum options - PLACEMENT_ALGO_PACKED, PLACEMENT_ALGO_DISTRIBUTED.,Default value when not specified in API or module is interpreted by Avi Controller as PLACEMENT_ALGO_PACKED.
         attribute :algo
 
-        # @return [Object, nil] Allow ses to be created using burst license.,Field introduced in 17.2.5.
+        # @return [Symbol, nil] Allow ses to be created using burst license.,Field introduced in 17.2.5.
         attribute :allow_burst
+        validates :allow_burst, type: Symbol
 
         # @return [Object, nil] Amount of se memory in gb until which shared memory is collected in core archive.,Field introduced in 17.1.3.,Default value when not specified in API or module is interpreted by Avi Controller as 8.,Units(GB).
         attribute :archive_shm_limit
 
-        # @return [Object, nil] Ssl handshakes will be handled by dedicated ssl threads.,Default value when not specified in API or module is interpreted by Avi Controller as False.
+        # @return [Symbol, nil] Ssl handshakes will be handled by dedicated ssl threads.,Default value when not specified in API or module is interpreted by Avi Controller as False.
         attribute :async_ssl
+        validates :async_ssl, type: Symbol
 
         # @return [Object, nil] Number of async ssl threads per se_dp.,Allowed values are 1-16.,Default value when not specified in API or module is interpreted by Avi Controller as 1.
         attribute :async_ssl_threads
 
-        # @return [Object, nil] If set, virtual services will be automatically migrated when load on an se is less than minimum or more than maximum thresholds.,Only alerts are generated when the auto_rebalance is not set.,Default value when not specified in API or module is interpreted by Avi Controller as False.
+        # @return [Symbol, nil] If set, virtual services will be automatically migrated when load on an se is less than minimum or more than maximum thresholds.,Only alerts are generated when the auto_rebalance is not set.,Default value when not specified in API or module is interpreted by Avi Controller as False.
         attribute :auto_rebalance
+        validates :auto_rebalance, type: Symbol
 
         # @return [Object, nil] Capacities of se for auto rebalance for each criteria.,Field introduced in 17.2.4.
         attribute :auto_rebalance_capacity_per_se
@@ -57,8 +63,9 @@ module Ansible
         # @return [Object, nil] Frequency of rebalance, if 'auto rebalance' is enabled.,Default value when not specified in API or module is interpreted by Avi Controller as 300.,Units(SEC).
         attribute :auto_rebalance_interval
 
-        # @return [Object, nil] Redistribution of virtual services from the takeover se to the replacement se can cause momentary traffic loss.,If the auto-redistribute load option is left in its default off state, any desired rebalancing requires calls to rest api.,Default value when not specified in API or module is interpreted by Avi Controller as False.
+        # @return [Symbol, nil] Redistribution of virtual services from the takeover se to the replacement se can cause momentary traffic loss.,If the auto-redistribute load option is left in its default off state, any desired rebalancing requires calls to rest api.,Default value when not specified in API or module is interpreted by Avi Controller as False.
         attribute :auto_redistribute_active_standby_load
+        validates :auto_redistribute_active_standby_load, type: Symbol
 
         # @return [Object, nil] Excess service engine capacity provisioned for ha failover.,Default value when not specified in API or module is interpreted by Avi Controller as 1.
         attribute :buffer_se
@@ -69,11 +76,13 @@ module Ansible
         # @return [Object, nil] Percentage of memory for connection state.,This will come at the expense of memory used for http in-memory cache.,Allowed values are 10-90.,Default value when not specified in API or module is interpreted by Avi Controller as 50.,Units(PERCENT).
         attribute :connection_memory_percentage
 
-        # @return [Object, nil] Boolean flag to set cpu_reserve.,Default value when not specified in API or module is interpreted by Avi Controller as False.
+        # @return [Symbol, nil] Boolean flag to set cpu_reserve.,Default value when not specified in API or module is interpreted by Avi Controller as False.
         attribute :cpu_reserve
+        validates :cpu_reserve, type: Symbol
 
-        # @return [Object, nil] Allocate all the cpu cores for the service engine virtual machines  on the same cpu socket.,Applicable only for vcenter cloud.,Default value when not specified in API or module is interpreted by Avi Controller as False.
+        # @return [Symbol, nil] Allocate all the cpu cores for the service engine virtual machines  on the same cpu socket.,Applicable only for vcenter cloud.,Default value when not specified in API or module is interpreted by Avi Controller as False.
         attribute :cpu_socket_affinity
+        validates :cpu_socket_affinity, type: Symbol
 
         # @return [Object, nil] Custom security groups to be associated with data vnics for se instances in openstack and aws clouds.,Field introduced in 17.1.3.
         attribute :custom_securitygroups_data
@@ -84,38 +93,47 @@ module Ansible
         # @return [Object, nil] Custom tag will be used to create the tags for se instance in aws.,Note this is not the same as the prefix for se name.
         attribute :custom_tag
 
-        # @return [Object, nil] Dedicate the core that handles packet receive/transmit from the network to just the dispatching function.,Don't use it for tcp/ip and ssl functions.,Default value when not specified in API or module is interpreted by Avi Controller as False.
+        # @return [Symbol, nil] Dedicate the core that handles packet receive/transmit from the network to just the dispatching function.,Don't use it for tcp/ip and ssl functions.,Default value when not specified in API or module is interpreted by Avi Controller as False.
         attribute :dedicated_dispatcher_core
+        validates :dedicated_dispatcher_core, type: Symbol
 
         # @return [Object, nil] User defined description for the object.
         attribute :description
 
-        # @return [Object, nil] Stop using tcp/udp and ip checksum offload features of nics.,Field introduced in 17.1.14, 17.2.5.,Default value when not specified in API or module is interpreted by Avi Controller as False.
+        # @return [Symbol, nil] Stop using tcp/udp and ip checksum offload features of nics.,Field introduced in 17.1.14, 17.2.5.,Default value when not specified in API or module is interpreted by Avi Controller as False.
         attribute :disable_csum_offloads
+        validates :disable_csum_offloads, type: Symbol
 
-        # @return [Object, nil] Disable generic receive offload (gro) in dpdk poll-mode driver packet receive path.,Gro is on by default on nics that do not support lro (large receive offload) or do not gain performance boost from lro.,Field introduced in 17.2.5.,Default value when not specified in API or module is interpreted by Avi Controller as True.
+        # @return [Symbol, nil] Disable generic receive offload (gro) in dpdk poll-mode driver packet receive path.,Gro is on by default on nics that do not support lro (large receive offload) or do not gain performance boost from lro.,Field introduced in 17.2.5.,Default value when not specified in API or module is interpreted by Avi Controller as True.
         attribute :disable_gro
+        validates :disable_gro, type: Symbol
 
-        # @return [Object, nil] Disable tcp segmentation offload (tso) in dpdk poll-mode driver packet transmit path.,Tso is on by default on nics that support it.,Field introduced in 17.2.5.,Default value when not specified in API or module is interpreted by Avi Controller as True.
+        # @return [Symbol, nil] Disable tcp segmentation offload (tso) in dpdk poll-mode driver packet transmit path.,Tso is on by default on nics that support it.,Field introduced in 17.2.5.,Default value when not specified in API or module is interpreted by Avi Controller as True.
         attribute :disable_tso
+        validates :disable_tso, type: Symbol
 
         # @return [Object, nil] Amount of disk space for each of the service engine virtual machines.,Default value when not specified in API or module is interpreted by Avi Controller as 10.,Units(GB).
         attribute :disk_per_se
 
-        # @return [Object, nil] Use both the active and standby service engines for virtual service placement in the legacy active standby ha mode.,Default value when not specified in API or module is interpreted by Avi Controller as False.
+        # @return [Symbol, nil] Use both the active and standby service engines for virtual service placement in the legacy active standby ha mode.,Default value when not specified in API or module is interpreted by Avi Controller as False.
         attribute :distribute_load_active_standby
+        validates :distribute_load_active_standby, type: Symbol
 
-        # @return [Object, nil] (this is a beta feature).,Enable hsm key priming.,If enabled, key handles on the hsm will be synced to se before processing client connections.,Field introduced in 17.2.7.,Default value when not specified in API or module is interpreted by Avi Controller as False.
+        # @return [Symbol, nil] (this is a beta feature).,Enable hsm key priming.,If enabled, key handles on the hsm will be synced to se before processing client connections.,Field introduced in 17.2.7.,Default value when not specified in API or module is interpreted by Avi Controller as False.
         attribute :enable_hsm_priming
+        validates :enable_hsm_priming, type: Symbol
 
-        # @return [Object, nil] Enable routing for this serviceenginegroup .,Default value when not specified in API or module is interpreted by Avi Controller as False.
+        # @return [Symbol, nil] Enable routing for this serviceenginegroup .,Default value when not specified in API or module is interpreted by Avi Controller as False.
         attribute :enable_routing
+        validates :enable_routing, type: Symbol
 
-        # @return [Object, nil] Enable vip on all interfaces of se.,Field introduced in 17.1.1.,Default value when not specified in API or module is interpreted by Avi Controller as True.
+        # @return [Symbol, nil] Enable vip on all interfaces of se.,Field introduced in 17.1.1.,Default value when not specified in API or module is interpreted by Avi Controller as True.
         attribute :enable_vip_on_all_interfaces
+        validates :enable_vip_on_all_interfaces, type: Symbol
 
-        # @return [Object, nil] Use virtual mac address for interfaces on which floating interface ips are placed.,Default value when not specified in API or module is interpreted by Avi Controller as False.
+        # @return [Symbol, nil] Use virtual mac address for interfaces on which floating interface ips are placed.,Default value when not specified in API or module is interpreted by Avi Controller as False.
         attribute :enable_vmac
+        validates :enable_vmac, type: Symbol
 
         # @return [Object, nil] Multiplier for extra config to support large vs/pool config.,Default value when not specified in API or module is interpreted by Avi Controller as 0.0.
         attribute :extra_config_multiplier
@@ -138,8 +156,9 @@ module Ansible
         # @return [Object, nil] It is a reference to an object of type hardwaresecuritymodulegroup.
         attribute :hardwaresecuritymodulegroup_ref
 
-        # @return [Object, nil] Enable active health monitoring from the standby se for all placed virtual services.,Default value when not specified in API or module is interpreted by Avi Controller as True.
+        # @return [Symbol, nil] Enable active health monitoring from the standby se for all placed virtual services.,Default value when not specified in API or module is interpreted by Avi Controller as True.
         attribute :hm_on_standby
+        validates :hm_on_standby, type: Symbol
 
         # @return [Object, nil] Key of a (key, value) pair identifying a label for a set of nodes usually in container clouds.,Needs to be specified together with host_attribute_value.,Ses can be configured differently including ha modes across different se groups.,May also be used for isolation between different classes of virtualservices.,Virtualservices' se group may be specified via annotations/labels.,A openshift/kubernetes namespace maybe annotated with a matching se group label as openshift.io/node-selector  apptype=prod.,When multiple se groups are used in a cloud with host attributes specified,just a single se group can exist as a match-all se group without a,host_attribute_key.
         attribute :host_attribute_key
@@ -147,8 +166,9 @@ module Ansible
         # @return [Object, nil] Value of a (key, value) pair identifying a label for a set of nodes usually in container clouds.,Needs to be specified together with host_attribute_key.
         attribute :host_attribute_value
 
-        # @return [Object, nil] Enable the host gateway monitor when service engine is deployed as docker container.,Disabled by default.,Field introduced in 17.2.4.,Default value when not specified in API or module is interpreted by Avi Controller as False.
+        # @return [Symbol, nil] Enable the host gateway monitor when service engine is deployed as docker container.,Disabled by default.,Field introduced in 17.2.4.,Default value when not specified in API or module is interpreted by Avi Controller as False.
         attribute :host_gateway_monitor
+        validates :host_gateway_monitor, type: Symbol
 
         # @return [Object, nil] Override default hypervisor.,Enum options - DEFAULT, VMWARE_ESX, KVM, VMWARE_VSAN, XEN.
         attribute :hypervisor
@@ -168,8 +188,9 @@ module Ansible
         # @return [Object, nil] Iptable rules.
         attribute :iptables
 
-        # @return [Object, nil] Select core with least load for new flow.,Default value when not specified in API or module is interpreted by Avi Controller as True.
+        # @return [Symbol, nil] Select core with least load for new flow.,Default value when not specified in API or module is interpreted by Avi Controller as True.
         attribute :least_load_core_selection
+        validates :least_load_core_selection, type: Symbol
 
         # @return [Object, nil] Specifies the license tier which would be used.,This field by default inherits the value from cloud.,Enum options - ENTERPRISE_16, ENTERPRISE_18.,Field introduced in 17.2.5.
         attribute :license_tier
@@ -192,8 +213,9 @@ module Ansible
         # @return [Object, nil] Maximum number of virtual services that can be placed on a single service engine.,East west virtual services are excluded from this limit.,Allowed values are 1-1000.,Default value when not specified in API or module is interpreted by Avi Controller as 10.
         attribute :max_vs_per_se
 
-        # @return [Object, nil] Boolean flag to set mem_reserve.,Default value when not specified in API or module is interpreted by Avi Controller as True.
+        # @return [Symbol, nil] Boolean flag to set mem_reserve.,Default value when not specified in API or module is interpreted by Avi Controller as True.
         attribute :mem_reserve
+        validates :mem_reserve, type: Symbol
 
         # @return [Object, nil] Amount of memory for each of the service engine virtual machines.,Default value when not specified in API or module is interpreted by Avi Controller as 2048.
         attribute :memory_per_se
@@ -235,8 +257,9 @@ module Ansible
         # @return [Object, nil] Amount of extra memory to be reserved for use by the operating system on a service engine.,Default value when not specified in API or module is interpreted by Avi Controller as 0.
         attribute :os_reserved_memory
 
-        # @return [Object, nil] Per-app se mode is designed for deploying dedicated load balancers per app (vs).,In this mode, each se is limited to a max of 2 vss.,Vcpus in per-app ses count towards licensing usage at 25% rate.,Default value when not specified in API or module is interpreted by Avi Controller as False.
+        # @return [Symbol, nil] Per-app se mode is designed for deploying dedicated load balancers per app (vs).,In this mode, each se is limited to a max of 2 vss.,Vcpus in per-app ses count towards licensing usage at 25% rate.,Default value when not specified in API or module is interpreted by Avi Controller as False.
         attribute :per_app
+        validates :per_app, type: Symbol
 
         # @return [Object, nil] If placement mode is 'auto', virtual services are automatically placed on service engines.,Enum options - PLACEMENT_MODE_AUTO.,Default value when not specified in API or module is interpreted by Avi Controller as PLACEMENT_MODE_AUTO.
         attribute :placement_mode
@@ -265,8 +288,9 @@ module Ansible
         # @return [Object, nil] Udp port for punted packets in docker bridge mode.,Field introduced in 17.1.2.,Default value when not specified in API or module is interpreted by Avi Controller as 1501.
         attribute :se_remote_punt_udp_port
 
-        # @return [Object, nil] Sideband traffic will be handled by a dedicated core.,Field introduced in 16.5.2, 17.1.9, 17.2.3.,Default value when not specified in API or module is interpreted by Avi Controller as False.
+        # @return [Symbol, nil] Sideband traffic will be handled by a dedicated core.,Field introduced in 16.5.2, 17.1.9, 17.2.3.,Default value when not specified in API or module is interpreted by Avi Controller as False.
         attribute :se_sb_dedicated_core
+        validates :se_sb_dedicated_core, type: Symbol
 
         # @return [Object, nil] Number of sideband threads per se.,Allowed values are 1-128.,Field introduced in 16.5.2, 17.1.9, 17.2.3.,Default value when not specified in API or module is interpreted by Avi Controller as 1.
         attribute :se_sb_threads
@@ -316,8 +340,9 @@ module Ansible
         # @return [Object, nil] List of vcenterdatastore.
         attribute :vcenter_datastores
 
-        # @return [Object, nil] Boolean flag to set vcenter_datastores_include.,Default value when not specified in API or module is interpreted by Avi Controller as False.
+        # @return [Symbol, nil] Boolean flag to set vcenter_datastores_include.,Default value when not specified in API or module is interpreted by Avi Controller as False.
         attribute :vcenter_datastores_include
+        validates :vcenter_datastores_include, type: Symbol
 
         # @return [Object, nil] Folder to place all the service engine virtual machines in vcenter.,Default value when not specified in API or module is interpreted by Avi Controller as AviSeFolder.
         attribute :vcenter_folder
@@ -328,8 +353,9 @@ module Ansible
         # @return [Object, nil] Number of vcpus for each of the service engine virtual machines.,Default value when not specified in API or module is interpreted by Avi Controller as 1.
         attribute :vcpus_per_se
 
-        # @return [Object, nil] Ensure primary and secondary service engines are deployed on different physical hosts.,Default value when not specified in API or module is interpreted by Avi Controller as True.
+        # @return [Symbol, nil] Ensure primary and secondary service engines are deployed on different physical hosts.,Default value when not specified in API or module is interpreted by Avi Controller as True.
         attribute :vs_host_redundancy
+        validates :vs_host_redundancy, type: Symbol
 
         # @return [Object, nil] Time to wait for the scaled in se to drain existing flows before marking the scalein done.,Default value when not specified in API or module is interpreted by Avi Controller as 30.,Units(SEC).
         attribute :vs_scalein_timeout
@@ -343,8 +369,9 @@ module Ansible
         # @return [Object, nil] If set, virtual services will be placed on only a subset of the cores of an se.,Field introduced in 17.2.5.
         attribute :vss_placement
 
-        # @return [Object, nil] Enable memory pool for waf.,Field introduced in 17.2.3.,Default value when not specified in API or module is interpreted by Avi Controller as True.
+        # @return [Symbol, nil] Enable memory pool for waf.,Field introduced in 17.2.3.,Default value when not specified in API or module is interpreted by Avi Controller as True.
         attribute :waf_mempool
+        validates :waf_mempool, type: Symbol
 
         # @return [Object, nil] Memory pool size used for waf.,Field introduced in 17.2.3.,Default value when not specified in API or module is interpreted by Avi Controller as 64.,Units(KB).
         attribute :waf_mempool_size

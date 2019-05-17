@@ -32,9 +32,9 @@ module Ansible
         attribute :version
         validates :version, inclusion: {:in=>[9.5, 9.6], :message=>"%{value} needs to be 9.5, 9.6"}, allow_nil: true
 
-        # @return [Boolean, nil] Enable SSL enforcement.
+        # @return [Symbol, nil] Enable SSL enforcement.
         attribute :enforce_ssl
-        validates :enforce_ssl, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :enforce_ssl, type: Symbol
 
         # @return [String, nil] The administrator's login name of a server. Can only be specified when the server is being created (and is required for creation).
         attribute :admin_username

@@ -21,9 +21,9 @@ module Ansible
         attribute :port
         validates :port, type: String
 
-        # @return [String, nil] A boolean switch to make a secure or insecure connection to the server.
+        # @return [:yes, :no, nil] A boolean switch to make a secure or insecure connection to the server.
         attribute :insecure_api
-        validates :insecure_api, type: String
+        validates :insecure_api, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] The name of the VM.
         attribute :name
@@ -72,9 +72,9 @@ module Ansible
         attribute :mempol
         validates :mempol, type: String
 
-        # @return [String, nil] To make your VM High Available.
+        # @return [:yes, :no, nil] To make your VM High Available.
         attribute :vm_ha
-        validates :vm_ha, type: String
+        validates :vm_ha, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Array<Hash>, Hash, nil] This option uses complex arguments and is a list of disks with the options name, size and domain.
         attribute :disks

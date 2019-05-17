@@ -29,46 +29,49 @@ module Ansible
         attribute :password
         validates :password, type: String
 
-        # @return [Object, nil] Run the command from this (remote) directory.
+        # @return [String, nil] Run the command from this (remote) directory.
         attribute :chdir
+        validates :chdir, type: String
 
-        # @return [String, nil] Do not display the startup banner and copyright message.,This only works for specific versions of the PsExec binary.
+        # @return [:yes, :no, nil] Do not display the startup banner and copyright message.,This only works for specific versions of the PsExec binary.
         attribute :nobanner
-        validates :nobanner, type: String
+        validates :nobanner, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Run the command without loading the account's profile.
+        # @return [:yes, :no, nil] Run the command without loading the account's profile.
         attribute :noprofile
-        validates :noprofile, type: String
+        validates :noprofile, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Run the command with elevated privileges.
+        # @return [:yes, :no, nil] Run the command with elevated privileges.
         attribute :elevated
-        validates :elevated, type: String
+        validates :elevated, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Run the program so that it interacts with the desktop on the remote system.
+        # @return [:yes, :no, nil] Run the program so that it interacts with the desktop on the remote system.
         attribute :interactive
-        validates :interactive, type: String
+        validates :interactive, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [Object, nil] Specifies the session ID to use.,This parameter works in conjunction with I(interactive).,It has no effect when I(interactive) is set to C(no).
+        # @return [Integer, nil] Specifies the session ID to use.,This parameter works in conjunction with I(interactive).,It has no effect when I(interactive) is set to C(no).
         attribute :session
+        validates :session, type: Integer
 
-        # @return [String, nil] Run the command as limited user (strips the Administrators group and allows only privileges assigned to the Users group).
+        # @return [:yes, :no, nil] Run the command as limited user (strips the Administrators group and allows only privileges assigned to the Users group).
         attribute :limited
-        validates :limited, type: String
+        validates :limited, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Run the remote command in the System account.
+        # @return [:yes, :no, nil] Run the remote command in the System account.
         attribute :system
-        validates :system, type: String
+        validates :system, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:background, :low, :belownormal, :abovenormal, :high, :realtime, nil] Used to run the command at a different priority.
         attribute :priority
         validates :priority, inclusion: {:in=>[:background, :low, :belownormal, :abovenormal, :high, :realtime], :message=>"%{value} needs to be :background, :low, :belownormal, :abovenormal, :high, :realtime"}, allow_nil: true
 
-        # @return [Object, nil] The connection timeout in seconds
+        # @return [Integer, nil] The connection timeout in seconds
         attribute :timeout
+        validates :timeout, type: Integer
 
-        # @return [String, nil] Wait for the application to terminate.,Only use for non-interactive applications.
+        # @return [:yes, :no, nil] Wait for the application to terminate.,Only use for non-interactive applications.
         attribute :wait
-        validates :wait, type: String
+        validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

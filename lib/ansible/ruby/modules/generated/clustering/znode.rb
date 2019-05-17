@@ -32,9 +32,9 @@ module Ansible
         attribute :timeout
         validates :timeout, type: Integer
 
-        # @return [String, nil] Recursively delete node and all its children.
+        # @return [:yes, :no, nil] Recursively delete node and all its children.
         attribute :recursive
-        validates :recursive, type: String
+        validates :recursive, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

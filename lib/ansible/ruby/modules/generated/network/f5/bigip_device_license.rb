@@ -20,8 +20,9 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
-        # @return [Object, nil] Declares whether you accept the BIG-IP EULA or not. By default, this value is C(no). You must specifically declare that you have viewed and accepted the license. This module will not present you with that EULA though, so it is incumbent on you to read it.,The EULA can be found here; https://support.f5.com/csp/article/K12902.,This parameter is not required when C(state) is C(absent) and will be ignored if it is provided.
+        # @return [Symbol, nil] Declares whether you accept the BIG-IP EULA or not. By default, this value is C(no). You must specifically declare that you have viewed and accepted the license. This module will not present you with that EULA though, so it is incumbent on you to read it.,The EULA can be found here; https://support.f5.com/csp/article/K12902.,This parameter is not required when C(state) is C(absent) and will be ignored if it is provided.
         attribute :accept_eula
+        validates :accept_eula, type: Symbol
       end
     end
   end

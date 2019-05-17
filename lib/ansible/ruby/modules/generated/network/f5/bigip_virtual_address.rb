@@ -26,8 +26,9 @@ module Ansible
         attribute :arp_state
         validates :arp_state, inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
 
-        # @return [Object, nil] Specifies whether the system accepts ARP requests.,When C(no), specifies that the system does not accept ARP requests.,When C(yes), then the packets are dropped.,Note that both ARP and ICMP Echo must be disabled in order for forwarding virtual servers using that virtual address to forward ICMP packets.,When creating a new virtual address, if this parameter is not specified, the default value is C(yes).
+        # @return [Symbol, nil] Specifies whether the system accepts ARP requests.,When C(no), specifies that the system does not accept ARP requests.,When C(yes), then the packets are dropped.,Note that both ARP and ICMP Echo must be disabled in order for forwarding virtual servers using that virtual address to forward ICMP packets.,When creating a new virtual address, if this parameter is not specified, the default value is C(yes).
         attribute :arp
+        validates :arp, type: Symbol
 
         # @return [Object, nil] Specifies whether the system automatically deletes the virtual address with the deletion of the last associated virtual server. When C(disabled), specifies that the system leaves the virtual address even when all associated virtual servers have been deleted. When creating the virtual address, the default value is C(enabled).,C(enabled) and C(disabled) are deprecated and will be removed in Ansible 2.11. Instead, use known Ansible booleans such as C(yes) and C(no)
         attribute :auto_delete
@@ -44,9 +45,9 @@ module Ansible
         attribute :availability_calculation
         validates :availability_calculation, inclusion: {:in=>[:always, :when_all_available, :when_any_available], :message=>"%{value} needs to be :always, :when_all_available, :when_any_available"}, allow_nil: true
 
-        # @return [Boolean, nil] Specifies whether the system uses route advertisement for this virtual address.,When disabled, the system does not advertise routes for this virtual address.,Deprecated. Use the C(route_advertisement) parameter instead.
+        # @return [Symbol, nil] Specifies whether the system uses route advertisement for this virtual address.,When disabled, the system does not advertise routes for this virtual address.,Deprecated. Use the C(route_advertisement) parameter instead.
         attribute :use_route_advertisement
-        validates :use_route_advertisement, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :use_route_advertisement, type: Symbol
 
         # @return [:disabled, :enabled, :always, :selective, :any, :all, nil] Specifies whether the system uses route advertisement for this virtual address.,When disabled, the system does not advertise routes for this virtual address.,The majority of these options are only supported on versions 13.0.0-HF1 or higher. On versions less than this, all choices expect C(disabled) will translate to C(enabled).,When C(always), the BIG-IP system will always advertise the route for the virtual address, regardless of availability status. This requires an C(enabled) virtual address.,When C(enabled), the BIG-IP system will advertise the route for the available virtual address, based on the calculation method in the availability calculation.,When C(disabled), the BIG-IP system will not advertise the route for the virtual address, regardless of the availability status.,When C(selective), you can also selectively enable ICMP echo responses, which causes the BIG-IP system to internally enable or disable responses based on virtual server state. Either C(any) virtual server, C(all) virtual servers, or C(always), regardless of the state of any virtual server.,When C(any), the BIG-IP system will advertise the route for the virtual address when any virtual server is available.,When C(all), the BIG-IP system will advertise the route for the virtual address when all virtual servers are available.
         attribute :route_advertisement
@@ -62,8 +63,9 @@ module Ansible
         # @return [Object, nil] The route domain of the C(address) that you want to use.,This value cannot be modified after it is set.
         attribute :route_domain
 
-        # @return [Object, nil] Enables all BIG-IP systems in a device group to listen for and process traffic on the same virtual address.,Spanning for a virtual address occurs when you enable the C(spanning) option on a device and then sync the virtual address to the other members of the device group.,Spanning also relies on the upstream router to distribute application flows to the BIG-IP systems using ECMP routes. ECMP defines a route to the virtual address using distinct Floating self-IP addresses configured on each BIG-IP system.,You must also configure MAC masquerade addresses and disable C(arp) on the virtual address when Spanning is enabled.,When creating a new virtual address, if this parameter is not specified, the default valus is C(no).
+        # @return [Symbol, nil] Enables all BIG-IP systems in a device group to listen for and process traffic on the same virtual address.,Spanning for a virtual address occurs when you enable the C(spanning) option on a device and then sync the virtual address to the other members of the device group.,Spanning also relies on the upstream router to distribute application flows to the BIG-IP systems using ECMP routes. ECMP defines a route to the virtual address using distinct Floating self-IP addresses configured on each BIG-IP system.,You must also configure MAC masquerade addresses and disable C(arp) on the virtual address when Spanning is enabled.,When creating a new virtual address, if this parameter is not specified, the default valus is C(no).
         attribute :spanning
+        validates :spanning, type: Symbol
       end
     end
   end

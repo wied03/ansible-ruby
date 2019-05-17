@@ -32,41 +32,41 @@ module Ansible
         attribute :additional_disks
         validates :additional_disks, type: TypeGeneric.new(Hash)
 
-        # @return [Boolean, nil] Set status of bandwidth in alerts.
+        # @return [Symbol, nil] Set status of bandwidth in alerts.
         attribute :alert_bwin_enabled
-        validates :alert_bwin_enabled, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :alert_bwin_enabled, type: Symbol
 
         # @return [Integer, nil] Set threshold in MB of bandwidth in alerts.
         attribute :alert_bwin_threshold
         validates :alert_bwin_threshold, type: Integer
 
-        # @return [Boolean, nil] Set status of bandwidth out alerts.
+        # @return [Symbol, nil] Set status of bandwidth out alerts.
         attribute :alert_bwout_enabled
-        validates :alert_bwout_enabled, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :alert_bwout_enabled, type: Symbol
 
         # @return [Integer, nil] Set threshold in MB of bandwidth out alerts.
         attribute :alert_bwout_threshold
         validates :alert_bwout_threshold, type: Integer
 
-        # @return [Boolean, nil] Set status of bandwidth quota alerts as percentage of network transfer quota.
+        # @return [Symbol, nil] Set status of bandwidth quota alerts as percentage of network transfer quota.
         attribute :alert_bwquota_enabled
-        validates :alert_bwquota_enabled, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :alert_bwquota_enabled, type: Symbol
 
         # @return [Integer, nil] Set threshold in MB of bandwidth quota alerts.
         attribute :alert_bwquota_threshold
         validates :alert_bwquota_threshold, type: Integer
 
-        # @return [Boolean, nil] Set status of receiving CPU usage alerts.
+        # @return [Symbol, nil] Set status of receiving CPU usage alerts.
         attribute :alert_cpu_enabled
-        validates :alert_cpu_enabled, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :alert_cpu_enabled, type: Symbol
 
         # @return [Integer, nil] Set percentage threshold for receiving CPU usage alerts. Each CPU core adds 100% to total.
         attribute :alert_cpu_threshold
         validates :alert_cpu_threshold, type: Integer
 
-        # @return [Boolean, nil] Set status of receiving disk IO alerts.
+        # @return [Symbol, nil] Set status of receiving disk IO alerts.
         attribute :alert_diskio_enabled
-        validates :alert_diskio_enabled, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :alert_diskio_enabled, type: Symbol
 
         # @return [Integer, nil] Set threshold for average IO ops/sec over 2 hour period.
         attribute :alert_diskio_threshold
@@ -88,9 +88,9 @@ module Ansible
         attribute :password
         validates :password, type: String
 
-        # @return [String, nil] Add private IPv4 address when Linode is created.
+        # @return [:yes, :no, nil] Add private IPv4 address when Linode is created.
         attribute :private_ip
-        validates :private_ip, type: String
+        validates :private_ip, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] SSH public key applied to root user
         attribute :ssh_pub_key
@@ -112,17 +112,17 @@ module Ansible
         attribute :kernel_id
         validates :kernel_id, type: Integer
 
-        # @return [String, nil] wait for the instance to be in state C(running) before returning
+        # @return [:yes, :no, nil] wait for the instance to be in state C(running) before returning
         attribute :wait
-        validates :wait, type: String
+        validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] how long before wait gives up, in seconds
         attribute :wait_timeout
         validates :wait_timeout, type: Integer
 
-        # @return [String, nil] Set status of Lassie watchdog.
+        # @return [Boolean, nil] Set status of Lassie watchdog.
         attribute :watchdog
-        validates :watchdog, type: String
+        validates :watchdog, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
       end
     end
   end

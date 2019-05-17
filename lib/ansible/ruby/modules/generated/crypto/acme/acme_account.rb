@@ -20,9 +20,9 @@ module Ansible
         # @return [Object, nil] A list of contact URLs.,Email addresses must be prefixed with C(mailto:).,See https://tools.ietf.org/html/draft-ietf-acme-acme-14#section-7.1.2 for what is allowed.,Must be specified when state is C(present). Will be ignored if state is C(absent) or C(changed_key).
         attribute :contact
 
-        # @return [Boolean, nil] Boolean indicating whether you agree to the terms of service document.,ACME servers can require this to be true.
+        # @return [Symbol, nil] Boolean indicating whether you agree to the terms of service document.,ACME servers can require this to be true.
         attribute :terms_agreed
-        validates :terms_agreed, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :terms_agreed, type: Symbol
 
         # @return [Object, nil] Path to a file containing the ACME account RSA or Elliptic Curve key to change to.,Same restrictions apply as to C(account_key_src).,Mutually exclusive with C(new_account_key_content).,Required if C(new_account_key_content) is not used and state is C(changed_key).
         attribute :new_account_key_src

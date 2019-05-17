@@ -8,9 +8,9 @@ module Ansible
     module Modules
       # Manage an AWS Application Elastic Load Balancer. See U(https://aws.amazon.com/blogs/aws/new-aws-application-load-balancer/) for details.
       class Elb_application_lb < Base
-        # @return [Boolean, nil] Whether or not to enable access logs. When true, I(access_logs_s3_bucket) must be set.
+        # @return [Symbol, nil] Whether or not to enable access logs. When true, I(access_logs_s3_bucket) must be set.
         attribute :access_logs_enabled
-        validates :access_logs_enabled, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :access_logs_enabled, type: Symbol
 
         # @return [String, nil] The name of the S3 bucket for the access logs. This attribute is required if access logs in Amazon S3 are enabled. The bucket must exist in the same region as the load balancer and have a bucket policy that grants Elastic Load Balancing permission to write to the bucket.
         attribute :access_logs_s3_bucket
@@ -20,13 +20,13 @@ module Ansible
         attribute :access_logs_s3_prefix
         validates :access_logs_s3_prefix, type: String
 
-        # @return [Boolean, nil] Indicates whether deletion protection for the ELB is enabled.
+        # @return [Symbol, nil] Indicates whether deletion protection for the ELB is enabled.
         attribute :deletion_protection
-        validates :deletion_protection, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :deletion_protection, type: Symbol
 
-        # @return [Boolean, nil] Indicates whether to enable HTTP2 routing.
+        # @return [Symbol, nil] Indicates whether to enable HTTP2 routing.
         attribute :http2
-        validates :http2, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :http2, type: Symbol
 
         # @return [Integer, nil] The number of seconds to wait before an idle connection is closed.
         attribute :idle_timeout
@@ -66,9 +66,9 @@ module Ansible
         # @return [Object, nil] A dictionary of one or more tags to assign to the load balancer.
         attribute :tags
 
-        # @return [Boolean, nil] Wait for the load balancer to have a state of 'active' before completing. A status check is performed every 15 seconds until a successful state is reached. An error is returned after 40 failed checks.
+        # @return [Symbol, nil] Wait for the load balancer to have a state of 'active' before completing. A status check is performed every 15 seconds until a successful state is reached. An error is returned after 40 failed checks.
         attribute :wait
-        validates :wait, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :wait, type: Symbol
 
         # @return [Object, nil] The time in seconds to use in conjunction with I(wait).
         attribute :wait_timeout

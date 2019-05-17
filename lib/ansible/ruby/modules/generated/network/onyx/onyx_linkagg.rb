@@ -24,9 +24,9 @@ module Ansible
         attribute :aggregate
         validates :aggregate, type: TypeGeneric.new(Hash)
 
-        # @return [Boolean, nil] Purge link aggregation groups not defined in the I(aggregate) parameter.
+        # @return [Symbol, nil] Purge link aggregation groups not defined in the I(aggregate) parameter.
         attribute :purge
-        validates :purge, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :purge, type: Symbol
 
         # @return [:present, :absent, :up, :down, nil] State of the link aggregation group.
         attribute :state

@@ -65,9 +65,9 @@ module Ansible
         attribute :subnetwork
         validates :subnetwork, type: String
 
-        # @return [String, nil] if set, create the instance with a persistent boot disk
+        # @return [:yes, :no, nil] if set, create the instance with a persistent boot disk
         attribute :persistent_boot_disk
-        validates :persistent_boot_disk, type: String
+        validates :persistent_boot_disk, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Array<Hash>, Hash, nil] a list of persistent disks to attach to the instance; a string value gives the name of the disk; alternatively, a dictionary value can define 'name' and 'mode' ('READ_ONLY' or 'READ_WRITE'). The first entry will be the boot disk (which must be READ_WRITE).
         attribute :disks
@@ -85,21 +85,21 @@ module Ansible
         attribute :zone
         validates :zone, presence: true, type: String
 
-        # @return [String, nil] set to C(yes) if the instance can forward ip packets (useful for gateways)
+        # @return [:yes, :no, nil] set to C(yes) if the instance can forward ip packets (useful for gateways)
         attribute :ip_forward
-        validates :ip_forward, type: String
+        validates :ip_forward, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] type of external ip, ephemeral by default; alternatively, a fixed gce ip or ip name can be given. Specify 'none' if no external ip is desired.
         attribute :external_ip
         validates :external_ip, type: String
 
-        # @return [String, nil] if set boot disk will be removed after instance destruction
+        # @return [:yes, :no, nil] if set boot disk will be removed after instance destruction
         attribute :disk_auto_delete
-        validates :disk_auto_delete, type: String
+        validates :disk_auto_delete, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] if set to C(yes), instances will be preemptible and time-limited. (requires libcloud >= 0.20.0)
+        # @return [:yes, :no, nil] if set to C(yes), instances will be preemptible and time-limited. (requires libcloud >= 0.20.0)
         attribute :preemptible
-        validates :preemptible, type: String
+        validates :preemptible, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] The size of the boot disk created for this instance (in GB)
         attribute :disk_size

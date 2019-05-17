@@ -17,13 +17,13 @@ module Ansible
         attribute :dest
         validates :dest, presence: true, type: String
 
-        # @return [String, nil] Includes all subdirectories (Toggles the C(/e) flag to RoboCopy).,If C(flags) is set, this will be ignored.
+        # @return [:yes, :no, nil] Includes all subdirectories (Toggles the C(/e) flag to RoboCopy).,If C(flags) is set, this will be ignored.
         attribute :recurse
-        validates :recurse, type: String
+        validates :recurse, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Deletes any files/directories found in the destination that do not exist in the source.,Toggles the C(/purge) flag to RoboCopy. If C(flags) is set, this will be ignored.
+        # @return [:yes, :no, nil] Deletes any files/directories found in the destination that do not exist in the source.,Toggles the C(/purge) flag to RoboCopy. If C(flags) is set, this will be ignored.
         attribute :purge
-        validates :purge, type: String
+        validates :purge, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] Directly supply Robocopy flags. If set, C(purge) and C(recurse) will be ignored.
         attribute :flags

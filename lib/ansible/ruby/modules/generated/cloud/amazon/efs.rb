@@ -8,16 +8,16 @@ module Ansible
     module Modules
       # Module allows create, search and destroy Amazon EFS file systems
       class Efs < Base
-        # @return [String, nil] A boolean value that, if true, creates an encrypted file system. This can not be modfied after the file system is created.
+        # @return [:yes, :no, nil] A boolean value that, if true, creates an encrypted file system. This can not be modfied after the file system is created.
         attribute :encrypt
-        validates :encrypt, type: String
+        validates :encrypt, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] The id of the AWS KMS CMK that will be used to protect the encrypted file system. This parameter is only required if you want to use a non-default CMK. If this parameter is not specified, the default CMK for Amazon EFS is used. The key id can be Key ID, Key ID ARN, Key Alias or Key Alias ARN.
         attribute :kms_key_id
 
-        # @return [String, nil] If yes, existing tags will be purged from the resource to match exactly what is defined by I(tags) parameter. If the I(tags) parameter is not set then tags will not be modified.
+        # @return [:yes, :no, nil] If yes, existing tags will be purged from the resource to match exactly what is defined by I(tags) parameter. If the I(tags) parameter is not set then tags will not be modified.
         attribute :purge_tags
-        validates :purge_tags, type: String
+        validates :purge_tags, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:present, :absent, nil] Allows to create, search and destroy Amazon EFS file system
         attribute :state
@@ -42,9 +42,9 @@ module Ansible
         attribute :targets
         validates :targets, type: TypeGeneric.new(Hash)
 
-        # @return [String, nil] In case of 'present' state should wait for EFS 'available' life cycle state (of course, if current state not 'deleting' or 'deleted') In case of 'absent' state should wait for EFS 'deleted' life cycle state
+        # @return [:yes, :no, nil] In case of 'present' state should wait for EFS 'available' life cycle state (of course, if current state not 'deleting' or 'deleted') In case of 'absent' state should wait for EFS 'deleted' life cycle state
         attribute :wait
-        validates :wait, type: String
+        validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] How long the module should wait (in seconds) for desired state before returning. Zero means wait as long as necessary.
         attribute :wait_timeout

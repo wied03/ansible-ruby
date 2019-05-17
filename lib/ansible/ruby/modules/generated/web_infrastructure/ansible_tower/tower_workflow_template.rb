@@ -8,8 +8,9 @@ module Ansible
     module Modules
       # Create, update, or destroy Ansible Tower workflows. See U(https://www.ansible.com/tower) for an overview.
       class Tower_workflow_template < Base
-        # @return [Object, nil] If enabled, simultaneous runs of this job template will be allowed.
+        # @return [Symbol, nil] If enabled, simultaneous runs of this job template will be allowed.
         attribute :allow_simultaneous
+        validates :allow_simultaneous, type: Symbol
 
         # @return [String, nil] The description to use for the workflow.
         attribute :description
@@ -30,8 +31,9 @@ module Ansible
         attribute :schema
         validates :schema, type: String
 
-        # @return [Object, nil] Setting that variable will prompt the user for job type on the workflow launch.
+        # @return [Symbol, nil] Setting that variable will prompt the user for job type on the workflow launch.
         attribute :survey_enabled
+        validates :survey_enabled, type: Symbol
 
         # @return [Object, nil] The definition of the survey associated to the workflow.
         attribute :survey

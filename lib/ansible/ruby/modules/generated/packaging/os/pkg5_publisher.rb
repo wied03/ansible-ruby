@@ -17,12 +17,13 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [Boolean, nil] Packages installed from a sticky repository can only receive updates from that repository.
+        # @return [Symbol, nil] Packages installed from a sticky repository can only receive updates from that repository.
         attribute :sticky
-        validates :sticky, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :sticky, type: Symbol
 
-        # @return [Object, nil] Is the repository enabled or disabled?
+        # @return [Symbol, nil] Is the repository enabled or disabled?
         attribute :enabled
+        validates :enabled, type: Symbol
 
         # @return [String, nil] A path or URL to the repository.,Multiple values may be provided.
         attribute :origin

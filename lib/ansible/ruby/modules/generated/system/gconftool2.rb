@@ -27,9 +27,9 @@ module Ansible
         # @return [Object, nil] Specify a configuration source to use rather than the default path. See man gconftool-2(1)
         attribute :config_source
 
-        # @return [String, nil] Access the config database directly, bypassing server.  If direct is specified then the config_source must be specified as well. See man gconftool-2(1)
+        # @return [:yes, :no, nil] Access the config database directly, bypassing server.  If direct is specified then the config_source must be specified as well. See man gconftool-2(1)
         attribute :direct
-        validates :direct, type: String
+        validates :direct, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

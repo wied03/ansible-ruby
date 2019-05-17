@@ -31,21 +31,25 @@ module Ansible
         attribute :access_policies
         validates :access_policies, type: TypeGeneric.new(Hash)
 
-        # @return [Boolean, nil] Property to specify whether Azure Virtual Machines are permitted to retrieve certificates stored as secrets from the key vault.
+        # @return [Symbol, nil] Property to specify whether Azure Virtual Machines are permitted to retrieve certificates stored as secrets from the key vault.
         attribute :enabled_for_deployment
-        validates :enabled_for_deployment, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :enabled_for_deployment, type: Symbol
 
-        # @return [Object, nil] Property to specify whether Azure Disk Encryption is permitted to retrieve secrets from the vault and unwrap keys.
+        # @return [Symbol, nil] Property to specify whether Azure Disk Encryption is permitted to retrieve secrets from the vault and unwrap keys.
         attribute :enabled_for_disk_encryption
+        validates :enabled_for_disk_encryption, type: Symbol
 
-        # @return [Object, nil] Property to specify whether Azure Resource Manager is permitted to retrieve secrets from the key vault.
+        # @return [Symbol, nil] Property to specify whether Azure Resource Manager is permitted to retrieve secrets from the key vault.
         attribute :enabled_for_template_deployment
+        validates :enabled_for_template_deployment, type: Symbol
 
-        # @return [Object, nil] Property to specify whether the soft delete functionality is enabled for this key vault.
+        # @return [Symbol, nil] Property to specify whether the soft delete functionality is enabled for this key vault.
         attribute :enable_soft_delete
+        validates :enable_soft_delete, type: Symbol
 
-        # @return [Object, nil] Create vault in recovery mode.
+        # @return [Symbol, nil] Create vault in recovery mode.
         attribute :recover_mode
+        validates :recover_mode, type: Symbol
 
         # @return [:absent, :present, nil] Assert the state of the KeyVault. Use 'present' to create or update an KeyVault and 'absent' to delete it.
         attribute :state

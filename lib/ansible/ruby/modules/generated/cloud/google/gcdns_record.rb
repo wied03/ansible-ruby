@@ -36,9 +36,9 @@ module Ansible
         attribute :ttl
         validates :ttl, type: Integer
 
-        # @return [String, nil] Whether an attempt to overwrite an existing record should succeed or fail. The behavior of this option depends on I(state).,If I(state) is C(present) and I(overwrite) is C(True), this module will replace an existing resource record of the same name with the provided I(record_data). If I(state) is C(present) and I(overwrite) is C(False), this module will fail if there is an existing resource record with the same name and type, but different resource data.,If I(state) is C(absent) and I(overwrite) is C(True), this module will remove the given resource record unconditionally. If I(state) is C(absent) and I(overwrite) is C(False), this module will fail if the provided record_data do not match exactly with the existing resource record's record_data.
+        # @return [:yes, :no, nil] Whether an attempt to overwrite an existing record should succeed or fail. The behavior of this option depends on I(state).,If I(state) is C(present) and I(overwrite) is C(True), this module will replace an existing resource record of the same name with the provided I(record_data). If I(state) is C(present) and I(overwrite) is C(False), this module will fail if there is an existing resource record with the same name and type, but different resource data.,If I(state) is C(absent) and I(overwrite) is C(True), this module will remove the given resource record unconditionally. If I(state) is C(absent) and I(overwrite) is C(False), this module will fail if the provided record_data do not match exactly with the existing resource record's record_data.
         attribute :overwrite
-        validates :overwrite, type: String
+        validates :overwrite, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] The e-mail address for a service account with access to Google Cloud DNS.
         attribute :service_account_email

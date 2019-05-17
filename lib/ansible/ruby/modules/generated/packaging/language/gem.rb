@@ -20,16 +20,16 @@ module Ansible
         attribute :gem_source
         validates :gem_source, type: String
 
-        # @return [String, nil] Whether to include dependencies or not.
+        # @return [:yes, :no, nil] Whether to include dependencies or not.
         attribute :include_dependencies
-        validates :include_dependencies, type: String
+        validates :include_dependencies, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] The repository from which the gem will be installed
         attribute :repository
 
-        # @return [String, nil] Install gem in user's local gems cache or for all users
+        # @return [:yes, :no, nil] Install gem in user's local gems cache or for all users
         attribute :user_install
-        validates :user_install, type: String
+        validates :user_install, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] Override the path to the gem executable
         attribute :executable

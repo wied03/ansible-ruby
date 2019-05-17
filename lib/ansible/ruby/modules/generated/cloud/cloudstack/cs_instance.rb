@@ -112,13 +112,13 @@ module Ansible
         attribute :user_data
         validates :user_data, type: String
 
-        # @return [Boolean, nil] Force stop/start the instance if required to apply changes, otherwise a running instance will not be changed.
+        # @return [Symbol, nil] Force stop/start the instance if required to apply changes, otherwise a running instance will not be changed.
         attribute :force
-        validates :force, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :force, type: Symbol
 
-        # @return [Boolean, nil] Enables a volume shrinkage when the new size is smaller than the old one.
+        # @return [Symbol, nil] Enables a volume shrinkage when the new size is smaller than the old one.
         attribute :allow_root_disk_shrink
-        validates :allow_root_disk_shrink, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :allow_root_disk_shrink, type: Symbol
 
         # @return [Array<Hash>, Hash, nil] List of tags. Tags are a list of dictionaries having keys C(key) and C(value).,If you want to delete all tags, set a empty list e.g. I(tags: []).
         attribute :tags

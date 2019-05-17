@@ -15,9 +15,9 @@ module Ansible
         # @return [Object, nil] Page number of the results to fetch.
         attribute :page
 
-        # @return [String, nil] Fetch all the pages and return a single result.
+        # @return [:yes, :no, nil] Fetch all the pages and return a single result.
         attribute :all_pages
-        validates :all_pages, type: String
+        validates :all_pages, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Hash, nil] Query used to further filter the list of jobs. C({"foo":"bar"}) will be passed at C(?foo=bar)
         attribute :query

@@ -40,8 +40,9 @@ module Ansible
         # @return [Object, nil] Remote destination.
         attribute :remote_hostname
 
-        # @return [Object, nil] Local backup.
+        # @return [Symbol, nil] Local backup.
         attribute :save_local
+        validates :save_local, type: Symbol
 
         # @return [Object, nil] Access credentials for remote destination.,It is a reference to an object of type cloudconnectoruser.
         attribute :ssh_user_ref
@@ -49,8 +50,9 @@ module Ansible
         # @return [Object, nil] It is a reference to an object of type tenant.
         attribute :tenant_ref
 
-        # @return [Object, nil] Remote backup.
+        # @return [Symbol, nil] Remote backup.
         attribute :upload_to_remote_host
+        validates :upload_to_remote_host, type: Symbol
 
         # @return [Object, nil] Avi controller URL of the object.
         attribute :url

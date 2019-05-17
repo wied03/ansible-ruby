@@ -31,8 +31,9 @@ module Ansible
         attribute :network
         validates :network, presence: true, type: String
 
-        # @return [Object, nil] Whether the VMs in this subnet can access Google services without assigned external IP addresses.
+        # @return [Symbol, nil] Whether the VMs in this subnet can access Google services without assigned external IP addresses.
         attribute :private_ip_google_access
+        validates :private_ip_google_access, type: Symbol
 
         # @return [String] URL of the GCP region for this subnetwork.
         attribute :region

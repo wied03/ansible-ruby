@@ -34,9 +34,9 @@ module Ansible
         attribute :password
         validates :password, type: String
 
-        # @return [String, nil] Whether to allow the private key to be exported.,If C(no), then this module and other process will only be able to export the certificate and the private key cannot be exported.,Used when C(state=present) only.
+        # @return [:yes, :no, nil] Whether to allow the private key to be exported.,If C(no), then this module and other process will only be able to export the certificate and the private key cannot be exported.,Used when C(state=present) only.
         attribute :key_exportable
-        validates :key_exportable, type: String
+        validates :key_exportable, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:default, :machine, :user, nil] Specifies where Windows will store the private key when it is imported.,When set to C(default), the default option as set by Windows is used.,When set to C(machine), the key is stored in a path accessible by various users.,When set to C(user), the key is stored in a path only accessible by the current user.,Used when C(state=present) only and cannot be changed once imported.,See U(https://msdn.microsoft.com/en-us/library/system.security.cryptography.x509certificates.x509keystorageflags.aspx) for more details.
         attribute :key_storage

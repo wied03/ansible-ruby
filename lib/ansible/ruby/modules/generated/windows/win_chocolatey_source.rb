@@ -9,14 +9,17 @@ module Ansible
       # Used to managed Chocolatey sources configured on the client.
       # Requires Chocolatey to be already installed on the remote host.
       class Win_chocolatey_source < Base
-        # @return [Object, nil] Makes the source visible to Administrators only.,Requires Chocolatey >= 0.10.8.,When creating a new source, this defaults to C(False).
+        # @return [Symbol, nil] Makes the source visible to Administrators only.,Requires Chocolatey >= 0.10.8.,When creating a new source, this defaults to C(False).
         attribute :admin_only
+        validates :admin_only, type: Symbol
 
-        # @return [Object, nil] Allow the source to be used with self-service,Requires Chocolatey >= 0.10.4.,When creating a new source, this defaults to C(False).
+        # @return [Symbol, nil] Allow the source to be used with self-service,Requires Chocolatey >= 0.10.4.,When creating a new source, this defaults to C(False).
         attribute :allow_self_service
+        validates :allow_self_service, type: Symbol
 
-        # @return [Object, nil] Bypass the proxy when using this source.,Requires Chocolatey >= 0.10.4.,When creating a new source, this defaults to C(False).
+        # @return [Symbol, nil] Bypass the proxy when using this source.,Requires Chocolatey >= 0.10.4.,When creating a new source, this defaults to C(False).
         attribute :bypass_proxy
+        validates :bypass_proxy, type: Symbol
 
         # @return [Object, nil] The path to a .pfx file to use for X509 authenticated feeds.,Requires Chocolatey >= 0.9.10.
         attribute :certificate
@@ -28,8 +31,9 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [Object, nil] The priority order of this source compared to other sources, lower is better.,All priorities above C(0) will be evaluated first, then zero-based values will be evaluated in config file order.,Requires Chocolatey >= 0.9.9.9.,When creating a new source, this defaults to C(0).
+        # @return [Integer, nil] The priority order of this source compared to other sources, lower is better.,All priorities above C(0) will be evaluated first, then zero-based values will be evaluated in config file order.,Requires Chocolatey >= 0.9.9.9.,When creating a new source, this defaults to C(0).
         attribute :priority
+        validates :priority, type: Integer
 
         # @return [String, nil] The file/folder/url of the source.,Required when I(state) is C(present) or C(disabled).
         attribute :source

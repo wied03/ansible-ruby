@@ -25,9 +25,9 @@ module Ansible
         # @return [Object, nil] THe ProfitBricks password. Overrides the PB_PASSWORD environment variable.
         attribute :subscription_password
 
-        # @return [String, nil] wait for the datacenter to be created before returning
+        # @return [:yes, :no, nil] wait for the datacenter to be created before returning
         attribute :wait
-        validates :wait, type: String
+        validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] how long before wait gives up, in seconds
         attribute :wait_timeout

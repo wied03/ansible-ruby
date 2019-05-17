@@ -15,8 +15,9 @@ module Ansible
         # @return [Object, nil] Description of the group.
         attribute :description
 
-        # @return [Object, nil] Allow adding external non-IPA members from trusted domains.
+        # @return [Symbol, nil] Allow adding external non-IPA members from trusted domains.
         attribute :external
+        validates :external, type: Symbol
 
         # @return [Integer, nil] GID (use this option to set it manually).
         attribute :gidnumber
@@ -26,8 +27,9 @@ module Ansible
         attribute :group
         validates :group, type: TypeGeneric.new(String)
 
-        # @return [Object, nil] Create as a non-POSIX group.
+        # @return [Symbol, nil] Create as a non-POSIX group.
         attribute :nonposix
+        validates :nonposix, type: Symbol
 
         # @return [Array<String>, String, nil] List of user names assigned to this group.,If an empty list is passed all users will be removed from this group.,If option is omitted assigned users will not be checked or changed.,Users that are already assigned but not passed will be removed.
         attribute :user

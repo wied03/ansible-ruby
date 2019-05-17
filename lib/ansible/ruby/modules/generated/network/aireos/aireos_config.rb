@@ -26,16 +26,16 @@ module Ansible
         attribute :match
         validates :match, inclusion: {:in=>[:line, :none], :message=>"%{value} needs to be :line, :none"}, allow_nil: true
 
-        # @return [String, nil] This argument will cause the module to create a full backup of the current C(running-config) from the remote device before any changes are made.  The backup file is written to the C(backup) folder in the playbook root directory.  If the directory does not exist, it is created.
+        # @return [:yes, :no, nil] This argument will cause the module to create a full backup of the current C(running-config) from the remote device before any changes are made.  The backup file is written to the C(backup) folder in the playbook root directory.  If the directory does not exist, it is created.
         attribute :backup
-        validates :backup, type: String
+        validates :backup, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] The module, by default, will connect to the remote device and retrieve the current running-config to use as a base for comparing against the contents of source.  There are times when it is not desirable to have the task get the current running-config for every task in a playbook.  The I(running_config) argument allows the implementer to pass in the configuration to use as the base config for comparison.
         attribute :running_config
 
-        # @return [String, nil] The C(save) argument instructs the module to save the running-config to startup-config.  This operation is performed after any changes are made to the current running config.  If no changes are made, the configuration is still saved to the startup config.  This option will always cause the module to return changed. This argument is mutually exclusive with I(save_when).,This option is deprecated as of Ansible 2.7, use C(save_when)
+        # @return [:yes, :no, nil] The C(save) argument instructs the module to save the running-config to startup-config.  This operation is performed after any changes are made to the current running config.  If no changes are made, the configuration is still saved to the startup config.  This option will always cause the module to return changed. This argument is mutually exclusive with I(save_when).,This option is deprecated as of Ansible 2.7, use C(save_when)
         attribute :save
-        validates :save, type: String
+        validates :save, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:always, :never, :changed, nil] When changes are made to the device running-configuration, the changes are not copied to non-volatile storage by default.  Using this argument will change that.  If the argument is set to I(always), then the running-config will always be copied to the startup-config and the module will always return as changed. If the argument is set to I(never), the running-config will never be copied to the startup-config.  If the argument is set to I(changed), then the running-config will only be copied to the startup-config if the task has made a change.
         attribute :save_when

@@ -48,9 +48,9 @@ module Ansible
         attribute :status_code
         validates :status_code, type: Integer
 
-        # @return [Boolean, nil] If enabled, idempotency check will be done by using GET method first and then comparing with I(body)
+        # @return [Symbol, nil] If enabled, idempotency check will be done by using GET method first and then comparing with I(body)
         attribute :idempotency
-        validates :idempotency, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :idempotency, type: Symbol
 
         # @return [:absent, :present, nil] Assert the state of the resource. Use C(present) to create or update resource or C(absent) to delete resource.
         attribute :state

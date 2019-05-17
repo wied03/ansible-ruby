@@ -36,9 +36,9 @@ module Ansible
         attribute :confirm
         validates :confirm, type: Integer
 
-        # @return [String, nil] This argument will execute commit operation on remote device. It can be used to confirm a previous commit.
+        # @return [:yes, :no, nil] This argument will execute commit operation on remote device. It can be used to confirm a previous commit.
         attribute :confirm_commit
-        validates :confirm_commit, type: String
+        validates :confirm_commit, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:"stop-on-error", :"continue-on-error", :"rollback-on-error", nil] This option control the netconf server action after a error is occured while editing the configuration. If the value is I(stop-on-error) abort the config edit on first error, if value is I(continue-on-error) it continues to process configuration data on error, error is recorded and negative response is generated if any errors occur. If value is C(rollback-on-error) it rollback to the original configuration in case any error occurs, this requires the remote Netconf server to support the :rollback-on-error capability.
         attribute :error_option
@@ -48,21 +48,21 @@ module Ansible
         attribute :save
         validates :save, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
-        # @return [String, nil] This argument will cause the module to create a full backup of the current C(running-config) from the remote device before any changes are made.  The backup file is written to the C(backup) folder in the playbook root directory or role root directory, if playbook is part of an ansible role. If the directory does not exist, it is created.
+        # @return [:yes, :no, nil] This argument will cause the module to create a full backup of the current C(running-config) from the remote device before any changes are made.  The backup file is written to the C(backup) folder in the playbook root directory or role root directory, if playbook is part of an ansible role. If the directory does not exist, it is created.
         attribute :backup
-        validates :backup, type: String
+        validates :backup, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] It instructs the module to delete the configuration from value mentioned in C(target) datastore.
+        # @return [:yes, :no, nil] It instructs the module to delete the configuration from value mentioned in C(target) datastore.
         attribute :delete
-        validates :delete, type: String
+        validates :delete, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Boolean, nil] This boolean flag controls if the configuration changes should be committed or not after editing the candidate datastore. This option is supported only if remote Netconf server supports :candidate capability. If the value is set to I(False) commit won't be issued after edit-config operation and user needs to handle commit or discard-changes explicitly.
         attribute :commit
         validates :commit, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
-        # @return [Boolean, nil] This boolean flag if set validates the content of datastore given in C(target) option. For this option to work remote Netconf server shoule support :validate capability.
+        # @return [Symbol, nil] This boolean flag if set validates the content of datastore given in C(target) option. For this option to work remote Netconf server shoule support :validate capability.
         attribute :validate
-        validates :validate, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :validate, type: Symbol
 
         # @return [Object, nil] Specifies the source path to the xml file that contains the configuration or configuration template to load. The path to the source file can either be the full path on the Ansible control host or a relative path from the playbook or role root directory. This argument is mutually exclusive with I(xml).
         attribute :src

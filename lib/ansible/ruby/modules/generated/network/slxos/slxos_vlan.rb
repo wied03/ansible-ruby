@@ -27,9 +27,9 @@ module Ansible
         # @return [Object, nil] List of VLANs definitions.
         attribute :aggregate
 
-        # @return [Boolean, nil] Purge VLANs not defined in the I(aggregate) parameter.
+        # @return [Symbol, nil] Purge VLANs not defined in the I(aggregate) parameter.
         attribute :purge
-        validates :purge, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :purge, type: Symbol
 
         # @return [:present, :absent, nil] State of the VLAN configuration.
         attribute :state

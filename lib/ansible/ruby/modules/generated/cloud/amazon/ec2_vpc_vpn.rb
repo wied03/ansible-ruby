@@ -32,9 +32,9 @@ module Ansible
         attribute :tags
         validates :tags, type: Hash
 
-        # @return [Boolean, nil] Whether or not to delete VPN connections tags that are associated with the connection but not specified in the task.
+        # @return [Symbol, nil] Whether or not to delete VPN connections tags that are associated with the connection but not specified in the task.
         attribute :purge_tags
-        validates :purge_tags, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :purge_tags, type: Symbol
 
         # @return [Boolean, nil] Indicates whether the VPN connection uses static routes only. Static routes must be used for devices that don't support BGP.
         attribute :static_only

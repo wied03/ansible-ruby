@@ -16,9 +16,9 @@ module Ansible
         attribute :size
         validates :size, type: Integer
 
-        # @return [Boolean, nil] Should the parameters be regenerated even it it already exists
+        # @return [Symbol, nil] Should the parameters be regenerated even it it already exists
         attribute :force
-        validates :force, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :force, type: Symbol
 
         # @return [String] Name of the file in which the generated parameters will be saved.
         attribute :path

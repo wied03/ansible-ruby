@@ -24,9 +24,9 @@ module Ansible
         # @return [Object, nil] Apicconfiguration settings for cloud.
         attribute :apic_configuration
 
-        # @return [Boolean, nil] Boolean flag to set apic_mode.,Default value when not specified in API or module is interpreted by Avi Controller as False.
+        # @return [Symbol, nil] Boolean flag to set apic_mode.,Default value when not specified in API or module is interpreted by Avi Controller as False.
         attribute :apic_mode
-        validates :apic_mode, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :apic_mode, type: Symbol
 
         # @return [Object, nil] Awsconfiguration settings for cloud.
         attribute :aws_configuration
@@ -40,9 +40,9 @@ module Ansible
         # @return [Object, nil] Custom tags for all avi created resources in the cloud infrastructure.,Field introduced in 17.1.5.
         attribute :custom_tags
 
-        # @return [Boolean, nil] Select the ip address management scheme.,Default value when not specified in API or module is interpreted by Avi Controller as False.
+        # @return [Symbol, nil] Select the ip address management scheme.,Default value when not specified in API or module is interpreted by Avi Controller as False.
         attribute :dhcp_enabled
-        validates :dhcp_enabled, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :dhcp_enabled, type: Symbol
 
         # @return [Object, nil] Dns profile for the cloud.,It is a reference to an object of type ipamdnsproviderprofile.
         attribute :dns_provider_ref
@@ -56,9 +56,9 @@ module Ansible
         # @return [Object, nil] Ipam profile for east-west services.,Warning - please use virtual subnets in this ipam profile that do not conflict with the underlay networks or any overlay networks in the cluster.,For example in aws and gcp, 169.254.0.0/16 is used for storing instance metadata.,Hence, it should not be used in this profile.,It is a reference to an object of type ipamdnsproviderprofile.
         attribute :east_west_ipam_provider_ref
 
-        # @return [Boolean, nil] Use static routes for vip side network resolution during virtualservice placement.,Default value when not specified in API or module is interpreted by Avi Controller as False.
+        # @return [Symbol, nil] Use static routes for vip side network resolution during virtualservice placement.,Default value when not specified in API or module is interpreted by Avi Controller as False.
         attribute :enable_vip_static_routes
-        validates :enable_vip_static_routes, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :enable_vip_static_routes, type: Symbol
 
         # @return [Object, nil] Ipam profile for the cloud.,It is a reference to an object of type ipamdnsproviderprofile.
         attribute :ipam_provider_ref
@@ -96,9 +96,9 @@ module Ansible
         # @return [Object, nil] Oshiftk8sconfiguration settings for cloud.
         attribute :oshiftk8s_configuration
 
-        # @return [Boolean, nil] Prefer static routes over interface routes during virtualservice placement.,Default value when not specified in API or module is interpreted by Avi Controller as False.
+        # @return [Symbol, nil] Prefer static routes over interface routes during virtualservice placement.,Default value when not specified in API or module is interpreted by Avi Controller as False.
         attribute :prefer_static_routes
-        validates :prefer_static_routes, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :prefer_static_routes, type: Symbol
 
         # @return [Object, nil] Proxyconfiguration settings for cloud.
         attribute :proxy_configuration
@@ -106,8 +106,9 @@ module Ansible
         # @return [Object, nil] Rancherconfiguration settings for cloud.
         attribute :rancher_configuration
 
-        # @return [Object, nil] Dns records for vips are added/deleted based on the operational state of the vips.,Field introduced in 17.1.12.,Default value when not specified in API or module is interpreted by Avi Controller as True.
+        # @return [Symbol, nil] Dns records for vips are added/deleted based on the operational state of the vips.,Field introduced in 17.1.12.,Default value when not specified in API or module is interpreted by Avi Controller as True.
         attribute :state_based_dns_registration
+        validates :state_based_dns_registration, type: Symbol
 
         # @return [String, nil] It is a reference to an object of type tenant.
         attribute :tenant_ref

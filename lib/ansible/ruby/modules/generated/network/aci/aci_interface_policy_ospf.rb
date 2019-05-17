@@ -30,23 +30,29 @@ module Ansible
         attribute :controls
         validates :controls, inclusion: {:in=>[:"advert-subnet", :bfd, :"mtu-ignore", :passive], :message=>"%{value} needs to be :\"advert-subnet\", :bfd, :\"mtu-ignore\", :passive"}, allow_nil: true
 
-        # @return [Object, nil] The interval between hello packets from a neighbor before the router declares the neighbor as down.,This value must be the same for all networking devices on a specific network.,Specifying a smaller dead interval (seconds) will give faster detection of a neighbor being down and improve convergence, but might cause more routing instability.,Accepted values range between C(1) and C(65535).,The APIC defaults to C(40) when unset during creation.
+        # @return [Integer, nil] The interval between hello packets from a neighbor before the router declares the neighbor as down.,This value must be the same for all networking devices on a specific network.,Specifying a smaller dead interval (seconds) will give faster detection of a neighbor being down and improve convergence, but might cause more routing instability.,Accepted values range between C(1) and C(65535).,The APIC defaults to C(40) when unset during creation.
         attribute :dead_interval
+        validates :dead_interval, type: Integer
 
-        # @return [Object, nil] The interval between hello packets that OSPF sends on the interface.,Note that the smaller the hello interval, the faster topological changes will be detected, but more routing traffic will ensue.,This value must be the same for all routers and access servers on a specific network.,Accepted values range between C(1) and C(65535).,The APIC defaults to C(10) when unset during creation.
+        # @return [Integer, nil] The interval between hello packets that OSPF sends on the interface.,Note that the smaller the hello interval, the faster topological changes will be detected, but more routing traffic will ensue.,This value must be the same for all routers and access servers on a specific network.,Accepted values range between C(1) and C(65535).,The APIC defaults to C(10) when unset during creation.
         attribute :hello_interval
+        validates :hello_interval, type: Integer
 
-        # @return [Object, nil] Whether prefix suppressions is enabled or disabled.,The APIC defaults to C(inherit) when unset during creation.
+        # @return [Symbol, nil] Whether prefix suppressions is enabled or disabled.,The APIC defaults to C(inherit) when unset during creation.
         attribute :prefix_suppression
+        validates :prefix_suppression, type: Symbol
 
-        # @return [Object, nil] The priority for the OSPF interface profile.,Accepted values ranges between C(0) and C(255).,The APIC defaults to C(1) when unset during creation.
+        # @return [Integer, nil] The priority for the OSPF interface profile.,Accepted values ranges between C(0) and C(255).,The APIC defaults to C(1) when unset during creation.
         attribute :priority
+        validates :priority, type: Integer
 
-        # @return [Object, nil] The interval between LSA retransmissions.,The retransmit interval occurs while the router is waiting for an acknowledgement from the neighbor router that it received the LSA.,If no acknowlegment is received at the end of the interval, then the LSA is resent.,Accepted values range between C(1) and C(65535).,The APIC defaults to C(5) when unset during creation.
+        # @return [Integer, nil] The interval between LSA retransmissions.,The retransmit interval occurs while the router is waiting for an acknowledgement from the neighbor router that it received the LSA.,If no acknowlegment is received at the end of the interval, then the LSA is resent.,Accepted values range between C(1) and C(65535).,The APIC defaults to C(5) when unset during creation.
         attribute :retransmit_interval
+        validates :retransmit_interval, type: Integer
 
-        # @return [Object, nil] The delay time needed to send an LSA update packet.,OSPF increments the LSA age time by the transmit delay amount before transmitting the LSA update.,You should take into account the transmission and propagation delays for the interface when you set this value.,Accepted values range between C(1) and C(450).,The APIC defaults to C(1) when unset during creation.
+        # @return [Integer, nil] The delay time needed to send an LSA update packet.,OSPF increments the LSA age time by the transmit delay amount before transmitting the LSA update.,You should take into account the transmission and propagation delays for the interface when you set this value.,Accepted values range between C(1) and C(450).,The APIC defaults to C(1) when unset during creation.
         attribute :transmit_delay
+        validates :transmit_delay, type: Integer
 
         # @return [:absent, :present, :query, nil] Use C(present) or C(absent) for adding or removing.,Use C(query) for listing an object or multiple objects.
         attribute :state

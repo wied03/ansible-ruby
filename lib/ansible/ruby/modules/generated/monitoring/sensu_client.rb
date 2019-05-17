@@ -25,9 +25,9 @@ module Ansible
         attribute :subscriptions
         validates :subscriptions, presence: true, type: TypeGeneric.new(String)
 
-        # @return [String, nil] If safe mode is enabled for the client. Safe mode requires local check definitions in order to accept a check request and execute the check.
+        # @return [:yes, :no, nil] If safe mode is enabled for the client. Safe mode requires local check definitions in order to accept a check request and execute the check.
         attribute :safe_mode
-        validates :safe_mode, type: String
+        validates :safe_mode, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Array<String>, String, nil] Client definition attributes to redact (values) when logging and sending client keepalives.
         attribute :redact
@@ -37,9 +37,9 @@ module Ansible
         attribute :socket
         validates :socket, type: Hash
 
-        # @return [String, nil] If Sensu should monitor keepalives for this client.
+        # @return [:yes, :no, nil] If Sensu should monitor keepalives for this client.
         attribute :keepalives
-        validates :keepalives, type: String
+        validates :keepalives, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Hash, nil] The keepalive definition scope, used to configure Sensu client keepalives behavior (e.g. keepalive thresholds, etc).
         attribute :keepalive
@@ -48,9 +48,9 @@ module Ansible
         # @return [Object, nil] The registration definition scope, used to configure Sensu registration event handlers.
         attribute :registration
 
-        # @return [String, nil] If a deregistration event should be created upon Sensu client process stop.
+        # @return [:yes, :no, nil] If a deregistration event should be created upon Sensu client process stop.
         attribute :deregister
-        validates :deregister, type: String
+        validates :deregister, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] The deregistration definition scope, used to configure automated Sensu client de-registration.
         attribute :deregistration

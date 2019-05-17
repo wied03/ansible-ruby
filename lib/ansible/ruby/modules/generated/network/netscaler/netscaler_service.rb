@@ -152,9 +152,9 @@ module Ansible
         attribute :monitor_bindings
         validates :monitor_bindings, type: TypeGeneric.new(String)
 
-        # @return [Boolean, nil] When set to C(yes) the service state will be set to DISABLED.,When set to C(no) the service state will be set to ENABLED.,Note that due to limitations of the underlying NITRO API a C(disabled) state change alone does not cause the module result to report a changed status.
+        # @return [Symbol, nil] When set to C(yes) the service state will be set to DISABLED.,When set to C(no) the service state will be set to ENABLED.,Note that due to limitations of the underlying NITRO API a C(disabled) state change alone does not cause the module result to report a changed status.
         attribute :disabled
-        validates :disabled, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :disabled, type: Symbol
       end
     end
   end

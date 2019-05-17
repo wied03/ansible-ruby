@@ -16,9 +16,9 @@ module Ansible
         # @return [Object, nil] timeout for commit job
         attribute :timeout
 
-        # @return [String, nil] if commit should be synchronous
+        # @return [:yes, :no, nil] if commit should be synchronous
         attribute :sync
-        validates :sync, type: String
+        validates :sync, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

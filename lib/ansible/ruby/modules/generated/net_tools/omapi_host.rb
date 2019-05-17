@@ -43,9 +43,9 @@ module Ansible
         # @return [Object, nil] Attach a list of OMAPI DHCP statements with host lease (without ending semicolon).
         attribute :statements
 
-        # @return [String, nil] Enable dynamic DNS updates for this host.
+        # @return [:yes, :no, nil] Enable dynamic DNS updates for this host.
         attribute :ddns
-        validates :ddns, type: String
+        validates :ddns, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

@@ -8,17 +8,17 @@ module Ansible
     module Modules
       # Add or remove Pulp repos from a remote host.
       class Pulp_repo < Base
-        # @return [String, nil] Whether or not to add the export distributor to new C(rpm) repositories.
+        # @return [:yes, :no, nil] Whether or not to add the export distributor to new C(rpm) repositories.
         attribute :add_export_distributor
-        validates :add_export_distributor, type: String
+        validates :add_export_distributor, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] Upstream feed URL to receive updates from.
         attribute :feed
         validates :feed, type: String
 
-        # @return [String, nil] httplib2, the library used by the M(uri) module only sends authentication information when a webservice responds to an initial request with a 401 status. Since some basic auth services do not properly send a 401, logins will fail. This option forces the sending of the Basic authentication header upon initial request.
+        # @return [:yes, :no, nil] httplib2, the library used by the M(uri) module only sends authentication information when a webservice responds to an initial request with a 401 status. Since some basic auth services do not properly send a 401, logins will fail. This option forces the sending of the Basic authentication header upon initial request.
         attribute :force_basic_auth
-        validates :force_basic_auth, type: String
+        validates :force_basic_auth, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] CA certificate string used to validate the feed source SSL certificate. This can be the file content or the path to the file.
         attribute :importer_ssl_ca_cert
@@ -54,13 +54,13 @@ module Ansible
         attribute :repo_type
         validates :repo_type, type: String
 
-        # @return [String, nil] Make the repo available over HTTP.
+        # @return [:yes, :no, nil] Make the repo available over HTTP.
         attribute :serve_http
-        validates :serve_http, type: String
+        validates :serve_http, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Make the repo available over HTTPS.
+        # @return [:yes, :no, nil] Make the repo available over HTTPS.
         attribute :serve_https
-        validates :serve_https, type: String
+        validates :serve_https, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:present, :absent, :sync, :publish, nil] The repo state. A state of C(sync) will queue a sync of the repo. This is asynchronous but not delayed like a scheduled sync. A state of C(publish) will use the repository's distributor to publish the content.
         attribute :state
@@ -74,13 +74,13 @@ module Ansible
         attribute :url_username
         validates :url_username, type: String
 
-        # @return [String, nil] If C(no), SSL certificates will not be validated. This should only be used on personally controlled sites using self-signed certificates.
+        # @return [:yes, :no, nil] If C(no), SSL certificates will not be validated. This should only be used on personally controlled sites using self-signed certificates.
         attribute :validate_certs
-        validates :validate_certs, type: String
+        validates :validate_certs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Wait for asynchronous tasks to complete before returning.
+        # @return [:yes, :no, nil] Wait for asynchronous tasks to complete before returning.
         attribute :wait_for_completion
-        validates :wait_for_completion, type: String
+        validates :wait_for_completion, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

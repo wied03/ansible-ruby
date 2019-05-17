@@ -21,20 +21,24 @@ module Ansible
         attribute :avi_api_patch_op
         validates :avi_api_patch_op, inclusion: {:in=>[:add, :replace, :delete], :message=>"%{value} needs to be :add, :replace, :delete"}, allow_nil: true
 
-        # @return [Object, nil] Field introduced in 17.1.1.,Default value when not specified in API or module is interpreted by Avi Controller as False.
+        # @return [Symbol, nil] Field introduced in 17.1.1.,Default value when not specified in API or module is interpreted by Avi Controller as False.
         attribute :allow_ip_forwarding
+        validates :allow_ip_forwarding, type: Symbol
 
-        # @return [Object, nil] Allow unauthenticated access for special apis.,Default value when not specified in API or module is interpreted by Avi Controller as False.
+        # @return [Symbol, nil] Allow unauthenticated access for special apis.,Default value when not specified in API or module is interpreted by Avi Controller as False.
         attribute :allow_unauthenticated_apis
+        validates :allow_unauthenticated_apis, type: Symbol
 
-        # @return [Object, nil] Boolean flag to set allow_unauthenticated_nodes.,Default value when not specified in API or module is interpreted by Avi Controller as False.
+        # @return [Symbol, nil] Boolean flag to set allow_unauthenticated_nodes.,Default value when not specified in API or module is interpreted by Avi Controller as False.
         attribute :allow_unauthenticated_nodes
+        validates :allow_unauthenticated_nodes, type: Symbol
 
         # @return [Object, nil] Allowed values are 0-1440.,Default value when not specified in API or module is interpreted by Avi Controller as 15.,Units(MIN).
         attribute :api_idle_timeout
 
-        # @return [Object, nil] Export configuration in appviewx compatibility mode.,Field introduced in 17.1.1.,Default value when not specified in API or module is interpreted by Avi Controller as False.
+        # @return [Symbol, nil] Export configuration in appviewx compatibility mode.,Field introduced in 17.1.1.,Default value when not specified in API or module is interpreted by Avi Controller as False.
         attribute :appviewx_compat_mode
+        validates :appviewx_compat_mode, type: Symbol
 
         # @return [Object, nil] Number of attach_ip_retry_interval.,Default value when not specified in API or module is interpreted by Avi Controller as 360.,Units(SEC).
         attribute :attach_ip_retry_interval
@@ -42,8 +46,9 @@ module Ansible
         # @return [Object, nil] Number of attach_ip_retry_limit.,Default value when not specified in API or module is interpreted by Avi Controller as 4.
         attribute :attach_ip_retry_limit
 
-        # @return [Object, nil] Use ansible for se creation in baremetal.,Field introduced in 17.2.2.,Default value when not specified in API or module is interpreted by Avi Controller as True.
+        # @return [Symbol, nil] Use ansible for se creation in baremetal.,Field introduced in 17.2.2.,Default value when not specified in API or module is interpreted by Avi Controller as True.
         attribute :bm_use_ansible
+        validates :bm_use_ansible, type: Symbol
 
         # @return [Object, nil] Number of cluster_ip_gratuitous_arp_period.,Default value when not specified in API or module is interpreted by Avi Controller as 60.,Units(MIN).
         attribute :cluster_ip_gratuitous_arp_period
@@ -60,8 +65,9 @@ module Ansible
         # @return [Object, nil] Number of dummy.
         attribute :dummy
 
-        # @return [Object, nil] Enable/disable memory balancer.,Field introduced in 17.2.8.,Default value when not specified in API or module is interpreted by Avi Controller as True.
+        # @return [Symbol, nil] Enable/disable memory balancer.,Field introduced in 17.2.8.,Default value when not specified in API or module is interpreted by Avi Controller as True.
         attribute :enable_memory_balancer
+        validates :enable_memory_balancer, type: Symbol
 
         # @return [Object, nil] Number of fatal_error_lease_time.,Default value when not specified in API or module is interpreted by Avi Controller as 120.,Units(SEC).
         attribute :fatal_error_lease_time

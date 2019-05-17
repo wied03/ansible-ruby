@@ -35,9 +35,9 @@ module Ansible
         attribute :password
         validates :password, type: String
 
-        # @return [Boolean, nil] I(True) if the public key should be used to authenticate to host.,It's required in case C(password) is not set.
+        # @return [Symbol, nil] I(True) if the public key should be used to authenticate to host.,It's required in case C(password) is not set.
         attribute :public_key
-        validates :public_key, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :public_key, type: Symbol
 
         # @return [:enabled, :disabled, nil] Specify if host will have enabled Kdump integration.
         attribute :kdump_integration
@@ -46,16 +46,17 @@ module Ansible
         # @return [Object, nil] SPM priority of the host. Integer value from 1 to 10, where higher number means higher priority.
         attribute :spm_priority
 
-        # @return [Boolean, nil] If True host iptables will be overridden by host deploy script.,Note that C(override_iptables) is I(false) by default in oVirt/RHV.
+        # @return [Symbol, nil] If True host iptables will be overridden by host deploy script.,Note that C(override_iptables) is I(false) by default in oVirt/RHV.
         attribute :override_iptables
-        validates :override_iptables, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :override_iptables, type: Symbol
 
-        # @return [Boolean, nil] If True host will be forcibly moved to desired state.
+        # @return [Symbol, nil] If True host will be forcibly moved to desired state.
         attribute :force
-        validates :force, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :force, type: Symbol
 
-        # @return [Object, nil] Override the display address of all VMs on this host with specified address.
+        # @return [Symbol, nil] Override the display address of all VMs on this host with specified address.
         attribute :override_display
+        validates :override_display, type: Symbol
 
         # @return [Array<String>, String, nil] List of kernel boot parameters.,Following are most common kernel parameters used for host:,Hostdev Passthrough & SR-IOV: intel_iommu=on,Nested Virtualization: kvm-intel.nested=1,Unsafe Interrupts: vfio_iommu_type1.allow_unsafe_interrupts=1,PCI Reallocation: pci=realloc,C(Note:),Modifying kernel boot parameters settings can lead to a host boot failure. Please consult the product documentation before doing any changes.,Kernel boot parameters changes require host deploy and restart. The host needs to be I(reinstalled) successfully and then to be I(rebooted) for kernel boot parameters to be applied.
         attribute :kernel_params
@@ -65,8 +66,9 @@ module Ansible
         attribute :hosted_engine
         validates :hosted_engine, inclusion: {:in=>[:deploy, :undeploy], :message=>"%{value} needs to be :deploy, :undeploy"}, allow_nil: true
 
-        # @return [Object, nil] Enable or disable power management of the host.,For more comprehensive setup of PM use C(ovirt_host_pm) module.
+        # @return [Symbol, nil] Enable or disable power management of the host.,For more comprehensive setup of PM use C(ovirt_host_pm) module.
         attribute :power_management_enabled
+        validates :power_management_enabled, type: Symbol
 
         # @return [Boolean, nil] If C(state) is I(present) activate the host.,This parameter is good to disable, when you don't want to change the state of host when using I(present) C(state).
         attribute :activate

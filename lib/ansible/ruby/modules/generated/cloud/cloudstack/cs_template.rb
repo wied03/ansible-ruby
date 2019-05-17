@@ -33,22 +33,25 @@ module Ansible
         # @return [Object, nil] The MD5 checksum value of this template.,If set, we search by checksum instead of name.
         attribute :checksum
 
-        # @return [Object, nil] Note: this flag was not implemented and therefore marked as deprecated.,Deprecated, will be removed in version 2.11.
+        # @return [Symbol, nil] Note: this flag was not implemented and therefore marked as deprecated.,Deprecated, will be removed in version 2.11.
         attribute :is_ready
+        validates :is_ready, type: Symbol
 
-        # @return [Boolean, nil] Register the template to be publicly available to all users.,Only used if C(state) is present.
+        # @return [Symbol, nil] Register the template to be publicly available to all users.,Only used if C(state) is present.
         attribute :is_public
-        validates :is_public, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :is_public, type: Symbol
 
-        # @return [Object, nil] Register the template to be featured.,Only used if C(state) is present.
+        # @return [Symbol, nil] Register the template to be featured.,Only used if C(state) is present.
         attribute :is_featured
+        validates :is_featured, type: Symbol
 
-        # @return [Object, nil] Register the template having XS/VMWare tools installed in order to support dynamic scaling of VM CPU/memory.,Only used if C(state) is present.
+        # @return [Symbol, nil] Register the template having XS/VMWare tools installed in order to support dynamic scaling of VM CPU/memory.,Only used if C(state) is present.
         attribute :is_dynamically_scalable
+        validates :is_dynamically_scalable, type: Symbol
 
-        # @return [Boolean, nil] Whether the template should be synced or removed across zones.,Only used if C(state) is present or absent.
+        # @return [Symbol, nil] Whether the template should be synced or removed across zones.,Only used if C(state) is present or absent.
         attribute :cross_zones
-        validates :cross_zones, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :cross_zones, type: Symbol
 
         # @return [:http_download, :ftp_upload, nil] Mode for the template extraction.,Only used if I(state=extracted).
         attribute :mode
@@ -79,28 +82,32 @@ module Ansible
         attribute :hypervisor
         validates :hypervisor, inclusion: {:in=>[:KVM, :kvm, :VMware, :vmware, :BareMetal, :baremetal, :XenServer, :xenserver, :LXC, :lxc, :HyperV, :hyperv, :UCS, :ucs, :OVM, :ovm, :Simulator, :simulator], :message=>"%{value} needs to be :KVM, :kvm, :VMware, :vmware, :BareMetal, :baremetal, :XenServer, :xenserver, :LXC, :lxc, :HyperV, :hyperv, :UCS, :ucs, :OVM, :ovm, :Simulator, :simulator"}, allow_nil: true
 
-        # @return [Object, nil] Whether the template requires HVM or not.,Only considered while creating the template.
+        # @return [Symbol, nil] Whether the template requires HVM or not.,Only considered while creating the template.
         attribute :requires_hvm
+        validates :requires_hvm, type: Symbol
 
-        # @return [Boolean, nil] Enable template password reset support.
+        # @return [Symbol, nil] Enable template password reset support.
         attribute :password_enabled
-        validates :password_enabled, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :password_enabled, type: Symbol
 
         # @return [Object, nil] The tag for this template.
         attribute :template_tag
 
-        # @return [Object, nil] True if the template supports the sshkey upload feature.,Only considered if C(url) is used (API limitation).
+        # @return [Symbol, nil] True if the template supports the sshkey upload feature.,Only considered if C(url) is used (API limitation).
         attribute :sshkey_enabled
+        validates :sshkey_enabled, type: Symbol
 
-        # @return [Object, nil] Sets the template type to routing, i.e. if template is used to deploy routers.,Only considered if C(url) is used.
+        # @return [Symbol, nil] Sets the template type to routing, i.e. if template is used to deploy routers.,Only considered if C(url) is used.
         attribute :is_routing
+        validates :is_routing, type: Symbol
 
         # @return [:QCOW2, :RAW, :VHD, :OVA, nil] The format for the template.,Only considered if I(state=present).
         attribute :format
         validates :format, inclusion: {:in=>[:QCOW2, :RAW, :VHD, :OVA], :message=>"%{value} needs to be :QCOW2, :RAW, :VHD, :OVA"}, allow_nil: true
 
-        # @return [Object, nil] Allows the template or its derivatives to be extractable.
+        # @return [Symbol, nil] Allows the template or its derivatives to be extractable.
         attribute :is_extractable
+        validates :is_extractable, type: Symbol
 
         # @return [Object, nil] Template details in key/value pairs.
         attribute :details

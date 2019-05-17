@@ -22,25 +22,25 @@ module Ansible
         attribute :maximum_size
         validates :maximum_size, type: Integer
 
-        # @return [String, nil] Override the current pagefile on the drive.
+        # @return [:yes, :no, nil] Override the current pagefile on the drive.
         attribute :override
-        validates :override, type: String
+        validates :override, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Configures current pagefile to be managed by the system.
+        # @return [:yes, :no, nil] Configures current pagefile to be managed by the system.
         attribute :system_managed
-        validates :system_managed, type: String
+        validates :system_managed, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [TrueClass, FalseClass, nil] Configures AutomaticManagedPagefile for the entire system.
+        # @return [Symbol, nil] Configures AutomaticManagedPagefile for the entire system.
         attribute :automatic
-        validates :automatic, type: MultipleTypes.new(TrueClass, FalseClass)
+        validates :automatic, type: Symbol
 
-        # @return [String, nil] Remove all pagefiles in the system, not including automatic managed.
+        # @return [:yes, :no, nil] Remove all pagefiles in the system, not including automatic managed.
         attribute :remove_all
-        validates :remove_all, type: String
+        validates :remove_all, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Use Test-Path on the drive to make sure the drive is accessible before creating the pagefile.
+        # @return [:yes, :no, nil] Use Test-Path on the drive to make sure the drive is accessible before creating the pagefile.
         attribute :test_path
-        validates :test_path, type: String
+        validates :test_path, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:absent, :present, :query, nil] State of the pagefile.
         attribute :state

@@ -32,13 +32,13 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:"present -- Request system turn on", :"absent -- Request system turn on"], :message=>"%{value} needs to be :\"present -- Request system turn on\", :\"absent -- Request system turn on\""}, allow_nil: true
 
-        # @return [String, nil] If set, ask that system firmware uses this device beyond next boot. Be aware many systems do not honor this.
+        # @return [:yes, :no, nil] If set, ask that system firmware uses this device beyond next boot. Be aware many systems do not honor this.
         attribute :persistent
-        validates :persistent, type: String
+        validates :persistent, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] If set, request UEFI boot explicitly. Strictly speaking, the spec suggests that if not set, the system should BIOS boot and offers no "don't care" option. In practice, this flag not being set does not preclude UEFI boot on any system I've encountered.
+        # @return [:yes, :no, nil] If set, request UEFI boot explicitly. Strictly speaking, the spec suggests that if not set, the system should BIOS boot and offers no "don't care" option. In practice, this flag not being set does not preclude UEFI boot on any system I've encountered.
         attribute :uefiboot
-        validates :uefiboot, type: String
+        validates :uefiboot, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

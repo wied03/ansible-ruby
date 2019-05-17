@@ -23,17 +23,17 @@ module Ansible
         attribute :operation
         validates :operation, inclusion: {:in=>[:delete, :create, :set, :action, :get], :message=>"%{value} needs to be :delete, :create, :set, :action, :get"}, allow_nil: true
 
-        # @return [String, nil] Queries/Writes the specified yang path from/to the db.
+        # @return [:yes, :no, nil] Queries/Writes the specified yang path from/to the db.
         attribute :db
-        validates :db, type: String
+        validates :db, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:target, :observed, :proposed, :realtime, :registration, :running, :startup, nil] A qualifier provides the type of object data to retrieve or act on.
         attribute :qualifier
         validates :qualifier, inclusion: {:in=>[:target, :observed, :proposed, :realtime, :registration, :running, :startup], :message=>"%{value} needs to be :target, :observed, :proposed, :realtime, :registration, :running, :startup"}, allow_nil: true
 
-        # @return [String, nil] Attempts to force the auto-commit event to the specified yang object.
+        # @return [:yes, :no, nil] Attempts to force the auto-commit event to the specified yang object.
         attribute :commit_event
-        validates :commit_event, type: String
+        validates :commit_event, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

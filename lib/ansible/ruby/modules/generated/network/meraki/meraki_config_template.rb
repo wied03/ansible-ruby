@@ -30,8 +30,9 @@ module Ansible
         # @return [Object, nil] ID of the network to bind or unbind configuration template to.
         attribute :net_id
 
-        # @return [Object, nil] Optional boolean indicating whether the network's switches should automatically bind to profiles of the same model.,This option only affects switch networks and switch templates.,Auto-bind is not valid unless the switch template has at least one profile and has at most one profile per switch model.
+        # @return [Symbol, nil] Optional boolean indicating whether the network's switches should automatically bind to profiles of the same model.,This option only affects switch networks and switch templates.,Auto-bind is not valid unless the switch template has at least one profile and has at most one profile per switch model.
         attribute :auto_bind
+        validates :auto_bind, type: Symbol
       end
     end
   end

@@ -15,8 +15,9 @@ module Ansible
         # @return [Object, nil] defines the list of 'ManagedBy' hosts
         attribute :hosts
 
-        # @return [Object, nil] Force principal name even if host is not in DNS.
+        # @return [Symbol, nil] Force principal name even if host is not in DNS.
         attribute :force
+        validates :force, type: Symbol
 
         # @return [:present, :absent, nil] State to ensure
         attribute :state

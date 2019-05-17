@@ -46,13 +46,13 @@ module Ansible
         attribute :bricks
         validates :bricks, type: TypeGeneric.new(String)
 
-        # @return [String, nil] Controls whether the volume is started after creation or not.
+        # @return [:yes, :no, nil] Controls whether the volume is started after creation or not.
         attribute :start_on_create
-        validates :start_on_create, type: String
+        validates :start_on_create, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Controls whether the cluster is rebalanced after changes.
+        # @return [:yes, :no, nil] Controls whether the cluster is rebalanced after changes.
         attribute :rebalance
-        validates :rebalance, type: String
+        validates :rebalance, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] Directory for limit-usage.
         attribute :directory
@@ -66,8 +66,9 @@ module Ansible
         attribute :quota
         validates :quota, type: String
 
-        # @return [Object, nil] If brick is being created in the root partition, module will fail. Set force to true to override this behaviour.
+        # @return [Symbol, nil] If brick is being created in the root partition, module will fail. Set force to true to override this behaviour.
         attribute :force
+        validates :force, type: Symbol
       end
     end
   end

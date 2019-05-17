@@ -32,13 +32,13 @@ module Ansible
         attribute :zone
         validates :zone, inclusion: {:in=>[:work, :drop, :internal, :external, :trusted, :home, :dmz, :public, :block], :message=>"%{value} needs to be :work, :drop, :internal, :external, :trusted, :home, :dmz, :public, :block"}, allow_nil: true
 
-        # @return [Boolean, nil] Should this configuration be in the running firewalld configuration or persist across reboots. As of Ansible version 2.3, permanent operations can operate on firewalld configs when it's not running (requires firewalld >= 3.0.9). (NOTE: If this is false, immediate is assumed true.)\r\n
+        # @return [Symbol, nil] Should this configuration be in the running firewalld configuration or persist across reboots. As of Ansible version 2.3, permanent operations can operate on firewalld configs when it's not running (requires firewalld >= 3.0.9). (NOTE: If this is false, immediate is assumed true.)\r\n
         attribute :permanent
-        validates :permanent, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :permanent, type: Symbol
 
-        # @return [String, nil] Should this configuration be applied immediately, if set as permanent
+        # @return [:yes, :no, nil] Should this configuration be applied immediately, if set as permanent
         attribute :immediate
-        validates :immediate, type: String
+        validates :immediate, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:enabled, :disabled, :present, :absent] Enable or disable a setting. For ports: Should this port accept(enabled) or reject(disabled) connections. The states "present" and "absent" can only be used in zone level operations (i.e. when no other parameters but zone and state are set).\r\n
         attribute :state

@@ -20,9 +20,9 @@ module Ansible
         attribute :access_mode
         validates :access_mode, inclusion: {:in=>[:RW, :RO], :message=>"%{value} needs to be :RW, :RO"}, allow_nil: true
 
-        # @return [Boolean, nil] Don't squash root user to anonymous. Will be set to "no" on creation if not specified explicitly.
+        # @return [Symbol, nil] Don't squash root user to anonymous. Will be set to "no" on creation if not specified explicitly.
         attribute :no_root_squash
-        validates :no_root_squash, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :no_root_squash, type: Symbol
 
         # @return [String] Name of the export.
         attribute :export

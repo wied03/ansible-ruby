@@ -24,9 +24,9 @@ module Ansible
         attribute :ttl
         validates :ttl, inclusion: {:in=>[0, 300, 600, 900, 1800, 3600, 7200, 10800, 21600, 43200, 86400], :message=>"%{value} needs to be 0, 300, 600, 900, 1800, 3600, 7200, 10800, 21600, 43200, 86400"}, allow_nil: true
 
-        # @return [Boolean, nil] Forces deletion of a zone and all zone domains/zone records it contains.
+        # @return [Symbol, nil] Forces deletion of a zone and all zone domains/zone records it contains.
         attribute :force
-        validates :force, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :force, type: Symbol
       end
     end
   end

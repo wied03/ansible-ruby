@@ -28,9 +28,9 @@ module Ansible
         attribute :cluster_admin_password
         validates :cluster_admin_password, type: String
 
-        # @return [Boolean, nil] Required to indicate your acceptance of the End User License Agreement when creating this cluster.,To accept the EULA, set this parameter to true.
+        # @return [Symbol, nil] Required to indicate your acceptance of the End User License Agreement when creating this cluster.,To accept the EULA, set this parameter to true.
         attribute :accept_eula
-        validates :accept_eula, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :accept_eula, type: Symbol
 
         # @return [Array<String>, String, nil] Storage IP (SIP) addresses of the initial set of nodes making up the cluster.,nodes IP must be in the list.
         attribute :nodes

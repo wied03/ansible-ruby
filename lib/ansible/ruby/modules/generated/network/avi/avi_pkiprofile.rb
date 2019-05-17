@@ -27,17 +27,20 @@ module Ansible
         # @return [Object, nil] Creator name.
         attribute :created_by
 
-        # @return [Object, nil] When enabled, avi will verify via crl checks that certificates in the trust chain have not been revoked.,Default value when not specified in API or module is interpreted by Avi Controller as True.
+        # @return [Symbol, nil] When enabled, avi will verify via crl checks that certificates in the trust chain have not been revoked.,Default value when not specified in API or module is interpreted by Avi Controller as True.
         attribute :crl_check
+        validates :crl_check, type: Symbol
 
         # @return [Object, nil] Certificate revocation lists.
         attribute :crls
 
-        # @return [Object, nil] When enabled, avi will not trust intermediate and root certs presented by a client.,Instead, only the chain certs configured in the certificate authority section will be used to verify trust of the client's cert.,Default value when not specified in API or module is interpreted by Avi Controller as False.
+        # @return [Symbol, nil] When enabled, avi will not trust intermediate and root certs presented by a client.,Instead, only the chain certs configured in the certificate authority section will be used to verify trust of the client's cert.,Default value when not specified in API or module is interpreted by Avi Controller as False.
         attribute :ignore_peer_chain
+        validates :ignore_peer_chain, type: Symbol
 
-        # @return [Object, nil] This field describes the object's replication scope.,If the field is set to false, then the object is visible within the controller-cluster and its associated service-engines.,If the field is set to true, then the object is replicated across the federation.,Field introduced in 17.1.3.,Default value when not specified in API or module is interpreted by Avi Controller as False.
+        # @return [Symbol, nil] This field describes the object's replication scope.,If the field is set to false, then the object is visible within the controller-cluster and its associated service-engines.,If the field is set to true, then the object is replicated across the federation.,Field introduced in 17.1.3.,Default value when not specified in API or module is interpreted by Avi Controller as False.
         attribute :is_federated
+        validates :is_federated, type: Symbol
 
         # @return [String] Name of the pki profile.
         attribute :name
@@ -52,8 +55,9 @@ module Ansible
         # @return [Object, nil] Unique object identifier of the object.
         attribute :uuid
 
-        # @return [Object, nil] When enabled, avi will only validate the revocation status of the leaf certificate using crl.,To enable validation for the entire chain, disable this option and provide all the relevant crls.,Default value when not specified in API or module is interpreted by Avi Controller as True.
+        # @return [Symbol, nil] When enabled, avi will only validate the revocation status of the leaf certificate using crl.,To enable validation for the entire chain, disable this option and provide all the relevant crls.,Default value when not specified in API or module is interpreted by Avi Controller as True.
         attribute :validate_only_leaf_crl
+        validates :validate_only_leaf_crl, type: Symbol
       end
     end
   end

@@ -31,9 +31,9 @@ module Ansible
         attribute :root_device_name
         validates :root_device_name, type: String
 
-        # @return [String, nil] Wait for the AMI to be in state 'available' before returning.
+        # @return [:yes, :no, nil] Wait for the AMI to be in state 'available' before returning.
         attribute :wait
-        validates :wait, type: String
+        validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] How long before wait gives up, in seconds.
         attribute :wait_timeout
@@ -46,9 +46,9 @@ module Ansible
         # @return [Object, nil] Human-readable string describing the contents and purpose of the AMI.
         attribute :description
 
-        # @return [Boolean, nil] Flag indicating that the bundling process should not attempt to shutdown the instance before bundling. If this flag is True, the responsibility of maintaining file system integrity is left to the owner of the instance.
+        # @return [Symbol, nil] Flag indicating that the bundling process should not attempt to shutdown the instance before bundling. If this flag is True, the responsibility of maintaining file system integrity is left to the owner of the instance.
         attribute :no_reboot
-        validates :no_reboot, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :no_reboot, type: Symbol
 
         # @return [String, nil] Image ID to be deregistered.
         attribute :image_id
@@ -58,9 +58,9 @@ module Ansible
         attribute :device_mapping
         validates :device_mapping, type: TypeGeneric.new(Hash)
 
-        # @return [String, nil] Delete snapshots when deregistering the AMI.
+        # @return [:yes, :no, nil] Delete snapshots when deregistering the AMI.
         attribute :delete_snapshot
-        validates :delete_snapshot, type: String
+        validates :delete_snapshot, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Hash, nil] A dictionary of tags to add to the new image; '{"key":"value"}' and '{"key":"value","key":"value"}'
         attribute :tags

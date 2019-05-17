@@ -16,13 +16,13 @@ module Ansible
         attribute :vpn_customer_gateway
         validates :vpn_customer_gateway, presence: true, type: String
 
-        # @return [Boolean, nil] State of the VPN connection.,Only considered when C(state=present).
+        # @return [Symbol, nil] State of the VPN connection.,Only considered when C(state=present).
         attribute :passive
-        validates :passive, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :passive, type: Symbol
 
-        # @return [Boolean, nil] Activate the VPN gateway if not already activated on C(state=present).,Also see M(cs_vpn_gateway).
+        # @return [Symbol, nil] Activate the VPN gateway if not already activated on C(state=present).,Also see M(cs_vpn_gateway).
         attribute :force
-        validates :force, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :force, type: Symbol
 
         # @return [:present, :absent, nil] State of the VPN connection.
         attribute :state

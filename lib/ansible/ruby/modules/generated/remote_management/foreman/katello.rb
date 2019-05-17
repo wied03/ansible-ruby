@@ -36,9 +36,9 @@ module Ansible
         attribute :task_timeout
         validates :task_timeout, type: Integer
 
-        # @return [Boolean, nil] verify the ssl/https connection (e.g for a valid certificate)
+        # @return [Symbol, nil] verify the ssl/https connection (e.g for a valid certificate)
         attribute :verify_ssl
-        validates :verify_ssl, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :verify_ssl, type: Symbol
       end
     end
   end

@@ -24,9 +24,9 @@ module Ansible
         attribute :priority
         validates :priority, type: Integer
 
-        # @return [String, nil] Enable/Disable preempt.
+        # @return [:yes, :no, nil] Enable/Disable preempt.
         attribute :preempt
-        validates :preempt, type: String
+        validates :preempt, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] VRRP virtual IP address or 'default' keyword
         attribute :vip

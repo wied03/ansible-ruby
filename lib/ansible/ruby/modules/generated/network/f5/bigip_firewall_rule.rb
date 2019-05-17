@@ -49,9 +49,9 @@ module Ansible
         attribute :destination
         validates :destination, type: TypeGeneric.new(Hash)
 
-        # @return [Boolean, nil] Specifies whether logging is enabled or disabled for the firewall rule.,When creating a new rule, if this parameter is not specified, the default if C(no).
+        # @return [Symbol, nil] Specifies whether logging is enabled or disabled for the firewall rule.,When creating a new rule, if this parameter is not specified, the default if C(no).
         attribute :logging
-        validates :logging, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :logging, type: Symbol
 
         # @return [String, nil] Specifies an existing rule list to use in the rule.,This parameter is mutually exclusive with many of the other individual-rule specific settings. This includes C(logging), C(action), C(source), C(destination), C(irule'), C(protocol) and C(logging).
         attribute :rule_list

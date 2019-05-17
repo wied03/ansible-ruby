@@ -16,9 +16,9 @@ module Ansible
         attribute :creation_source
         validates :creation_source, inclusion: {:in=>[:snapshot, :s3, :instance], :message=>"%{value} needs to be :snapshot, :s3, :instance"}, allow_nil: true
 
-        # @return [Boolean, nil] Set to True to update your cluster password with I(master_user_password). Since comparing passwords to determine if it needs to be updated is not possible this is set to False by default to allow idempotence.
+        # @return [Symbol, nil] Set to True to update your cluster password with I(master_user_password). Since comparing passwords to determine if it needs to be updated is not possible this is set to False by default to allow idempotence.
         attribute :force_update_password
-        validates :force_update_password, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :force_update_password, type: Symbol
 
         # @return [Boolean, nil] Set to False to retain any enabled cloudwatch logs that aren't specified in the task and are associated with the instance.
         attribute :purge_cloudwatch_logs_exports
@@ -28,8 +28,9 @@ module Ansible
         attribute :purge_tags
         validates :purge_tags, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
-        # @return [Object, nil] Set to False to promote a read replica cluster or true to create one. When creating a read replica C(creation_source) should be set to 'instance' or not provided. C(source_db_instance_identifier) must be provided with this option.
+        # @return [Symbol, nil] Set to False to promote a read replica cluster or true to create one. When creating a read replica C(creation_source) should be set to 'instance' or not provided. C(source_db_instance_identifier) must be provided with this option.
         attribute :read_replica
+        validates :read_replica, type: Symbol
 
         # @return [Boolean, nil] Whether to wait for the cluster to be available, stopped, or deleted. At a later time a wait_timeout option may be added. Following each API call to create/modify/delete the instance a waiter is used with a 60 second delay 30 times until the instance reaches the expected state (available/stopped/deleted). The total task time may also be influenced by AWSRetry which helps stabilize if the instance is in an invalid state to operate on to begin with (such as if you try to stop it when it is in the process of rebooting). If setting this to False task retries and delays may make your playbook execution better handle timeouts for major modifications.
         attribute :wait
@@ -39,15 +40,17 @@ module Ansible
         attribute :allocated_storage
         validates :allocated_storage, type: String
 
-        # @return [Object, nil] Whether to allow major version upgrades.
+        # @return [Symbol, nil] Whether to allow major version upgrades.
         attribute :allow_major_version_upgrade
+        validates :allow_major_version_upgrade, type: Symbol
 
-        # @return [Boolean, nil] A value that specifies whether modifying a cluster with I(new_db_instance_identifier) and I(master_user_password) should be applied as soon as possible, regardless of the I(preferred_maintenance_window) setting. If false, changes are applied during the next maintenance window.
+        # @return [Symbol, nil] A value that specifies whether modifying a cluster with I(new_db_instance_identifier) and I(master_user_password) should be applied as soon as possible, regardless of the I(preferred_maintenance_window) setting. If false, changes are applied during the next maintenance window.
         attribute :apply_immediately
-        validates :apply_immediately, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :apply_immediately, type: Symbol
 
-        # @return [Object, nil] Whether minor version upgrades are applied automatically to the DB instance during the maintenance window.
+        # @return [Symbol, nil] Whether minor version upgrades are applied automatically to the DB instance during the maintenance window.
         attribute :auto_minor_version_upgrade
+        validates :auto_minor_version_upgrade, type: Symbol
 
         # @return [Object, nil] A list of EC2 Availability Zones that instances in the DB cluster can be created in. May be used when creating a cluster or when restoring from S3 or a snapshot. Mutually exclusive with I(multi_az).
         attribute :availability_zone
@@ -61,8 +64,9 @@ module Ansible
         # @return [Object, nil] The character set to associate with the DB cluster.
         attribute :character_set_name
 
-        # @return [Object, nil] Whether or not to copy all tags from the DB instance to snapshots of the instance. When initially creating a DB instance the RDS API defaults this to false if unspecified.
+        # @return [Symbol, nil] Whether or not to copy all tags from the DB instance to snapshots of the instance. When initially creating a DB instance the RDS API defaults this to false if unspecified.
         attribute :copy_tags_to_snapshot
+        validates :copy_tags_to_snapshot, type: Symbol
 
         # @return [Object, nil] The DB cluster (lowercase) identifier to add the aurora DB instance to. The identifier must contain from 1 to 63 letters, numbers, or hyphens and the first character must be a letter and may not end in a hyphen or contain consecutive hyphens.
         attribute :db_cluster_identifier
@@ -81,8 +85,9 @@ module Ansible
         # @return [Object, nil] The name of the DB parameter group to associate with this DB instance. When creating the DB instance if this argument is omitted the default DBParameterGroup for the specified engine is used.
         attribute :db_parameter_group_name
 
-        # @return [Object, nil] (EC2-Classic platform) A list of DB security groups to associate with this DB instance.
+        # @return [Array<String>, String, nil] (EC2-Classic platform) A list of DB security groups to associate with this DB instance.
         attribute :db_security_groups
+        validates :db_security_groups, type: TypeGeneric.new(String)
 
         # @return [Object, nil] The identifier for the DB snapshot to restore from if using I(creation_source=snapshot).
         attribute :db_snapshot_identifier
@@ -96,14 +101,17 @@ module Ansible
         # @return [Object, nil] The name of the IAM role to be used when making API calls to the Directory Service.
         attribute :domain_iam_role_name
 
-        # @return [Object, nil] A list of log types that need to be enabled for exporting to CloudWatch Logs.
+        # @return [Array<String>, String, nil] A list of log types that need to be enabled for exporting to CloudWatch Logs.
         attribute :enable_cloudwatch_logs_exports
+        validates :enable_cloudwatch_logs_exports, type: TypeGeneric.new(String)
 
-        # @return [Object, nil] Enable mapping of AWS Identity and Access Management (IAM) accounts to database accounts. If this option is omitted when creating the cluster, Amazon RDS sets this to False.
+        # @return [Symbol, nil] Enable mapping of AWS Identity and Access Management (IAM) accounts to database accounts. If this option is omitted when creating the cluster, Amazon RDS sets this to False.
         attribute :enable_iam_database_authentication
+        validates :enable_iam_database_authentication, type: Symbol
 
-        # @return [Object, nil] Whether to enable Performance Insights for the DB instance.
+        # @return [Symbol, nil] Whether to enable Performance Insights for the DB instance.
         attribute :enable_performance_insights
+        validates :enable_performance_insights, type: Symbol
 
         # @return [String, nil] The name of the database engine to be used for this DB instance. This is required to create an instance. Valid choices are aurora | aurora-mysql | aurora-postgresql | mariadb | mysql | oracle-ee | oracle-se | oracle-se1 | oracle-se2 | postgres | sqlserver-ee | sqlserver-ex | sqlserver-se | sqlserver-web
         attribute :engine
@@ -115,8 +123,9 @@ module Ansible
         # @return [Object, nil] The DB instance snapshot identifier of the new DB instance snapshot created when I(skip_final_snapshot) is false.
         attribute :final_db_snapshot_identifier
 
-        # @return [Object, nil] Set to true to conduct the reboot through a MultiAZ failover.
+        # @return [Symbol, nil] Set to true to conduct the reboot through a MultiAZ failover.
         attribute :force_failover
+        validates :force_failover, type: Symbol
 
         # @return [Object, nil] The Provisioned IOPS (I/O operations per second) value.
         attribute :iops

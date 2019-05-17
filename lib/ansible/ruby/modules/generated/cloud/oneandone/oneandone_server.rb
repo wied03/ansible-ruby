@@ -82,9 +82,9 @@ module Ansible
         attribute :server_type
         validates :server_type, inclusion: {:in=>[:cloud, :baremetal, :k8s_node], :message=>"%{value} needs to be :cloud, :baremetal, :k8s_node"}, allow_nil: true
 
-        # @return [String, nil] Wait for the server to be in state 'running' before returning. Also used for delete operation (set to 'false' if you don't want to wait for each individual server to be deleted before moving on with other tasks.)
+        # @return [:yes, :no, nil] Wait for the server to be in state 'running' before returning. Also used for delete operation (set to 'false' if you don't want to wait for each individual server to be deleted before moving on with other tasks.)
         attribute :wait
-        validates :wait, type: String
+        validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] how long before wait gives up, in seconds
         attribute :wait_timeout
@@ -94,9 +94,9 @@ module Ansible
         attribute :wait_interval
         validates :wait_interval, type: Integer
 
-        # @return [String, nil] When creating multiple servers at once, whether to differentiate hostnames by appending a count after them or substituting the count where there is a %02d or %03d in the hostname string.
+        # @return [:yes, :no, nil] When creating multiple servers at once, whether to differentiate hostnames by appending a count after them or substituting the count where there is a %02d or %03d in the hostname string.
         attribute :auto_increment
-        validates :auto_increment, type: String
+        validates :auto_increment, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

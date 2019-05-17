@@ -27,8 +27,9 @@ module Ansible
         # @return [Object, nil] Field introduced in 17.2.7.
         attribute :description
 
-        # @return [Object, nil] Field introduced in 17.2.7.,Default value when not specified in API or module is interpreted by Avi Controller as False.
+        # @return [Symbol, nil] Field introduced in 17.2.7.,Default value when not specified in API or module is interpreted by Avi Controller as False.
         attribute :is_internal_policy
+        validates :is_internal_policy, type: Symbol
 
         # @return [Object, nil] Policy to apply when a new transport connection is setup.,Field introduced in 17.2.7.
         attribute :l4_connection_policy

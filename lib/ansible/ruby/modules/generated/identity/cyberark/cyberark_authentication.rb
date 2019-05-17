@@ -27,17 +27,17 @@ module Ansible
         attribute :api_base_url
         validates :api_base_url, type: String
 
-        # @return [String, nil] If C(false), SSL certificates will not be validated.  This should only set to C(false) used on personally controlled sites using self-signed certificates.
+        # @return [:yes, :no, nil] If C(false), SSL certificates will not be validated.  This should only set to C(false) used on personally controlled sites using self-signed certificates.
         attribute :validate_certs
-        validates :validate_certs, type: String
+        validates :validate_certs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Whether or not Shared Logon Authentication will be used.
+        # @return [:yes, :no, nil] Whether or not Shared Logon Authentication will be used.
         attribute :use_shared_logon_authentication
-        validates :use_shared_logon_authentication, type: String
+        validates :use_shared_logon_authentication, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Whether or not users will be authenticated via a RADIUS server. Valid values are true/false.
+        # @return [:yes, :no, nil] Whether or not users will be authenticated via a RADIUS server. Valid values are true/false.
         attribute :use_radius_authentication
-        validates :use_radius_authentication, type: String
+        validates :use_radius_authentication, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] Dictionary set by a CyberArk authentication containing the different values to perform actions on a logged-on CyberArk session.
         attribute :cyberark_session

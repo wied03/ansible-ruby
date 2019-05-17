@@ -20,9 +20,9 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [String, nil] Specifies whether or not the configuration is active or deactivated
+        # @return [:yes, :no, nil] Specifies whether or not the configuration is active or deactivated
         attribute :active
-        validates :active, type: String
+        validates :active, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

@@ -32,9 +32,9 @@ module Ansible
         attribute :mail_hosts
         validates :mail_hosts, type: TypeGeneric.new(String)
 
-        # @return [Boolean, nil] Specifies whether AutoSupport notification to technical support is enabled.
+        # @return [Symbol, nil] Specifies whether AutoSupport notification to technical support is enabled.
         attribute :support
-        validates :support, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :support, type: Symbol
       end
     end
   end

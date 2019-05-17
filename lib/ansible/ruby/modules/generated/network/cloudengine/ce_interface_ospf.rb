@@ -29,9 +29,9 @@ module Ansible
         # @return [Object, nil] Time interval an ospf neighbor waits for a hello packet before tearing down adjacencies. Valid values are an integer in the range from 1 to 235926000.
         attribute :dead_interval
 
-        # @return [String, nil] Setting to true will prevent this interface from receiving HELLO packets. Valid values are 'true' and 'false'.
+        # @return [:yes, :no, nil] Setting to true will prevent this interface from receiving HELLO packets. Valid values are 'true' and 'false'.
         attribute :silent_interface
-        validates :silent_interface, type: String
+        validates :silent_interface, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:none, :null, :"hmac-sha256", :md5, :"hmac-md5", :simple, nil] Specifies the authentication type.
         attribute :auth_mode

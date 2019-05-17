@@ -106,9 +106,9 @@ module Ansible
         # @return [Object, nil] ICMP message code. Data packets can be filtered based on the ICMP message code. The value is an integer ranging from 0 to 255.
         attribute :icmp_code
 
-        # @return [String, nil] Whether TTL Expired is matched, with the TTL value of 1.
+        # @return [:yes, :no, nil] Whether TTL Expired is matched, with the TTL value of 1.
         attribute :ttl_expired
-        validates :ttl_expired, type: String
+        validates :ttl_expired, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] VPN instance name. The value is a string of 1 to 31 characters.The default value is _public_.
         attribute :vrf_name
@@ -119,9 +119,9 @@ module Ansible
         # @return [Object, nil] TCP flag mask value. The value is an integer ranging from 0 to 63.
         attribute :tcp_flag_mask
 
-        # @return [String, nil] Match established connections.
+        # @return [:yes, :no, nil] Match established connections.
         attribute :established
-        validates :established, type: String
+        validates :established, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] Name of a time range in which an ACL rule takes effect.
         attribute :time_range
@@ -133,9 +133,9 @@ module Ansible
         attribute :igmp_type
         validates :igmp_type, inclusion: {:in=>[:"host-query", :"mrouter-adver", :"mrouter-solic", :"mrouter-termi", :"mtrace-resp", :"mtrace-route", :"v1host-report", :"v2host-report", :"v2leave-group", :"v3host-report"], :message=>"%{value} needs to be :\"host-query\", :\"mrouter-adver\", :\"mrouter-solic\", :\"mrouter-termi\", :\"mtrace-resp\", :\"mtrace-route\", :\"v1host-report\", :\"v2host-report\", :\"v2leave-group\", :\"v3host-report\""}, allow_nil: true
 
-        # @return [String, nil] Flag of logging matched data packets.
+        # @return [:yes, :no, nil] Flag of logging matched data packets.
         attribute :log_flag
-        validates :log_flag, type: String
+        validates :log_flag, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

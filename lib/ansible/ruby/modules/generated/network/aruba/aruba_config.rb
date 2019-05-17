@@ -34,9 +34,9 @@ module Ansible
         attribute :replace
         validates :replace, inclusion: {:in=>[:line, :block], :message=>"%{value} needs to be :line, :block"}, allow_nil: true
 
-        # @return [String, nil] This argument will cause the module to create a full backup of the current C(running-config) from the remote device before any changes are made.  The backup file is written to the C(backup) folder in the playbook root directory.  If the directory does not exist, it is created.
+        # @return [:yes, :no, nil] This argument will cause the module to create a full backup of the current C(running-config) from the remote device before any changes are made.  The backup file is written to the C(backup) folder in the playbook root directory.  If the directory does not exist, it is created.
         attribute :backup
-        validates :backup, type: String
+        validates :backup, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] The module, by default, will connect to the remote device and retrieve the current running-config to use as a base for comparing against the contents of source.  There are times when it is not desirable to have the task get the current running-config for every task in a playbook.  The I(running_config) argument allows the implementer to pass in the configuration to use as the base config for comparison.
         attribute :running_config
@@ -55,9 +55,9 @@ module Ansible
         # @return [Object, nil] The C(intended_config) provides the master configuration that the node should conform to and is used to check the final running-config against.   This argument will not modify any settings on the remote device and is strictly used to check the compliance of the current device's configuration against.  When specifying this argument, the task should also modify the C(diff_against) value and set it to I(intended).
         attribute :intended_config
 
-        # @return [String, nil] This allows an Aruba controller's passwords and keys to be displayed in plain text when set to I(false) or encrypted when set to I(true). If set to I(false), the setting will re-encrypt at the end of the module run. Backups are still encrypted even when set to I(false).
+        # @return [:yes, :no, nil] This allows an Aruba controller's passwords and keys to be displayed in plain text when set to I(false) or encrypted when set to I(true). If set to I(false), the setting will re-encrypt at the end of the module run. Backups are still encrypted even when set to I(false).
         attribute :encrypt
-        validates :encrypt, type: String
+        validates :encrypt, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

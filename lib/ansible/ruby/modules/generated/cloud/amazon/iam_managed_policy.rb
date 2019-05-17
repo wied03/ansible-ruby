@@ -24,9 +24,9 @@ module Ansible
         attribute :make_default
         validates :make_default, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
-        # @return [String, nil] Remove all other non default revisions, if this is used with C(make_default) it will result in all other versions of this policy being deleted.
+        # @return [:yes, :no, nil] Remove all other non default revisions, if this is used with C(make_default) it will result in all other versions of this policy being deleted.
         attribute :only_version
-        validates :only_version, type: String
+        validates :only_version, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:present, :absent, nil] Should this managed policy be present or absent. Set to absent to detach all entities from this policy and remove it if found.
         attribute :state

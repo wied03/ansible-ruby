@@ -25,9 +25,9 @@ module Ansible
         attribute :export_policy
         validates :export_policy, presence: true, type: String
 
-        # @return [Boolean, nil] Determines if the APIC should fail the rollback if unable to decrypt secured data.,The APIC defaults to C(yes) when unset.
+        # @return [Symbol, nil] Determines if the APIC should fail the rollback if unable to decrypt secured data.,The APIC defaults to C(yes) when unset.
         attribute :fail_on_decrypt
-        validates :fail_on_decrypt, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :fail_on_decrypt, type: Symbol
 
         # @return [:atomic, :"best-effort", nil] Determines how the import should be handled by the APIC.,The APIC defaults to C(atomic) when unset.
         attribute :import_mode

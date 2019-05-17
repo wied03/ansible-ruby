@@ -17,9 +17,9 @@ module Ansible
         attribute :dest
         validates :dest, presence: true, type: String
 
-        # @return [String, nil] Create a backup file including the timestamp information so you can get the original file back if you somehow clobbered it incorrectly.
+        # @return [:yes, :no, nil] Create a backup file including the timestamp information so you can get the original file back if you somehow clobbered it incorrectly.
         attribute :backup
-        validates :backup, type: String
+        validates :backup, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:"\\n", :"\\r", :"\\r\\n", nil] Specify the newline sequence to use for templating files.
         attribute :newline_sequence
@@ -41,21 +41,21 @@ module Ansible
         attribute :variable_end_string
         validates :variable_end_string, type: String
 
-        # @return [String, nil] If this is set to True the first newline after a block is removed (block, not variable tag!).
+        # @return [:yes, :no, nil] If this is set to True the first newline after a block is removed (block, not variable tag!).
         attribute :trim_blocks
-        validates :trim_blocks, type: String
+        validates :trim_blocks, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] If this is set to True leading spaces and tabs are stripped from the start of a line to a block. Setting this option to True requires Jinja2 version >=2.7.
+        # @return [:yes, :no, nil] If this is set to True leading spaces and tabs are stripped from the start of a line to a block. Setting this option to True requires Jinja2 version >=2.7.
         attribute :lstrip_blocks
-        validates :lstrip_blocks, type: String
+        validates :lstrip_blocks, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] the default is C(yes), which will replace the remote file when contents are different than the source.  If C(no), the file will only be transferred if the destination does not exist.
+        # @return [:yes, :no, nil] the default is C(yes), which will replace the remote file when contents are different than the source.  If C(no), the file will only be transferred if the destination does not exist.
         attribute :force
-        validates :force, type: String
+        validates :force, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] This flag indicates that filesystem links in the destination, if they exist, should be followed.,Previous to Ansible 2.4, this was hardcoded as C(yes).
+        # @return [:yes, :no, nil] This flag indicates that filesystem links in the destination, if they exist, should be followed.,Previous to Ansible 2.4, this was hardcoded as C(yes).
         attribute :follow
-        validates :follow, type: String
+        validates :follow, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, Array<String>, String, nil] Mode the file or directory should be. For those used to I(/usr/bin/chmod) remember that modes are actually octal numbers.  You must either add a leading zero so that Ansible's YAML parser knows it is an octal number (like C(0644) or C(01777)) or quote it (like C('644') or C('1777')) so Ansible receives a string and can do its own conversion from string into number.  Giving Ansible a number without following one of these rules will end up with a decimal number which will have unexpected results.  As of version 1.8, the mode may be specified as a symbolic mode (for example, C(u+rwx) or C(u=rw,g=r,o=r)).  As of version 2.6, the mode may also be the special string C(preserve).  C(preserve) means that the file will be given the same permissions as the source file.
         attribute :mode

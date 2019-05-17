@@ -32,9 +32,9 @@ module Ansible
         attribute :authentication
         validates :authentication, inclusion: {:in=>[:"use-first-server", :"use-all-servers"], :message=>"%{value} needs to be :\"use-first-server\", :\"use-all-servers\""}, allow_nil: true
 
-        # @return [Boolean, nil] Specifies whether or not this auth source is put in use on the system.
+        # @return [Symbol, nil] Specifies whether or not this auth source is put in use on the system.
         attribute :use_for_auth
-        validates :use_for_auth, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :use_for_auth, type: Symbol
 
         # @return [:absent, :present, nil] The state of the authentication configuration on the system.,When C(present), guarantees that the system is configured for the specified C(type).,When C(absent), sets the system auth source back to C(local).
         attribute :state

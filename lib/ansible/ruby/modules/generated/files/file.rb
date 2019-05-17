@@ -21,17 +21,17 @@ module Ansible
         attribute :src
         validates :src, type: String
 
-        # @return [String, nil] recursively set the specified file attributes (applies only to directories)
+        # @return [:yes, :no, nil] recursively set the specified file attributes (applies only to directories)
         attribute :recurse
-        validates :recurse, type: String
+        validates :recurse, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] force the creation of the symlinks in two cases: the source file does not exist (but will appear later); the destination exists and is a file (so, we need to unlink the "path" file and create symlink to the "src" file in place of it).
+        # @return [:yes, :no, nil] force the creation of the symlinks in two cases: the source file does not exist (but will appear later); the destination exists and is a file (so, we need to unlink the "path" file and create symlink to the "src" file in place of it).
         attribute :force
-        validates :force, type: String
+        validates :force, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] This flag indicates that filesystem links, if they exist, should be followed.,Previous to Ansible 2.5, this was C(no) by default.
+        # @return [:yes, :no, nil] This flag indicates that filesystem links, if they exist, should be followed.,Previous to Ansible 2.5, this was C(no) by default.
         attribute :follow
-        validates :follow, type: String
+        validates :follow, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] This parameter indicates the time the file's modification time should be set to,Should be C(preserve) when no modification is required, C(YYYYMMDDHHMM.SS) when using default time format, or C(now),Default is None meaning that C(preserve) is the default for C(state=[file,directory,link,hard]) and C(now) is default for C(state=touch)
         attribute :modification_time

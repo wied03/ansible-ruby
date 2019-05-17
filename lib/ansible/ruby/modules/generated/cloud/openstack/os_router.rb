@@ -16,12 +16,13 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [String, nil] Desired admin state of the created or existing router.
+        # @return [:yes, :no, nil] Desired admin state of the created or existing router.
         attribute :admin_state_up
-        validates :admin_state_up, type: String
+        validates :admin_state_up, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [Object, nil] Enable Source NAT (SNAT) attribute.
+        # @return [Symbol, nil] Enable Source NAT (SNAT) attribute.
         attribute :enable_snat
+        validates :enable_snat, type: Symbol
 
         # @return [String, nil] Unique name or ID of the external gateway network.,required I(interfaces) or I(enable_snat) are provided.
         attribute :network

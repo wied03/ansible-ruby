@@ -20,9 +20,9 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
-        # @return [Boolean, nil] Specified whether to disable the routes learned by BGP on that route table.
+        # @return [Symbol, nil] Specified whether to disable the routes learned by BGP on that route table.
         attribute :disable_bgp_route_propagation
-        validates :disable_bgp_route_propagation, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :disable_bgp_route_propagation, type: Symbol
 
         # @return [Object, nil] Region of the resource.,Derived from C(resource_group) if not specified
         attribute :location

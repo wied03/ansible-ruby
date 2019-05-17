@@ -41,8 +41,9 @@ module Ansible
         # @return [Object, nil] Path to the file to use as a source in the selected *project*.
         attribute :source_path
 
-        # @return [Object, nil] That parameter will sync the inventory when the project is synced. It can only be used with a SCM source.
+        # @return [Symbol, nil] That parameter will sync the inventory when the project is synced. It can only be used with a SCM source.
         attribute :update_on_project_update
+        validates :update_on_project_update, type: Symbol
 
         # @return [Object, nil] List of regions for your cloud provider. You can include multiple all regions. Only Hosts associated with the selected regions will be updated. Refer to Ansible Tower documentation for more detail.
         attribute :source_regions
@@ -56,16 +57,17 @@ module Ansible
         # @return [Object, nil] The source custom script to use to build the inventory. It needs to exist.
         attribute :source_script
 
-        # @return [Boolean, nil] If set, any hosts and groups that were previously present on the external source but are now removed will be removed from the Tower inventory. Hosts and groups that were not managed by the inventory source will be promoted to the next manually created group or if there is no manually created group to promote them into, they will be left in the "all" default group for the inventory. When not checked, local child hosts and groups not found on the external source will remain untouched by the inventory update process.
+        # @return [Symbol, nil] If set, any hosts and groups that were previously present on the external source but are now removed will be removed from the Tower inventory. Hosts and groups that were not managed by the inventory source will be promoted to the next manually created group or if there is no manually created group to promote them into, they will be left in the "all" default group for the inventory. When not checked, local child hosts and groups not found on the external source will remain untouched by the inventory update process.
         attribute :overwrite
-        validates :overwrite, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :overwrite, type: Symbol
 
-        # @return [Object, nil] If set, all variables for child groups and hosts will be removed and replaced by those found on the external source. When not checked, a merge will be performed, combining local variables with those found on the external source.
+        # @return [Symbol, nil] If set, all variables for child groups and hosts will be removed and replaced by those found on the external source. When not checked, a merge will be performed, combining local variables with those found on the external source.
         attribute :overwrite_vars
+        validates :overwrite_vars, type: Symbol
 
-        # @return [Boolean, nil] Each time a job runs using this inventory, refresh the inventory from the selected source before executing job tasks.
+        # @return [Symbol, nil] Each time a job runs using this inventory, refresh the inventory from the selected source before executing job tasks.
         attribute :update_on_launch
-        validates :update_on_launch, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :update_on_launch, type: Symbol
 
         # @return [Object, nil] Time in seconds to consider an inventory sync to be current. During job runs and callbacks the task system will evaluate the timestamp of the latest sync. If it is older than Cache Timeout, it is not considered current, and a new inventory sync will be performed.
         attribute :update_cache_timeout
@@ -74,9 +76,9 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [Boolean, nil] Tower option to avoid certificates check.
+        # @return [Symbol, nil] Tower option to avoid certificates check.
         attribute :tower_verify_ssl
-        validates :tower_verify_ssl, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :tower_verify_ssl, type: Symbol
       end
     end
   end

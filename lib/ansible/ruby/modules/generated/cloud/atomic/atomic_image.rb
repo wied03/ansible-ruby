@@ -21,9 +21,9 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:absent, :latest, :present], :message=>"%{value} needs to be :absent, :latest, :present"}, allow_nil: true
 
-        # @return [String, nil] Start or Stop the container.
+        # @return [:yes, :no, nil] Start or Stop the container.
         attribute :started
-        validates :started, type: String
+        validates :started, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

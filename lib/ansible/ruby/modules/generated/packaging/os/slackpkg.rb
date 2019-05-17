@@ -16,9 +16,9 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent, :latest], :message=>"%{value} needs to be :present, :absent, :latest"}, allow_nil: true
 
-        # @return [Boolean, nil] update the package database first
+        # @return [Symbol, nil] update the package database first
         attribute :update_cache
-        validates :update_cache, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :update_cache, type: Symbol
       end
     end
   end

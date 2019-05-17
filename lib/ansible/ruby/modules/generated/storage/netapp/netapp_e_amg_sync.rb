@@ -36,9 +36,9 @@ module Ansible
         attribute :state
         validates :state, presence: true, inclusion: {:in=>[:running, :suspended], :message=>"%{value} needs to be :running, :suspended"}
 
-        # @return [Boolean, nil] Indicates whether the failures point can be deleted on the secondary if necessary to achieve the synchronization.,If true, and if the amount of unsynchronized data exceeds the CoW repository capacity on the secondary for any member volume, the last failures point will be deleted and synchronization will continue.,If false, the synchronization will be suspended if the amount of unsynchronized data exceeds the CoW Repository capacity on the secondary and the failures point will be preserved.,NOTE: This only has impact for newly launched syncs.
+        # @return [Symbol, nil] Indicates whether the failures point can be deleted on the secondary if necessary to achieve the synchronization.,If true, and if the amount of unsynchronized data exceeds the CoW repository capacity on the secondary for any member volume, the last failures point will be deleted and synchronization will continue.,If false, the synchronization will be suspended if the amount of unsynchronized data exceeds the CoW Repository capacity on the secondary and the failures point will be preserved.,NOTE: This only has impact for newly launched syncs.
         attribute :delete_recovery_point
-        validates :delete_recovery_point, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :delete_recovery_point, type: Symbol
       end
     end
   end

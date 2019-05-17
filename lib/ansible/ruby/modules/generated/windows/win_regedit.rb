@@ -29,9 +29,9 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
-        # @return [String, nil] When C(state) is 'absent' then this will delete the entire key.,If C(no) then it will only clear out the '(Default)' property for that key.
+        # @return [:yes, :no, nil] When C(state) is 'absent' then this will delete the entire key.,If C(no) then it will only clear out the '(Default)' property for that key.
         attribute :delete_key
-        validates :delete_key, type: String
+        validates :delete_key, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] A path to a hive key like C:\Users\Default\NTUSER.DAT to load in the registry.,This hive is loaded under the HKLM:\ANSIBLE key which can then be used in I(name) like any other path.,This can be used to load the default user profile registry hive or any other hive saved as a file.,Using this function requires the user to have the C(SeRestorePrivilege) and C(SeBackupPrivilege) privileges enabled.
         attribute :hive

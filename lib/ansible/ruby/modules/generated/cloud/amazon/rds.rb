@@ -57,8 +57,9 @@ module Ansible
         attribute :license_model
         validates :license_model, inclusion: {:in=>[:"license-included", :"bring-your-own-license", :"general-public-license", :"postgresql-license"], :message=>"%{value} needs to be :\"license-included\", :\"bring-your-own-license\", :\"general-public-license\", :\"postgresql-license\""}, allow_nil: true
 
-        # @return [Object, nil] Specifies if this is a Multi-availability-zone deployment. Can not be used in conjunction with zone parameter. Used only when command=create or command=modify.
+        # @return [Symbol, nil] Specifies if this is a Multi-availability-zone deployment. Can not be used in conjunction with zone parameter. Used only when command=create or command=modify.
         attribute :multi_zone
+        validates :multi_zone, type: Symbol
 
         # @return [Object, nil] Specifies the number of IOPS for the instance.  Used only when command=create or command=modify. Must be an integer greater than 1000.
         attribute :iops
@@ -74,9 +75,9 @@ module Ansible
         attribute :port
         validates :port, type: Integer
 
-        # @return [String, nil] Indicates that minor version upgrades should be applied automatically. Used only when command=create or command=replicate.
+        # @return [:yes, :no, nil] Indicates that minor version upgrades should be applied automatically. Used only when command=create or command=replicate.
         attribute :upgrade
-        validates :upgrade, type: String
+        validates :upgrade, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] The name of the option group to use.  If not specified then the default option group is used. Used only when command=create.
         attribute :option_group
@@ -108,21 +109,21 @@ module Ansible
         # @return [Object, nil] AWS access key. If not set then the value of the AWS_ACCESS_KEY environment variable is used.
         attribute :aws_access_key
 
-        # @return [String, nil] When command=create, replicate, modify or restore then wait for the database to enter the 'available' state.  When command=delete wait for the database to be terminated.
+        # @return [:yes, :no, nil] When command=create, replicate, modify or restore then wait for the database to enter the 'available' state.  When command=delete wait for the database to be terminated.
         attribute :wait
-        validates :wait, type: String
+        validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] how long before wait gives up, in seconds
         attribute :wait_timeout
         validates :wait_timeout, type: Integer
 
-        # @return [String, nil] Used only when command=modify.  If enabled, the modifications will be applied as soon as possible rather than waiting for the next preferred maintenance window.
+        # @return [:yes, :no, nil] Used only when command=modify.  If enabled, the modifications will be applied as soon as possible rather than waiting for the next preferred maintenance window.
         attribute :apply_immediately
-        validates :apply_immediately, type: String
+        validates :apply_immediately, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Used only when command=reboot.  If enabled, the reboot is done using a MultiAZ failover.
+        # @return [:yes, :no, nil] Used only when command=reboot.  If enabled, the reboot is done using a MultiAZ failover.
         attribute :force_failover
-        validates :force_failover, type: String
+        validates :force_failover, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] Name to rename an instance to. Used only when command=modify.
         attribute :new_instance_name

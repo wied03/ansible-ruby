@@ -33,9 +33,9 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent, :activated, :mounted, :unmounted], :message=>"%{value} needs to be :present, :absent, :activated, :mounted, :unmounted"}, allow_nil: true
 
-        # @return [Boolean, nil] Specifies if the unmount should be forced.
+        # @return [Symbol, nil] Specifies if the unmount should be forced.
         attribute :force
-        validates :force, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :force, type: Symbol
       end
     end
   end

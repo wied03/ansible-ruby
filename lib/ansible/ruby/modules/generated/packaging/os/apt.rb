@@ -16,33 +16,33 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:absent, :"build-dep", :latest, :present], :message=>"%{value} needs to be :absent, :\"build-dep\", :latest, :present"}, allow_nil: true
 
-        # @return [String, nil] Run the equivalent of C(apt-get update) before the operation. Can be run as part of the package installation or as a separate step.
+        # @return [:yes, :no, nil] Run the equivalent of C(apt-get update) before the operation. Can be run as part of the package installation or as a separate step.
         attribute :update_cache
-        validates :update_cache, type: String
+        validates :update_cache, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] Update the apt cache if its older than the I(cache_valid_time). This option is set in seconds. As of Ansible 2.4, this sets I(update_cache=yes).
         attribute :cache_valid_time
         validates :cache_valid_time, type: Integer
 
-        # @return [String, nil] Will force purging of configuration files if the module state is set to I(absent).
+        # @return [:yes, :no, nil] Will force purging of configuration files if the module state is set to I(absent).
         attribute :purge
-        validates :purge, type: String
+        validates :purge, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] Corresponds to the C(-t) option for I(apt) and sets pin priorities
         attribute :default_release
         validates :default_release, type: String
 
-        # @return [Boolean, nil] Corresponds to the C(--no-install-recommends) option for I(apt). C(yes) installs recommended packages.  C(no) does not install recommended packages. By default, Ansible will use the same defaults as the operating system. Suggested packages are never installed.
+        # @return [Symbol, nil] Corresponds to the C(--no-install-recommends) option for I(apt). C(yes) installs recommended packages.  C(no) does not install recommended packages. By default, Ansible will use the same defaults as the operating system. Suggested packages are never installed.
         attribute :install_recommends
-        validates :install_recommends, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :install_recommends, type: Symbol
 
-        # @return [String, nil] Corresponds to the C(--force-yes) to I(apt-get) and implies C(allow_unauthenticated: yes),This option will disable checking both the packages' signatures and the certificates of the web servers they are downloaded from.,This option *is not* the equivalent of passing the C(-f) flag to I(apt-get) on the command line,**This is a destructive operation with the potential to destroy your system, and it should almost never be used.** Please also see C(man apt-get) for more information.
+        # @return [:yes, :no, nil] Corresponds to the C(--force-yes) to I(apt-get) and implies C(allow_unauthenticated: yes),This option will disable checking both the packages' signatures and the certificates of the web servers they are downloaded from.,This option *is not* the equivalent of passing the C(-f) flag to I(apt-get) on the command line,**This is a destructive operation with the potential to destroy your system, and it should almost never be used.** Please also see C(man apt-get) for more information.
         attribute :force
-        validates :force, type: String
+        validates :force, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Ignore if packages cannot be authenticated. This is useful for bootstrapping environments that manage their own apt-key setup.,C(allow_unauthenticated) is only supported with state: I(install)/I(present)
+        # @return [:yes, :no, nil] Ignore if packages cannot be authenticated. This is useful for bootstrapping environments that manage their own apt-key setup.,C(allow_unauthenticated) is only supported with state: I(install)/I(present)
         attribute :allow_unauthenticated
-        validates :allow_unauthenticated, type: String
+        validates :allow_unauthenticated, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:dist, :full, :no, :safe, :yes, nil] If yes or safe, performs an aptitude safe-upgrade.,If full, performs an aptitude full-upgrade.,If dist, performs an apt-get dist-upgrade.,Note: This does not upgrade a specific package, use state=latest for that.,Note: Since 2.4, apt-get is used as a fall-back if aptitude is not present.
         attribute :upgrade
@@ -56,21 +56,21 @@ module Ansible
         attribute :deb
         validates :deb, type: String
 
-        # @return [String, nil] If C(yes), remove unused dependency packages for all module states except I(build-dep). It can also be used as the only option.,Previous to version 2.4, autoclean was also an alias for autoremove, now it is its own separate command. See documentation for further information.
+        # @return [:yes, :no, nil] If C(yes), remove unused dependency packages for all module states except I(build-dep). It can also be used as the only option.,Previous to version 2.4, autoclean was also an alias for autoremove, now it is its own separate command. See documentation for further information.
         attribute :autoremove
-        validates :autoremove, type: String
+        validates :autoremove, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] If C(yes), cleans the local repository of retrieved package files that can no longer be downloaded.
+        # @return [:yes, :no, nil] If C(yes), cleans the local repository of retrieved package files that can no longer be downloaded.
         attribute :autoclean
-        validates :autoclean, type: String
+        validates :autoclean, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Only upgrade a package if it is already installed.
+        # @return [:yes, :no, nil] Only upgrade a package if it is already installed.
         attribute :only_upgrade
-        validates :only_upgrade, type: String
+        validates :only_upgrade, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Force usage of apt-get instead of aptitude
+        # @return [:yes, :no, nil] Force usage of apt-get instead of aptitude
         attribute :force_apt_get
-        validates :force_apt_get, type: String
+        validates :force_apt_get, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

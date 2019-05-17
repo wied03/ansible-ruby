@@ -40,9 +40,9 @@ module Ansible
         # @return [Object, nil] Http security policy for the virtual service.
         attribute :http_security_policy
 
-        # @return [Boolean, nil] Boolean flag to set is_internal_policy.,Default value when not specified in API or module is interpreted by Avi Controller as False.
+        # @return [Symbol, nil] Boolean flag to set is_internal_policy.,Default value when not specified in API or module is interpreted by Avi Controller as False.
         attribute :is_internal_policy
-        validates :is_internal_policy, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :is_internal_policy, type: Symbol
 
         # @return [String] Name of the http policy set.
         attribute :name

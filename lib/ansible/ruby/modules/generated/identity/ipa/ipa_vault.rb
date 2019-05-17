@@ -37,9 +37,9 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [Boolean, nil] Force replace the existant vault on IPA server.
+        # @return [:True, :False, nil] Force replace the existant vault on IPA server.
         attribute :replace
-        validates :replace, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :replace, inclusion: {:in=>[:True, :False], :message=>"%{value} needs to be :True, :False"}, allow_nil: true
 
         # @return [Boolean, nil] Validate IPA server certificates.
         attribute :validate_certs

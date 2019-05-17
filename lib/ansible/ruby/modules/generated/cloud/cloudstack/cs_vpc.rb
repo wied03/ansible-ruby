@@ -26,9 +26,9 @@ module Ansible
         # @return [Object, nil] Name of the VPC offering.,If not set, default VPC offering is used.
         attribute :vpc_offering
 
-        # @return [Boolean, nil] Whether to redeploy a VPC router or not when I(state=restarted)
+        # @return [Symbol, nil] Whether to redeploy a VPC router or not when I(state=restarted)
         attribute :clean_up
-        validates :clean_up, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :clean_up, type: Symbol
 
         # @return [:present, :absent, :stopped, :restarted, nil] State of the VPC.,The state C(present) creates a started VPC.,The state C(stopped) is only considered while creating the VPC, added in version 2.6.
         attribute :state

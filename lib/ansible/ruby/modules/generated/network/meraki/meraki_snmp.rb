@@ -12,13 +12,13 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:query, :present], :message=>"%{value} needs to be :query, :present"}, allow_nil: true
 
-        # @return [TrueClass, FalseClass, nil] Specifies whether SNMPv2c is enabled.
+        # @return [Symbol, nil] Specifies whether SNMPv2c is enabled.
         attribute :v2c_enabled
-        validates :v2c_enabled, type: MultipleTypes.new(TrueClass, FalseClass)
+        validates :v2c_enabled, type: Symbol
 
-        # @return [Boolean, nil] Specifies whether SNMPv3 is enabled.
+        # @return [Symbol, nil] Specifies whether SNMPv3 is enabled.
         attribute :v3_enabled
-        validates :v3_enabled, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :v3_enabled, type: Symbol
 
         # @return [:MD5, :SHA, nil] Sets authentication mode for SNMPv3.
         attribute :v3_auth_mode

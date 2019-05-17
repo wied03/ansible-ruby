@@ -23,8 +23,9 @@ module Ansible
         attribute :cpu_speed
         validates :cpu_speed, type: Integer
 
-        # @return [Object, nil] Restrict the CPU usage to committed service offering.
+        # @return [Symbol, nil] Restrict the CPU usage to committed service offering.
         attribute :limit_cpu_usage
+        validates :limit_cpu_usage, type: Symbol
 
         # @return [Object, nil] The deployment planner heuristics used to deploy a VM of this offering.,If not set, the value of global config C(vm.deployment.planner) is used.
         attribute :deployment_planner
@@ -59,13 +60,13 @@ module Ansible
         # @return [Object, nil] Min. iops of the compute offering.
         attribute :disk_iops_min
 
-        # @return [Boolean, nil] Whether it is a system VM offering or not.
+        # @return [Symbol, nil] Whether it is a system VM offering or not.
         attribute :is_system
-        validates :is_system, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :is_system, type: Symbol
 
-        # @return [Boolean, nil] Whether the virtual machine needs to be volatile or not.,Every reboot of VM the root disk is detached then destroyed and a fresh root disk is created and attached to VM.
+        # @return [Symbol, nil] Whether the virtual machine needs to be volatile or not.,Every reboot of VM the root disk is detached then destroyed and a fresh root disk is created and attached to VM.
         attribute :is_volatile
-        validates :is_volatile, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :is_volatile, type: Symbol
 
         # @return [Integer, nil] The total memory of the service offering in MB.
         attribute :memory
@@ -78,9 +79,9 @@ module Ansible
         # @return [Object, nil] Data transfer rate in Mb/s allowed.,Supported only for non-system offering and system offerings having C(system_vm_type=domainrouter).
         attribute :network_rate
 
-        # @return [Boolean, nil] Whether HA is set for the service offering.
+        # @return [Symbol, nil] Whether HA is set for the service offering.
         attribute :offer_ha
-        validates :offer_ha, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :offer_ha, type: Symbol
 
         # @return [:thin, :sparse, :fat, nil] Provisioning type used to create volumes.
         attribute :provisioning_type

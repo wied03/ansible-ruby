@@ -12,9 +12,9 @@ module Ansible
         attribute :interface
         validates :interface, presence: true, type: String
 
-        # @return [String, nil] Enable/disable sparse-mode on the interface.
+        # @return [:yes, :no, nil] Enable/disable sparse-mode on the interface.
         attribute :sparse
-        validates :sparse, type: String
+        validates :sparse, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] Configures priority for PIM DR election on interface.
         attribute :dr_prio
@@ -23,9 +23,9 @@ module Ansible
         # @return [Object, nil] Authentication for hellos on this interface.
         attribute :hello_auth_key
 
-        # @return [Integer, nil] Hello interval in milliseconds for this interface.
+        # @return [Symbol, nil] Hello interval in milliseconds for this interface.
         attribute :hello_interval
-        validates :hello_interval, type: Integer
+        validates :hello_interval, type: Symbol
 
         # @return [String, nil] Policy for join-prune messages (outbound).
         attribute :jp_policy_out
@@ -43,9 +43,9 @@ module Ansible
         attribute :jp_type_in
         validates :jp_type_in, inclusion: {:in=>[:prefix, :routemap], :message=>"%{value} needs to be :prefix, :routemap"}, allow_nil: true
 
-        # @return [String, nil] Configures interface to be a boundary of a PIM domain.
+        # @return [:yes, :no, nil] Configures interface to be a boundary of a PIM domain.
         attribute :border
-        validates :border, type: String
+        validates :border, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] Configures a neighbor policy for filtering adjacencies.
         attribute :neighbor_policy

@@ -8,13 +8,13 @@ module Ansible
     module Modules
       # Lists or describes services in ecs.
       class Ecs_service_facts < Base
-        # @return [String, nil] Set this to true if you want detailed information about the services.
+        # @return [Symbol, nil] Set this to true if you want detailed information about the services.
         attribute :details
-        validates :details, type: String
+        validates :details, type: Symbol
 
-        # @return [String, nil] Whether to return ECS service events. Only has an effect if C(details) is true.
+        # @return [Symbol, nil] Whether to return ECS service events. Only has an effect if C(details) is true.
         attribute :events
-        validates :events, type: String
+        validates :events, type: Symbol
 
         # @return [String, nil] The cluster ARNS in which to list the services.
         attribute :cluster

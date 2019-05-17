@@ -21,8 +21,9 @@ module Ansible
         attribute :avi_api_patch_op
         validates :avi_api_patch_op, inclusion: {:in=>[:add, :replace, :delete], :message=>"%{value} needs to be :add, :replace, :delete"}, allow_nil: true
 
-        # @return [Object, nil] If this flag is set, only allocate ip from networks in the virtual service vrf.,Applicable for avi vantage ipam only.,Field introduced in 17.2.4.,Default value when not specified in API or module is interpreted by Avi Controller as False.
+        # @return [Symbol, nil] If this flag is set, only allocate ip from networks in the virtual service vrf.,Applicable for avi vantage ipam only.,Field introduced in 17.2.4.,Default value when not specified in API or module is interpreted by Avi Controller as False.
         attribute :allocate_ip_in_vrf
+        validates :allocate_ip_in_vrf, type: Symbol
 
         # @return [Object, nil] Provider details if type is aws.
         attribute :aws_profile

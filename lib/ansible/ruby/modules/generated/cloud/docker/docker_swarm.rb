@@ -17,9 +17,9 @@ module Ansible
         attribute :listen_addr
         validates :listen_addr, type: String
 
-        # @return [String, nil] Use with state C(present) to force creating a new Swarm, even if already part of one.,Use with state C(absent) to Leave the swarm even if this node is a manager.
+        # @return [:yes, :no, nil] Use with state C(present) to force creating a new Swarm, even if already part of one.,Use with state C(absent) to Leave the swarm even if this node is a manager.
         attribute :force
-        validates :force, type: String
+        validates :force, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:present, :join, :absent, :remove, :inspect] Set to C(present), to create/update a new cluster.,Set to C(join), to join an existing cluster.,Set to C(absent), to leave an existing cluster.,Set to C(remove), to remove an absent node from the cluster.,Set to C(inspect) to display swarm informations.
         attribute :state
@@ -77,16 +77,17 @@ module Ansible
         # @return [Object, nil] An integer whose purpose is to force swarm to generate a new signing CA certificate and key, if none have been specified.,Docker default value is C(0).
         attribute :ca_force_rotate
 
-        # @return [Object, nil] If set, generate a key and use it to lock data stored on the managers.,Docker default value is C(no).
+        # @return [Symbol, nil] If set, generate a key and use it to lock data stored on the managers.,Docker default value is C(no).
         attribute :autolock_managers
+        validates :autolock_managers, type: Symbol
 
-        # @return [String, nil] Rotate the worker join token.
+        # @return [:yes, :no, nil] Rotate the worker join token.
         attribute :rotate_worker_token
-        validates :rotate_worker_token, type: String
+        validates :rotate_worker_token, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Rotate the manager join token.
+        # @return [:yes, :no, nil] Rotate the manager join token.
         attribute :rotate_manager_token
-        validates :rotate_manager_token, type: String
+        validates :rotate_manager_token, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

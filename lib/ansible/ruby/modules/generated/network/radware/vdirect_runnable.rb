@@ -23,9 +23,9 @@ module Ansible
         # @return [Object, nil] Secondary vDirect server IP address, may be set as C(VDIRECT_SECONDARY_IP) environment variable.
         attribute :vdirect_secondary_ip
 
-        # @return [String, nil] Wait for async operation to complete, may be set as C(VDIRECT_WAIT) environment variable.
+        # @return [:yes, :no, nil] Wait for async operation to complete, may be set as C(VDIRECT_WAIT) environment variable.
         attribute :vdirect_wait
-        validates :vdirect_wait, type: String
+        validates :vdirect_wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] vDirect server HTTPS port number, may be set as C(VDIRECT_HTTPS_PORT) environment variable.
         attribute :vdirect_https_port
@@ -39,13 +39,13 @@ module Ansible
         attribute :vdirect_timeout
         validates :vdirect_timeout, type: Integer
 
-        # @return [String, nil] If C(no), an HTTP connection will be used instead of the default HTTPS connection,,may be set as C(VDIRECT_HTTPS) or C(VDIRECT_USE_SSL) environment variable.
+        # @return [:yes, :no, nil] If C(no), an HTTP connection will be used instead of the default HTTPS connection,,may be set as C(VDIRECT_HTTPS) or C(VDIRECT_USE_SSL) environment variable.
         attribute :vdirect_use_ssl
-        validates :vdirect_use_ssl, type: String
+        validates :vdirect_use_ssl, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] If C(no), SSL certificates will not be validated,,may be set as C(VDIRECT_VALIDATE_CERTS) or C(VDIRECT_VERIFY) environment variable.,This should only set to C(no) used on personally controlled sites using self-signed certificates.
+        # @return [:yes, :no, nil] If C(no), SSL certificates will not be validated,,may be set as C(VDIRECT_VALIDATE_CERTS) or C(VDIRECT_VERIFY) environment variable.,This should only set to C(no) used on personally controlled sites using self-signed certificates.
         attribute :vdirect_validate_certs
-        validates :vdirect_validate_certs, type: String
+        validates :vdirect_validate_certs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:ConfigurationTemplate, :Workflow, :WorkflowTemplate] vDirect runnable type.
         attribute :runnable_type

@@ -16,33 +16,33 @@ module Ansible
         attribute :from_path
         validates :from_path, type: String
 
-        # @return [String, nil] Do not run unit tests
+        # @return [:yes, :no, nil] Do not run unit tests
         attribute :notest
-        validates :notest, type: String
+        validates :notest, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Specify the install base to install modules
+        # @return [:yes, :no, nil] Specify the install base to install modules
         attribute :locallib
-        validates :locallib, type: String
+        validates :locallib, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Specifies the base URL for the CPAN mirror to use
+        # @return [:yes, :no, nil] Specifies the base URL for the CPAN mirror to use
         attribute :mirror
-        validates :mirror, type: String
+        validates :mirror, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Use the mirror's index file instead of the CPAN Meta DB
+        # @return [:yes, :no, nil] Use the mirror's index file instead of the CPAN Meta DB
         attribute :mirror_only
-        validates :mirror_only, type: String
+        validates :mirror_only, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Only install dependencies
+        # @return [:yes, :no, nil] Only install dependencies
         attribute :installdeps
-        validates :installdeps, type: String
+        validates :installdeps, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] minimum version of perl module to consider acceptable
+        # @return [:yes, :no, nil] minimum version of perl module to consider acceptable
         attribute :version
-        validates :version, type: String
+        validates :version, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Use this if you want to install modules to the system perl include path. You must be root or have "passwordless" sudo for this to work.,This uses the cpanm commandline option '--sudo', which has nothing to do with ansible privilege escalation.
+        # @return [:yes, :no, nil] Use this if you want to install modules to the system perl include path. You must be root or have "passwordless" sudo for this to work.,This uses the cpanm commandline option '--sudo', which has nothing to do with ansible privilege escalation.
         attribute :system_lib
-        validates :system_lib, type: String
+        validates :system_lib, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] Override the path to the cpanm executable
         attribute :executable

@@ -30,16 +30,16 @@ module Ansible
         attribute :defaults_from
         validates :defaults_from, type: String
 
-        # @return [String, nil] Overrides the role's metadata setting to allow using a role more than once with the same parameters.
+        # @return [:yes, :no, nil] Overrides the role's metadata setting to allow using a role more than once with the same parameters.
         attribute :allow_duplicates
-        validates :allow_duplicates, type: String
+        validates :allow_duplicates, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] This option is a no op, and the functionality described in previous versions was not implemented. This option will be removed in Ansible v2.8.
         attribute :private
 
-        # @return [String, nil] This option dictates whether the role's C(vars) and C(defaults) are exposed to the playbook. If set to C(yes) the variables will be available to tasks following the C(include_role) task. This functionality differs from standard variable exposure for roles listed under the C(roles) header or C(import_role) as they are exposed at playbook parsing time, and available to earlier roles and tasks as well.
+        # @return [:yes, :no, nil] This option dictates whether the role's C(vars) and C(defaults) are exposed to the playbook. If set to C(yes) the variables will be available to tasks following the C(include_role) task. This functionality differs from standard variable exposure for roles listed under the C(roles) header or C(import_role) as they are exposed at playbook parsing time, and available to earlier roles and tasks as well.
         attribute :public
-        validates :public, type: String
+        validates :public, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

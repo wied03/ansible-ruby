@@ -255,6 +255,7 @@ task :verify_checksums do
   mv NEW_CHECKSUMS, existing_sums
 end
 
+desc 'Verify custom modules all require properly'
 task :verify_custom_mods do
   custom_module_files.each do |file|
     puts "Verifying we can require custom file #{file}"

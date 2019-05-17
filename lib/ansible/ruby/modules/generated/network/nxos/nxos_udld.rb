@@ -16,9 +16,9 @@ module Ansible
         attribute :msg_time
         validates :msg_time, type: Integer
 
-        # @return [String, nil] Ability to reset all ports shut down by UDLD. 'state' parameter cannot be 'absent' when this is present.
+        # @return [:yes, :no, nil] Ability to reset all ports shut down by UDLD. 'state' parameter cannot be 'absent' when this is present.
         attribute :reset
-        validates :reset, type: String
+        validates :reset, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:present, :absent, nil] Manage the state of the resource. When set to 'absent', aggressive and msg_time are set to their default values.
         attribute :state

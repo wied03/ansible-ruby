@@ -44,11 +44,13 @@ module Ansible
         # @return [Object, nil] Sets the group membership timeout for IGMPv2. Values can range from 3 to 65,535 seconds or keyword 'default'. The default is 260 seconds.
         attribute :group_timeout
 
-        # @return [Object, nil] Configures report-link-local-groups. Enables sending reports for groups in 224.0.0.0/24. Reports are always sent for nonlink local groups. By default, reports are not sent for link local groups.
+        # @return [Symbol, nil] Configures report-link-local-groups. Enables sending reports for groups in 224.0.0.0/24. Reports are always sent for nonlink local groups. By default, reports are not sent for link local groups.
         attribute :report_llg
+        validates :report_llg, type: Symbol
 
-        # @return [Object, nil] Enables the device to remove the group entry from the multicast routing table immediately upon receiving a leave message for the group. Use this command to minimize the leave latency of IGMPv2 group memberships on a given IGMP interface because the device does not send group-specific queries. The default is disabled.
+        # @return [Symbol, nil] Enables the device to remove the group entry from the multicast routing table immediately upon receiving a leave message for the group. Use this command to minimize the leave latency of IGMPv2 group memberships on a given IGMP interface because the device does not send group-specific queries. The default is disabled.
         attribute :immediate_leave
+        validates :immediate_leave, type: Symbol
 
         # @return [Object, nil] Configure a routemap for static outgoing interface (OIF) or keyword 'default'.
         attribute :oif_routemap
@@ -63,9 +65,9 @@ module Ansible
         attribute :oif_ps
         validates :oif_ps, type: TypeGeneric.new(Hash)
 
-        # @return [Boolean, nil] Restart IGMP. This is NOT idempotent as this is action only.
+        # @return [Symbol, nil] Restart IGMP. This is NOT idempotent as this is action only.
         attribute :restart
-        validates :restart, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :restart, type: Symbol
 
         # @return [:present, :absent, :default, nil] Manages desired state of the resource.
         attribute :state

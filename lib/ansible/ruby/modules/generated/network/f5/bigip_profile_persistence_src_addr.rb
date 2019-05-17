@@ -15,16 +15,17 @@ module Ansible
         # @return [Object, nil] Specifies the profile from which this profile inherits settings.,When creating a new profile, if this parameter is not specified, the default is the system-supplied C(source_addr) profile.
         attribute :parent
 
-        # @return [Boolean, nil] When C(yes), specifies that all persistent connections from a client IP address that go to the same virtual IP address also go to the same node.,When creating a new profile, if this parameter is not specified, the default is provided by the parent profile.
+        # @return [Symbol, nil] When C(yes), specifies that all persistent connections from a client IP address that go to the same virtual IP address also go to the same node.,When creating a new profile, if this parameter is not specified, the default is provided by the parent profile.
         attribute :match_across_services
-        validates :match_across_services, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :match_across_services, type: Symbol
 
-        # @return [Boolean, nil] When C(yes), specifies that all persistent connections from the same client IP address go to the same node.,When creating a new profile, if this parameter is not specified, the default is provided by the parent profile.
+        # @return [Symbol, nil] When C(yes), specifies that all persistent connections from the same client IP address go to the same node.,When creating a new profile, if this parameter is not specified, the default is provided by the parent profile.
         attribute :match_across_virtuals
-        validates :match_across_virtuals, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :match_across_virtuals, type: Symbol
 
-        # @return [Object, nil] When C(yes), specifies that the system can use any pool that contains this persistence record.,When creating a new profile, if this parameter is not specified, the default is provided by the parent profile.
+        # @return [Symbol, nil] When C(yes), specifies that the system can use any pool that contains this persistence record.,When creating a new profile, if this parameter is not specified, the default is provided by the parent profile.
         attribute :match_across_pools
+        validates :match_across_pools, type: Symbol
 
         # @return [:default, :carp, nil] Specifies the algorithm the system uses for hash persistence load balancing. The hash result is the input for the algorithm.,When C(default), specifies that the system uses the index of pool members to obtain the hash result for the input to the algorithm.,When C(carp), specifies that the system uses the Cache Array Routing Protocol (CARP) to obtain the hash result for the input to the algorithm.,When creating a new profile, if this parameter is not specified, the default is provided by the parent profile.
         attribute :hash_algorithm
@@ -33,8 +34,9 @@ module Ansible
         # @return [Object, nil] Specifies the duration of the persistence entries.,When creating a new profile, if this parameter is not specified, the default is provided by the parent profile.,To specify an indefinite timeout, use the value C(indefinite).,If specifying a numeric timeout, the value must be between C(1) and C(4294967295).
         attribute :entry_timeout
 
-        # @return [Object, nil] When C(yes), specifies that the system allows you to specify that pool member connection limits will be overridden for persisted clients.,Per-virtual connection limits remain hard limits and are not overridden.
+        # @return [Symbol, nil] When C(yes), specifies that the system allows you to specify that pool member connection limits will be overridden for persisted clients.,Per-virtual connection limits remain hard limits and are not overridden.
         attribute :override_connection_limit
+        validates :override_connection_limit, type: Symbol
 
         # @return [String, nil] Device partition to manage resources on.
         attribute :partition

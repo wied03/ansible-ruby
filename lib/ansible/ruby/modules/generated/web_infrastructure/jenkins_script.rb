@@ -16,9 +16,9 @@ module Ansible
         attribute :url
         validates :url, type: String
 
-        # @return [String, nil] If set to C(no), the SSL certificates will not be validated. This should only set to C(no) used on personally controlled sites using self-signed certificates as it avoids verifying the source site.
+        # @return [:yes, :no, nil] If set to C(no), the SSL certificates will not be validated. This should only set to C(no) used on personally controlled sites using self-signed certificates as it avoids verifying the source site.
         attribute :validate_certs
-        validates :validate_certs, type: String
+        validates :validate_certs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] The username to connect to the jenkins server with.
         attribute :user

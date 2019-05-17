@@ -76,11 +76,13 @@ module Ansible
         attribute :metadata
         validates :metadata, type: Hash
 
-        # @return [Object, nil] Specifies, when C(enabled), that the system translates the address of the virtual server.,When C(disabled), specifies that the system uses the address without translation.,This option is useful when the system is load balancing devices that have the same IP address.,When creating a new virtual server, the default is C(enabled).
+        # @return [Symbol, nil] Specifies, when C(enabled), that the system translates the address of the virtual server.,When C(disabled), specifies that the system uses the address without translation.,This option is useful when the system is load balancing devices that have the same IP address.,When creating a new virtual server, the default is C(enabled).
         attribute :address_translation
+        validates :address_translation, type: Symbol
 
-        # @return [Object, nil] Specifies, when C(enabled), that the system translates the port of the virtual server.,When C(disabled), specifies that the system uses the port without translation. Turning off port translation for a virtual server is useful if you want to use the virtual server to load balance connections to any service.,When creating a new virtual server, the default is C(enabled).
+        # @return [Symbol, nil] Specifies, when C(enabled), that the system translates the port of the virtual server.,When C(disabled), specifies that the system uses the port without translation. Turning off port translation for a virtual server is useful if you want to use the virtual server to load balance connections to any service.,When creating a new virtual server, the default is C(enabled).
         attribute :port_translation
+        validates :port_translation, type: Symbol
 
         # @return [:ah, :bna, :esp, :etherip, :gre, :icmp, :ipencap, :ipv6, :"ipv6-auth", :"ipv6-crypt", :"ipv6-icmp", :"isp-ip", :mux, :ospf, :sctp, :tcp, :udp, :udplite, nil] Specifies a network protocol name you want the system to use to direct traffic on this virtual server.,When creating a new virtual server, if this parameter is not specified, the default is C(tcp).,The Protocol setting is not available when you select Performance (HTTP) as the Type.,The value of this argument can be specified in either it's numeric value, or, for convenience, in a select number of named values. Refer to C(choices) for examples.,For a list of valid IP protocol numbers, refer to this page https://en.wikipedia.org/wiki/List_of_IP_protocol_numbers,When C(type) is C(dhcp), this module will force the C(ip_protocol) parameter to be C(17) (UDP).
         attribute :ip_protocol

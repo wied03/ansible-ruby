@@ -19,9 +19,9 @@ module Ansible
         # @return [Object, nil] Use with state C(present) to provide an alternate name for the Dockerfile to use when building an image.
         attribute :dockerfile
 
-        # @return [Boolean, nil] Use with state I(absent) to un-tag and remove all images matching the specified name. Use with state C(present) to build, load or pull an image when the image already exists.
+        # @return [Symbol, nil] Use with state I(absent) to un-tag and remove all images matching the specified name. Use with state C(present) to build, load or pull an image when the image already exists.
         attribute :force
-        validates :force, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :force, type: Symbol
 
         # @return [Object, nil] Timeout for HTTP requests during the image build operation. Provide a positive integer value for the number of seconds.
         attribute :http_timeout
@@ -38,17 +38,17 @@ module Ansible
         attribute :pull
         validates :pull, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
-        # @return [Boolean, nil] Push the image to the registry. Specify the registry as part of the I(name) or I(repository) parameter.
+        # @return [Symbol, nil] Push the image to the registry. Specify the registry as part of the I(name) or I(repository) parameter.
         attribute :push
-        validates :push, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :push, type: Symbol
 
         # @return [Boolean, nil] Remove intermediate containers after build.
         attribute :rm
         validates :rm, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
-        # @return [Boolean, nil] Do not use cache when building an image.
+        # @return [Symbol, nil] Do not use cache when building an image.
         attribute :nocache
-        validates :nocache, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :nocache, type: Symbol
 
         # @return [String, nil] Full path to a repository. Use with state C(present) to tag the image into the repository. Expects format I(repository:tag). If no tag is provided, will use the value of the C(tag) parameter or I(latest).
         attribute :repository

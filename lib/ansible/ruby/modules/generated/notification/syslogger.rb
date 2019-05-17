@@ -21,9 +21,9 @@ module Ansible
         attribute :facility
         validates :facility, inclusion: {:in=>[:kern, :user, :mail, :daemon, :auth, :lpr, :news, :uucp, :cron, :syslog, :local0, :local1, :local2, :local3, :local4, :local5, :local6, :local7], :message=>"%{value} needs to be :kern, :user, :mail, :daemon, :auth, :lpr, :news, :uucp, :cron, :syslog, :local0, :local1, :local2, :local3, :local4, :local5, :local6, :local7"}, allow_nil: true
 
-        # @return [String, nil] Log the pid in brackets
+        # @return [:yes, :no, nil] Log the pid in brackets
         attribute :log_pid
-        validates :log_pid, type: String
+        validates :log_pid, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

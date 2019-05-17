@@ -20,20 +20,20 @@ module Ansible
         attribute :version
         validates :version, type: String
 
-        # @return [Boolean, nil] Install the node.js library globally
+        # @return [Symbol, nil] Install the node.js library globally
         attribute :global
-        validates :global, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :global, type: Symbol
 
         # @return [Object, nil] The executable location for yarn.
         attribute :executable
 
-        # @return [Boolean, nil] Use the --ignore-scripts flag when installing.
+        # @return [Symbol, nil] Use the --ignore-scripts flag when installing.
         attribute :ignore_scripts
-        validates :ignore_scripts, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :ignore_scripts, type: Symbol
 
-        # @return [Boolean, nil] Install dependencies in production mode.,Yarn will ignore any dependencies under devDependencies in package.json
+        # @return [Symbol, nil] Install dependencies in production mode.,Yarn will ignore any dependencies under devDependencies in package.json
         attribute :production
-        validates :production, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :production, type: Symbol
 
         # @return [String, nil] The registry to install modules from.
         attribute :registry

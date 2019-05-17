@@ -23,9 +23,9 @@ module Ansible
         attribute :workspace
         validates :workspace, type: String
 
-        # @return [Boolean, nil] Only works with state = absent,If true, the workspace will be deleted after the "terraform destroy" action.,The 'default' workspace will not be deleted.
+        # @return [Symbol, nil] Only works with state = absent,If true, the workspace will be deleted after the "terraform destroy" action.,The 'default' workspace will not be deleted.
         attribute :purge_workspace
-        validates :purge_workspace, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :purge_workspace, type: Symbol
 
         # @return [Object, nil] The path to an existing Terraform plan file to apply. If this is not specified, Ansible will build a new TF plan and execute it. Note that this option is required if 'state' has the 'planned' value.
         attribute :plan_file
@@ -48,9 +48,9 @@ module Ansible
         # @return [Object, nil] How long to maintain the lock on the statefile, if you use a service that accepts locks (such as S3+DynamoDB).
         attribute :lock_timeout
 
-        # @return [Boolean, nil] To avoid duplicating infra, if a state file can't be found this will force a `terraform init`. Generally, this should be turned off unless you intend to provision an entirely new Terraform deployment.
+        # @return [Symbol, nil] To avoid duplicating infra, if a state file can't be found this will force a `terraform init`. Generally, this should be turned off unless you intend to provision an entirely new Terraform deployment.
         attribute :force_init
-        validates :force_init, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :force_init, type: Symbol
 
         # @return [Hash, nil] A group of key-values to provide at init stage to the -backend-config parameter.
         attribute :backend_config

@@ -56,9 +56,9 @@ module Ansible
         # @return [Object, nil] ramdisk I(eri) to use for the instance
         attribute :ramdisk
 
-        # @return [String, nil] wait for the instance to reach its desired state before returning.  Does not wait for SSH, see 'wait_for_connection' example for details.
+        # @return [:yes, :no, nil] wait for the instance to reach its desired state before returning.  Does not wait for SSH, see 'wait_for_connection' example for details.
         attribute :wait
-        validates :wait, type: String
+        validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] how long before wait gives up, in seconds
         attribute :wait_timeout
@@ -72,9 +72,9 @@ module Ansible
         attribute :count
         validates :count, type: Integer
 
-        # @return [String, nil] enable detailed monitoring (CloudWatch) for instance
+        # @return [:yes, :no, nil] enable detailed monitoring (CloudWatch) for instance
         attribute :monitoring
-        validates :monitoring, type: String
+        validates :monitoring, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] opaque blob of data which is made available to the ec2 instance
         attribute :user_data
@@ -90,9 +90,9 @@ module Ansible
         attribute :vpc_subnet_id
         validates :vpc_subnet_id, type: String
 
-        # @return [Boolean, nil] when provisioning within vpc, assign a public IP address. Boto library must be 2.13.0+
+        # @return [Symbol, nil] when provisioning within vpc, assign a public IP address. Boto library must be 2.13.0+
         attribute :assign_public_ip
-        validates :assign_public_ip, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :assign_public_ip, type: Symbol
 
         # @return [Object, nil] the private ip address to assign the instance (from the vpc subnet)
         attribute :private_ip
@@ -104,12 +104,13 @@ module Ansible
         attribute :instance_ids
         validates :instance_ids, type: TypeGeneric.new(String)
 
-        # @return [Object, nil] Enable or Disable the Source/Destination checks (for NAT instances and Virtual Routers). When initially creating an instance the EC2 API defaults this to True.
+        # @return [Symbol, nil] Enable or Disable the Source/Destination checks (for NAT instances and Virtual Routers). When initially creating an instance the EC2 API defaults this to True.
         attribute :source_dest_check
+        validates :source_dest_check, type: Symbol
 
-        # @return [String, nil] Enable or Disable the Termination Protection
+        # @return [:yes, :no, nil] Enable or Disable the Termination Protection
         attribute :termination_protection
-        validates :termination_protection, type: String
+        validates :termination_protection, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:stop, :terminate, nil] Set whether AWS will Stop or Terminate an instance on shutdown. This parameter is ignored when using instance-store images (which require termination on shutdown).
         attribute :instance_initiated_shutdown_behavior

@@ -24,8 +24,9 @@ module Ansible
         # @return [Object, nil] User defined description for the object.
         attribute :description
 
-        # @return [Object, nil] Use avi intelligent autoscale algorithm where autoscale is performed by comparing load on the pool against estimated capacity of all the servers.,Default value when not specified in API or module is interpreted by Avi Controller as False.
+        # @return [Symbol, nil] Use avi intelligent autoscale algorithm where autoscale is performed by comparing load on the pool against estimated capacity of all the servers.,Default value when not specified in API or module is interpreted by Avi Controller as False.
         attribute :intelligent_autoscale
+        validates :intelligent_autoscale, type: Symbol
 
         # @return [Object, nil] Maximum extra capacity as percentage of load used by the intelligent scheme.,Scalein is triggered when available capacity is more than this margin.,Allowed values are 1-99.,Default value when not specified in API or module is interpreted by Avi Controller as 40.
         attribute :intelligent_scalein_margin
@@ -67,8 +68,9 @@ module Ansible
         # @return [Object, nil] Avi controller URL of the object.
         attribute :url
 
-        # @return [Object, nil] Use predicted load rather than current load.,Default value when not specified in API or module is interpreted by Avi Controller as False.
+        # @return [Symbol, nil] Use predicted load rather than current load.,Default value when not specified in API or module is interpreted by Avi Controller as False.
         attribute :use_predicted_load
+        validates :use_predicted_load, type: Symbol
 
         # @return [Object, nil] Unique object identifier of the object.
         attribute :uuid

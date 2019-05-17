@@ -15,8 +15,11 @@ module Ansible
             details = details.symbolize_keys
             description = parse_description(details)
             sample_values = find_sample_values name, details, example
-            types = derive_types sample_values
+            specified_type = details[:type]
             choices = parse_choices(details)
+            types = derive_types sample_values,
+                                 specified_type,
+                                 choices
             # Example only has true or false
             missing_bool_type = missing_bool_type types
             if missing_bool_type
@@ -80,12 +83,30 @@ module Ansible
 
           def parse_choices(details)
             choices = details[:choices]
-            return nil unless choices&.any?
+            specified_type = details[:type]
+            default = details[:default]
+            return nil unless choices&.any? || specified_type && default
+            return derive_choices_from_type_and_default(specified_type, default) if specified_type && default
 
             choices.map do |choice|
               result = parse_value_into_num choice
               result = result.to_sym if result.is_a?(String)
               result
+            end
+          end
+
+          def derive_choices_from_type_and_default(type,
+                                                   default)
+            case type
+            when 'bool'
+              case default
+              when 'yes', 'no'
+                %i[yes no]
+              when 'True', 'False', true, false
+                [true, false]
+              end
+            else
+              nil
             end
           end
 
@@ -111,9 +132,9 @@ module Ansible
 
           def values_by_key(example)
             example = example['tasks'] if example.is_a?(Hash) && example['tasks']
-            first_cut = example.map { |ex| ex.reject { |key, _| key == 'name' } }
-                               .map { |ex| ex.map { |_, value| value } }
-                               .flatten
+            first_cut = example.map {|ex| ex.reject {|key, _| key == 'name'}}
+                          .map {|ex| ex.map {|_, value| value}}
+                          .flatten
             array_of_hashes = first_cut.map do |value|
               if value.is_a?(String)
                 hash_equal_sign_pairs(value)
@@ -141,16 +162,40 @@ module Ansible
             end.compact]
           end
 
-          def derive_types(values)
-            types = values.map { |value| derive_type value }.uniq
-            generic = types.find { |type| type.is_a?(TypeGeneric) }
+          def derive_types(values,
+                           specified_type,
+                           choices)
+            types = specified_type ? map_type(specified_type, choices) : values.map {|value| derive_type value}.uniq
+            generic = types.find {|type| type.is_a?(TypeGeneric)}
             # No need to include generic and the generic's type
-            without_type_outside = types.reject { |type| generic&.klasses&.include?(type) }
+            without_type_outside = types.reject {|type| generic&.klasses&.include?(type)}
             collapse_generics without_type_outside
           end
 
+          def map_type(type,
+                       choices)
+            case type
+            when 'bool'
+              if choices == [true, false]
+                [TrueClass, FalseClass]
+              else
+                [Symbol]
+              end
+            when 'int'
+              [Integer]
+            when 'str', 'path'
+              choices ? [Symbol] : [String]
+            when 'list'
+              [TypeGeneric.new(String)]
+            when 'dict'
+              [Hash]
+            else
+              raise "Unknown type #{type}"
+            end
+          end
+
           def collapse_generics(types)
-            grouped = Hash.new { |hash, key| hash[key] = [] }
+            grouped = Hash.new {|hash, key| hash[key] = []}
             types.each do |type|
               if type.is_a?(TypeGeneric)
                 grouped[:generic] += type.klasses

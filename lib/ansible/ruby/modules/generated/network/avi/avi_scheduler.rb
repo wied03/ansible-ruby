@@ -24,8 +24,9 @@ module Ansible
         # @return [Object, nil] Backup configuration to be executed by this scheduler.,It is a reference to an object of type backupconfiguration.
         attribute :backup_config_ref
 
-        # @return [Object, nil] Boolean flag to set enabled.,Default value when not specified in API or module is interpreted by Avi Controller as True.
+        # @return [Symbol, nil] Boolean flag to set enabled.,Default value when not specified in API or module is interpreted by Avi Controller as True.
         attribute :enabled
+        validates :enabled, type: Symbol
 
         # @return [Object, nil] Scheduler end date and time.
         attribute :end_date_time

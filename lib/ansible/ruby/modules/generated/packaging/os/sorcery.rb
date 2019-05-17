@@ -20,13 +20,13 @@ module Ansible
         attribute :depends
         validates :depends, type: TypeGeneric.new(String)
 
-        # @return [String, nil] Whether or not to update sorcery scripts at the very first stage
+        # @return [:yes, :no, nil] Whether or not to update sorcery scripts at the very first stage
         attribute :update
-        validates :update, type: String
+        validates :update, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Whether or not to update grimoire collection before casting spells
+        # @return [:yes, :no, nil] Whether or not to update grimoire collection before casting spells
         attribute :update_cache
-        validates :update_cache, type: String
+        validates :update_cache, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] Time in seconds to invalidate grimoire collection on update,especially useful for SCM and rsync grimoires,makes sense only in pair with C(update_cache)
         attribute :cache_valid_time

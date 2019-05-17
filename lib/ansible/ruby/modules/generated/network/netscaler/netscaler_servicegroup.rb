@@ -27,8 +27,9 @@ module Ansible
         # @return [Object, nil] Maximum number of requests that can be sent on a persistent connection to the service group.,Note: Connection requests beyond this value are rejected.,Minimum value = C(0),Maximum value = C(65535)
         attribute :maxreq
 
-        # @return [Object, nil] Use the transparent cache redirection virtual server to forward the request to the cache server.,Note: Do not set this parameter if you set the Cache Type.
+        # @return [Symbol, nil] Use the transparent cache redirection virtual server to forward the request to the cache server.,Note: Do not set this parameter if you set the Cache Type.
         attribute :cacheable
+        validates :cacheable, type: Symbol
 
         # @return [:enabled, :disabled, nil] Insert the Client IP header in requests forwarded to the service.
         attribute :cip
@@ -46,17 +47,21 @@ module Ansible
         # @return [Object, nil] Individual Path monitoring decisions.
         attribute :pathmonitorindv
 
-        # @return [Object, nil] Use the proxy port as the source port when initiating connections with the server. With the NO setting, the client-side connection port is used as the source port for the server-side connection.,Note: This parameter is available only when the Use Source IP C(usip) parameter is set to C(yes).
+        # @return [Symbol, nil] Use the proxy port as the source port when initiating connections with the server. With the NO setting, the client-side connection port is used as the source port for the server-side connection.,Note: This parameter is available only when the Use Source IP C(usip) parameter is set to C(yes).
         attribute :useproxyport
+        validates :useproxyport, type: Symbol
 
-        # @return [Object, nil] Monitor the health of this service. Available settings function as follows:,C(yes) - Send probes to check the health of the service.,C(no) - Do not send probes to check the health of the service. With the NO option, the appliance shows the service as UP at all times.
+        # @return [Symbol, nil] Monitor the health of this service. Available settings function as follows:,C(yes) - Send probes to check the health of the service.,C(no) - Do not send probes to check the health of the service. With the NO option, the appliance shows the service as UP at all times.
         attribute :healthmonitor
+        validates :healthmonitor, type: Symbol
 
-        # @return [Object, nil] Enable surge protection for the service group.
+        # @return [Symbol, nil] Enable surge protection for the service group.
         attribute :sp
+        validates :sp, type: Symbol
 
-        # @return [Object, nil] Enable RTSP session ID mapping for the service group.
+        # @return [Symbol, nil] Enable RTSP session ID mapping for the service group.
         attribute :rtspsessionidremap
+        validates :rtspsessionidremap, type: Symbol
 
         # @return [Object, nil] Time, in seconds, after which to terminate an idle client connection.,Minimum value = C(0),Maximum value = C(31536000)
         attribute :clttimeout
@@ -64,14 +69,17 @@ module Ansible
         # @return [Object, nil] Time, in seconds, after which to terminate an idle server connection.,Minimum value = C(0),Maximum value = C(31536000)
         attribute :svrtimeout
 
-        # @return [Object, nil] Enable client keep-alive for the service group.
+        # @return [Symbol, nil] Enable client keep-alive for the service group.
         attribute :cka
+        validates :cka, type: Symbol
 
-        # @return [Object, nil] Enable TCP buffering for the service group.
+        # @return [Symbol, nil] Enable TCP buffering for the service group.
         attribute :tcpb
+        validates :tcpb, type: Symbol
 
-        # @return [Object, nil] Enable compression for the specified service.
+        # @return [Symbol, nil] Enable compression for the specified service.
         attribute :cmp
+        validates :cmp, type: Symbol
 
         # @return [Object, nil] Maximum bandwidth, in Kbps, allocated for all the services in the service group.,Minimum value = C(0),Maximum value = C(4294967287)
         attribute :maxbandwidth
@@ -106,8 +114,9 @@ module Ansible
         # @return [Object, nil] member port.
         attribute :memberport
 
-        # @return [Object, nil] Wait for all existing connections to the service to terminate before shutting down the service.
+        # @return [Symbol, nil] Wait for all existing connections to the service to terminate before shutting down the service.
         attribute :graceful
+        validates :graceful, type: Symbol
 
         # @return [Array<Hash>, Hash, nil] A list of dictionaries describing each service member of the service group.
         attribute :servicemembers
@@ -117,9 +126,9 @@ module Ansible
         attribute :monitorbindings
         validates :monitorbindings, type: TypeGeneric.new(Hash)
 
-        # @return [Boolean, nil] When set to C(yes) the service group state will be set to DISABLED.,When set to C(no) the service group state will be set to ENABLED.,Note that due to limitations of the underlying NITRO API a C(disabled) state change alone does not cause the module result to report a changed status.
+        # @return [Symbol, nil] When set to C(yes) the service group state will be set to DISABLED.,When set to C(no) the service group state will be set to ENABLED.,Note that due to limitations of the underlying NITRO API a C(disabled) state change alone does not cause the module result to report a changed status.
         attribute :disabled
-        validates :disabled, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :disabled, type: Symbol
       end
     end
   end

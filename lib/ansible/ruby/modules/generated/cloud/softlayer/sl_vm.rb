@@ -24,21 +24,21 @@ module Ansible
         # @return [Object, nil] Tag or list of tags to be provided to a virtual instance.
         attribute :tags
 
-        # @return [String, nil] Flag to determine if the instance should be hourly billed.
+        # @return [:yes, :no, nil] Flag to determine if the instance should be hourly billed.
         attribute :hourly
-        validates :hourly, type: String
+        validates :hourly, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Flag to determine if the instance should be private only.
+        # @return [:yes, :no, nil] Flag to determine if the instance should be private only.
         attribute :private
-        validates :private, type: String
+        validates :private, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Flag to determine if the instance should be deployed in dedicated space.
+        # @return [:yes, :no, nil] Flag to determine if the instance should be deployed in dedicated space.
         attribute :dedicated
-        validates :dedicated, type: String
+        validates :dedicated, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Flag to determine if local disk should be used for the new instance.
+        # @return [:yes, :no, nil] Flag to determine if local disk should be used for the new instance.
         attribute :local_disk
-        validates :local_disk, type: String
+        validates :local_disk, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object] Count of cpus to be assigned to new virtual instance.
         attribute :cpus
@@ -78,9 +78,9 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
-        # @return [String, nil] Flag used to wait for active status before returning.
+        # @return [:yes, :no, nil] Flag used to wait for active status before returning.
         attribute :wait
-        validates :wait, type: String
+        validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] Time in seconds before wait returns.
         attribute :wait_time

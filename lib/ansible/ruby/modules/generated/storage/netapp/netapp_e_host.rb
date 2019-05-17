@@ -24,8 +24,9 @@ module Ansible
         attribute :ports
         validates :ports, type: TypeGeneric.new(Hash)
 
-        # @return [Object, nil] Allow ports that are already assigned to be re-assigned to your current host
+        # @return [Symbol, nil] Allow ports that are already assigned to be re-assigned to your current host
         attribute :force_port
+        validates :force_port, type: Symbol
 
         # @return [Object, nil] The unique identifier of the host-group you want the host to be a member of; this is used for clustering.
         attribute :group

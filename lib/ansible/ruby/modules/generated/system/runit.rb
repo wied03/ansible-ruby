@@ -16,8 +16,9 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:killed, :once, :reloaded, :restarted, :started, :stopped], :message=>"%{value} needs to be :killed, :once, :reloaded, :restarted, :started, :stopped"}, allow_nil: true
 
-        # @return [Object, nil] Whether the service is enabled or not, if disabled it also implies stopped.
+        # @return [Symbol, nil] Whether the service is enabled or not, if disabled it also implies stopped.
         attribute :enabled
+        validates :enabled, type: Symbol
 
         # @return [String, nil] directory runsv watches for services
         attribute :service_dir

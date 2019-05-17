@@ -20,9 +20,9 @@ module Ansible
         attribute :inventory
         validates :inventory, presence: true, type: String
 
-        # @return [String, nil] If the host should be enabled.
+        # @return [:yes, :no, nil] If the host should be enabled.
         attribute :enabled
-        validates :enabled, type: String
+        validates :enabled, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] Variables to use for the host. Use C(@) for a file.
         attribute :variables

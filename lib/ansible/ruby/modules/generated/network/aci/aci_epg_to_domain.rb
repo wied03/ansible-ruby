@@ -28,8 +28,9 @@ module Ansible
         attribute :domain_type
         validates :domain_type, inclusion: {:in=>[:phys, :vmm], :message=>"%{value} needs to be :phys, :vmm"}, allow_nil: true
 
-        # @return [Object, nil] The VLAN encapsulation for the EPG when binding a VMM Domain with static encap_mode.,This acts as the secondary encap when using useg.,Accepted values range between C(1) and C(4096).
+        # @return [Integer, nil] The VLAN encapsulation for the EPG when binding a VMM Domain with static encap_mode.,This acts as the secondary encap when using useg.,Accepted values range between C(1) and C(4096).
         attribute :encap
+        validates :encap, type: Integer
 
         # @return [:auto, :vlan, :vxlan, nil] The ecapsulataion method to be used.,The APIC defaults to C(auto) when unset during creation.
         attribute :encap_mode
@@ -39,11 +40,13 @@ module Ansible
         attribute :epg
         validates :epg, type: String
 
-        # @return [Object, nil] Determines if netflow should be enabled.,The APIC defaults to C(no) when unset during creation.
+        # @return [Symbol, nil] Determines if netflow should be enabled.,The APIC defaults to C(no) when unset during creation.
         attribute :netflow
+        validates :netflow, type: Symbol
 
-        # @return [Object, nil] Determines the primary VLAN ID when using useg.,Accepted values range between C(1) and C(4096).
+        # @return [Integer, nil] Determines the primary VLAN ID when using useg.,Accepted values range between C(1) and C(4096).
         attribute :primary_encap
+        validates :primary_encap, type: Integer
 
         # @return [:immediate, :lazy, :"pre-provision", nil] Determines when the policies should be resolved and available.,The APIC defaults to C(lazy) when unset during creation.
         attribute :resolution_immediacy

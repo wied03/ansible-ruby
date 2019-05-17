@@ -35,8 +35,9 @@ module Ansible
         # @return [Object, nil] Gateway for the VLAN
         attribute :gateway
 
-        # @return [Object, nil] Enable or disable namespaces
+        # @return [Symbol, nil] Enable or disable namespaces
         attribute :namespace
+        validates :namespace, type: Symbol
 
         # @return [Object, nil] Dictionary of attributes with name and value for each attribute
         attribute :attributes

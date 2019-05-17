@@ -32,9 +32,9 @@ module Ansible
         attribute :kms_key_id
         validates :kms_key_id, type: String
 
-        # @return [String, nil] Wait for the copied AMI to be in state 'available' before returning.
+        # @return [:yes, :no, nil] Wait for the copied AMI to be in state 'available' before returning.
         attribute :wait
-        validates :wait, type: String
+        validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] How long before wait gives up, in seconds. Prior to 2.3 the default was 1200.,From 2.3-2.5 this option was deprecated in favor of boto3 waiter defaults. This was reenabled in 2.6 to allow timeouts greater than 10 minutes.
         attribute :wait_timeout

@@ -22,8 +22,9 @@ module Ansible
         attribute :format
         validates :format, inclusion: {:in=>[:json, :xml], :message=>"%{value} needs to be :json, :xml"}, allow_nil: true
 
-        # @return [Object, nil] Determines if secure information should be included in the backup.,The APIC defaults to C(yes) when unset.
+        # @return [Symbol, nil] Determines if secure information should be included in the backup.,The APIC defaults to C(yes) when unset.
         attribute :include_secure
+        validates :include_secure, type: Symbol
 
         # @return [Integer, nil] Determines how many snapshots can exist for the Export Policy before the APIC starts to rollover.,Accepted values range between C(1) and C(10).,The APIC defaults to C(3) when unset.
         attribute :max_count

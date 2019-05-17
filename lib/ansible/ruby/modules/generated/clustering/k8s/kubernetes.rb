@@ -44,9 +44,9 @@ module Ansible
         attribute :insecure
         validates :insecure, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
-        # @return [String, nil] Enable/disable certificate validation. Note that this is set to C(false) until Ansible can support IP address based certificate hostname matching (exists in >= python3.5.0).
+        # @return [:yes, :no, nil] Enable/disable certificate validation. Note that this is set to C(false) until Ansible can support IP address based certificate hostname matching (exists in >= python3.5.0).
         attribute :validate_certs
-        validates :validate_certs, type: String
+        validates :validate_certs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

@@ -30,9 +30,9 @@ module Ansible
         attribute :rules
         validates :rules, type: TypeGeneric.new(Hash)
 
-        # @return [Boolean, nil] Whether to log hits against the default firewall rule.,Only applicable if a syslog server is specified against the network.,This is not shown in response from Meraki. Instead, refer to the C(syslog_enabled) value in the default rule.
+        # @return [Symbol, nil] Whether to log hits against the default firewall rule.,Only applicable if a syslog server is specified against the network.,This is not shown in response from Meraki. Instead, refer to the C(syslog_enabled) value in the default rule.
         attribute :syslog_default_rule
-        validates :syslog_default_rule, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :syslog_default_rule, type: Symbol
       end
     end
   end

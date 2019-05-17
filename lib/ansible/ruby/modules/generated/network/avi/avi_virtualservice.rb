@@ -34,29 +34,35 @@ module Ansible
         attribute :application_profile_ref
         validates :application_profile_ref, type: String
 
-        # @return [Object, nil] Auto-allocate floating/elastic ip from the cloud infrastructure.,Field deprecated in 17.1.1.,Default value when not specified in API or module is interpreted by Avi Controller as False.
+        # @return [Symbol, nil] Auto-allocate floating/elastic ip from the cloud infrastructure.,Field deprecated in 17.1.1.,Default value when not specified in API or module is interpreted by Avi Controller as False.
         attribute :auto_allocate_floating_ip
+        validates :auto_allocate_floating_ip, type: Symbol
 
-        # @return [Object, nil] Auto-allocate vip from the provided subnet.,Field deprecated in 17.1.1.,Default value when not specified in API or module is interpreted by Avi Controller as False.
+        # @return [Symbol, nil] Auto-allocate vip from the provided subnet.,Field deprecated in 17.1.1.,Default value when not specified in API or module is interpreted by Avi Controller as False.
         attribute :auto_allocate_ip
+        validates :auto_allocate_ip, type: Symbol
 
         # @return [Object, nil] Availability-zone to place the virtual service.,Field deprecated in 17.1.1.
         attribute :availability_zone
 
-        # @return [Object, nil] (internal-use) fip allocated by avi in the cloud infrastructure.,Field deprecated in 17.1.1.,Default value when not specified in API or module is interpreted by Avi Controller as False.
+        # @return [Symbol, nil] (internal-use) fip allocated by avi in the cloud infrastructure.,Field deprecated in 17.1.1.,Default value when not specified in API or module is interpreted by Avi Controller as False.
         attribute :avi_allocated_fip
+        validates :avi_allocated_fip, type: Symbol
 
-        # @return [Object, nil] (internal-use) vip allocated by avi in the cloud infrastructure.,Field deprecated in 17.1.1.,Default value when not specified in API or module is interpreted by Avi Controller as False.
+        # @return [Symbol, nil] (internal-use) vip allocated by avi in the cloud infrastructure.,Field deprecated in 17.1.1.,Default value when not specified in API or module is interpreted by Avi Controller as False.
         attribute :avi_allocated_vip
+        validates :avi_allocated_vip, type: Symbol
 
-        # @return [Object, nil] (this is a beta feature).,Sync key-value cache to the new ses when vs is scaled out.,For ex  ssl sessions are stored using vs's key-value cache.,When the vs is scaled out, the ssl session information is synced to the new se, allowing existing ssl sessions to be reused on the new se.,Field introduced in 17.2.7, 18.1.1.,Default value when not specified in API or module is interpreted by Avi Controller as False.
+        # @return [Symbol, nil] (this is a beta feature).,Sync key-value cache to the new ses when vs is scaled out.,For ex  ssl sessions are stored using vs's key-value cache.,When the vs is scaled out, the ssl session information is synced to the new se, allowing existing ssl sessions to be reused on the new se.,Field introduced in 17.2.7, 18.1.1.,Default value when not specified in API or module is interpreted by Avi Controller as False.
         attribute :bulk_sync_kvcache
+        validates :bulk_sync_kvcache, type: Symbol
 
         # @return [Object, nil] Http authentication configuration for protected resources.
         attribute :client_auth
 
-        # @return [Object, nil] Close client connection on vs config update.,Field introduced in 17.2.4.,Default value when not specified in API or module is interpreted by Avi Controller as False.
+        # @return [Symbol, nil] Close client connection on vs config update.,Field introduced in 17.2.4.,Default value when not specified in API or module is interpreted by Avi Controller as False.
         attribute :close_client_conn_on_config_update
+        validates :close_client_conn_on_config_update, type: Symbol
 
         # @return [Object, nil] Checksum of cloud configuration for vs.,Internally set by cloud connector.
         attribute :cloud_config_cksum
@@ -76,8 +82,9 @@ module Ansible
         # @return [Object, nil] Creator name.
         attribute :created_by
 
-        # @return [Object, nil] Select the algorithm for qos fairness.,This determines how multiple virtual services sharing the same service engines will prioritize traffic over a congested network.,Default value when not specified in API or module is interpreted by Avi Controller as False.
+        # @return [Symbol, nil] Select the algorithm for qos fairness.,This determines how multiple virtual services sharing the same service engines will prioritize traffic over a congested network.,Default value when not specified in API or module is interpreted by Avi Controller as False.
         attribute :delay_fairness
+        validates :delay_fairness, type: Symbol
 
         # @return [Object, nil] User defined description for the object.
         attribute :description
@@ -97,20 +104,25 @@ module Ansible
         # @return [Object, nil] Dns policies applied on the dns traffic of the virtual service.,Field introduced in 17.1.1.
         attribute :dns_policies
 
-        # @return [Object, nil] Force placement on all se's in service group (mesos mode only).,Default value when not specified in API or module is interpreted by Avi Controller as False.
+        # @return [Symbol, nil] Force placement on all se's in service group (mesos mode only).,Default value when not specified in API or module is interpreted by Avi Controller as False.
         attribute :east_west_placement
+        validates :east_west_placement, type: Symbol
 
-        # @return [Object, nil] Response traffic to clients will be sent back to the source mac address of the connection, rather than statically sent to a default gateway.,Default value when not specified in API or module is interpreted by Avi Controller as True.
+        # @return [Symbol, nil] Response traffic to clients will be sent back to the source mac address of the connection, rather than statically sent to a default gateway.,Default value when not specified in API or module is interpreted by Avi Controller as True.
         attribute :enable_autogw
+        validates :enable_autogw, type: Symbol
 
-        # @return [Object, nil] Enable route health injection using the bgp config in the vrf context.
+        # @return [Symbol, nil] Enable route health injection using the bgp config in the vrf context.
         attribute :enable_rhi
+        validates :enable_rhi, type: Symbol
 
-        # @return [Object, nil] Enable route health injection for source nat'ted floating ip address using the bgp config in the vrf context.
+        # @return [Symbol, nil] Enable route health injection for source nat'ted floating ip address using the bgp config in the vrf context.
         attribute :enable_rhi_snat
+        validates :enable_rhi_snat, type: Symbol
 
-        # @return [Object, nil] Enable or disable the virtual service.,Default value when not specified in API or module is interpreted by Avi Controller as True.
+        # @return [Symbol, nil] Enable or disable the virtual service.,Default value when not specified in API or module is interpreted by Avi Controller as True.
         attribute :enabled
+        validates :enabled, type: Symbol
 
         # @return [Object, nil] Error page profile to be used for this virtualservice.this profile is used to send the custom error page to the client generated by the proxy.,It is a reference to an object of type errorpageprofile.,Field introduced in 17.2.4.
         attribute :error_page_profile_ref
@@ -136,8 +148,9 @@ module Ansible
         # @return [Object, nil] Http policies applied on the data traffic of the virtual service.
         attribute :http_policies
 
-        # @return [Object, nil] Ignore pool servers network reachability constraints for virtual service placement.,Default value when not specified in API or module is interpreted by Avi Controller as False.
+        # @return [Symbol, nil] Ignore pool servers network reachability constraints for virtual service placement.,Default value when not specified in API or module is interpreted by Avi Controller as False.
         attribute :ign_pool_net_reach
+        validates :ign_pool_net_reach, type: Symbol
 
         # @return [NilClass, nil] Ip address of the virtual service.,Field deprecated in 17.1.1.
         attribute :ip_address
@@ -149,8 +162,9 @@ module Ansible
         # @return [Object, nil] L4 policies applied to the data traffic of the virtual service.,Field introduced in 17.2.7.
         attribute :l4_policies
 
-        # @return [Object, nil] Limit potential dos attackers who exceed max_cps_per_client significantly to a fraction of max_cps_per_client for a while.,Default value when not specified in API or module is interpreted by Avi Controller as False.
+        # @return [Symbol, nil] Limit potential dos attackers who exceed max_cps_per_client significantly to a fraction of max_cps_per_client for a while.,Default value when not specified in API or module is interpreted by Avi Controller as False.
         attribute :limit_doser
+        validates :limit_doser, type: Symbol
 
         # @return [Object, nil] Maximum connections per second per client ip.,Allowed values are 10-1000.,Special values are 0- 'unlimited'.,Default value when not specified in API or module is interpreted by Avi Controller as 0.
         attribute :max_cps_per_client
@@ -188,14 +202,16 @@ module Ansible
         # @return [Object, nil] (internal-use) network port assigned to the virtual service ip address.,Field deprecated in 17.1.1.
         attribute :port_uuid
 
-        # @return [Object, nil] Remove listening port if virtualservice is down.,Default value when not specified in API or module is interpreted by Avi Controller as False.
+        # @return [Symbol, nil] Remove listening port if virtualservice is down.,Default value when not specified in API or module is interpreted by Avi Controller as False.
         attribute :remove_listening_port_on_vs_down
+        validates :remove_listening_port_on_vs_down, type: Symbol
 
         # @return [Object, nil] Rate limit the incoming requests to this virtual service.
         attribute :requests_rate_limit
 
-        # @return [Object, nil] Disable re-distribution of flows across service engines for a virtual service.,Enable if the network itself performs flow hashing with ecmp in environments such as gcp.,Default value when not specified in API or module is interpreted by Avi Controller as False.
+        # @return [Symbol, nil] Disable re-distribution of flows across service engines for a virtual service.,Enable if the network itself performs flow hashing with ecmp in environments such as gcp.,Default value when not specified in API or module is interpreted by Avi Controller as False.
         attribute :scaleout_ecmp
+        validates :scaleout_ecmp, type: Symbol
 
         # @return [Object, nil] The service engine group to use for this virtual service.,Moving to a new se group is disruptive to existing connections for this vs.,It is a reference to an object of type serviceenginegroup.
         attribute :se_group_ref
@@ -248,8 +264,9 @@ module Ansible
         # @return [Object, nil] Server network or list of servers for cloning traffic.,It is a reference to an object of type trafficcloneprofile.,Field introduced in 17.1.1.
         attribute :traffic_clone_profile_ref
 
-        # @return [Object, nil] Knob to enable the virtual service traffic on its assigned service engines.,This setting is effective only when the enabled flag is set to true.,Field introduced in 17.2.8.,Default value when not specified in API or module is interpreted by Avi Controller as True.
+        # @return [Symbol, nil] Knob to enable the virtual service traffic on its assigned service engines.,This setting is effective only when the enabled flag is set to true.,Field introduced in 17.2.8.,Default value when not specified in API or module is interpreted by Avi Controller as True.
         attribute :traffic_enabled
+        validates :traffic_enabled, type: Symbol
 
         # @return [String, nil] Specify if this is a normal virtual service, or if it is the parent or child of an sni-enabled virtual hosted virtual service.,Enum options - VS_TYPE_NORMAL, VS_TYPE_VH_PARENT, VS_TYPE_VH_CHILD.,Default value when not specified in API or module is interpreted by Avi Controller as VS_TYPE_NORMAL.
         attribute :type
@@ -258,11 +275,13 @@ module Ansible
         # @return [Object, nil] Avi controller URL of the object.
         attribute :url
 
-        # @return [Object, nil] Use bridge ip as vip on each host in mesos deployments.,Default value when not specified in API or module is interpreted by Avi Controller as False.
+        # @return [Symbol, nil] Use bridge ip as vip on each host in mesos deployments.,Default value when not specified in API or module is interpreted by Avi Controller as False.
         attribute :use_bridge_ip_as_vip
+        validates :use_bridge_ip_as_vip, type: Symbol
 
-        # @return [Object, nil] Use the virtual ip as the snat ip for health monitoring and sending traffic to the backend servers instead of the service engine interface ip.,The caveat of enabling this option is that the virtualservice cannot be configued in an active-active ha mode.,Dns based multi vip solution has to be used for ha & non-disruptive upgrade purposes.,Field introduced in 17.1.9,17.2.3.,Default value when not specified in API or module is interpreted by Avi Controller as False.
+        # @return [Symbol, nil] Use the virtual ip as the snat ip for health monitoring and sending traffic to the backend servers instead of the service engine interface ip.,The caveat of enabling this option is that the virtualservice cannot be configued in an active-active ha mode.,Dns based multi vip solution has to be used for ha & non-disruptive upgrade purposes.,Field introduced in 17.1.9,17.2.3.,Default value when not specified in API or module is interpreted by Avi Controller as False.
         attribute :use_vip_as_snat
+        validates :use_vip_as_snat, type: Symbol
 
         # @return [Object, nil] Uuid of the virtualservice.
         attribute :uuid

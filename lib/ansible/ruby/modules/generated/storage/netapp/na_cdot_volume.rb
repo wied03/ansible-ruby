@@ -16,13 +16,13 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [String, nil] Set True if the volume is an Infinite Volume.
+        # @return [:yes, :no, nil] Set True if the volume is an Infinite Volume.
         attribute :infinite
-        validates :infinite, type: String
+        validates :infinite, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Whether the specified volume is online, or not.
+        # @return [:yes, :no, nil] Whether the specified volume is online, or not.
         attribute :online
-        validates :online, type: String
+        validates :online, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] The name of the aggregate the flexvol should exist on. Required when C(state=present).
         attribute :aggregate_name

@@ -23,17 +23,17 @@ module Ansible
         # @return [Object, nil] Description of the affinity group.
         attribute :description
 
-        # @return [Boolean, nil] If I(yes) VM cannot start on host if it does not satisfy the C(host_rule).,This parameter is support since oVirt/RHV 4.1 version.
+        # @return [Symbol, nil] If I(yes) VM cannot start on host if it does not satisfy the C(host_rule).,This parameter is support since oVirt/RHV 4.1 version.
         attribute :host_enforcing
-        validates :host_enforcing, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :host_enforcing, type: Symbol
 
         # @return [:negative, :positive, nil] If I(positive) I(all) VMs in this group should run on the this host.,If I(negative) I(no) VMs in this group should run on the this host.,This parameter is support since oVirt/RHV 4.1 version.
         attribute :host_rule
         validates :host_rule, inclusion: {:in=>[:negative, :positive], :message=>"%{value} needs to be :negative, :positive"}, allow_nil: true
 
-        # @return [TrueClass, FalseClass, nil] If I(yes) VM cannot start if it does not satisfy the C(vm_rule).
+        # @return [Symbol, nil] If I(yes) VM cannot start if it does not satisfy the C(vm_rule).
         attribute :vm_enforcing
-        validates :vm_enforcing, type: MultipleTypes.new(TrueClass, FalseClass)
+        validates :vm_enforcing, type: Symbol
 
         # @return [:disabled, :negative, :positive, nil] If I(positive) I(all) VMs in this group should run on the host defined by C(host_rule).,If I(negative) I(no) VMs in this group should run on the host defined by C(host_rule).,If I(disabled) this affinity group doesn't take effect.
         attribute :vm_rule

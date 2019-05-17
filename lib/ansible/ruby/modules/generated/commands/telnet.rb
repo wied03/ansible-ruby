@@ -49,9 +49,9 @@ module Ansible
         attribute :pause
         validates :pause, type: Integer
 
-        # @return [Boolean, nil] Sends a newline character upon successful connection to start the terminal session.
+        # @return [Symbol, nil] Sends a newline character upon successful connection to start the terminal session.
         attribute :send_newline
-        validates :send_newline, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :send_newline, type: Symbol
       end
     end
   end

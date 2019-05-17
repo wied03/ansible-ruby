@@ -39,11 +39,13 @@ module Ansible
         # @return [Object, nil] Specifies the number of times the system attempts to probe the host server, after which the system considers the host server down or unavailable.,When creating a new monitor, if this parameter is not provided, then the default value will be C(3).
         attribute :probe_attempts
 
-        # @return [Object, nil] Specifies that the monitor allows more than one probe attempt per interval.,When C(yes), specifies that the monitor ignores down responses for the duration of the monitor timeout. Once the monitor timeout is reached without the system receiving an up response, the system marks the object down.,When C(no), specifies that the monitor immediately marks an object down when it receives a down response.,When creating a new monitor, if this parameter is not provided, then the default value will be C(no).
+        # @return [Symbol, nil] Specifies that the monitor allows more than one probe attempt per interval.,When C(yes), specifies that the monitor ignores down responses for the duration of the monitor timeout. Once the monitor timeout is reached without the system receiving an up response, the system marks the object down.,When C(no), specifies that the monitor immediately marks an object down when it receives a down response.,When creating a new monitor, if this parameter is not provided, then the default value will be C(no).
         attribute :ignore_down_response
+        validates :ignore_down_response, type: Symbol
 
-        # @return [Object, nil] Specifies whether the monitor operates in transparent mode.,A monitor in transparent mode directs traffic through the associated pool members or nodes (usually a router or firewall) to the aliased destination (that is, it probes the C(ip)-C(port) combination specified in the monitor).,If the monitor cannot successfully reach the aliased destination, the pool member or node through which the monitor traffic was sent is marked down.,When creating a new monitor, if this parameter is not provided, then the default value will be C(no).
+        # @return [Symbol, nil] Specifies whether the monitor operates in transparent mode.,A monitor in transparent mode directs traffic through the associated pool members or nodes (usually a router or firewall) to the aliased destination (that is, it probes the C(ip)-C(port) combination specified in the monitor).,If the monitor cannot successfully reach the aliased destination, the pool member or node through which the monitor traffic was sent is marked down.,When creating a new monitor, if this parameter is not provided, then the default value will be C(no).
         attribute :transparent
+        validates :transparent, type: Symbol
 
         # @return [String, nil] Device partition to manage resources on.
         attribute :partition

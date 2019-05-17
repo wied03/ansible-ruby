@@ -8,9 +8,9 @@ module Ansible
     module Modules
       # Enable or Disable Windows Firewall profiles.
       class Win_firewall < Base
-        # @return [:Domain, :Private, :Public, nil] Specify one or more profiles to change.
+        # @return [Array<String>, String, nil] Specify one or more profiles to change.
         attribute :profiles
-        validates :profiles, inclusion: {:in=>[:Domain, :Private, :Public], :message=>"%{value} needs to be :Domain, :Private, :Public"}, allow_nil: true
+        validates :profiles, type: TypeGeneric.new(String)
 
         # @return [:enabled, :disabled, nil] Set state of firewall for given profile.
         attribute :state

@@ -41,8 +41,9 @@ module Ansible
         attribute :dag_tunnel
         validates :dag_tunnel, inclusion: {:in=>[:inner, :outer], :message=>"%{value} needs to be :inner, :outer"}, allow_nil: true
 
-        # @return [Object, nil] Specifies whether some of the stateless traffic on the VLAN should be disaggregated in a round-robin order instead of using a static hash. The stateless traffic includes non-IP L2 traffic, ICMP, some UDP protocols, and so on.,When creating a new VLAN, if this parameter is not specified, the default of (no) is used.
+        # @return [Symbol, nil] Specifies whether some of the stateless traffic on the VLAN should be disaggregated in a round-robin order instead of using a static hash. The stateless traffic includes non-IP L2 traffic, ICMP, some UDP protocols, and so on.,When creating a new VLAN, if this parameter is not specified, the default of (no) is used.
         attribute :dag_round_robin
+        validates :dag_round_robin, type: Symbol
 
         # @return [String, nil] Device partition to manage resources on.
         attribute :partition

@@ -12,9 +12,9 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [String, nil] If C(yes) imports all commands, even if they have the same names as commands that already exists. Available only in Powershell 5.1 or higher.
+        # @return [:yes, :no, nil] If C(yes) imports all commands, even if they have the same names as commands that already exists. Available only in Powershell 5.1 or higher.
         attribute :allow_clobber
-        validates :allow_clobber, type: String
+        validates :allow_clobber, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] Name of the custom repository to register or use.
         attribute :repository

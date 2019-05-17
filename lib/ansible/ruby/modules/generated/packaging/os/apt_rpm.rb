@@ -16,9 +16,9 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
-        # @return [String, nil] update the package database first C(apt-get update).
+        # @return [:yes, :no, nil] update the package database first C(apt-get update).
         attribute :update_cache
-        validates :update_cache, type: String
+        validates :update_cache, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

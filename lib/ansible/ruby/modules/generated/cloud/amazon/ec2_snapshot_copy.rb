@@ -19,17 +19,17 @@ module Ansible
         # @return [Object, nil] An optional human-readable string describing purpose of the new Snapshot.
         attribute :description
 
-        # @return [String, nil] Whether or not the destination Snapshot should be encrypted.
+        # @return [:yes, :no, nil] Whether or not the destination Snapshot should be encrypted.
         attribute :encrypted
-        validates :encrypted, type: String
+        validates :encrypted, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] KMS key id used to encrypt snapshot. If not specified, defaults to EBS Customer Master Key (CMK) for that account.
         attribute :kms_key_id
         validates :kms_key_id, type: String
 
-        # @return [String, nil] Wait for the copied Snapshot to be in 'Available' state before returning.
+        # @return [:yes, :no, nil] Wait for the copied Snapshot to be in 'Available' state before returning.
         attribute :wait
-        validates :wait, type: String
+        validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] How long before wait gives up, in seconds.
         attribute :wait_timeout

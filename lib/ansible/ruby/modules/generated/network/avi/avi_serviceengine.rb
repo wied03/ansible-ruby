@@ -27,14 +27,16 @@ module Ansible
         # @return [Object, nil] It is a reference to an object of type cloud.
         attribute :cloud_ref
 
-        # @return [Object, nil] Boolean flag to set container_mode.,Default value when not specified in API or module is interpreted by Avi Controller as False.
+        # @return [Symbol, nil] Boolean flag to set container_mode.,Default value when not specified in API or module is interpreted by Avi Controller as False.
         attribute :container_mode
+        validates :container_mode, type: Symbol
 
         # @return [Object, nil] Enum options - container_type_bridge, container_type_host, container_type_host_dpdk.,Default value when not specified in API or module is interpreted by Avi Controller as CONTAINER_TYPE_HOST.
         attribute :container_type
 
-        # @return [Object, nil] Boolean flag to set controller_created.,Default value when not specified in API or module is interpreted by Avi Controller as False.
+        # @return [Symbol, nil] Boolean flag to set controller_created.,Default value when not specified in API or module is interpreted by Avi Controller as False.
         attribute :controller_created
+        validates :controller_created, type: Symbol
 
         # @return [Object, nil] Controller_ip of serviceengine.
         attribute :controller_ip

@@ -29,9 +29,9 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [String, nil] Used with C(state=present). If specified, the file will be created if it does not already exist. If set to "no", will fail if the file does not exist
+        # @return [:yes, :no, nil] Used with C(state=present). If specified, the file will be created if it does not already exist. If set to "no", will fail if the file does not exist
         attribute :create
-        validates :create, type: String
+        validates :create, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

@@ -24,9 +24,9 @@ module Ansible
         attribute :pattern
         validates :pattern, type: String
 
-        # @return [Boolean, nil] Whether the service should start on boot. B(At least one of state and enabled are required.)
+        # @return [Symbol, nil] Whether the service should start on boot. B(At least one of state and enabled are required.)
         attribute :enabled
-        validates :enabled, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :enabled, type: Symbol
 
         # @return [String, nil] For OpenRC init scripts (ex: Gentoo) only.  The runlevel that this service belongs to.
         attribute :runlevel

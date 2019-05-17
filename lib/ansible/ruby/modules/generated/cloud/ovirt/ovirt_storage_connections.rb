@@ -60,9 +60,9 @@ module Ansible
         # @return [Object, nil] Virtual File System type.
         attribute :vfs_type
 
-        # @return [Boolean, nil] This parameter is relevant only when updating a connection.,If I(true) the storage domain don't have to be in I(MAINTENANCE) state, so the storage connection is updated.
+        # @return [Symbol, nil] This parameter is relevant only when updating a connection.,If I(true) the storage domain don't have to be in I(MAINTENANCE) state, so the storage connection is updated.
         attribute :force
-        validates :force, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :force, type: Symbol
       end
     end
   end

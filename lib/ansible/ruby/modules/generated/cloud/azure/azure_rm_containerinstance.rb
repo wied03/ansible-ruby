@@ -48,9 +48,9 @@ module Ansible
         attribute :containers
         validates :containers, type: TypeGeneric.new(Hash)
 
-        # @return [String, nil] Force update of existing container instance. Any update will result in deletion and recreation of existing containers.
+        # @return [:yes, :no, nil] Force update of existing container instance. Any update will result in deletion and recreation of existing containers.
         attribute :force_update
-        validates :force_update, type: String
+        validates :force_update, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

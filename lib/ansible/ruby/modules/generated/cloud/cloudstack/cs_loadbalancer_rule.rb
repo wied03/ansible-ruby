@@ -31,9 +31,9 @@ module Ansible
         attribute :ip_address
         validates :ip_address, presence: true
 
-        # @return [String, nil] Whether the firewall rule for public port should be created, while creating the new rule.,Use M(cs_firewall) for managing firewall rules.
+        # @return [:yes, :no, nil] Whether the firewall rule for public port should be created, while creating the new rule.,Use M(cs_firewall) for managing firewall rules.
         attribute :open_firewall
-        validates :open_firewall, type: String
+        validates :open_firewall, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] CIDR (full notation) to be used for firewall rule if required.
         attribute :cidr

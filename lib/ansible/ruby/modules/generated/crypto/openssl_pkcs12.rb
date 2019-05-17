@@ -20,9 +20,9 @@ module Ansible
         attribute :certificate_path
         validates :certificate_path, type: String
 
-        # @return [Boolean, nil] Should the file be regenerated even if it already exists.
+        # @return [Symbol, nil] Should the file be regenerated even if it already exists.
         attribute :force
-        validates :force, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :force, type: Symbol
 
         # @return [String, nil] Specifies the friendly name for the certificate and private key.
         attribute :friendly_name

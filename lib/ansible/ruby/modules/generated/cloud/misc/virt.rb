@@ -20,8 +20,9 @@ module Ansible
         attribute :command
         validates :command, inclusion: {:in=>[:create, :define, :destroy, :freemem, :get_xml, :info, :list_vms, :nodeinfo, :pause, :shutdown, :start, :status, :stop, :undefine, :unpause, :virttype], :message=>"%{value} needs to be :create, :define, :destroy, :freemem, :get_xml, :info, :list_vms, :nodeinfo, :pause, :shutdown, :start, :status, :stop, :undefine, :unpause, :virttype"}, allow_nil: true
 
-        # @return [Object, nil] start VM at host startup.
+        # @return [Symbol, nil] start VM at host startup.
         attribute :autostart
+        validates :autostart, type: Symbol
 
         # @return [String, nil] libvirt connection uri.
         attribute :uri

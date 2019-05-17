@@ -45,8 +45,9 @@ module Ansible
         # @return [Object, nil] Avi controller URL of the object.
         attribute :url
 
-        # @return [Object, nil] If set to true, serverautoscalepolicy will use the autoscaling group (external_autoscaling_groups) from pool to perform scale up and scale down.,Pool should have single autoscaling group configured.,Field introduced in 17.2.3.,Default value when not specified in API or module is interpreted by Avi Controller as True.
+        # @return [Symbol, nil] If set to true, serverautoscalepolicy will use the autoscaling group (external_autoscaling_groups) from pool to perform scale up and scale down.,Pool should have single autoscaling group configured.,Field introduced in 17.2.3.,Default value when not specified in API or module is interpreted by Avi Controller as True.
         attribute :use_external_asg
+        validates :use_external_asg, type: Symbol
 
         # @return [Object, nil] Unique object identifier of the object.
         attribute :uuid

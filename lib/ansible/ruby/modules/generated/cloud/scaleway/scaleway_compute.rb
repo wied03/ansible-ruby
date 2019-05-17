@@ -8,9 +8,9 @@ module Ansible
     module Modules
       # This module manages compute instances on Scaleway.
       class Scaleway_compute < Base
-        # @return [Boolean, nil] Enable public IPv6 connectivity on the instance
+        # @return [Symbol, nil] Enable public IPv6 connectivity on the instance
         attribute :enable_ipv6
-        validates :enable_ipv6, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :enable_ipv6, type: Symbol
 
         # @return [String] Image identifier used to start the instance with
         attribute :image
@@ -39,9 +39,9 @@ module Ansible
         attribute :commercial_type
         validates :commercial_type, presence: true, inclusion: {:in=>[:"ARM64-2GB", :"ARM64-4GB", :"ARM64-8GB", :"ARM64-16GB", :"ARM64-32GB", :"ARM64-64GB", :"ARM64-128GB", :C1, :C2S, :C2M, :C2L, :"START1-XS", :"START1-S", :"START1-M", :"START1-L", :"X64-15GB", :"X64-30GB", :"X64-60GB", :"X64-120GB"], :message=>"%{value} needs to be :\"ARM64-2GB\", :\"ARM64-4GB\", :\"ARM64-8GB\", :\"ARM64-16GB\", :\"ARM64-32GB\", :\"ARM64-64GB\", :\"ARM64-128GB\", :C1, :C2S, :C2M, :C2L, :\"START1-XS\", :\"START1-S\", :\"START1-M\", :\"START1-L\", :\"X64-15GB\", :\"X64-30GB\", :\"X64-60GB\", :\"X64-120GB\""}
 
-        # @return [String, nil] Wait for the instance to reach its desired state before returning.
+        # @return [:yes, :no, nil] Wait for the instance to reach its desired state before returning.
         attribute :wait
-        validates :wait, type: String
+        validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] Time to wait for the server to reach the expected state
         attribute :wait_timeout

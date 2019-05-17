@@ -16,9 +16,9 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent, :active, :inactive], :message=>"%{value} needs to be :present, :absent, :active, :inactive"}, allow_nil: true
 
-        # @return [String, nil] Update the ports tree first.
+        # @return [:yes, :no, nil] Update the ports tree first.
         attribute :update_ports
-        validates :update_ports, type: String
+        validates :update_ports, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] A port variant specification.,C(variant) is only supported with state: I(installed)/I(present).
         attribute :variant

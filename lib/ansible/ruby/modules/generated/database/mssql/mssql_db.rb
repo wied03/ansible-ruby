@@ -33,9 +33,9 @@ module Ansible
         attribute :target
         validates :target, type: String
 
-        # @return [String, nil] Automatically commit the change only if the import succeed. Sometimes it is necessary to use autocommit=true, since some content can't be changed within a transaction.
+        # @return [:yes, :no, nil] Automatically commit the change only if the import succeed. Sometimes it is necessary to use autocommit=true, since some content can't be changed within a transaction.
         attribute :autocommit
-        validates :autocommit, type: String
+        validates :autocommit, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

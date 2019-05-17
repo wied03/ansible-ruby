@@ -35,9 +35,9 @@ module Ansible
         attribute :service_environment
         validates :service_environment, type: String
 
-        # @return [Boolean, nil] Collects statistics of the BIG-IP that the application is deployed to.,This parameter is only relevant when specifying a C(service_environment) which is a BIG-IP; not an SSG.
+        # @return [Symbol, nil] Collects statistics of the BIG-IP that the application is deployed to.,This parameter is only relevant when specifying a C(service_environment) which is a BIG-IP; not an SSG.
         attribute :add_analytics
-        validates :add_analytics, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :add_analytics, type: Symbol
 
         # @return [Object, nil] Specifies host names that are used to access the web application that this security policy protects.,When creating a new application, this parameter is required.
         attribute :domain_names

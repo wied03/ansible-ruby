@@ -39,8 +39,9 @@ module Ansible
         attribute :ip_forward
         validates :ip_forward, inclusion: {:in=>[:enable, :disable], :message=>"%{value} needs to be :enable, :disable"}, allow_nil: true
 
-        # @return [Object, nil] Associate SVI with anycast gateway under VLAN configuration mode. Applicable for SVI interface only.
+        # @return [Symbol, nil] Associate SVI with anycast gateway under VLAN configuration mode. Applicable for SVI interface only.
         attribute :fabric_forwarding_anycast_gateway
+        validates :fabric_forwarding_anycast_gateway, type: Symbol
 
         # @return [:full, :half, :auto, nil] Interface link status. Applicable for ethernet interface only.
         attribute :duplex

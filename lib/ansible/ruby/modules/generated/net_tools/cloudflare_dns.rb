@@ -44,9 +44,9 @@ module Ansible
         attribute :proto
         validates :proto, type: String
 
-        # @return [String, nil] Proxy through cloudflare network or just use DNS
+        # @return [:yes, :no, nil] Proxy through cloudflare network or just use DNS
         attribute :proxied
-        validates :proxied, type: String
+        validates :proxied, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] Record to add. Required if C(state=present). Default is C(@) (e.g. the zone name)
         attribute :record

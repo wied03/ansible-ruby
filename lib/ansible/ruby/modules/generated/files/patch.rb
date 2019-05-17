@@ -24,21 +24,21 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
-        # @return [String, nil] If C(no), it will search for src at originating/master machine, if C(yes) it will go to the remote/target machine for the C(src).
+        # @return [:yes, :no, nil] If C(no), it will search for src at originating/master machine, if C(yes) it will go to the remote/target machine for the C(src).
         attribute :remote_src
-        validates :remote_src, type: String
+        validates :remote_src, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] Number that indicates the smallest prefix containing leading slashes that will be stripped from each file name found in the patch file. For more information see the strip parameter of the GNU patch tool.
         attribute :strip
         validates :strip, type: Integer
 
-        # @return [String, nil] Passes C(--backup --version-control=numbered) to patch, producing numbered backup copies.
+        # @return [:yes, :no, nil] Passes C(--backup --version-control=numbered) to patch, producing numbered backup copies.
         attribute :backup
-        validates :backup, type: String
+        validates :backup, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Setting to C(yes) will disable patch's heuristic for transforming CRLF line endings into LF. Line endings of src and dest must match. If set to C(no), C(patch) will replace CRLF in C(src) files on POSIX.
+        # @return [:yes, :no, nil] Setting to C(yes) will disable patch's heuristic for transforming CRLF line endings into LF. Line endings of src and dest must match. If set to C(no), C(patch) will replace CRLF in C(src) files on POSIX.
         attribute :binary
-        validates :binary, type: String
+        validates :binary, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

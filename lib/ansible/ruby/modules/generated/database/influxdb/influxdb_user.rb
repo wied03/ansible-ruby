@@ -16,9 +16,9 @@ module Ansible
         attribute :user_password
         validates :user_password, type: String
 
-        # @return [Boolean, nil] Whether the user should be in the admin role or not.
+        # @return [Symbol, nil] Whether the user should be in the admin role or not.
         attribute :admin
-        validates :admin, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :admin, type: Symbol
 
         # @return [:present, :absent, nil] State of the user.
         attribute :state

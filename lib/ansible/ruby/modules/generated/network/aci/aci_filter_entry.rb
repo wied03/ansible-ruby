@@ -52,8 +52,9 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:absent, :present, :query], :message=>"%{value} needs to be :absent, :present, :query"}, allow_nil: true
 
-        # @return [Object, nil] Determines the statefulness of the filter entry.
+        # @return [Symbol, nil] Determines the statefulness of the filter entry.
         attribute :stateful
+        validates :stateful, type: Symbol
 
         # @return [String, nil] The name of the tenant.
         attribute :tenant

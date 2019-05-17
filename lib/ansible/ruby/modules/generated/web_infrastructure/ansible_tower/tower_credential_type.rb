@@ -32,9 +32,9 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [Boolean, nil] Tower option to avoid certificates check.
+        # @return [Symbol, nil] Tower option to avoid certificates check.
         attribute :tower_verify_ssl
-        validates :tower_verify_ssl, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :tower_verify_ssl, type: Symbol
       end
     end
   end

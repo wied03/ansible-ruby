@@ -19,9 +19,9 @@ module Ansible
         attribute :executable
         validates :executable, type: String
 
-        # @return [Boolean, nil] Run hponcfg in verbose mode (-v).
+        # @return [Symbol, nil] Run hponcfg in verbose mode (-v).
         attribute :verbose
-        validates :verbose, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :verbose, type: Symbol
       end
     end
   end

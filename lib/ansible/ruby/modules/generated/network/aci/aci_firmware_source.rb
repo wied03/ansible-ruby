@@ -12,8 +12,9 @@ module Ansible
         attribute :source
         validates :source, presence: true, type: String
 
-        # @return [Object, nil] Polling interval in minutes.
+        # @return [Integer, nil] Polling interval in minutes.
         attribute :polling_interval
+        validates :polling_interval, type: Integer
 
         # @return [:http, :local, :scp, :usbkey, nil] The Firmware download protocol.
         attribute :url_protocol

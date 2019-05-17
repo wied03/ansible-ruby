@@ -19,9 +19,9 @@ module Ansible
         attribute :volume
         validates :volume, presence: true
 
-        # @return [Boolean, nil] Allows or disallows snapshot of a volume to be created when the volume is attached to an instance.
+        # @return [Symbol, nil] Allows or disallows snapshot of a volume to be created when the volume is attached to an instance.
         attribute :force
-        validates :force, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :force, type: Symbol
 
         # @return [:present, :absent, nil] Should the resource be present or absent.
         attribute :state

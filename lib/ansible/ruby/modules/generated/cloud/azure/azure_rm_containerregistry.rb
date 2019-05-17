@@ -24,9 +24,9 @@ module Ansible
         attribute :location
         validates :location, type: String
 
-        # @return [Boolean, nil] If enabled, you can use the registry name as username and admin user access key as password to docker login to your container registry.
+        # @return [Symbol, nil] If enabled, you can use the registry name as username and admin user access key as password to docker login to your container registry.
         attribute :admin_user_enabled
-        validates :admin_user_enabled, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :admin_user_enabled, type: Symbol
 
         # @return [:Basic, :Standard, :Premium, nil] Specifies the SKU to use. Currently can be either Basic, Standard or Premium.
         attribute :sku

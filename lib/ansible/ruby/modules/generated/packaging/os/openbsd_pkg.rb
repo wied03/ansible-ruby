@@ -16,21 +16,21 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:absent, :latest, :present], :message=>"%{value} needs to be :absent, :latest, :present"}, allow_nil: true
 
-        # @return [String, nil] Build the package from source instead of downloading and installing a binary. Requires that the port source tree is already installed. Automatically builds and installs the 'sqlports' package, if it is not already installed.
+        # @return [:yes, :no, nil] Build the package from source instead of downloading and installing a binary. Requires that the port source tree is already installed. Automatically builds and installs the 'sqlports' package, if it is not already installed.
         attribute :build
-        validates :build, type: String
+        validates :build, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] When used in combination with the C(build) option, allows overriding the default ports source directory.
         attribute :ports_dir
         validates :ports_dir, type: String
 
-        # @return [String, nil] When updating or removing packages, delete the extra configuration file(s) in the old packages which are annotated with @extra in the packaging-list.
+        # @return [:yes, :no, nil] When updating or removing packages, delete the extra configuration file(s) in the old packages which are annotated with @extra in the packaging-list.
         attribute :clean
-        validates :clean, type: String
+        validates :clean, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Replace or delete packages quickly; do not bother with checksums before removing normal files.
+        # @return [:yes, :no, nil] Replace or delete packages quickly; do not bother with checksums before removing normal files.
         attribute :quick
-        validates :quick, type: String
+        validates :quick, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

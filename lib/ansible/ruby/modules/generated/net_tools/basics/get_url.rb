@@ -23,13 +23,13 @@ module Ansible
         # @return [Object, nil] Absolute path of where temporary file is downloaded to.,When run on Ansible 2.5 or greater, path defaults to ansible's remote_tmp setting,When run on Ansible prior to 2.5, it defaults to C(TMPDIR), C(TEMP) or C(TMP) env variables or a platform specific value.,U(https://docs.python.org/2/library/tempfile.html#tempfile.tempdir)
         attribute :tmp_dest
 
-        # @return [String, nil] If C(yes) and C(dest) is not a directory, will download the file every time and replace the file if the contents change. If C(no), the file will only be downloaded if the destination does not exist. Generally should be C(yes) only for small local files.,Prior to 0.6, this module behaved as if C(yes) was the default.
+        # @return [:yes, :no, nil] If C(yes) and C(dest) is not a directory, will download the file every time and replace the file if the contents change. If C(no), the file will only be downloaded if the destination does not exist. Generally should be C(yes) only for small local files.,Prior to 0.6, this module behaved as if C(yes) was the default.
         attribute :force
-        validates :force, type: String
+        validates :force, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Create a backup file including the timestamp information so you can get the original file back if you somehow clobbered it incorrectly.
+        # @return [:yes, :no, nil] Create a backup file including the timestamp information so you can get the original file back if you somehow clobbered it incorrectly.
         attribute :backup
-        validates :backup, type: String
+        validates :backup, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] If a SHA-256 checksum is passed to this parameter, the digest of the destination file will be calculated after it is downloaded to ensure its integrity and verify that the transfer completed successfully. This option is deprecated. Use C(checksum) instead.
         attribute :sha256sum
@@ -39,13 +39,13 @@ module Ansible
         attribute :checksum
         validates :checksum, type: String
 
-        # @return [String, nil] if C(no), it will not use a proxy, even if one is defined in an environment variable on the target hosts.
+        # @return [:yes, :no, nil] if C(no), it will not use a proxy, even if one is defined in an environment variable on the target hosts.
         attribute :use_proxy
-        validates :use_proxy, type: String
+        validates :use_proxy, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] If C(no), SSL certificates will not be validated. This should only be used on personally controlled sites using self-signed certificates.
+        # @return [:yes, :no, nil] If C(no), SSL certificates will not be validated. This should only be used on personally controlled sites using self-signed certificates.
         attribute :validate_certs
-        validates :validate_certs, type: String
+        validates :validate_certs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] Timeout in seconds for URL request.
         attribute :timeout
@@ -61,9 +61,9 @@ module Ansible
         # @return [Object, nil] The password for use in HTTP basic authentication.,If the C(url_username) parameter is not specified, the C(url_password) parameter will not be used.
         attribute :url_password
 
-        # @return [String, nil] httplib2, the library used by the uri module only sends authentication information when a webservice responds to an initial request with a 401 status. Since some basic auth services do not properly send a 401, logins will fail. This option forces the sending of the Basic authentication header upon initial request.
+        # @return [:yes, :no, nil] httplib2, the library used by the uri module only sends authentication information when a webservice responds to an initial request with a 401 status. Since some basic auth services do not properly send a 401, logins will fail. This option forces the sending of the Basic authentication header upon initial request.
         attribute :force_basic_auth
-        validates :force_basic_auth, type: String
+        validates :force_basic_auth, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] PEM formatted certificate chain file to be used for SSL client authentication. This file can also include the key as well, and if the key is included, C(client_key) is not required.
         attribute :client_cert

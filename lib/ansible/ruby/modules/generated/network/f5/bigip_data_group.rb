@@ -16,9 +16,9 @@ module Ansible
         attribute :type
         validates :type, inclusion: {:in=>[:address, :addr, :ip, :string, :str, :integer, :int], :message=>"%{value} needs to be :address, :addr, :ip, :string, :str, :integer, :int"}, allow_nil: true
 
-        # @return [Boolean, nil] The type of this data group.,You should only consider setting this value in cases where you know exactly what you're doing, B(or), you are working with a pre-existing internal data group.,Be aware that if you deliberately force this parameter to C(yes), and you have a either a large number of records or a large total records size, this large amount of data will be reflected in your BIG-IP configuration. This can lead to B(long) system configuration load times due to needing to parse and verify the large configuration.,There is a limit of either 4 megabytes or 65,000 records (whichever is more restrictive) for uploads when this parameter is C(yes).,This value cannot be changed once the data group is created.
+        # @return [Symbol, nil] The type of this data group.,You should only consider setting this value in cases where you know exactly what you're doing, B(or), you are working with a pre-existing internal data group.,Be aware that if you deliberately force this parameter to C(yes), and you have a either a large number of records or a large total records size, this large amount of data will be reflected in your BIG-IP configuration. This can lead to B(long) system configuration load times due to needing to parse and verify the large configuration.,There is a limit of either 4 megabytes or 65,000 records (whichever is more restrictive) for uploads when this parameter is C(yes).,This value cannot be changed once the data group is created.
         attribute :internal
-        validates :internal, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :internal, type: Symbol
 
         # @return [Object, nil] When creating a new data group, this specifies the file name that you want to give an external data group file on the BIG-IP.,This parameter is ignored when C(internal) is C(yes).,This parameter can be used to select an existing data group file to use with an existing external data group.,If this value is not provided, it will be given the value specified in C(name) and, therefore, match the name of the data group.,This value may only contain letters, numbers, underscores, dashes, or a period.
         attribute :external_file_name
@@ -35,9 +35,9 @@ module Ansible
         attribute :separator
         validates :separator, type: String
 
-        # @return [Boolean, nil] When C(yes), will ensure that the remote data group file is deleted.,This parameter is only relevant when C(state) is C(absent) and C(internal) is C(no).
+        # @return [Symbol, nil] When C(yes), will ensure that the remote data group file is deleted.,This parameter is only relevant when C(state) is C(absent) and C(internal) is C(no).
         attribute :delete_data_group_file
-        validates :delete_data_group_file, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :delete_data_group_file, type: Symbol
 
         # @return [String, nil] Device partition to manage resources on.
         attribute :partition

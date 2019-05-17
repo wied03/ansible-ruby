@@ -23,9 +23,9 @@ module Ansible
         # @return [Object, nil] Name of the existing volume to be renamed to name.
         attribute :from_name
 
-        # @return [Boolean, nil] Set True if the volume is an Infinite Volume. Deleting an infinite volume is asynchronous.
+        # @return [Symbol, nil] Set True if the volume is an Infinite Volume. Deleting an infinite volume is asynchronous.
         attribute :is_infinite
-        validates :is_infinite, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :is_infinite, type: Symbol
 
         # @return [Boolean, nil] Whether the specified volume is online, or not.
         attribute :is_online
@@ -64,9 +64,9 @@ module Ansible
         attribute :volume_security_style
         validates :volume_security_style, inclusion: {:in=>[:mixed, :ntfs, :unified, :unix], :message=>"%{value} needs to be :mixed, :ntfs, :unified, :unix"}, allow_nil: true
 
-        # @return [Boolean, nil] Whether or not to enable Volume Encryption.
+        # @return [Symbol, nil] Whether or not to enable Volume Encryption.
         attribute :encrypt
-        validates :encrypt, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :encrypt, type: Symbol
 
         # @return [Object, nil] Allows a storage efficiency policy to be set on volume creation.
         attribute :efficiency_policy

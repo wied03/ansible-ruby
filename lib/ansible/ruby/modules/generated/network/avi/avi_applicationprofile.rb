@@ -38,11 +38,13 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [Object, nil] Specifies if client ip needs to be preserved for backend connection.,Not compatible with connection multiplexing.,Default value when not specified in API or module is interpreted by Avi Controller as False.
+        # @return [Symbol, nil] Specifies if client ip needs to be preserved for backend connection.,Not compatible with connection multiplexing.,Default value when not specified in API or module is interpreted by Avi Controller as False.
         attribute :preserve_client_ip
+        validates :preserve_client_ip, type: Symbol
 
-        # @return [Object, nil] Specifies if we need to preserve client port while preseving client ip for backend connections.,Field introduced in 17.2.7.,Default value when not specified in API or module is interpreted by Avi Controller as False.
+        # @return [Symbol, nil] Specifies if we need to preserve client port while preseving client ip for backend connections.,Field introduced in 17.2.7.,Default value when not specified in API or module is interpreted by Avi Controller as False.
         attribute :preserve_client_port
+        validates :preserve_client_port, type: Symbol
 
         # @return [Object, nil] Specifies the tcp application proxy profile parameters.
         attribute :tcp_app_profile

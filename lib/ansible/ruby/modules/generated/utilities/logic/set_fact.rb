@@ -15,9 +15,9 @@ module Ansible
         attribute :key_value
         validates :key_value, presence: true
 
-        # @return [String, nil] This boolean indicates if the facts set will also be added to the fact cache, if fact caching is enabled.
+        # @return [:yes, :no, nil] This boolean indicates if the facts set will also be added to the fact cache, if fact caching is enabled.
         attribute :cacheable
-        validates :cacheable, type: String
+        validates :cacheable, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

@@ -23,25 +23,25 @@ module Ansible
         # @return [Object, nil] Add additional global target options to C(zypper).,Options should be supplied in a single line as if given in the command line.
         attribute :extra_args_precommand
 
-        # @return [String, nil] Whether to disable to GPG signature checking of the package signature being installed. Has an effect only if state is I(present) or I(latest).
+        # @return [:yes, :no, nil] Whether to disable to GPG signature checking of the package signature being installed. Has an effect only if state is I(present) or I(latest).
         attribute :disable_gpg_check
-        validates :disable_gpg_check, type: String
+        validates :disable_gpg_check, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Corresponds to the C(--no-recommends) option for I(zypper). Default behavior (C(yes)) modifies zypper's default behavior; C(no) does install recommended packages.
+        # @return [:yes, :no, nil] Corresponds to the C(--no-recommends) option for I(zypper). Default behavior (C(yes)) modifies zypper's default behavior; C(no) does install recommended packages.
         attribute :disable_recommends
-        validates :disable_recommends, type: String
+        validates :disable_recommends, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Adds C(--force) option to I(zypper). Allows to downgrade packages and change vendor or architecture.
+        # @return [:yes, :no, nil] Adds C(--force) option to I(zypper). Allows to downgrade packages and change vendor or architecture.
         attribute :force
-        validates :force, type: String
+        validates :force, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Run the equivalent of C(zypper refresh) before the operation. Disabled in check mode.
+        # @return [:yes, :no, nil] Run the equivalent of C(zypper refresh) before the operation. Disabled in check mode.
         attribute :update_cache
-        validates :update_cache, type: String
+        validates :update_cache, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Adds C(--oldpackage) option to I(zypper). Allows to downgrade packages with less side-effects than force. This is implied as soon as a version is specified as part of the package name.
+        # @return [:yes, :no, nil] Adds C(--oldpackage) option to I(zypper). Allows to downgrade packages with less side-effects than force. This is implied as soon as a version is specified as part of the package name.
         attribute :oldpackage
-        validates :oldpackage, type: String
+        validates :oldpackage, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] Add additional options to C(zypper) command.,Options should be supplied in a single line as if given in the command line.
         attribute :extra_args

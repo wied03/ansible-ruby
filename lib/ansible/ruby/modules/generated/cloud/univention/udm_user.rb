@@ -88,13 +88,13 @@ module Ansible
         # @return [Object, nil] Organisation
         attribute :organisation
 
-        # @return [String, nil] Override password history
+        # @return [:yes, :no, nil] Override password history
         attribute :override_pw_history
-        validates :override_pw_history, type: String
+        validates :override_pw_history, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Override password check
+        # @return [:yes, :no, nil] Override password check
         attribute :override_pw_length
-        validates :override_pw_length, type: String
+        validates :override_pw_length, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] List of pager telephone numbers.
         attribute :pager_telephonenumber

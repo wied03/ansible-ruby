@@ -25,9 +25,9 @@ module Ansible
         # @return [Object, nil] Specifies the reference bandwidth used to assign ospf cost. Valid values are an integer, in Mbps, 1 - 2147483648, the default value is 100.
         attribute :bandwidth
 
-        # @return [String, nil] Specifies the mode of timer to calculate interval of arrive LSA. If set the parameter but not specifies value, the default will be used. If true use general timer. If false use intelligent timer.
+        # @return [:yes, :no, nil] Specifies the mode of timer to calculate interval of arrive LSA. If set the parameter but not specifies value, the default will be used. If true use general timer. If false use intelligent timer.
         attribute :lsaalflag
-        validates :lsaalflag, type: String
+        validates :lsaalflag, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] Specifies the interval of arrive LSA when use the general timer. Valid value is an integer, in millisecond, from 0 to 10000.
         attribute :lsaainterval
@@ -41,9 +41,9 @@ module Ansible
         # @return [Object, nil] Specifies the hold interval of arrive LSA when use the intelligent timer. Valid value is an integer, in millisecond, from 0 to 10000, the default value is 500.
         attribute :lsaaholdinterval
 
-        # @return [String, nil] Specifies whether cancel the interval of LSA originate or not. If set the parameter but noe specifies value, the default will be used. true:cancel the interval of LSA originate, the interval is 0. false:do not cancel the interval of LSA originate.
+        # @return [:yes, :no, nil] Specifies whether cancel the interval of LSA originate or not. If set the parameter but noe specifies value, the default will be used. true:cancel the interval of LSA originate, the interval is 0. false:do not cancel the interval of LSA originate.
         attribute :lsaointervalflag
-        validates :lsaointervalflag, type: String
+        validates :lsaointervalflag, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] Specifies the interval of originate LSA . Valid value is an integer, in second, from 0 to 10, the default value is 5.
         attribute :lsaointerval

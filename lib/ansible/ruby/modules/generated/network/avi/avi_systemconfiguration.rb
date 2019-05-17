@@ -33,8 +33,9 @@ module Ansible
         # @return [Object, nil] Dns virtualservices hosting fqdn records for applications across avi vantage.,If no virtualservices are provided, avi vantage will provide dns services for configured applications.,Switching back to avi vantage from dns virtualservices is not allowed.,It is a reference to an object of type virtualservice.
         attribute :dns_virtualservice_refs
 
-        # @return [Object, nil] Boolean flag to set docker_mode.,Default value when not specified in API or module is interpreted by Avi Controller as False.
+        # @return [Symbol, nil] Boolean flag to set docker_mode.,Default value when not specified in API or module is interpreted by Avi Controller as False.
         attribute :docker_mode
+        validates :docker_mode, type: Symbol
 
         # @return [Object, nil] Emailconfiguration settings for systemconfiguration.
         attribute :email_configuration

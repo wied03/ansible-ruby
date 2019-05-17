@@ -16,9 +16,9 @@ module Ansible
         attribute :description
         validates :description, type: String
 
-        # @return [String, nil] Enable or disable admin state.,The APIC defaults to C(yes) when unset during creation.
+        # @return [Symbol, nil] Enable or disable admin state.,The APIC defaults to C(yes) when unset during creation.
         attribute :admin_state
-        validates :admin_state, type: String
+        validates :admin_state, type: Symbol
 
         # @return [:absent, :present, :query, nil] Use C(present) or C(absent) for adding or removing.,Use C(query) for listing an object or multiple objects.
         attribute :state

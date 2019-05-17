@@ -40,16 +40,16 @@ module Ansible
         # @return [Object, nil] The path to the json file containing the Grafana dashboard to import or export.
         attribute :path
 
-        # @return [String, nil] Override existing dashboard when state is present.
+        # @return [:yes, :no, nil] Override existing dashboard when state is present.
         attribute :overwrite
-        validates :overwrite, type: String
+        validates :overwrite, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] Set a commit message for the version history.,Only used when C(state) is C(present).
         attribute :message
 
-        # @return [String, nil] If C(no), SSL certificates will not be validated.,This should only be used on personally controlled sites using self-signed certificates.
+        # @return [:yes, :no, nil] If C(no), SSL certificates will not be validated.,This should only be used on personally controlled sites using self-signed certificates.
         attribute :validate_certs
-        validates :validate_certs, type: String
+        validates :validate_certs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] PEM formatted certificate chain file to be used for SSL client authentication.,This file can also include the key as well, and if the key is included, client_key is not required
         attribute :client_cert
@@ -57,9 +57,9 @@ module Ansible
         # @return [Object, nil] PEM formatted file that contains your private key to be used for SSL client,authentication. If client_cert contains both the certificate and key, this option is not required
         attribute :client_key
 
-        # @return [String, nil] Boolean of whether or not to use proxy.
+        # @return [:yes, :no, nil] Boolean of whether or not to use proxy.
         attribute :use_proxy
-        validates :use_proxy, type: String
+        validates :use_proxy, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

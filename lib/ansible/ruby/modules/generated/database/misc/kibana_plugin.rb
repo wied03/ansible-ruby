@@ -35,9 +35,9 @@ module Ansible
         attribute :version
         validates :version, type: String
 
-        # @return [String, nil] Delete and re-install the plugin. Can be useful for plugins update
+        # @return [:yes, :no, nil] Delete and re-install the plugin. Can be useful for plugins update
         attribute :force
-        validates :force, type: String
+        validates :force, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

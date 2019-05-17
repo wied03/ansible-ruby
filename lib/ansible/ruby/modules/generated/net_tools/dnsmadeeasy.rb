@@ -21,9 +21,9 @@ module Ansible
         attribute :domain
         validates :domain, presence: true, type: String
 
-        # @return [String, nil] Decides if the sandbox API should be used. Otherwise (default) the production API of DNS Made Easy is used.
+        # @return [:yes, :no, nil] Decides if the sandbox API should be used. Otherwise (default) the production API of DNS Made Easy is used.
         attribute :sandbox
-        validates :sandbox, type: String
+        validates :sandbox, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] Record name to get/create/delete/update. If record_name is not specified; all records for the domain will be returned in "result" regardless of the state argument.
         attribute :record_name
@@ -45,13 +45,13 @@ module Ansible
         attribute :state
         validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
 
-        # @return [String, nil] If C(no), SSL certificates will not be validated. This should only be used on personally controlled sites using self-signed certificates.
+        # @return [:yes, :no, nil] If C(no), SSL certificates will not be validated. This should only be used on personally controlled sites using self-signed certificates.
         attribute :validate_certs
-        validates :validate_certs, type: String
+        validates :validate_certs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] If C(yes), add or change the monitor.  This is applicable only for A records.
+        # @return [:yes, :no, nil] If C(yes), add or change the monitor.  This is applicable only for A records.
         attribute :monitor
-        validates :monitor, type: String
+        validates :monitor, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String] Description used by the monitor.
         attribute :systemDescription
@@ -89,13 +89,13 @@ module Ansible
         attribute :httpQueryString
         validates :httpQueryString, type: String
 
-        # @return [String, nil] If C(yes), add or change the failover.  This is applicable only for A records.
+        # @return [:yes, :no, nil] If C(yes), add or change the failover.  This is applicable only for A records.
         attribute :failover
-        validates :failover, type: String
+        validates :failover, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] If true, fallback to the primary IP address is manual after a failover.,If false, fallback to the primary IP address is automatic after a failover.
+        # @return [:yes, :no, nil] If true, fallback to the primary IP address is manual after a failover.,If false, fallback to the primary IP address is automatic after a failover.
         attribute :autoFailover
-        validates :autoFailover, type: String
+        validates :autoFailover, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] Primary IP address for the failover.,Required if adding or changing the monitor or failover.
         attribute :ip1

@@ -17,17 +17,17 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:started, :stopped, :reset, :restarted, :reloaded], :message=>"%{value} needs to be :started, :stopped, :reset, :restarted, :reloaded"}, allow_nil: true
 
-        # @return [String, nil] Enable or disable the service, independently of C(*.preset) file preference or running state. Mutually exclusive with I(preset). Will take effect prior to I(state=reset).
+        # @return [Symbol, nil] Enable or disable the service, independently of C(*.preset) file preference or running state. Mutually exclusive with I(preset). Will take effect prior to I(state=reset).
         attribute :enabled
-        validates :enabled, type: String
+        validates :enabled, type: Symbol
 
-        # @return [String, nil] Enable or disable the service according to local preferences in *.preset files. Mutually exclusive with I(enabled). Only has an effect if set to true. Will take effect prior to I(state=reset).
+        # @return [Symbol, nil] Enable or disable the service according to local preferences in *.preset files. Mutually exclusive with I(enabled). Only has an effect if set to true. Will take effect prior to I(state=reset).
         attribute :preset
-        validates :preset, type: String
+        validates :preset, type: Symbol
 
-        # @return [String, nil] Run system-control talking to the calling user's service manager, rather than the system-wide service manager.
+        # @return [:yes, :no, nil] Run system-control talking to the calling user's service manager, rather than the system-wide service manager.
         attribute :user
-        validates :user, type: String
+        validates :user, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

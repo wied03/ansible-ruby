@@ -20,9 +20,9 @@ module Ansible
         attribute :tags
         validates :tags, presence: true, type: Hash
 
-        # @return [Boolean, nil] Whether unspecified tags should be removed from the resource.,Note that when combined with C(state: absent), specified tags with non-matching values are not purged.
+        # @return [Symbol, nil] Whether unspecified tags should be removed from the resource.,Note that when combined with C(state: absent), specified tags with non-matching values are not purged.
         attribute :purge_tags
-        validates :purge_tags, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :purge_tags, type: Symbol
       end
     end
   end

@@ -20,13 +20,13 @@ module Ansible
         attribute :node_id
         validates :node_id, presence: true, type: String
 
-        # @return [Boolean, nil] Flag to force drive operation during upgrade.
+        # @return [Symbol, nil] Flag to force drive operation during upgrade.
         attribute :force_during_upgrade
-        validates :force_during_upgrade, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :force_during_upgrade, type: Symbol
 
-        # @return [Boolean, nil] Flag to force during a bin sync operation.
+        # @return [Symbol, nil] Flag to force during a bin sync operation.
         attribute :force_during_bin_sync
-        validates :force_during_bin_sync, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :force_during_bin_sync, type: Symbol
       end
     end
   end

@@ -22,9 +22,9 @@ module Ansible
         attribute :vrrp_type
         validates :vrrp_type, inclusion: {:in=>[:normal, :member, :admin], :message=>"%{value} needs to be :normal, :member, :admin"}, allow_nil: true
 
-        # @return [String, nil] mVRRP ignores an interface Down event.
+        # @return [:yes, :no, nil] mVRRP ignores an interface Down event.
         attribute :admin_ignore_if_down
-        validates :admin_ignore_if_down, type: String
+        validates :admin_ignore_if_down, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] Tracked mVRRP ID. The value is an integer ranging from 1 to 255.
         attribute :admin_vrid
@@ -32,9 +32,9 @@ module Ansible
         # @return [Object, nil] Tracked mVRRP interface name. The value is a string of 1 to 63 characters.
         attribute :admin_interface
 
-        # @return [String, nil] Disable the flowdown function for service VRRP.
+        # @return [:yes, :no, nil] Disable the flowdown function for service VRRP.
         attribute :admin_flowdown
-        validates :admin_flowdown, type: String
+        validates :admin_flowdown, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] Configured VRRP priority. The value ranges from 1 to 254. The default value is 100. A larger value indicates a higher priority.
         attribute :priority
@@ -62,9 +62,9 @@ module Ansible
         attribute :auth_mode
         validates :auth_mode, inclusion: {:in=>[:simple, :md5, :none], :message=>"%{value} needs to be :simple, :md5, :none"}, allow_nil: true
 
-        # @return [String, nil] Select the display mode of an authentication key. By default, an authentication key is displayed in ciphertext.
+        # @return [:yes, :no, nil] Select the display mode of an authentication key. By default, an authentication key is displayed in ciphertext.
         attribute :is_plain
-        validates :is_plain, type: String
+        validates :is_plain, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] This object is set based on the authentication type. When noAuthentication is specified, the value is empty. When simpleTextPassword or md5Authentication is specified, the value is a string of 1 to 8 characters in plaintext and displayed as a blank text for security.
         attribute :auth_key

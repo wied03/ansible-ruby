@@ -43,9 +43,9 @@ module Ansible
         # @return [Object, nil] Specifies full path to plan file location for the import operation. This parameter (inputFile) or the fileName parameter must be filled. If both are present then the inputFile is used.
         attribute :inputFile
 
-        # @return [Boolean, nil] Specifies if backup plan generation is enabled.
+        # @return [Symbol, nil] Specifies if backup plan generation is enabled.
         attribute :createBackupPlan
-        validates :createBackupPlan, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :createBackupPlan, type: Symbol
 
         # @return [String, nil] Specifies a backup plan name
         attribute :backupPlanName

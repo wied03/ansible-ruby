@@ -27,9 +27,9 @@ module Ansible
         attribute :tags
         validates :tags, type: Hash
 
-        # @return [String, nil] Specifies whether existing tags will be removed before adding new tags. When I(purge_tags=yes), existing tags are removed and I(tags) are added, if specified. If no tags are specified, it removes all existing tags for the distribution. When I(purge_tags=no), existing tags are kept and I(tags) are added, if specified.
+        # @return [:yes, :no, nil] Specifies whether existing tags will be removed before adding new tags. When I(purge_tags=yes), existing tags are removed and I(tags) are added, if specified. If no tags are specified, it removes all existing tags for the distribution. When I(purge_tags=no), existing tags are kept and I(tags) are added, if specified.
         attribute :purge_tags
-        validates :purge_tags, type: String
+        validates :purge_tags, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] The name of an alias (CNAME) that is used in a distribution. This is used to effectively reference a distribution by its alias as an alias can only be used by one distribution per AWS account. This variable avoids having to provide the I(distribution_id) as well as the I(e_tag), or I(caller_reference) of an existing distribution.
         attribute :alias
@@ -38,9 +38,9 @@ module Ansible
         attribute :aliases
         validates :aliases, type: TypeGeneric.new(String)
 
-        # @return [String, nil] Specifies whether existing aliases will be removed before adding new aliases. When I(purge_aliases=yes), existing aliases are removed and I(aliases) are added.
+        # @return [:yes, :no, nil] Specifies whether existing aliases will be removed before adding new aliases. When I(purge_aliases=yes), existing aliases are removed and I(aliases) are added.
         attribute :purge_aliases
-        validates :purge_aliases, type: String
+        validates :purge_aliases, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] A config element that specifies the path to request when the user requests the origin. e.g. if specified as 'index.html', this maps to www.example.com/index.html when www.example.com is called by the user. This prevents the entire distribution origin from being exposed at the root.
         attribute :default_root_object
@@ -90,9 +90,9 @@ module Ansible
         attribute :price_class
         validates :price_class, inclusion: {:in=>[:PriceClass_100, :PriceClass_200, :PriceClass_All], :message=>"%{value} needs to be :PriceClass_100, :PriceClass_200, :PriceClass_All"}, allow_nil: true
 
-        # @return [String, nil] A boolean value that specifies whether the distribution is enabled or disabled.
+        # @return [:yes, :no, nil] A boolean value that specifies whether the distribution is enabled or disabled.
         attribute :enabled
-        validates :enabled, type: String
+        validates :enabled, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] A config element that is a complex object that specifies the encryption details of the distribution. Comprises the following attributes I(cloudfront_default_certificate) I(iam_certificate_id) I(acm_certificate_arn) I(ssl_support_method) I(minimum_protocol_version) I(certificate) I(certificate_source)
         attribute :viewer_certificate
@@ -107,13 +107,13 @@ module Ansible
         attribute :http_version
         validates :http_version, inclusion: {:in=>[:"http1.1", :http2], :message=>"%{value} needs to be :\"http1.1\", :http2"}, allow_nil: true
 
-        # @return [String, nil] Determines whether IPv6 support is enabled or not.
+        # @return [:yes, :no, nil] Determines whether IPv6 support is enabled or not.
         attribute :ipv6_enabled
-        validates :ipv6_enabled, type: String
+        validates :ipv6_enabled, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Specifies whether the module waits until the distribution has completed processing the creation or update.
+        # @return [:yes, :no, nil] Specifies whether the module waits until the distribution has completed processing the creation or update.
         attribute :wait
-        validates :wait, type: String
+        validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] Specifies the duration in seconds to wait for a timeout of a cloudfront create or update. Defaults to 1800 seconds (30 minutes).
         attribute :wait_timeout

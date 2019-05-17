@@ -36,9 +36,9 @@ module Ansible
         # @return [Object, nil] name of the wildfire analysis profile
         attribute :wildfire
 
-        # @return [String, nil] commit if changed
+        # @return [:yes, :no, nil] commit if changed
         attribute :commit
-        validates :commit, type: String
+        validates :commit, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

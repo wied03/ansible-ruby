@@ -17,9 +17,9 @@ module Ansible
         attribute :dependency_action
         validates :dependency_action, inclusion: {:in=>[:add, :remove, :set], :message=>"%{value} needs to be :add, :remove, :set"}, allow_nil: true
 
-        # @return [String, nil] Whether to allow the service user to interact with the desktop.,This should only be set to C(yes) when using the LocalSystem username.
+        # @return [:yes, :no, nil] Whether to allow the service user to interact with the desktop.,This should only be set to C(yes) when using the LocalSystem username.
         attribute :desktop_interact
-        validates :desktop_interact, type: String
+        validates :desktop_interact, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] The description to set for the service.
         attribute :description
@@ -29,9 +29,9 @@ module Ansible
         attribute :display_name
         validates :display_name, type: String
 
-        # @return [String, nil] If C(yes), stopping or restarting a service with dependent services will force the dependent services to stop or restart also.,If C(no), stopping or restarting a service with dependent services may fail.
+        # @return [:yes, :no, nil] If C(yes), stopping or restarting a service with dependent services will force the dependent services to stop or restart also.,If C(no), stopping or restarting a service with dependent services may fail.
         attribute :force_dependent_services
-        validates :force_dependent_services, type: String
+        validates :force_dependent_services, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String] Name of the service.,If only the name parameter is specified, the module will report on whether the service exists or not without making any changes.
         attribute :name

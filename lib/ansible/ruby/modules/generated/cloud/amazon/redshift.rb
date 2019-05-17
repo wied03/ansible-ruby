@@ -91,9 +91,9 @@ module Ansible
         # @return [Object, nil] Only used when command=modify.
         attribute :new_cluster_identifier
 
-        # @return [String, nil] When command=create, modify or restore then wait for the database to enter the 'available' state. When command=delete wait for the database to be terminated.
+        # @return [:yes, :no, nil] When command=create, modify or restore then wait for the database to enter the 'available' state. When command=delete wait for the database to be terminated.
         attribute :wait
-        validates :wait, type: String
+        validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] how long before wait gives up, in seconds
         attribute :wait_timeout

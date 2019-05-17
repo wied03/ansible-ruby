@@ -24,9 +24,9 @@ module Ansible
         # @return [Object, nil] List of labels to set for the volume
         attribute :labels
 
-        # @return [String, nil] With state C(present) causes the volume to be deleted and recreated if the volume already exist and the driver, driver options or labels differ. This will cause any data in the existing volume to be lost.
+        # @return [:yes, :no, nil] With state C(present) causes the volume to be deleted and recreated if the volume already exist and the driver, driver options or labels differ. This will cause any data in the existing volume to be lost.
         attribute :force
-        validates :force, type: String
+        validates :force, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:absent, :present, nil] C(absent) deletes the volume.,C(present) creates the volume, if it does not already exist.
         attribute :state

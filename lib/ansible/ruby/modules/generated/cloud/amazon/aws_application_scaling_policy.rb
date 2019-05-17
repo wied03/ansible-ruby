@@ -44,9 +44,9 @@ module Ansible
         attribute :maximum_tasks
         validates :maximum_tasks, type: Integer
 
-        # @return [Boolean, nil] Whether or not to override values of minimum and/or maximum tasks if it's already set.
+        # @return [Symbol, nil] Whether or not to override values of minimum and/or maximum tasks if it's already set.
         attribute :override_task_capacity
-        validates :override_task_capacity, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :override_task_capacity, type: Symbol
       end
     end
   end

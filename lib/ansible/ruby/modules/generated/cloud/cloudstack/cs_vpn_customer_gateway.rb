@@ -38,11 +38,13 @@ module Ansible
         # @return [Object, nil] Lifetime in seconds of phase 2 VPN connection.,Defaulted to 3600 by the API on creation if not set.
         attribute :esp_lifetime
 
-        # @return [Object, nil] Enable Dead Peer Detection.,Disabled per default by the API on creation if not set.
+        # @return [Symbol, nil] Enable Dead Peer Detection.,Disabled per default by the API on creation if not set.
         attribute :dpd
+        validates :dpd, type: Symbol
 
-        # @return [Object, nil] Force encapsulation for NAT traversal.,Disabled per default by the API on creation if not set.
+        # @return [Symbol, nil] Force encapsulation for NAT traversal.,Disabled per default by the API on creation if not set.
         attribute :force_encap
+        validates :force_encap, type: Symbol
 
         # @return [:present, :absent, nil] State of the VPN customer gateway.
         attribute :state

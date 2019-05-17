@@ -8,13 +8,13 @@ module Ansible
     module Modules
       # Manage the software update settings of a BIG-IP.
       class Bigip_software_update < Base
-        # @return [TrueClass, FalseClass, nil] Specifies whether to automatically check for updates on the F5 Networks downloads server.
+        # @return [Symbol, nil] Specifies whether to automatically check for updates on the F5 Networks downloads server.
         attribute :auto_check
-        validates :auto_check, type: MultipleTypes.new(TrueClass, FalseClass)
+        validates :auto_check, type: Symbol
 
-        # @return [Boolean, nil] Specifies whether to automatically send phone home data to the F5 Networks PhoneHome server.
+        # @return [Symbol, nil] Specifies whether to automatically send phone home data to the F5 Networks PhoneHome server.
         attribute :auto_phone_home
-        validates :auto_phone_home, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :auto_phone_home, type: Symbol
 
         # @return [:daily, :monthly, :weekly, nil] Specifies the schedule for the automatic update check.
         attribute :frequency

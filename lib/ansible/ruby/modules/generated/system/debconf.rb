@@ -24,9 +24,9 @@ module Ansible
         attribute :value
         validates :value, type: TypeGeneric.new(String)
 
-        # @return [Boolean, nil] Do not set 'seen' flag when pre-seeding.
+        # @return [Symbol, nil] Do not set 'seen' flag when pre-seeding.
         attribute :unseen
-        validates :unseen, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :unseen, type: Symbol
       end
     end
   end

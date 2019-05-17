@@ -42,8 +42,9 @@ module Ansible
         attribute :timezone
         validates :timezone, type: String
 
-        # @return [Object, nil] - Disables the local device status pages (U[my.meraki.com](my.meraki.com), U[ap.meraki.com](ap.meraki.com), U[switch.meraki.com](switch.meraki.com), U[wired.meraki.com](wired.meraki.com))\r\n
+        # @return [Symbol, nil] - Disables the local device status pages (U[my.meraki.com](my.meraki.com), U[ap.meraki.com](ap.meraki.com), U[switch.meraki.com](switch.meraki.com), U[wired.meraki.com](wired.meraki.com))\r\n
         attribute :disable_my_meraki
+        validates :disable_my_meraki, type: Symbol
       end
     end
   end

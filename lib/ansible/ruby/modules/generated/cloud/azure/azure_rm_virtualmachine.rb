@@ -32,9 +32,9 @@ module Ansible
         attribute :allocated
         validates :allocated, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
-        # @return [Boolean, nil] Use with state 'present' to restart a running VM.
+        # @return [Symbol, nil] Use with state 'present' to restart a running VM.
         attribute :restarted
-        validates :restarted, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :restarted, type: Symbol
 
         # @return [Object, nil] Valid Azure location. Defaults to location of the resource group.
         attribute :location
@@ -127,9 +127,9 @@ module Ansible
         attribute :plan
         validates :plan, type: Hash
 
-        # @return [Boolean, nil] Accept terms for marketplace images that require it,Only Azure service admin/account admin users can purchase images from the marketplace
+        # @return [Symbol, nil] Accept terms for marketplace images that require it,Only Azure service admin/account admin users can purchase images from the marketplace
         attribute :accept_terms
-        validates :accept_terms, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :accept_terms, type: Symbol
       end
     end
   end

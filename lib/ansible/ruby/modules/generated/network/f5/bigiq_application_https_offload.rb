@@ -35,9 +35,9 @@ module Ansible
         attribute :service_environment
         validates :service_environment, type: String
 
-        # @return [Boolean, nil] Collects statistics of the BIG-IP that the application is deployed to.,This parameter is only relevant when specifying a C(service_environment) which is a BIG-IP; not an SSG.
+        # @return [Symbol, nil] Collects statistics of the BIG-IP that the application is deployed to.,This parameter is only relevant when specifying a C(service_environment) which is a BIG-IP; not an SSG.
         attribute :add_analytics
-        validates :add_analytics, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :add_analytics, type: Symbol
 
         # @return [:absent, :present, nil] The state of the resource on the system.,When C(present), guarantees that the resource exists with the provided attributes.,When C(absent), removes the resource from the system.
         attribute :state

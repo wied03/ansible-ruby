@@ -35,9 +35,9 @@ module Ansible
         attribute :scheme
         validates :scheme, type: String
 
-        # @return [String, nil] whether to verify the tls certificate of the consul agent
+        # @return [:yes, :no, nil] whether to verify the tls certificate of the consul agent
         attribute :validate_certs
-        validates :validate_certs, type: String
+        validates :validate_certs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] Notes to attach to check when registering it.
         attribute :notes

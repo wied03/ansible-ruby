@@ -16,17 +16,17 @@ module Ansible
         attribute :identifier
         validates :identifier, type: String
 
-        # @return [Boolean, nil] Force disabling of default modules and override Debian warnings.
+        # @return [Symbol, nil] Force disabling of default modules and override Debian warnings.
         attribute :force
-        validates :force, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :force, type: Symbol
 
         # @return [:present, :absent, nil] Desired state of the module.
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [Boolean, nil] Ignore configuration checks about inconsistent module configuration. Especially for mpm_* modules.
+        # @return [Symbol, nil] Ignore configuration checks about inconsistent module configuration. Especially for mpm_* modules.
         attribute :ignore_configcheck
-        validates :ignore_configcheck, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :ignore_configcheck, type: Symbol
       end
     end
   end

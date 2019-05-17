@@ -16,9 +16,9 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:started, :stopped, :restarted, :reloaded], :message=>"%{value} needs to be :started, :stopped, :restarted, :reloaded"}, allow_nil: true
 
-        # @return [Boolean, nil] Whether the service should start on boot. B(At least one of state and enabled are required.)
+        # @return [Symbol, nil] Whether the service should start on boot. B(At least one of state and enabled are required.)
         attribute :enabled
-        validates :enabled, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :enabled, type: Symbol
 
         # @return [Integer, nil] If the service is being C(restarted) or C(reloaded) then sleep this many seconds between the stop and start command. This helps to workaround badly behaving services.
         attribute :sleep
@@ -34,9 +34,9 @@ module Ansible
         # @return [Object, nil] Additional arguments provided on the command line that some init scripts accept.
         attribute :arguments
 
-        # @return [Boolean, nil] Have the module daemonize as the service itself might not do so properly.,This is useful with badly written init scripts or deamons, which commonly manifests as the task hanging as it is still holding the tty or the service dying when the task is over as the connection closes the session.
+        # @return [Symbol, nil] Have the module daemonize as the service itself might not do so properly.,This is useful with badly written init scripts or deamons, which commonly manifests as the task hanging as it is still holding the tty or the service dying when the task is over as the connection closes the session.
         attribute :daemonize
-        validates :daemonize, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :daemonize, type: Symbol
       end
     end
   end

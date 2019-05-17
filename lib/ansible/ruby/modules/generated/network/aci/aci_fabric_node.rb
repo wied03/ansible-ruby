@@ -8,8 +8,9 @@ module Ansible
     module Modules
       # Manage Fabric Node Members on Cisco ACI fabrics.
       class Aci_fabric_node < Base
-        # @return [Object, nil] The pod id of the new Fabric Node Member.
+        # @return [Integer, nil] The pod id of the new Fabric Node Member.
         attribute :pod_id
+        validates :pod_id, type: Integer
 
         # @return [String, nil] Serial Number for the new Fabric Node Member.
         attribute :serial

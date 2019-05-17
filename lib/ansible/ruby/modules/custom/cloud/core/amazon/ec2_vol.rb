@@ -1,6 +1,6 @@
 # frozen_string_literal: true
+# VALIDATED_CHECKSUM: X1dyr/1KpZc3bazgpN13bCVjYWtaJarLpuQDQNp+Js8=
 
-# VALIDATED_CHECKSUM: jShIlmk7bw80Bxlb9AHqcadJGJnCdG9cYbDzNdfUHW0=
 # See LICENSE.txt for license
 
 require 'ansible/ruby/modules/generated/cloud/amazon/ec2_vol'

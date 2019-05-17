@@ -63,9 +63,9 @@ module Ansible
         attribute :ntp_address_backup
         validates :ntp_address_backup, type: String
 
-        # @return [Boolean, nil] Enable ssh access to the controller for debug purposes.,This is a controller-level setting.,rlogin/telnet will be enabled for ancient equipment where ssh is not available.
+        # @return [Symbol, nil] Enable ssh access to the controller for debug purposes.,This is a controller-level setting.,rlogin/telnet will be enabled for ancient equipment where ssh is not available.
         attribute :ssh
-        validates :ssh, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :ssh, type: Symbol
 
         # @return [Object, nil] A local path to a file to be used for debug logging
         attribute :log_path

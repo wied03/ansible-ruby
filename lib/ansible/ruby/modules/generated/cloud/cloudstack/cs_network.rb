@@ -56,9 +56,9 @@ module Ansible
         # @return [Object, nil] The isolated private VLAN for this network.
         attribute :isolated_pvlan
 
-        # @return [Boolean, nil] Cleanup old network elements.,Only considered on C(state=restarted).
+        # @return [Symbol, nil] Cleanup old network elements.,Only considered on C(state=restarted).
         attribute :clean_up
-        validates :clean_up, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :clean_up, type: Symbol
 
         # @return [:account, :domain, nil] Access control type for the VPC network tier.,Only considered on create.
         attribute :acl_type
@@ -68,8 +68,9 @@ module Ansible
         attribute :acl
         validates :acl, type: String
 
-        # @return [Object, nil] Defines whether to allow subdomains to use networks dedicated to their parent domain(s).,Should be used with C(acl_type=domain).,Only considered on create.
+        # @return [Symbol, nil] Defines whether to allow subdomains to use networks dedicated to their parent domain(s).,Should be used with C(acl_type=domain).,Only considered on create.
         attribute :subdomain_access
+        validates :subdomain_access, type: Symbol
 
         # @return [String, nil] The network domain.
         attribute :network_domain

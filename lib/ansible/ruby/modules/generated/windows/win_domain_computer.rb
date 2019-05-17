@@ -16,9 +16,9 @@ module Ansible
         attribute :sam_account_name
         validates :sam_account_name, type: String
 
-        # @return [String, nil] Specifies if an account is enabled. An enabled account requires a password. This parameter sets the Enabled property for an account object. This parameter also sets the ADS_UF_ACCOUNTDISABLE flag of the Active Directory User Account Control (UAC) attribute.
+        # @return [:yes, :no, nil] Specifies if an account is enabled. An enabled account requires a password. This parameter sets the Enabled property for an account object. This parameter also sets the ADS_UF_ACCOUNTDISABLE flag of the Active Directory User Account Control (UAC) attribute.
         attribute :enabled
-        validates :enabled, type: String
+        validates :enabled, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Array<String>, String, nil] Specifies the X.500 path of the Organizational Unit (OU) or container where the new object is created. Required when I(state=present).
         attribute :ou

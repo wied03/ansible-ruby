@@ -39,19 +39,21 @@ module Ansible
         # @return [Object, nil] Dh parameters used in ssl.,At this time, it is not configurable and is set to 2048 bits.
         attribute :dhparam
 
-        # @return [Object, nil] Enable ssl session re-use.,Default value when not specified in API or module is interpreted by Avi Controller as True.
+        # @return [Symbol, nil] Enable ssl session re-use.,Default value when not specified in API or module is interpreted by Avi Controller as True.
         attribute :enable_ssl_session_reuse
+        validates :enable_ssl_session_reuse, type: Symbol
 
         # @return [String] Name of the object.
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [Object, nil] Prefer the ssl cipher ordering presented by the client during the ssl handshake over the one specified in the ssl profile.,Default value when not specified in API or module is interpreted by Avi Controller as False.
+        # @return [Symbol, nil] Prefer the ssl cipher ordering presented by the client during the ssl handshake over the one specified in the ssl profile.,Default value when not specified in API or module is interpreted by Avi Controller as False.
         attribute :prefer_client_cipher_ordering
+        validates :prefer_client_cipher_ordering, type: Symbol
 
-        # @return [Boolean, nil] Send 'close notify' alert message for a clean shutdown of the ssl connection.,Default value when not specified in API or module is interpreted by Avi Controller as True.
+        # @return [Symbol, nil] Send 'close notify' alert message for a clean shutdown of the ssl connection.,Default value when not specified in API or module is interpreted by Avi Controller as True.
         attribute :send_close_notify
-        validates :send_close_notify, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :send_close_notify, type: Symbol
 
         # @return [Hash, nil] Sslrating settings for sslprofile.
         attribute :ssl_rating

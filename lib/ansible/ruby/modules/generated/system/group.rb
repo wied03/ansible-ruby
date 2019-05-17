@@ -20,9 +20,9 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
-        # @return [String, nil] If I(yes), indicates that the group created is a system group.
+        # @return [:yes, :no, nil] If I(yes), indicates that the group created is a system group.
         attribute :system
-        validates :system, type: String
+        validates :system, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] Forces the use of "local" command alternatives on platforms that implement it. This is useful in environments that use centralized authentification when you want to manipulate the local groups. I.E. it uses `lgroupadd` instead of `useradd`.,This requires that these commands exist on the targeted host, otherwise it will be a fatal error.
         attribute :local

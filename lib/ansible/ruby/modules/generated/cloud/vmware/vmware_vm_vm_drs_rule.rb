@@ -20,13 +20,13 @@ module Ansible
         attribute :drs_rule_name
         validates :drs_rule_name, presence: true, type: String
 
-        # @return [Boolean, nil] If set to C(True), the DRS rule will be enabled.,Effective only if C(state) is set to C(present).
+        # @return [Symbol, nil] If set to C(True), the DRS rule will be enabled.,Effective only if C(state) is set to C(present).
         attribute :enabled
-        validates :enabled, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :enabled, type: Symbol
 
-        # @return [Boolean, nil] If set to C(True), the DRS rule will be mandatory.,Effective only if C(state) is set to C(present).
+        # @return [Symbol, nil] If set to C(True), the DRS rule will be mandatory.,Effective only if C(state) is set to C(present).
         attribute :mandatory
-        validates :mandatory, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :mandatory, type: Symbol
 
         # @return [Boolean, nil] If set to C(True), the DRS rule will be an Affinity rule.,If set to C(False), the DRS rule will be an Anti-Affinity rule.,Effective only if C(state) is set to C(present).
         attribute :affinity_rule

@@ -8,9 +8,9 @@ module Ansible
     module Modules
       # Manage BIG-IP ASM policies.
       class Bigip_asm_policy < Base
-        # @return [Boolean, nil] If C(yes) will apply and activate existing inactive policy. If C(no), it will deactivate existing active policy. Generally should be C(yes) only in cases where you want to activate new or existing policy.
+        # @return [Symbol, nil] If C(yes) will apply and activate existing inactive policy. If C(no), it will deactivate existing active policy. Generally should be C(yes) only in cases where you want to activate new or existing policy.
         attribute :active
-        validates :active, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :active, type: Symbol
 
         # @return [String] The ASM policy to manage or create.
         attribute :name

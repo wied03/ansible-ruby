@@ -24,14 +24,17 @@ module Ansible
         attribute :description
         validates :description, type: String
 
-        # @return [Object, nil] Configure whether or not to check for directly connected peer.
+        # @return [Symbol, nil] Configure whether or not to check for directly connected peer.
         attribute :connected_check
+        validates :connected_check, type: Symbol
 
-        # @return [Object, nil] Configure whether or not to negotiate capability with this neighbor.
+        # @return [Symbol, nil] Configure whether or not to negotiate capability with this neighbor.
         attribute :capability_negotiation
+        validates :capability_negotiation, type: Symbol
 
-        # @return [Object, nil] Configure whether or not to enable dynamic capability.
+        # @return [Symbol, nil] Configure whether or not to enable dynamic capability.
         attribute :dynamic_capability
+        validates :dynamic_capability, type: Symbol
 
         # @return [Object, nil] Specify multihop TTL for a remote peer. Valid values are integers between 2 and 255, or keyword 'default' to disable this property.
         attribute :ebgp_multihop
@@ -44,8 +47,9 @@ module Ansible
         attribute :log_neighbor_changes
         validates :log_neighbor_changes, inclusion: {:in=>[:enable, :disable, :inherit], :message=>"%{value} needs to be :enable, :disable, :inherit"}, allow_nil: true
 
-        # @return [Object, nil] Specify whether or not to shut down this neighbor under memory pressure.
+        # @return [Symbol, nil] Specify whether or not to shut down this neighbor under memory pressure.
         attribute :low_memory_exempt
+        validates :low_memory_exempt, type: Symbol
 
         # @return [Object, nil] Specify Maximum number of peers for this neighbor prefix Valid values are between 1 and 1000, or 'default', which does not impose the limit. Note that this parameter is accepted only on neighbors with address/prefix.
         attribute :maximum_peers
@@ -65,11 +69,13 @@ module Ansible
         attribute :remove_private_as
         validates :remove_private_as, inclusion: {:in=>[:enable, :disable, :all, :"replace-as"], :message=>"%{value} needs to be :enable, :disable, :all, :\"replace-as\""}, allow_nil: true
 
-        # @return [Object, nil] Configure to administratively shutdown this neighbor.
+        # @return [Symbol, nil] Configure to administratively shutdown this neighbor.
         attribute :shutdown
+        validates :shutdown, type: Symbol
 
-        # @return [Object, nil] Configure to suppress 4-byte AS Capability.
+        # @return [Symbol, nil] Configure to suppress 4-byte AS Capability.
         attribute :suppress_4_byte_as
+        validates :suppress_4_byte_as, type: Symbol
 
         # @return [Object, nil] Specify keepalive timer value. Valid values are integers between 0 and 3600 in terms of seconds, or 'default', which is 60.
         attribute :timers_keepalive
@@ -77,8 +83,9 @@ module Ansible
         # @return [Object, nil] Specify holdtime timer value. Valid values are integers between 0 and 3600 in terms of seconds, or 'default', which is 180.
         attribute :timers_holdtime
 
-        # @return [Object, nil] Specify whether or not to only allow passive connection setup. Valid values are 'true', 'false', and 'default', which defaults to 'false'. This property can only be configured when the neighbor is in 'ip' address format without prefix length.
+        # @return [Symbol, nil] Specify whether or not to only allow passive connection setup. Valid values are 'true', 'false', and 'default', which defaults to 'false'. This property can only be configured when the neighbor is in 'ip' address format without prefix length.
         attribute :transport_passive_only
+        validates :transport_passive_only, type: Symbol
 
         # @return [String, nil] Specify source interface of BGP session and updates.
         attribute :update_source

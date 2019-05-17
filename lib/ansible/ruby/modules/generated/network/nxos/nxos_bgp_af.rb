@@ -24,30 +24,35 @@ module Ansible
         attribute :safi
         validates :safi, presence: true, inclusion: {:in=>[:unicast, :multicast, :evpn], :message=>"%{value} needs to be :unicast, :multicast, :evpn"}
 
-        # @return [Object, nil] Install a backup path into the forwarding table and provide prefix independent convergence (PIC) in case of a PE-CE link failure.
+        # @return [Symbol, nil] Install a backup path into the forwarding table and provide prefix independent convergence (PIC) in case of a PE-CE link failure.
         attribute :additional_paths_install
+        validates :additional_paths_install, type: Symbol
 
-        # @return [Object, nil] Enables the receive capability of additional paths for all of the neighbors under this address family for which the capability has not been disabled.
+        # @return [Symbol, nil] Enables the receive capability of additional paths for all of the neighbors under this address family for which the capability has not been disabled.
         attribute :additional_paths_receive
+        validates :additional_paths_receive, type: Symbol
 
         # @return [Object, nil] Configures the capability of selecting additional paths for a prefix. Valid values are a string defining the name of the route-map.
         attribute :additional_paths_selection
 
-        # @return [Object, nil] Enables the send capability of additional paths for all of the neighbors under this address family for which the capability has not been disabled.
+        # @return [Symbol, nil] Enables the send capability of additional paths for all of the neighbors under this address family for which the capability has not been disabled.
         attribute :additional_paths_send
+        validates :additional_paths_send, type: Symbol
 
-        # @return [Boolean, nil] Advertise evpn routes.
+        # @return [Symbol, nil] Advertise evpn routes.
         attribute :advertise_l2vpn_evpn
-        validates :advertise_l2vpn_evpn, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :advertise_l2vpn_evpn, type: Symbol
 
-        # @return [Object, nil] Configure client-to-client route reflection.
+        # @return [Symbol, nil] Configure client-to-client route reflection.
         attribute :client_to_client
+        validates :client_to_client, type: Symbol
 
         # @return [Object, nil] Specify dampen value for IGP metric-related changes, in seconds. Valid values are integer and keyword 'default'.
         attribute :dampen_igp_metric
 
-        # @return [Object, nil] Enable/disable route-flap dampening.
+        # @return [Symbol, nil] Enable/disable route-flap dampening.
         attribute :dampening_state
+        validates :dampening_state, type: Symbol
 
         # @return [Object, nil] Specify decay half-life in minutes for route-flap dampening. Valid values are integer and keyword 'default'.
         attribute :dampening_half_time
@@ -64,8 +69,9 @@ module Ansible
         # @return [Object, nil] Specify route suppress time for route-flap dampening. Valid values are integer and keyword 'default'.
         attribute :dampening_suppress_time
 
-        # @return [Object, nil] Default information originate.
+        # @return [Symbol, nil] Default information originate.
         attribute :default_information_originate
+        validates :default_information_originate, type: Symbol
 
         # @return [Object, nil] Sets default metrics for routes redistributed into BGP. Valid values are Integer or keyword 'default'
         attribute :default_metric
@@ -97,14 +103,16 @@ module Ansible
         # @return [Object, nil] A list of redistribute directives. Multiple redistribute entries are allowed. The list must be in the form of a nested array. the first entry of each array defines the source-protocol to redistribute from; the second entry defines a route-map name. A route-map is highly advised but may be optional on some platforms, in which case it may be omitted from the array list. For example [['direct', 'rm_direct'], ['lisp', 'rm_lisp']].
         attribute :redistribute
 
-        # @return [Object, nil] Advertises only active routes to peers.
+        # @return [Symbol, nil] Advertises only active routes to peers.
         attribute :suppress_inactive
+        validates :suppress_inactive, type: Symbol
 
         # @return [Object, nil] Apply table-map to filter routes downloaded into URIB. Valid values are a string.
         attribute :table_map
 
-        # @return [Object, nil] Filters routes rejected by the route-map and does not download them to the RIB.
+        # @return [Symbol, nil] Filters routes rejected by the route-map and does not download them to the RIB.
         attribute :table_map_filter
+        validates :table_map_filter, type: Symbol
 
         # @return [:present, :absent, nil] Determines whether the config should be present or not on the device.
         attribute :state

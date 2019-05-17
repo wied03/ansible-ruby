@@ -16,8 +16,9 @@ module Ansible
         attribute :description
         validates :description, type: String
 
-        # @return [Object, nil] Determines if the Subnet should be treated as a VIP; used when the BD is extended to multiple sites.,The APIC defaults to C(no) when unset during creation.
+        # @return [Symbol, nil] Determines if the Subnet should be treated as a VIP; used when the BD is extended to multiple sites.,The APIC defaults to C(no) when unset during creation.
         attribute :enable_vip
+        validates :enable_vip, type: Symbol
 
         # @return [String, nil] The IPv4 or IPv6 gateway address for the Subnet.
         attribute :gateway
@@ -30,8 +31,9 @@ module Ansible
         # @return [Object, nil] The IPv6 Neighbor Discovery Prefix Policy to associate with the Subnet.
         attribute :nd_prefix_policy
 
-        # @return [Object, nil] Determines if the Subnet is preferred over all available Subnets. Only one Subnet per Address Family (IPv4/IPv6). can be preferred in the Bridge Domain.,The APIC defaults to C(no) when unset during creation.
+        # @return [Symbol, nil] Determines if the Subnet is preferred over all available Subnets. Only one Subnet per Address Family (IPv4/IPv6). can be preferred in the Bridge Domain.,The APIC defaults to C(no) when unset during creation.
         attribute :preferred
+        validates :preferred, type: Symbol
 
         # @return [String, nil] The Route Profile to the associate with the Subnet.
         attribute :route_profile

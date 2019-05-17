@@ -14,9 +14,9 @@ module Ansible
         attribute :server_url
         validates :server_url, presence: true, type: String
 
-        # @return [String, nil] When using https if SSL certificate needs to be verified.
+        # @return [:yes, :no, nil] When using https if SSL certificate needs to be verified.
         attribute :validate_certs
-        validates :validate_certs, type: String
+        validates :validate_certs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] Gitlab user name.
         attribute :login_user
@@ -64,9 +64,9 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [String, nil] Require confirmation.
+        # @return [:yes, :no, nil] Require confirmation.
         attribute :confirm
-        validates :confirm, type: String
+        validates :confirm, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

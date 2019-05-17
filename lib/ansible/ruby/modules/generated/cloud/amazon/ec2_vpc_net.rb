@@ -16,9 +16,9 @@ module Ansible
         attribute :cidr_block
         validates :cidr_block, presence: true, type: String
 
-        # @return [Boolean, nil] Remove CIDRs that are associated with the VPC and are not specified in C(cidr_block).
+        # @return [Symbol, nil] Remove CIDRs that are associated with the VPC and are not specified in C(cidr_block).
         attribute :purge_cidrs
-        validates :purge_cidrs, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :purge_cidrs, type: Symbol
 
         # @return [:default, :dedicated, nil] Whether to be default or dedicated tenancy. This cannot be changed after the VPC has been created.
         attribute :tenancy

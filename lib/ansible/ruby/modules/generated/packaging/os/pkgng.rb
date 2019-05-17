@@ -16,9 +16,9 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :latest, :absent], :message=>"%{value} needs to be :present, :latest, :absent"}, allow_nil: true
 
-        # @return [Boolean, nil] Use local package base instead of fetching an updated one.
+        # @return [Symbol, nil] Use local package base instead of fetching an updated one.
         attribute :cached
-        validates :cached, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :cached, type: Symbol
 
         # @return [Array<String>, String, nil] A comma-separated list of keyvalue-pairs of the form C(<+/-/:><key>[=<value>]). A C(+) denotes adding an annotation, a C(-) denotes removing an annotation, and C(:) denotes modifying an annotation. If setting or modifying annotations, a value must be provided.
         attribute :annotation
@@ -36,9 +36,9 @@ module Ansible
         # @return [Object, nil] Pkg will execute in the given jail name or id.,Can not be used together with I(chroot) or I(rootdir) options.
         attribute :jail
 
-        # @return [Boolean, nil] Remove automatically installed packages which are no longer needed.
+        # @return [Symbol, nil] Remove automatically installed packages which are no longer needed.
         attribute :autoremove
-        validates :autoremove, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :autoremove, type: Symbol
       end
     end
   end

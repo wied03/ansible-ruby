@@ -24,9 +24,9 @@ module Ansible
         attribute :threshold
         validates :threshold, type: Integer
 
-        # @return [Boolean, nil] Forces the audit-log configuration to delete log history when log messages fullness cause immediate warning or full condition.,Warning! This will cause any existing audit-log messages to be deleted.,This is only applicable for I(full_policy=preventSystemAccess).
+        # @return [Symbol, nil] Forces the audit-log configuration to delete log history when log messages fullness cause immediate warning or full condition.,Warning! This will cause any existing audit-log messages to be deleted.,This is only applicable for I(full_policy=preventSystemAccess).
         attribute :force
-        validates :force, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :force, type: Symbol
 
         # @return [String, nil] A local path to a file to be used for debug logging.
         attribute :log_path

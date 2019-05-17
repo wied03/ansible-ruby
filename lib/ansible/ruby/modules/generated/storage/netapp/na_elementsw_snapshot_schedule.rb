@@ -12,11 +12,13 @@ module Ansible
         attribute :state
         validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
 
-        # @return [Object, nil] Pause / Resume a schedule.
+        # @return [Symbol, nil] Pause / Resume a schedule.
         attribute :paused
+        validates :paused, type: Symbol
 
-        # @return [Object, nil] Should the schedule recur?
+        # @return [Symbol, nil] Should the schedule recur?
         attribute :recurring
+        validates :recurring, type: Symbol
 
         # @return [:DaysOfWeekFrequency, :DaysOfMonthFrequency, :TimeIntervalFrequency, nil] Schedule type for creating schedule.
         attribute :schedule_type

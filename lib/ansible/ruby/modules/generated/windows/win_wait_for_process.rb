@@ -13,8 +13,9 @@ module Ansible
         attribute :process_name_exact
         validates :process_name_exact, type: String
 
-        # @return [Object, nil] RegEx pattern matching desired process(es).
+        # @return [String, nil] RegEx pattern matching desired process(es).
         attribute :process_name_pattern
+        validates :process_name_pattern, type: String
 
         # @return [Integer, nil] Number of seconds to sleep between checks.,Only applies when waiting for a process to start.  Waiting for a process to start does not have a native non-polling mechanism. Waiting for a stop uses native PowerShell and does not require polling.
         attribute :sleep
@@ -24,11 +25,13 @@ module Ansible
         attribute :process_min_count
         validates :process_min_count, type: Integer
 
-        # @return [Object, nil] The PID of the process.
+        # @return [Integer, nil] The PID of the process.
         attribute :pid
+        validates :pid, type: Integer
 
-        # @return [Object, nil] The owner of the process.,Requires PowerShell version 4.0 or newer.
+        # @return [String, nil] The owner of the process.,Requires PowerShell version 4.0 or newer.
         attribute :owner
+        validates :owner, type: String
 
         # @return [Integer, nil] Seconds to wait before checking processes.
         attribute :pre_wait_delay
@@ -38,9 +41,9 @@ module Ansible
         attribute :post_wait_delay
         validates :post_wait_delay, type: Integer
 
-        # @return [:absent, :present, nil] When checking for a running process C(present) will block execution until the process exists, or until the timeout has been reached. C(absent) will block execution untile the processs no longer exists, or until the timeout has been reached.,When waiting for C(present), the module will return changed only if the process was not present on the initial check but became present on subsequent checks.,If, while waiting for C(absent), new processes matching the supplied pattern are started, these new processes will not be included in the action.
+        # @return [String, nil] When checking for a running process C(present) will block execution until the process exists, or until the timeout has been reached. C(absent) will block execution untile the processs no longer exists, or until the timeout has been reached.,When waiting for C(present), the module will return changed only if the process was not present on the initial check but became present on subsequent checks.,If, while waiting for C(absent), new processes matching the supplied pattern are started, these new processes will not be included in the action.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
+        validates :state, type: String
 
         # @return [Integer, nil] The maximum number of seconds to wait for a for a process to start or stop before erroring out.
         attribute :timeout

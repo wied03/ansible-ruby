@@ -35,16 +35,16 @@ module Ansible
         # @return [Object, nil] The name of the table used for database-backed caching. Used by the 'createcachetable' command.
         attribute :cache_table
 
-        # @return [Boolean, nil] Clear the existing files before trying to copy or link the original file.,Used only with the 'collectstatic' command. The C(--noinput) argument will be added automatically.
+        # @return [Symbol, nil] Clear the existing files before trying to copy or link the original file.,Used only with the 'collectstatic' command. The C(--noinput) argument will be added automatically.
         attribute :clear
-        validates :clear, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :clear, type: Symbol
 
         # @return [Object, nil] The database to target. Used by the 'createcachetable', 'flush', 'loaddata', and 'syncdb' commands.
         attribute :database
 
-        # @return [String, nil] Fail the command immediately if a test fails. Used by the 'test' command.
+        # @return [:yes, :no, nil] Fail the command immediately if a test fails. Used by the 'test' command.
         attribute :failfast
-        validates :failfast, type: String
+        validates :failfast, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] A space-delimited list of fixture file names to load in the database. B(Required) by the 'loaddata' command.
         attribute :fixtures

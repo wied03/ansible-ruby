@@ -24,9 +24,9 @@ module Ansible
         attribute :sku
         validates :sku, type: String
 
-        # @return [Boolean, nil] Describe whether to host webapp on Linux worker.
+        # @return [Symbol, nil] Describe whether to host webapp on Linux worker.
         attribute :is_linux
-        validates :is_linux, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :is_linux, type: Symbol
 
         # @return [Integer, nil] Describe number of workers to be allocated.
         attribute :number_of_workers

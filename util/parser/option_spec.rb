@@ -8,27 +8,29 @@ require_relative '../option_formatter'
 
 describe Ansible::Ruby::Parser::Option do
   describe '::parse' do
-    subject(:option_data) { Ansible::Ruby::Parser::Option.parse(name, details, example) }
+    subject(:option_data) {Ansible::Ruby::Parser::Option.parse(name, details, example)}
 
-    let(:name) { 'login_user' }
-    let(:example) { false }
-    let(:required) { false }
-    let(:default) { nil }
-    let(:description) { ['The username used to authenticate with'] }
-    let(:choices) { nil }
+    let(:name) {'login_user'}
+    let(:example) {false}
+    let(:required) {false}
+    let(:default) {nil}
+    let(:description) {['The username used to authenticate with']}
+    let(:choices) {nil}
+    let(:type) {nil}
 
     let(:details) do
       {
         description: description,
         required: required,
         default: default,
-        choices: choices
+        choices: choices,
+        type: type
       }
     end
 
     context 'optional' do
       context 'yes' do
-        it { is_expected.to be_a Ansible::Ruby::Parser::OptionData }
+        it {is_expected.to be_a Ansible::Ruby::Parser::OptionData}
         it do
           is_expected.to have_attributes name: 'login_user',
                                          required?: false,
@@ -37,7 +39,7 @@ describe Ansible::Ruby::Parser::Option do
       end
 
       context 'no' do
-        let(:required) { true }
+        let(:required) {true}
 
         it do
           is_expected.to have_attributes name: 'login_user',
@@ -49,7 +51,7 @@ describe Ansible::Ruby::Parser::Option do
 
     context 'description' do
       context 'is string' do
-        let(:description) { 'The username used to authenticate with' }
+        let(:description) {'The username used to authenticate with'}
 
         it do
           is_expected.to have_attributes description: ['The username used to authenticate with'],
@@ -58,7 +60,7 @@ describe Ansible::Ruby::Parser::Option do
       end
 
       context 'contains carriage return' do
-        let(:description) { ["The username used to authenticate with \r\n something"] }
+        let(:description) {["The username used to authenticate with \r\n something"]}
 
         it do
           is_expected.to have_attributes description: ['The username used to authenticate with \\r\\n something'],
@@ -68,12 +70,12 @@ describe Ansible::Ruby::Parser::Option do
     end
 
     context 'choices' do
-      let(:choices) { %w[present absent] }
-      let(:default) { 'present' }
-      let(:required) { false }
+      let(:choices) {%w[present absent]}
+      let(:default) {'present'}
+      let(:required) {false}
 
       context 'required' do
-        let(:required) { true }
+        let(:required) {true}
 
         it do
           is_expected.to have_attributes name: 'login_user',
@@ -84,7 +86,7 @@ describe Ansible::Ruby::Parser::Option do
       end
 
       context 'not required' do
-        let(:required) { false }
+        let(:required) {false}
 
         it do
           is_expected.to have_attributes name: 'login_user',
@@ -95,8 +97,8 @@ describe Ansible::Ruby::Parser::Option do
       end
 
       context 'different types' do
-        let(:default) { 'abc' }
-        let(:choices) { [1, 'abc'] }
+        let(:default) {'abc'}
+        let(:choices) {[1, 'abc']}
 
         it do
           is_expected.to have_attributes name: 'login_user',
@@ -107,7 +109,7 @@ describe Ansible::Ruby::Parser::Option do
       end
 
       context 'no default' do
-        let(:default) { nil }
+        let(:default) {nil}
 
         it do
           is_expected.to have_attributes name: 'login_user',
@@ -120,7 +122,7 @@ describe Ansible::Ruby::Parser::Option do
       context 'no included' do
         context 'with string' do
           # is really [present, no, yes] in YAML
-          let(:choices) { ['present', true, false] }
+          let(:choices) {['present', true, false]}
 
           it do
             is_expected.to have_attributes name: 'login_user',
@@ -131,8 +133,8 @@ describe Ansible::Ruby::Parser::Option do
         end
 
         context 'boolean without string' do
-          let(:choices) { [true, false] }
-          let(:default) { nil }
+          let(:choices) {[true, false]}
+          let(:default) {nil}
 
           it do
             is_expected.to have_attributes name: 'login_user',
@@ -144,8 +146,8 @@ describe Ansible::Ruby::Parser::Option do
       end
 
       context 'integers' do
-        let(:choices) { [1, 2, 3] }
-        let(:default) { nil }
+        let(:choices) {[1, 2, 3]}
+        let(:default) {nil}
 
         it do
           is_expected.to have_attributes name: 'login_user',
@@ -156,10 +158,10 @@ describe Ansible::Ruby::Parser::Option do
       end
 
       context 'empty' do
-        let(:choices) { [] }
+        let(:choices) {[]}
 
         context 'default' do
-          let(:default) { 123 }
+          let(:default) {123}
 
           it do
             is_expected.to have_attributes name: 'login_user',
@@ -170,7 +172,7 @@ describe Ansible::Ruby::Parser::Option do
         end
 
         context 'no default' do
-          let(:default) { nil }
+          let(:default) {nil}
 
           it do
             is_expected.to have_attributes name: 'login_user',
@@ -185,7 +187,7 @@ describe Ansible::Ruby::Parser::Option do
     context 'default' do
       { String => 'foo', Integer => 1, Float => 1.5 }.each do |type, value|
         context type do
-          let(:default) { value }
+          let(:default) {value}
 
           it do
             is_expected.to have_attributes name: 'login_user',
@@ -197,7 +199,7 @@ describe Ansible::Ruby::Parser::Option do
       end
 
       context 'None string' do
-        let(:default) { 'None' }
+        let(:default) {'None'}
 
         it do
           is_expected.to have_attributes name: 'login_user',
@@ -209,7 +211,7 @@ describe Ansible::Ruby::Parser::Option do
 
       [true, false].each do |bool_test|
         context bool_test do
-          let(:default) { bool_test }
+          let(:default) {bool_test}
 
           it do
             is_expected.to have_attributes name: 'login_user',
@@ -222,7 +224,7 @@ describe Ansible::Ruby::Parser::Option do
 
       context 'flat array' do
         context 'string' do
-          let(:default) { 'hello,there' }
+          let(:default) {'hello,there'}
 
           it do
             is_expected.to have_attributes name: 'login_user',
@@ -231,11 +233,11 @@ describe Ansible::Ruby::Parser::Option do
                                            types: [TypeGeneric]
           end
 
-          it { is_expected.to have_type_generic String }
+          it {is_expected.to have_type_generic String}
         end
 
         context 'integer' do
-          let(:default) { '123,456' }
+          let(:default) {'123,456'}
 
           it do
             is_expected.to have_attributes name: 'login_user',
@@ -244,11 +246,11 @@ describe Ansible::Ruby::Parser::Option do
                                            types: [TypeGeneric]
           end
 
-          it { is_expected.to have_type_generic Integer }
+          it {is_expected.to have_type_generic Integer}
         end
 
         context 'float' do
-          let(:default) { '123.12,456.89' }
+          let(:default) {'123.12,456.89'}
 
           it do
             is_expected.to have_attributes name: 'login_user',
@@ -257,12 +259,12 @@ describe Ansible::Ruby::Parser::Option do
                                            types: [TypeGeneric]
           end
 
-          it { is_expected.to have_type_generic Float }
+          it {is_expected.to have_type_generic Float}
         end
       end
 
       context 'flat hash' do
-        let(:default) { '{"Name":"SuperService-new-AMI", "type":"SuperService"}' }
+        let(:default) {'{"Name":"SuperService-new-AMI", "type":"SuperService"}'}
 
         it do
           is_expected.to have_attributes name: 'login_user',
@@ -275,7 +277,7 @@ describe Ansible::Ruby::Parser::Option do
 
     context 'from example' do
       context 'on its own' do
-        let(:name) { 'name' }
+        let(:name) {'name'}
         let(:example) do
           [
             { 'postgresql_db' => 'name=acme' },
@@ -291,7 +293,7 @@ describe Ansible::Ruby::Parser::Option do
       end
 
       context 'list of tasks' do
-        let(:name) { 'username' }
+        let(:name) {'username'}
         let(:example) do
           {
             'tasks' => [
@@ -311,8 +313,8 @@ describe Ansible::Ruby::Parser::Option do
       end
 
       context 'false value/no examples' do
-        let(:name) { 'name' }
-        let(:example) { false }
+        let(:name) {'name'}
+        let(:example) {false}
 
         it do
           is_expected.to have_attributes name: 'name',
@@ -323,7 +325,7 @@ describe Ansible::Ruby::Parser::Option do
 
       # some are more inline, this is how cloudformation.py is
       context 'list of tasks' do
-        let(:name) { 'name' }
+        let(:name) {'name'}
 
         let(:example) do
           [
@@ -345,7 +347,7 @@ describe Ansible::Ruby::Parser::Option do
       end
 
       context 'Ansible variable' do
-        let(:name) { 'name' }
+        let(:name) {'name'}
 
         let(:example) do
           [
@@ -359,7 +361,7 @@ describe Ansible::Ruby::Parser::Option do
         end
 
         context 'normal' do
-          let(:variable) { "{{ lookup('file','policy.json') }}" }
+          let(:variable) {"{{ lookup('file','policy.json') }}"}
 
           it do
             is_expected.to have_attributes name: 'name',
@@ -369,7 +371,7 @@ describe Ansible::Ruby::Parser::Option do
         end
 
         context 'leading spaces' do
-          let(:variable) { "  {{ lookup('file','policy.json') }}" }
+          let(:variable) {"  {{ lookup('file','policy.json') }}"}
 
           it do
             is_expected.to have_attributes name: 'name',
@@ -380,7 +382,7 @@ describe Ansible::Ruby::Parser::Option do
       end
 
       context 'mix of hash and inline' do
-        let(:name) { 'stack_name' }
+        let(:name) {'stack_name'}
 
         let(:example) do
           [
@@ -399,7 +401,7 @@ describe Ansible::Ruby::Parser::Option do
       end
 
       context 'play type syntax' do
-        let(:name) { 'something' }
+        let(:name) {'something'}
 
         let(:example) do
           [
@@ -419,7 +421,7 @@ describe Ansible::Ruby::Parser::Option do
       end
 
       context 'hash' do
-        let(:name) { 'something' }
+        let(:name) {'something'}
 
         let(:example) do
           [
@@ -443,7 +445,7 @@ describe Ansible::Ruby::Parser::Option do
       end
 
       context 'args' do
-        let(:name) { 'something' }
+        let(:name) {'something'}
 
         let(:example) do
           [
@@ -467,7 +469,7 @@ describe Ansible::Ruby::Parser::Option do
       end
 
       context 'playbook' do
-        let(:name) { 'something' }
+        let(:name) {'something'}
 
         let(:example) do
           [
@@ -495,7 +497,7 @@ describe Ansible::Ruby::Parser::Option do
       end
 
       context 'multiple equals' do
-        let(:name) { 'name' }
+        let(:name) {'name'}
 
         let(:example) do
           [
@@ -511,7 +513,7 @@ describe Ansible::Ruby::Parser::Option do
       end
 
       context 'quoted' do
-        let(:name) { 'template' }
+        let(:name) {'template'}
         let(:example) do
           [
             { 'postgresql_db' => 'name=acme' },
@@ -527,7 +529,7 @@ describe Ansible::Ruby::Parser::Option do
       end
 
       context 'flat array' do
-        let(:name) { 'name' }
+        let(:name) {'name'}
 
         let(:example) do
           [
@@ -541,11 +543,11 @@ describe Ansible::Ruby::Parser::Option do
                                          types: [TypeGeneric]
         end
 
-        it { is_expected.to have_type_generic Integer }
+        it {is_expected.to have_type_generic Integer}
       end
 
       context 'example has multiple types' do
-        let(:name) { 'lines' }
+        let(:name) {'lines'}
 
         let(:example) do
           [
@@ -570,7 +572,7 @@ describe Ansible::Ruby::Parser::Option do
       end
 
       context 'example has array' do
-        let(:name) { 'lines' }
+        let(:name) {'lines'}
 
         context 'array of different types' do
           let(:example) do
@@ -589,7 +591,7 @@ describe Ansible::Ruby::Parser::Option do
                                            types: [TypeGeneric]
           end
 
-          it { is_expected.to have_type_generic String }
+          it {is_expected.to have_type_generic String}
         end
 
         context 'only array' do
@@ -614,7 +616,7 @@ describe Ansible::Ruby::Parser::Option do
                                            types: [TypeGeneric]
           end
 
-          it { is_expected.to have_type_generic String }
+          it {is_expected.to have_type_generic String}
         end
 
         context 'array comes before non-array value' do
@@ -639,7 +641,7 @@ describe Ansible::Ruby::Parser::Option do
                                            types: [TypeGeneric]
           end
 
-          it { is_expected.to have_type_generic String }
+          it {is_expected.to have_type_generic String}
         end
 
         context 'array comes after non-array value' do
@@ -664,12 +666,12 @@ describe Ansible::Ruby::Parser::Option do
                                            types: [TypeGeneric]
           end
 
-          it { is_expected.to have_type_generic String }
+          it {is_expected.to have_type_generic String}
         end
       end
 
       context 'double equals' do
-        let(:name) { 'lines' }
+        let(:name) {'lines'}
         let(:example) do
           [
             {
@@ -690,8 +692,8 @@ describe Ansible::Ruby::Parser::Option do
       end
 
       context 'empty choices' do
-        let(:name) { 'username' }
-        let(:choices) { [] }
+        let(:name) {'username'}
+        let(:choices) {[]}
         let(:example) do
           {
             'tasks' => [
@@ -711,7 +713,7 @@ describe Ansible::Ruby::Parser::Option do
       end
 
       context 'multiple types' do
-        let(:name) { 'lines' }
+        let(:name) {'lines'}
         let(:example) do
           [
             {
@@ -733,7 +735,108 @@ describe Ansible::Ruby::Parser::Option do
                                          types: [TypeGeneric]
         end
 
-        it { is_expected.to have_type_generic String, Hash }
+        it {is_expected.to have_type_generic String, Hash}
+      end
+    end
+
+    context 'type provided' do
+      context 'int' do
+        let(:type) {'int'}
+
+        it do
+          is_expected.to have_attributes name: 'login_user',
+                                         types: [Integer],
+                                         choices: nil
+        end
+      end
+
+      context 'string' do
+        let(:type) {'str'}
+
+        context 'without choices' do
+          it do
+            is_expected.to have_attributes name: 'login_user',
+                                           types: [String],
+                                           choices: nil
+          end
+        end
+
+        context 'path' do
+          let(:type) {'path'}
+
+          it do
+            is_expected.to have_attributes name: 'login_user',
+                                           types: [String],
+                                           choices: nil
+          end
+        end
+
+        context 'with choices' do
+          let(:choices) {
+            %w(a b)
+          }
+
+          it do
+            is_expected.to have_attributes name: 'login_user',
+                                           types: [Symbol],
+                                           choices: %i[a b]
+          end
+        end
+      end
+
+      context 'bool' do
+        let(:type) {'bool'}
+
+        context 'yes/no' do
+          let(:default) {'no'}
+
+          it do
+            is_expected.to have_attributes name: 'login_user',
+                                           types: [Symbol],
+                                           choices: %i[yes no]
+          end
+        end
+
+        context 'True/False' do
+          let(:default) {'True'}
+
+          it do
+            is_expected.to have_attributes name: 'login_user',
+                                           choices: [true, false],
+                                           types: include(TrueClass, FalseClass)
+          end
+        end
+
+        context 'true/false' do
+          let(:default) {true}
+
+          it do
+            is_expected.to have_attributes name: 'login_user',
+                                           choices: [true, false],
+                                           types: include(TrueClass, FalseClass)
+          end
+        end
+      end
+
+      context 'list' do
+        let(:type) {'list'}
+
+        it do
+          is_expected.to have_attributes name: 'login_user',
+                                         types: [TypeGeneric],
+                                         choices: nil
+        end
+        it {is_expected.to have_type_generic String}
+      end
+
+      context 'dict' do
+        let(:type) {'dict'}
+
+        it do
+          is_expected.to have_attributes name: 'login_user',
+                                         types: [Hash],
+                                         choices: nil
+        end
       end
     end
   end

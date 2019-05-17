@@ -28,9 +28,9 @@ module Ansible
         attribute :expression
         validates :expression, type: Hash
 
-        # @return [Boolean, nil] Enable or disable the alert. Required if state is "present".
+        # @return [Symbol, nil] Enable or disable the alert. Required if state is "present".
         attribute :enabled
-        validates :enabled, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :enabled, type: Symbol
 
         # @return [Hash, nil] Additional alert options, such as notification type and frequency
         attribute :options

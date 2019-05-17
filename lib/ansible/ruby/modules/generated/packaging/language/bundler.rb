@@ -24,25 +24,25 @@ module Ansible
         attribute :exclude_groups
         validates :exclude_groups, type: String
 
-        # @return [String, nil] Only applies if state is C(present). If set removes any gems on the target host that are not in the gemfile
+        # @return [:yes, :no, nil] Only applies if state is C(present). If set removes any gems on the target host that are not in the gemfile
         attribute :clean
-        validates :clean, type: String
+        validates :clean, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] Only applies if state is C(present). The path to the gemfile to use to install gems.
         attribute :gemfile
         validates :gemfile, type: String
 
-        # @return [String, nil] If set only installs gems from the cache on the target host
+        # @return [:yes, :no, nil] If set only installs gems from the cache on the target host
         attribute :local
-        validates :local, type: String
+        validates :local, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Only applies if state is C(present). If set it will install gems in ./vendor/bundle instead of the default location. Requires a Gemfile.lock file to have been created prior
+        # @return [:yes, :no, nil] Only applies if state is C(present). If set it will install gems in ./vendor/bundle instead of the default location. Requires a Gemfile.lock file to have been created prior
         attribute :deployment_mode
-        validates :deployment_mode, type: String
+        validates :deployment_mode, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Only applies if state is C(present). Installs gems in the local user's cache or for all users
+        # @return [:yes, :no, nil] Only applies if state is C(present). Installs gems in the local user's cache or for all users
         attribute :user_install
-        validates :user_install, type: String
+        validates :user_install, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] Only applies if state is C(present). Specifies the directory to install the gems into. If C(chdir) is set then this path is relative to C(chdir)
         attribute :gem_path

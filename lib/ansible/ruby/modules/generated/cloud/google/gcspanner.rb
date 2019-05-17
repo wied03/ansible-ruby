@@ -20,9 +20,9 @@ module Ansible
         attribute :database_name
         validates :database_name, type: String
 
-        # @return [String, nil] To delete an instance, this argument must exist and be true (along with state being equal to absent).
+        # @return [:yes, :no, nil] To delete an instance, this argument must exist and be true (along with state being equal to absent).
         attribute :force_instance_delete
-        validates :force_instance_delete, type: String
+        validates :force_instance_delete, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] Name of Instance to display.,If not specified, instance_id will be used instead.
         attribute :instance_display_name

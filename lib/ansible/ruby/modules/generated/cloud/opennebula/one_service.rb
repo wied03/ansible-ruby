@@ -33,9 +33,9 @@ module Ansible
         attribute :service_name
         validates :service_name, type: String
 
-        # @return [Boolean, nil] Setting C(unique=yes) will make sure that there is only one service instance running with a name set with C(service_name) when,instantiating a service from a template specified with C(template_id)/C(template_name). Check examples below.
+        # @return [Symbol, nil] Setting C(unique=yes) will make sure that there is only one service instance running with a name set with C(service_name) when,instantiating a service from a template specified with C(template_id)/C(template_name). Check examples below.
         attribute :unique
-        validates :unique, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :unique, type: Symbol
 
         # @return [:present, :absent, nil] C(present) - instantiate a service from a template specified with C(template_id)/C(template_name).,C(absent) - terminate an instance of a service specified with C(service_id)/C(service_name).
         attribute :state
@@ -53,9 +53,9 @@ module Ansible
         attribute :group_id
         validates :group_id, type: Integer
 
-        # @return [Boolean, nil] Wait for the instance to reach RUNNING state after DEPLOYING or COOLDOWN state after SCALING
+        # @return [Symbol, nil] Wait for the instance to reach RUNNING state after DEPLOYING or COOLDOWN state after SCALING
         attribute :wait
-        validates :wait, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :wait, type: Symbol
 
         # @return [Integer, nil] How long before wait gives up, in seconds
         attribute :wait_timeout
@@ -72,9 +72,9 @@ module Ansible
         attribute :cardinality
         validates :cardinality, type: Integer
 
-        # @return [Boolean, nil] Force the new cardinality even if it is outside the limits
+        # @return [Symbol, nil] Force the new cardinality even if it is outside the limits
         attribute :force
-        validates :force, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :force, type: Symbol
       end
     end
   end

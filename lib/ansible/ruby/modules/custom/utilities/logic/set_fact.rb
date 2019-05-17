@@ -1,6 +1,6 @@
 # frozen_string_literal: true
+# VALIDATED_CHECKSUM: 2BTyJUZBEmCt2UmvkBp0hR8MTHLeK1wtT4WWUrcm120=
 
-# VALIDATED_CHECKSUM: jeltXEzVokfg8s9HHrEoud7sKIRzUS4vmA3QVeazoo0=
 require 'ansible/ruby/modules/generated/utilities/logic/set_fact'
 require 'ansible/ruby/modules/free_form'
 

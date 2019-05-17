@@ -44,9 +44,9 @@ module Ansible
         attribute :service_principal
         validates :service_principal, type: TypeGeneric.new(Hash)
 
-        # @return [Boolean] Should VM Diagnostics be enabled for the Container Service VM's.
+        # @return [Symbol] Should VM Diagnostics be enabled for the Container Service VM's.
         attribute :diagnostics_profile
-        validates :diagnostics_profile, presence: true, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}
+        validates :diagnostics_profile, presence: true, type: Symbol
       end
     end
   end

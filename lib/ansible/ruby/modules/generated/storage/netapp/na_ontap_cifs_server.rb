@@ -35,8 +35,9 @@ module Ansible
         # @return [Object, nil] The Organizational Unit (OU) within the Windows Active Directory this CIFS server belongs to.
         attribute :ou
 
-        # @return [Object, nil] If this is set and a machine account with the same name as specified in 'cifs_server_name' exists in the Active Directory, it will be overwritten and reused.
+        # @return [Symbol, nil] If this is set and a machine account with the same name as specified in 'cifs_server_name' exists in the Active Directory, it will be overwritten and reused.
         attribute :force
+        validates :force, type: Symbol
 
         # @return [String] The name of the vserver to use.
         attribute :vserver

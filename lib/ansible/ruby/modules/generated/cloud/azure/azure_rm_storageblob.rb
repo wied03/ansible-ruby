@@ -47,9 +47,9 @@ module Ansible
         attribute :dest
         validates :dest, type: String
 
-        # @return [Boolean, nil] Overwrite existing blob or file when uploading or downloading. Force deletion of a container that contains blobs.
+        # @return [Symbol, nil] Overwrite existing blob or file when uploading or downloading. Force deletion of a container that contains blobs.
         attribute :force
-        validates :force, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :force, type: Symbol
 
         # @return [String] Name of the resource group to use.
         attribute :resource_group

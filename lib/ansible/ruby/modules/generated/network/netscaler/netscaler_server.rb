@@ -30,9 +30,9 @@ module Ansible
         attribute :domainresolveretry
         validates :domainresolveretry, type: Integer
 
-        # @return [Boolean, nil] Support IPv6 addressing mode. If you configure a server with the IPv6 addressing mode, you cannot use the server in the IPv4 addressing mode.
+        # @return [Symbol, nil] Support IPv6 addressing mode. If you configure a server with the IPv6 addressing mode, you cannot use the server in the IPv4 addressing mode.
         attribute :ipv6address
-        validates :ipv6address, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :ipv6address, type: Symbol
 
         # @return [Object, nil] Any information about the server.
         attribute :comment
@@ -40,15 +40,16 @@ module Ansible
         # @return [Object, nil] Integer value that uniquely identifies the traffic domain in which you want to configure the entity. If you do not specify an ID, the entity becomes part of the default traffic domain, which has an ID of 0.,Minimum value = C(0),Maximum value = C(4094)
         attribute :td
 
-        # @return [Object, nil] Shut down gracefully, without accepting any new connections, and disabling each service when all of its connections are closed.,This option is meaningful only when setting the I(disabled) option to C(true)
+        # @return [Symbol, nil] Shut down gracefully, without accepting any new connections, and disabling each service when all of its connections are closed.,This option is meaningful only when setting the I(disabled) option to C(true)
         attribute :graceful
+        validates :graceful, type: Symbol
 
         # @return [Object, nil] Time, in seconds, after which all the services configured on the server are disabled.,This option is meaningful only when setting the I(disabled) option to C(true)
         attribute :delay
 
-        # @return [Boolean, nil] When set to C(true) the server state will be set to C(disabled).,When set to C(false) the server state will be set to C(enabled).,Note that due to limitations of the underlying NITRO API a C(disabled) state change alone does not cause the module result to report a changed status.
+        # @return [Symbol, nil] When set to C(true) the server state will be set to C(disabled).,When set to C(false) the server state will be set to C(enabled).,Note that due to limitations of the underlying NITRO API a C(disabled) state change alone does not cause the module result to report a changed status.
         attribute :disabled
-        validates :disabled, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :disabled, type: Symbol
       end
     end
   end

@@ -34,9 +34,9 @@ module Ansible
         attribute :cron_file
         validates :cron_file, type: String
 
-        # @return [String, nil] If set, create a backup of the crontab before it is modified. The location of the backup is returned in the C(backup) variable by this module.
+        # @return [:yes, :no, nil] If set, create a backup of the crontab before it is modified. The location of the backup is returned in the C(backup) variable by this module.
         attribute :backup
-        validates :backup, type: String
+        validates :backup, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

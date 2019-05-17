@@ -8,9 +8,9 @@ module Ansible
     module Modules
       # Retrieve facts about one or more oVirt/RHV virtual machines relate to a storage domain.
       class Ovirt_storage_vm_facts < Base
-        # @return [Boolean, nil] Flag which indicates whether to get unregistered virtual machines which contain one or more disks which reside on a storage domain or diskless virtual machines.
+        # @return [Symbol, nil] Flag which indicates whether to get unregistered virtual machines which contain one or more disks which reside on a storage domain or diskless virtual machines.
         attribute :unregistered
-        validates :unregistered, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :unregistered, type: Symbol
 
         # @return [Object, nil] Sets the maximum number of virtual machines to return. If not specified all the virtual machines are returned.
         attribute :max

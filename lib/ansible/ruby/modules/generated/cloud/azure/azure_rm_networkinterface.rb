@@ -42,9 +42,9 @@ module Ansible
         attribute :private_ip_allocation_method
         validates :private_ip_allocation_method, inclusion: {:in=>[:Dynamic, :Static], :message=>"%{value} needs to be :Dynamic, :Static"}, allow_nil: true
 
-        # @return [String, nil] (Deprecate) When creating a network interface, if no public IP address name is provided a default public IP address will be created. Set to false, if you do not want a public IP address automatically created.,This option will be deprecated in 2.9, use I(ip_configurations) instead.
+        # @return [:yes, :no, nil] (Deprecate) When creating a network interface, if no public IP address name is provided a default public IP address will be created. Set to false, if you do not want a public IP address automatically created.,This option will be deprecated in 2.9, use I(ip_configurations) instead.
         attribute :public_ip
-        validates :public_ip, type: String
+        validates :public_ip, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] (Deprecate) Name of an existing public IP address object to associate with the security group.,This option will be deprecated in 2.9, use I(ip_configurations) instead.
         attribute :public_ip_address_name
@@ -57,9 +57,9 @@ module Ansible
         attribute :ip_configurations
         validates :ip_configurations, type: TypeGeneric.new(Hash)
 
-        # @return [Boolean, nil] Specifies whether the network interface should be created with the accelerated networking feature or not
+        # @return [Symbol, nil] Specifies whether the network interface should be created with the accelerated networking feature or not
         attribute :enable_accelerated_networking
-        validates :enable_accelerated_networking, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :enable_accelerated_networking, type: Symbol
 
         # @return [Boolean, nil] Specifies whether a default security group should be be created with the NIC. Only applies when creating a new NIC.
         attribute :create_with_security_group
@@ -72,9 +72,9 @@ module Ansible
         # @return [Object, nil] When a default security group is created for a Linux host a rule will be added allowing inbound TCP connections to the default SSH port 22, and for a Windows host rules will be added allowing inbound access to RDP ports 3389 and 5986. Override the default ports by providing a list of open ports.
         attribute :open_ports
 
-        # @return [Boolean, nil] Whether to enable IP forwarding
+        # @return [Symbol, nil] Whether to enable IP forwarding
         attribute :enable_ip_forwarding
-        validates :enable_ip_forwarding, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :enable_ip_forwarding, type: Symbol
 
         # @return [Array<String>, String, nil] Which DNS servers should the NIC lookup,List of IP's
         attribute :dns_servers

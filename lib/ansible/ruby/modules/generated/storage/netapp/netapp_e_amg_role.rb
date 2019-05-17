@@ -32,9 +32,9 @@ module Ansible
         attribute :role
         validates :role, presence: true, inclusion: {:in=>[:primary, :secondary], :message=>"%{value} needs to be :primary, :secondary"}
 
-        # @return [Boolean, nil] Whether to avoid synchronization prior to role reversal
+        # @return [Symbol, nil] Whether to avoid synchronization prior to role reversal
         attribute :noSync
-        validates :noSync, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :noSync, type: Symbol
 
         # @return [Boolean, nil] Whether to force the role reversal regardless of the online-state of the primary
         attribute :force

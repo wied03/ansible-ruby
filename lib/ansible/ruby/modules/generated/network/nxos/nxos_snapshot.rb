@@ -55,9 +55,9 @@ module Ansible
         # @return [Object, nil] Specify the tags used to distinguish among row entries, to be used when C(action=add).
         attribute :element_key2
 
-        # @return [String, nil] Specify to locally store a new created snapshot, to be used when C(action=create).
+        # @return [:yes, :no, nil] Specify to locally store a new created snapshot, to be used when C(action=create).
         attribute :save_snapshot_locally
-        validates :save_snapshot_locally, type: String
+        validates :save_snapshot_locally, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] Specify the path of the file where new created snapshot or snapshots comparison will be stored, to be used when C(action=create) and C(save_snapshot_locally=true) or C(action=compare).
         attribute :path

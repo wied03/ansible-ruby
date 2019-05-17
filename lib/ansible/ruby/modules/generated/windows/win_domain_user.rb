@@ -16,9 +16,9 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:absent, :present, :query], :message=>"%{value} needs to be :absent, :present, :query"}, allow_nil: true
 
-        # @return [String, nil] C(yes) will enable the user account.,C(no) will disable the account.
+        # @return [:yes, :no, nil] C(yes) will enable the user account.,C(no) will disable the account.
         attribute :enabled
-        validates :enabled, type: String
+        validates :enabled, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:no, nil] C(no) will unlock the user account if locked. Note that there is not a way to lock an account as an administrator. Accounts are locked due to user actions; as an admin, you may only unlock a locked account. If you wish to administratively disable an account, set I(enabled) to C(no).
         attribute :account_locked
@@ -43,14 +43,17 @@ module Ansible
         attribute :update_password
         validates :update_password, inclusion: {:in=>[:always, :on_create], :message=>"%{value} needs to be :always, :on_create"}, allow_nil: true
 
-        # @return [Object, nil] C(yes) will require the user to change their password at next login.,C(no) will clear the expired password flag.,This is mutually exclusive with I(password_never_expires).
+        # @return [Symbol, nil] C(yes) will require the user to change their password at next login.,C(no) will clear the expired password flag.,This is mutually exclusive with I(password_never_expires).
         attribute :password_expired
+        validates :password_expired, type: Symbol
 
-        # @return [Object, nil] C(yes) will set the password to never expire.,C(no) will allow the password to expire.,This is mutually exclusive with I(password_expired).
+        # @return [Symbol, nil] C(yes) will set the password to never expire.,C(no) will allow the password to expire.,This is mutually exclusive with I(password_expired).
         attribute :password_never_expires
+        validates :password_never_expires, type: Symbol
 
-        # @return [Object, nil] C(yes) will prevent the user from changing their password.,C(no) will allow the user to change their password.
+        # @return [Symbol, nil] C(yes) will prevent the user from changing their password.,C(no) will allow the user to change their password.
         attribute :user_cannot_change_password
+        validates :user_cannot_change_password, type: Symbol
 
         # @return [String, nil] Configures the user's first name (given name).
         attribute :firstname

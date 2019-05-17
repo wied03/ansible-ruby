@@ -53,9 +53,9 @@ module Ansible
         # @return [Object, nil] Server name. The value is a string of 1 to 255 case-sensitive characters.
         attribute :server_domain
 
-        # @return [String, nil] Use the default VPN or not.
+        # @return [:yes, :no, nil] Use the default VPN or not.
         attribute :is_default_vpn
-        validates :is_default_vpn, type: String
+        validates :is_default_vpn, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] VPN name on a log server. The value is a string of 1 to 31 case-sensitive characters. The default value is _public_.
         attribute :vrf_name

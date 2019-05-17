@@ -20,9 +20,9 @@ module Ansible
         attribute :attribute_string
         validates :attribute_string, type: TypeGeneric.new(String)
 
-        # @return [String, nil] Enables or disables remote access for the specified group of remotely authenticated users.,When creating a new remote role, if this parameter is not specified, the default is C(yes).
+        # @return [Symbol, nil] Enables or disables remote access for the specified group of remotely authenticated users.,When creating a new remote role, if this parameter is not specified, the default is C(yes).
         attribute :remote_access
-        validates :remote_access, type: String
+        validates :remote_access, type: Symbol
 
         # @return [String, nil] Specifies the authorization (level of access) for the account.,When creating a new remote role, if this parameter is not provided, the default is C(none).,The C(partition_access) parameter controls which partitions the account can access.,The chosen role may affect the partitions that one is allowed to specify. Specifically, roles such as C(administrator), C(auditor) and C(resource-administrator) required a C(partition_access) of C(all).,A set of pre-existing roles ship with the system. They are C(none), C(guest), C(operator), C(application-editor), C(manager), C(certificate-manager), C(irule-manager), C(user-manager), C(resource-administrator), C(auditor), C(administrator), C(firewall-manager).
         attribute :assigned_role

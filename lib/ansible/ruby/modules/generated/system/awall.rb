@@ -16,9 +16,9 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
 
-        # @return [String, nil] Activate the new firewall rules. Can be run with other steps or on it's own.
+        # @return [:yes, :no, nil] Activate the new firewall rules. Can be run with other steps or on it's own.
         attribute :activate
-        validates :activate, type: String
+        validates :activate, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

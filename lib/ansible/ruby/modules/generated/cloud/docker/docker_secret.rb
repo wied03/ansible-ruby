@@ -20,9 +20,9 @@ module Ansible
         attribute :labels
         validates :labels, type: Hash
 
-        # @return [Boolean, nil] Use with state C(present) to always remove and recreate an existing secret.,If I(true), an existing secret will be replaced, even if it has not changed.
+        # @return [Symbol, nil] Use with state C(present) to always remove and recreate an existing secret.,If I(true), an existing secret will be replaced, even if it has not changed.
         attribute :force
-        validates :force, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :force, type: Symbol
 
         # @return [String] The name of the secret.
         attribute :name

@@ -54,13 +54,13 @@ module Ansible
         attribute :zone
         validates :zone, type: String
 
-        # @return [String, nil] Wait for cache cluster result before returning
+        # @return [:yes, :no, nil] Wait for cache cluster result before returning
         attribute :wait
-        validates :wait, type: String
+        validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Whether to destroy and recreate an existing cache cluster if necessary in order to modify its state
+        # @return [:yes, :no, nil] Whether to destroy and recreate an existing cache cluster if necessary in order to modify its state
         attribute :hard_modify
-        validates :hard_modify, type: String
+        validates :hard_modify, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

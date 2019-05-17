@@ -40,9 +40,9 @@ module Ansible
         attribute :rxtx_factor
         validates :rxtx_factor, type: Float
 
-        # @return [String, nil] Make flavor accessible to the public.
+        # @return [:yes, :no, nil] Make flavor accessible to the public.
         attribute :is_public
-        validates :is_public, type: String
+        validates :is_public, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] ID for the flavor. This is optional as a unique UUID will be assigned if a value is not specified.
         attribute :flavorid

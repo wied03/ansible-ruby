@@ -31,11 +31,13 @@ module Ansible
         # @return [Object, nil] List of names of the network label to be assigned to bond or interface.
         attribute :labels
 
-        # @return [Object, nil] If I(true) verify connectivity between host and engine.,Network configuration changes will be rolled back if connectivity between engine and the host is lost after changing network configuration.
+        # @return [Symbol, nil] If I(true) verify connectivity between host and engine.,Network configuration changes will be rolled back if connectivity between engine and the host is lost after changing network configuration.
         attribute :check
+        validates :check, type: Symbol
 
-        # @return [Object, nil] If I(true) network configuration will be persistent, by default they are temporary.
+        # @return [Symbol, nil] If I(true) network configuration will be persistent, by default they are temporary.
         attribute :save
+        validates :save, type: Symbol
       end
     end
   end

@@ -16,8 +16,9 @@ module Ansible
         attribute :description
         validates :description, type: String
 
-        # @return [Object, nil] Force host name even if not in DNS.
+        # @return [Symbol, nil] Force host name even if not in DNS.
         attribute :force
+        validates :force, type: Symbol
 
         # @return [String, nil] Add the host to DNS with this IP address.
         attribute :ip_address
@@ -47,13 +48,13 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent, :enabled, :disabled], :message=>"%{value} needs to be :present, :absent, :enabled, :disabled"}, allow_nil: true
 
-        # @return [Boolean, nil] If set C("True") with state as C("absent"), then removes DNS records of the host managed by FreeIPA DNS.,This option has no effect for states other than "absent".
+        # @return [Symbol, nil] If set C("True") with state as C("absent"), then removes DNS records of the host managed by FreeIPA DNS.,This option has no effect for states other than "absent".
         attribute :update_dns
-        validates :update_dns, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :update_dns, type: Symbol
 
-        # @return [Boolean, nil] Generate a random password to be used in bulk enrollment
+        # @return [Symbol, nil] Generate a random password to be used in bulk enrollment
         attribute :random_password
-        validates :random_password, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :random_password, type: Symbol
       end
     end
   end

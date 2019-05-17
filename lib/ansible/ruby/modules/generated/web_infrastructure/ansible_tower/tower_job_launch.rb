@@ -34,9 +34,9 @@ module Ansible
         # @return [Object, nil] Specific tags to use for from playbook.
         attribute :tags
 
-        # @return [String, nil] Disable launching jobs from job template.
+        # @return [:yes, :no, nil] Disable launching jobs from job template.
         attribute :use_job_endpoint
-        validates :use_job_endpoint, type: String
+        validates :use_job_endpoint, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

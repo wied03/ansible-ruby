@@ -29,9 +29,9 @@ module Ansible
         attribute :encrypt
         validates :encrypt, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
-        # @return [Integer, nil] The timeout in seconds to wait when receiving the initial SMB negotiate response from the server.
+        # @return [String, nil] The timeout in seconds to wait when receiving the initial SMB negotiate response from the server.
         attribute :connection_timeout
-        validates :connection_timeout, type: Integer
+        validates :connection_timeout, type: String
 
         # @return [String] The executable to run on the Windows host.
         attribute :executable
@@ -45,9 +45,9 @@ module Ansible
         attribute :working_directory
         validates :working_directory, type: String
 
-        # @return [Boolean, nil] Will run the command as a detached process and the module returns immediately after starting the processs while the process continues to run in the background.,The I(stdout) and I(stderr) return values will be null when this is set to C(yes).,The I(stdin) option does not work with this type of process.,The I(rc) return value is not set when this is C(yes)
+        # @return [Symbol, nil] Will run the command as a detached process and the module returns immediately after starting the processs while the process continues to run in the background.,The I(stdout) and I(stderr) return values will be null when this is set to C(yes).,The I(stdin) option does not work with this type of process.,The I(rc) return value is not set when this is C(yes)
         attribute :asynchronous
-        validates :asynchronous, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :asynchronous, type: Symbol
 
         # @return [Boolean, nil] Runs the remote command with the user's profile loaded.
         attribute :load_profile
@@ -61,25 +61,25 @@ module Ansible
         attribute :process_password
         validates :process_password, type: String
 
-        # @return [:limited, :default, :elevated, nil] The integrity level of the process when I(process_username) is defined and is not equal to C(System).,When C(default), the default integrity level based on the system setup.,When C(elevated), the command will be run with Administrative rights.,When C(limited), the command will be forced to run with non-Administrative rights.
+        # @return [String, nil] The integrity level of the process when I(process_username) is defined and is not equal to C(System).,When C(default), the default integrity level based on the system setup.,When C(elevated), the command will be run with Administrative rights.,When C(limited), the command will be forced to run with non-Administrative rights.
         attribute :integrity_level
-        validates :integrity_level, inclusion: {:in=>[:limited, :default, :elevated], :message=>"%{value} needs to be :limited, :default, :elevated"}, allow_nil: true
+        validates :integrity_level, type: String
 
-        # @return [Boolean, nil] Will run the process as an interactive process that shows a process Window of the Windows session specified by I(interactive_session).,The I(stdout) and I(stderr) return values will be null when this is set to C(yes).,The I(stdin) option does not work with this type of process.
+        # @return [Symbol, nil] Will run the process as an interactive process that shows a process Window of the Windows session specified by I(interactive_session).,The I(stdout) and I(stderr) return values will be null when this is set to C(yes).,The I(stdin) option does not work with this type of process.
         attribute :interactive
-        validates :interactive, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :interactive, type: Symbol
 
         # @return [Integer, nil] The Windows session ID to use when displaying the interactive process on the remote Windows host.,This is only valid when I(interactive) is C(yes).,The default is C(0) which is the console session of the Windows host.
         attribute :interactive_session
         validates :interactive_session, type: Integer
 
-        # @return [:above_normal, :below_normal, :high, :idle, :normal, :realtime, nil] Set the command's priority on the Windows host.,See U(https://msdn.microsoft.com/en-us/library/windows/desktop/ms683211.aspx) for more details.
+        # @return [String, nil] Set the command's priority on the Windows host.,See U(https://msdn.microsoft.com/en-us/library/windows/desktop/ms683211.aspx) for more details.
         attribute :priority
-        validates :priority, inclusion: {:in=>[:above_normal, :below_normal, :high, :idle, :normal, :realtime], :message=>"%{value} needs to be :above_normal, :below_normal, :high, :idle, :normal, :realtime"}, allow_nil: true
+        validates :priority, type: String
 
-        # @return [Boolean, nil] Shows the process UI on the Winlogon secure desktop when I(process_username) is C(System).
+        # @return [Symbol, nil] Shows the process UI on the Winlogon secure desktop when I(process_username) is C(System).
         attribute :show_ui_on_logon_screen
-        validates :show_ui_on_logon_screen, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :show_ui_on_logon_screen, type: Symbol
 
         # @return [Integer, nil] The timeout in seconds that is placed upon the running process.,A value of C(0) means no timeout.
         attribute :process_timeout

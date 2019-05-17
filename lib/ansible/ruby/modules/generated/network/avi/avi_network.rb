@@ -27,18 +27,21 @@ module Ansible
         # @return [Object, nil] List of subnet.
         attribute :configured_subnets
 
-        # @return [Object, nil] Select the ip address management scheme for this network.,Default value when not specified in API or module is interpreted by Avi Controller as True.
+        # @return [Symbol, nil] Select the ip address management scheme for this network.,Default value when not specified in API or module is interpreted by Avi Controller as True.
         attribute :dhcp_enabled
+        validates :dhcp_enabled, type: Symbol
 
-        # @return [Object, nil] When selected, excludes all discovered subnets in this network from consideration for virtual service placement.,Default value when not specified in API or module is interpreted by Avi Controller as False.
+        # @return [Symbol, nil] When selected, excludes all discovered subnets in this network from consideration for virtual service placement.,Default value when not specified in API or module is interpreted by Avi Controller as False.
         attribute :exclude_discovered_subnets
+        validates :exclude_discovered_subnets, type: Symbol
 
         # @return [String] Name of the object.
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [Object, nil] Boolean flag to set synced_from_se.,Default value when not specified in API or module is interpreted by Avi Controller as False.
+        # @return [Symbol, nil] Boolean flag to set synced_from_se.,Default value when not specified in API or module is interpreted by Avi Controller as False.
         attribute :synced_from_se
+        validates :synced_from_se, type: Symbol
 
         # @return [Object, nil] It is a reference to an object of type tenant.
         attribute :tenant_ref
@@ -49,8 +52,9 @@ module Ansible
         # @return [Object, nil] Unique object identifier of the object.
         attribute :uuid
 
-        # @return [Object, nil] Boolean flag to set vcenter_dvs.,Default value when not specified in API or module is interpreted by Avi Controller as True.
+        # @return [Symbol, nil] Boolean flag to set vcenter_dvs.,Default value when not specified in API or module is interpreted by Avi Controller as True.
         attribute :vcenter_dvs
+        validates :vcenter_dvs, type: Symbol
 
         # @return [Object, nil] It is a reference to an object of type vimgrnwruntime.
         attribute :vimgrnw_ref

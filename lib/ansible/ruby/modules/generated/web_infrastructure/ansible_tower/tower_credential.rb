@@ -48,9 +48,9 @@ module Ansible
         # @return [Object, nil] Unlock password for ssh_key. Use ASK for prompting.
         attribute :ssh_key_unlock
 
-        # @return [String, nil] Should use authorize for net type.
+        # @return [:yes, :no, nil] Should use authorize for net type.
         attribute :authorize
-        validates :authorize, type: String
+        validates :authorize, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] Password for net credentials that require authorize.
         attribute :authorize_password

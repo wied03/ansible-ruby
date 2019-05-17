@@ -28,8 +28,9 @@ module Ansible
         attribute :alert_rule
         validates :alert_rule, presence: true
 
-        # @return [Object, nil] This alert config applies to auto scale alerts.
+        # @return [Symbol, nil] This alert config applies to auto scale alerts.
         attribute :autoscale_alert
+        validates :autoscale_alert, type: Symbol
 
         # @return [Object] Determines whether an alert is raised immediately when event occurs (realtime) or after specified number of events occurs within rolling time,window.,Enum options - REALTIME, ROLLINGWINDOW, WATERMARK.,Default value when not specified in API or module is interpreted by Avi Controller as REALTIME.
         attribute :category
@@ -38,8 +39,9 @@ module Ansible
         # @return [Object, nil] A custom description field.
         attribute :description
 
-        # @return [Object, nil] Enable or disable this alert config from generating new alerts.,Default value when not specified in API or module is interpreted by Avi Controller as True.
+        # @return [Symbol, nil] Enable or disable this alert config from generating new alerts.,Default value when not specified in API or module is interpreted by Avi Controller as True.
         attribute :enabled
+        validates :enabled, type: Symbol
 
         # @return [Object, nil] An alert is expired and deleted after the expiry time has elapsed.,The original event triggering the alert remains in the event's log.,Allowed values are 1-31536000.,Default value when not specified in API or module is interpreted by Avi Controller as 86400.,Units(SEC).
         attribute :expiry_time

@@ -19,9 +19,9 @@ module Ansible
         # @return [Object, nil] Description of the license.
         attribute :description
 
-        # @return [Boolean, nil] A key that signifies that you accept the F5 EULA for this license.,A copy of the EULA can be found here https://askf5.f5.com/csp/article/K12902,This is required when C(state) is C(present).
+        # @return [Symbol, nil] A key that signifies that you accept the F5 EULA for this license.,A copy of the EULA can be found here https://askf5.f5.com/csp/article/K12902,This is required when C(state) is C(present).
         attribute :accept_eula
-        validates :accept_eula, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :accept_eula, type: Symbol
 
         # @return [:absent, :present, nil] The state of the regkey license in the pool on the system.,When C(present), guarantees that the license exists in the pool.,When C(absent), removes the license from the pool.
         attribute :state

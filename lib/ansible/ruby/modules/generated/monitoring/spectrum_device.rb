@@ -37,13 +37,13 @@ module Ansible
         attribute :url_password
         validates :url_password, presence: true
 
-        # @return [String, nil] if C(no), it will not use a proxy, even if one is defined in an environment variable on the target hosts.
+        # @return [:yes, :no, nil] if C(no), it will not use a proxy, even if one is defined in an environment variable on the target hosts.
         attribute :use_proxy
-        validates :use_proxy, type: String
+        validates :use_proxy, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] If C(no), SSL certificates will not be validated. This should only be used on personally controlled sites using self-signed certificates.
+        # @return [:yes, :no, nil] If C(no), SSL certificates will not be validated. This should only be used on personally controlled sites using self-signed certificates.
         attribute :validate_certs
-        validates :validate_certs, type: String
+        validates :validate_certs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] UDP port used for SNMP discovery.
         attribute :agentport

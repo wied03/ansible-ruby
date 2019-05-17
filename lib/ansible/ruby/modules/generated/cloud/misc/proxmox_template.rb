@@ -20,9 +20,9 @@ module Ansible
         attribute :api_password
         validates :api_password, type: String
 
-        # @return [String, nil] enable / disable https certificate verification
+        # @return [:yes, :no, nil] enable / disable https certificate verification
         attribute :validate_certs
-        validates :validate_certs, type: String
+        validates :validate_certs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String] Proxmox VE node, when you will operate with template
         attribute :node
@@ -48,9 +48,9 @@ module Ansible
         attribute :timeout
         validates :timeout, type: Integer
 
-        # @return [String, nil] can be used only with C(state=present), exists template will be overwritten
+        # @return [:yes, :no, nil] can be used only with C(state=present), exists template will be overwritten
         attribute :force
-        validates :force, type: String
+        validates :force, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:present, :absent, nil] Indicate desired state of the template
         attribute :state

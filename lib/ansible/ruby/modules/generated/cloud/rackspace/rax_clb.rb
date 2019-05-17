@@ -42,9 +42,9 @@ module Ansible
         # @return [Object, nil] Virtual IP ID to use when creating the load balancer for purposes of sharing an IP with another load balancer of another protocol
         attribute :vip_id
 
-        # @return [String, nil] wait for the balancer to be in state 'running' before returning
+        # @return [:yes, :no, nil] wait for the balancer to be in state 'running' before returning
         attribute :wait
-        validates :wait, type: String
+        validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] how long before wait gives up, in seconds
         attribute :wait_timeout

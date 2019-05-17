@@ -27,9 +27,9 @@ module Ansible
         attribute :name
         validates :name, type: String
 
-        # @return [Boolean, nil] When set to true, the network is created in "auto subnet mode". When set to false, the network is in "custom subnet mode".,In "auto subnet mode", a newly created network is assigned the default CIDR of 10.128.0.0/9 and it automatically creates one subnetwork per region.
+        # @return [Symbol, nil] When set to true, the network is created in "auto subnet mode". When set to false, the network is in "custom subnet mode".,In "auto subnet mode", a newly created network is assigned the default CIDR of 10.128.0.0/9 and it automatically creates one subnetwork per region.
         attribute :auto_create_subnetworks
-        validates :auto_create_subnetworks, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :auto_create_subnetworks, type: Symbol
       end
     end
   end

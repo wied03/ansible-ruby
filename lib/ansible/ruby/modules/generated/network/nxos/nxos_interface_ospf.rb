@@ -30,11 +30,13 @@ module Ansible
         # @return [Object, nil] Time interval an ospf neighbor waits for a hello packet before tearing down adjacencies. Valid values are an integer or the keyword 'default'.
         attribute :dead_interval
 
-        # @return [Object, nil] Setting to true will prevent this interface from receiving HELLO packets.
+        # @return [Symbol, nil] Setting to true will prevent this interface from receiving HELLO packets.
         attribute :passive_interface
+        validates :passive_interface, type: Symbol
 
-        # @return [Object, nil] Enables or disables the usage of message digest authentication.
+        # @return [Symbol, nil] Enables or disables the usage of message digest authentication.
         attribute :message_digest
+        validates :message_digest, type: Symbol
 
         # @return [Object, nil] Md5 authentication key-id associated with the ospf instance. If this is present, message_digest_encryption_type, message_digest_algorithm_type and message_digest_password are mandatory. Valid value is an integer and 'default'.
         attribute :message_digest_key_id

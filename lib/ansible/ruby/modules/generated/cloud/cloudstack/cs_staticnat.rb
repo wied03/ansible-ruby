@@ -16,9 +16,9 @@ module Ansible
         attribute :vm
         validates :vm, type: String
 
-        # @return [String, nil] VM guest NIC secondary IP address for the static NAT.
+        # @return [:yes, :no, nil] VM guest NIC secondary IP address for the static NAT.
         attribute :vm_guest_ip
-        validates :vm_guest_ip, type: String
+        validates :vm_guest_ip, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] Network the IP address is related to.
         attribute :network
@@ -42,9 +42,9 @@ module Ansible
         # @return [Object, nil] Name of the zone in which the virtual machine is in.,If not set, default zone is used.
         attribute :zone
 
-        # @return [String, nil] Poll async jobs until job has finished.
+        # @return [:yes, :no, nil] Poll async jobs until job has finished.
         attribute :poll_async
-        validates :poll_async, type: String
+        validates :poll_async, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

@@ -20,9 +20,9 @@ module Ansible
         attribute :idle_timeout
         validates :idle_timeout, type: Integer
 
-        # @return [Boolean, nil] Specifies that connections in a TIME-WAIT state are reused, if a SYN packet, indicating a request for a new connection, is received.,When C(no), connections in a TIME-WAIT state remain unused for a specified length of time.,When creating a new profile, if this parameter is not specified, the default is provided by the parent profile.
+        # @return [Symbol, nil] Specifies that connections in a TIME-WAIT state are reused, if a SYN packet, indicating a request for a new connection, is received.,When C(no), connections in a TIME-WAIT state remain unused for a specified length of time.,When creating a new profile, if this parameter is not specified, the default is provided by the parent profile.
         attribute :time_wait_recycle
-        validates :time_wait_recycle, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :time_wait_recycle, type: Symbol
 
         # @return [String, nil] Device partition to manage resources on.
         attribute :partition

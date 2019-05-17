@@ -35,8 +35,9 @@ module Ansible
         attribute :encryption
         validates :encryption, inclusion: {:in=>[:none, :ssl, :tls], :message=>"%{value} needs to be :none, :ssl, :tls"}, allow_nil: true
 
-        # @return [Object, nil] Credentials can be set on an SMTP server's configuration even if that authentication is not used (think staging configs or emergency changes). This parameter acts as a switch to make the specified C(smtp_server_username) and C(smtp_server_password) parameters active or not.,When C(yes), the authentication parameters will be active.,When C(no), the authentication parameters will be inactive.
+        # @return [Symbol, nil] Credentials can be set on an SMTP server's configuration even if that authentication is not used (think staging configs or emergency changes). This parameter acts as a switch to make the specified C(smtp_server_username) and C(smtp_server_password) parameters active or not.,When C(yes), the authentication parameters will be active.,When C(no), the authentication parameters will be inactive.
         attribute :authentication
+        validates :authentication, type: Symbol
 
         # @return [String, nil] User name that the SMTP server requires when validating a user.
         attribute :smtp_server_username

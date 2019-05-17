@@ -35,8 +35,9 @@ module Ansible
         # @return [Object, nil] The maximum number of open connections that the service can support at any given time. A GSLB service whose connection count reaches the maximum is not considered when a GSLB decision is made, until the connection count drops below the maximum.,Minimum value = C(0),Maximum value = C(4294967294)
         attribute :maxclient
 
-        # @return [Object, nil] Monitor the health of the GSLB service.
+        # @return [Symbol, nil] Monitor the health of the GSLB service.
         attribute :healthmonitor
+        validates :healthmonitor, type: Symbol
 
         # @return [String, nil] Name of the GSLB site to which the service belongs.,Minimum length = 1
         attribute :sitename

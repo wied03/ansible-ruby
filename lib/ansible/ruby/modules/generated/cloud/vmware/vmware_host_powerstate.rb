@@ -22,9 +22,9 @@ module Ansible
         attribute :cluster_name
         validates :cluster_name, type: String
 
-        # @return [Boolean, nil] This parameter specify if the host should be proceeding with user defined powerstate regardless of whether it is in maintenance mode.,If C(state) set to C(reboot-host) and C(force) as C(true), then host system is rebooted regardless of whether it is in maintenance mode.,If C(state) set to C(shutdown-host) and C(force) as C(true), then host system is shutdown regardless of whether it is in maintenance mode.,If C(state) set to C(power-down-to-standby) and C(force) to C(true), then all powered off VMs will evacuated.,Not applicable if C(state) set to C(power-up-from-standby).
+        # @return [Symbol, nil] This parameter specify if the host should be proceeding with user defined powerstate regardless of whether it is in maintenance mode.,If C(state) set to C(reboot-host) and C(force) as C(true), then host system is rebooted regardless of whether it is in maintenance mode.,If C(state) set to C(shutdown-host) and C(force) as C(true), then host system is shutdown regardless of whether it is in maintenance mode.,If C(state) set to C(power-down-to-standby) and C(force) to C(true), then all powered off VMs will evacuated.,Not applicable if C(state) set to C(power-up-from-standby).
         attribute :force
-        validates :force, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :force, type: Symbol
 
         # @return [Integer, nil] This parameter defines timeout for C(state) set to C(power-down-to-standby) or C(power-up-from-standby).,Ignored if C(state) set to C(reboot-host) or C(shutdown-host).,This parameter is defined in seconds.
         attribute :timeout

@@ -31,9 +31,9 @@ module Ansible
         attribute :rule
         validates :rule, inclusion: {:in=>[:allow, :deny, :limit, :reject], :message=>"%{value} needs to be :allow, :deny, :limit, :reject"}, allow_nil: true
 
-        # @return [Boolean, nil] Log new connections matched to this rule
+        # @return [Symbol, nil] Log new connections matched to this rule
         attribute :log
-        validates :log, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :log, type: Symbol
 
         # @return [String, nil] Source IP address.
         attribute :from_ip
@@ -59,17 +59,17 @@ module Ansible
         attribute :name
         validates :name, type: String
 
-        # @return [Boolean, nil] Delete rule.
+        # @return [Symbol, nil] Delete rule.
         attribute :delete
-        validates :delete, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :delete, type: Symbol
 
         # @return [String, nil] Specify interface for rule.
         attribute :interface
         validates :interface, type: String
 
-        # @return [Boolean, nil] Apply the rule to routed/forwarded packets.
+        # @return [Symbol, nil] Apply the rule to routed/forwarded packets.
         attribute :route
-        validates :route, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :route, type: Symbol
 
         # @return [String, nil] Add a comment to the rule. Requires UFW version >=0.35.
         attribute :comment

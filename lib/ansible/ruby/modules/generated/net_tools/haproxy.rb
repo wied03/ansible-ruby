@@ -20,9 +20,9 @@ module Ansible
         attribute :host
         validates :host, presence: true, type: String
 
-        # @return [String, nil] When disabling a server, immediately terminate all the sessions attached to the specified server. This can be used to terminate long-running sessions after a server is put into maintenance mode. Overridden by the drain option.
+        # @return [:yes, :no, nil] When disabling a server, immediately terminate all the sessions attached to the specified server. This can be used to terminate long-running sessions after a server is put into maintenance mode. Overridden by the drain option.
         attribute :shutdown_sessions
-        validates :shutdown_sessions, type: String
+        validates :shutdown_sessions, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] Path to the HAProxy socket file.
         attribute :socket
@@ -32,13 +32,13 @@ module Ansible
         attribute :state
         validates :state, presence: true, inclusion: {:in=>[:enabled, :disabled, :drain], :message=>"%{value} needs to be :enabled, :disabled, :drain"}
 
-        # @return [String, nil] Fail whenever trying to enable/disable a backend host that does not exist
+        # @return [:yes, :no, nil] Fail whenever trying to enable/disable a backend host that does not exist
         attribute :fail_on_not_found
-        validates :fail_on_not_found, type: String
+        validates :fail_on_not_found, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Wait until the server reports a status of 'UP' when `state=enabled`, status of 'MAINT' when `state=disabled` or status of 'DRAIN' when `state=drain`
+        # @return [:yes, :no, nil] Wait until the server reports a status of 'UP' when `state=enabled`, status of 'MAINT' when `state=disabled` or status of 'DRAIN' when `state=drain`
         attribute :wait
-        validates :wait, type: String
+        validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] Number of seconds to wait between retries.
         attribute :wait_interval

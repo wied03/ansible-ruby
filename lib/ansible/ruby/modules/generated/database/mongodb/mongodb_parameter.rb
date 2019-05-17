@@ -32,9 +32,9 @@ module Ansible
         attribute :database
         validates :database, presence: true
 
-        # @return [String, nil] Whether to use an SSL connection when connecting to the database
+        # @return [:yes, :no, nil] Whether to use an SSL connection when connecting to the database
         attribute :ssl
-        validates :ssl, type: String
+        validates :ssl, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String] MongoDB administrative parameter to modify
         attribute :param

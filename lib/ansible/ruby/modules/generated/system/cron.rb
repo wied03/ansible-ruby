@@ -31,9 +31,9 @@ module Ansible
         attribute :cron_file
         validates :cron_file, type: String
 
-        # @return [String, nil] If set, create a backup of the crontab before it is modified. The location of the backup is returned in the C(backup_file) variable by this module.
+        # @return [:yes, :no, nil] If set, create a backup of the crontab before it is modified. The location of the backup is returned in the C(backup_file) variable by this module.
         attribute :backup
-        validates :backup, type: String
+        validates :backup, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] Minute when the job should run ( 0-59, *, */2, etc )
         attribute :minute
@@ -55,21 +55,21 @@ module Ansible
         attribute :weekday
         validates :weekday, type: String
 
-        # @return [String, nil] If the job should be run at reboot. This option is deprecated. Users should use special_time.
+        # @return [:yes, :no, nil] If the job should be run at reboot. This option is deprecated. Users should use special_time.
         attribute :reboot
-        validates :reboot, type: String
+        validates :reboot, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:reboot, :yearly, :annually, :monthly, :weekly, :daily, :hourly, nil] Special time specification nickname.
         attribute :special_time
         validates :special_time, inclusion: {:in=>[:reboot, :yearly, :annually, :monthly, :weekly, :daily, :hourly], :message=>"%{value} needs to be :reboot, :yearly, :annually, :monthly, :weekly, :daily, :hourly"}, allow_nil: true
 
-        # @return [String, nil] If the job should be disabled (commented out) in the crontab.,Only has effect if C(state=present).
+        # @return [:yes, :no, nil] If the job should be disabled (commented out) in the crontab.,Only has effect if C(state=present).
         attribute :disabled
-        validates :disabled, type: String
+        validates :disabled, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] If set, manages a crontab's environment variable. New variables are added on top of crontab. "name" and "value" parameters are the name and the value of environment variable.
+        # @return [:yes, :no, nil] If set, manages a crontab's environment variable. New variables are added on top of crontab. "name" and "value" parameters are the name and the value of environment variable.
         attribute :env
-        validates :env, type: String
+        validates :env, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] Used with C(state=present) and C(env). If specified, the environment variable will be inserted after the declaration of specified environment variable.
         attribute :insertafter

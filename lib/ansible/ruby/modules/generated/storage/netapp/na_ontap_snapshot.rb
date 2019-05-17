@@ -20,8 +20,9 @@ module Ansible
         attribute :volume
         validates :volume, presence: true, type: String
 
-        # @return [Object, nil] If true, the snapshot is to be created asynchronously.
+        # @return [Symbol, nil] If true, the snapshot is to be created asynchronously.
         attribute :async_bool
+        validates :async_bool, type: Symbol
 
         # @return [String, nil] A human readable comment attached with the snapshot. The size of the comment can be at most 255 characters.
         attribute :comment
@@ -30,8 +31,9 @@ module Ansible
         # @return [Object, nil] A human readable SnapMirror Label attached with the snapshot. Size of the label can be at most 31 characters.
         attribute :snapmirror_label
 
-        # @return [Object, nil] if this field is true, snapshot will be deleted even if some other processes are accessing it.
+        # @return [Symbol, nil] if this field is true, snapshot will be deleted even if some other processes are accessing it.
         attribute :ignore_owners
+        validates :ignore_owners, type: Symbol
 
         # @return [Object, nil] The 128 bit unique snapshot identifier expressed in the form of UUID.
         attribute :snapshot_instance_uuid

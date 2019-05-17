@@ -25,9 +25,9 @@ module Ansible
         attribute :cluster
         validates :cluster, type: String
 
-        # @return [String, nil] Boolean indication whether to allow partial registration of Virtual Machine when C(state) is registered.
+        # @return [Symbol, nil] Boolean indication whether to allow partial registration of Virtual Machine when C(state) is registered.
         attribute :allow_partial_import
-        validates :allow_partial_import, type: String
+        validates :allow_partial_import, type: Symbol
 
         # @return [Array<Hash>, Hash, nil] Mapper which maps an external virtual NIC profile to one that exists in the engine when C(state) is registered. vnic_profile is described by the following dictionary:,C(source_network_name): The network name of the source network.,C(source_profile_name): The profile name related to the source network.,C(target_profile_id): The id of the target profile id to be mapped to in the engine.
         attribute :vnic_profile_mappings
@@ -57,9 +57,9 @@ module Ansible
         attribute :lun_mappings
         validates :lun_mappings, type: TypeGeneric.new(Hash)
 
-        # @return [String, nil] Boolean indication whether to reassign bad macs when C(state) is registered.
+        # @return [Symbol, nil] Boolean indication whether to reassign bad macs when C(state) is registered.
         attribute :reassign_bad_macs
-        validates :reassign_bad_macs, type: String
+        validates :reassign_bad_macs, type: Symbol
 
         # @return [String, nil] Name of the template, which should be used to create Virtual Machine.,Required if creating VM.,If template is not specified and VM doesn't exist, VM will be created from I(Blank) template.
         attribute :template
@@ -68,9 +68,9 @@ module Ansible
         # @return [Object, nil] Version number of the template to be used for VM.,By default the latest available version of the template is used.
         attribute :template_version
 
-        # @return [Boolean, nil] Specify if latest template version should be used, when running a stateless VM.,If this parameter is set to I(yes) stateless VM is created.
+        # @return [Symbol, nil] Specify if latest template version should be used, when running a stateless VM.,If this parameter is set to I(yes) stateless VM is created.
         attribute :use_latest_template_version
-        validates :use_latest_template_version, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :use_latest_template_version, type: Symbol
 
         # @return [String, nil] Name of the storage domain where all template disks should be created.,This parameter is considered only when C(template) is provided.,IMPORTANT - This parameter is not idempotent, if the VM exists and you specfiy different storage domain, disk won't move.
         attribute :storage_domain
@@ -121,29 +121,29 @@ module Ansible
         attribute :boot_devices
         validates :boot_devices, inclusion: {:in=>[:cdrom, :hd, :network], :message=>"%{value} needs to be :cdrom, :hd, :network"}, allow_nil: true
 
-        # @return [Boolean, nil] I(True) enable menu to select boot device, I(False) to disable it. By default is chosen by oVirt/RHV engine.
+        # @return [Symbol, nil] I(True) enable menu to select boot device, I(False) to disable it. By default is chosen by oVirt/RHV engine.
         attribute :boot_menu
-        validates :boot_menu, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :boot_menu, type: Symbol
 
-        # @return [Boolean, nil] I(True) enable USB support, I(False) to disable it. By default is chosen by oVirt/RHV engine.
+        # @return [Symbol, nil] I(True) enable USB support, I(False) to disable it. By default is chosen by oVirt/RHV engine.
         attribute :usb_support
-        validates :usb_support, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :usb_support, type: Symbol
 
-        # @return [Boolean, nil] I(True) enable VirtIO serial console, I(False) to disable it. By default is chosen by oVirt/RHV engine.
+        # @return [Symbol, nil] I(True) enable VirtIO serial console, I(False) to disable it. By default is chosen by oVirt/RHV engine.
         attribute :serial_console
-        validates :serial_console, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :serial_console, type: Symbol
 
-        # @return [Boolean, nil] I(True) enable Single Sign On by Guest Agent, I(False) to disable it. By default is chosen by oVirt/RHV engine.
+        # @return [Symbol, nil] I(True) enable Single Sign On by Guest Agent, I(False) to disable it. By default is chosen by oVirt/RHV engine.
         attribute :sso
-        validates :sso, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :sso, type: Symbol
 
         # @return [String, nil] Specify host where Virtual Machine should be running. By default the host is chosen by engine scheduler.,This parameter is used only when C(state) is I(running) or I(present).
         attribute :host
         validates :host, type: String
 
-        # @return [Boolean, nil] If I(yes) Virtual Machine will be set as highly available.,If I(no) Virtual Machine won't be set as highly available.,If no value is passed, default value is set by oVirt/RHV engine.
+        # @return [Symbol, nil] If I(yes) Virtual Machine will be set as highly available.,If I(no) Virtual Machine won't be set as highly available.,If no value is passed, default value is set by oVirt/RHV engine.
         attribute :high_availability
-        validates :high_availability, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :high_availability, type: Symbol
 
         # @return [Integer, nil] Indicates the priority of the virtual machine inside the run and migration queues. Virtual machines with higher priorities will be started and migrated before virtual machines with lower priorities. The value is an integer between 0 and 100. The higher the value, the higher the priority.,If no value is passed, default value is set by oVirt/RHV engine.
         attribute :high_availability_priority
@@ -159,27 +159,29 @@ module Ansible
         attribute :host_devices
         validates :host_devices, type: TypeGeneric.new(Hash)
 
-        # @return [Object, nil] If I(yes) Virtual Machine will be set as delete protected.,If I(no) Virtual Machine won't be set as delete protected.,If no value is passed, default value is set by oVirt/RHV engine.
+        # @return [Symbol, nil] If I(yes) Virtual Machine will be set as delete protected.,If I(no) Virtual Machine won't be set as delete protected.,If no value is passed, default value is set by oVirt/RHV engine.
         attribute :delete_protected
+        validates :delete_protected, type: Symbol
 
-        # @return [Object, nil] If I(yes) Virtual Machine will be set as stateless.,If I(no) Virtual Machine will be unset as stateless.,If no value is passed, default value is set by oVirt/RHV engine.
+        # @return [Symbol, nil] If I(yes) Virtual Machine will be set as stateless.,If I(no) Virtual Machine will be unset as stateless.,If no value is passed, default value is set by oVirt/RHV engine.
         attribute :stateless
+        validates :stateless, type: Symbol
 
-        # @return [String, nil] If I(yes) then the disks of the created virtual machine will be cloned and independent of the template.,This parameter is used only when C(state) is I(running) or I(present) and VM didn't exist before.
+        # @return [:yes, :no, nil] If I(yes) then the disks of the created virtual machine will be cloned and independent of the template.,This parameter is used only when C(state) is I(running) or I(present) and VM didn't exist before.
         attribute :clone
-        validates :clone, type: String
+        validates :clone, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] If I(yes) then the permissions of the template (only the direct ones, not the inherited ones) will be copied to the created virtual machine.,This parameter is used only when C(state) is I(running) or I(present) and VM didn't exist before.
+        # @return [:yes, :no, nil] If I(yes) then the permissions of the template (only the direct ones, not the inherited ones) will be copied to the created virtual machine.,This parameter is used only when C(state) is I(running) or I(present) and VM didn't exist before.
         attribute :clone_permissions
-        validates :clone_permissions, type: String
+        validates :clone_permissions, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] ISO file from ISO storage domain which should be attached to Virtual Machine.,If you pass empty string the CD will be ejected from VM.,If used with C(state) I(running) or I(present) and VM is running the CD will be attached to VM.,If used with C(state) I(running) or I(present) and VM is down the CD will be attached to VM persistently.
         attribute :cd_iso
         validates :cd_iso, type: String
 
-        # @return [String, nil] Please check to I(Synopsis) to more detailed description of force parameter, it can behave differently in different situations.
+        # @return [:yes, :no, nil] Please check to I(Synopsis) to more detailed description of force parameter, it can behave differently in different situations.
         attribute :force
-        validates :force, type: String
+        validates :force, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Array<Hash>, Hash, nil] List of NICs, which should be attached to Virtual Machine. NIC is described by following dictionary.,C(name) - Name of the NIC.,C(profile_name) - Profile name where NIC should be attached.,C(interface) -  Type of the network interface. One of following I(virtio), I(e1000), I(rtl8139), default is I(virtio).,C(mac_address) - Custom MAC address of the network interface, by default it's obtained from MAC pool.,NOTE - This parameter is used only when C(state) is I(running) or I(present) and is able to only create NICs. To manage NICs of the VM in more depth please use M(ovirt_nics) module instead.
         attribute :nics
@@ -201,8 +203,9 @@ module Ansible
         attribute :cloud_init_nics
         validates :cloud_init_nics, type: TypeGeneric.new(Hash)
 
-        # @return [Object, nil] If I(true) the C(cloud_init) or C(sysprep) parameters will be saved for the virtual machine and won't be virtual machine won't be started as run-once.
+        # @return [Symbol, nil] If I(true) the C(cloud_init) or C(sysprep) parameters will be saved for the virtual machine and won't be virtual machine won't be started as run-once.
         attribute :cloud_init_persist
+        validates :cloud_init_persist, type: Symbol
 
         # @return [Object, nil] Path to a kernel image used to boot the virtual machine.,Kernel image must be stored on either the ISO domain or on the host's storage.
         attribute :kernel_path
@@ -249,23 +252,27 @@ module Ansible
         attribute :placement_policy
         validates :placement_policy, type: String
 
-        # @return [Object, nil] If I(true), in addition return I(remote_vv_file) inside I(vm) dictionary, which contains compatible content for remote-viewer application. Works only C(state) is I(running).
+        # @return [Symbol, nil] If I(true), in addition return I(remote_vv_file) inside I(vm) dictionary, which contains compatible content for remote-viewer application. Works only C(state) is I(running).
         attribute :ticket
+        validates :ticket, type: Symbol
 
         # @return [Object, nil] CPU Pinning topology to map virtual machine CPU to host CPU.,CPU Pinning topology is a list of dictionary which can have following values:,C(cpu) - Number of the host CPU.,C(vcpu) - Number of the virtual machine CPU.
         attribute :cpu_pinning
 
-        # @return [Object, nil] If I(true), the sound card is added to the virtual machine.
+        # @return [Symbol, nil] If I(true), the sound card is added to the virtual machine.
         attribute :soundcard_enabled
+        validates :soundcard_enabled, type: Symbol
 
-        # @return [Object, nil] If I(true), use smart card authentication.
+        # @return [Symbol, nil] If I(true), use smart card authentication.
         attribute :smartcard_enabled
+        validates :smartcard_enabled, type: Symbol
 
         # @return [Object, nil] Number of IO threads used by virtual machine. I(0) means IO threading disabled.
         attribute :io_threads
 
-        # @return [Object, nil] If I(true), use memory ballooning.,Memory balloon is a guest device, which may be used to re-distribute / reclaim the host memory based on VM needs in a dynamic way. In this way it's possible to create memory over commitment states.
+        # @return [Symbol, nil] If I(true), use memory ballooning.,Memory balloon is a guest device, which may be used to re-distribute / reclaim the host memory based on VM needs in a dynamic way. In this way it's possible to create memory over commitment states.
         attribute :ballooning_enabled
+        validates :ballooning_enabled, type: Symbol
 
         # @return [:interleave, :preferred, :strict, nil] Set how the memory allocation for NUMA nodes of this VM is applied (relevant if NUMA nodes are set for this VM).,It can be one of the following: I(interleave), I(preferred) or I(strict).,If no value is passed, default value is set by oVirt/RHV engine.
         attribute :numa_tune_mode

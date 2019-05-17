@@ -23,9 +23,9 @@ module Ansible
         attribute :prompt
         validates :prompt, type: String
 
-        # @return [String, nil] Controls whether or not keyboard input is shown when typing.,Has no effect if 'seconds' or 'minutes' is set.
+        # @return [:yes, :no, nil] Controls whether or not keyboard input is shown when typing.,Has no effect if 'seconds' or 'minutes' is set.
         attribute :echo
-        validates :echo, type: String
+        validates :echo, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

@@ -21,8 +21,9 @@ module Ansible
         attribute :avi_api_patch_op
         validates :avi_api_patch_op, inclusion: {:in=>[:add, :replace, :delete], :message=>"%{value} needs to be :add, :replace, :delete"}, allow_nil: true
 
-        # @return [Object, nil] It will automatically disable old production pools once there is a new production candidate.,Default value when not specified in API or module is interpreted by Avi Controller as True.
+        # @return [Symbol, nil] It will automatically disable old production pools once there is a new production candidate.,Default value when not specified in API or module is interpreted by Avi Controller as True.
         attribute :auto_disable_old_prod_pools
+        validates :auto_disable_old_prod_pools, type: Symbol
 
         # @return [Object, nil] It is a reference to an object of type cloud.
         attribute :cloud_ref

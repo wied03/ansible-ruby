@@ -38,13 +38,13 @@ module Ansible
         attribute :timeout
         validates :timeout, type: Integer
 
-        # @return [String, nil] If events matching one or more silence entries should be handled.
+        # @return [:yes, :no, nil] If events matching one or more silence entries should be handled.
         attribute :handle_silenced
-        validates :handle_silenced, type: String
+        validates :handle_silenced, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] If events in the flapping state should be handled.
+        # @return [:yes, :no, nil] If events in the flapping state should be handled.
         attribute :handle_flapping
-        validates :handle_flapping, type: String
+        validates :handle_flapping, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] The handler command to be executed.,The event data is passed to the process via STDIN.,NOTE: the command attribute is only required for Pipe handlers (i.e. handlers configured with "type": "pipe").
         attribute :command

@@ -28,9 +28,9 @@ module Ansible
         attribute :local_admin_password
         validates :local_admin_password, type: String
 
-        # @return [String, nil] Whether to install the domain controller as a read only replica for an existing domain.
+        # @return [:yes, :no, nil] Whether to install the domain controller as a read only replica for an existing domain.
         attribute :read_only
-        validates :read_only, type: String
+        validates :read_only, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] Specifies the name of an existing site where you can place the new domain controller.,This option is required when I(read_only) is C(yes).
         attribute :site_name
@@ -40,11 +40,13 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:domain_controller, :member_server], :message=>"%{value} needs to be :domain_controller, :member_server"}, allow_nil: true
 
-        # @return [Object, nil] The path to a directory on a fixed disk of the Windows host where the domain database will be created..,If not set then the default path is C(%SYSTEMROOT%\NTDS).
+        # @return [String, nil] The path to a directory on a fixed disk of the Windows host where the domain database will be created..,If not set then the default path is C(%SYSTEMROOT%\NTDS).
         attribute :database_path
+        validates :database_path, type: String
 
-        # @return [Object, nil] The path to a directory on a fixed disk of the Windows host where the Sysvol folder will be created.,If not set then the default path is C(%SYSTEMROOT%\SYSVOL).
+        # @return [String, nil] The path to a directory on a fixed disk of the Windows host where the Sysvol folder will be created.,If not set then the default path is C(%SYSTEMROOT%\SYSVOL).
         attribute :sysvol_path
+        validates :sysvol_path, type: String
       end
     end
   end

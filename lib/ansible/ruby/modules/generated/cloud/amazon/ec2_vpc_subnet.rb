@@ -30,25 +30,25 @@ module Ansible
         attribute :vpc_id
         validates :vpc_id, presence: true, type: String
 
-        # @return [String, nil] Specify C(yes) to indicate that instances launched into the subnet should be assigned public IP address by default.
+        # @return [:yes, :no, nil] Specify C(yes) to indicate that instances launched into the subnet should be assigned public IP address by default.
         attribute :map_public
-        validates :map_public, type: String
+        validates :map_public, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Specify C(yes) to indicate that instances launched into the subnet should be automatically assigned an IPv6 address.
+        # @return [:yes, :no, nil] Specify C(yes) to indicate that instances launched into the subnet should be automatically assigned an IPv6 address.
         attribute :assign_instances_ipv6
-        validates :assign_instances_ipv6, type: String
+        validates :assign_instances_ipv6, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] When specified,I(state=present) module will wait for subnet to be in available state before continuing.
+        # @return [:yes, :no, nil] When specified,I(state=present) module will wait for subnet to be in available state before continuing.
         attribute :wait
-        validates :wait, type: String
+        validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] Number of seconds to wait for subnet to become available I(wait=True).
         attribute :wait_timeout
         validates :wait_timeout, type: Integer
 
-        # @return [String, nil] Whether or not to remove tags that do not appear in the I(tags) list.
+        # @return [:yes, :no, nil] Whether or not to remove tags that do not appear in the I(tags) list.
         attribute :purge_tags
-        validates :purge_tags, type: String
+        validates :purge_tags, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

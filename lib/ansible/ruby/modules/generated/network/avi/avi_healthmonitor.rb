@@ -41,8 +41,9 @@ module Ansible
         attribute :https_monitor
         validates :https_monitor, type: Hash
 
-        # @return [Object, nil] This field describes the object's replication scope.,If the field is set to false, then the object is visible within the controller-cluster and its associated service-engines.,If the field is set to true, then the object is replicated across the federation.,Field introduced in 17.1.3.,Default value when not specified in API or module is interpreted by Avi Controller as False.
+        # @return [Symbol, nil] This field describes the object's replication scope.,If the field is set to false, then the object is visible within the controller-cluster and its associated service-engines.,If the field is set to true, then the object is replicated across the federation.,Field introduced in 17.1.3.,Default value when not specified in API or module is interpreted by Avi Controller as False.
         attribute :is_federated
+        validates :is_federated, type: Symbol
 
         # @return [Object, nil] Use this port instead of the port defined for the server in the pool.,If the monitor succeeds to this port, the load balanced traffic will still be sent to the port of the server defined within the pool.,Allowed values are 1-65535.,Special values are 0 - 'use server port'.
         attribute :monitor_port

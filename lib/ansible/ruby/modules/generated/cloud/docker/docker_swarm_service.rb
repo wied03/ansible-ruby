@@ -31,9 +31,9 @@ module Ansible
         attribute :hostname
         validates :hostname, type: String
 
-        # @return [Boolean, nil] Allocate a pseudo-TTY,Maps docker service --tty option.,Requires api_version >= 1.25
+        # @return [Symbol, nil] Allocate a pseudo-TTY,Maps docker service --tty option.,Requires api_version >= 1.25
         attribute :tty
-        validates :tty, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :tty, type: Symbol
 
         # @return [Object, nil] List of custom DNS servers.,Maps docker service --dns option.,Requires api_version >= 1.25
         attribute :dns
@@ -44,9 +44,9 @@ module Ansible
         # @return [Object, nil] List of custom DNS options.,Maps docker service --dns-option option.,Requires api_version >= 1.25
         attribute :dns_options
 
-        # @return [Boolean, nil] Force update even if no changes require it.,Maps to docker service update --force option.,Requires api_version >= 1.25
+        # @return [Symbol, nil] Force update even if no changes require it.,Maps to docker service update --force option.,Requires api_version >= 1.25
         attribute :force_update
-        validates :force_update, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :force_update, type: Symbol
 
         # @return [Object, nil] List of the service labels.,Maps docker service --label option.
         attribute :labels

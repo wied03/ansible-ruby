@@ -26,13 +26,13 @@ module Ansible
         attribute :target
         validates :target, type: String
 
-        # @return [String, nil] Execute the dump in a single transaction
+        # @return [:yes, :no, nil] Execute the dump in a single transaction
         attribute :single_transaction
-        validates :single_transaction, type: String
+        validates :single_transaction, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Option used for dumping large tables
+        # @return [:yes, :no, nil] Option used for dumping large tables
         attribute :quick
-        validates :quick, type: String
+        validates :quick, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] A list of table names that will be ignored in the dump of the form database_name.table_name
         attribute :ignore_tables

@@ -20,9 +20,9 @@ module Ansible
         attribute :command
         validates :command, inclusion: {:in=>[:define, :create, :start, :stop, :destroy, :undefine, :get_xml, :list_nets, :facts, :info, :status, :modify], :message=>"%{value} needs to be :define, :create, :start, :stop, :destroy, :undefine, :get_xml, :list_nets, :facts, :info, :status, :modify"}, allow_nil: true
 
-        # @return [TrueClass, FalseClass, nil] Specify if a given network should be started automatically on system boot.
+        # @return [Symbol, nil] Specify if a given network should be started automatically on system boot.
         attribute :autostart
-        validates :autostart, type: MultipleTypes.new(TrueClass, FalseClass)
+        validates :autostart, type: Symbol
 
         # @return [String, nil] libvirt connection uri.
         attribute :uri

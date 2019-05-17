@@ -20,21 +20,21 @@ module Ansible
         attribute :revision
         validates :revision, type: String
 
-        # @return [String, nil] Discards uncommitted changes. Runs C(hg update -C).  Prior to 1.9, the default was `yes`.
+        # @return [:yes, :no, nil] Discards uncommitted changes. Runs C(hg update -C).  Prior to 1.9, the default was `yes`.
         attribute :force
-        validates :force, type: String
+        validates :force, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Deletes untracked files. Runs C(hg purge).
+        # @return [:yes, :no, nil] Deletes untracked files. Runs C(hg purge).
         attribute :purge
-        validates :purge, type: String
+        validates :purge, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] If C(no), do not retrieve new revisions from the origin repository
+        # @return [:yes, :no, nil] If C(no), do not retrieve new revisions from the origin repository
         attribute :update
-        validates :update, type: String
+        validates :update, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] If C(no), do not clone the repository if it does not exist locally.
+        # @return [:yes, :no, nil] If C(no), do not clone the repository if it does not exist locally.
         attribute :clone
-        validates :clone, type: String
+        validates :clone, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] Path to hg executable to use. If not supplied, the normal mechanism for resolving binary paths will be used.
         attribute :executable

@@ -17,8 +17,9 @@ module Ansible
         attribute :creates
         validates :creates, type: String
 
-        # @return [Object, nil] A path or path filter pattern; when the referenced path B(does not) exist on the target host, the task will be skipped.
+        # @return [String, nil] A path or path filter pattern; when the referenced path B(does not) exist on the target host, the task will be skipped.
         attribute :removes
+        validates :removes, type: String
 
         # @return [String, nil] Set the specified path as the current working directory before executing a command
         attribute :chdir

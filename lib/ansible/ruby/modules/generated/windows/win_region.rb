@@ -23,9 +23,9 @@ module Ansible
         attribute :unicode_language
         validates :unicode_language, type: String
 
-        # @return [String, nil] This will copy the current format and location values to new user profiles and the welcome screen. This will only run if C(location), C(format) or C(unicode_language) has resulted in a change. If this process runs then it will always result in a change.
+        # @return [:yes, :no, nil] This will copy the current format and location values to new user profiles and the welcome screen. This will only run if C(location), C(format) or C(unicode_language) has resulted in a change. If this process runs then it will always result in a change.
         attribute :copy_settings
-        validates :copy_settings, type: String
+        validates :copy_settings, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

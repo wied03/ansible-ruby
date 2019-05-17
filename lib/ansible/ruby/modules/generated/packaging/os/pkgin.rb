@@ -16,25 +16,25 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [String, nil] Update repository database. Can be run with other steps or on it's own.
+        # @return [:yes, :no, nil] Update repository database. Can be run with other steps or on it's own.
         attribute :update_cache
-        validates :update_cache, type: String
+        validates :update_cache, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Upgrade main packages to their newer versions
+        # @return [:yes, :no, nil] Upgrade main packages to their newer versions
         attribute :upgrade
-        validates :upgrade, type: String
+        validates :upgrade, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Upgrade all packages to their newer versions
+        # @return [:yes, :no, nil] Upgrade all packages to their newer versions
         attribute :full_upgrade
-        validates :full_upgrade, type: String
+        validates :full_upgrade, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Clean packages cache
+        # @return [:yes, :no, nil] Clean packages cache
         attribute :clean
-        validates :clean, type: String
+        validates :clean, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Force package reinstall
+        # @return [:yes, :no, nil] Force package reinstall
         attribute :force
-        validates :force, type: String
+        validates :force, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

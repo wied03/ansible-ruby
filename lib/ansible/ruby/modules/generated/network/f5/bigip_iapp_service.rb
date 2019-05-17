@@ -21,9 +21,9 @@ module Ansible
         attribute :parameters
         validates :parameters, type: MultipleTypes.new(String, Hash)
 
-        # @return [Boolean, nil] Forces the updating of an iApp service even if the parameters to the service have not changed. This option is of particular importance if the iApp template that underlies the service has been updated in-place. This option is equivalent to re-configuring the iApp if that template has changed.
+        # @return [Symbol, nil] Forces the updating of an iApp service even if the parameters to the service have not changed. This option is of particular importance if the iApp template that underlies the service has been updated in-place. This option is equivalent to re-configuring the iApp if that template has changed.
         attribute :force
-        validates :force, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :force, type: Symbol
 
         # @return [:present, :absent, nil] When C(present), ensures that the iApp service is created and running. When C(absent), ensures that the iApp service has been removed.
         attribute :state

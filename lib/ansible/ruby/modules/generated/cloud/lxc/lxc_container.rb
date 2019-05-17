@@ -59,25 +59,25 @@ module Ansible
         # @return [Object, nil] Place container under PATH
         attribute :lxc_path
 
-        # @return [Boolean, nil] Enable a container log for host actions to the container.
+        # @return [:yes, :no, nil] Enable a container log for host actions to the container.
         attribute :container_log
-        validates :container_log, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :container_log, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:INFO, :ERROR, :DEBUG, nil] Set the log level for a container where *container_log* was set.
         attribute :container_log_level
         validates :container_log_level, inclusion: {:in=>[:INFO, :ERROR, :DEBUG], :message=>"%{value} needs to be :INFO, :ERROR, :DEBUG"}, allow_nil: true
 
-        # @return [String, nil] Name of the new cloned server. This is only used when state is clone.
+        # @return [:yes, :no, nil] Name of the new cloned server. This is only used when state is clone.
         attribute :clone_name
-        validates :clone_name, type: String
+        validates :clone_name, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [Boolean, nil] Create a snapshot a container when cloning. This is not supported by all container storage backends. Enabling this may fail if the backing store does not support snapshots.
+        # @return [:yes, :no, nil] Create a snapshot a container when cloning. This is not supported by all container storage backends. Enabling this may fail if the backing store does not support snapshots.
         attribute :clone_snapshot
-        validates :clone_snapshot, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :clone_snapshot, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [Boolean, nil] Create an archive of a container. This will create a tarball of the running container.
+        # @return [:yes, :no, nil] Create an archive of a container. This will create a tarball of the running container.
         attribute :archive
-        validates :archive, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :archive, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] Path the save the archived container. If the path does not exist the archive method will attempt to create it.
         attribute :archive_path

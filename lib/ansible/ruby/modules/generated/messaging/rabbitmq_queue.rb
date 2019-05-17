@@ -20,9 +20,9 @@ module Ansible
         attribute :login_user
         validates :login_user, type: String
 
-        # @return [String, nil] rabbitMQ password for connection
+        # @return [:yes, :no, nil] rabbitMQ password for connection
         attribute :login_password
-        validates :login_password, type: String
+        validates :login_password, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] rabbitMQ host for connection
         attribute :login_host
@@ -36,13 +36,13 @@ module Ansible
         attribute :vhost
         validates :vhost, type: String
 
-        # @return [String, nil] whether queue is durable or not
+        # @return [:yes, :no, nil] whether queue is durable or not
         attribute :durable
-        validates :durable, type: String
+        validates :durable, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] if the queue should delete itself after all queues/queues unbound from it
+        # @return [:yes, :no, nil] if the queue should delete itself after all queues/queues unbound from it
         attribute :auto_delete
-        validates :auto_delete, type: String
+        validates :auto_delete, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] How long a message can live in queue before it is discarded (milliseconds)
         attribute :message_ttl

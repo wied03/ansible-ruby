@@ -31,9 +31,9 @@ module Ansible
         attribute :key
         validates :key, presence: true, type: String
 
-        # @return [String, nil] Whether this key can push to the project
+        # @return [:yes, :no, nil] Whether this key can push to the project
         attribute :can_push
-        validates :can_push, type: String
+        validates :can_push, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:present, :absent] When C(present) the deploy key added to the project if it doesn't exist.,When C(absent) it will be removed from the project if it exists
         attribute :state

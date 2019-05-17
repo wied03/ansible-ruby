@@ -47,9 +47,9 @@ module Ansible
         # @return [Object, nil] Json formatted protected settings for the extension.
         attribute :protected_settings
 
-        # @return [Boolean, nil] Whether the extension handler should be automatically upgraded across minor versions.
+        # @return [Symbol, nil] Whether the extension handler should be automatically upgraded across minor versions.
         attribute :auto_upgrade_minor_version
-        validates :auto_upgrade_minor_version, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :auto_upgrade_minor_version, type: Symbol
       end
     end
   end

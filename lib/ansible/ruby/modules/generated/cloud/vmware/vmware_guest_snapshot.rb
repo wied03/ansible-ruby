@@ -40,17 +40,17 @@ module Ansible
         attribute :description
         validates :description, type: String
 
-        # @return [Boolean, nil] If set to C(true) and virtual machine is powered on, it will quiesce the file system in virtual machine.,Note that VMWare Tools are required for this flag.,If virtual machine is powered off or VMware Tools are not available, then this flag is set to C(false).,If virtual machine does not provide capability to take quiesce snapshot, then this flag is set to C(false).
+        # @return [Symbol, nil] If set to C(true) and virtual machine is powered on, it will quiesce the file system in virtual machine.,Note that VMWare Tools are required for this flag.,If virtual machine is powered off or VMware Tools are not available, then this flag is set to C(false).,If virtual machine does not provide capability to take quiesce snapshot, then this flag is set to C(false).
         attribute :quiesce
-        validates :quiesce, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :quiesce, type: Symbol
 
-        # @return [Boolean, nil] If set to C(true), memory dump of virtual machine is also included in snapshot.,Note that memory snapshots take time and resources, this will take longer time to create.,If virtual machine does not provide capability to take memory snapshot, then this flag is set to C(false).
+        # @return [Symbol, nil] If set to C(true), memory dump of virtual machine is also included in snapshot.,Note that memory snapshots take time and resources, this will take longer time to create.,If virtual machine does not provide capability to take memory snapshot, then this flag is set to C(false).
         attribute :memory_dump
-        validates :memory_dump, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :memory_dump, type: Symbol
 
-        # @return [Boolean, nil] If set to C(true) and state is set to C(absent), then entire snapshot subtree is set for removal.
+        # @return [Symbol, nil] If set to C(true) and state is set to C(absent), then entire snapshot subtree is set for removal.
         attribute :remove_children
-        validates :remove_children, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :remove_children, type: Symbol
 
         # @return [String, nil] Value to rename the existing snapshot to.
         attribute :new_snapshot_name

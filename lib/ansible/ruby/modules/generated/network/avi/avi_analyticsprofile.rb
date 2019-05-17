@@ -102,60 +102,68 @@ module Ansible
         # @return [Object, nil] User defined description for the object.
         attribute :description
 
-        # @return [Boolean, nil] Disable node (service engine) level analytics forvs metrics.,Default value when not specified in API or module is interpreted by Avi Controller as False.
+        # @return [Symbol, nil] Disable node (service engine) level analytics forvs metrics.,Default value when not specified in API or module is interpreted by Avi Controller as False.
         attribute :disable_se_analytics
-        validates :disable_se_analytics, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :disable_se_analytics, type: Symbol
 
-        # @return [Boolean, nil] Disable analytics on backend servers.,This may be desired in container environment when there are large number of  ephemeral servers.,Default value when not specified in API or module is interpreted by Avi Controller as False.
+        # @return [Symbol, nil] Disable analytics on backend servers.,This may be desired in container environment when there are large number of  ephemeral servers.,Default value when not specified in API or module is interpreted by Avi Controller as False.
         attribute :disable_server_analytics
-        validates :disable_server_analytics, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :disable_server_analytics, type: Symbol
 
-        # @return [Boolean, nil] Exclude client closed connection before an http request could be completed from being classified as an error.,Default value when not specified in API or module is interpreted by Avi Controller as False.
+        # @return [Symbol, nil] Exclude client closed connection before an http request could be completed from being classified as an error.,Default value when not specified in API or module is interpreted by Avi Controller as False.
         attribute :exclude_client_close_before_request_as_error
-        validates :exclude_client_close_before_request_as_error, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :exclude_client_close_before_request_as_error, type: Symbol
 
-        # @return [Object, nil] Exclude dns policy drops from the list of errors.,Field introduced in 17.2.2.,Default value when not specified in API or module is interpreted by Avi Controller as False.
+        # @return [Symbol, nil] Exclude dns policy drops from the list of errors.,Field introduced in 17.2.2.,Default value when not specified in API or module is interpreted by Avi Controller as False.
         attribute :exclude_dns_policy_drop_as_significant
+        validates :exclude_dns_policy_drop_as_significant, type: Symbol
 
-        # @return [Object, nil] Exclude queries to gslb services that are operationally down from the list of errors.,Default value when not specified in API or module is interpreted by Avi Controller as False.
+        # @return [Symbol, nil] Exclude queries to gslb services that are operationally down from the list of errors.,Default value when not specified in API or module is interpreted by Avi Controller as False.
         attribute :exclude_gs_down_as_error
+        validates :exclude_gs_down_as_error, type: Symbol
 
         # @return [Object, nil] List of http status codes to be excluded from being classified as an error.,Error connections or responses impacts health score, are included as significant logs, and may be classified as part of a dos attack.
         attribute :exclude_http_error_codes
 
-        # @return [Object, nil] Exclude dns queries to domains outside the domains configured in the dns application profile from the list of errors.,Default value when not specified in API or module is interpreted by Avi Controller as False.
+        # @return [Symbol, nil] Exclude dns queries to domains outside the domains configured in the dns application profile from the list of errors.,Default value when not specified in API or module is interpreted by Avi Controller as False.
         attribute :exclude_invalid_dns_domain_as_error
+        validates :exclude_invalid_dns_domain_as_error, type: Symbol
 
-        # @return [Object, nil] Exclude invalid dns queries from the list of errors.,Default value when not specified in API or module is interpreted by Avi Controller as False.
+        # @return [Symbol, nil] Exclude invalid dns queries from the list of errors.,Default value when not specified in API or module is interpreted by Avi Controller as False.
         attribute :exclude_invalid_dns_query_as_error
+        validates :exclude_invalid_dns_query_as_error, type: Symbol
 
-        # @return [Object, nil] Exclude queries to domains that did not have configured services/records from the list of errors.,Default value when not specified in API or module is interpreted by Avi Controller as False.
+        # @return [Symbol, nil] Exclude queries to domains that did not have configured services/records from the list of errors.,Default value when not specified in API or module is interpreted by Avi Controller as False.
         attribute :exclude_no_dns_record_as_error
+        validates :exclude_no_dns_record_as_error, type: Symbol
 
-        # @return [Object, nil] Exclude queries to gslb services that have no available members from the list of errors.,Default value when not specified in API or module is interpreted by Avi Controller as False.
+        # @return [Symbol, nil] Exclude queries to gslb services that have no available members from the list of errors.,Default value when not specified in API or module is interpreted by Avi Controller as False.
         attribute :exclude_no_valid_gs_member_as_error
+        validates :exclude_no_valid_gs_member_as_error, type: Symbol
 
-        # @return [Boolean, nil] Exclude persistence server changed while load balancing' from the list of errors.,Default value when not specified in API or module is interpreted by Avi Controller as False.
+        # @return [Symbol, nil] Exclude persistence server changed while load balancing' from the list of errors.,Default value when not specified in API or module is interpreted by Avi Controller as False.
         attribute :exclude_persistence_change_as_error
-        validates :exclude_persistence_change_as_error, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :exclude_persistence_change_as_error, type: Symbol
 
-        # @return [Object, nil] Exclude server dns error response from the list of errors.,Default value when not specified in API or module is interpreted by Avi Controller as False.
+        # @return [Symbol, nil] Exclude server dns error response from the list of errors.,Default value when not specified in API or module is interpreted by Avi Controller as False.
         attribute :exclude_server_dns_error_as_error
+        validates :exclude_server_dns_error_as_error, type: Symbol
 
-        # @return [Boolean, nil] Exclude server tcp reset from errors.,It is common for applications like ms exchange.,Default value when not specified in API or module is interpreted by Avi Controller as False.
+        # @return [Symbol, nil] Exclude server tcp reset from errors.,It is common for applications like ms exchange.,Default value when not specified in API or module is interpreted by Avi Controller as False.
         attribute :exclude_server_tcp_reset_as_error
-        validates :exclude_server_tcp_reset_as_error, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :exclude_server_tcp_reset_as_error, type: Symbol
 
-        # @return [Boolean, nil] Exclude 'server unanswered syns' from the list of errors.,Default value when not specified in API or module is interpreted by Avi Controller as False.
+        # @return [Symbol, nil] Exclude 'server unanswered syns' from the list of errors.,Default value when not specified in API or module is interpreted by Avi Controller as False.
         attribute :exclude_syn_retransmit_as_error
-        validates :exclude_syn_retransmit_as_error, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :exclude_syn_retransmit_as_error, type: Symbol
 
-        # @return [Boolean, nil] Exclude tcp resets by client from the list of potential errors.,Default value when not specified in API or module is interpreted by Avi Controller as False.
+        # @return [Symbol, nil] Exclude tcp resets by client from the list of potential errors.,Default value when not specified in API or module is interpreted by Avi Controller as False.
         attribute :exclude_tcp_reset_as_error
-        validates :exclude_tcp_reset_as_error, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :exclude_tcp_reset_as_error, type: Symbol
 
-        # @return [Object, nil] Exclude unsupported dns queries from the list of errors.,Default value when not specified in API or module is interpreted by Avi Controller as False.
+        # @return [Symbol, nil] Exclude unsupported dns queries from the list of errors.,Default value when not specified in API or module is interpreted by Avi Controller as False.
         attribute :exclude_unsupported_dns_query_as_error
+        validates :exclude_unsupported_dns_query_as_error, type: Symbol
 
         # @return [Integer, nil] Time window (in secs) within which only unique health change events should occur.,Default value when not specified in API or module is interpreted by Avi Controller as 1209600.
         attribute :hs_event_throttle_window

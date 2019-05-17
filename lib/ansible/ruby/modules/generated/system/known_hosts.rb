@@ -22,9 +22,9 @@ module Ansible
         attribute :path
         validates :path, type: String
 
-        # @return [String, nil] Hash the hostname in the known_hosts file
+        # @return [:yes, :no, nil] Hash the hostname in the known_hosts file
         attribute :hash_host
-        validates :hash_host, type: String
+        validates :hash_host, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:present, :absent, nil] I(present) to add the host key, I(absent) to remove it.
         attribute :state

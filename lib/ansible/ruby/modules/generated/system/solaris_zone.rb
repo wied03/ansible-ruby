@@ -20,9 +20,9 @@ module Ansible
         attribute :path
         validates :path, type: String
 
-        # @return [String, nil] Whether to create a sparse (C(true)) or whole root (C(false)) zone.
+        # @return [:yes, :no, nil] Whether to create a sparse (C(true)) or whole root (C(false)) zone.
         attribute :sparse
-        validates :sparse, type: String
+        validates :sparse, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] The password hash for the root account. If not specified, the zone's root account will not have a password.
         attribute :root_password

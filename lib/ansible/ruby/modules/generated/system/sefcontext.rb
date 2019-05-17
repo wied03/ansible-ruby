@@ -21,19 +21,21 @@ module Ansible
         attribute :setype
         validates :setype, presence: true, type: String
 
-        # @return [Object, nil] SELinux user for the specified target.
+        # @return [String, nil] SELinux user for the specified target.
         attribute :seuser
+        validates :seuser, type: String
 
-        # @return [Object, nil] SELinux range for the specified target.
+        # @return [String, nil] SELinux range for the specified target.
         attribute :selevel
+        validates :selevel, type: String
 
-        # @return [:absent, :present, nil] Whether the SELinux file context must be C(absent) or C(present).
+        # @return [String, nil] Whether the SELinux file context must be C(absent) or C(present).
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
+        validates :state, type: String
 
-        # @return [String, nil] Reload SELinux policy after commit.,Note that this does not apply SELinux file contexts to existing files.
+        # @return [:yes, :no, nil] Reload SELinux policy after commit.,Note that this does not apply SELinux file contexts to existing files.
         attribute :reload
-        validates :reload, type: String
+        validates :reload, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

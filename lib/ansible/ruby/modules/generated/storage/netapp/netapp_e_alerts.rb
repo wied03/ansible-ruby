@@ -29,9 +29,9 @@ module Ansible
         attribute :recipients
         validates :recipients, type: TypeGeneric.new(String)
 
-        # @return [Boolean, nil] When a change is detected in the configuration, a test email will be sent.,This may take a few minutes to process.,Only applicable if I(state=enabled).
+        # @return [Symbol, nil] When a change is detected in the configuration, a test email will be sent.,This may take a few minutes to process.,Only applicable if I(state=enabled).
         attribute :test
-        validates :test, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :test, type: Symbol
 
         # @return [Object, nil] Path to a file on the Ansible control node to be used for debug logging
         attribute :log_path

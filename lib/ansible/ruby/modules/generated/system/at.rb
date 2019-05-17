@@ -28,9 +28,9 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
-        # @return [String, nil] If a matching job is present a new job will not be added.
+        # @return [:yes, :no, nil] If a matching job is present a new job will not be added.
         attribute :unique
-        validates :unique, type: String
+        validates :unique, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

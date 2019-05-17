@@ -16,8 +16,9 @@ module Ansible
         attribute :vni
         validates :vni, presence: true, type: Integer
 
-        # @return [Object, nil] This attribute is used to identify and separate processing VNIs that are associated with a VRF and used for routing. The VRF and VNI specified with this command must match the configuration of the VNI under the VRF.
+        # @return [Symbol, nil] This attribute is used to identify and separate processing VNIs that are associated with a VRF and used for routing. The VRF and VNI specified with this command must match the configuration of the VNI under the VRF.
         attribute :assoc_vrf
+        validates :assoc_vrf, type: Symbol
 
         # @return [:bgp, :static, :default, nil] Specifies mechanism for host reachability advertisement.
         attribute :ingress_replication
@@ -29,8 +30,9 @@ module Ansible
         # @return [Object, nil] Set the ingress-replication static peer list. Valid values are an array, a space-separated string of ip addresses, or the keyword 'default'.
         attribute :peer_list
 
-        # @return [Object, nil] Suppress arp under layer 2 VNI.
+        # @return [Symbol, nil] Suppress arp under layer 2 VNI.
         attribute :suppress_arp
+        validates :suppress_arp, type: Symbol
 
         # @return [:present, :absent, nil] Determines whether the config should be present or not on the device.
         attribute :state

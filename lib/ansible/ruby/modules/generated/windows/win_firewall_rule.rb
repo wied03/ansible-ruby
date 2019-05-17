@@ -8,9 +8,9 @@ module Ansible
     module Modules
       # Allows you to create/remove/update firewall rules.
       class Win_firewall_rule < Base
-        # @return [String, nil] Is this firewall rule enabled or disabled.
+        # @return [:yes, :no, nil] Is this firewall rule enabled or disabled.
         attribute :enabled
-        validates :enabled, type: String
+        validates :enabled, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:absent, :present, nil] Should this rule be added or removed.
         attribute :state
@@ -60,9 +60,9 @@ module Ansible
         attribute :profiles
         validates :profiles, type: TypeGeneric.new(String)
 
-        # @return [String, nil] Replace any existing rule by removing it first.,This is no longer required in 2.4 as rules no longer need replacing when being modified.,DEPRECATED in 2.4 and will be removed in 2.9.
+        # @return [:yes, :no, nil] Replace any existing rule by removing it first.,This is no longer required in 2.4 as rules no longer need replacing when being modified.,DEPRECATED in 2.4 and will be removed in 2.9.
         attribute :force
-        validates :force, type: String
+        validates :force, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

@@ -38,9 +38,9 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
-        # @return [String, nil] Poll async jobs until job has finished.
+        # @return [:yes, :no, nil] Poll async jobs until job has finished.
         attribute :poll_async
-        validates :poll_async, type: String
+        validates :poll_async, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

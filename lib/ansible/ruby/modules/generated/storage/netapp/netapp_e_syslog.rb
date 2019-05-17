@@ -28,9 +28,9 @@ module Ansible
         attribute :components
         validates :components, type: String
 
-        # @return [Boolean, nil] This forces a test syslog message to be sent to the stated syslog server.,Only attempts transmission when I(state=present).
+        # @return [Symbol, nil] This forces a test syslog message to be sent to the stated syslog server.,Only attempts transmission when I(state=present).
         attribute :test
-        validates :test, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :test, type: Symbol
 
         # @return [Object, nil] This argument specifies a local path for logging purposes.
         attribute :log_path

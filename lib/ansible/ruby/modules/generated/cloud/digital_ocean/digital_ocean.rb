@@ -28,9 +28,9 @@ module Ansible
         attribute :name
         validates :name, type: String
 
-        # @return [String, nil] Bool, require unique hostnames.  By default, DigitalOcean allows multiple hosts with the same name.  Setting this to "yes" allows only one host per name.  Useful for idempotence.
+        # @return [:yes, :no, nil] Bool, require unique hostnames.  By default, DigitalOcean allows multiple hosts with the same name.  Setting this to "yes" allows only one host per name.  Useful for idempotence.
         attribute :unique_name
-        validates :unique_name, type: String
+        validates :unique_name, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] This is the slug of the size you would like the droplet created with.
         attribute :size_id
@@ -48,28 +48,28 @@ module Ansible
         attribute :ssh_key_ids
         validates :ssh_key_ids, type: Integer
 
-        # @return [String, nil] Bool, turn on virtio driver in droplet for improved network and storage I/O.
+        # @return [:yes, :no, nil] Bool, turn on virtio driver in droplet for improved network and storage I/O.
         attribute :virtio
-        validates :virtio, type: String
+        validates :virtio, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Bool, add an additional, private network interface to droplet for inter-droplet communication.
+        # @return [:yes, :no, nil] Bool, add an additional, private network interface to droplet for inter-droplet communication.
         attribute :private_networking
-        validates :private_networking, type: String
+        validates :private_networking, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Optional, Boolean, enables backups for your droplet.
+        # @return [:yes, :no, nil] Optional, Boolean, enables backups for your droplet.
         attribute :backups_enabled
-        validates :backups_enabled, type: String
+        validates :backups_enabled, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] opaque blob of data which is made available to the droplet
         attribute :user_data
 
-        # @return [String, nil] Optional, Boolean, enable IPv6 for your droplet.
+        # @return [:yes, :no, nil] Optional, Boolean, enable IPv6 for your droplet.
         attribute :ipv6
-        validates :ipv6, type: String
+        validates :ipv6, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Wait for the droplet to be in state 'running' before returning.  If wait is "no" an ip_address may not be returned.
+        # @return [:yes, :no, nil] Wait for the droplet to be in state 'running' before returning.  If wait is "no" an ip_address may not be returned.
         attribute :wait
-        validates :wait, type: String
+        validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] How long before wait gives up, in seconds.
         attribute :wait_timeout

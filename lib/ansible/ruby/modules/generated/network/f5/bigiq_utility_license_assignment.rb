@@ -24,9 +24,9 @@ module Ansible
         attribute :device
         validates :device, type: String
 
-        # @return [FalseClass, TrueClass, nil] Whether the specified device is a managed or un-managed device.,When C(state) is C(present), this parameter is required.
+        # @return [Symbol, nil] Whether the specified device is a managed or un-managed device.,When C(state) is C(present), this parameter is required.
         attribute :managed
-        validates :managed, type: MultipleTypes.new(FalseClass, TrueClass)
+        validates :managed, type: Symbol
 
         # @return [Integer, nil] Specifies the port of the remote device to connect to.,If this parameter is not specified, the default of C(443) will be used.
         attribute :device_port

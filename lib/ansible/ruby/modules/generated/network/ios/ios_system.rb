@@ -24,9 +24,9 @@ module Ansible
         attribute :lookup_source
         validates :lookup_source, type: String
 
-        # @return [Boolean, nil] Administrative control for enabling or disabling DNS lookups.  When this argument is set to True, lookups are performed and when it is set to False, lookups are not performed.
+        # @return [Symbol, nil] Administrative control for enabling or disabling DNS lookups.  When this argument is set to True, lookups are performed and when it is set to False, lookups are not performed.
         attribute :lookup_enabled
-        validates :lookup_enabled, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :lookup_enabled, type: Symbol
 
         # @return [Array<String>, String, nil] List of DNS name servers by IP address to use to perform name resolution lookups.  This argument accepts either a list of DNS servers See examples.
         attribute :name_servers

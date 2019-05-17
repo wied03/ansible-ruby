@@ -8,9 +8,9 @@ module Ansible
     module Modules
       # Manage S3 buckets in AWS, Ceph, Walrus and FakeS3
       class S3_bucket < Base
-        # @return [String, nil] When trying to delete a bucket, delete all keys (including versions and delete markers) in the bucket first (an s3 bucket must be empty for a successful deletion)
+        # @return [:yes, :no, nil] When trying to delete a bucket, delete all keys (including versions and delete markers) in the bucket first (an s3 bucket must be empty for a successful deletion)
         attribute :force
-        validates :force, type: String
+        validates :force, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String] Name of the s3 bucket
         attribute :name
@@ -28,9 +28,9 @@ module Ansible
         attribute :ceph
         validates :ceph, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
-        # @return [String, nil] With Requester Pays buckets, the requester instead of the bucket owner pays the cost of the request and the data download from the bucket.
+        # @return [:yes, :no, nil] With Requester Pays buckets, the requester instead of the bucket owner pays the cost of the request and the data download from the bucket.
         attribute :requester_pays
-        validates :requester_pays, type: String
+        validates :requester_pays, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:present, :absent, nil] Create or remove the s3 bucket
         attribute :state
@@ -40,9 +40,9 @@ module Ansible
         attribute :tags
         validates :tags, type: Hash
 
-        # @return [Boolean, nil] Whether versioning is enabled or disabled (note that once versioning is enabled, it can only be suspended)
+        # @return [Symbol, nil] Whether versioning is enabled or disabled (note that once versioning is enabled, it can only be suspended)
         attribute :versioning
-        validates :versioning, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :versioning, type: Symbol
       end
     end
   end

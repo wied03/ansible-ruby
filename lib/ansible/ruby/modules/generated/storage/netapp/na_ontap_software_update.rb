@@ -24,9 +24,9 @@ module Ansible
         attribute :package_url
         validates :package_url, presence: true, type: String
 
-        # @return [Boolean, nil] Allows the update to continue if warnings are encountered during the validation phase.
+        # @return [Symbol, nil] Allows the update to continue if warnings are encountered during the validation phase.
         attribute :ignore_validation_warning
-        validates :ignore_validation_warning, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :ignore_validation_warning, type: Symbol
       end
     end
   end

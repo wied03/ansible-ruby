@@ -32,9 +32,9 @@ module Ansible
         attribute :super_user_security
         validates :super_user_security, inclusion: {:in=>[:any, :none, :never, :krb5, :krb5i, :krb5p, :ntlm, :sys], :message=>"%{value} needs to be :any, :none, :never, :krb5, :krb5i, :krb5p, :ntlm, :sys"}, allow_nil: true
 
-        # @return [TrueClass, FalseClass, nil] If 'true', NFS server will honor SetUID bits in SETATTR operation. Default value on creation is 'true'
+        # @return [Symbol, nil] If 'true', NFS server will honor SetUID bits in SETATTR operation. Default value on creation is 'true'
         attribute :allow_suid
-        validates :allow_suid, type: MultipleTypes.new(TrueClass, FalseClass)
+        validates :allow_suid, type: Symbol
 
         # @return [:any, :nfs, :nfs3, :nfs4, :cifs, :flexcache, nil] Client access protocol. Default value is 'any'
         attribute :protocol

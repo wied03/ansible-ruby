@@ -8,9 +8,9 @@ module Ansible
     module Modules
       # Manipulate Rackspace Cloud Autoscale Groups
       class Rax_scaling_group < Base
-        # @return [String, nil] Attach read-only configuration drive to server as label config-2
+        # @return [:yes, :no, nil] Attach read-only configuration drive to server as label config-2
         attribute :config_drive
-        validates :config_drive, type: String
+        validates :config_drive, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] The period of time, in seconds, that must pass before any scaling can occur after the previous scaling. Must be an integer between 0 and 86400 (24 hrs).
         attribute :cooldown
@@ -66,9 +66,9 @@ module Ansible
         # @return [Object, nil] Data to be uploaded to the servers config drive. This option implies I(config_drive). Can be a file path or a string
         attribute :user_data
 
-        # @return [String, nil] wait for the scaling group to finish provisioning the minimum amount of servers
+        # @return [:yes, :no, nil] wait for the scaling group to finish provisioning the minimum amount of servers
         attribute :wait
-        validates :wait, type: String
+        validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] how long before wait gives up, in seconds
         attribute :wait_timeout

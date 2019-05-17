@@ -28,9 +28,9 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:absent, :all, :keys, :present, :read], :message=>"%{value} needs to be :absent, :all, :keys, :present, :read"}, allow_nil: true
 
-        # @return [String, nil] If C(yes), dereferences symlinks and sets/gets attributes on symlink target, otherwise acts on symlink itself.
+        # @return [:yes, :no, nil] If C(yes), dereferences symlinks and sets/gets attributes on symlink target, otherwise acts on symlink itself.
         attribute :follow
-        validates :follow, type: String
+        validates :follow, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

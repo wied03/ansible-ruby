@@ -8,9 +8,9 @@ module Ansible
     module Modules
       # Manages Bridge Domains (BD) on Cisco ACI fabrics.
       class Aci_bd < Base
-        # @return [Boolean, nil] Determines if the Bridge Domain should flood ARP traffic.,The APIC defaults to C(no) when unset during creation.
+        # @return [Symbol, nil] Determines if the Bridge Domain should flood ARP traffic.,The APIC defaults to C(no) when unset during creation.
         attribute :arp_flooding
-        validates :arp_flooding, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :arp_flooding, type: Symbol
 
         # @return [String, nil] The name of the Bridge Domain.
         attribute :bd
@@ -23,15 +23,17 @@ module Ansible
         # @return [Object, nil] Description for the Bridge Domain.
         attribute :description
 
-        # @return [Object, nil] Determines if PIM is enabled.,The APIC defaults to C(no) when unset during creation.
+        # @return [Symbol, nil] Determines if PIM is enabled.,The APIC defaults to C(no) when unset during creation.
         attribute :enable_multicast
+        validates :enable_multicast, type: Symbol
 
-        # @return [Boolean, nil] Determines if IP forwarding should be allowed.,The APIC defaults to C(yes) when unset during creation.
+        # @return [Symbol, nil] Determines if IP forwarding should be allowed.,The APIC defaults to C(yes) when unset during creation.
         attribute :enable_routing
-        validates :enable_routing, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :enable_routing, type: Symbol
 
-        # @return [Object, nil] Clears all End Points in all Leaves when C(yes).,The value is not reset to disabled once End Points have been cleared; that requires a second task.,The APIC defaults to C(no) when unset during creation.
+        # @return [Symbol, nil] Clears all End Points in all Leaves when C(yes).,The value is not reset to disabled once End Points have been cleared; that requires a second task.,The APIC defaults to C(no) when unset during creation.
         attribute :endpoint_clear
+        validates :endpoint_clear, type: Symbol
 
         # @return [:default, :garp, nil] Determines if GARP should be enabled to detect when End Points move.,The APIC defaults to C(garp) when unset during creation.
         attribute :endpoint_move_detect
@@ -47,8 +49,9 @@ module Ansible
         # @return [Object, nil] The name of the IGMP Snooping Policy the Bridge Domain should use when overriding the default IGMP Snooping Policy.
         attribute :igmp_snoop_policy
 
-        # @return [Object, nil] Determines if the Bridge Domain should learn End Point IPs.,The APIC defaults to C(yes) when unset during creation.
+        # @return [Symbol, nil] Determines if the Bridge Domain should learn End Point IPs.,The APIC defaults to C(yes) when unset during creation.
         attribute :ip_learning
+        validates :ip_learning, type: Symbol
 
         # @return [Object, nil] The name of the IPv6 Neighbor Discovery Policy the Bridge Domain should use when overridding the default IPV6 ND Policy.
         attribute :ipv6_nd_policy
@@ -61,8 +64,9 @@ module Ansible
         attribute :l3_unknown_multicast
         validates :l3_unknown_multicast, inclusion: {:in=>[:flood, :"opt-flood"], :message=>"%{value} needs to be :flood, :\"opt-flood\""}, allow_nil: true
 
-        # @return [Object, nil] Determines if the BD should limit IP learning to only subnets owned by the Bridge Domain.,The APIC defaults to C(yes) when unset during creation.
+        # @return [Symbol, nil] Determines if the BD should limit IP learning to only subnets owned by the Bridge Domain.,The APIC defaults to C(yes) when unset during creation.
         attribute :limit_ip_learn
+        validates :limit_ip_learn, type: Symbol
 
         # @return [String, nil] The MAC Address to assign to the C(bd) instead of using the default.,The APIC defaults to C(00:22:BD:F8:19:FF) when unset during creation.
         attribute :mac_address

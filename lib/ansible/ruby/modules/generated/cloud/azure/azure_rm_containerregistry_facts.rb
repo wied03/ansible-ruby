@@ -16,9 +16,9 @@ module Ansible
         attribute :name
         validates :name, type: String
 
-        # @return [Boolean, nil] Retrieve credentials for container registry.
+        # @return [Symbol, nil] Retrieve credentials for container registry.
         attribute :retrieve_credentials
-        validates :retrieve_credentials, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :retrieve_credentials, type: Symbol
 
         # @return [Object, nil] Limit results by providing a list of tags. Format tags as 'key' or 'key:value'.
         attribute :tags

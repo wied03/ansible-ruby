@@ -16,9 +16,9 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:absent, :latest, :present], :message=>"%{value} needs to be :absent, :latest, :present"}, allow_nil: true
 
-        # @return [String, nil] Accept any licences.
+        # @return [:yes, :no, nil] Accept any licences.
         attribute :accept_licenses
-        validates :accept_licenses, type: String
+        validates :accept_licenses, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

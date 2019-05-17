@@ -8,9 +8,9 @@ module Ansible
     module Modules
       # The C(git_config) module changes git configuration by invoking 'git config'. This is needed if you don't want to use M(template) for the entire git config file (e.g. because you need to change just C(user.email) in /etc/.git/config).  Solutions involving M(command) are cumbersome or don't work correctly in check mode.
       class Git_config < Base
-        # @return [String, nil] List all settings (optionally limited to a given I(scope))
+        # @return [:yes, :no, nil] List all settings (optionally limited to a given I(scope))
         attribute :list_all
-        validates :list_all, type: String
+        validates :list_all, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] The name of the setting. If no value is supplied, the value will be read from the config if it has been set.
         attribute :name

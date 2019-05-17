@@ -20,9 +20,9 @@ module Ansible
         attribute :element_password
         validates :element_password, type: String
 
-        # @return [Boolean, nil] Boolean, true for accepting Eula, False Eula
+        # @return [Symbol, nil] Boolean, true for accepting Eula, False Eula
         attribute :acceptEula
-        validates :acceptEula, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :acceptEula, type: Symbol
 
         # @return [Array<String>, String, nil] A list of type the admin has access to
         attribute :access

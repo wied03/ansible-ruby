@@ -12,13 +12,13 @@ module Ansible
         attribute :blacklist
         validates :blacklist, type: TypeGeneric.new(String)
 
-        # @return [:Application, :Connectors, :CriticalUpdates, :DefinitionUpdates, :DeveloperKits, :FeaturePacks, :Guidance, :SecurityUpdates, :ServicePacks, :Tools, :UpdateRollups, :Updates, nil] A scalar or list of categories to install updates from
+        # @return [Array<String>, String, nil] A scalar or list of categories to install updates from
         attribute :category_names
-        validates :category_names, inclusion: {:in=>[:Application, :Connectors, :CriticalUpdates, :DefinitionUpdates, :DeveloperKits, :FeaturePacks, :Guidance, :SecurityUpdates, :ServicePacks, :Tools, :UpdateRollups, :Updates], :message=>"%{value} needs to be :Application, :Connectors, :CriticalUpdates, :DefinitionUpdates, :DeveloperKits, :FeaturePacks, :Guidance, :SecurityUpdates, :ServicePacks, :Tools, :UpdateRollups, :Updates"}, allow_nil: true
+        validates :category_names, type: TypeGeneric.new(String)
 
-        # @return [String, nil] Ansible will automatically reboot the remote host if it is required and continue to install updates after the reboot.,This can be used instead of using a M(win_reboot) task after this one and ensures all updates for that category is installed in one go.,Async does not work when C(reboot=True).
+        # @return [:yes, :no, nil] Ansible will automatically reboot the remote host if it is required and continue to install updates after the reboot.,This can be used instead of using a M(win_reboot) task after this one and ensures all updates for that category is installed in one go.,Async does not work when C(reboot=True).
         attribute :reboot
-        validates :reboot, type: String
+        validates :reboot, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] The time in seconds to wait until the host is back online from a reboot.,This is only used if C(reboot=True) and a reboot is required.
         attribute :reboot_timeout
@@ -36,9 +36,9 @@ module Ansible
         attribute :whitelist
         validates :whitelist, type: TypeGeneric.new(String)
 
-        # @return [String, nil] Will not auto elevate the remote process with I(become) and use a scheduled task instead.,Set this to C(yes) when using this module with async on Server 2008, 2008 R2, or Windows 7, or on Server 2008 that is not authenticated with basic or credssp.,Can also be set to C(yes) on newer hosts where become does not work due to further privilege restrictions from the OS defaults.
+        # @return [:yes, :no, nil] Will not auto elevate the remote process with I(become) and use a scheduled task instead.,Set this to C(yes) when using this module with async on Server 2008, 2008 R2, or Windows 7, or on Server 2008 that is not authenticated with basic or credssp.,Can also be set to C(yes) on newer hosts where become does not work due to further privilege restrictions from the OS defaults.
         attribute :use_scheduled_task
-        validates :use_scheduled_task, type: String
+        validates :use_scheduled_task, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

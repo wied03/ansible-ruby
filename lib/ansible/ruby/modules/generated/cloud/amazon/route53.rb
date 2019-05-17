@@ -32,17 +32,17 @@ module Ansible
         attribute :type
         validates :type, presence: true, inclusion: {:in=>[:A, :CNAME, :MX, :AAAA, :TXT, :PTR, :SRV, :SPF, :CAA, :NS, :SOA], :message=>"%{value} needs to be :A, :CNAME, :MX, :AAAA, :TXT, :PTR, :SRV, :SPF, :CAA, :NS, :SOA"}
 
-        # @return [String, nil] Indicates if this is an alias record.
+        # @return [:yes, :no, nil] Indicates if this is an alias record.
         attribute :alias
-        validates :alias, type: String
+        validates :alias, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] The hosted zone identifier.
         attribute :alias_hosted_zone_id
         validates :alias_hosted_zone_id, type: String
 
-        # @return [Boolean, nil] Whether or not to evaluate an alias target health. Useful for aliases to Elastic Load Balancers.
+        # @return [Symbol, nil] Whether or not to evaluate an alias target health. Useful for aliases to Elastic Load Balancers.
         attribute :alias_evaluate_target_health
-        validates :alias_evaluate_target_health, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :alias_evaluate_target_health, type: Symbol
 
         # @return [Array<String>, String, nil] The new value when creating a DNS record.  YAML lists or multiple comma-spaced values are allowed for non-alias records.,When deleting a record all values for the record must be specified or Route53 will not delete it.
         attribute :value
@@ -55,9 +55,9 @@ module Ansible
         attribute :retry_interval
         validates :retry_interval, type: Integer
 
-        # @return [String, nil] If set to C(yes), the private zone matching the requested name within the domain will be used if there are both public and private zones. The default is to use the public zone.
+        # @return [:yes, :no, nil] If set to C(yes), the private zone matching the requested name within the domain will be used if there are both public and private zones. The default is to use the public zone.
         attribute :private_zone
-        validates :private_zone, type: String
+        validates :private_zone, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] Have to be specified for Weighted, latency-based and failover resource record sets only. An identifier that differentiates among multiple resource record sets that have the same combination of DNS name and type.
         attribute :identifier
@@ -80,9 +80,9 @@ module Ansible
         # @return [Object, nil] When used in conjunction with private_zone: true, this will only modify records in the private hosted zone attached to this VPC.,This allows you to have multiple private hosted zones, all with the same name, attached to different VPCs.
         attribute :vpc_id
 
-        # @return [String, nil] Wait until the changes have been replicated to all Amazon Route 53 DNS servers.
+        # @return [:yes, :no, nil] Wait until the changes have been replicated to all Amazon Route 53 DNS servers.
         attribute :wait
-        validates :wait, type: String
+        validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] How long to wait for the changes to be replicated, in seconds.
         attribute :wait_timeout

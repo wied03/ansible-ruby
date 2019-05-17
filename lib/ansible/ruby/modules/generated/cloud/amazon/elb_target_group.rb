@@ -56,8 +56,9 @@ module Ansible
         attribute :state
         validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
 
-        # @return [Object, nil] Indicates whether sticky sessions are enabled.
+        # @return [Symbol, nil] Indicates whether sticky sessions are enabled.
         attribute :stickiness_enabled
+        validates :stickiness_enabled, type: Symbol
 
         # @return [Object, nil] The time period, in seconds, during which requests from a client should be routed to the same target. After this time period expires, the load balancer-generated cookie is considered stale. The range is 1 second to 1 week (604800 seconds).
         attribute :stickiness_lb_cookie_duration
@@ -88,9 +89,9 @@ module Ansible
         attribute :vpc_id
         validates :vpc_id, type: String
 
-        # @return [Boolean, nil] Whether or not to wait for the target group.
+        # @return [Symbol, nil] Whether or not to wait for the target group.
         attribute :wait
-        validates :wait, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :wait, type: Symbol
 
         # @return [Integer, nil] The time to wait for the target group.
         attribute :wait_timeout

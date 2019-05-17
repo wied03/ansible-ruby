@@ -52,13 +52,13 @@ module Ansible
         attribute :timeout
         validates :timeout, type: Integer
 
-        # @return [String, nil] If C(no), SSL certificates will not be validated. This should only be set to C(no) when no other option exists.
+        # @return [:yes, :no, nil] If C(no), SSL certificates will not be validated. This should only be set to C(no) when no other option exists.
         attribute :validate_certs
-        validates :validate_certs, type: String
+        validates :validate_certs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] If C(yes), the downloaded artifact's name is preserved, i.e the version number remains part of it.,This option only has effect when C(dest) is a directory and C(version) is set to C(latest).
+        # @return [:yes, :no, nil] If C(yes), the downloaded artifact's name is preserved, i.e the version number remains part of it.,This option only has effect when C(dest) is a directory and C(version) is set to C(latest).
         attribute :keep_name
-        validates :keep_name, type: String
+        validates :keep_name, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:never, :download, :change, :always, nil] If C(never), the md5 checksum will never be downloaded and verified.,If C(download), the md5 checksum will be downloaded and verified only after artifact download. This is the default.,If C(change), the md5 checksum will be downloaded and verified if the destination already exist, to verify if they are identical. This was the behaviour before 2.6. Since it downloads the md5 before (maybe) downloading the artifact, and since some repository software, when acting as a proxy/cache, return a 404 error if the artifact has not been cached yet, it may fail unexpectedly. If you still need it, you should consider using C(always) instead - if you deal with a checksum, it is better to use it to verify integrity after download.,C(always) combines C(download) and C(change).
         attribute :verify_checksum

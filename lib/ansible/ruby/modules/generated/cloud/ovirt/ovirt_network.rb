@@ -30,9 +30,9 @@ module Ansible
         attribute :vlan_tag
         validates :vlan_tag, type: Integer
 
-        # @return [Boolean, nil] If I(True) network will be marked as network for VM.,VM network carries traffic relevant to the virtual machine.
+        # @return [Symbol, nil] If I(True) network will be marked as network for VM.,VM network carries traffic relevant to the virtual machine.
         attribute :vm_network
-        validates :vm_network, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :vm_network, type: Symbol
 
         # @return [Object, nil] Maximum transmission unit (MTU) of the network.
         attribute :mtu

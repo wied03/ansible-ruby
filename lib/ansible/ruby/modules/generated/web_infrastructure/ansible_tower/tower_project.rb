@@ -32,17 +32,17 @@ module Ansible
         # @return [Object, nil] Name of the credential to use with this SCM resource.
         attribute :scm_credential
 
-        # @return [String, nil] Remove local modifications before updating.
+        # @return [:yes, :no, nil] Remove local modifications before updating.
         attribute :scm_clean
-        validates :scm_clean, type: String
+        validates :scm_clean, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Remove the repository completely before updating.
+        # @return [:yes, :no, nil] Remove the repository completely before updating.
         attribute :scm_delete_on_update
-        validates :scm_delete_on_update, type: String
+        validates :scm_delete_on_update, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Before an update to the local repository before launching a job with this project.
+        # @return [:yes, :no, nil] Before an update to the local repository before launching a job with this project.
         attribute :scm_update_on_launch
-        validates :scm_update_on_launch, type: String
+        validates :scm_update_on_launch, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] Primary key of organization for project.
         attribute :organization

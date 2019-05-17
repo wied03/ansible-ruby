@@ -35,9 +35,9 @@ module Ansible
         attribute :domain
         validates :domain, type: String
 
-        # @return [String, nil] Is the user enabled
+        # @return [:yes, :no, nil] Is the user enabled
         attribute :enabled
-        validates :enabled, type: String
+        validates :enabled, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:present, :absent, nil] Should the resource be present or absent.
         attribute :state

@@ -25,9 +25,9 @@ module Ansible
         attribute :creates_version
         validates :creates_version, type: Float
 
-        # @return [Integer, nil] One or more return codes from the package installation that indicates success.,Before Ansible 2.4 this was just 0 but since 2.4 this is both C(0) and C(3010).,A return code of C(3010) usually means that a reboot is required, the C(reboot_required) return value is set if the return code is C(3010).
+        # @return [Array<String>, String, nil] One or more return codes from the package installation that indicates success.,Before Ansible 2.4 this was just 0 but since 2.4 this is both C(0) and C(3010).,A return code of C(3010) usually means that a reboot is required, the C(reboot_required) return value is set if the return code is C(3010).
         attribute :expected_return_code
-        validates :expected_return_code, type: Integer
+        validates :expected_return_code, type: TypeGeneric.new(String)
 
         # @return [Object, nil] The password for C(user_name), must be set when C(user_name) is.
         attribute :password
@@ -47,9 +47,9 @@ module Ansible
         # @return [Object, nil] Username of an account with access to the package if it is located on a file share.,This is only needed if the WinRM transport is over an auth method that does not support credential delegation like Basic or NTLM.
         attribute :username
 
-        # @return [String, nil] If C(no), SSL certificates will not be validated. This should only be used on personally controlled sites using self-signed certificates.,Before Ansible 2.4 this defaulted to C(no).
+        # @return [:yes, :no, nil] If C(no), SSL certificates will not be validated. This should only be used on personally controlled sites using self-signed certificates.,Before Ansible 2.4 this defaulted to C(no).
         attribute :validate_certs
-        validates :validate_certs, type: String
+        validates :validate_certs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

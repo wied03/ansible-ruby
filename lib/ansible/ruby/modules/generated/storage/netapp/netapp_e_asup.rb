@@ -28,9 +28,9 @@ module Ansible
         attribute :days
         validates :days, inclusion: {:in=>[:monday, :tuesday, :wednesday, :thursday, :friday, :saturday, :sunday], :message=>"%{value} needs to be :monday, :tuesday, :wednesday, :thursday, :friday, :saturday, :sunday"}, allow_nil: true
 
-        # @return [Boolean, nil] Provide the full ASUP configuration in the return.
+        # @return [Symbol, nil] Provide the full ASUP configuration in the return.
         attribute :verbose
-        validates :verbose, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :verbose, type: Symbol
 
         # @return [Object, nil] A local path to a file to be used for debug logging
         attribute :log_path

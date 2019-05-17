@@ -36,9 +36,9 @@ module Ansible
         attribute :type
         validates :type, inclusion: {:in=>[:primary, :secondary], :message=>"%{value} needs to be :primary, :secondary"}, allow_nil: true
 
-        # @return [String, nil] Wait for the load balancer to become active before returning
+        # @return [:yes, :no, nil] Wait for the load balancer to become active before returning
         attribute :wait
-        validates :wait, type: String
+        validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] How long to wait before giving up and returning an error
         attribute :wait_timeout

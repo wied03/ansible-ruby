@@ -20,9 +20,9 @@ module Ansible
         attribute :password
         validates :password, type: String
 
-        # @return [Boolean, nil] enables or disables the local syslog facility for this module
+        # @return [Symbol, nil] enables or disables the local syslog facility for this module
         attribute :logging
-        validates :logging, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :logging, type: Symbol
 
         # @return [:present, :absent, nil] describe the desired state of the user to be managed
         attribute :state

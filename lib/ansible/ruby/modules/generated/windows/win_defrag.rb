@@ -9,9 +9,9 @@ module Ansible
       # Locates and consolidates fragmented files on local volumes to improve system performance.
       # More information regarding C(win_defrag) is available from: U(https://technet.microsoft.com/en-us/library/cc731650(v=ws.11).aspx)
       class Win_defrag < Base
-        # @return [String, nil] A list of drive letters or mount point paths of the volumes to be defragmented.,If this parameter is omitted, all volumes (not excluded) will be fragmented.
+        # @return [Array<String>, String, nil] A list of drive letters or mount point paths of the volumes to be defragmented.,If this parameter is omitted, all volumes (not excluded) will be fragmented.
         attribute :include_volumes
-        validates :include_volumes, type: String
+        validates :include_volumes, type: TypeGeneric.new(String)
 
         # @return [Array<String>, String, nil] A list of drive letters or mount point paths to exclude from defragmentation.
         attribute :exclude_volumes
@@ -25,9 +25,9 @@ module Ansible
         attribute :priority
         validates :priority, inclusion: {:in=>[:low, :normal], :message=>"%{value} needs to be :low, :normal"}, allow_nil: true
 
-        # @return [String, nil] Run the operation on each volume in parallel in the background.
+        # @return [:yes, :no, nil] Run the operation on each volume in parallel in the background.
         attribute :parallel
-        validates :parallel, type: String
+        validates :parallel, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

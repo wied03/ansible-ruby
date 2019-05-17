@@ -25,9 +25,9 @@ module Ansible
         # @return [Object, nil] The email address for the registry account.
         attribute :email
 
-        # @return [String, nil] Refresh existing authentication found in the configuration file.
+        # @return [:yes, :no, nil] Refresh existing authentication found in the configuration file.
         attribute :reauthorize
-        validates :reauthorize, type: String
+        validates :reauthorize, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] Custom path to the Docker CLI configuration file.
         attribute :config_path

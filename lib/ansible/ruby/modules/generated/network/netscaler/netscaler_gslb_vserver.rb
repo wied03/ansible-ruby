@@ -99,9 +99,9 @@ module Ansible
         # @return [Object, nil] List of bindings for gslb services bound to this gslb virtual server.
         attribute :service_bindings
 
-        # @return [Boolean, nil] When set to C(yes) the GSLB Vserver state will be set to C(disabled).,When set to C(no) the GSLB Vserver state will be set to C(enabled).,Note that due to limitations of the underlying NITRO API a C(disabled) state change alone does not cause the module result to report a changed status.
+        # @return [Symbol, nil] When set to C(yes) the GSLB Vserver state will be set to C(disabled).,When set to C(no) the GSLB Vserver state will be set to C(enabled).,Note that due to limitations of the underlying NITRO API a C(disabled) state change alone does not cause the module result to report a changed status.
         attribute :disabled
-        validates :disabled, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :disabled, type: Symbol
       end
     end
   end

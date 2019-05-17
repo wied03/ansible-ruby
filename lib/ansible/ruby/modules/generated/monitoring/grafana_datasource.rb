@@ -57,9 +57,9 @@ module Ansible
         attribute :basic_auth_password
         validates :basic_auth_password, type: String
 
-        # @return [String, nil] Whether credentials such as cookies or auth headers should be sent with cross-site requests.
+        # @return [:yes, :no, nil] Whether credentials such as cookies or auth headers should be sent with cross-site requests.
         attribute :with_credentials
-        validates :with_credentials, type: String
+        validates :with_credentials, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] The client TLS certificate.,If C(tls_client_cert) and C(tls_client_key) are set, this will enable TLS authentication.,Starts with ----- BEGIN CERTIFICATE -----
         attribute :tls_client_cert
@@ -71,13 +71,13 @@ module Ansible
         attribute :tls_ca_cert
         validates :tls_ca_cert, type: String
 
-        # @return [Boolean, nil] Skip the TLS datasource certificate verification.
+        # @return [Symbol, nil] Skip the TLS datasource certificate verification.
         attribute :tls_skip_verify
-        validates :tls_skip_verify, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :tls_skip_verify, type: Symbol
 
-        # @return [String, nil] Make this datasource the default one.
+        # @return [:yes, :no, nil] Make this datasource the default one.
         attribute :is_default
-        validates :is_default, type: String
+        validates :is_default, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] Grafana Organisation ID in which the datasource should be created.,Not used when C(grafana_api_key) is set, because the C(grafana_api_key) only belong to one organisation.
         attribute :org_id
@@ -119,12 +119,13 @@ module Ansible
         attribute :sslmode
         validates :sslmode, inclusion: {:in=>[:disable, :require, :"verify-ca", :"verify-full"], :message=>"%{value} needs to be :disable, :require, :\"verify-ca\", :\"verify-full\""}, allow_nil: true
 
-        # @return [Object, nil] Use trends or not for zabbix datasource type
+        # @return [Symbol, nil] Use trends or not for zabbix datasource type
         attribute :trends
+        validates :trends, type: Symbol
 
-        # @return [String, nil] Whether to validate the Grafana certificate.
+        # @return [:yes, :no, nil] Whether to validate the Grafana certificate.
         attribute :validate_certs
-        validates :validate_certs, type: String
+        validates :validate_certs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

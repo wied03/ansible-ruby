@@ -58,9 +58,9 @@ module Ansible
         # @return [Object, nil] snat interface address
         attribute :snat_interface_address
 
-        # @return [String, nil] bidirectional flag
+        # @return [:yes, :no, nil] bidirectional flag
         attribute :snat_bidirectional
-        validates :snat_bidirectional, type: String
+        validates :snat_bidirectional, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] dnat translated address
         attribute :dnat_address
@@ -70,13 +70,13 @@ module Ansible
         attribute :dnat_port
         validates :dnat_port, type: String
 
-        # @return [String, nil] attempt to override rule if one with the same name already exists
+        # @return [:yes, :no, nil] attempt to override rule if one with the same name already exists
         attribute :override
-        validates :override, type: String
+        validates :override, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] commit if changed
+        # @return [:yes, :no, nil] commit if changed
         attribute :commit
-        validates :commit, type: String
+        validates :commit, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

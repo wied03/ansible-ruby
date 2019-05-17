@@ -39,8 +39,9 @@ module Ansible
         # @return [Object, nil] To be used with I(state=absent) to delete connections after disassociating them with the LAG.
         attribute :delete_with_disassociation
 
-        # @return [Object, nil] Whether or not to wait for the operation to complete. May be useful when waiting for virtual interfaces to be deleted. May modify the time of waiting with C(wait_timeout).
+        # @return [Symbol, nil] Whether or not to wait for the operation to complete. May be useful when waiting for virtual interfaces to be deleted. May modify the time of waiting with C(wait_timeout).
         attribute :wait
+        validates :wait, type: Symbol
 
         # @return [Integer, nil] The duration in seconds to wait if I(wait) is True.
         attribute :wait_timeout

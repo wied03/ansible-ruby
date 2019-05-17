@@ -12,9 +12,9 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [String, nil] Indicates if the resource should be deployed. Allows for deployment logic to be disengaged and control of the node power or maintenance state to be changed.
+        # @return [:yes, :no, nil] Indicates if the resource should be deployed. Allows for deployment logic to be disengaged and control of the node power or maintenance state to be changed.
         attribute :deploy
-        validates :deploy, type: String
+        validates :deploy, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] globally unique identifier (UUID) to be given to the resource.
         attribute :uuid
@@ -32,16 +32,16 @@ module Ansible
         attribute :power
         validates :power, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [String, nil] A setting to allow the direct control if a node is in maintenance mode.
+        # @return [:yes, :no, nil] A setting to allow the direct control if a node is in maintenance mode.
         attribute :maintenance
-        validates :maintenance, type: String
+        validates :maintenance, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] A string expression regarding the reason a node is in a maintenance mode.
         attribute :maintenance_reason
 
-        # @return [String, nil] A boolean value instructing the module to wait for node activation or deactivation to complete before returning.
+        # @return [:yes, :no, nil] A boolean value instructing the module to wait for node activation or deactivation to complete before returning.
         attribute :wait
-        validates :wait, type: String
+        validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] An integer value representing the number of seconds to wait for the node activation or deactivation to complete.
         attribute :timeout

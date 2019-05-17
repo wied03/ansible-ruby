@@ -31,9 +31,9 @@ module Ansible
         attribute :src_snapshot_id
         validates :src_snapshot_id, type: String
 
-        # @return [Boolean, nil] Flag, whether to replicate the snapshot created to a remote replication cluster.,To enable specify 'true' value.
+        # @return [Symbol, nil] Flag, whether to replicate the snapshot created to a remote replication cluster.,To enable specify 'true' value.
         attribute :enable_remote_replication
-        validates :enable_remote_replication, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :enable_remote_replication, type: Symbol
 
         # @return [Object, nil] Label used by SnapMirror software to specify snapshot retention policy on SnapMirror endpoint.
         attribute :snap_mirror_label

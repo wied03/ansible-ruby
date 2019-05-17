@@ -9,9 +9,9 @@ module Ansible
       # Manage the life cycle of docker containers.
       # Supports check mode. Run with --check and --diff to view config difference and list of actions to be taken.
       class Docker_container < Base
-        # @return [String, nil] enable auto-removal of the container on daemon side when the container's process exits
+        # @return [:yes, :no, nil] enable auto-removal of the container on daemon side when the container's process exits
         attribute :auto_remove
-        validates :auto_remove, type: String
+        validates :auto_remove, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] Block IO (relative weight), between 10 and 1000.
         attribute :blkio_weight
@@ -24,9 +24,9 @@ module Ansible
         attribute :cap_drop
         validates :cap_drop, type: TypeGeneric.new(String)
 
-        # @return [String, nil] Use with I(detach=false) to remove the container after successful execution.
+        # @return [:yes, :no, nil] Use with I(detach=false) to remove the container after successful execution.
         attribute :cleanup
-        validates :cleanup, type: String
+        validates :cleanup, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Array<String>, String, nil] Command to execute when the container starts. A command may be either a string or a list. Prior to version 2.4, strings were split on commas.
         attribute :command
@@ -87,9 +87,9 @@ module Ansible
         attribute :exposed_ports
         validates :exposed_ports, type: TypeGeneric.new(Integer)
 
-        # @return [String, nil] Use the kill command when stopping a running container.
+        # @return [:yes, :no, nil] Use the kill command when stopping a running container.
         attribute :force_kill
-        validates :force_kill, type: String
+        validates :force_kill, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] List of additional group names and/or IDs that the container process will run as.
         attribute :groups
@@ -97,28 +97,28 @@ module Ansible
         # @return [Object, nil] Container hostname.
         attribute :hostname
 
-        # @return [String, nil] When C(state) is I(present) or I(started) the module compares the configuration of an existing container to requested configuration. The evaluation includes the image version. If the image version in the registry does not match the container, the container will be recreated. Stop this behavior by setting C(ignore_image) to I(True).
+        # @return [:yes, :no, nil] When C(state) is I(present) or I(started) the module compares the configuration of an existing container to requested configuration. The evaluation includes the image version. If the image version in the registry does not match the container, the container will be recreated. Stop this behavior by setting C(ignore_image) to I(True).
         attribute :ignore_image
-        validates :ignore_image, type: String
+        validates :ignore_image, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] Repository path and tag used to create the container. If an image is not found or pull is true, the image will be pulled from the registry. If no tag is included, 'latest' will be used.
         attribute :image
         validates :image, type: String
 
-        # @return [String, nil] Run an init inside the container that forwards signals and reaps processes. This option requires Docker API 1.25+.
+        # @return [:yes, :no, nil] Run an init inside the container that forwards signals and reaps processes. This option requires Docker API 1.25+.
         attribute :init
-        validates :init, type: String
+        validates :init, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Keep stdin open after a container is launched, even if not attached.
+        # @return [:yes, :no, nil] Keep stdin open after a container is launched, even if not attached.
         attribute :interactive
-        validates :interactive, type: String
+        validates :interactive, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] Set the IPC mode for the container. Can be one of 'container:<name|id>' to reuse another container's IPC namespace or 'host' to use the host's IPC namespace within the container.
         attribute :ipc_mode
 
-        # @return [String, nil] Retain volumes associated with a removed container.
+        # @return [:yes, :no, nil] Retain volumes associated with a removed container.
         attribute :keep_volumes
-        validates :keep_volumes, type: String
+        validates :keep_volumes, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] Override default signal used to kill a running container.
         attribute :kill_signal
@@ -174,51 +174,51 @@ module Ansible
         attribute :networks
         validates :networks, type: TypeGeneric.new(Hash)
 
-        # @return [String, nil] Whether or not to disable OOM Killer for the container.
+        # @return [:yes, :no, nil] Whether or not to disable OOM Killer for the container.
         attribute :oom_killer
-        validates :oom_killer, type: String
+        validates :oom_killer, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] An integer value containing the score given to the container in order to tune OOM killer preferences.
         attribute :oom_score_adj
         validates :oom_score_adj, type: Integer
 
-        # @return [String, nil] If set to true, output of the container command will be printed (only effective when log_driver is set to json-file or journald.
+        # @return [:yes, :no, nil] If set to true, output of the container command will be printed (only effective when log_driver is set to json-file or journald.
         attribute :output_logs
-        validates :output_logs, type: String
+        validates :output_logs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Use with the started state to pause running processes inside the container.
+        # @return [:yes, :no, nil] Use with the started state to pause running processes inside the container.
         attribute :paused
-        validates :paused, type: String
+        validates :paused, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] Set the PID namespace mode for the container. Currently only supports 'host'.
         attribute :pid_mode
 
-        # @return [String, nil] Give extended privileges to the container.
+        # @return [:yes, :no, nil] Give extended privileges to the container.
         attribute :privileged
-        validates :privileged, type: String
+        validates :privileged, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] List of ports to publish from the container to the host.,Use docker CLI syntax: C(8000), C(9000:8000), or C(0.0.0.0:9000:8000), where 8000 is a container port, 9000 is a host port, and 0.0.0.0 is a host interface.,Container ports must be exposed either in the Dockerfile or via the C(expose) option.,A value of C(all) will publish all exposed container ports to random host ports, ignoring any other mappings.,If C(networks) parameter is provided, will inspect each network to see if there exists a bridge network with optional parameter com.docker.network.bridge.host_binding_ipv4. If such a network is found, then published ports where no host IP address is specified will be bound to the host IP pointed to by com.docker.network.bridge.host_binding_ipv4. Note that the first bridge network with a com.docker.network.bridge.host_binding_ipv4 value encountered in the list of C(networks) is the one that will be used.
         attribute :published_ports
 
-        # @return [String, nil] If true, always pull the latest version of an image. Otherwise, will only pull an image when missing.
+        # @return [:yes, :no, nil] If true, always pull the latest version of an image. Otherwise, will only pull an image when missing.
         attribute :pull
-        validates :pull, type: String
+        validates :pull, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Remove the container from ALL networks not included in C(networks) parameter.,Any default networks such as I(bridge), if not found in C(networks), will be removed as well.
+        # @return [:yes, :no, nil] Remove the container from ALL networks not included in C(networks) parameter.,Any default networks such as I(bridge), if not found in C(networks), will be removed as well.
         attribute :purge_networks
-        validates :purge_networks, type: String
+        validates :purge_networks, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Mount the container's root file system as read-only.
+        # @return [:yes, :no, nil] Mount the container's root file system as read-only.
         attribute :read_only
-        validates :read_only, type: String
+        validates :read_only, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Use with present and started states to force the re-creation of an existing container.
+        # @return [:yes, :no, nil] Use with present and started states to force the re-creation of an existing container.
         attribute :recreate
-        validates :recreate, type: String
+        validates :recreate, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Use with started state to force a matching container to be stopped and restarted.
+        # @return [:yes, :no, nil] Use with started state to force a matching container to be stopped and restarted.
         attribute :restart
-        validates :restart, type: String
+        validates :restart, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:no, :"on-failure", :always, :"unless-stopped", nil] Container restart policy. Place quotes around I(no) option.
         attribute :restart_policy
@@ -244,16 +244,16 @@ module Ansible
         # @return [Object, nil] Number of seconds to wait for the container to stop before sending SIGKILL.
         attribute :stop_timeout
 
-        # @return [String, nil] If C(yes), skip image verification.
+        # @return [:yes, :no, nil] If C(yes), skip image verification.
         attribute :trust_image_content
-        validates :trust_image_content, type: String
+        validates :trust_image_content, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] Mount a tmpfs directory
         attribute :tmpfs
 
-        # @return [String, nil] Allocate a pseudo-TTY.
+        # @return [:yes, :no, nil] Allocate a pseudo-TTY.
         attribute :tty
-        validates :tty, type: String
+        validates :tty, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] List of ulimit options. A ulimit is specified as C(nofile:262144:262144)
         attribute :ulimits

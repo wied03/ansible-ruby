@@ -16,17 +16,17 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
-        # @return [String, nil] Update the package database first C(urpmi.update -a).
+        # @return [:yes, :no, nil] Update the package database first C(urpmi.update -a).
         attribute :update_cache
-        validates :update_cache, type: String
+        validates :update_cache, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Corresponds to the C(--no-recommends) option for I(urpmi).
+        # @return [:yes, :no, nil] Corresponds to the C(--no-recommends) option for I(urpmi).
         attribute :no_recommends, original_name: 'no-recommends'
-        validates :no_recommends, type: String
+        validates :no_recommends, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Assume "yes" is the answer to any question urpmi has to ask. Corresponds to the C(--force) option for I(urpmi).
+        # @return [:yes, :no, nil] Assume "yes" is the answer to any question urpmi has to ask. Corresponds to the C(--force) option for I(urpmi).
         attribute :force
-        validates :force, type: String
+        validates :force, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] Specifies an alternative install root, relative to which all packages will be installed. Corresponds to the C(--root) option for I(urpmi).
         attribute :root

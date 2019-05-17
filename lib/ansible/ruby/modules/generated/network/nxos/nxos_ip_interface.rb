@@ -32,9 +32,9 @@ module Ansible
         attribute :tag
         validates :tag, type: Integer
 
-        # @return [String, nil] Allow to configure IPv4 secondary addresses on interface.
+        # @return [:yes, :no, nil] Allow to configure IPv4 secondary addresses on interface.
         attribute :allow_secondary
-        validates :allow_secondary, type: String
+        validates :allow_secondary, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:present, :absent, nil] Specify desired state of the resource.
         attribute :state

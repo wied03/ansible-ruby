@@ -51,9 +51,9 @@ module Ansible
         attribute :version
         validates :version, type: String
 
-        # @return [String, nil] Defines whether to install plugin dependencies.,This option takes effect only if the I(version) is not defined.
+        # @return [:yes, :no, nil] Defines whether to install plugin dependencies.,This option takes effect only if the I(version) is not defined.
         attribute :with_dependencies
-        validates :with_dependencies, type: String
+        validates :with_dependencies, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

@@ -28,8 +28,9 @@ module Ansible
         attribute :target
         validates :target, type: String
 
-        # @return [Object, nil] Causes JUNOS to allocate a VPN label per VRF rather than per VPN FEC. This allows for forwarding of traffic to directly connected subnets, COS Egress filtering etc.
+        # @return [Symbol, nil] Causes JUNOS to allocate a VPN label per VRF rather than per VPN FEC. This allows for forwarding of traffic to directly connected subnets, COS Egress filtering etc.
         attribute :table_label
+        validates :table_label, type: Symbol
 
         # @return [Array<Hash>, Hash, nil] The set of VRF definition objects to be configured on the remote JUNOS device.  Ths list entries can either be the VRF name or a hash of VRF definitions and attributes.  This argument is mutually exclusive with the C(name) argument.
         attribute :aggregate

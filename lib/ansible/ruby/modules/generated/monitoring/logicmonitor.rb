@@ -56,9 +56,9 @@ module Ansible
         # @return [Object, nil] The fullpath of the host group object you would like to manage.,Recommend running on a single Ansible host.,Required for management of LogicMonitor host groups (target=hostgroup).
         attribute :fullpath
 
-        # @return [String, nil] A boolean flag to turn alerting on or off for an object.,Optional for managing all hosts (action=add or action=update).
+        # @return [:yes, :no, nil] A boolean flag to turn alerting on or off for an object.,Optional for managing all hosts (action=add or action=update).
         attribute :alertenable
-        validates :alertenable, type: String
+        validates :alertenable, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] The time that the Scheduled Down Time (SDT) should begin.,Optional for managing SDT (action=sdt).,Y-m-d H:M
         attribute :starttime

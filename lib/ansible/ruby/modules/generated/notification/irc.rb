@@ -49,13 +49,13 @@ module Ansible
         attribute :timeout
         validates :timeout, type: Integer
 
-        # @return [String, nil] Designates whether TLS/SSL should be used when connecting to the IRC server
+        # @return [:yes, :no, nil] Designates whether TLS/SSL should be used when connecting to the IRC server
         attribute :use_ssl
-        validates :use_ssl, type: String
+        validates :use_ssl, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Designates whether user should part from channel after sending message or not. Useful for when using a faux bot and not wanting join/parts between messages.
+        # @return [:yes, :no, nil] Designates whether user should part from channel after sending message or not. Useful for when using a faux bot and not wanting join/parts between messages.
         attribute :part
-        validates :part, type: String
+        validates :part, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:bold, :underline, :reverse, :italic, nil] Text style for the message. Note italic does not work on some clients
         attribute :style

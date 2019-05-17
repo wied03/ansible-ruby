@@ -35,8 +35,9 @@ module Ansible
         # @return [Object, nil] Name of a current portset to bind to the newly created igroup.
         attribute :bind_portset
 
-        # @return [Object, nil] Forcibly remove the initiator even if there are existing LUNs mapped to this initiator group.
+        # @return [Symbol, nil] Forcibly remove the initiator even if there are existing LUNs mapped to this initiator group.
         attribute :force_remove_initiator
+        validates :force_remove_initiator, type: Symbol
 
         # @return [String] The name of the vserver to use.
         attribute :vserver

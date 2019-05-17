@@ -20,17 +20,17 @@ module Ansible
         attribute :target
         validates :target, type: String
 
-        # @return [String, nil] Define whether to overwrite existing volume when creating from snapshot.
+        # @return [:yes, :no, nil] Define whether to overwrite existing volume when creating from snapshot.
         attribute :overwrite
-        validates :overwrite, type: String
+        validates :overwrite, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:absent, :copy, :present, nil] Define whether the volume snapshot should exist or not.
         attribute :state
         validates :state, inclusion: {:in=>[:absent, :copy, :present], :message=>"%{value} needs to be :absent, :copy, :present"}, allow_nil: true
 
-        # @return [String, nil] Define whether to eradicate the snapshot on delete or leave in trash.
+        # @return [:yes, :no, nil] Define whether to eradicate the snapshot on delete or leave in trash.
         attribute :eradicate
-        validates :eradicate, type: String
+        validates :eradicate, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

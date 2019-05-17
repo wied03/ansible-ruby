@@ -32,9 +32,9 @@ module Ansible
         attribute :link_aggregation_group
         validates :link_aggregation_group, type: String
 
-        # @return [Boolean, nil] To modify bandwidth or location the connection will need to be deleted and recreated. By default this will not happen - this option must be set to True.
+        # @return [Symbol, nil] To modify bandwidth or location the connection will need to be deleted and recreated. By default this will not happen - this option must be set to True.
         attribute :forced_update
-        validates :forced_update, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :forced_update, type: Symbol
       end
     end
   end

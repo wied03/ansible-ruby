@@ -19,8 +19,9 @@ module Ansible
         # @return [Object, nil] If specified, the silence entry will be automatically cleared after this number of seconds.
         attribute :expire
 
-        # @return [Object, nil] If specified as true, the silence entry will be automatically cleared once the condition it is silencing is resolved.
+        # @return [Symbol, nil] If specified as true, the silence entry will be automatically cleared once the condition it is silencing is resolved.
         attribute :expire_on_resolve
+        validates :expire_on_resolve, type: Symbol
 
         # @return [String, nil] If specified, this free-form string is used to provide context or rationale for the reason this silence entry was created.
         attribute :reason

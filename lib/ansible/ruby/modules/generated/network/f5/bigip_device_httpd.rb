@@ -19,18 +19,20 @@ module Ansible
         attribute :auth_pam_idle_timeout
         validates :auth_pam_idle_timeout, type: Integer
 
-        # @return [Boolean, nil] Sets the authPamValidateIp setting.
+        # @return [Symbol, nil] Sets the authPamValidateIp setting.
         attribute :auth_pam_validate_ip
-        validates :auth_pam_validate_ip, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :auth_pam_validate_ip, type: Symbol
 
-        # @return [Object, nil] Sets whether or not the BIG-IP dashboard will timeout.
+        # @return [Symbol, nil] Sets whether or not the BIG-IP dashboard will timeout.
         attribute :auth_pam_dashboard_timeout
+        validates :auth_pam_dashboard_timeout, type: Symbol
 
         # @return [Object, nil] Sets the timeout of FastCGI.
         attribute :fast_cgi_timeout
 
-        # @return [Object, nil] Sets whether or not to display the hostname, if possible.
+        # @return [Symbol, nil] Sets whether or not to display the hostname, if possible.
         attribute :hostname_lookup
+        validates :hostname_lookup, type: Symbol
 
         # @return [:alert, :crit, :debug, :emerg, :error, :info, :notice, :warn, nil] Sets the minimum httpd log level.
         attribute :log_level
@@ -39,8 +41,9 @@ module Ansible
         # @return [Object, nil] Sets the maximum number of clients that can connect to the GUI at once.
         attribute :max_clients
 
-        # @return [Object, nil] Whether or not to redirect http requests to the GUI to https.
+        # @return [Symbol, nil] Whether or not to redirect http requests to the GUI to https.
         attribute :redirect_http_to_https
+        validates :redirect_http_to_https, type: Symbol
 
         # @return [Object, nil] The HTTPS port to listen on.
         attribute :ssl_port

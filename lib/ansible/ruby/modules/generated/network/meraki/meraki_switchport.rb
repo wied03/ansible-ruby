@@ -23,9 +23,9 @@ module Ansible
         attribute :enabled
         validates :enabled, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
-        # @return [Boolean, nil] Isolation status of switchport.
+        # @return [Symbol, nil] Isolation status of switchport.
         attribute :isolation_enabled
-        validates :isolation_enabled, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :isolation_enabled, type: Symbol
 
         # @return [:"Auto negotiate", :"100Megabit (auto)", :"100 Megabit full duplex (forced)", nil] Link speed for the switchport.
         attribute :link_negotiation

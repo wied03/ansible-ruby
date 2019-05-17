@@ -38,8 +38,9 @@ module Ansible
         attribute :access_tier
         validates :access_tier, inclusion: {:in=>[:Hot, :Cool], :message=>"%{value} needs to be :Hot, :Cool"}, allow_nil: true
 
-        # @return [Object, nil] Attempt deletion if resource already exists and cannot be updated
+        # @return [Symbol, nil] Attempt deletion if resource already exists and cannot be updated
         attribute :force
+        validates :force, type: Symbol
       end
     end
   end

@@ -54,20 +54,21 @@ module Ansible
         # @return [Object, nil] The name of the elastic pool the database is in. Not supported for C(data_warehouse) edition.
         attribute :elastic_pool_name
 
-        # @return [Boolean, nil] If the database is a geo-secondary, indicates whether read-only connections are allowed to this database or not. Not supported for C(data_warehouse) edition.
+        # @return [Symbol, nil] If the database is a geo-secondary, indicates whether read-only connections are allowed to this database or not. Not supported for C(data_warehouse) edition.
         attribute :read_scale
-        validates :read_scale, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :read_scale, type: Symbol
 
         # @return [:adventure_works_lt, nil] Indicates the name of the sample schema to apply when creating this database. If I(create_mode) is not C(default), this value is ignored. Not supported for C(data_warehouse) edition.
         attribute :sample_name
         validates :sample_name, inclusion: {:in=>[:adventure_works_lt], :message=>"%{value} needs to be :adventure_works_lt"}, allow_nil: true
 
-        # @return [Boolean, nil] Is this database is zone redundant? It means the replicas of this database will be spread across multiple availability zones.
+        # @return [Symbol, nil] Is this database is zone redundant? It means the replicas of this database will be spread across multiple availability zones.
         attribute :zone_redundant
-        validates :zone_redundant, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :zone_redundant, type: Symbol
 
-        # @return [Object, nil] SQL Database will be updated if given parameters differ from existing resource state.,To force SQL Database update in any circumstances set this parameter to True.
+        # @return [Symbol, nil] SQL Database will be updated if given parameters differ from existing resource state.,To force SQL Database update in any circumstances set this parameter to True.
         attribute :force_update
+        validates :force_update, type: Symbol
 
         # @return [:absent, :present, nil] Assert the state of the SQL Database. Use 'present' to create or update an SQL Database and 'absent' to delete it.
         attribute :state

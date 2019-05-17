@@ -26,9 +26,9 @@ module Ansible
         # @return [Object, nil] List of interfaces that will be managed in a given Eth-Trunk. The interface name must be full name.
         attribute :members
 
-        # @return [String, nil] When true it forces Eth-Trunk members to match what is declared in the members param. This can be used to remove members.
+        # @return [:yes, :no, nil] When true it forces Eth-Trunk members to match what is declared in the members param. This can be used to remove members.
         attribute :force
-        validates :force, type: String
+        validates :force, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:present, :absent, nil] Manage the state of the resource.
         attribute :state

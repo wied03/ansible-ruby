@@ -51,9 +51,9 @@ module Ansible
         attribute :aggregate
         validates :aggregate, type: TypeGeneric.new(Hash)
 
-        # @return [String, nil] Purge VLANs not defined in the I(aggregate) parameter. This parameter can be used without aggregate as well.
+        # @return [:yes, :no, nil] Purge VLANs not defined in the I(aggregate) parameter. This parameter can be used without aggregate as well.
         attribute :purge
-        validates :purge, type: String
+        validates :purge, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] Time in seconds to wait before checking for the operational state on remote device. This wait is applicable for operational state arguments.
         attribute :delay

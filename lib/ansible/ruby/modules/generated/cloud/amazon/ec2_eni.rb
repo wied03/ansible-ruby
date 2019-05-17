@@ -39,35 +39,37 @@ module Ansible
         attribute :device_index
         validates :device_index, type: Integer
 
-        # @return [Object, nil] Specifies if network interface should be attached or detached from instance. If omitted, attachment status won't change
+        # @return [Symbol, nil] Specifies if network interface should be attached or detached from instance. If omitted, attachment status won't change
         attribute :attached
+        validates :attached, type: Symbol
 
-        # @return [String, nil] Force detachment of the interface. This applies either when explicitly detaching the interface by setting instance_id to None or when deleting an interface with state=absent.
+        # @return [:yes, :no, nil] Force detachment of the interface. This applies either when explicitly detaching the interface by setting instance_id to None or when deleting an interface with state=absent.
         attribute :force_detach
-        validates :force_detach, type: String
+        validates :force_detach, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [Boolean, nil] Delete the interface when the instance it is attached to is terminated. You can only specify this flag when the interface is being modified, not on creation.
+        # @return [Symbol, nil] Delete the interface when the instance it is attached to is terminated. You can only specify this flag when the interface is being modified, not on creation.
         attribute :delete_on_termination
-        validates :delete_on_termination, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :delete_on_termination, type: Symbol
 
-        # @return [Object, nil] By default, interfaces perform source/destination checks. NAT instances however need this check to be disabled. You can only specify this flag when the interface is being modified, not on creation.
+        # @return [Symbol, nil] By default, interfaces perform source/destination checks. NAT instances however need this check to be disabled. You can only specify this flag when the interface is being modified, not on creation.
         attribute :source_dest_check
+        validates :source_dest_check, type: Symbol
 
         # @return [Array<String>, String, nil] A list of IP addresses to assign as secondary IP addresses to the network interface. This option is mutually exclusive of secondary_private_ip_address_count
         attribute :secondary_private_ip_addresses
         validates :secondary_private_ip_addresses, type: TypeGeneric.new(String)
 
-        # @return [Boolean, nil] To be used with I(secondary_private_ip_addresses) to determine whether or not to remove any secondary IP addresses other than those specified. Set secondary_private_ip_addresses to an empty list to purge all secondary addresses.
+        # @return [Symbol, nil] To be used with I(secondary_private_ip_addresses) to determine whether or not to remove any secondary IP addresses other than those specified. Set secondary_private_ip_addresses to an empty list to purge all secondary addresses.
         attribute :purge_secondary_private_ip_addresses
-        validates :purge_secondary_private_ip_addresses, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :purge_secondary_private_ip_addresses, type: Symbol
 
         # @return [Integer, nil] The number of secondary IP addresses to assign to the network interface. This option is mutually exclusive of secondary_private_ip_addresses
         attribute :secondary_private_ip_address_count
         validates :secondary_private_ip_address_count, type: Integer
 
-        # @return [String, nil] Indicates whether to allow an IP address that is already assigned to another network interface or instance to be reassigned to the specified network interface.
+        # @return [:yes, :no, nil] Indicates whether to allow an IP address that is already assigned to another network interface or instance to be reassigned to the specified network interface.
         attribute :allow_reassignment
-        validates :allow_reassignment, type: String
+        validates :allow_reassignment, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

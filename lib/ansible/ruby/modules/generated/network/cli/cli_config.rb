@@ -12,8 +12,9 @@ module Ansible
         attribute :config
         validates :config, type: String
 
-        # @return [Object, nil] The C(commit) argument instructs the module to push the configuration to the device. This is mapped to module check mode.
+        # @return [Symbol, nil] The C(commit) argument instructs the module to push the configuration to the device. This is mapped to module check mode.
         attribute :commit
+        validates :commit, type: Symbol
 
         # @return [String, nil] If the C(replace) argument is set to C(yes), it will replace the entire running-config of the device with the C(config) argument value. For NXOS devices, C(replace) argument takes path to the file on the device that will be used for replacing the entire running-config. Nexus 9K devices only support replace. Use I(net_put) or I(nxos_file_copy) module to copy the flat file to remote device and then use set the fullpath to this argument.
         attribute :replace
@@ -26,12 +27,13 @@ module Ansible
         attribute :commit_comment
         validates :commit_comment, type: String
 
-        # @return [String, nil] The I(defaults) argument will influence how the running-config is collected from the device.  When the value is set to true, the command used to collect the running-config is append with the all keyword.  When the value is set to false, the command is issued without the all keyword.
+        # @return [:yes, :no, nil] The I(defaults) argument will influence how the running-config is collected from the device.  When the value is set to true, the command used to collect the running-config is append with the all keyword.  When the value is set to false, the command is issued without the all keyword.
         attribute :defaults
-        validates :defaults, type: String
+        validates :defaults, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [Object, nil] This argument is used when pushing a multiline configuration element to the device. It specifies the character to use as the delimiting character. This only applies to the configuration action.
+        # @return [String, nil] This argument is used when pushing a multiline configuration element to the device. It specifies the character to use as the delimiting character. This only applies to the configuration action.
         attribute :multiline_delimiter
+        validates :multiline_delimiter, type: String
 
         # @return [:line, :block, :config, nil] Instructs the module on the way to perform the configuration on the device. If the C(diff_replace) argument is set to I(line) then the modified lines are pushed to the device in configuration mode. If the argument is set to I(block) then the entire command block is pushed to the device in configuration mode if any line is not correct. Note that this parameter will be ignored if the platform has onbox diff support.
         attribute :diff_replace

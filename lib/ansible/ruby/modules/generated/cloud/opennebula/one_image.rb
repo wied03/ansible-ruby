@@ -29,9 +29,9 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent, :cloned, :renamed], :message=>"%{value} needs to be :present, :absent, :cloned, :renamed"}, allow_nil: true
 
-        # @return [FalseClass, TrueClass, nil] Whether the image should be enabled or disabled.
+        # @return [Symbol, nil] Whether the image should be enabled or disabled.
         attribute :enabled
-        validates :enabled, type: MultipleTypes.new(FalseClass, TrueClass)
+        validates :enabled, type: Symbol
 
         # @return [String, nil] A name that will be assigned to the existing or new image.,In the case of cloning, by default C(new_name) will take the name of the origin image with the prefix 'Copy of'.
         attribute :new_name

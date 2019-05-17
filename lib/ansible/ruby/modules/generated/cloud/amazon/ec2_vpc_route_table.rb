@@ -15,17 +15,17 @@ module Ansible
         # @return [Object, nil] Enable route propagation from virtual gateways specified by ID.
         attribute :propagating_vgw_ids
 
-        # @return [String, nil] Purge existing routes that are not found in routes.
+        # @return [:yes, :no, nil] Purge existing routes that are not found in routes.
         attribute :purge_routes
-        validates :purge_routes, type: String
+        validates :purge_routes, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] Purge existing subnets that are not found in subnets. Ignored unless the subnets option is supplied.
         attribute :purge_subnets
         validates :purge_subnets, type: String
 
-        # @return [String, nil] Purge existing tags that are not found in route table
+        # @return [:yes, :no, nil] Purge existing tags that are not found in route table
         attribute :purge_tags
-        validates :purge_tags, type: String
+        validates :purge_tags, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] The ID of the route table to update or delete.
         attribute :route_table_id

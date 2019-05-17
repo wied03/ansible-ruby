@@ -27,8 +27,9 @@ module Ansible
         # @return [Object, nil] Privacy password for the user. This is not idempotent
         attribute :privacy
 
-        # @return [Object, nil] Enables AES-128 bit encryption when using privacy password.
+        # @return [Symbol, nil] Enables AES-128 bit encryption when using privacy password.
         attribute :encrypt
+        validates :encrypt, type: Symbol
 
         # @return [:present, :absent, nil] Manage the state of the resource.
         attribute :state

@@ -22,9 +22,9 @@ module Ansible
         attribute :value
         validates :value, presence: true, type: MultipleTypes.new(String, Integer)
 
-        # @return [String, nil] If the key represents a prefix, each entry with the prefix can be retrieved by setting this to C(yes).
+        # @return [:yes, :no, nil] If the key represents a prefix, each entry with the prefix can be retrieved by setting this to C(yes).
         attribute :recurse
-        validates :recurse, type: String
+        validates :recurse, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] The session that should be used to acquire or release a lock associated with a key/value pair.
         attribute :session
@@ -51,9 +51,9 @@ module Ansible
         attribute :scheme
         validates :scheme, type: String
 
-        # @return [String, nil] Whether to verify the tls certificate of the consul agent.
+        # @return [:yes, :no, nil] Whether to verify the tls certificate of the consul agent.
         attribute :validate_certs
-        validates :validate_certs, type: String
+        validates :validate_certs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

@@ -23,9 +23,9 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:normal], :message=>"%{value} needs to be :normal"}, allow_nil: true
 
-        # @return [String, nil] The approve argument instruct the module to convert a device in quarantine mode into approved mode.
+        # @return [:yes, :no, nil] The approve argument instruct the module to convert a device in quarantine mode into approved mode.
         attribute :approve
-        validates :approve, type: String
+        validates :approve, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Array<String>, String, nil] When approving a device using the I(approve) argument, it's possible define the location of the device.
         attribute :location

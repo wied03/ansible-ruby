@@ -45,9 +45,9 @@ module Ansible
         attribute :nics
         validates :nics, type: TypeGeneric.new(Hash)
 
-        # @return [String, nil] Ensure instance has public ip however the cloud wants to do that
+        # @return [:yes, :no, nil] Ensure instance has public ip however the cloud wants to do that
         attribute :auto_ip
-        validates :auto_ip, type: String
+        validates :auto_ip, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] list of valid floating IPs that pre-exist to assign to this node
         attribute :floating_ips
@@ -59,24 +59,24 @@ module Ansible
         attribute :meta
         validates :meta, type: TypeGeneric.new(String)
 
-        # @return [String, nil] If the module should wait for the instance to be created.
+        # @return [:yes, :no, nil] If the module should wait for the instance to be created.
         attribute :wait
-        validates :wait, type: String
+        validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] The amount of time the module should wait for the instance to get into active state.
         attribute :timeout
         validates :timeout, type: Integer
 
-        # @return [String, nil] Whether to boot the server with config drive enabled
+        # @return [:yes, :no, nil] Whether to boot the server with config drive enabled
         attribute :config_drive
-        validates :config_drive, type: String
+        validates :config_drive, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] Opaque blob of data which is made available to the instance
         attribute :userdata
 
-        # @return [String, nil] Should the instance boot from a persistent volume created based on the image given. Mututally exclusive with boot_volume.
+        # @return [:yes, :no, nil] Should the instance boot from a persistent volume created based on the image given. Mututally exclusive with boot_volume.
         attribute :boot_from_volume
-        validates :boot_from_volume, type: String
+        validates :boot_from_volume, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] The size of the volume to create in GB if booting from volume based on an image.
         attribute :volume_size
@@ -84,9 +84,9 @@ module Ansible
         # @return [Object, nil] Volume name or id to use as the volume to boot from. Implies boot_from_volume. Mutually exclusive with image and boot_from_volume.
         attribute :boot_volume
 
-        # @return [String, nil] If C(yes), delete volume when deleting instance (if booted from volume)
+        # @return [:yes, :no, nil] If C(yes), delete volume when deleting instance (if booted from volume)
         attribute :terminate_volume
-        validates :terminate_volume, type: String
+        validates :terminate_volume, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] A list of preexisting volumes names or ids to attach to the instance
         attribute :volumes
@@ -98,13 +98,13 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [String, nil] When I(state) is absent and this option is true, any floating IP associated with the instance will be deleted along with the instance.
+        # @return [:yes, :no, nil] When I(state) is absent and this option is true, any floating IP associated with the instance will be deleted along with the instance.
         attribute :delete_fip
-        validates :delete_fip, type: String
+        validates :delete_fip, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] When I(auto_ip) is true and this option is true, the I(auto_ip) code will attempt to re-use unassigned floating ips in the project before creating a new one. It is important to note that it is impossible to safely do this concurrently, so if your use case involves concurrent server creation, it is highly recommended to set this to false and to delete the floating ip associated with a server when the server is deleted using I(delete_fip).
+        # @return [:yes, :no, nil] When I(auto_ip) is true and this option is true, the I(auto_ip) code will attempt to re-use unassigned floating ips in the project before creating a new one. It is important to note that it is impossible to safely do this concurrently, so if your use case involves concurrent server creation, it is highly recommended to set this to false and to delete the floating ip associated with a server when the server is deleted using I(delete_fip).
         attribute :reuse_ips
-        validates :reuse_ips, type: String
+        validates :reuse_ips, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] Availability zone in which to create the server.
         attribute :availability_zone

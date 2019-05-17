@@ -23,9 +23,9 @@ module Ansible
         attribute :path
         validates :path, type: String
 
-        # @return [String, nil] Create a backup file (if yes), including the timestamp information so,you can get the original file back if you somehow clobbered it incorrectly.
+        # @return [:yes, :no, nil] Create a backup file (if yes), including the timestamp information so,you can get the original file back if you somehow clobbered it incorrectly.
         attribute :backup
-        validates :backup, type: String
+        validates :backup, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String] Path to the sensu check to run (not required when I(state=absent))
         attribute :command
@@ -48,9 +48,9 @@ module Ansible
         # @return [Object, nil] Time to live in seconds until the check is considered stale
         attribute :ttl
 
-        # @return [String, nil] Whether the check should be handled or not
+        # @return [:yes, :no, nil] Whether the check should be handled or not
         attribute :handle
-        validates :handle, type: String
+        validates :handle, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] When to disable handling of check failures
         attribute :subdue_begin
@@ -61,17 +61,17 @@ module Ansible
         # @return [Object, nil] Other checks this check depends on, if dependencies fail,,handling of this check will be disabled
         attribute :dependencies
 
-        # @return [String, nil] Whether the check is a metric
+        # @return [:yes, :no, nil] Whether the check is a metric
         attribute :metric
-        validates :metric, type: String
+        validates :metric, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Whether the check should be scheduled by the sensu client or server,This option obviates the need for specifying the I(subscribers) option
+        # @return [:yes, :no, nil] Whether the check should be scheduled by the sensu client or server,This option obviates the need for specifying the I(subscribers) option
         attribute :standalone
-        validates :standalone, type: String
+        validates :standalone, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Whether the check should be scheduled at all.,You can still issue it via the sensu api
+        # @return [:yes, :no, nil] Whether the check should be scheduled at all.,You can still issue it via the sensu api
         attribute :publish
-        validates :publish, type: String
+        validates :publish, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] Number of event occurrences before the handler should take action
         attribute :occurrences
@@ -80,9 +80,9 @@ module Ansible
         # @return [Object, nil] Number of seconds handlers should wait before taking second action
         attribute :refresh
 
-        # @return [String, nil] Classifies the check as an aggregate check,,making it available via the aggregate API
+        # @return [:yes, :no, nil] Classifies the check as an aggregate check,,making it available via the aggregate API
         attribute :aggregate
-        validates :aggregate, type: String
+        validates :aggregate, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] The low threshold for flap detection
         attribute :low_flap_threshold

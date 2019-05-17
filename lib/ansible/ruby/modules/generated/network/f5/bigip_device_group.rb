@@ -19,15 +19,17 @@ module Ansible
         # @return [Object, nil] Description of the device group.
         attribute :description
 
-        # @return [Boolean, nil] Indicates whether configuration synchronization occurs manually or automatically.,When creating a new device group, this option will default to C(no).
+        # @return [Symbol, nil] Indicates whether configuration synchronization occurs manually or automatically.,When creating a new device group, this option will default to C(no).
         attribute :auto_sync
-        validates :auto_sync, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :auto_sync, type: Symbol
 
-        # @return [Object, nil] When performing an auto-sync, specifies whether the configuration will be saved or not.,When C(no), only the running configuration will be changed on the device(s) being synced to.,When creating a new device group, this option will default to C(no).
+        # @return [Symbol, nil] When performing an auto-sync, specifies whether the configuration will be saved or not.,When C(no), only the running configuration will be changed on the device(s) being synced to.,When creating a new device group, this option will default to C(no).
         attribute :save_on_auto_sync
+        validates :save_on_auto_sync, type: Symbol
 
-        # @return [Object, nil] Specifies whether the system synchronizes the entire configuration during synchronization operations.,When C(no), the system performs incremental synchronization operations, based on the cache size specified in C(max_incremental_sync_size).,Incremental configuration synchronization is a mechanism for synchronizing a device-group's configuration among its members, without requiring a full configuration load for each configuration change.,In order for this to work, all devices in the device-group must initially agree on the configuration. Typically this requires at least one full configuration load to each device.,When creating a new device group, this option will default to C(no).
+        # @return [Symbol, nil] Specifies whether the system synchronizes the entire configuration during synchronization operations.,When C(no), the system performs incremental synchronization operations, based on the cache size specified in C(max_incremental_sync_size).,Incremental configuration synchronization is a mechanism for synchronizing a device-group's configuration among its members, without requiring a full configuration load for each configuration change.,In order for this to work, all devices in the device-group must initially agree on the configuration. Typically this requires at least one full configuration load to each device.,When creating a new device group, this option will default to C(no).
         attribute :full_sync
+        validates :full_sync, type: Symbol
 
         # @return [Object, nil] Specifies the size of the changes cache for incremental sync.,For example, using the default, if you make more than 1024 KB worth of incremental changes, the system performs a full synchronization operation.,Using incremental synchronization operations can reduce the per-device sync/load time for configuration changes.,This setting is relevant only when C(full_sync) is C(no).
         attribute :max_incremental_sync_size
@@ -36,8 +38,9 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [Object, nil] Indicates whether failover occurs over the network or is hard-wired.,This parameter is only valid for C(type)'s that are C(sync-failover).
+        # @return [Symbol, nil] Indicates whether failover occurs over the network or is hard-wired.,This parameter is only valid for C(type)'s that are C(sync-failover).
         attribute :network_failover
+        validates :network_failover, type: Symbol
       end
     end
   end

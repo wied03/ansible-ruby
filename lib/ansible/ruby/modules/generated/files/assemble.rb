@@ -16,24 +16,24 @@ module Ansible
         attribute :dest
         validates :dest, presence: true, type: String
 
-        # @return [String, nil] Create a backup file (if C(yes)), including the timestamp information so you can get the original file back if you somehow clobbered it incorrectly.
+        # @return [:yes, :no, nil] Create a backup file (if C(yes)), including the timestamp information so you can get the original file back if you somehow clobbered it incorrectly.
         attribute :backup
-        validates :backup, type: String
+        validates :backup, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] A delimiter to separate the file contents.
         attribute :delimiter
         validates :delimiter, type: String
 
-        # @return [String, nil] If False, it will search for src at originating/master machine, if True it will go to the remote/target machine for the src. Default is True.
+        # @return [:yes, :no, nil] If False, it will search for src at originating/master machine, if True it will go to the remote/target machine for the src. Default is True.
         attribute :remote_src
-        validates :remote_src, type: String
+        validates :remote_src, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] Assemble files only if C(regex) matches the filename. If not set, all files are assembled. All "\\" (backslash) must be escaped as "\\\\" to comply yaml syntax. Uses Python regular expressions; see U(http://docs.python.org/2/library/re.html).
         attribute :regexp
 
-        # @return [String, nil] A boolean that controls if files that start with a '.' will be included or not.
+        # @return [:yes, :no, nil] A boolean that controls if files that start with a '.' will be included or not.
         attribute :ignore_hidden
-        validates :ignore_hidden, type: String
+        validates :ignore_hidden, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] The validation command to run before copying into place.  The path to the file to validate is passed in via '%s' which must be present as in the sshd example below. The command is passed securely so shell features like expansion and pipes won't work.
         attribute :validate

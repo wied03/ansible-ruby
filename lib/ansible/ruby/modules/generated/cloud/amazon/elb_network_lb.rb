@@ -8,13 +8,13 @@ module Ansible
     module Modules
       # Manage an AWS Network Elastic Load Balancer. See U(https://aws.amazon.com/blogs/aws/new-network-load-balancer-effortless-scaling-to-millions-of-requests-per-second/) for details.
       class Elb_network_lb < Base
-        # @return [Boolean, nil] Indicates whether cross-zone load balancing is enabled.
+        # @return [Symbol, nil] Indicates whether cross-zone load balancing is enabled.
         attribute :cross_zone_load_balancing
-        validates :cross_zone_load_balancing, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :cross_zone_load_balancing, type: Symbol
 
-        # @return [Boolean, nil] Indicates whether deletion protection for the ELB is enabled.
+        # @return [Symbol, nil] Indicates whether deletion protection for the ELB is enabled.
         attribute :deletion_protection
-        validates :deletion_protection, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :deletion_protection, type: Symbol
 
         # @return [Array<Hash>, Hash, nil] A list of dicts containing listeners to attach to the ELB. See examples for detail of the dict required. Note that listener keys are CamelCased.
         attribute :listeners
@@ -51,8 +51,9 @@ module Ansible
         # @return [Object, nil] A dictionary of one or more tags to assign to the load balancer.
         attribute :tags
 
-        # @return [Object, nil] Whether or not to wait for the network load balancer to reach the desired state.
+        # @return [Symbol, nil] Whether or not to wait for the network load balancer to reach the desired state.
         attribute :wait
+        validates :wait, type: Symbol
 
         # @return [Object, nil] The duration in seconds to wait, used in conjunction with I(wait).
         attribute :wait_timeout

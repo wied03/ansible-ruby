@@ -21,11 +21,13 @@ module Ansible
         attribute :safe_mode_password
         validates :safe_mode_password, presence: true, type: String
 
-        # @return [Object, nil] The path to a directory on a fixed disk of the Windows host where the domain database will be created.,If not set then the default path is C(%SYSTEMROOT%\NTDS).
+        # @return [String, nil] The path to a directory on a fixed disk of the Windows host where the domain database will be created.,If not set then the default path is C(%SYSTEMROOT%\NTDS).
         attribute :database_path
+        validates :database_path, type: String
 
-        # @return [Object, nil] The path to a directory on a fixed disk of the Windows host where the Sysvol file will be created.,If not set then the default path is C(%SYSTEMROOT%\SYSVOL).
+        # @return [String, nil] The path to a directory on a fixed disk of the Windows host where the Sysvol file will be created.,If not set then the default path is C(%SYSTEMROOT%\SYSVOL).
         attribute :sysvol_path
+        validates :sysvol_path, type: String
       end
     end
   end

@@ -24,9 +24,9 @@ module Ansible
         attribute :type
         validates :type, inclusion: {:in=>[:array, :bool, :boolean, :date, :float, :int, :integer, :string], :message=>"%{value} needs to be :array, :bool, :boolean, :date, :float, :int, :integer, :string"}, allow_nil: true
 
-        # @return [String, nil] Add new elements to the array for a key which has an array as its value.
+        # @return [:yes, :no, nil] Add new elements to the array for a key which has an array as its value.
         attribute :array_add
-        validates :array_add, type: String
+        validates :array_add, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Boolean, nil] The value to write. Only required when state = present.
         attribute :value

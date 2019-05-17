@@ -35,9 +35,9 @@ module Ansible
         # @return [Object, nil] The minimum ram (in MB) required to boot this image
         attribute :min_ram
 
-        # @return [String, nil] Whether the image can be accessed publicly. Note that publicizing an image requires admin role by default.
+        # @return [:yes, :no, nil] Whether the image can be accessed publicly. Note that publicizing an image requires admin role by default.
         attribute :is_public
-        validates :is_public, type: String
+        validates :is_public, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] The path to the file which has to be uploaded
         attribute :filename

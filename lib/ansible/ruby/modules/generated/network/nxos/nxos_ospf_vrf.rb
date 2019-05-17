@@ -53,8 +53,9 @@ module Ansible
         # @return [Object, nil] Specifies the reference bandwidth used to assign OSPF cost. Valid values are an integer, in Mbps, or the keyword 'default'.
         attribute :auto_cost
 
-        # @return [Object, nil] Setting to C(yes) will suppress routing update on interface.
+        # @return [Symbol, nil] Setting to C(yes) will suppress routing update on interface.
         attribute :passive_interface
+        validates :passive_interface, type: Symbol
 
         # @return [:present, :absent, nil] State of ospf vrf configuration.
         attribute :state

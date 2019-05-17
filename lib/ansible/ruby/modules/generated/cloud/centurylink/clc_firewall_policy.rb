@@ -36,9 +36,9 @@ module Ansible
         # @return [Object, nil] CLC alias for the destination account
         attribute :destination_account_alias
 
-        # @return [String, nil] Whether to wait for the provisioning tasks to finish before returning.
+        # @return [:yes, :no, nil] Whether to wait for the provisioning tasks to finish before returning.
         attribute :wait
-        validates :wait, type: String
+        validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Boolean, nil] Whether the firewall policy is enabled or disabled
         attribute :enabled

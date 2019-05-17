@@ -23,8 +23,9 @@ module Ansible
         attribute :unicast_failover
         validates :unicast_failover, type: TypeGeneric.new(Hash)
 
-        # @return [Object, nil] When C(yes), ensures that the Failover Multicast configuration is enabled and if no further multicast configuration is provided, ensures that C(multicast_interface), C(multicast_address) and C(multicast_port) are the defaults specified in each option's description. When C(no), ensures that Failover Multicast configuration is disabled.
+        # @return [Symbol, nil] When C(yes), ensures that the Failover Multicast configuration is enabled and if no further multicast configuration is provided, ensures that C(multicast_interface), C(multicast_address) and C(multicast_port) are the defaults specified in each option's description. When C(no), ensures that Failover Multicast configuration is disabled.
         attribute :failover_multicast
+        validates :failover_multicast, type: Symbol
 
         # @return [Object, nil] Interface over which the system sends multicast messages associated with failover. When C(failover_multicast) is C(yes) and this option is not provided, a default of C(eth0) will be used.
         attribute :multicast_interface

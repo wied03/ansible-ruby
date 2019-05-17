@@ -45,8 +45,9 @@ module Ansible
         # @return [Object, nil] Reference to server autoscale policy.,It is a reference to an object of type serverautoscalepolicy.
         attribute :autoscale_policy_ref
 
-        # @return [Object, nil] Inline estimation of capacity of servers.,Default value when not specified in API or module is interpreted by Avi Controller as False.
+        # @return [Symbol, nil] Inline estimation of capacity of servers.,Default value when not specified in API or module is interpreted by Avi Controller as False.
         attribute :capacity_estimation
+        validates :capacity_estimation, type: Symbol
 
         # @return [Object, nil] The maximum time-to-first-byte of a server.,Allowed values are 1-5000.,Special values are 0 - 'automatic'.,Default value when not specified in API or module is interpreted by Avi Controller as 0.,Units(MILLISECONDS).
         attribute :capacity_estimation_ttfb_thresh
@@ -73,11 +74,13 @@ module Ansible
         # @return [Object, nil] Comma separated list of domain names which will be used to verify the common names or subject alternative names presented by server certificates.,It is performed only when common name check host_check_enabled is enabled.
         attribute :domain_name
 
-        # @return [Object, nil] Inherited config from virtualservice.
+        # @return [Symbol, nil] Inherited config from virtualservice.
         attribute :east_west
+        validates :east_west, type: Symbol
 
-        # @return [Object, nil] Enable or disable the pool.,Disabling will terminate all open connections and pause health monitors.,Default value when not specified in API or module is interpreted by Avi Controller as True.
+        # @return [Symbol, nil] Enable or disable the pool.,Disabling will terminate all open connections and pause health monitors.,Default value when not specified in API or module is interpreted by Avi Controller as True.
         attribute :enabled
+        validates :enabled, type: Symbol
 
         # @return [Object, nil] Names of external auto-scale groups for pool servers.,Currently available only for aws and azure.,Field introduced in 17.1.2.
         attribute :external_autoscale_groups
@@ -91,18 +94,21 @@ module Ansible
         # @return [Object, nil] Used to gracefully disable a server.,Virtual service waits for the specified time before terminating the existing connections  to the servers that are disabled.,Allowed values are 1-7200.,Special values are 0 - 'immediate', -1 - 'infinite'.,Default value when not specified in API or module is interpreted by Avi Controller as 1.,Units(MIN).
         attribute :graceful_disable_timeout
 
-        # @return [Object, nil] Indicates if the pool is a site-persistence pool.,Field introduced in 17.2.1.
+        # @return [Symbol, nil] Indicates if the pool is a site-persistence pool.,Field introduced in 17.2.1.
         attribute :gslb_sp_enabled
+        validates :gslb_sp_enabled, type: Symbol
 
         # @return [Array<String>, String, nil] Verify server health by applying one or more health monitors.,Active monitors generate synthetic traffic from each service engine and mark a server up or down based on the response.,The passive monitor listens only to client to server communication.,It raises or lowers the ratio of traffic destined to a server based on successful responses.,It is a reference to an object of type healthmonitor.
         attribute :health_monitor_refs
         validates :health_monitor_refs, type: TypeGeneric.new(String)
 
-        # @return [Object, nil] Enable common name check for server certificate.,If enabled and no explicit domain name is specified, avi will use the incoming host header to do the match.,Default value when not specified in API or module is interpreted by Avi Controller as False.
+        # @return [Symbol, nil] Enable common name check for server certificate.,If enabled and no explicit domain name is specified, avi will use the incoming host header to do the match.,Default value when not specified in API or module is interpreted by Avi Controller as False.
         attribute :host_check_enabled
+        validates :host_check_enabled, type: Symbol
 
-        # @return [Object, nil] The passive monitor will monitor client to server connections and requests and adjust traffic load to servers based on successful responses.,This may alter the expected behavior of the lb method, such as round robin.,Default value when not specified in API or module is interpreted by Avi Controller as True.
+        # @return [Symbol, nil] The passive monitor will monitor client to server connections and requests and adjust traffic load to servers based on successful responses.,This may alter the expected behavior of the lb method, such as round robin.,Default value when not specified in API or module is interpreted by Avi Controller as True.
         attribute :inline_health_monitor
+        validates :inline_health_monitor, type: Symbol
 
         # @return [Object, nil] Use list of servers from ip address group.,It is a reference to an object of type ipaddrgroup.
         attribute :ipaddrgroup_ref
@@ -119,8 +125,9 @@ module Ansible
         # @return [Object, nil] Criteria used as a key for determining the hash between the client and  server.,Enum options - LB_ALGORITHM_CONSISTENT_HASH_SOURCE_IP_ADDRESS, LB_ALGORITHM_CONSISTENT_HASH_SOURCE_IP_ADDRESS_AND_PORT,,LB_ALGORITHM_CONSISTENT_HASH_URI, LB_ALGORITHM_CONSISTENT_HASH_CUSTOM_HEADER, LB_ALGORITHM_CONSISTENT_HASH_CUSTOM_STRING.,Default value when not specified in API or module is interpreted by Avi Controller as LB_ALGORITHM_CONSISTENT_HASH_SOURCE_IP_ADDRESS.
         attribute :lb_algorithm_hash
 
-        # @return [Object, nil] Allow server lookup by name.,Field introduced in 17.1.11,17.2.4.,Default value when not specified in API or module is interpreted by Avi Controller as False.
+        # @return [Symbol, nil] Allow server lookup by name.,Field introduced in 17.1.11,17.2.4.,Default value when not specified in API or module is interpreted by Avi Controller as False.
         attribute :lookup_server_by_name
+        validates :lookup_server_by_name, type: Symbol
 
         # @return [Object, nil] The maximum number of concurrent connections allowed to each server within the pool.,Note  applied value will be no less than the number of service engines that the pool is placed on.,If set to 0, no limit is applied.,Default value when not specified in API or module is interpreted by Avi Controller as 0.
         attribute :max_concurrent_connections_per_server
@@ -150,17 +157,21 @@ module Ansible
         # @return [Object, nil] Minimum number of requests to be queued when pool is full.,Default value when not specified in API or module is interpreted by Avi Controller as 128.
         attribute :request_queue_depth
 
-        # @return [Object, nil] Enable request queue when pool is full.,Default value when not specified in API or module is interpreted by Avi Controller as False.
+        # @return [Symbol, nil] Enable request queue when pool is full.,Default value when not specified in API or module is interpreted by Avi Controller as False.
         attribute :request_queue_enabled
+        validates :request_queue_enabled, type: Symbol
 
-        # @return [Object, nil] Rewrite incoming host header to server name of the server to which the request is proxied.,Enabling this feature rewrites host header for requests to all servers in the pool.,Default value when not specified in API or module is interpreted by Avi Controller as False.
+        # @return [Symbol, nil] Rewrite incoming host header to server name of the server to which the request is proxied.,Enabling this feature rewrites host header for requests to all servers in the pool.,Default value when not specified in API or module is interpreted by Avi Controller as False.
         attribute :rewrite_host_header_to_server_name
+        validates :rewrite_host_header_to_server_name, type: Symbol
 
-        # @return [Object, nil] If sni server name is specified, rewrite incoming host header to the sni server name.,Default value when not specified in API or module is interpreted by Avi Controller as False.
+        # @return [Symbol, nil] If sni server name is specified, rewrite incoming host header to the sni server name.,Default value when not specified in API or module is interpreted by Avi Controller as False.
         attribute :rewrite_host_header_to_sni
+        validates :rewrite_host_header_to_sni, type: Symbol
 
-        # @return [Object, nil] Server autoscale.,Not used anymore.,Default value when not specified in API or module is interpreted by Avi Controller as False.
+        # @return [Symbol, nil] Server autoscale.,Not used anymore.,Default value when not specified in API or module is interpreted by Avi Controller as False.
         attribute :server_auto_scale
+        validates :server_auto_scale, type: Symbol
 
         # @return [Object, nil] Number of server_count.,Default value when not specified in API or module is interpreted by Avi Controller as 0.
         attribute :server_count
@@ -175,8 +186,9 @@ module Ansible
         attribute :servers
         validates :servers, type: TypeGeneric.new(Hash)
 
-        # @return [Object, nil] Enable tls sni for server connections.,If disabled, avi will not send the sni extension as part of the handshake.,Default value when not specified in API or module is interpreted by Avi Controller as True.
+        # @return [Symbol, nil] Enable tls sni for server connections.,If disabled, avi will not send the sni extension as part of the handshake.,Default value when not specified in API or module is interpreted by Avi Controller as True.
         attribute :sni_enabled
+        validates :sni_enabled, type: Symbol
 
         # @return [Object, nil] Service engines will present a client ssl certificate to the server.,It is a reference to an object of type sslkeyandcertificate.
         attribute :ssl_key_and_certificate_ref
@@ -190,8 +202,9 @@ module Ansible
         # @return [Object, nil] Avi controller URL of the object.
         attribute :url
 
-        # @return [Object, nil] Do not translate the client's destination port when sending the connection to the server.,The pool or servers specified service port will still be used for health monitoring.,Default value when not specified in API or module is interpreted by Avi Controller as False.
+        # @return [Symbol, nil] Do not translate the client's destination port when sending the connection to the server.,The pool or servers specified service port will still be used for health monitoring.,Default value when not specified in API or module is interpreted by Avi Controller as False.
         attribute :use_service_port
+        validates :use_service_port, type: Symbol
 
         # @return [Object, nil] Uuid of the pool.
         attribute :uuid

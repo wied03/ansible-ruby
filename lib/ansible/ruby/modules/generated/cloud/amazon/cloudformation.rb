@@ -12,9 +12,9 @@ module Ansible
         attribute :stack_name
         validates :stack_name, presence: true, type: String
 
-        # @return [String, nil] If a stacks fails to form, rollback will remove the stack
+        # @return [:yes, :no, nil] If a stacks fails to form, rollback will remove the stack
         attribute :disable_rollback
-        validates :disable_rollback, type: String
+        validates :disable_rollback, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] The amount of time (in minutes) that can pass before the stack status becomes CREATE_FAILED
         attribute :create_timeout

@@ -12,9 +12,9 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [Boolean, nil] Specifies that the etherstub is temporary. Temporary etherstubs do not persist across reboots.
+        # @return [Symbol, nil] Specifies that the etherstub is temporary. Temporary etherstubs do not persist across reboots.
         attribute :temporary
-        validates :temporary, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :temporary, type: Symbol
 
         # @return [:present, :absent, nil] Create or delete Solaris/illumos etherstub.
         attribute :state

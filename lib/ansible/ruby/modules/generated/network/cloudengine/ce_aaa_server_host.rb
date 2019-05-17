@@ -69,16 +69,16 @@ module Ansible
         attribute :hwtacacs_server_type
         validates :hwtacacs_server_type, inclusion: {:in=>[:Authentication, :Authorization, :Accounting, :Common], :message=>"%{value} needs to be :Authentication, :Authorization, :Accounting, :Common"}, allow_nil: true
 
-        # @return [String, nil] Whether the server is secondary.
+        # @return [:yes, :no, nil] Whether the server is secondary.
         attribute :hwtacacs_is_secondary_server
-        validates :hwtacacs_is_secondary_server, type: String
+        validates :hwtacacs_is_secondary_server, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] VPN instance name.
         attribute :hwtacacs_vpn_name
 
-        # @return [String, nil] Set the public-net.
+        # @return [:yes, :no, nil] Set the public-net.
         attribute :hwtacacs_is_public_net
-        validates :hwtacacs_is_public_net, type: String
+        validates :hwtacacs_is_public_net, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] Hwtacacs server host name.
         attribute :hwtacacs_server_host_name

@@ -24,8 +24,9 @@ module Ansible
         # @return [Object, nil] The federated application persistence associated with gslbservice site persistence functionality.,It is a reference to an object of type applicationpersistenceprofile.,Field introduced in 17.2.1.
         attribute :application_persistence_profile_ref
 
-        # @return [Object, nil] Gs member's overall health status is derived based on a combination of controller and datapath health-status inputs.,Note that the datapath status is determined by the association of health monitor profiles.,Only the controller provided status is determined through this configuration.,Default value when not specified in API or module is interpreted by Avi Controller as True.
+        # @return [Symbol, nil] Gs member's overall health status is derived based on a combination of controller and datapath health-status inputs.,Note that the datapath status is determined by the association of health monitor profiles.,Only the controller provided status is determined through this configuration.,Default value when not specified in API or module is interpreted by Avi Controller as True.
         attribute :controller_health_status_enabled
+        validates :controller_health_status_enabled, type: Symbol
 
         # @return [Object, nil] Creator name.,Field introduced in 17.1.2.
         attribute :created_by
@@ -39,8 +40,9 @@ module Ansible
         # @return [Object, nil] Response to the client query when the gslb service is down.
         attribute :down_response
 
-        # @return [Object, nil] Enable or disable the gslb service.,If the gslb service is enabled, then the vips are sent in the dns responses based on reachability and configured algorithm.,If the gslb service is disabled, then the vips are no longer available in the dns response.,Default value when not specified in API or module is interpreted by Avi Controller as True.
+        # @return [Symbol, nil] Enable or disable the gslb service.,If the gslb service is enabled, then the vips are sent in the dns responses based on reachability and configured algorithm.,If the gslb service is disabled, then the vips are no longer available in the dns response.,Default value when not specified in API or module is interpreted by Avi Controller as True.
         attribute :enabled
+        validates :enabled, type: Symbol
 
         # @return [Object, nil] Select list of pools belonging to this gslb service.
         attribute :groups
@@ -51,8 +53,9 @@ module Ansible
         # @return [Object, nil] Health monitor probe can be executed for all the members or it can be executed only for third-party members.,This operational mode is useful to reduce the number of health monitor probes in case of a hybrid scenario.,In such a case, avi members can have controller derived status while non-avi members can be probed by via health monitor probes in dataplane.,Enum options - GSLB_SERVICE_HEALTH_MONITOR_ALL_MEMBERS, GSLB_SERVICE_HEALTH_MONITOR_ONLY_NON_AVI_MEMBERS.,Default value when not specified in API or module is interpreted by Avi Controller as GSLB_SERVICE_HEALTH_MONITOR_ALL_MEMBERS.
         attribute :health_monitor_scope
 
-        # @return [Object, nil] This field indicates that this object is replicated across gslb federation.,Field introduced in 17.1.3.,Default value when not specified in API or module is interpreted by Avi Controller as True.
+        # @return [Symbol, nil] This field indicates that this object is replicated across gslb federation.,Field introduced in 17.1.3.,Default value when not specified in API or module is interpreted by Avi Controller as True.
         attribute :is_federated
+        validates :is_federated, type: Symbol
 
         # @return [Object, nil] The minimum number of members to distribute traffic to.,Allowed values are 1-65535.,Special values are 0 - 'disable'.,Field introduced in 17.2.4.,Default value when not specified in API or module is interpreted by Avi Controller as 0.
         attribute :min_members
@@ -67,8 +70,9 @@ module Ansible
         # @return [Object, nil] The load balancing algorithm will pick a gslb pool within the gslb service list of available pools.,Enum options - GSLB_SERVICE_ALGORITHM_PRIORITY, GSLB_SERVICE_ALGORITHM_GEO.,Field introduced in 17.2.3.,Default value when not specified in API or module is interpreted by Avi Controller as GSLB_SERVICE_ALGORITHM_PRIORITY.
         attribute :pool_algorithm
 
-        # @return [Object, nil] Enable site-persistence for the gslbservice.,Field introduced in 17.2.1.,Default value when not specified in API or module is interpreted by Avi Controller as False.
+        # @return [Symbol, nil] Enable site-persistence for the gslbservice.,Field introduced in 17.2.1.,Default value when not specified in API or module is interpreted by Avi Controller as False.
         attribute :site_persistence_enabled
+        validates :site_persistence_enabled, type: Symbol
 
         # @return [Object, nil] It is a reference to an object of type tenant.
         attribute :tenant_ref
@@ -79,14 +83,16 @@ module Ansible
         # @return [Object, nil] Avi controller URL of the object.
         attribute :url
 
-        # @return [Object, nil] Use the client ip subnet from the edns option as source ipaddress for client geo-location and consistent hash algorithm.,Default is true.,Field introduced in 17.1.1.,Default value when not specified in API or module is interpreted by Avi Controller as True.
+        # @return [Symbol, nil] Use the client ip subnet from the edns option as source ipaddress for client geo-location and consistent hash algorithm.,Default is true.,Field introduced in 17.1.1.,Default value when not specified in API or module is interpreted by Avi Controller as True.
         attribute :use_edns_client_subnet
+        validates :use_edns_client_subnet, type: Symbol
 
         # @return [Object, nil] Uuid of the gslb service.
         attribute :uuid
 
-        # @return [Object, nil] Enable wild-card match of fqdn  if an exact match is not found in the dns table, the longest match is chosen by wild-carding the fqdn in the dns,request.,Default is false.,Field introduced in 17.1.1.,Default value when not specified in API or module is interpreted by Avi Controller as False.
+        # @return [Symbol, nil] Enable wild-card match of fqdn  if an exact match is not found in the dns table, the longest match is chosen by wild-carding the fqdn in the dns,request.,Default is false.,Field introduced in 17.1.1.,Default value when not specified in API or module is interpreted by Avi Controller as False.
         attribute :wildcard_match
+        validates :wildcard_match, type: Symbol
       end
     end
   end

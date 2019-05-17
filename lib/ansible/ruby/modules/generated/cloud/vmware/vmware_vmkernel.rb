@@ -35,18 +35,21 @@ module Ansible
         attribute :mtu
         validates :mtu, type: Integer
 
-        # @return [Object, nil] Enable the VMKernel interface for VSAN traffic.
+        # @return [Symbol, nil] Enable the VMKernel interface for VSAN traffic.
         attribute :enable_vsan
+        validates :enable_vsan, type: Symbol
 
-        # @return [Object, nil] Enable the VMKernel interface for vMotion traffic.
+        # @return [Symbol, nil] Enable the VMKernel interface for vMotion traffic.
         attribute :enable_vmotion
+        validates :enable_vmotion, type: Symbol
 
-        # @return [Boolean, nil] Enable the VMKernel interface for Management traffic.
+        # @return [Symbol, nil] Enable the VMKernel interface for Management traffic.
         attribute :enable_mgmt
-        validates :enable_mgmt, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :enable_mgmt, type: Symbol
 
-        # @return [Object, nil] Enable the VMKernel interface for Fault Tolerance traffic.
+        # @return [Symbol, nil] Enable the VMKernel interface for Fault Tolerance traffic.
         attribute :enable_ft
+        validates :enable_ft, type: Symbol
 
         # @return [:present, :absent, nil] If set to C(present), VMKernel is created with the given specifications.,If set to C(absent), VMKernel is removed from the given configurations.,If set to C(present) and VMKernel exists then VMKernel configurations are updated.
         attribute :state

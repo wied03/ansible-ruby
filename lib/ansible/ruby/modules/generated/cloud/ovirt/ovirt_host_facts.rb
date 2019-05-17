@@ -12,9 +12,9 @@ module Ansible
         attribute :pattern
         validates :pattern, type: String
 
-        # @return [Boolean, nil] If I(true) all the attributes of the hosts should be included in the response.
+        # @return [Symbol, nil] If I(true) all the attributes of the hosts should be included in the response.
         attribute :all_content
-        validates :all_content, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :all_content, type: Symbol
       end
     end
   end

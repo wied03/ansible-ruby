@@ -36,9 +36,9 @@ module Ansible
         attribute :value
         validates :value, presence: true, type: String
 
-        # @return [Boolean, nil] Whether the record should be the only one for that record type and record name. Only use with C(state=present),This will delete all other records with the same record name and type.
+        # @return [Symbol, nil] Whether the record should be the only one for that record type and record name. Only use with C(state=present),This will delete all other records with the same record name and type.
         attribute :solo
-        validates :solo, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :solo, type: Symbol
 
         # @return [Object, nil] Record priority. Required for C(type=MX)
         attribute :priority

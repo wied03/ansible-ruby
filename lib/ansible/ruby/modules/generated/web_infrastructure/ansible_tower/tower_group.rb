@@ -45,16 +45,16 @@ module Ansible
         # @return [Object, nil] Inventory script to be used when group type is C(custom).
         attribute :source_script
 
-        # @return [String, nil] Delete child groups and hosts not found in source.
+        # @return [:yes, :no, nil] Delete child groups and hosts not found in source.
         attribute :overwrite
-        validates :overwrite, type: String
+        validates :overwrite, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] Override vars in child groups and hosts with those from external source.
         attribute :overwrite_vars
 
-        # @return [String, nil] Refresh inventory data from its source each time a job is run.
+        # @return [:yes, :no, nil] Refresh inventory data from its source each time a job is run.
         attribute :update_on_launch
-        validates :update_on_launch, type: String
+        validates :update_on_launch, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:present, :absent, nil] Desired state of the resource.
         attribute :state

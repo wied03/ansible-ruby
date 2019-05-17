@@ -24,9 +24,9 @@ module Ansible
         attribute :panorama_secondary
         validates :panorama_secondary, type: String
 
-        # @return [String, nil] commit if changed
+        # @return [:yes, :no, nil] commit if changed
         attribute :commit
-        validates :commit, type: String
+        validates :commit, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

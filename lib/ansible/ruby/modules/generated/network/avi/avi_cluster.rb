@@ -28,8 +28,9 @@ module Ansible
         # @return [Object, nil] List of clusternode.
         attribute :nodes
 
-        # @return [Object, nil] Re-join cluster nodes automatically in the event one of the node is reset to factory.,Default value when not specified in API or module is interpreted by Avi Controller as True.
+        # @return [Symbol, nil] Re-join cluster nodes automatically in the event one of the node is reset to factory.,Default value when not specified in API or module is interpreted by Avi Controller as True.
         attribute :rejoin_nodes_automatically
+        validates :rejoin_nodes_automatically, type: Symbol
 
         # @return [Object, nil] It is a reference to an object of type tenant.
         attribute :tenant_ref

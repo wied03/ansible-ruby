@@ -12,13 +12,13 @@ module Ansible
         attribute :name
         validates :name, type: String
 
-        # @return [String, nil] Install packages from local cache, if the packages were installed before
+        # @return [:yes, :no, nil] Install packages from local cache, if the packages were installed before
         attribute :offline
-        validates :offline, type: String
+        validates :offline, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Install with --production flag
+        # @return [:yes, :no, nil] Install with --production flag
         attribute :production
-        validates :production, type: String
+        validates :production, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String] The base path where to install the bower packages
         attribute :path

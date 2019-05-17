@@ -24,9 +24,9 @@ module Ansible
         attribute :connect_ssh_port
         validates :connect_ssh_port, type: Integer
 
-        # @return [Boolean, nil] When (False) file is copied from the Ansible controller to the NXOS device.,When (True) file is copied from a remote SCP server to the NXOS device. In this mode, the file copy is initiated from the NXOS device.,If the file is already present on the device it will be overwritten and therefore the operation is NOT idempotent.
+        # @return [Symbol, nil] When (False) file is copied from the Ansible controller to the NXOS device.,When (True) file is copied from a remote SCP server to the NXOS device. In this mode, the file copy is initiated from the NXOS device.,If the file is already present on the device it will be overwritten and therefore the operation is NOT idempotent.
         attribute :file_pull
-        validates :file_pull, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :file_pull, type: Symbol
 
         # @return [Object, nil] When (file_pull is True) file is copied from a remote SCP server to the NXOS device, and written to this directory on the NXOS device. If the directory does not exist, it will be created under the file_system. This is an optional parameter.,When (file_pull is False), this not used.
         attribute :local_file_directory

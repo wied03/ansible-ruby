@@ -37,9 +37,9 @@ module Ansible
         attribute :purge_stacks
         validates :purge_stacks, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
-        # @return [Boolean, nil] Whether or not to wait for stack operation to complete. This includes waiting for stack instances to reach UPDATE_COMPLETE status.,If you choose not to wait, this module will not notify when stack operations fail because it will not wait for them to finish.
+        # @return [Symbol, nil] Whether or not to wait for stack operation to complete. This includes waiting for stack instances to reach UPDATE_COMPLETE status.,If you choose not to wait, this module will not notify when stack operations fail because it will not wait for them to finish.
         attribute :wait
-        validates :wait, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :wait, type: Symbol
 
         # @return [Integer, nil] How long to wait (in seconds) for stacks to complete create/update/delete operations.
         attribute :wait_timeout

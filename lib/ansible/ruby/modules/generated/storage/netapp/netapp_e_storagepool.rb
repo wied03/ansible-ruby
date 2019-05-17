@@ -44,11 +44,13 @@ module Ansible
         attribute :raid_level
         validates :raid_level, presence: true, inclusion: {:in=>[:raidAll, :raid0, :raid1, :raid3, :raid5, :raid6, :raidDiskPool], :message=>"%{value} needs to be :raidAll, :raid0, :raid1, :raid3, :raid5, :raid6, :raidDiskPool"}
 
-        # @return [Object, nil] Whether to erase secured disks before adding to storage pool
+        # @return [Symbol, nil] Whether to erase secured disks before adding to storage pool
         attribute :erase_secured_drives
+        validates :erase_secured_drives, type: Symbol
 
-        # @return [Object, nil] Whether to convert to a secure storage pool. Will only work if all drives in the pool are security capable.
+        # @return [Symbol, nil] Whether to convert to a secure storage pool. Will only work if all drives in the pool are security capable.
         attribute :secure_pool
+        validates :secure_pool, type: Symbol
 
         # @return [Object, nil] Set the number of drives reserved by the storage pool for reconstruction operations. Only valide on raid disk pools.
         attribute :reserve_drive_count

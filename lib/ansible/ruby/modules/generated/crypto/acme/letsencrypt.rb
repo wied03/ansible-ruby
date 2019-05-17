@@ -18,13 +18,13 @@ module Ansible
         # @return [Object, nil] URI to a terms of service document you agree to when using the ACME v1 service at C(acme_directory).,Default is latest gathered from C(acme_directory) URL.,This option will only be used when C(acme_version) is 1.
         attribute :agreement
 
-        # @return [String, nil] Boolean indicating whether you agree to the terms of service document.,ACME servers can require this to be true.,This option will only be used when C(acme_version) is not 1.
+        # @return [:yes, :no, nil] Boolean indicating whether you agree to the terms of service document.,ACME servers can require this to be true.,This option will only be used when C(acme_version) is not 1.
         attribute :terms_agreed
-        validates :terms_agreed, type: String
+        validates :terms_agreed, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Boolean indicating whether the module should create the account if necessary, and update its contact data.,Set to C(no) if you want to use the M(acme_account) module to manage your account instead, and to avoid accidental creation of a new account using an old key if you changed the account key with M(acme_account).,If set to C(no), C(terms_agreed) and C(account_email) are ignored.
+        # @return [:yes, :no, nil] Boolean indicating whether the module should create the account if necessary, and update its contact data.,Set to C(no) if you want to use the M(acme_account) module to manage your account instead, and to avoid accidental creation of a new account using an old key if you changed the account key with M(acme_account).,If set to C(no), C(terms_agreed) and C(account_email) are ignored.
         attribute :modify_account
-        validates :modify_account, type: String
+        validates :modify_account, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:"http-01", :"dns-01", :"tls-alpn-01", nil] The challenge to be performed.
         attribute :challenge
@@ -54,13 +54,13 @@ module Ansible
         attribute :remaining_days
         validates :remaining_days, type: Integer
 
-        # @return [String, nil] Deactivate authentication objects (authz) after issuing a certificate, or when issuing the certificate failed.,Authentication objects are bound to an account key and remain valid for a certain amount of time, and can be used to issue certificates without having to re-authenticate the domain. This can be a security concern.
+        # @return [:yes, :no, nil] Deactivate authentication objects (authz) after issuing a certificate, or when issuing the certificate failed.,Authentication objects are bound to an account key and remain valid for a certain amount of time, and can be used to issue certificates without having to re-authenticate the domain. This can be a security concern.
         attribute :deactivate_authzs
-        validates :deactivate_authzs, type: String
+        validates :deactivate_authzs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Enforces the execution of the challenge and validation, even if an existing certificate is still valid for more than C(remaining_days).,This is especially helpful when having an updated CSR e.g. with additional domains for which a new certificate is desired.
+        # @return [:yes, :no, nil] Enforces the execution of the challenge and validation, even if an existing certificate is still valid for more than C(remaining_days).,This is especially helpful when having an updated CSR e.g. with additional domains for which a new certificate is desired.
         attribute :force
-        validates :force, type: String
+        validates :force, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

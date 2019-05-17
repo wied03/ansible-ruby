@@ -24,15 +24,17 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [Object, nil] A hash containing the templates inline. This parameter is mutually exclusive with 'template_link'. Either one of them is required if "state" parameter is "present".
+        # @return [Hash, nil] A hash containing the templates inline. This parameter is mutually exclusive with 'template_link'. Either one of them is required if "state" parameter is "present".
         attribute :template
+        validates :template, type: Hash
 
         # @return [String, nil] Uri of file containing the template body. This parameter is mutually exclusive with 'template'. Either one of them is required if "state" parameter is "present".
         attribute :template_link
         validates :template_link, type: String
 
-        # @return [Object, nil] A hash of all the required template variables for the deployment template. This parameter is mutually exclusive with 'parameters_link'. Either one of them is required if "state" parameter is "present".
+        # @return [Hash, nil] A hash of all the required template variables for the deployment template. This parameter is mutually exclusive with 'parameters_link'. Either one of them is required if "state" parameter is "present".
         attribute :parameters
+        validates :parameters, type: Hash
 
         # @return [String, nil] Uri of file containing the parameters body. This parameter is mutually exclusive with 'parameters'. Either one of them is required if "state" parameter is "present".
         attribute :parameters_link
@@ -42,9 +44,9 @@ module Ansible
         attribute :deployment_name
         validates :deployment_name, type: String
 
-        # @return [String, nil] Whether or not to block until the deployment has completed.
+        # @return [:yes, :no, nil] Whether or not to block until the deployment has completed.
         attribute :wait_for_deployment_completion
-        validates :wait_for_deployment_completion, type: String
+        validates :wait_for_deployment_completion, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] Time (in seconds) to wait between polls when waiting for deployment completion.
         attribute :wait_for_deployment_polling_period

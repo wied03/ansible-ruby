@@ -24,9 +24,9 @@ module Ansible
         attribute :description
         validates :description, type: String
 
-        # @return [String, nil] Specify whether to allow or deny file listing, in case user has no permission on share. Also known as Access-Based Enumeration.
+        # @return [:yes, :no, nil] Specify whether to allow or deny file listing, in case user has no permission on share. Also known as Access-Based Enumeration.
         attribute :list
-        validates :list, type: String
+        validates :list, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] Specify user list that should get read access on share, separated by comma.
         attribute :read
@@ -47,9 +47,9 @@ module Ansible
         attribute :caching_mode
         validates :caching_mode, inclusion: {:in=>[:BranchCache, :Documents, :Manual, :None, :Programs, :Unknown], :message=>"%{value} needs to be :BranchCache, :Documents, :Manual, :None, :Programs, :Unknown"}, allow_nil: true
 
-        # @return [String, nil] Sets whether to encrypt the traffic to the share or not.
+        # @return [:yes, :no, nil] Sets whether to encrypt the traffic to the share or not.
         attribute :encrypt
-        validates :encrypt, type: String
+        validates :encrypt, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

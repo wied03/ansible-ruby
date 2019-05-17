@@ -16,9 +16,9 @@ module Ansible
         attribute :link
         validates :link, presence: true, type: String
 
-        # @return [Boolean, nil] Specifies that the VNIC is temporary. Temporary VNICs do not persist across reboots.
+        # @return [Symbol, nil] Specifies that the VNIC is temporary. Temporary VNICs do not persist across reboots.
         attribute :temporary
-        validates :temporary, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :temporary, type: Symbol
 
         # @return [Boolean, nil] Sets the VNIC's MAC address. Must be valid unicast MAC address.
         attribute :mac

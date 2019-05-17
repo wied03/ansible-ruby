@@ -19,9 +19,9 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [Boolean, nil] If I(true) allow a MAC address to be used multiple times in a pool.,Default value is set by oVirt/RHV engine to I(false).
+        # @return [Symbol, nil] If I(true) allow a MAC address to be used multiple times in a pool.,Default value is set by oVirt/RHV engine to I(false).
         attribute :allow_duplicates
-        validates :allow_duplicates, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :allow_duplicates, type: Symbol
 
         # @return [Array<String>, String, nil] List of MAC ranges. The from and to should be split by comma.,For example: 00:1a:4a:16:01:51,00:1a:4a:16:01:61
         attribute :ranges

@@ -20,9 +20,9 @@ module Ansible
         attribute :contract
         validates :contract, type: String
 
-        # @return [Boolean, nil] Determines if the APIC should reverse the src and dst ports to allow the return traffic back, since ACI is stateless filter.,The APIC defaults to C(yes) when unset during creation.
+        # @return [Symbol, nil] Determines if the APIC should reverse the src and dst ports to allow the return traffic back, since ACI is stateless filter.,The APIC defaults to C(yes) when unset during creation.
         attribute :reverse_filter
-        validates :reverse_filter, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :reverse_filter, type: Symbol
 
         # @return [:level1, :level2, :level3, :unspecified, nil] The QoS class.,The APIC defaults to C(unspecified) when unset during creation.
         attribute :priority

@@ -32,9 +32,9 @@ module Ansible
         attribute :segment_size_kb
         validates :segment_size_kb, type: Integer
 
-        # @return [String, nil] Whether the volume should be thin provisioned.  Thin volumes can only be created on disk pools (raidDiskPool).
+        # @return [:yes, :no, nil] Whether the volume should be thin provisioned.  Thin volumes can only be created on disk pools (raidDiskPool).
         attribute :thin_provision
-        validates :thin_provision, type: String
+        validates :thin_provision, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object] Initial size of the thin volume repository volume (in size_unit)
         attribute :thin_volume_repo_size
@@ -44,12 +44,13 @@ module Ansible
         attribute :thin_volume_max_repo_size
         validates :thin_volume_max_repo_size, type: String
 
-        # @return [Object, nil] Whether an existing SSD cache should be enabled on the volume (fails if no SSD cache defined),The default value is to ignore existing SSD cache setting.
+        # @return [Symbol, nil] Whether an existing SSD cache should be enabled on the volume (fails if no SSD cache defined),The default value is to ignore existing SSD cache setting.
         attribute :ssd_cache_enabled
+        validates :ssd_cache_enabled, type: Symbol
 
-        # @return [String, nil] If data assurance should be enabled for the volume
+        # @return [:yes, :no, nil] If data assurance should be enabled for the volume
         attribute :data_assurance_enabled
-        validates :data_assurance_enabled, type: String
+        validates :data_assurance_enabled, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

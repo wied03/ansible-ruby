@@ -16,9 +16,9 @@ module Ansible
         attribute :nodes
         validates :nodes, presence: true, type: TypeGeneric.new(String)
 
-        # @return [String, nil] Applicable only while removing the nodes from the pool. gluster will refuse to detach a node from the pool if any one of the node is down, in such cases force can be used.
+        # @return [Symbol, nil] Applicable only while removing the nodes from the pool. gluster will refuse to detach a node from the pool if any one of the node is down, in such cases force can be used.
         attribute :force
-        validates :force, type: String
+        validates :force, type: Symbol
       end
     end
   end

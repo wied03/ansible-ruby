@@ -17,17 +17,17 @@ module Ansible
         attribute :dest
         validates :dest, presence: true, type: String
 
-        # @return [String, nil] When set to 'yes', the task will fail if the remote file cannot be read for any reason.  Prior to Ansible-2.5, setting this would only fail if the source file was missing.,The default was changed to "yes" in Ansible-2.5.
+        # @return [:yes, :no, nil] When set to 'yes', the task will fail if the remote file cannot be read for any reason.  Prior to Ansible-2.5, setting this would only fail if the source file was missing.,The default was changed to "yes" in Ansible-2.5.
         attribute :fail_on_missing
-        validates :fail_on_missing, type: String
+        validates :fail_on_missing, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Verify that the source and destination checksums match after the files are fetched.
+        # @return [:yes, :no, nil] Verify that the source and destination checksums match after the files are fetched.
         attribute :validate_checksum
-        validates :validate_checksum, type: String
+        validates :validate_checksum, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Allows you to override the default behavior of appending hostname/path/to/file to the destination.  If dest ends with '/', it will use the basename of the source file, similar to the copy module. Obviously this is only handy if the filenames are unique.
+        # @return [:yes, :no, nil] Allows you to override the default behavior of appending hostname/path/to/file to the destination.  If dest ends with '/', it will use the basename of the source file, similar to the copy module. Obviously this is only handy if the filenames are unique.
         attribute :flat
-        validates :flat, type: String
+        validates :flat, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

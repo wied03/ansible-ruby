@@ -26,9 +26,9 @@ module Ansible
         attribute :mode
         validates :mode, inclusion: {:in=>[:layer2, :layer3], :message=>"%{value} needs to be :layer2, :layer3"}, allow_nil: true
 
-        # @return [String, nil] Specifies whether the interface is a Layer 2 sub-interface.
+        # @return [:yes, :no, nil] Specifies whether the interface is a Layer 2 sub-interface.
         attribute :l2sub
-        validates :l2sub, type: String
+        validates :l2sub, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:present, :absent, :default, nil] Specify desired state of the resource.
         attribute :state

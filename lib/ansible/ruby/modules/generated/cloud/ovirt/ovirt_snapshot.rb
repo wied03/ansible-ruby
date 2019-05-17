@@ -24,9 +24,9 @@ module Ansible
         attribute :description
         validates :description, type: String
 
-        # @return [Boolean, nil] If I(true) and C(state) is I(present) save memory of the Virtual Machine if it's running.,If I(true) and C(state) is I(restore) restore memory of the Virtual Machine.,Note that Virtual Machine will be paused while saving the memory.
+        # @return [Symbol, nil] If I(true) and C(state) is I(present) save memory of the Virtual Machine if it's running.,If I(true) and C(state) is I(restore) restore memory of the Virtual Machine.,Note that Virtual Machine will be paused while saving the memory.
         attribute :use_memory
-        validates :use_memory, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :use_memory, type: Symbol
       end
     end
   end

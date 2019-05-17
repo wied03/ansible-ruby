@@ -16,12 +16,13 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:killed, :once, :reloaded, :restarted, :started, :stopped], :message=>"%{value} needs to be :killed, :once, :reloaded, :restarted, :started, :stopped"}, allow_nil: true
 
-        # @return [String, nil] Should a 'down' file exist or not, if it exists it disables auto startup. defaults to no. Downed does not imply stopped.
+        # @return [:yes, :no, nil] Should a 'down' file exist or not, if it exists it disables auto startup. defaults to no. Downed does not imply stopped.
         attribute :downed
-        validates :downed, type: String
+        validates :downed, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [Object, nil] Wheater the service is enabled or not, if disabled it also implies stopped. Make note that a service can be enabled and downed (no auto restart).
+        # @return [Symbol, nil] Wheater the service is enabled or not, if disabled it also implies stopped. Make note that a service can be enabled and downed (no auto restart).
         attribute :enabled
+        validates :enabled, type: Symbol
 
         # @return [String, nil] directory svscan watches for services
         attribute :service_dir

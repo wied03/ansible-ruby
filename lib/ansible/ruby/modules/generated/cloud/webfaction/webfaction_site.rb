@@ -20,9 +20,9 @@ module Ansible
         attribute :host
         validates :host, presence: true, type: String
 
-        # @return [String, nil] Whether or not to use HTTPS
+        # @return [:yes, :no, nil] Whether or not to use HTTPS
         attribute :https
-        validates :https, type: String
+        validates :https, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] A mapping of URLs to apps
         attribute :site_apps

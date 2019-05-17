@@ -32,9 +32,9 @@ module Ansible
         attribute :parameters
         validates :parameters, type: Hash
 
-        # @return [String, nil] Rollback stack creation
+        # @return [:yes, :no, nil] Rollback stack creation
         attribute :rollback
-        validates :rollback, type: String
+        validates :rollback, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] Maximum number of seconds to wait for the stack creation
         attribute :timeout

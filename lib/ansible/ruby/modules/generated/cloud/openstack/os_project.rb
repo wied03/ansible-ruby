@@ -20,9 +20,9 @@ module Ansible
         attribute :domain_id
         validates :domain_id, type: String
 
-        # @return [String, nil] Is the project enabled
+        # @return [:yes, :no, nil] Is the project enabled
         attribute :enabled
-        validates :enabled, type: String
+        validates :enabled, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:present, :absent, nil] Should the resource be present or absent.
         attribute :state

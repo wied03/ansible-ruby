@@ -37,9 +37,9 @@ module Ansible
         # @return [Object, nil] Mode the file should be.
         attribute :mode
 
-        # @return [String, nil] Key store will be created even if it already exists.
+        # @return [:yes, :no, nil] Key store will be created even if it already exists.
         attribute :force
-        validates :force, type: String
+        validates :force, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

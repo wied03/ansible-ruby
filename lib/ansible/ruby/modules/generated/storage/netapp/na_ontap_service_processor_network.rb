@@ -16,9 +16,9 @@ module Ansible
         attribute :address_type
         validates :address_type, presence: true, inclusion: {:in=>[:ipv4, :ipv6], :message=>"%{value} needs to be :ipv4, :ipv6"}
 
-        # @return [String] Specify whether to enable or disable the service processor network.
+        # @return [Symbol] Specify whether to enable or disable the service processor network.
         attribute :is_enabled
-        validates :is_enabled, presence: true, type: String
+        validates :is_enabled, presence: true, type: Symbol
 
         # @return [String] The node where the service processor network should be enabled
         attribute :node

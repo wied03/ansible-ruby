@@ -28,13 +28,13 @@ module Ansible
         attribute :password
         validates :password, type: String
 
-        # @return [String, nil] User is a system wide administator.
+        # @return [:yes, :no, nil] User is a system wide administator.
         attribute :superuser
-        validates :superuser, type: String
+        validates :superuser, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] User is a system wide auditor.
+        # @return [:yes, :no, nil] User is a system wide auditor.
         attribute :auditor
-        validates :auditor, type: String
+        validates :auditor, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:present, :absent, nil] Desired state of the resource.
         attribute :state

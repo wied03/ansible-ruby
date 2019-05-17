@@ -32,9 +32,9 @@ module Ansible
         attribute :validate_certs
         validates :validate_certs, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
-        # @return [Boolean, nil] Flag to control if the lookup will observe HTTP proxy environment variables when present.
+        # @return [Symbol, nil] Flag to control if the lookup will observe HTTP proxy environment variables when present.
         attribute :use_proxy
-        validates :use_proxy, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :use_proxy, type: Symbol
 
         # @return [String] This is the User Name that needs to be create/modified/deleted
         attribute :user_name

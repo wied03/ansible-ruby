@@ -12,9 +12,9 @@ module Ansible
         attribute :server
         validates :server, type: String
 
-        # @return [String, nil] when true, return additional detail about servers at the expense of additional API calls.
+        # @return [:yes, :no, nil] when true, return additional detail about servers at the expense of additional API calls.
         attribute :detailed
-        validates :detailed, type: String
+        validates :detailed, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] Ignored. Present for backwards compatibility
         attribute :availability_zone

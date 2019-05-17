@@ -30,9 +30,9 @@ module Ansible
         attribute :tags
         validates :tags, type: TypeGeneric.new(String)
 
-        # @return [String, nil] commit if changed
+        # @return [:yes, :no, nil] commit if changed
         attribute :commit
-        validates :commit, type: String
+        validates :commit, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object] The operation to perform Supported values are I(add)/I(list)/I(delete).
         attribute :operation

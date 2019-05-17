@@ -24,13 +24,13 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent, :enabled, :disabled, :drained, :hot_standby, :ignore_errors], :message=>"%{value} needs to be :present, :absent, :enabled, :disabled, :drained, :hot_standby, :ignore_errors"}, allow_nil: true
 
-        # @return [String, nil] Use https to access balancer management page.
+        # @return [:yes, :no, nil] Use https to access balancer management page.
         attribute :tls
-        validates :tls, type: String
+        validates :tls, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Validate ssl/tls certificates.
+        # @return [:yes, :no, nil] Validate ssl/tls certificates.
         attribute :validate_certs
-        validates :validate_certs, type: String
+        validates :validate_certs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

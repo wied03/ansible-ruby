@@ -16,9 +16,9 @@ module Ansible
         attribute :host_ip
         validates :host_ip, type: String
 
-        # @return [Boolean, nil] Find the exact match
+        # @return [Symbol, nil] Find the exact match
         attribute :exact_match
-        validates :exact_match, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :exact_match, type: Symbol
 
         # @return [Boolean, nil] Remove duplicate host from host result
         attribute :remove_duplicate

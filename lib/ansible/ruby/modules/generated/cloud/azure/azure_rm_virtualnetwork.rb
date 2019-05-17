@@ -27,13 +27,13 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [String, nil] Use with state present to remove any existing address_prefixes.
+        # @return [:yes, :no, nil] Use with state present to remove any existing address_prefixes.
         attribute :purge_address_prefixes
-        validates :purge_address_prefixes, type: String
+        validates :purge_address_prefixes, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Use with state present to remove existing DNS servers, reverting to default Azure servers. Mutually exclusive with dns_servers.
+        # @return [:yes, :no, nil] Use with state present to remove existing DNS servers, reverting to default Azure servers. Mutually exclusive with dns_servers.
         attribute :purge_dns_servers
-        validates :purge_dns_servers, type: String
+        validates :purge_dns_servers, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:absent, :present, nil] Assert the state of the virtual network. Use 'present' to create or update and 'absent' to delete.
         attribute :state

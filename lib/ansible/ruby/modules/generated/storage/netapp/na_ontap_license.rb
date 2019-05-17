@@ -12,13 +12,13 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [Boolean, nil] Remove licenses that have no controller affiliation in the cluster.
+        # @return [Symbol, nil] Remove licenses that have no controller affiliation in the cluster.
         attribute :remove_unused
-        validates :remove_unused, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :remove_unused, type: Symbol
 
-        # @return [Boolean, nil] Remove licenses that have expired in the cluster.
+        # @return [Symbol, nil] Remove licenses that have expired in the cluster.
         attribute :remove_expired
-        validates :remove_expired, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :remove_expired, type: Symbol
 
         # @return [NilClass, nil] Serial number of the node associated with the license. This parameter is used primarily when removing license for a specific service.
         attribute :serial_number

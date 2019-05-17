@@ -44,14 +44,17 @@ module Ansible
         attribute :client_affinity_enabled
         validates :client_affinity_enabled, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
-        # @return [Object, nil] Configures web site to accept only https requests.
+        # @return [Symbol, nil] Configures web site to accept only https requests.
         attribute :https_only
+        validates :https_only, type: Symbol
 
-        # @return [Object, nil] If true web app hostname is not registered with DNS on creation.
+        # @return [Symbol, nil] If true web app hostname is not registered with DNS on creation.
         attribute :dns_registration
+        validates :dns_registration, type: Symbol
 
-        # @return [Object, nil] If true, custom (non *.azurewebsites.net) domains associated with web app are not verified.
+        # @return [Symbol, nil] If true, custom (non *.azurewebsites.net) domains associated with web app are not verified.
         attribute :skip_custom_domain_verification
+        validates :skip_custom_domain_verification, type: Symbol
 
         # @return [Object, nil] Time to live in seconds for web app default domain name.
         attribute :ttl_in_seconds
@@ -60,12 +63,13 @@ module Ansible
         attribute :app_settings
         validates :app_settings, type: Hash
 
-        # @return [Object, nil] Purge any existing application settings. Replace web app application settings with app_settings.
+        # @return [Symbol, nil] Purge any existing application settings. Replace web app application settings with app_settings.
         attribute :purge_app_settings
+        validates :purge_app_settings, type: Symbol
 
-        # @return [:started, :stopped, :restarted, nil] Start/Stop/Restart the web app.
+        # @return [String, nil] Start/Stop/Restart the web app.
         attribute :app_state
-        validates :app_state, inclusion: {:in=>[:started, :stopped, :restarted], :message=>"%{value} needs to be :started, :stopped, :restarted"}, allow_nil: true
+        validates :app_state, type: String
 
         # @return [:absent, :present, nil] Assert the state of the Web App.,Use 'present' to create or update a Web App and 'absent' to delete it.
         attribute :state

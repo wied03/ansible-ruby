@@ -36,9 +36,9 @@ module Ansible
         attribute :volume_type
         validates :volume_type, presence: true, inclusion: {:in=>[:SATA, :SSD], :message=>"%{value} needs to be :SATA, :SSD"}
 
-        # @return [String, nil] wait for the volume to be in state 'available' before returning
+        # @return [:yes, :no, nil] wait for the volume to be in state 'available' before returning
         attribute :wait
-        validates :wait, type: String
+        validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] how long before wait gives up, in seconds
         attribute :wait_timeout

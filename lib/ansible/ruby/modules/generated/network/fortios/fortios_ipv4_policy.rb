@@ -28,17 +28,17 @@ module Ansible
         attribute :src_addr
         validates :src_addr, type: TypeGeneric.new(String)
 
-        # @return [Boolean, nil] Negate source address param.
+        # @return [Symbol, nil] Negate source address param.
         attribute :src_addr_negate
-        validates :src_addr_negate, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :src_addr_negate, type: Symbol
 
         # @return [String, nil] Specifies destination address (or group) object name(s). Required when I(state=present).
         attribute :dst_addr
         validates :dst_addr, type: String
 
-        # @return [Boolean, nil] Negate destination address param.
+        # @return [Symbol, nil] Negate destination address param.
         attribute :dst_addr_negate
-        validates :dst_addr_negate, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :dst_addr_negate, type: Symbol
 
         # @return [:accept, :deny, nil] Specifies accept or deny action policy. Required when I(state=present).
         attribute :policy_action
@@ -48,21 +48,21 @@ module Ansible
         attribute :service
         validates :service, type: String
 
-        # @return [Boolean, nil] Negate policy service(s) defined in service value.
+        # @return [Symbol, nil] Negate policy service(s) defined in service value.
         attribute :service_negate
-        validates :service_negate, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :service_negate, type: Symbol
 
         # @return [String, nil] defines policy schedule.
         attribute :schedule
         validates :schedule, type: String
 
-        # @return [Boolean, nil] Enable or disable Nat.
+        # @return [Symbol, nil] Enable or disable Nat.
         attribute :nat
-        validates :nat, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :nat, type: Symbol
 
-        # @return [Boolean, nil] Use fixed port for nat.
+        # @return [Symbol, nil] Use fixed port for nat.
         attribute :fixedport
-        validates :fixedport, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :fixedport, type: Symbol
 
         # @return [Object, nil] Specifies NAT pool name.
         attribute :poolname
@@ -83,9 +83,9 @@ module Ansible
         attribute :logtraffic
         validates :logtraffic, inclusion: {:in=>[:disable, :utm, :all], :message=>"%{value} needs to be :disable, :utm, :all"}, allow_nil: true
 
-        # @return [Boolean, nil] Logs beginning of session as well.
+        # @return [Symbol, nil] Logs beginning of session as well.
         attribute :logtraffic_start
-        validates :logtraffic_start, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :logtraffic_start, type: Symbol
 
         # @return [String, nil] free text to describe policy.
         attribute :comment

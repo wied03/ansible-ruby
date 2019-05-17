@@ -16,13 +16,13 @@ module Ansible
         attribute :description
         validates :description, type: String
 
-        # @return [String, nil] Enable or disable Receive state.,The APIC defaults to C(yes) when unset during creation.
+        # @return [Symbol, nil] Enable or disable Receive state.,The APIC defaults to C(yes) when unset during creation.
         attribute :receive_state
-        validates :receive_state, type: String
+        validates :receive_state, type: Symbol
 
-        # @return [String, nil] Enable or Disable Transmit state.,The APIC defaults to C(yes) when unset during creation.
+        # @return [Symbol, nil] Enable or Disable Transmit state.,The APIC defaults to C(yes) when unset during creation.
         attribute :transmit_state
-        validates :transmit_state, type: String
+        validates :transmit_state, type: Symbol
 
         # @return [:absent, :present, :query, nil] Use C(present) or C(absent) for adding or removing.,Use C(query) for listing an object or multiple objects.
         attribute :state

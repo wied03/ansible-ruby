@@ -16,17 +16,17 @@ module Ansible
         attribute :datacenter_name
         validates :datacenter_name, presence: true, type: String
 
-        # @return [String, nil] If set to C(yes) will enable DRS when the cluster is created.
+        # @return [:yes, :no, nil] If set to C(yes) will enable DRS when the cluster is created.
         attribute :enable_drs
-        validates :enable_drs, type: String
+        validates :enable_drs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] If set to C(yes) will enable HA when the cluster is created.
+        # @return [:yes, :no, nil] If set to C(yes) will enable HA when the cluster is created.
         attribute :enable_ha
-        validates :enable_ha, type: String
+        validates :enable_ha, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] If set to C(yes) will enable vSAN when the cluster is created.
+        # @return [:yes, :no, nil] If set to C(yes) will enable vSAN when the cluster is created.
         attribute :enable_vsan
-        validates :enable_vsan, type: String
+        validates :enable_vsan, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:absent, :present, nil] Create (C(present)) or remove (C(absent)) a VMware vSphere cluster.
         attribute :state

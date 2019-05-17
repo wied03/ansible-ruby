@@ -16,9 +16,9 @@ module Ansible
         attribute :text
         validates :text, type: String
 
-        # @return [String, nil] If C(yes), text will be parsed as markdown.
+        # @return [:yes, :no, nil] If C(yes), text will be parsed as markdown.
         attribute :markdown
-        validates :markdown, type: String
+        validates :markdown, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] Channel to send the message to. If absent, the message goes to the default channel selected by the I(url).
         attribute :channel

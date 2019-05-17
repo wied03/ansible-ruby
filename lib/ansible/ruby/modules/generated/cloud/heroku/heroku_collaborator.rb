@@ -19,9 +19,9 @@ module Ansible
         attribute :apps
         validates :apps, presence: true, type: TypeGeneric.new(String)
 
-        # @return [String, nil] Suppress email invitation when creating collaborator
+        # @return [:yes, :no, nil] Suppress email invitation when creating collaborator
         attribute :suppress_invitation
-        validates :suppress_invitation, type: String
+        validates :suppress_invitation, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String] User ID or e-mail
         attribute :user

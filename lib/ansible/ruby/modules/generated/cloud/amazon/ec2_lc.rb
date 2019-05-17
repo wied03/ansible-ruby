@@ -49,9 +49,9 @@ module Ansible
         # @return [Object, nil] The spot price you are bidding. Only applies for an autoscaling group with spot instances.
         attribute :spot_price
 
-        # @return [String, nil] Specifies whether instances are launched with detailed monitoring.
+        # @return [:yes, :no, nil] Specifies whether instances are launched with detailed monitoring.
         attribute :instance_monitoring
-        validates :instance_monitoring, type: String
+        validates :instance_monitoring, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] Used for Auto Scaling groups that launch instances into an Amazon Virtual Private Cloud. Specifies whether to assign a public IP address to each instance launched in a Amazon VPC.
         attribute :assign_public_ip

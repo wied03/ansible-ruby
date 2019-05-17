@@ -24,9 +24,9 @@ module Ansible
         attribute :members
         validates :members, type: TypeGeneric.new(String)
 
-        # @return [String, nil] When true it forces link aggregation group members to match what is declared in the members param. This can be used to remove members.
+        # @return [:yes, :no, nil] When true it forces link aggregation group members to match what is declared in the members param. This can be used to remove members.
         attribute :force
-        validates :force, type: String
+        validates :force, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Array<Hash>, Hash, nil] List of link aggregation definitions.
         attribute :aggregate
@@ -36,9 +36,9 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [String, nil] Purge links not defined in the I(aggregate) parameter.
+        # @return [:yes, :no, nil] Purge links not defined in the I(aggregate) parameter.
         attribute :purge
-        validates :purge, type: String
+        validates :purge, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

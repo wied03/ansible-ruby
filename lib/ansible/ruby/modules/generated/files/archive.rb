@@ -24,9 +24,9 @@ module Ansible
         attribute :exclude_path
         validates :exclude_path, type: TypeGeneric.new(String)
 
-        # @return [String, nil] Remove any added source files and trees after adding to archive.
+        # @return [:yes, :no, nil] Remove any added source files and trees after adding to archive.
         attribute :remove
-        validates :remove, type: String
+        validates :remove, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

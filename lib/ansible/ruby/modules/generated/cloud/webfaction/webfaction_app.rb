@@ -20,17 +20,17 @@ module Ansible
         attribute :type
         validates :type, presence: true, type: String
 
-        # @return [String, nil] Whether the app should restart with an C(autostart.cgi) script
+        # @return [:yes, :no, nil] Whether the app should restart with an C(autostart.cgi) script
         attribute :autostart
-        validates :autostart, type: String
+        validates :autostart, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] Any extra parameters required by the app
         attribute :extra_info
         validates :extra_info, type: String
 
-        # @return [String, nil] IF the port should be opened
+        # @return [:yes, :no, nil] IF the port should be opened
         attribute :port_open
-        validates :port_open, type: String
+        validates :port_open, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String] The webfaction account to use
         attribute :login_name

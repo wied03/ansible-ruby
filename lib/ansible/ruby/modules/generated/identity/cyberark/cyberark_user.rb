@@ -37,9 +37,9 @@ module Ansible
         # @return [Object, nil] The user last name.
         attribute :last_name
 
-        # @return [String, nil] Whether or not the user must change their password in their next logon. Valid values = true/false.
+        # @return [:yes, :no, nil] Whether or not the user must change their password in their next logon. Valid values = true/false.
         attribute :change_password_on_the_next_logon
-        validates :change_password_on_the_next_logon, type: String
+        validates :change_password_on_the_next_logon, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] The date and time when the user account will expire and become disabled.
         attribute :expiry_date
@@ -48,9 +48,9 @@ module Ansible
         attribute :user_type_name
         validates :user_type_name, type: String
 
-        # @return [String, nil] Whether or not the user will be disabled. Valid values = true/false.
+        # @return [:yes, :no, nil] Whether or not the user will be disabled. Valid values = true/false.
         attribute :disabled
-        validates :disabled, type: String
+        validates :disabled, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] The Vault Location for the user.
         attribute :location

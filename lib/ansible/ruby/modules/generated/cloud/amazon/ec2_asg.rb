@@ -106,9 +106,9 @@ module Ansible
         attribute :suspend_processes
         validates :suspend_processes, inclusion: {:in=>[:Launch, :Terminate, :HealthCheck, :ReplaceUnhealthy, :AZRebalance, :AlarmNotification, :ScheduledActions, :AddToLoadBalancer], :message=>"%{value} needs to be :Launch, :Terminate, :HealthCheck, :ReplaceUnhealthy, :AZRebalance, :AlarmNotification, :ScheduledActions, :AddToLoadBalancer"}, allow_nil: true
 
-        # @return [String, nil] Enable ASG metrics collection
+        # @return [:yes, :no, nil] Enable ASG metrics collection
         attribute :metrics_collection
-        validates :metrics_collection, type: String
+        validates :metrics_collection, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] When metrics_collection is enabled this will determine granularity of metrics collected by CloudWatch
         attribute :metrics_granularity

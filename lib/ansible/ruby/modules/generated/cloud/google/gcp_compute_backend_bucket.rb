@@ -21,9 +21,9 @@ module Ansible
         attribute :description
         validates :description, type: String
 
-        # @return [Boolean, nil] If true, enable Cloud CDN for this BackendBucket.
+        # @return [Symbol, nil] If true, enable Cloud CDN for this BackendBucket.
         attribute :enable_cdn
-        validates :enable_cdn, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :enable_cdn, type: Symbol
 
         # @return [String] Name of the resource. Provided by the client when the resource is created. The name must be 1-63 characters long, and comply with RFC1035.  Specifically, the name must be 1-63 characters long and match the regular expression `[a-z]([-a-z0-9]*[a-z0-9])?` which means the first character must be a lowercase letter, and all following characters must be a dash, lowercase letter, or digit, except the last character, which cannot be a dash.
         attribute :name

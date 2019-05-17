@@ -39,9 +39,9 @@ module Ansible
         attribute :mtu
         validates :mtu, type: Integer
 
-        # @return [Boolean, nil] Enables or disables the tunnel to use the PMTU (Path MTU) information provided by ICMP NeedFrag error messages.,If C(yes) and the tunnel C(mtu) is set to C(0), the tunnel will use the PMTU information.,If C(yes) and the tunnel C(mtu) is fixed to a non-zero value, the tunnel will use the minimum of PMTU and MTU.,If C(no), the tunnel will use fixed MTU or calculate its MTU using tunnel encapsulation configurations.
+        # @return [Symbol, nil] Enables or disables the tunnel to use the PMTU (Path MTU) information provided by ICMP NeedFrag error messages.,If C(yes) and the tunnel C(mtu) is set to C(0), the tunnel will use the PMTU information.,If C(yes) and the tunnel C(mtu) is fixed to a non-zero value, the tunnel will use the minimum of PMTU and MTU.,If C(no), the tunnel will use fixed MTU or calculate its MTU using tunnel encapsulation configurations.
         attribute :use_pmtu
-        validates :use_pmtu, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :use_pmtu, type: Symbol
 
         # @return [String, nil] Specifies the Type of Service (TOS) value to insert in the encapsulating header of transmitted packets.,When creating a new tunnel, if this parameter is supported by the tunnel profile but not specified, the default value is C(preserve).,When C(preserve), the system copies the TOS value from the inner header to the outer header.,You may also specify a numeric value. The possible values are from C(0) to C(255).
         attribute :tos
@@ -59,8 +59,9 @@ module Ansible
         attribute :mode
         validates :mode, inclusion: {:in=>[:bidirectional, :inbound, :outbound], :message=>"%{value} needs to be :bidirectional, :inbound, :outbound"}, allow_nil: true
 
-        # @return [Object, nil] Specifies that the tunnel operates in transparent mode.,When C(yes), you can inspect and manipulate the encapsulated traffic flowing through the BIG-IP system.,A transparent tunnel terminates a tunnel while presenting the illusion that the tunnel transits the device unmodified (that is, the BIG-IP system appears as if it were an intermediate router that simply routes IP traffic through the device).
+        # @return [Symbol, nil] Specifies that the tunnel operates in transparent mode.,When C(yes), you can inspect and manipulate the encapsulated traffic flowing through the BIG-IP system.,A transparent tunnel terminates a tunnel while presenting the illusion that the tunnel transits the device unmodified (that is, the BIG-IP system appears as if it were an intermediate router that simply routes IP traffic through the device).
         attribute :transparent
+        validates :transparent, type: Symbol
 
         # @return [String, nil] Device partition to manage resources on.
         attribute :partition

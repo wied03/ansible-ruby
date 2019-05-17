@@ -15,8 +15,9 @@ module Ansible
         # @return [Object, nil] The ID of the link aggrecation group or connection to associate with the virtual interface.
         attribute :id_to_associate
 
-        # @return [Object, nil] The type of virtual interface.
+        # @return [Symbol, nil] The type of virtual interface.
         attribute :public
+        validates :public, type: Symbol
 
         # @return [String, nil] The name of the virtual interface.
         attribute :name

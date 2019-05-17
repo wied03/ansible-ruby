@@ -20,9 +20,9 @@ module Ansible
         attribute :syncIntervalMinutes
         validates :syncIntervalMinutes, type: Integer
 
-        # @return [String, nil] Setting this to true will cause other synchronization values to be ignored
+        # @return [:yes, :no, nil] Setting this to true will cause other synchronization values to be ignored
         attribute :manualSync
-        validates :manualSync, type: String
+        validates :manualSync, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] Recovery point warning threshold (minutes). The user will be warned when the age of the last good failures point exceeds this value
         attribute :recoveryWarnThresholdMinutes

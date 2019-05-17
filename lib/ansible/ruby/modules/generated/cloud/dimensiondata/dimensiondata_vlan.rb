@@ -32,9 +32,9 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent, :readonly], :message=>"%{value} needs to be :present, :absent, :readonly"}, allow_nil: true
 
-        # @return [String, nil] Permit expansion of the target VLAN's network if the module parameters specify a larger network than the VLAN currently posesses?,If C(False), the module will fail under these conditions.,This is intended to prevent accidental expansion of a VLAN's network (since this operation is not reversible).
+        # @return [:yes, :no, nil] Permit expansion of the target VLAN's network if the module parameters specify a larger network than the VLAN currently posesses?,If C(False), the module will fail under these conditions.,This is intended to prevent accidental expansion of a VLAN's network (since this operation is not reversible).
         attribute :allow_expand
-        validates :allow_expand, type: String
+        validates :allow_expand, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

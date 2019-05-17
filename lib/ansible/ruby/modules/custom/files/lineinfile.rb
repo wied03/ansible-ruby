@@ -1,6 +1,6 @@
 # frozen_string_literal: true
+# VALIDATED_CHECKSUM: MUmYBWM0gOoYI/PKvp9gAffnBNMelLMAmgWuU2aUlqs=
 
-# VALIDATED_CHECKSUM: eNy9dt5MNTxeoSLUAttIX4/ZhU+wqY6uO5uPETNv3d4=
 # see LICENSE.txt in project root
 
 require 'ansible/ruby/modules/generated/files/lineinfile'

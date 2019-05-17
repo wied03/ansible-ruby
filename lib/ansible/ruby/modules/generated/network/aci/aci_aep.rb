@@ -16,9 +16,9 @@ module Ansible
         attribute :description
         validates :description, type: String
 
-        # @return [String, nil] Enable infrastructure VLAN.,The hypervisor functions of the AEP.,C(no) will disable the infrastructure vlan if it is enabled.
+        # @return [:yes, :no, nil] Enable infrastructure VLAN.,The hypervisor functions of the AEP.,C(no) will disable the infrastructure vlan if it is enabled.
         attribute :infra_vlan
-        validates :infra_vlan, type: String
+        validates :infra_vlan, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:absent, :present, :query, nil] Use C(present) or C(absent) for adding or removing.,Use C(query) for listing an object or multiple objects.
         attribute :state

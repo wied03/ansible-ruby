@@ -23,9 +23,9 @@ module Ansible
         attribute :aggregate
         validates :aggregate, type: TypeGeneric.new(Hash)
 
-        # @return [Boolean, nil] Purge L3 interfaces not defined in the I(aggregate) parameter.
+        # @return [Symbol, nil] Purge L3 interfaces not defined in the I(aggregate) parameter.
         attribute :purge
-        validates :purge, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :purge, type: Symbol
 
         # @return [:present, :absent, nil] State of the L3 interface configuration.
         attribute :state

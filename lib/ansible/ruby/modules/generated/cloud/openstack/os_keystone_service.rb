@@ -16,9 +16,9 @@ module Ansible
         attribute :description
         validates :description, type: String
 
-        # @return [String, nil] Is the service enabled
+        # @return [:yes, :no, nil] Is the service enabled
         attribute :enabled
-        validates :enabled, type: String
+        validates :enabled, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String] The type of service
         attribute :service_type

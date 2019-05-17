@@ -35,8 +35,9 @@ module Ansible
         # @return [Object, nil] The availability of network offering. Default value is Optional
         attribute :availability
 
-        # @return [Object, nil] Whether the network offering has IP conserve mode enabled.
+        # @return [Symbol, nil] Whether the network offering has IP conserve mode enabled.
         attribute :conserve_mode
+        validates :conserve_mode, type: Symbol
 
         # @return [:internallbprovider, :publiclbprovider, nil] Network offering details in key/value pairs.,with service provider as a value
         attribute :details
@@ -49,8 +50,9 @@ module Ansible
         # @return [Object, nil] True if network offering supports persistent networks,defaulted to false if not specified
         attribute :persistent
 
-        # @return [Object, nil] If true keepalive will be turned on in the loadbalancer.,At the time of writing this has only an effect on haproxy.,the mode http and httpclose options are unset in the haproxy conf file.
+        # @return [Symbol, nil] If true keepalive will be turned on in the loadbalancer.,At the time of writing this has only an effect on haproxy.,the mode http and httpclose options are unset in the haproxy conf file.
         attribute :keepalive_enabled
+        validates :keepalive_enabled, type: Symbol
 
         # @return [Object, nil] Maximum number of concurrent connections supported by the network offering.
         attribute :max_connections
@@ -67,11 +69,13 @@ module Ansible
         # @return [Object, nil] Provider to service mapping.,If not specified, the provider for the service will be mapped to the default provider on the physical network.
         attribute :service_provider
 
-        # @return [Object, nil] Wheter the network offering supports specifying IP ranges.,Defaulted to C(no) by the API if not specified.
+        # @return [Symbol, nil] Wheter the network offering supports specifying IP ranges.,Defaulted to C(no) by the API if not specified.
         attribute :specify_ip_ranges
+        validates :specify_ip_ranges, type: Symbol
 
-        # @return [Object, nil] Whether the network offering supports vlans or not.
+        # @return [Symbol, nil] Whether the network offering supports vlans or not.
         attribute :specify_vlan
+        validates :specify_vlan, type: Symbol
       end
     end
   end

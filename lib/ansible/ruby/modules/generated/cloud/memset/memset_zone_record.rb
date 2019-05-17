@@ -31,9 +31,9 @@ module Ansible
         attribute :type
         validates :type, presence: true, inclusion: {:in=>[:A, :AAAA, :CNAME, :MX, :NS, :SRV, :TXT], :message=>"%{value} needs to be :A, :AAAA, :CNAME, :MX, :NS, :SRV, :TXT"}
 
-        # @return [Boolean, nil] If set then the current domain is added onto the address field for C(CNAME), C(MX), C(NS) and C(SRV)record types.
+        # @return [Symbol, nil] If set then the current domain is added onto the address field for C(CNAME), C(MX), C(NS) and C(SRV)record types.
         attribute :relative
-        validates :relative, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :relative, type: Symbol
 
         # @return [0, 300, 600, 900, 1800, 3600, 7200, 10800, 21600, 43200, 86400, nil] The record's TTL in seconds (will inherit zone's TTL if not explicitly set). This must be a valid int from U(https://www.memset.com/apidocs/methods_dns.html#dns.zone_record_create).
         attribute :ttl

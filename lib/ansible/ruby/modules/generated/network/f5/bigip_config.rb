@@ -12,17 +12,17 @@ module Ansible
         attribute :save
         validates :save, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
-        # @return [Boolean, nil] Loads the default configuration on the device.,If this option is specified, the default configuration will be loaded before any commands or other provided configuration is run.
+        # @return [Symbol, nil] Loads the default configuration on the device.,If this option is specified, the default configuration will be loaded before any commands or other provided configuration is run.
         attribute :reset
-        validates :reset, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :reset, type: Symbol
 
         # @return [String, nil] Loads the specified configuration that you want to merge into the running configuration. This is equivalent to using the C(tmsh) command C(load sys config from-terminal merge).,If you need to read configuration from a file or template, use Ansible's C(file) or C(template) lookup plugins respectively.
         attribute :merge_content
         validates :merge_content, type: String
 
-        # @return [Boolean, nil] Validates the specified configuration to see whether they are valid to replace the running configuration.,The running configuration will not be changed.,When this parameter is set to C(yes), no change will be reported by the module.
+        # @return [Symbol, nil] Validates the specified configuration to see whether they are valid to replace the running configuration.,The running configuration will not be changed.,When this parameter is set to C(yes), no change will be reported by the module.
         attribute :verify
-        validates :verify, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :verify, type: Symbol
       end
     end
   end

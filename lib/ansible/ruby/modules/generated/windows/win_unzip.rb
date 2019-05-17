@@ -19,13 +19,13 @@ module Ansible
         attribute :dest
         validates :dest, presence: true, type: String
 
-        # @return [String, nil] Remove the zip file, after unzipping.
+        # @return [:yes, :no, nil] Remove the zip file, after unzipping.
         attribute :delete_archive
-        validates :delete_archive, type: String
+        validates :delete_archive, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Recursively expand zipped files within the src file.,Setting to a value of C(yes) requires the PSCX module to be installed.
+        # @return [:yes, :no, nil] Recursively expand zipped files within the src file.,Setting to a value of C(yes) requires the PSCX module to be installed.
         attribute :recurse
-        validates :recurse, type: String
+        validates :recurse, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] If this file or directory exists the specified src will not be extracted.
         attribute :creates

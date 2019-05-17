@@ -19,9 +19,9 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [Boolean, nil] If set to C(False) then prevents the role from being removed if any permissions are using it.
+        # @return [Symbol, nil] If set to C(False) then prevents the role from being removed if any permissions are using it.
         attribute :force_remove
-        validates :force_remove, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :force_remove, type: Symbol
       end
     end
   end

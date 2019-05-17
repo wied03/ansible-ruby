@@ -16,9 +16,9 @@ module Ansible
         attribute :description
         validates :description, type: String
 
-        # @return [String, nil] Maximum number of end points.,Accepted values range between C(0) and C(12000).,The APIC defaults to C(0) when unset during creation.
+        # @return [Integer, nil] Maximum number of end points.,Accepted values range between C(0) and C(12000).,The APIC defaults to C(0) when unset during creation.
         attribute :max_end_points
-        validates :max_end_points, type: String
+        validates :max_end_points, type: Integer
 
         # @return [:absent, :present, :query, nil] Use C(present) or C(absent) for adding or removing.,Use C(query) for listing an object or multiple objects.
         attribute :state

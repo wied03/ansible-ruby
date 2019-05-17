@@ -86,9 +86,9 @@ module Ansible
         attribute :s3_url
         validates :s3_url, type: String
 
-        # @return [String, nil] Enables Amazon S3 Dual-Stack Endpoints, allowing S3 communications using both IPv4 and IPv6.,Requires at least botocore version 1.4.45.
+        # @return [:yes, :no, nil] Enables Amazon S3 Dual-Stack Endpoints, allowing S3 communications using both IPv4 and IPv6.,Requires at least botocore version 1.4.45.
         attribute :dualstack
-        validates :dualstack, type: String
+        validates :dualstack, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Boolean, nil] Enable Ceph RGW S3 support. This option requires an explicit url via s3_url.
         attribute :rgw

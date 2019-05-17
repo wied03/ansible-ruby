@@ -12,8 +12,9 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [Object, nil] Allows this instance to send and receive packets with non-matching destination or source IPs. This is required if you plan to use this instance to forward routes.
+        # @return [Symbol, nil] Allows this instance to send and receive packets with non-matching destination or source IPs. This is required if you plan to use this instance to forward routes.
         attribute :can_ip_forward
+        validates :can_ip_forward, type: Symbol
 
         # @return [Array<Hash>, Hash, nil] An array of disks that are associated with the instances that are created from this template.
         attribute :disks

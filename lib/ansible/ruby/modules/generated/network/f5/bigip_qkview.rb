@@ -16,21 +16,21 @@ module Ansible
         attribute :dest
         validates :dest, presence: true, type: String
 
-        # @return [Boolean, nil] When C(True), includes the ASM request log data. When C(False), excludes the ASM request log data.
+        # @return [Symbol, nil] When C(True), includes the ASM request log data. When C(False), excludes the ASM request log data.
         attribute :asm_request_log
-        validates :asm_request_log, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :asm_request_log, type: Symbol
 
         # @return [Integer, nil] Max file size, in bytes, of the qkview to create. By default, no max file size is specified.
         attribute :max_file_size
         validates :max_file_size, type: Integer
 
-        # @return [Boolean, nil] Include complete information in the qkview.
+        # @return [Symbol, nil] Include complete information in the qkview.
         attribute :complete_information
-        validates :complete_information, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :complete_information, type: Symbol
 
-        # @return [Boolean, nil] Exclude core files from the qkview.
+        # @return [Symbol, nil] Exclude core files from the qkview.
         attribute :exclude_core
-        validates :exclude_core, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :exclude_core, type: Symbol
 
         # @return [:all, :audit, :secure, :bash_history, nil] Exclude various file from the qkview.
         attribute :exclude

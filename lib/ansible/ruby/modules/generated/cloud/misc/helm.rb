@@ -34,9 +34,9 @@ module Ansible
         # @return [Object, nil] A map of value options for the chart.
         attribute :values
 
-        # @return [String, nil] Whether to disable hooks during the uninstall process.
+        # @return [:yes, :no, nil] Whether to disable hooks during the uninstall process.
         attribute :disable_hooks
-        validates :disable_hooks, type: String
+        validates :disable_hooks, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

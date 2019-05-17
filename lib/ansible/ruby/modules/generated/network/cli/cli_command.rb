@@ -16,17 +16,17 @@ module Ansible
         attribute :prompt
         validates :prompt, type: TypeGeneric.new(String)
 
-        # @return [Boolean, nil] The answer to reply with if I(prompt) is matched. The value can be a single answer or a list of answer for multiple prompts. In case the command execution results in multiple prompts the sequence of the prompt and excepted answer should be in same order.
+        # @return [Array<String>, String, nil] The answer to reply with if I(prompt) is matched. The value can be a single answer or a list of answer for multiple prompts. In case the command execution results in multiple prompts the sequence of the prompt and excepted answer should be in same order.
         attribute :answer
-        validates :answer, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :answer, type: TypeGeneric.new(String)
 
-        # @return [Boolean, nil] The boolean value, that when set to true will send I(command) to the device but not wait for a result.
+        # @return [Symbol, nil] The boolean value, that when set to true will send I(command) to the device but not wait for a result.
         attribute :sendonly
-        validates :sendonly, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :sendonly, type: Symbol
 
-        # @return [Boolean, nil] By default if any one of the prompts mentioned in C(prompt) option is matched it won't check for other prompts. This boolean flag, that when set to I(True) will check for all the prompts mentioned in C(prompt) option in the given order. If the option is set to I(True) all the prompts should be received from remote host if not it will result in timeout.
+        # @return [Symbol, nil] By default if any one of the prompts mentioned in C(prompt) option is matched it won't check for other prompts. This boolean flag, that when set to I(True) will check for all the prompts mentioned in C(prompt) option in the given order. If the option is set to I(True) all the prompts should be received from remote host if not it will result in timeout.
         attribute :check_all
-        validates :check_all, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :check_all, type: Symbol
       end
     end
   end

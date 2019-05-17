@@ -16,9 +16,9 @@ module Ansible
         attribute :description
         validates :description, type: String
 
-        # @return [TrueClass, FalseClass, nil] Interface link status.
+        # @return [Symbol, nil] Interface link status.
         attribute :enabled
-        validates :enabled, type: MultipleTypes.new(TrueClass, FalseClass)
+        validates :enabled, type: Symbol
 
         # @return [:"1G", :"10G", :"25G", :"40G", :"50G", :"56G", :"100G", nil] Interface link speed.
         attribute :speed
@@ -45,9 +45,9 @@ module Ansible
         attribute :delay
         validates :delay, type: Integer
 
-        # @return [Boolean, nil] Purge Interfaces not defined in the aggregate parameter. This applies only for logical interface.
+        # @return [Symbol, nil] Purge Interfaces not defined in the aggregate parameter. This applies only for logical interface.
         attribute :purge
-        validates :purge, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :purge, type: Symbol
 
         # @return [:present, :absent, :up, :down, nil] State of the Interface configuration, C(up) means present and operationally up and C(down) means present and operationally C(down)
         attribute :state

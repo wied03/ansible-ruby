@@ -20,9 +20,9 @@ module Ansible
         attribute :idle_timeout
         validates :idle_timeout, type: Integer
 
-        # @return [Boolean, nil] Specifies, when C(yes), that the system load balances UDP traffic packet-by-packet.
+        # @return [Symbol, nil] Specifies, when C(yes), that the system load balances UDP traffic packet-by-packet.
         attribute :datagram_load_balancing
-        validates :datagram_load_balancing, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :datagram_load_balancing, type: Symbol
 
         # @return [String, nil] Device partition to manage resources on.
         attribute :partition

@@ -20,9 +20,9 @@ module Ansible
         attribute :password
         validates :password, type: String
 
-        # @return [Boolean, nil] Password will only be changed with enforcement.
+        # @return [Symbol, nil] Password will only be changed with enforcement.
         attribute :force
-        validates :force, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :force, type: Symbol
 
         # @return [Boolean, nil] Whether the API is enabled or not.
         attribute :api_enabled

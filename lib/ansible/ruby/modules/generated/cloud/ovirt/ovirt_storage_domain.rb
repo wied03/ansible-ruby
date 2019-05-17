@@ -60,13 +60,13 @@ module Ansible
         attribute :fcp
         validates :fcp, type: Hash
 
-        # @return [Boolean, nil] Boolean flag which indicates whether the storage domain should wipe the data after delete.
+        # @return [Symbol, nil] Boolean flag which indicates whether the storage domain should wipe the data after delete.
         attribute :wipe_after_delete
-        validates :wipe_after_delete, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :wipe_after_delete, type: Symbol
 
-        # @return [FalseClass, TrueClass, nil] Boolean flag which indicates whether the storage domain is configured as backup or not.
+        # @return [Symbol, nil] Boolean flag which indicates whether the storage domain is configured as backup or not.
         attribute :backup
-        validates :backup, type: MultipleTypes.new(FalseClass, TrueClass)
+        validates :backup, type: Symbol
 
         # @return [Integer, nil] Indicates the minimal free space the storage domain should contain in percentages.
         attribute :critical_space_action_blocker
@@ -76,16 +76,17 @@ module Ansible
         attribute :warning_low_space
         validates :warning_low_space, type: Integer
 
-        # @return [Object, nil] Logical remove of the storage domain. If I(true) retains the storage domain's data for import.,This parameter is relevant only when C(state) is I(absent).
+        # @return [Symbol, nil] Logical remove of the storage domain. If I(true) retains the storage domain's data for import.,This parameter is relevant only when C(state) is I(absent).
         attribute :destroy
+        validates :destroy, type: Symbol
 
-        # @return [Boolean, nil] If I(True) storage domain will be formatted after removing it from oVirt/RHV.,This parameter is relevant only when C(state) is I(absent).
+        # @return [Symbol, nil] If I(True) storage domain will be formatted after removing it from oVirt/RHV.,This parameter is relevant only when C(state) is I(absent).
         attribute :format
-        validates :format, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :format, type: Symbol
 
-        # @return [Boolean, nil] If I(True) storage domain blocks will be discarded upon deletion. Enabled by default.,This parameter is relevant only for block based storage domains.
+        # @return [Symbol, nil] If I(True) storage domain blocks will be discarded upon deletion. Enabled by default.,This parameter is relevant only for block based storage domains.
         attribute :discard_after_delete
-        validates :discard_after_delete, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :discard_after_delete, type: Symbol
       end
     end
   end

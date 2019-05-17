@@ -28,13 +28,13 @@ module Ansible
         attribute :hostgroup
         validates :hostgroup, type: TypeGeneric.new(String)
 
-        # @return [String, nil] Define whether to eradicate the protection group on delete and leave in trash.
+        # @return [:yes, :no, nil] Define whether to eradicate the protection group on delete and leave in trash.
         attribute :eradicate
-        validates :eradicate, type: String
+        validates :eradicate, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Define whether to enabled snapshots for the protection group.
+        # @return [:yes, :no, nil] Define whether to enabled snapshots for the protection group.
         attribute :enabled
-        validates :enabled, type: String
+        validates :enabled, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

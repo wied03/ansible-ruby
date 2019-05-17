@@ -89,8 +89,9 @@ module Ansible
         # @return [Object, nil] This is only used with bond - ARP IP target
         attribute :arp_ip_target
 
-        # @return [Object, nil] This is only used with bridge and controls whether Spanning Tree Protocol (STP) is enabled for this bridge
+        # @return [Symbol, nil] This is only used with bridge and controls whether Spanning Tree Protocol (STP) is enabled for this bridge
         attribute :stp
+        validates :stp, type: Symbol
 
         # @return [Integer, nil] This is only used with 'bridge' - sets STP priority
         attribute :priority
@@ -123,9 +124,9 @@ module Ansible
         attribute :path_cost
         validates :path_cost, type: Integer
 
-        # @return [String, nil] This is only used with 'bridge-slave' - 'hairpin mode' for the slave, which allows frames to be sent back out through the slave the frame was received on.
+        # @return [:yes, :no, nil] This is only used with 'bridge-slave' - 'hairpin mode' for the slave, which allows frames to be sent back out through the slave the frame was received on.
         attribute :hairpin
-        validates :hairpin, type: String
+        validates :hairpin, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] This is only used with VLAN - VLAN ID in range <0-4095>
         attribute :vlanid

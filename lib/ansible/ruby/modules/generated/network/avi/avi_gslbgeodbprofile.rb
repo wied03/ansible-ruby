@@ -27,8 +27,9 @@ module Ansible
         # @return [Object, nil] List of geodb entries.,An entry can either be a geodb file or an ip address group with geo properties.,Field introduced in 17.1.1.
         attribute :entries
 
-        # @return [Object, nil] This field indicates that this object is replicated across gslb federation.,Field introduced in 17.1.3.,Default value when not specified in API or module is interpreted by Avi Controller as True.
+        # @return [Symbol, nil] This field indicates that this object is replicated across gslb federation.,Field introduced in 17.1.3.,Default value when not specified in API or module is interpreted by Avi Controller as True.
         attribute :is_federated
+        validates :is_federated, type: Symbol
 
         # @return [String] A user-friendly name for the geodb profile.,Field introduced in 17.1.1.
         attribute :name

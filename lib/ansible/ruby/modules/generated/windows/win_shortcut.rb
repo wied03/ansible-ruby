@@ -28,9 +28,9 @@ module Ansible
         attribute :directory
         validates :directory, type: String
 
-        # @return [Array<String>, String, nil] Icon used for the shortcut.,File name should have a C(.ico) extension.,The file name is followed by a comma and the number in the library file (.dll) or use 0 for an image file.
+        # @return [String, nil] Icon used for the shortcut.,File name should have a C(.ico) extension.,The file name is followed by a comma and the number in the library file (.dll) or use 0 for an image file.
         attribute :icon
-        validates :icon, type: TypeGeneric.new(String)
+        validates :icon, type: String
 
         # @return [String, nil] Key combination for the shortcut.,This is a combination of one or more modifiers and a key.,Possible modifiers are Alt, Ctrl, Shift, Ext.,Possible keys are [A-Z] and [0-9].
         attribute :hotkey

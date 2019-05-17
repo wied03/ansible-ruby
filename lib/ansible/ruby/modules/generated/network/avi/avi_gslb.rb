@@ -33,15 +33,17 @@ module Ansible
         # @return [Object, nil] Sub domain configuration for the gslb.,Gslb service's fqdn must be a match one of these subdomains.
         attribute :dns_configs
 
-        # @return [Object, nil] This field indicates that this object is replicated across gslb federation.,Field introduced in 17.1.3.,Default value when not specified in API or module is interpreted by Avi Controller as True.
+        # @return [Symbol, nil] This field indicates that this object is replicated across gslb federation.,Field introduced in 17.1.3.,Default value when not specified in API or module is interpreted by Avi Controller as True.
         attribute :is_federated
+        validates :is_federated, type: Symbol
 
         # @return [Object] Mark this site as leader of gslb configuration.,This site is the one among the avi sites.
         attribute :leader_cluster_uuid
         validates :leader_cluster_uuid, presence: true
 
-        # @return [Object, nil] This field disables the configuration operations on the leader for all federated objects.,Cud operations on gslb, gslbservice, gslbgeodbprofile and other federated objects will be rejected.,The rest-api disabling helps in upgrade scenarios where we don't want configuration sync operations to the gslb member when the member is being,upgraded.,This configuration programmatically blocks the leader from accepting new gslb configuration when member sites are undergoing upgrade.,Field introduced in 17.2.1.,Default value when not specified in API or module is interpreted by Avi Controller as False.
+        # @return [Symbol, nil] This field disables the configuration operations on the leader for all federated objects.,Cud operations on gslb, gslbservice, gslbgeodbprofile and other federated objects will be rejected.,The rest-api disabling helps in upgrade scenarios where we don't want configuration sync operations to the gslb member when the member is being,upgraded.,This configuration programmatically blocks the leader from accepting new gslb configuration when member sites are undergoing upgrade.,Field introduced in 17.2.1.,Default value when not specified in API or module is interpreted by Avi Controller as False.
         attribute :maintenance_mode
+        validates :maintenance_mode, type: Symbol
 
         # @return [String] Name for the gslb object.
         attribute :name

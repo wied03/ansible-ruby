@@ -16,13 +16,13 @@ module Ansible
         attribute :dest
         validates :dest, type: String
 
-        # @return [String, nil] The C(recursive) argument enables recursive transfer of files and directories.
+        # @return [:yes, :no, nil] The C(recursive) argument enables recursive transfer of files and directories.
         attribute :recursive
-        validates :recursive, type: String
+        validates :recursive, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] The C(remote_src) argument enables the download of files (I(scp get)) from the remote device. The default behavior is to upload files (I(scp put)) to the remote device.
+        # @return [:yes, :no, nil] The C(remote_src) argument enables the download of files (I(scp get)) from the remote device. The default behavior is to upload files (I(scp put)) to the remote device.
         attribute :remote_src
-        validates :remote_src, type: String
+        validates :remote_src, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

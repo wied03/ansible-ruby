@@ -30,8 +30,9 @@ module Ansible
         # @return [Object, nil] ID of network.
         attribute :net_id
 
-        # @return [Object, nil] Enable or disable SSID network.
+        # @return [Symbol, nil] Enable or disable SSID network.
         attribute :enabled
+        validates :enabled, type: Symbol
 
         # @return [:open, :psk, :"open-with-radius", :"8021x-meraki", :"8021x-radius", nil] Set authentication mode of network.
         attribute :auth_mode
@@ -55,8 +56,9 @@ module Ansible
         # @return [Object, nil] List of RADIUS servers.
         attribute :radius_servers
 
-        # @return [Object, nil] Enable or disable RADIUS CoA (Change of Authorization) on SSID.
+        # @return [Symbol, nil] Enable or disable RADIUS CoA (Change of Authorization) on SSID.
         attribute :radius_coa_enabled
+        validates :radius_coa_enabled, type: Symbol
 
         # @return [:"Deny access", :"Allow access", nil] Set client access policy in case RADIUS servers aren't available.
         attribute :radius_failover_policy
@@ -66,8 +68,9 @@ module Ansible
         attribute :radius_load_balancing_policy
         validates :radius_load_balancing_policy, inclusion: {:in=>[:"Strict priority order", :"Round robin"], :message=>"%{value} needs to be :\"Strict priority order\", :\"Round robin\""}, allow_nil: true
 
-        # @return [Object, nil] Enable or disable RADIUS accounting.
+        # @return [Symbol, nil] Enable or disable RADIUS accounting.
         attribute :radius_accounting_enabled
+        validates :radius_accounting_enabled, type: Symbol
 
         # @return [Object, nil] List of RADIUS servers for RADIUS accounting.
         attribute :radius_accounting_servers
@@ -76,8 +79,9 @@ module Ansible
         attribute :ip_assignment_mode
         validates :ip_assignment_mode, inclusion: {:in=>[:"NAT mode", :"Bridge mode", :"Layer 3 roaming", :"Layer 3 roaming with a concentrator", :VPN], :message=>"%{value} needs to be :\"NAT mode\", :\"Bridge mode\", :\"Layer 3 roaming\", :\"Layer 3 roaming with a concentrator\", :VPN"}, allow_nil: true
 
-        # @return [Object, nil] Set whether to use VLAN tagging.
+        # @return [Symbol, nil] Set whether to use VLAN tagging.
         attribute :use_vlan_tagging
+        validates :use_vlan_tagging, type: Symbol
 
         # @return [Object, nil] Default VLAN ID.
         attribute :default_vlan_id
@@ -88,8 +92,9 @@ module Ansible
         # @return [Object, nil] List of VLAN tags.
         attribute :ap_tags_vlan_ids
 
-        # @return [Object, nil] Enable or disable walled garden functionality.
+        # @return [Symbol, nil] Enable or disable walled garden functionality.
         attribute :walled_garden_enabled
+        validates :walled_garden_enabled, type: Symbol
 
         # @return [Object, nil] List of walled garden ranges.
         attribute :walled_garden_ranges

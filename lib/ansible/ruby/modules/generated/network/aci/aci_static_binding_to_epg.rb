@@ -27,8 +27,9 @@ module Ansible
         attribute :encap_id
         validates :encap_id, type: Integer
 
-        # @return [Object, nil] Determines the primary encapsulation ID associating the C(epg) with the interface path when using micro-segmentation.,Accepted values are any valid encap ID for specified encap, currently ranges between C(1) and C(4096).
+        # @return [Integer, nil] Determines the primary encapsulation ID associating the C(epg) with the interface path when using micro-segmentation.,Accepted values are any valid encap ID for specified encap, currently ranges between C(1) and C(4096).
         attribute :primary_encap_id
+        validates :primary_encap_id, type: Integer
 
         # @return [:immediate, :lazy, nil] The Deployement Immediacy of Static EPG on PC, VPC or Interface.,The APIC defaults to C(lazy) when unset during creation.
         attribute :deploy_immediacy
@@ -54,8 +55,9 @@ module Ansible
         attribute :interface
         validates :interface, type: String
 
-        # @return [Object, nil] The C(extpaths) integer value part of the tDn.,C(extpaths) is only used if C(interface_type) is C(fex).,Usually something like C(1011).
+        # @return [Integer, nil] The C(extpaths) integer value part of the tDn.,C(extpaths) is only used if C(interface_type) is C(fex).,Usually something like C(1011).
         attribute :extpaths
+        validates :extpaths, type: Integer
 
         # @return [:absent, :present, :query, nil] Use C(present) or C(absent) for adding or removing.,Use C(query) for listing an object or multiple objects.
         attribute :state

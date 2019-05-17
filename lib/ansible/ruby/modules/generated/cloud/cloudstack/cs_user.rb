@@ -35,9 +35,9 @@ module Ansible
         # @return [Object, nil] Timezone of the user.
         attribute :timezone
 
-        # @return [Boolean, nil] If API keys of the user should be generated.,Note: Keys can not be removed by the API again.
+        # @return [Symbol, nil] If API keys of the user should be generated.,Note: Keys can not be removed by the API again.
         attribute :keys_registered
-        validates :keys_registered, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :keys_registered, type: Symbol
 
         # @return [String, nil] Domain the user is related to.
         attribute :domain

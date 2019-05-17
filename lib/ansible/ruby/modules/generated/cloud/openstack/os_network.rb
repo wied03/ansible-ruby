@@ -12,17 +12,17 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [String, nil] Whether this network is shared or not.
+        # @return [:yes, :no, nil] Whether this network is shared or not.
         attribute :shared
-        validates :shared, type: String
+        validates :shared, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Whether the state should be marked as up or down.
+        # @return [:yes, :no, nil] Whether the state should be marked as up or down.
         attribute :admin_state_up
-        validates :admin_state_up, type: String
+        validates :admin_state_up, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Whether this network is externally accessible.
+        # @return [:yes, :no, nil] Whether this network is externally accessible.
         attribute :external
-        validates :external, type: String
+        validates :external, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:present, :absent, nil] Indicate desired state of the resource.
         attribute :state

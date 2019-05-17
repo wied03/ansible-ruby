@@ -37,8 +37,9 @@ module Ansible
         # @return [Object, nil] Specifies the client ip persistence profile parameters.
         attribute :ip_persistence_profile
 
-        # @return [Object, nil] This field describes the object's replication scope.,If the field is set to false, then the object is visible within the controller-cluster and its associated service-engines.,If the field is set to true, then the object is replicated across the federation.,Field introduced in 17.1.3.,Default value when not specified in API or module is interpreted by Avi Controller as False.
+        # @return [Symbol, nil] This field describes the object's replication scope.,If the field is set to false, then the object is visible within the controller-cluster and its associated service-engines.,If the field is set to true, then the object is replicated across the federation.,Field introduced in 17.1.3.,Default value when not specified in API or module is interpreted by Avi Controller as False.
         attribute :is_federated
+        validates :is_federated, type: Symbol
 
         # @return [String] A user-friendly name for the persistence profile.
         attribute :name

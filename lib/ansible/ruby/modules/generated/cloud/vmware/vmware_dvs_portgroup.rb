@@ -32,9 +32,9 @@ module Ansible
         attribute :state
         validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
 
-        # @return [Boolean, nil] Indicates whether this is a VLAN trunk or not.
+        # @return [Symbol, nil] Indicates whether this is a VLAN trunk or not.
         attribute :vlan_trunk
-        validates :vlan_trunk, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :vlan_trunk, type: Symbol
 
         # @return [Array<String>, String, nil] Dictionary which configures the different security values for portgroup.,Valid attributes are:,- C(promiscuous) (bool): indicates whether promiscuous mode is allowed. (default: false),- C(forged_transmits) (bool): indicates whether forged transmits are allowed. (default: false),- C(mac_changes) (bool): indicates whether mac changes are allowed. (default: false)
         attribute :network_policy

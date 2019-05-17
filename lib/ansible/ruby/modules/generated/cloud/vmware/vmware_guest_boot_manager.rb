@@ -26,13 +26,13 @@ module Ansible
         attribute :boot_delay
         validates :boot_delay, type: Integer
 
-        # @return [Boolean, nil] If set to C(True), the virtual machine automatically enters BIOS setup the next time it boots.,The virtual machine resets this flag, so that the machine boots proceeds normally.
+        # @return [Symbol, nil] If set to C(True), the virtual machine automatically enters BIOS setup the next time it boots.,The virtual machine resets this flag, so that the machine boots proceeds normally.
         attribute :enter_bios_setup
-        validates :enter_bios_setup, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :enter_bios_setup, type: Symbol
 
-        # @return [Boolean, nil] If set to C(True), the virtual machine that fails to boot, will try to boot again after C(boot_retry_delay) is expired.,If set to C(False), the virtual machine waits indefinitely for user intervention.
+        # @return [Symbol, nil] If set to C(True), the virtual machine that fails to boot, will try to boot again after C(boot_retry_delay) is expired.,If set to C(False), the virtual machine waits indefinitely for user intervention.
         attribute :boot_retry_enabled
-        validates :boot_retry_enabled, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :boot_retry_enabled, type: Symbol
 
         # @return [Integer, nil] Specify the time in milliseconds between virtual machine boot failure and subsequent attempt to boot again.,If set, will automatically set C(boot_retry_enabled) to C(True) as this parameter is required.
         attribute :boot_retry_delay

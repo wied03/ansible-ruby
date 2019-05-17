@@ -26,9 +26,9 @@ module Ansible
         attribute :value
         validates :value, type: String
 
-        # @return [String, nil] Create a backup file including the timestamp information so you can get the original file back if you somehow clobbered it incorrectly.
+        # @return [:yes, :no, nil] Create a backup file including the timestamp information so you can get the original file back if you somehow clobbered it incorrectly.
         attribute :backup
-        validates :backup, type: String
+        validates :backup, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] All arguments accepted by the M(file) module also work here
         attribute :others
@@ -37,17 +37,17 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
-        # @return [String, nil] Do not insert spaces before and after '=' symbol
+        # @return [:yes, :no, nil] Do not insert spaces before and after '=' symbol
         attribute :no_extra_spaces
-        validates :no_extra_spaces, type: String
+        validates :no_extra_spaces, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] If set to 'no', the module will fail if the file does not already exist. By default it will create the file if it is missing.
+        # @return [:yes, :no, nil] If set to 'no', the module will fail if the file does not already exist. By default it will create the file if it is missing.
         attribute :create
-        validates :create, type: String
+        validates :create, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [Boolean, nil] allow option without value and without '=' symbol
+        # @return [Symbol, nil] allow option without value and without '=' symbol
         attribute :allow_no_value
-        validates :allow_no_value, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :allow_no_value, type: Symbol
       end
     end
   end

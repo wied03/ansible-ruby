@@ -20,9 +20,9 @@ module Ansible
         attribute :path
         validates :path, type: String
 
-        # @return [Boolean, nil] Create a backup file (if yes), including the timestamp information so you,can get the original file back if you somehow clobbered it incorrectly.
+        # @return [Symbol, nil] Create a backup file (if yes), including the timestamp information so you,can get the original file back if you somehow clobbered it incorrectly.
         attribute :backup
-        validates :backup, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :backup, type: Symbol
       end
     end
   end

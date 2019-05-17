@@ -46,8 +46,9 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [Object, nil] Specifies whether the system enforces cross-routing restrictions or not.
+        # @return [Symbol, nil] Specifies whether the system enforces cross-routing restrictions or not.
         attribute :strict
+        validates :strict, type: Symbol
 
         # @return [Array<String>, String, nil] VLANs for the system to use in the route domain.
         attribute :vlans

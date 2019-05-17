@@ -18,8 +18,9 @@ module Ansible
         attribute :root_certificates
         validates :root_certificates, presence: true, type: TypeGeneric.new(String)
 
-        # @return [Object, nil] A list of filenames or directories.,A filename is assumed to point to a file containing one or more certificates in PEM format. All certificates in this file will be added to the set of root certificates.,If a directory name is given, all files in the directory and its subdirectories will be scanned and tried to be parsed as concatenated certificates in PEM format.,Symbolic links will be followed.
+        # @return [Array<String>, String, nil] A list of filenames or directories.,A filename is assumed to point to a file containing one or more certificates in PEM format. All certificates in this file will be added to the set of root certificates.,If a directory name is given, all files in the directory and its subdirectories will be scanned and tried to be parsed as concatenated certificates in PEM format.,Symbolic links will be followed.
         attribute :intermediate_certificates
+        validates :intermediate_certificates, type: TypeGeneric.new(String)
       end
     end
   end

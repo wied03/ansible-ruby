@@ -36,8 +36,9 @@ module Ansible
         attribute :secure_renegotiation
         validates :secure_renegotiation, inclusion: {:in=>[:require, :"require-strict", :request], :message=>"%{value} needs to be :require, :\"require-strict\", :request"}, allow_nil: true
 
-        # @return [Object, nil] Enables or disables acceptance of non-SSL connections.,When creating a new profile, the setting is provided by the parent profile.
+        # @return [Symbol, nil] Enables or disables acceptance of non-SSL connections.,When creating a new profile, the setting is provided by the parent profile.
         attribute :allow_non_ssl
+        validates :allow_non_ssl, type: Symbol
 
         # @return [:present, :absent, nil] When C(present), ensures that the profile exists.,When C(absent), ensures the profile is removed.
         attribute :state

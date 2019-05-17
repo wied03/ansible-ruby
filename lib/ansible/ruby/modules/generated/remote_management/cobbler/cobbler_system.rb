@@ -23,13 +23,13 @@ module Ansible
         attribute :password
         validates :password, presence: true, type: String
 
-        # @return [String, nil] If C(no), an HTTP connection will be used instead of the default HTTPS connection.
+        # @return [:yes, :no, nil] If C(no), an HTTP connection will be used instead of the default HTTPS connection.
         attribute :use_ssl
-        validates :use_ssl, type: String
+        validates :use_ssl, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] If C(no), SSL certificates will not be validated.,This should only set to C(no) when used on personally controlled sites using self-signed certificates.
+        # @return [:yes, :no, nil] If C(no), SSL certificates will not be validated.,This should only set to C(no) when used on personally controlled sites using self-signed certificates.
         attribute :validate_certs
-        validates :validate_certs, type: String
+        validates :validate_certs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] The system name to manage.
         attribute :name
@@ -43,9 +43,9 @@ module Ansible
         attribute :interfaces
         validates :interfaces, type: Hash
 
-        # @return [Boolean, nil] Sync on changes.,Concurrently syncing Cobbler is bound to fail.
+        # @return [Symbol, nil] Sync on changes.,Concurrently syncing Cobbler is bound to fail.
         attribute :sync
-        validates :sync, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :sync, type: Symbol
 
         # @return [:absent, :present, :query, nil] Whether the system should be present, absent or a query is made.
         attribute :state

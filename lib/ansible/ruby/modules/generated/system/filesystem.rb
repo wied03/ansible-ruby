@@ -16,13 +16,13 @@ module Ansible
         attribute :dev
         validates :dev, presence: true, type: String
 
-        # @return [String, nil] If C(yes), allows to create new filesystem on devices that already has filesystem.
+        # @return [:yes, :no, nil] If C(yes), allows to create new filesystem on devices that already has filesystem.
         attribute :force
-        validates :force, type: String
+        validates :force, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] If C(yes), if the block device and filesytem size differ, grow the filesystem into the space.,Supported for C(ext2), C(ext3), C(ext4), C(ext4dev), C(f2fs), C(lvm), C(xfs) and C(vfat) filesystems.,XFS Will only grow if mounted.,vFAT will likely fail if fatresize < 1.04.
+        # @return [:yes, :no, nil] If C(yes), if the block device and filesytem size differ, grow the filesystem into the space.,Supported for C(ext2), C(ext3), C(ext4), C(ext4dev), C(f2fs), C(lvm), C(xfs) and C(vfat) filesystems.,XFS Will only grow if mounted.,vFAT will likely fail if fatresize < 1.04.
         attribute :resizefs
-        validates :resizefs, type: String
+        validates :resizefs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] List of options to be passed to mkfs command.
         attribute :opts

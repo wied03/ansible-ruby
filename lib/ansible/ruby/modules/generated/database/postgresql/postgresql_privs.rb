@@ -37,9 +37,9 @@ module Ansible
         attribute :roles
         validates :roles, presence: true, type: TypeGeneric.new(String)
 
-        # @return [TrueClass, FalseClass, nil] Whether C(role) may grant/revoke the specified privileges/group memberships to others.,Set to C(no) to revoke GRANT OPTION, leave unspecified to make no changes.,I(grant_option) only has an effect if I(state) is C(present).,Alias: I(admin_option)
+        # @return [Symbol, nil] Whether C(role) may grant/revoke the specified privileges/group memberships to others.,Set to C(no) to revoke GRANT OPTION, leave unspecified to make no changes.,I(grant_option) only has an effect if I(state) is C(present).,Alias: I(admin_option)
         attribute :grant_option
-        validates :grant_option, type: MultipleTypes.new(TrueClass, FalseClass)
+        validates :grant_option, type: Symbol
 
         # @return [Object, nil] Database host address. If unspecified, connect via Unix socket.,Alias: I(login_host)
         attribute :host

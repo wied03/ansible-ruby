@@ -32,9 +32,9 @@ module Ansible
         attribute :desc
         validates :desc, presence: true, type: String
 
-        # @return [String, nil] Type of maintenance. With data collection, or without.
+        # @return [:yes, :no, nil] Type of maintenance. With data collection, or without.
         attribute :collect_data
-        validates :collect_data, type: String
+        validates :collect_data, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

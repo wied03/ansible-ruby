@@ -16,9 +16,9 @@ module Ansible
         attribute :aggregate
         validates :aggregate, type: TypeGeneric.new(Hash)
 
-        # @return [Boolean, nil] Purge interfaces not defined in the aggregate parameter.
+        # @return [Symbol, nil] Purge interfaces not defined in the aggregate parameter.
         attribute :purge
-        validates :purge, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :purge, type: Symbol
 
         # @return [:present, :absent, :enabled, :disabled, nil] State of the LLDP configuration.
         attribute :state

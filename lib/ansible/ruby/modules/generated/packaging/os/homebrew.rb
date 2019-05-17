@@ -20,13 +20,13 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:head, :latest, :present, :absent, :linked, :unlinked], :message=>"%{value} needs to be :head, :latest, :present, :absent, :linked, :unlinked"}, allow_nil: true
 
-        # @return [String, nil] update homebrew itself first
+        # @return [:yes, :no, nil] update homebrew itself first
         attribute :update_homebrew
-        validates :update_homebrew, type: String
+        validates :update_homebrew, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] upgrade all homebrew packages
+        # @return [:yes, :no, nil] upgrade all homebrew packages
         attribute :upgrade_all
-        validates :upgrade_all, type: String
+        validates :upgrade_all, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Array<String>, String, nil] options flags to install a package
         attribute :install_options

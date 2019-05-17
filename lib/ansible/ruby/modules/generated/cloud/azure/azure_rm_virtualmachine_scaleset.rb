@@ -96,8 +96,9 @@ module Ansible
         attribute :remove_on_absent
         validates :remove_on_absent, type: String
 
-        # @return [Object, nil] Indicates whether user wants to allow accelerated networking for virtual machines in scaleset being created.
+        # @return [Symbol, nil] Indicates whether user wants to allow accelerated networking for virtual machines in scaleset being created.
         attribute :enable_accelerated_networking
+        validates :enable_accelerated_networking, type: Symbol
 
         # @return [Object, nil] Existing security group with which to associate the subnet.,It can be the security group name which is in the same resource group.,It can be the resource Id.,It can be a dict which contains C(name) and C(resource_group) of the security group.
         attribute :security_group

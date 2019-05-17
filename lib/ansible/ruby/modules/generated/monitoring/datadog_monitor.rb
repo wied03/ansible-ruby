@@ -44,9 +44,9 @@ module Ansible
         attribute :silenced
         validates :silenced, type: String
 
-        # @return [String, nil] A boolean indicating whether this monitor will notify when data stops reporting..
+        # @return [:yes, :no, nil] A boolean indicating whether this monitor will notify when data stops reporting..
         attribute :notify_no_data
-        validates :notify_no_data, type: String
+        validates :notify_no_data, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] The number of minutes before a monitor will notify when data stops reporting. Must be at least 2x the monitor timeframe for metric alerts or 2 minutes for service checks.
         attribute :no_data_timeframe
@@ -61,17 +61,17 @@ module Ansible
         # @return [Object, nil] A message to include with a re-notification. Supports the '@username' notification we allow elsewhere. Not applicable if renotify_interval is None
         attribute :escalation_message
 
-        # @return [String, nil] A boolean indicating whether tagged users will be notified on changes to this monitor.
+        # @return [:yes, :no, nil] A boolean indicating whether tagged users will be notified on changes to this monitor.
         attribute :notify_audit
-        validates :notify_audit, type: String
+        validates :notify_audit, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Array<String>, String, nil] A dictionary of thresholds by status. This option is only available for service checks and metric alerts. Because each of them can have multiple thresholds, we don't define them directly in the query."]
         attribute :thresholds
         validates :thresholds, type: TypeGeneric.new(String)
 
-        # @return [String, nil] A boolean indicating whether changes to this monitor should be restricted to the creator or admins.
+        # @return [:yes, :no, nil] A boolean indicating whether changes to this monitor should be restricted to the creator or admins.
         attribute :locked
-        validates :locked, type: String
+        validates :locked, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] A boolean indicating whether this monitor needs a full window of data before it's evaluated. We highly recommend you set this to False for sparse metrics, otherwise some evaluations will be skipped.
         attribute :require_full_window

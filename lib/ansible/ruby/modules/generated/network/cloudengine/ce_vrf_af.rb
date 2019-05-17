@@ -30,9 +30,9 @@ module Ansible
         # @return [Object, nil] VPN instance target value. Such as X.X.X.X:number<0-65535> or number<0-65535>:number<0-4294967295> or number<0-65535>.number<0-65535>:number<0-65535> or number<65536-4294967295>:number<0-65535> but not support 0:0 and 0.0:0.
         attribute :vpn_target_value
 
-        # @return [String, nil] Is extend vpn or normal vpn.
+        # @return [:yes, :no, nil] Is extend vpn or normal vpn.
         attribute :evpn
-        validates :evpn, type: String
+        validates :evpn, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:present, :absent, nil] Manage the state of the af.
         attribute :state

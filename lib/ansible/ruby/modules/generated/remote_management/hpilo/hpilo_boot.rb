@@ -33,9 +33,9 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:boot_always, :boot_once, :connect, :disconnect, :no_boot, :poweroff], :message=>"%{value} needs to be :boot_always, :boot_once, :connect, :disconnect, :no_boot, :poweroff"}, allow_nil: true
 
-        # @return [Boolean, nil] Whether to force a reboot (even when the system is already booted).,As a safeguard, without force, hpilo_boot will refuse to reboot a server that is already running.
+        # @return [Symbol, nil] Whether to force a reboot (even when the system is already booted).,As a safeguard, without force, hpilo_boot will refuse to reboot a server that is already running.
         attribute :force
-        validates :force, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :force, type: Symbol
 
         # @return [:SSLv3, :SSLv23, :TLSv1, :TLSv1_1, :TLSv1_2, nil] Change the ssl_version used.
         attribute :ssl_version

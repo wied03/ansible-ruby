@@ -35,9 +35,9 @@ module Ansible
         attribute :domain_server
         validates :domain_server, type: String
 
-        # @return [String, nil] Will ignore the C(ProtectedFromAccidentalDeletion) flag when deleting or moving a group.,The module will fail if one of these actions need to occur and this value is set to C(no).
+        # @return [:yes, :no, nil] Will ignore the C(ProtectedFromAccidentalDeletion) flag when deleting or moving a group.,The module will fail if one of these actions need to occur and this value is set to C(no).
         attribute :ignore_protection
-        validates :ignore_protection, type: String
+        validates :ignore_protection, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] The value to be assigned to the LDAP C(managedBy) attribute.,This value can be in the forms C(Distinguished Name), C(objectGUID), C(objectSid) or C(sAMAccountName), see examples for more details.
         attribute :managed_by
@@ -51,8 +51,9 @@ module Ansible
         attribute :organizational_unit
         validates :organizational_unit, type: TypeGeneric.new(String)
 
-        # @return [Object, nil] Will set the C(ProtectedFromAccidentalDeletion) flag based on this value.,This flag stops a user from deleting or moving a group to a different path.
+        # @return [Symbol, nil] Will set the C(ProtectedFromAccidentalDeletion) flag based on this value.,This flag stops a user from deleting or moving a group to a different path.
         attribute :protect
+        validates :protect, type: Symbol
 
         # @return [:domainlocal, :global, :universal, nil] The scope of the group.,If C(state=present) and the group doesn't exist then this must be set.
         attribute :scope

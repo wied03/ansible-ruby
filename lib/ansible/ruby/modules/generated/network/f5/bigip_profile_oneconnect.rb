@@ -37,8 +37,9 @@ module Ansible
         attribute :limit_type
         validates :limit_type, inclusion: {:in=>[:none, :idle, :strict], :message=>"%{value} needs to be :none, :idle, :strict"}, allow_nil: true
 
-        # @return [Object, nil] Indicates that connections may be shared not only within a virtual server, but also among similar virtual servers,When C(yes), all virtual servers that use the same OneConnect and other internal network profiles can share connections.,When creating a new profile, if this parameter is not specified, the default is provided by the parent profile.
+        # @return [Symbol, nil] Indicates that connections may be shared not only within a virtual server, but also among similar virtual servers,When C(yes), all virtual servers that use the same OneConnect and other internal network profiles can share connections.,When creating a new profile, if this parameter is not specified, the default is provided by the parent profile.
         attribute :share_pools
+        validates :share_pools, type: Symbol
 
         # @return [String, nil] Device partition to manage resources on.
         attribute :partition

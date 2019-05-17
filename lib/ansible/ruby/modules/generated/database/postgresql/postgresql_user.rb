@@ -22,9 +22,9 @@ module Ansible
         attribute :db
         validates :db, type: String
 
-        # @return [String, nil] If C(yes), fail when user can't be removed. Otherwise just log and continue.
+        # @return [:yes, :no, nil] If C(yes), fail when user can't be removed. Otherwise just log and continue.
         attribute :fail_on_user
-        validates :fail_on_user, type: String
+        validates :fail_on_user, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] Database port to connect to.
         attribute :port
@@ -56,17 +56,17 @@ module Ansible
         attribute :state
         validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
-        # @return [String, nil] Whether the password is stored hashed in the database. Passwords can be passed already hashed or unhashed, and postgresql ensures the stored password is hashed when C(encrypted) is set.,Note: Postgresql 10 and newer doesn't support unhashed passwords.,Previous to Ansible 2.6, this was C(no) by default.
+        # @return [:yes, :no, nil] Whether the password is stored hashed in the database. Passwords can be passed already hashed or unhashed, and postgresql ensures the stored password is hashed when C(encrypted) is set.,Note: Postgresql 10 and newer doesn't support unhashed passwords.,Previous to Ansible 2.6, this was C(no) by default.
         attribute :encrypted
-        validates :encrypted, type: String
+        validates :encrypted, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] The date at which the user's password is to expire.,If set to C('infinity'), user's password never expire.,Note that this value should be a valid SQL date and time type.
         attribute :expires
         validates :expires, type: String
 
-        # @return [String, nil] If C(yes), don't inspect database for password changes. Effective when C(pg_authid) is not accessible (such as AWS RDS). Otherwise, make password changes as necessary.
+        # @return [:yes, :no, nil] If C(yes), don't inspect database for password changes. Effective when C(pg_authid) is not accessible (such as AWS RDS). Otherwise, make password changes as necessary.
         attribute :no_password_changes
-        validates :no_password_changes, type: String
+        validates :no_password_changes, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:disable, :allow, :prefer, :require, :"verify-ca", :"verify-full", nil] Determines whether or with what priority a secure SSL TCP/IP connection will be negotiated with the server.,See U(https://www.postgresql.org/docs/current/static/libpq-ssl.html) for more information on the modes.,Default of C(prefer) matches libpq default.
         attribute :ssl_mode

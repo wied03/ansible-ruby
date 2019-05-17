@@ -13,13 +13,13 @@ module Ansible
         attribute :url
         validates :url, presence: true, type: String
 
-        # @return [String, nil] If C(no), it will not use a proxy, even if one is defined in an environment variable on the target hosts.
+        # @return [:yes, :no, nil] If C(no), it will not use a proxy, even if one is defined in an environment variable on the target hosts.
         attribute :use_proxy
-        validates :use_proxy, type: String
+        validates :use_proxy, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] If C(no), SSL certificates will not be validated. This should only be used on personally controlled sites using self-signed certificates.
+        # @return [:yes, :no, nil] If C(no), SSL certificates will not be validated. This should only be used on personally controlled sites using self-signed certificates.
         attribute :validate_certs
-        validates :validate_certs, type: String
+        validates :validate_certs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] The username for use in HTTP basic authentication.,This parameter can be used without C(url_password) for sites that allow empty passwords.
         attribute :url_username
@@ -29,9 +29,9 @@ module Ansible
         attribute :url_password
         validates :url_password, type: String
 
-        # @return [String, nil] httplib2, the library used by the uri module only sends authentication information when a webservice responds to an initial request with a 401 status. Since some basic auth services do not properly send a 401, logins will fail. This option forces the sending of the Basic authentication header upon initial request.
+        # @return [:yes, :no, nil] httplib2, the library used by the uri module only sends authentication information when a webservice responds to an initial request with a 401 status. Since some basic auth services do not properly send a 401, logins will fail. This option forces the sending of the Basic authentication header upon initial request.
         attribute :force_basic_auth
-        validates :force_basic_auth, type: String
+        validates :force_basic_auth, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] PEM formatted certificate chain file to be used for SSL client authentication. This file can also include the key as well, and if the key is included, C(client_key) is not required.
         attribute :client_cert

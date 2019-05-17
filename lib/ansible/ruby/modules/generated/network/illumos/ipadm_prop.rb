@@ -20,9 +20,9 @@ module Ansible
         attribute :value
         validates :value, type: String
 
-        # @return [Boolean, nil] Specifies that the property value is temporary. Temporary property values do not persist across reboots.
+        # @return [Symbol, nil] Specifies that the property value is temporary. Temporary property values do not persist across reboots.
         attribute :temporary
-        validates :temporary, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :temporary, type: Symbol
 
         # @return [:present, :absent, :reset, nil] Set or reset the property value.
         attribute :state

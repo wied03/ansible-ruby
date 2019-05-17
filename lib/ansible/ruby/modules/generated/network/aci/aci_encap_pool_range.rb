@@ -27,14 +27,16 @@ module Ansible
         attribute :pool_type
         validates :pool_type, presence: true, inclusion: {:in=>[:vlan, :vxlan, :vsan], :message=>"%{value} needs to be :vlan, :vxlan, :vsan"}
 
-        # @return [Object, nil] The end of encap range.
+        # @return [Integer, nil] The end of encap range.
         attribute :range_end
+        validates :range_end, type: Integer
 
         # @return [Object, nil] The name to give to the encap range.
         attribute :range_name
 
-        # @return [Object, nil] The start of the encap range.
+        # @return [Integer, nil] The start of the encap range.
         attribute :range_start
+        validates :range_start, type: Integer
 
         # @return [:absent, :present, :query, nil] Use C(present) or C(absent) for adding or removing.,Use C(query) for listing an object or multiple objects.
         attribute :state

@@ -37,13 +37,13 @@ module Ansible
         attribute :variable_end_string
         validates :variable_end_string, type: String
 
-        # @return [String, nil] If this is set to C(yes) the first newline after a block is removed (block, not variable tag!).
+        # @return [:yes, :no, nil] If this is set to C(yes) the first newline after a block is removed (block, not variable tag!).
         attribute :trim_blocks
-        validates :trim_blocks, type: String
+        validates :trim_blocks, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] If C(yes), will replace the remote file when contents are different from the source.,If C(no), the file will only be transferred if the destination does not exist.
+        # @return [:yes, :no, nil] If C(yes), will replace the remote file when contents are different from the source.,If C(no), the file will only be transferred if the destination does not exist.
         attribute :force
-        validates :force, type: String
+        validates :force, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

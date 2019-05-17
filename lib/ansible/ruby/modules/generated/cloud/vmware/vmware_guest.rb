@@ -29,9 +29,9 @@ module Ansible
         attribute :template
         validates :template, type: String
 
-        # @return [String, nil] Flag the instance as a template.,This will mark the given virtual machine as template.
+        # @return [:yes, :no, nil] Flag the instance as a template.,This will mark the given virtual machine as template.
         attribute :is_template
-        validates :is_template, type: String
+        validates :is_template, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] Destination folder, absolute path to find an existing guest or create the new guest.,The folder should include the datacenter. ESX's datacenter is ha-datacenter.,This parameter is case sensitive.,This parameter is required, while deploying new virtual machine. version_added 2.5.,If multiple machines are found with same name, this parameter is used to identify uniqueness of the virtual machine. version_added 2.5,Examples:,   folder: /ha-datacenter/vm,   folder: ha-datacenter/vm,   folder: /datacenter1/vm,   folder: datacenter1/vm,   folder: /datacenter1/vm/folder1,   folder: datacenter1/vm/folder1,   folder: /folder1/datacenter1/vm,   folder: folder1/datacenter1/vm,   folder: /folder1/datacenter1/vm/folder2
         attribute :folder
@@ -56,9 +56,9 @@ module Ansible
         # @return [Object, nil] Use the given resource pool for virtual machine operation.,This parameter is case sensitive.,Resource pool should be child of the selected host parent.
         attribute :resource_pool
 
-        # @return [String, nil] Wait until vCenter detects an IP address for the virtual machine.,This requires vmware-tools (vmtoolsd) to properly work after creation.,vmware-tools needs to be installed on the given virtual machine in order to work with this parameter.
+        # @return [:yes, :no, nil] Wait until vCenter detects an IP address for the virtual machine.,This requires vmware-tools (vmtoolsd) to properly work after creation.,vmware-tools needs to be installed on the given virtual machine in order to work with this parameter.
         attribute :wait_for_ip_address
-        validates :wait_for_ip_address, type: String
+        validates :wait_for_ip_address, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] If the C(state) is set to C(shutdownguest), by default the module will return immediately after sending the shutdown signal.,If this argument is set to a positive integer, the module will instead wait for the virtual machine to reach the poweredoff state.,The value sets a timeout in seconds for the module to wait for the state change.
         attribute :state_change_timeout
@@ -67,13 +67,13 @@ module Ansible
         # @return [Object, nil] Name of the existing snapshot to use to create a clone of a virtual machine.,This parameter is case sensitive.,While creating linked clone using C(linked_clone) parameter, this parameter is required.
         attribute :snapshot_src
 
-        # @return [String, nil] Whether to create a linked clone from the snapshot specified.,If specified, then C(snapshot_src) is required parameter.
+        # @return [:yes, :no, nil] Whether to create a linked clone from the snapshot specified.,If specified, then C(snapshot_src) is required parameter.
         attribute :linked_clone
-        validates :linked_clone, type: String
+        validates :linked_clone, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] Ignore warnings and complete the actions.,This parameter is useful while removing virtual machine which is powered on state.,This module reflects the VMware vCenter API and UI workflow, as such, in some cases the `force` flag will be mandatory to perform the action to ensure you are certain the action has to be taken, no matter what the consequence. This is specifically the case for removing a powered on the virtual machine when C(state) is set to C(absent).
+        # @return [:yes, :no, nil] Ignore warnings and complete the actions.,This parameter is useful while removing virtual machine which is powered on state.,This module reflects the VMware vCenter API and UI workflow, as such, in some cases the `force` flag will be mandatory to perform the action to ensure you are certain the action has to be taken, no matter what the consequence. This is specifically the case for removing a powered on the virtual machine when C(state) is set to C(absent).
         attribute :force
-        validates :force, type: String
+        validates :force, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] Destination datacenter for the deploy operation.,This parameter is case sensitive.
         attribute :datacenter

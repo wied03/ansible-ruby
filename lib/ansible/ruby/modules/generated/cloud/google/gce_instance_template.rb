@@ -45,9 +45,9 @@ module Ansible
         # @return [Object, nil] The Subnetwork resource name for this instance.
         attribute :subnetwork
 
-        # @return [String, nil] Set to C(yes) to allow instance to send/receive non-matching src/dst packets.
+        # @return [:yes, :no, nil] Set to C(yes) to allow instance to send/receive non-matching src/dst packets.
         attribute :can_ip_forward
-        validates :can_ip_forward, type: String
+        validates :can_ip_forward, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] The external IP address to use. If C(ephemeral), a new non-static address will be used.  If C(None), then no external address will be used.  To use an existing static IP address specify address name.
         attribute :external_ip

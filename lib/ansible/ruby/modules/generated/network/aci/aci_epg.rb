@@ -40,9 +40,9 @@ module Ansible
         attribute :fwd_control
         validates :fwd_control, inclusion: {:in=>[:none, :"proxy-arp"], :message=>"%{value} needs to be :none, :\"proxy-arp\""}, allow_nil: true
 
-        # @return [Boolean, nil] Whether ot not the EPG is part of the Preferred Group and can communicate without contracts.,This is very convenient for migration scenarios, or when ACI is used for network automation but not for policy.,The APIC defaults to C(no) when unset during creation.
+        # @return [Symbol, nil] Whether ot not the EPG is part of the Preferred Group and can communicate without contracts.,This is very convenient for migration scenarios, or when ACI is used for network automation but not for policy.,The APIC defaults to C(no) when unset during creation.
         attribute :preferred_group
-        validates :preferred_group, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :preferred_group, type: Symbol
 
         # @return [:absent, :present, :query, nil] Use C(present) or C(absent) for adding or removing.,Use C(query) for listing an object or multiple objects.
         attribute :state

@@ -26,20 +26,25 @@ module Ansible
         attribute :plan
         validates :plan, type: TypeGeneric.new(String)
 
-        # @return [Object, nil] Force stop/start the server if required to apply changes,Otherwise a running server will not be changed.
+        # @return [Symbol, nil] Force stop/start the server if required to apply changes,Otherwise a running server will not be changed.
         attribute :force
+        validates :force, type: Symbol
 
-        # @return [Object, nil] Whether to send an activation email when the server is ready or not.,Only considered on creation.
+        # @return [Symbol, nil] Whether to send an activation email when the server is ready or not.,Only considered on creation.
         attribute :notify_activate
+        validates :notify_activate, type: Symbol
 
-        # @return [Object, nil] Whether to enable private networking or not.
+        # @return [Symbol, nil] Whether to enable private networking or not.
         attribute :private_network_enabled
+        validates :private_network_enabled, type: Symbol
 
-        # @return [Object, nil] Whether to enable automatic backups or not.
+        # @return [Symbol, nil] Whether to enable automatic backups or not.
         attribute :auto_backup_enabled
+        validates :auto_backup_enabled, type: Symbol
 
-        # @return [Object, nil] Whether to enable IPv6 or not.
+        # @return [Symbol, nil] Whether to enable IPv6 or not.
         attribute :ipv6_enabled
+        validates :ipv6_enabled, type: Symbol
 
         # @return [Object, nil] Tag for the server.
         attribute :tag

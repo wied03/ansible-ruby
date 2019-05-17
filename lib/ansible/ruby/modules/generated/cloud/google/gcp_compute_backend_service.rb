@@ -28,9 +28,9 @@ module Ansible
         # @return [Object, nil] An optional description of this resource.
         attribute :description
 
-        # @return [Boolean, nil] If true, enable Cloud CDN for this BackendService.,When the load balancing scheme is INTERNAL, this field is not used.
+        # @return [Symbol, nil] If true, enable Cloud CDN for this BackendService.,When the load balancing scheme is INTERNAL, this field is not used.
         attribute :enable_cdn
-        validates :enable_cdn, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :enable_cdn, type: Symbol
 
         # @return [Array<String>, String, nil] The list of URLs to the HttpHealthCheck or HttpsHealthCheck resource for health checking this BackendService. Currently at most one health check can be specified, and a health check is required.,For internal load balancing, a URL to a HealthCheck resource must be specified instead.
         attribute :health_checks

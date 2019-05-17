@@ -11,9 +11,9 @@ module Ansible
         # @return [Object, nil] ZFS pool name.
         attribute :name
 
-        # @return [Boolean, nil] Specifies if property values should be displayed in machine friendly format.
+        # @return [Symbol, nil] Specifies if property values should be displayed in machine friendly format.
         attribute :parsable
-        validates :parsable, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :parsable, type: Symbol
 
         # @return [String, nil] Specifies which dataset properties should be queried in comma-separated format. For more information about dataset properties, check zpool(1M) man page.
         attribute :properties

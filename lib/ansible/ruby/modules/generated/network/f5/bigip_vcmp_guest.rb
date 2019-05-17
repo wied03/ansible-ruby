@@ -23,9 +23,9 @@ module Ansible
         attribute :mgmt_network
         validates :mgmt_network, inclusion: {:in=>[:bridged, :isolated, :"host only"], :message=>"%{value} needs to be :bridged, :isolated, :\"host only\""}, allow_nil: true
 
-        # @return [Boolean, nil] When C(state) is C(absent), will additionally delete the virtual disk associated with the vCMP guest. By default, this value is C(no).
+        # @return [Symbol, nil] When C(state) is C(absent), will additionally delete the virtual disk associated with the vCMP guest. By default, this value is C(no).
         attribute :delete_virtual_disk
-        validates :delete_virtual_disk, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :delete_virtual_disk, type: Symbol
 
         # @return [String, nil] Specifies the IP address, and subnet or subnet mask that you use to access the guest when you want to manage a module running within the guest. This parameter is required if the C(mgmt_network) parameter is C(bridged).,When creating a new guest, if you do not specify a network or network mask, a default of C(/24) (C(255.255.255.0)) will be assumed.
         attribute :mgmt_address

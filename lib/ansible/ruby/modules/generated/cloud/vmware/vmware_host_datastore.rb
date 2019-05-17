@@ -31,9 +31,9 @@ module Ansible
         attribute :nfs_path
         validates :nfs_path, type: String
 
-        # @return [Boolean, nil] ReadOnly or ReadWrite mount.,Unused if datastore type is not set to C(nfs) and state is not set to C(present).
+        # @return [Symbol, nil] ReadOnly or ReadWrite mount.,Unused if datastore type is not set to C(nfs) and state is not set to C(present).
         attribute :nfs_ro
-        validates :nfs_ro, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :nfs_ro, type: Symbol
 
         # @return [String, nil] Name of the device to be used as VMFS datastore.,Required for VMFS datastore type and state is set to C(present), else unused.
         attribute :vmfs_device_name

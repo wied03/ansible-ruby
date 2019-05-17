@@ -17,12 +17,13 @@ module Ansible
         attribute :dest
         validates :dest, presence: true, type: String
 
-        # @return [String, nil] If C(yes), will always download the file. If C(no), will only download the file if it does not exist or the remote file has been modified more recently than the local file.,This works by sending an http HEAD request to retrieve last modified time of the requested resource, so for this to work, the remote web server must support HEAD requests.
+        # @return [:yes, :no, nil] If C(yes), will always download the file. If C(no), will only download the file if it does not exist or the remote file has been modified more recently than the local file.,This works by sending an http HEAD request to retrieve last modified time of the requested resource, so for this to work, the remote web server must support HEAD requests.
         attribute :force
-        validates :force, type: String
+        validates :force, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [Object, nil] Add custom HTTP headers to a request (as a dictionary).
+        # @return [Hash, nil] Add custom HTTP headers to a request (as a dictionary).
         attribute :headers
+        validates :headers, type: Hash
 
         # @return [String, nil] Basic authentication username.
         attribute :url_username
@@ -32,17 +33,17 @@ module Ansible
         attribute :url_password
         validates :url_password, type: String
 
-        # @return [String, nil] If C(yes), will add a Basic authentication header on the initial request.,If C(no), will use Microsoft's WebClient to handle authentication.
+        # @return [:yes, :no, nil] If C(yes), will add a Basic authentication header on the initial request.,If C(no), will use Microsoft's WebClient to handle authentication.
         attribute :force_basic_auth
-        validates :force_basic_auth, type: String
+        validates :force_basic_auth, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] This option is deprecated since v2.4, please use C(validate_certs) instead.,If C(yes), SSL certificates will not be validated. This should only be used on personally controlled sites using self-signed certificates.
+        # @return [:yes, :no, nil] This option is deprecated since v2.4, please use C(validate_certs) instead.,If C(yes), SSL certificates will not be validated. This should only be used on personally controlled sites using self-signed certificates.
         attribute :skip_certificate_validation
-        validates :skip_certificate_validation, type: String
+        validates :skip_certificate_validation, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] If C(no), SSL certificates will not be validated. This should only be used on personally controlled sites using self-signed certificates.,If C(skip_certificate_validation) was set, it overrides this option.
+        # @return [:yes, :no, nil] If C(no), SSL certificates will not be validated. This should only be used on personally controlled sites using self-signed certificates.,If C(skip_certificate_validation) was set, it overrides this option.
         attribute :validate_certs
-        validates :validate_certs, type: String
+        validates :validate_certs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] The full URL of the proxy server to download through.
         attribute :proxy_url
@@ -56,9 +57,9 @@ module Ansible
         attribute :proxy_password
         validates :proxy_password, type: String
 
-        # @return [String, nil] If C(no), it will not use a proxy, even if one is defined in an environment variable on the target hosts.
+        # @return [:yes, :no, nil] If C(no), it will not use a proxy, even if one is defined in an environment variable on the target hosts.
         attribute :use_proxy
-        validates :use_proxy, type: String
+        validates :use_proxy, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] Timeout in seconds for URL request.
         attribute :timeout

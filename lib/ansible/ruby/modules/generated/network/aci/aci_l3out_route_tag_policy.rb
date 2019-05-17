@@ -20,9 +20,9 @@ module Ansible
         attribute :tenant
         validates :tenant, presence: true, type: String
 
-        # @return [String, nil] The value of the route tag.,Accepted values range between C(0) and C(4294967295).,The APIC defaults to C(4294967295) when unset during creation.
+        # @return [Integer, nil] The value of the route tag.,Accepted values range between C(0) and C(4294967295).,The APIC defaults to C(4294967295) when unset during creation.
         attribute :tag
-        validates :tag, type: String
+        validates :tag, type: Integer
 
         # @return [:absent, :present, :query, nil] Use C(present) or C(absent) for adding or removing.,Use C(query) for listing an object or multiple objects.
         attribute :state

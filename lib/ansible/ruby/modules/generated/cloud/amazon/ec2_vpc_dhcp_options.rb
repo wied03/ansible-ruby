@@ -32,13 +32,13 @@ module Ansible
         attribute :vpc_id
         validates :vpc_id, type: String
 
-        # @return [String, nil] Whether to delete the old VPC DHCP option set when associating a new one. This is primarily useful for debugging/development purposes when you want to quickly roll back to the old option set. Note that this setting will be ignored, and the old DHCP option set will be preserved, if it is in use by any other VPC. (Otherwise, AWS will return an error.)
+        # @return [:yes, :no, nil] Whether to delete the old VPC DHCP option set when associating a new one. This is primarily useful for debugging/development purposes when you want to quickly roll back to the old option set. Note that this setting will be ignored, and the old DHCP option set will be preserved, if it is in use by any other VPC. (Otherwise, AWS will return an error.)
         attribute :delete_old
-        validates :delete_old, type: String
+        validates :delete_old, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
-        # @return [String, nil] For any DHCP options not specified in these parameters, whether to inherit them from the options set already applied to vpc_id, or to reset them to be empty.
+        # @return [:yes, :no, nil] For any DHCP options not specified in these parameters, whether to inherit them from the options set already applied to vpc_id, or to reset them to be empty.
         attribute :inherit_existing
-        validates :inherit_existing, type: String
+        validates :inherit_existing, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Hash, nil] Tags to be applied to a VPC options set if a new one is created, or if the resource_id is provided. (options must match)
         attribute :tags

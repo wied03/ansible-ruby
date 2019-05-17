@@ -20,9 +20,9 @@ module Ansible
         attribute :xpath
         validates :xpath, presence: true, type: String
 
-        # @return [String, nil] Whether to backup the remote server's XML before applying the change.
+        # @return [:yes, :no, nil] Whether to backup the remote server's XML before applying the change.
         attribute :backup
-        validates :backup, type: String
+        validates :backup, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:element, :attribute, :text] The type of XML you are working with.
         attribute :type

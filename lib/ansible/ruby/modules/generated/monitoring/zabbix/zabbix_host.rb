@@ -89,9 +89,9 @@ module Ansible
         attribute :ipmi_password
         validates :ipmi_password, type: String
 
-        # @return [String, nil] Overwrite the host configuration, even if already present.
+        # @return [:yes, :no, nil] Overwrite the host configuration, even if already present.
         attribute :force
-        validates :force, type: String
+        validates :force, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

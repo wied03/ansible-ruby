@@ -20,9 +20,9 @@ module Ansible
         attribute :type
         validates :type, inclusion: {:in=>[:RSA, :DSA], :message=>"%{value} needs to be :RSA, :DSA"}, allow_nil: true
 
-        # @return [Boolean, nil] Should the key be regenerated even if it already exists
+        # @return [Symbol, nil] Should the key be regenerated even if it already exists
         attribute :force
-        validates :force, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :force, type: Symbol
 
         # @return [String] Name of the file in which the generated TLS/SSL private key will be written. It will have 0600 mode.
         attribute :path

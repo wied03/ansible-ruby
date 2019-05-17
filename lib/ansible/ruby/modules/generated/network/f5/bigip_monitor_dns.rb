@@ -30,11 +30,13 @@ module Ansible
         # @return [Object, nil] The number of seconds in which the node or service must respond to the monitor request.,If the target responds within the set time period, it is considered up.,If the target does not respond within the set time period, it is considered down.,You can change this number to any number you want, however, it should be 3 times the interval number of seconds plus 1 second.,If this parameter is not provided when creating a new monitor, then the default value will be C(16).
         attribute :timeout
 
-        # @return [Object, nil] Specifies whether the monitor operates in transparent mode.,Monitors in transparent mode can monitor pool members through firewalls.,When creating a new monitor, if this parameter is not provided, then the default value will be C(no).
+        # @return [Symbol, nil] Specifies whether the monitor operates in transparent mode.,Monitors in transparent mode can monitor pool members through firewalls.,When creating a new monitor, if this parameter is not provided, then the default value will be C(no).
         attribute :transparent
+        validates :transparent, type: Symbol
 
-        # @return [Object, nil] Specifies whether the monitor operates in reverse mode.,When the monitor is in reverse mode, a successful receive string match marks the monitored object down instead of up. You can use the this mode only if you configure the C(receive) option.,This parameter is not compatible with the C(time_until_up) parameter. If C(time_until_up) is specified, it must be C(0). Or, if it already exists, it must be C(0).
+        # @return [Symbol, nil] Specifies whether the monitor operates in reverse mode.,When the monitor is in reverse mode, a successful receive string match marks the monitored object down instead of up. You can use the this mode only if you configure the C(receive) option.,This parameter is not compatible with the C(time_until_up) parameter. If C(time_until_up) is specified, it must be C(0). Or, if it already exists, it must be C(0).
         attribute :reverse
+        validates :reverse, type: Symbol
 
         # @return [Object, nil] Specifies the IP address that the monitor uses from the resource record sections of the DNS response.,The IP address should be specified in the dotted-decimal notation or IPv6 notation.
         attribute :receive
@@ -42,8 +44,9 @@ module Ansible
         # @return [Object, nil] Specifies the amount of time in seconds after the first successful response before a node will be marked up.,A value of 0 will cause a node to be marked up immediately after a valid response is received from the node.,If this parameter is not provided when creating a new monitor, then the default value will be C(0).
         attribute :time_until_up
 
-        # @return [Object, nil] Specifies whether the system automatically changes the status of a resource to B(enabled) at the next successful monitor check.,If you set this option to C(yes), you must manually re-enable the resource before the system can use it for load balancing connections.,When creating a new monitor, if this parameter is not specified, the default value is C(no).,When C(yes), specifies that you must manually re-enable the resource after an unsuccessful monitor check.,When C(no), specifies that the system automatically changes the status of a resource to B(enabled) at the next successful monitor check.
+        # @return [Symbol, nil] Specifies whether the system automatically changes the status of a resource to B(enabled) at the next successful monitor check.,If you set this option to C(yes), you must manually re-enable the resource before the system can use it for load balancing connections.,When creating a new monitor, if this parameter is not specified, the default value is C(no).,When C(yes), specifies that you must manually re-enable the resource after an unsuccessful monitor check.,When C(no), specifies that the system automatically changes the status of a resource to B(enabled) at the next successful monitor check.
         attribute :manual_resume
+        validates :manual_resume, type: Symbol
 
         # @return [Object, nil] IP address part of the IP/port definition.,If this parameter is not provided when creating a new monitor, then the default value will be C(*).
         attribute :ip
@@ -67,9 +70,9 @@ module Ansible
         attribute :accept_rcode
         validates :accept_rcode, inclusion: {:in=>[:"no-error", :anything], :message=>"%{value} needs to be :\"no-error\", :anything"}, allow_nil: true
 
-        # @return [Boolean, nil] Specifies whether adaptive response time monitoring is enabled for this monitor.,When C(yes), the monitor determines the state of a service based on how divergent from the mean latency a monitor probe for that service is allowed to be. Also, values for the C(allowed_divergence), C(adaptive_limit), and and C(sampling_timespan) will be enforced.,When C(disabled), the monitor determines the state of a service based on the C(interval), C(up_interval), C(time_until_up), and C(timeout) monitor settings.
+        # @return [Symbol, nil] Specifies whether adaptive response time monitoring is enabled for this monitor.,When C(yes), the monitor determines the state of a service based on how divergent from the mean latency a monitor probe for that service is allowed to be. Also, values for the C(allowed_divergence), C(adaptive_limit), and and C(sampling_timespan) will be enforced.,When C(disabled), the monitor determines the state of a service based on the C(interval), C(up_interval), C(time_until_up), and C(timeout) monitor settings.
         attribute :adaptive
-        validates :adaptive, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :adaptive, type: Symbol
 
         # @return [:relative, :absolute, nil] When specifying a new monitor, if C(adaptive) is C(yes), the default is C(relative),When C(absolute), the number of milliseconds the latency of a monitor probe can exceed the mean latency of a monitor probe for the service being probed. In typical cases, if the monitor detects three probes in a row that miss the latency value you set, the pool member or node is marked down.,When C(relative), the percentage of deviation the latency of a monitor probe can exceed the mean latency of a monitor probe for the service being probed.
         attribute :allowed_divergence_type

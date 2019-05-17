@@ -54,8 +54,9 @@ module Ansible
         attribute :address
         validates :address, type: TypeGeneric.new(String)
 
-        # @return [Object, nil] Whether or not to set the latitude and longitude of a device based on the new address.,Only applies when C(lat) and C(lng) are not specified.
+        # @return [Symbol, nil] Whether or not to set the latitude and longitude of a device based on the new address.,Only applies when C(lat) and C(lng) are not specified.
         attribute :move_map_marker
+        validates :move_map_marker, type: Symbol
 
         # @return [String, nil] Serial number of device to query LLDP/CDP information from.
         attribute :serial_lldp_cdp

@@ -44,9 +44,9 @@ module Ansible
         # @return [Object, nil] Specify a password for HTTP proxy with basic authentication
         attribute :server_proxy_password
 
-        # @return [String, nil] Upon successful registration, auto-consume available subscriptions,Added in favor of deprecated autosubscribe in 2.5.
+        # @return [:yes, :no, nil] Upon successful registration, auto-consume available subscriptions,Added in favor of deprecated autosubscribe in 2.5.
         attribute :auto_attach
-        validates :auto_attach, type: String
+        validates :auto_attach, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] supply an activation key for use with registration
         attribute :activationkey
@@ -77,9 +77,9 @@ module Ansible
         attribute :consumer_id
         validates :consumer_id, type: String
 
-        # @return [String, nil] Register the system even if it is already registered
+        # @return [:yes, :no, nil] Register the system even if it is already registered
         attribute :force_register
-        validates :force_register, type: String
+        validates :force_register, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

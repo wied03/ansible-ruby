@@ -20,9 +20,9 @@ module Ansible
         attribute :account_id
         validates :account_id, presence: true, type: Integer
 
-        # @return [Boolean, nil] Required when C(state=present),Should the volume provide 512-byte sector emulation?
+        # @return [Symbol, nil] Required when C(state=present),Should the volume provide 512-byte sector emulation?
         attribute :enable512e
-        validates :enable512e, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :enable512e, type: Symbol
 
         # @return [Hash, nil] Initial quality of service settings for this volume. Configure as dict in playbooks.
         attribute :qos

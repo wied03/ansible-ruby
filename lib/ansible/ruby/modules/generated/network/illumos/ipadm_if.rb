@@ -12,9 +12,9 @@ module Ansible
         attribute :name
         validates :name, presence: true, type: String
 
-        # @return [Boolean, nil] Specifies that the IP interface is temporary. Temporary IP interfaces do not persist across reboots.
+        # @return [Symbol, nil] Specifies that the IP interface is temporary. Temporary IP interfaces do not persist across reboots.
         attribute :temporary
-        validates :temporary, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :temporary, type: Symbol
 
         # @return [:present, :absent, :enabled, :disabled, nil] Create or delete Solaris/illumos IP interfaces.
         attribute :state
