@@ -1,3 +1,6 @@
+# 1.0.9
+* Add `vars` support to Playbooks
+
 # 1.0.8
 * Use Ansible's `type` metadata attribute to regain some module precision
 

@@ -9,6 +9,8 @@ module Ansible
       class Play < Base
         attribute :hosts
         validates :hosts, presence: true, type: TypeGeneric.new(String)
+        attribute :vars
+        validates :vars, type: Hash
         attribute :become
         validates :become, type: MultipleTypes.new(TrueClass, FalseClass)
         attribute :become_user
