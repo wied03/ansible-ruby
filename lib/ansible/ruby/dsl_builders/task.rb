@@ -73,6 +73,10 @@ module Ansible
           yield
         end
 
+        def delegate_to(value)
+          @task_args[:delegate_to] = value
+        end
+
         def respond_to_missing?(*)
           !@module || super
         end

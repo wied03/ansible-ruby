@@ -72,6 +72,26 @@ describe Ansible::Ruby::DslBuilders::Task do
     end
   end
 
+  context 'delegate_to' do
+    let(:ruby) do
+      <<-RUBY
+            copy do
+              src '/file1.conf'
+              dest '/file2.conf'
+            end
+            delegate_to 'somehost'
+      RUBY
+    end
+    describe 'task object' do
+      it { is_expected.to be_a Ansible::Ruby::Models::Task }
+      it do
+        is_expected.to have_attributes name: 'Copy something',
+                                       module: be_a(Ansible::Ruby::Modules::Copy),
+                                       delegate_to: 'somehost'
+      end
+    end
+  end
+
   context 'local_action' do
     let(:ruby) do
       <<-RUBY

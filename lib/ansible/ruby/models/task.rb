@@ -38,6 +38,8 @@ module Ansible
                   inclusion: { in: %i[local docker ssh], message: '%{value} needs to be :local, :docker, or :ssh' }
         # :reek:Attribute - This is a simple flag
         attr_accessor :local_action
+        attribute :delegate_to
+        validates :delegate_to, type: String
 
         def to_h
           result = super
