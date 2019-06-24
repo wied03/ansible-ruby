@@ -1,3 +1,6 @@
+# 1.0.12
+* Add role tagging support
+
 # 1.0.11
 * Add `remote_user` support to tasks
 
