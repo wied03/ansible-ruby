@@ -24,7 +24,6 @@ module Ansible
         attribute :tasks
         validates :tasks, type: Tasks
         attribute :roles
-        validates :roles, type: TypeGeneric.new(String)
         attribute :connection
         validates :connection,
                   allow_nil: true,
