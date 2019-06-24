@@ -4,15 +4,15 @@ require 'spec_helper'
 require 'ansible-ruby'
 
 describe Ansible::Ruby::DslBuilders::Play do
-  let(:name) {'another play'}
-  let(:builder) {Ansible::Ruby::DslBuilders::Play.new name}
+  let(:name) { 'another play' }
+  let(:builder) { Ansible::Ruby::DslBuilders::Play.new name }
 
   def evaluate
     builder.instance_eval ruby
     builder._result
   end
 
-  subject(:play) {evaluate}
+  subject(:play) { evaluate }
 
   before do
     klass = Class.new(Ansible::Ruby::Modules::Base) do
@@ -38,23 +38,23 @@ describe Ansible::Ruby::DslBuilders::Play do
       RUBY
     end
 
-    it {is_expected.to be_a Ansible::Ruby::Models::Play}
+    it { is_expected.to be_a Ansible::Ruby::Models::Play }
     it do
       is_expected.to have_attributes hosts: 'host1',
                                      name: 'another play'
     end
 
     describe 'tasks' do
-      subject {play.tasks}
+      subject { play.tasks }
 
-      it {is_expected.to be_a Ansible::Ruby::Models::Tasks}
-      it {is_expected.to have_attributes items: include(be_a(Ansible::Ruby::Models::Task))}
+      it { is_expected.to be_a Ansible::Ruby::Models::Tasks }
+      it { is_expected.to have_attributes items: include(be_a(Ansible::Ruby::Models::Task)) }
     end
 
     describe 'hash keys' do
-      subject {play.to_h.stringify_keys.keys}
+      subject { play.to_h.stringify_keys.keys }
 
-      it {is_expected.to eq %w[hosts name tasks]}
+      it { is_expected.to eq %w[hosts name tasks] }
     end
   end
 
@@ -74,7 +74,7 @@ describe Ansible::Ruby::DslBuilders::Play do
       RUBY
     end
 
-    it {is_expected.to be_a Ansible::Ruby::Models::Play}
+    it { is_expected.to be_a Ansible::Ruby::Models::Play }
     it do
       is_expected.to have_attributes hosts: 'host1',
                                      name: 'another play',
@@ -103,9 +103,9 @@ describe Ansible::Ruby::DslBuilders::Play do
       RUBY
     end
 
-    subject {play.tasks}
+    subject { play.tasks }
 
-    it {is_expected.to be_a Ansible::Ruby::Models::Tasks}
+    it { is_expected.to be_a Ansible::Ruby::Models::Tasks }
     it do
       is_expected.to have_attributes items: include(be_a(Ansible::Ruby::Models::Task),
                                                     be_a(Ansible::Ruby::Models::Task))
@@ -122,9 +122,9 @@ describe Ansible::Ruby::DslBuilders::Play do
         RUBY
       end
 
-      subject {-> {evaluate}}
+      subject { -> { evaluate } }
 
-      it {is_expected.to raise_error 'Includes cannot be used in a play using a role. They can only be used in task files or in plays with a task list.'}
+      it { is_expected.to raise_error 'Includes cannot be used in a play using a role. They can only be used in task files or in plays with a task list.' }
     end
 
     context 'with tasks' do
@@ -143,16 +143,16 @@ describe Ansible::Ruby::DslBuilders::Play do
         RUBY
       end
 
-      it {is_expected.to be_a Ansible::Ruby::Models::Play}
+      it { is_expected.to be_a Ansible::Ruby::Models::Play }
       it do
         is_expected.to have_attributes hosts: 'host1',
                                        name: 'another play'
       end
 
       describe 'tasks' do
-        subject {play.tasks}
+        subject { play.tasks }
 
-        it {is_expected.to be_a Ansible::Ruby::Models::Tasks}
+        it { is_expected.to be_a Ansible::Ruby::Models::Tasks }
         it do
           is_expected.to have_attributes items: include(be_a(Ansible::Ruby::Models::Task)),
                                          inclusions: include(be_a(Ansible::Ruby::Models::Inclusion))
@@ -160,9 +160,9 @@ describe Ansible::Ruby::DslBuilders::Play do
       end
 
       describe 'hash keys' do
-        subject {play.to_h.stringify_keys.keys}
+        subject { play.to_h.stringify_keys.keys }
 
-        it {is_expected.to eq %w[hosts name tasks]}
+        it { is_expected.to eq %w[hosts name tasks] }
       end
     end
   end
@@ -180,15 +180,15 @@ describe Ansible::Ruby::DslBuilders::Play do
       end
       RUBY
     end
-    let(:name) {nil}
+    let(:name) { nil }
 
-    it {is_expected.to be_a Ansible::Ruby::Models::Play}
-    it {is_expected.to have_attributes hosts: 'host1'}
+    it { is_expected.to be_a Ansible::Ruby::Models::Play }
+    it { is_expected.to have_attributes hosts: 'host1' }
 
     describe 'hash keys' do
-      subject {play.to_h.stringify_keys.keys}
+      subject { play.to_h.stringify_keys.keys }
 
-      it {is_expected.to eq %w[hosts tasks]}
+      it { is_expected.to eq %w[hosts tasks] }
     end
   end
 
@@ -211,20 +211,20 @@ describe Ansible::Ruby::DslBuilders::Play do
         RUBY
       end
 
-      it {is_expected.to be_a Ansible::Ruby::Models::Play}
-      it {is_expected.to have_attributes hosts: 'host1'}
+      it { is_expected.to be_a Ansible::Ruby::Models::Play }
+      it { is_expected.to have_attributes hosts: 'host1' }
 
       describe 'tasks' do
-        subject {play.tasks}
+        subject { play.tasks }
 
-        it {is_expected.to be_a Ansible::Ruby::Models::Tasks}
-        it {is_expected.to have_attributes items: include(be_a(Ansible::Ruby::Models::Block))}
+        it { is_expected.to be_a Ansible::Ruby::Models::Tasks }
+        it { is_expected.to have_attributes items: include(be_a(Ansible::Ruby::Models::Block)) }
       end
 
       describe 'hash keys' do
-        subject {play.to_h.stringify_keys.keys}
+        subject { play.to_h.stringify_keys.keys }
 
-        it {is_expected.to eq %w[hosts name tasks]}
+        it { is_expected.to eq %w[hosts name tasks] }
       end
     end
 
@@ -239,9 +239,9 @@ describe Ansible::Ruby::DslBuilders::Play do
         RUBY
       end
 
-      subject {-> {evaluate}}
+      subject { -> { evaluate } }
 
-      it {is_expected.to raise_error 'Validation failed: Tasks Must have at least 1 task in your block!'}
+      it { is_expected.to raise_error 'Validation failed: Tasks Must have at least 1 task in your block!' }
     end
 
     context 'no block' do
@@ -253,9 +253,9 @@ describe Ansible::Ruby::DslBuilders::Play do
         RUBY
       end
 
-      subject {-> {evaluate}}
+      subject { -> { evaluate } }
 
-      it {is_expected.to raise_error 'wrong number of arguments (given 0, expected 1..3)'}
+      it { is_expected.to raise_error 'wrong number of arguments (given 0, expected 1..3)' }
     end
   end
 
@@ -273,7 +273,7 @@ describe Ansible::Ruby::DslBuilders::Play do
       RUBY
     end
 
-    it {is_expected.to be_a Ansible::Ruby::Models::Play}
+    it { is_expected.to be_a Ansible::Ruby::Models::Play }
 
     it do
       is_expected.to have_attributes hosts: 'localhost',
@@ -282,7 +282,7 @@ describe Ansible::Ruby::DslBuilders::Play do
   end
 
   context 'no name provided' do
-    let(:builder) {Ansible::Ruby::DslBuilders::Play.new}
+    let(:builder) { Ansible::Ruby::DslBuilders::Play.new }
 
     let(:ruby) do
       <<-RUBY
@@ -298,9 +298,9 @@ describe Ansible::Ruby::DslBuilders::Play do
     end
 
     describe 'hash keys' do
-      subject {play.to_h.stringify_keys.keys}
+      subject { play.to_h.stringify_keys.keys }
 
-      it {is_expected.to eq %w[hosts tasks]}
+      it { is_expected.to eq %w[hosts tasks] }
     end
   end
 
@@ -313,8 +313,8 @@ describe Ansible::Ruby::DslBuilders::Play do
         RUBY
       end
 
-      it {is_expected.to be_a Ansible::Ruby::Models::Play}
-      it {is_expected.to_not have_attributes tasks: be_truthy}
+      it { is_expected.to be_a Ansible::Ruby::Models::Play }
+      it { is_expected.to_not have_attributes tasks: be_truthy }
       it do
         is_expected.to have_attributes roles: %w[role1 role2],
                                        hosts: 'host1'
@@ -330,8 +330,8 @@ describe Ansible::Ruby::DslBuilders::Play do
         RUBY
       end
 
-      it {is_expected.to be_a Ansible::Ruby::Models::Play}
-      it {is_expected.to_not have_attributes tasks: be_truthy}
+      it { is_expected.to be_a Ansible::Ruby::Models::Play }
+      it { is_expected.to_not have_attributes tasks: be_truthy }
       it do
         is_expected.to have_attributes roles: %w[role1 role2],
                                        hosts: 'host1'
@@ -346,8 +346,8 @@ describe Ansible::Ruby::DslBuilders::Play do
         RUBY
       end
 
-      it {is_expected.to be_a Ansible::Ruby::Models::Play}
-      it {is_expected.to_not have_attributes tasks: be_truthy}
+      it { is_expected.to be_a Ansible::Ruby::Models::Play }
+      it { is_expected.to_not have_attributes tasks: be_truthy }
       it do
         is_expected.to have_attributes roles: [{ role: 'role1', tag: 'clone' },
                                                { role: 'role2', tag: 'clone2' }],
@@ -364,8 +364,8 @@ describe Ansible::Ruby::DslBuilders::Play do
         RUBY
       end
 
-      it {is_expected.to be_a Ansible::Ruby::Models::Play}
-      it {is_expected.to_not have_attributes tasks: be_truthy}
+      it { is_expected.to be_a Ansible::Ruby::Models::Play }
+      it { is_expected.to_not have_attributes tasks: be_truthy }
       it do
         is_expected.to have_attributes roles: [{ role: 'role1', tag: 'clone' },
                                                { role: 'role2', tag: 'clone2' }],
@@ -375,24 +375,24 @@ describe Ansible::Ruby::DslBuilders::Play do
   end
 
   context 'invalid keyword' do
-    let(:ruby) {'foobar'}
+    let(:ruby) { 'foobar' }
 
-    subject {-> {evaluate}}
+    subject { -> { evaluate } }
 
-    it {is_expected.to raise_error(%r{Invalid method/local variable `foobar'. Only valid options are \[:ansible_include.*})}
+    it { is_expected.to raise_error(%r{Invalid method/local variable `foobar'. Only valid options are \[:ansible_include.*}) }
   end
 
   context 'other attributes' do
     # We don't build name or tasks the same way as others
     (Ansible::Ruby::Models::Play.instance_methods - Object.instance_methods - %i[name= tasks= inclusions= attributes=])
-      .select {|method| method.to_s.end_with?('=')}
-      .map {|method| method.to_s[0..-2]}
+      .select { |method| method.to_s.end_with?('=') }
+      .map { |method| method.to_s[0..-2] }
       .each do |method|
 
       context method do
-        let(:ruby) {"#{method} 'some_value'"}
+        let(:ruby) { "#{method} 'some_value'" }
 
-        it {is_expected.to be_a Ansible::Ruby::Models::Play}
+        it { is_expected.to be_a Ansible::Ruby::Models::Play }
 
         it 'has the builder value' do
           expect(play.send(method)).to eq 'some_value'
@@ -410,7 +410,7 @@ describe Ansible::Ruby::DslBuilders::Play do
       RUBY
     end
 
-    it {is_expected.to be_a Ansible::Ruby::Models::Play}
+    it { is_expected.to be_a Ansible::Ruby::Models::Play }
     it do
       is_expected.to have_attributes roles: %w[role1 role2],
                                      user: '{{ centos }}',

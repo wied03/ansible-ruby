@@ -34,7 +34,7 @@ module Ansible
                  tag = nil)
           roles = @play_args[:roles] ||= []
           roles << name unless tag
-          roles << {role: name, tag: tag} if tag
+          roles << { role: name, tag: tag } if tag
         end
 
         def connection(value)

@@ -20,10 +20,10 @@ describe Ansible::Ruby::Models::Play do
                                     module: module_klass.new(foo: 123)
   end
 
-  let(:tasks_model) {Ansible::Ruby::Models::Tasks.new(items: task_array)}
-  let(:task_array) {[task]}
+  let(:tasks_model) { Ansible::Ruby::Models::Tasks.new(items: task_array) }
+  let(:task_array) { [task] }
 
-  subject(:hash) {instance.to_h}
+  subject(:hash) { instance.to_h }
 
   context 'basic' do
     let(:instance) do
@@ -114,7 +114,7 @@ describe Ansible::Ruby::Models::Play do
   end
 
   context 'tasks and roles' do
-    subject {instance}
+    subject { instance }
 
     let(:instance) do
       Ansible::Ruby::Models::Play.new tasks: tasks_model,
@@ -122,17 +122,17 @@ describe Ansible::Ruby::Models::Play do
                                       roles: 'role1'
     end
 
-    it {is_expected.to_not be_valid}
-    it {is_expected.to have_errors tasks: 'Cannot supply both tasks and roles!'}
+    it { is_expected.to_not be_valid }
+    it { is_expected.to have_errors tasks: 'Cannot supply both tasks and roles!' }
   end
 
   context 'no tasks and no roles' do
-    subject {instance}
+    subject { instance }
 
-    let(:instance) {Ansible::Ruby::Models::Play.new hosts: 'host1'}
+    let(:instance) { Ansible::Ruby::Models::Play.new hosts: 'host1' }
 
-    it {is_expected.to_not be_valid}
-    it {is_expected.to have_errors tasks: 'Must supply either task(s) or role(s)!'}
+    it { is_expected.to_not be_valid }
+    it { is_expected.to have_errors tasks: 'Must supply either task(s) or role(s)!' }
   end
 
   context 'role' do
