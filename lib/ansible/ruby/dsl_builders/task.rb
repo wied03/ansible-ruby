@@ -77,6 +77,10 @@ module Ansible
           @task_args[:delegate_to] = value
         end
 
+        def remote_user(value)
+          @task_args[:remote_user] = value
+        end
+
         def respond_to_missing?(*)
           !@module || super
         end

@@ -1,3 +1,6 @@
+# 1.0.11
+* Add `remote_user` support to tasks
+
 # 1.0.10
 * Add `delegated_to` support to tasks
 

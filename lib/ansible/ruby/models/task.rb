@@ -40,6 +40,8 @@ module Ansible
         attr_accessor :local_action
         attribute :delegate_to
         validates :delegate_to, type: String
+        attribute :remote_user
+        validates :remote_user, type: String
 
         def to_h
           result = super
