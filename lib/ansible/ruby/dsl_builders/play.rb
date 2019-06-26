@@ -34,7 +34,8 @@ module Ansible
                  tag = nil)
           roles = @play_args[:roles] ||= []
           roles << name unless tag
-          roles << { role: name, tag: tag } if tag
+          # TODO: Roles should probably be a 'first class' model used within the play model
+          roles << { role: name, tags: [*tag] } if tag
         end
 
         def connection(value)

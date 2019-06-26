@@ -342,15 +342,15 @@ describe Ansible::Ruby::DslBuilders::Play do
       let(:ruby) do
         <<-RUBY
         hosts 'host1'
-        roles [{role:'role1', tag: 'clone'}, {role:'role2', tag: 'clone2'}]
+        roles [{role:'role1', tags: ['clone']}, {role:'role2', tags: ['clone2']}]
         RUBY
       end
 
       it { is_expected.to be_a Ansible::Ruby::Models::Play }
       it { is_expected.to_not have_attributes tasks: be_truthy }
       it do
-        is_expected.to have_attributes roles: [{ role: 'role1', tag: 'clone' },
-                                               { role: 'role2', tag: 'clone2' }],
+        is_expected.to have_attributes roles: [{ role: 'role1', tags: ['clone'] },
+                                               { role: 'role2', tags: ['clone2'] }],
                                        hosts: 'host1'
       end
     end
@@ -367,8 +367,24 @@ describe Ansible::Ruby::DslBuilders::Play do
       it { is_expected.to be_a Ansible::Ruby::Models::Play }
       it { is_expected.to_not have_attributes tasks: be_truthy }
       it do
-        is_expected.to have_attributes roles: [{ role: 'role1', tag: 'clone' },
-                                               { role: 'role2', tag: 'clone2' }],
+        is_expected.to have_attributes roles: [{ role: 'role1', tags: ['clone'] },
+                                               { role: 'role2', tags: ['clone2'] }],
+                                       hosts: 'host1'
+      end
+    end
+
+    context 'Multiple tags' do
+      let(:ruby) do
+        <<-RUBY
+        hosts 'host1'
+        role 'role1', tag=['clone', 'foo']
+        RUBY
+      end
+
+      it { is_expected.to be_a Ansible::Ruby::Models::Play }
+      it { is_expected.to_not have_attributes tasks: be_truthy }
+      it do
+        is_expected.to have_attributes roles: [{ role: 'role1', tags: %w[clone foo] }],
                                        hosts: 'host1'
       end
     end

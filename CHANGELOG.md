@@ -1,3 +1,6 @@
+# 1.0.13
+* Correct typo with role tagging support
+
 # 1.0.12
 * Add role tagging support
 
