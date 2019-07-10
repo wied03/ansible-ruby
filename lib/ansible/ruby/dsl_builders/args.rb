@@ -6,7 +6,8 @@ module Ansible
   module Ruby
     module DslBuilders
       class Args < Base
-        KERNEL_METHOD_OVERRIDES = %i[system test warn sleep].freeze
+        # Each of these are normally Ruby methods but we want to control them
+        KERNEL_METHOD_OVERRIDES = %i[system test warn sleep method].freeze
 
         def initialize(recipient, &block)
           super()

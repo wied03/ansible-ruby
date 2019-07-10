@@ -4,7 +4,7 @@
 require 'spec_helper'
 
 describe Ansible::Ruby::DslBuilders::Args do
-  let(:builder) { Ansible::Ruby::DslBuilders::Args.new recipient }
+  let(:builder) {Ansible::Ruby::DslBuilders::Args.new recipient}
 
   let(:recipient_klass) do
     recipient_klass = Class.new(Ansible::Ruby::Modules::Base) do
@@ -12,14 +12,16 @@ describe Ansible::Ruby::DslBuilders::Args do
       validates :src, presence: true
       attribute :dest
       validates :dest, presence: true
+      # E.g. like the URI module
+      attribute :method
     end
     stub_const 'Ansible::Ruby::Modules::Copy', recipient_klass
     recipient_klass
   end
 
-  subject(:recipient) { recipient_klass.new {} }
+  subject(:recipient) {recipient_klass.new {}}
 
-  before { builder.instance_eval ruby }
+  before {builder.instance_eval ruby}
 
   context 'jinja' do
     context 'variable' do
@@ -30,7 +32,7 @@ describe Ansible::Ruby::DslBuilders::Args do
         RUBY
       end
 
-      it { is_expected.to be_a Ansible::Ruby::Modules::Copy }
+      it {is_expected.to be_a Ansible::Ruby::Modules::Copy}
       it do
         is_expected.to have_attributes src: '{{ a_file }}',
                                        dest: '/file2.conf'
@@ -48,7 +50,7 @@ describe Ansible::Ruby::DslBuilders::Args do
           RUBY
         end
 
-        it { is_expected.to be_a Ansible::Ruby::Modules::Copy }
+        it {is_expected.to be_a Ansible::Ruby::Modules::Copy}
 
         it do
           is_expected.to have_attributes src: '{{ item }}',
@@ -66,7 +68,7 @@ describe Ansible::Ruby::DslBuilders::Args do
           RUBY
         end
 
-        it { is_expected.to be_a Ansible::Ruby::Modules::Copy }
+        it {is_expected.to be_a Ansible::Ruby::Modules::Copy}
 
         it do
           is_expected.to have_attributes src: ['{{ item }}', '{{ item }}'],
@@ -84,7 +86,7 @@ describe Ansible::Ruby::DslBuilders::Args do
           RUBY
         end
 
-        it { is_expected.to be_a Ansible::Ruby::Modules::Copy }
+        it {is_expected.to be_a Ansible::Ruby::Modules::Copy}
 
         it do
           is_expected.to have_attributes src: ['{{ item }}', '{{ item.key }}'],
@@ -102,7 +104,7 @@ describe Ansible::Ruby::DslBuilders::Args do
           RUBY
         end
 
-        it { is_expected.to be_a Ansible::Ruby::Modules::Copy }
+        it {is_expected.to be_a Ansible::Ruby::Modules::Copy}
 
         it do
           is_expected.to have_attributes src: {
@@ -120,14 +122,31 @@ describe Ansible::Ruby::DslBuilders::Args do
       context "##{method}" do
         let(:recipient_klass) do
           klass = super()
-          klass.class_eval { attribute method }
+          klass.class_eval {attribute method}
           klass
         end
 
-        let(:ruby) { "#{method} 123" }
+        let(:ruby) {"#{method} 123"}
 
-        it { is_expected.to have_attributes method => 123 }
+        it {is_expected.to have_attributes method => 123}
       end
+    end
+  end
+
+  context 'method as an attribute' do
+    let(:ruby) do
+      <<-RUBY
+        src 'stuff'
+        dest '/file2.conf'
+        method 'foo'
+      RUBY
+    end
+
+    it {is_expected.to be_a Ansible::Ruby::Modules::Copy}
+    it do
+      is_expected.to have_attributes src: 'stuff',
+                                     dest: '/file2.conf',
+                                     method: 'foo'
     end
   end
 end

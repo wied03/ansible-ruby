@@ -1,3 +1,6 @@
+# 1.0.14
+* Handle modules with attribute `method` properly
+
 # 1.0.13
 * Correct typo with role tagging support
 
