@@ -1,3 +1,6 @@
+# 1.0.15
+* Correct issues with `uri` module
+
 # 1.0.14
 * Handle modules with attribute `method` properly
 
