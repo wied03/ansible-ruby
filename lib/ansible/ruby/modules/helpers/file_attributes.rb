@@ -24,6 +24,9 @@ module Ansible
 
             base.attribute :selevel
             base.validates :selevel, type: String
+
+            base.attribute :validate
+            base.validates :validate, type: String
           end
         end
       end

@@ -1,3 +1,7 @@
+# 1.0.16
+* Add `validate` support to all file modules
+* Make `lineinfile` use file module helpers
+
 # 1.0.15
 * Correct issues with `uri` module
 

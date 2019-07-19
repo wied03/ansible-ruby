@@ -11,8 +11,7 @@ module Ansible
   module Ruby
     module Modules
       class Lineinfile
-        attribute :validate
-        validates :validate, type: String
+        include Helpers::FileAttributes
       end
     end
   end
