@@ -888,7 +888,8 @@ ansible_mod.autoload(:Iso_extract, 'ansible/ruby/modules/generated/files/iso_ext
 # Using custom module
 ansible_mod.autoload(:Lineinfile, 'ansible/ruby/modules/custom/files/lineinfile')
 ansible_mod.autoload(:Patch, 'ansible/ruby/modules/generated/files/patch')
-ansible_mod.autoload(:Replace, 'ansible/ruby/modules/generated/files/replace')
+# Using custom module
+ansible_mod.autoload(:Replace, 'ansible/ruby/modules/custom/files/replace')
 ansible_mod.autoload(:Stat, 'ansible/ruby/modules/generated/files/stat')
 ansible_mod.autoload(:Synchronize, 'ansible/ruby/modules/generated/files/synchronize')
 ansible_mod.autoload(:Tempfile, 'ansible/ruby/modules/generated/files/tempfile')

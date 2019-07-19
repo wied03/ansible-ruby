@@ -1,3 +1,6 @@
+# 1.0.17
+* Make `replace` a file module
+
 # 1.0.16
 * Add `validate` support to all file modules
 * Make `lineinfile` use file module helpers
