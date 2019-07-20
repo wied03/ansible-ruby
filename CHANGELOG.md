@@ -1,3 +1,6 @@
+# 1.0.18
+* `uri` module `status_code` type needed correcting
+
 # 1.0.17
 * Make `replace` a file module
 

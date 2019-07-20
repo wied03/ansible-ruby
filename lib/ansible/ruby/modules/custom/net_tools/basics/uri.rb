@@ -9,6 +9,9 @@ module Ansible
     module Modules
       class Uri
         remove_existing_validations :body
+        # Only picked up a single Integer in the generated class
+        remove_existing_validations :status_code
+        validates :status_code, type: TypeGeneric.new(Integer)
       end
     end
   end
