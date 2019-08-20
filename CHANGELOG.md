@@ -1,3 +1,6 @@
+# 1.0.19
+* Fix issue with `mode` and `copy` module
+
 # 1.0.18
 * `uri` module `status_code` type needed correcting
 

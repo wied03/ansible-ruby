@@ -11,6 +11,7 @@ module Ansible
   module Ruby
     module Modules
       class Copy
+        remove_existing_validations :mode
         include Helpers::FileAttributes
       end
     end
