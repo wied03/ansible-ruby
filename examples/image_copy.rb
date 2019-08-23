@@ -16,6 +16,8 @@ play 'image copy' do
     end
   end
 
+  tags foo: 123
+
   task 'foobar' do
     debug { msg 'say hello' }
 

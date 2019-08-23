@@ -338,6 +338,24 @@ describe Ansible::Ruby::DslBuilders::Play do
       end
     end
 
+    context 'tags' do
+      let(:ruby) do
+        <<-RUBY
+            hosts 'host1'
+            roles 'role1'
+            tags foo: '123', bar: '456'
+        RUBY
+      end
+
+      it { is_expected.to be_a Ansible::Ruby::Models::Play }
+      it { is_expected.to_not have_attributes tasks: be_truthy }
+      it do
+        is_expected.to have_attributes roles: 'role1',
+                                       hosts: 'host1',
+                                       tags: {foo: '123', bar: '456'}
+      end
+    end
+
     context '1 line with tags' do
       let(:ruby) do
         <<-RUBY

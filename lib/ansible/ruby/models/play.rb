@@ -24,6 +24,8 @@ module Ansible
         attribute :tasks
         validates :tasks, type: Tasks
         attribute :roles
+        attribute :tags
+        validates :tags, type: Hash
         attribute :connection
         validates :connection,
                   allow_nil: true,
