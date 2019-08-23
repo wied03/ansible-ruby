@@ -4,7 +4,7 @@
   name: image copy
   connection: local
   tags:
-    foo: 123
+  - foo_123
   tasks:
   - name: image copy
     ec2_ami_copy:

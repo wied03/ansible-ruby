@@ -30,8 +30,8 @@ module Ansible
           @play_args[:roles] = value
         end
 
-        def tags(value)
-          @play_args[:tags] = value
+        def tags(*value)
+          @play_args[:tags] = [*value]
         end
 
         def role(name,

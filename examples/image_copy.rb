@@ -16,7 +16,7 @@ play 'image copy' do
     end
   end
 
-  tags foo: 123
+  tags :foo_123
 
   task 'foobar' do
     debug { msg 'say hello' }
