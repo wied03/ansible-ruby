@@ -3,5 +3,5 @@
 play 'command fun' do
   local_host
 
-  roles 'dummy'
+  role 'dummy', when: 'true'
 end

@@ -3,5 +3,6 @@
 - hosts: localhost
   name: command fun
   roles:
-  - dummy
+  - role: dummy
+    when: 'true'
   connection: local
