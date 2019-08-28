@@ -336,7 +336,7 @@ describe Ansible::Ruby::DslBuilders::Play do
     it do
       is_expected.to have_attributes roles: 'role1',
                                      hosts: 'host1',
-                                     tags: [:foo_123, :bar]
+                                     tags: %i[foo_123 bar]
     end
   end
 
@@ -369,7 +369,7 @@ describe Ansible::Ruby::DslBuilders::Play do
       it { is_expected.to be_a Ansible::Ruby::Models::Play }
       it { is_expected.to_not have_attributes tasks: be_truthy }
       it do
-        is_expected.to have_attributes roles: [{ role: 'role1'}, { role: 'role2'}],
+        is_expected.to have_attributes roles: [{ role: 'role1' }, { role: 'role2' }],
                                        hosts: 'host1'
       end
     end
