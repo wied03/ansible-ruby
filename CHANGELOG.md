@@ -1,3 +1,7 @@
+# 1.0.20
+* Add `tags` capability to playbooks
+* Add `when` support to roles
+
 # 1.0.19
 * Fix issue with `mode` and `copy` module
 

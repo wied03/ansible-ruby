@@ -304,6 +304,42 @@ describe Ansible::Ruby::DslBuilders::Play do
     end
   end
 
+  context 'tag for entire playbook' do
+    let(:ruby) do
+      <<-RUBY
+          hosts 'host1'
+          roles 'role1'
+          tags :foo_123
+      RUBY
+    end
+
+    it { is_expected.to be_a Ansible::Ruby::Models::Play }
+    it { is_expected.to_not have_attributes tasks: be_truthy }
+    it do
+      is_expected.to have_attributes roles: 'role1',
+                                     hosts: 'host1',
+                                     tags: [:foo_123]
+    end
+  end
+
+  context 'tags for entire playbook' do
+    let(:ruby) do
+      <<-RUBY
+          hosts 'host1'
+          roles 'role1'
+          tags :foo_123, :bar
+      RUBY
+    end
+
+    it { is_expected.to be_a Ansible::Ruby::Models::Play }
+    it { is_expected.to_not have_attributes tasks: be_truthy }
+    it do
+      is_expected.to have_attributes roles: 'role1',
+                                     hosts: 'host1',
+                                     tags: %i[foo_123 bar]
+    end
+  end
+
   context 'roles' do
     context '1 line' do
       let(:ruby) do
@@ -333,12 +369,12 @@ describe Ansible::Ruby::DslBuilders::Play do
       it { is_expected.to be_a Ansible::Ruby::Models::Play }
       it { is_expected.to_not have_attributes tasks: be_truthy }
       it do
-        is_expected.to have_attributes roles: %w[role1 role2],
+        is_expected.to have_attributes roles: [{ role: 'role1' }, { role: 'role2' }],
                                        hosts: 'host1'
       end
     end
 
-    context '1 line with tags' do
+    context '1 line with role tags' do
       let(:ruby) do
         <<-RUBY
         hosts 'host1'
@@ -355,12 +391,12 @@ describe Ansible::Ruby::DslBuilders::Play do
       end
     end
 
-    context '2 lines with tags' do
+    context '2 lines with role tags' do
       let(:ruby) do
         <<-RUBY
           hosts 'host1'
-          role 'role1', tag='clone'
-          role 'role2', tag='clone2'
+          role 'role1', tag: 'clone'
+          role 'role2', tag: 'clone2'
         RUBY
       end
 
@@ -373,11 +409,11 @@ describe Ansible::Ruby::DslBuilders::Play do
       end
     end
 
-    context 'Multiple tags' do
+    context 'Multiple role tags' do
       let(:ruby) do
         <<-RUBY
         hosts 'host1'
-        role 'role1', tag=['clone', 'foo']
+        role 'role1', tags: ['clone', 'foo']
         RUBY
       end
 
@@ -385,6 +421,22 @@ describe Ansible::Ruby::DslBuilders::Play do
       it { is_expected.to_not have_attributes tasks: be_truthy }
       it do
         is_expected.to have_attributes roles: [{ role: 'role1', tags: %w[clone foo] }],
+                                       hosts: 'host1'
+      end
+    end
+
+    context 'role when expression' do
+      let(:ruby) do
+        <<-RUBY
+        hosts 'host1'
+        role 'role1', when: 'some_expression'
+        RUBY
+      end
+
+      it { is_expected.to be_a Ansible::Ruby::Models::Play }
+      it { is_expected.to_not have_attributes tasks: be_truthy }
+      it do
+        is_expected.to have_attributes roles: [{ role: 'role1', when: 'some_expression' }],
                                        hosts: 'host1'
       end
     end
@@ -400,7 +452,7 @@ describe Ansible::Ruby::DslBuilders::Play do
 
   context 'other attributes' do
     # We don't build name or tasks the same way as others
-    (Ansible::Ruby::Models::Play.instance_methods - Object.instance_methods - %i[name= tasks= inclusions= attributes=])
+    (Ansible::Ruby::Models::Play.instance_methods - Object.instance_methods - %i[name= tasks= inclusions= attributes= tags=])
       .select { |method| method.to_s.end_with?('=') }
       .map { |method| method.to_s[0..-2] }
       .each do |method|

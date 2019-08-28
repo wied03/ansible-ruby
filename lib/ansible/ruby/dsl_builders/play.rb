@@ -30,12 +30,19 @@ module Ansible
           @play_args[:roles] = value
         end
 
+        def tags(*value)
+          @play_args[:tags] = [*value]
+        end
+
         def role(name,
-                 tag = nil)
+                 optional_stuff = {})
           roles = @play_args[:roles] ||= []
-          roles << name unless tag
-          # TODO: Roles should probably be a 'first class' model used within the play model
-          roles << { role: name, tags: [*tag] } if tag
+          tag = optional_stuff[:tag] || optional_stuff[:tags]
+          our_role_result = { role: name }
+          our_role_result[:tags] = [*tag] if tag
+          ansible_when = optional_stuff[:when]
+          our_role_result[:when] = ansible_when if ansible_when
+          roles << our_role_result
         end
 
         def connection(value)

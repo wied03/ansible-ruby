@@ -3,6 +3,8 @@
 - hosts: localhost
   name: image copy
   connection: local
+  tags:
+  - foo_123
   tasks:
   - name: image copy
     ec2_ami_copy:
