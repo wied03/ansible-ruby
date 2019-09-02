@@ -17,6 +17,10 @@ module Ansible
           "{{ #{@expression} }}"
         end
 
+        def to_str
+          to_s
+        end
+
         def ===(other_node)
           other_node.is_a?(JinjaExpression) && expression == other_node.expression
         end

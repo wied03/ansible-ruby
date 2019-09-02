@@ -16,7 +16,7 @@ play 'block fun' do
     end
 
     task 'and goodbye' do
-      result = command 'uname -a'
+      result = command 'uname -a ' + jinja('foo')
 
       failed_when "'Darwin' not in #{result.stdout}"
     end

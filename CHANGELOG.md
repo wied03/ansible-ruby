@@ -1,3 +1,6 @@
+# 1.0.22
+* Fix issue with jinja expressions/explicit string conversions
+
 # 1.0.21
 * Don't enforce validation with jinja expressions
 
