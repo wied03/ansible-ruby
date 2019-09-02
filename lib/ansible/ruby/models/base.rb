@@ -27,12 +27,12 @@ module Ansible
               filter = callback.filter
               filter.respond_to?(:attributes) && filter.attributes == [attr]
             end
-            for_this_att.each {|callback| callbacks.delete callback}
+            for_this_att.each { |callback| callbacks.delete callback }
           end
 
           def attr_options
             @attr_options ||= begin
-                                # need parent attribute info
+              # need parent attribute info
               hash = Base > self ? superclass.attr_options : {}
               hash.clone
             end
@@ -86,7 +86,7 @@ module Ansible
         def hashify(value)
           case value
           when Array
-            value.map {|val| val.respond_to?(:to_h) ? val.to_h : val}
+            value.map { |val| val.respond_to?(:to_h) ? val.to_h : val }
           when Base
             value.to_h
           when Ansible::Ruby::Models::JinjaExpression
@@ -98,7 +98,7 @@ module Ansible
 
         def convert_generic(generic_types, value)
           # hash friendly of [*value]
-          if generic_types.any? {|type| value.is_a? type}
+          if generic_types.any? { |type| value.is_a? type }
             [value]
           else
             value
