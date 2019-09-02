@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:present, :latest, :absent, nil] State of the package.,Note: "latest" added in 2.7
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :latest, :absent], :message=>"%{value} needs to be :present, :latest, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :latest, :absent], :message=>"%{value} needs to be :present, :latest, :absent"}, allow_nil: true
 
         # @return [Symbol, nil] Use local package base instead of fetching an updated one.
         attribute :cached

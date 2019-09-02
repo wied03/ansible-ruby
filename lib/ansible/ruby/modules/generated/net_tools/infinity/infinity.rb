@@ -22,7 +22,7 @@ module Ansible
 
         # @return [:reserve_next_available_ip, :release_ip, :delete_network, :add_network, :reserve_network, :release_network, :get_network_id] Action to perform
         attribute :action
-        validates :action, presence: true, inclusion: {:in=>[:reserve_next_available_ip, :release_ip, :delete_network, :add_network, :reserve_network, :release_network, :get_network_id], :message=>"%{value} needs to be :reserve_next_available_ip, :release_ip, :delete_network, :add_network, :reserve_network, :release_network, :get_network_id"}
+        validates :action, presence: true, expression_inclusion: {:in=>[:reserve_next_available_ip, :release_ip, :delete_network, :add_network, :reserve_network, :release_network, :get_network_id], :message=>"%{value} needs to be :reserve_next_available_ip, :release_ip, :delete_network, :add_network, :reserve_network, :release_network, :get_network_id"}
 
         # @return [String, nil] Network ID
         attribute :network_id
@@ -50,11 +50,11 @@ module Ansible
 
         # @return [:lan, :shared_lan, :supernet, nil] Network type defined by Infinity
         attribute :network_type
-        validates :network_type, inclusion: {:in=>[:lan, :shared_lan, :supernet], :message=>"%{value} needs to be :lan, :shared_lan, :supernet"}, allow_nil: true
+        validates :network_type, expression_inclusion: {:in=>[:lan, :shared_lan, :supernet], :message=>"%{value} needs to be :lan, :shared_lan, :supernet"}, allow_nil: true
 
         # @return [4, 6, :dual, nil] Network family defined by Infinity, e.g. IPv4, IPv6 and Dual stack
         attribute :network_family
-        validates :network_family, inclusion: {:in=>[4, 6, :dual], :message=>"%{value} needs to be 4, 6, :dual"}, allow_nil: true
+        validates :network_family, expression_inclusion: {:in=>[4, 6, :dual], :message=>"%{value} needs to be 4, 6, :dual"}, allow_nil: true
       end
     end
   end

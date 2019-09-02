@@ -20,7 +20,7 @@ module Ansible
 
         # @return [:present, :absent, :update] State the action to perform. Use 'present' to add bgp, 'absent' to remove bgp and 'update' to modify bgp.
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:present, :absent, :update], :message=>"%{value} needs to be :present, :absent, :update"}
+        validates :state, presence: true, expression_inclusion: {:in=>[:present, :absent, :update], :message=>"%{value} needs to be :present, :absent, :update"}
 
         # @return [String] Specify a name for the vRouter service.
         attribute :pn_vrouter_name
@@ -69,7 +69,7 @@ module Ansible
 
         # @return [:"ipv4-unicast", :"ipv6-unicast", nil] Specify a multi-protocol for BGP.
         attribute :pn_multiprotocol
-        validates :pn_multiprotocol, inclusion: {:in=>[:"ipv4-unicast", :"ipv6-unicast"], :message=>"%{value} needs to be :\"ipv4-unicast\", :\"ipv6-unicast\""}, allow_nil: true
+        validates :pn_multiprotocol, expression_inclusion: {:in=>[:"ipv4-unicast", :"ipv6-unicast"], :message=>"%{value} needs to be :\"ipv4-unicast\", :\"ipv6-unicast\""}, allow_nil: true
 
         # @return [Object, nil] Specify a default weight value between 0 and 65535 for the neighbor routes.
         attribute :pn_weight

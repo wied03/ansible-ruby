@@ -14,15 +14,15 @@ module Ansible
 
         # @return [:present, :absent] Whether this VDO volume should be "present" or "absent". If a "present" VDO volume does not exist, it will be created.  If a "present" VDO volume already exists, it will be modified, by updating the configuration, which will take effect when the VDO volume is restarted. Not all parameters of an existing VDO volume can be modified; the "statusparamkeys" list contains the parameters that can be modified after creation. If an "absent" VDO volume does not exist, it will not be removed.
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
+        validates :state, presence: true, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
 
         # @return [:yes, :no, nil] The "activate" status for a VDO volume.  If this is set to "no", the VDO volume cannot be started, and it will not start on system startup.  However, on initial creation, a VDO volume with "activated" set to "off" will be running, until stopped.  This is the default behavior of the "vdo create" command; it provides the user an opportunity to write a base amount of metadata (filesystem, LVM headers, etc.) to the VDO volume prior to stopping the volume, and leaving it deactivated until ready to use.
         attribute :activated
-        validates :activated, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :activated, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:yes, :no, nil] Whether this VDO volume is running.  A VDO volume must be activated in order to be started.
         attribute :running
-        validates :running, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :running, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] The full path of the device to use for VDO storage. This is required if "state" is "present".
         attribute :device
@@ -34,18 +34,18 @@ module Ansible
 
         # @return [:enabled, :disabled, nil] Configures whether deduplication is enabled.  The default for a created volume is 'enabled'.  Existing volumes will maintain their previously configured setting unless a different value is specified in the playbook.
         attribute :deduplication
-        validates :deduplication, inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
+        validates :deduplication, expression_inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
 
         # @return [:enabled, :disabled, nil] Configures whether compression is enabled.  The default for a created volume is 'enabled'.  Existing volumes will maintain their previously configured setting unless a different value is specified in the playbook.
         attribute :compression
-        validates :compression, inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
+        validates :compression, expression_inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
 
         # @return [Object, nil] The amount of memory allocated for caching block map pages, in megabytes (or may be issued with an LVM-style suffix of K, M, G, or T).  The default (and minimum) value is 128M.  The value specifies the size of the cache; there is a 15% memory usage overhead. Each 1.25G of block map covers 1T of logical blocks, therefore a small amount of block map cache memory can cache a significantly large amount of block map data.  Existing volumes will maintain their previously configured setting unless a different value is specified in the playbook.
         attribute :blockmapcachesize
 
         # @return [:enabled, :disabled, nil] Enables or disables the read cache.  The default is 'disabled'.  Choosing 'enabled' enables a read cache which may improve performance for workloads of high deduplication, read workloads with a high level of compression, or on hard disk storage.  Existing volumes will maintain their previously configured setting unless a different value is specified in the playbook.
         attribute :readcache
-        validates :readcache, inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
+        validates :readcache, expression_inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
 
         # @return [Object, nil] Specifies the extra VDO device read cache size in megabytes.  This is in addition to a system-defined minimum.  Using a value with a suffix of K, M, G, or T is optional.  The default value is 0.  1.125 MB of memory per bio thread will be used per 1 MB of read cache specified (for example, a VDO volume configured with 4 bio threads will have a read cache memory usage overhead of 4.5 MB per 1 MB of read cache specified). Existing volumes will maintain their previously configured setting unless a different value is specified in the playbook.
         attribute :readcachesize
@@ -63,7 +63,7 @@ module Ansible
 
         # @return [:auto, :sync, :async, nil] Specifies the write policy of the VDO volume.  The 'sync' mode acknowledges writes only after data is on stable storage.  The 'async' mode acknowledges writes when data has been cached for writing to stable storage.  The default (and highly recommended) 'auto' mode checks the storage device to determine whether it supports flushes.  Devices that support flushes will result in a VDO volume in 'async' mode, while devices that do not support flushes will run in sync mode. Existing volumes will maintain their previously configured setting unless a different value is specified in the playbook.
         attribute :writepolicy
-        validates :writepolicy, inclusion: {:in=>[:auto, :sync, :async], :message=>"%{value} needs to be :auto, :sync, :async"}, allow_nil: true
+        validates :writepolicy, expression_inclusion: {:in=>[:auto, :sync, :async], :message=>"%{value} needs to be :auto, :sync, :async"}, allow_nil: true
 
         # @return [Object, nil] Specifies the amount of index memory in gigabytes.  The default is 0.25.  The special decimal values 0.25, 0.5, and 0.75 can be used, as can any positive integer. This option is only available when creating a new volume, and cannot be changed for an existing volume.
         attribute :indexmem

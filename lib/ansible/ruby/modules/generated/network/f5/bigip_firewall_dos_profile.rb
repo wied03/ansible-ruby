@@ -21,7 +21,7 @@ module Ansible
 
         # @return [:low, :medium, :high, nil] Specifies the threshold sensitivity for the DoS profile.,Thresholds for detecting attacks are higher when sensitivity is C(low), and lower when sensitivity is C(high).,When creating a new profile, if this parameter is not specified, the default is C(medium).
         attribute :threshold_sensitivity
-        validates :threshold_sensitivity, inclusion: {:in=>[:low, :medium, :high], :message=>"%{value} needs to be :low, :medium, :high"}, allow_nil: true
+        validates :threshold_sensitivity, expression_inclusion: {:in=>[:low, :medium, :high], :message=>"%{value} needs to be :low, :medium, :high"}, allow_nil: true
 
         # @return [String, nil] Device partition to manage resources on.
         attribute :partition
@@ -29,7 +29,7 @@ module Ansible
 
         # @return [:present, :absent, nil] When C(present), ensures that the resource exists.,When C(absent), ensures the resource is removed.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

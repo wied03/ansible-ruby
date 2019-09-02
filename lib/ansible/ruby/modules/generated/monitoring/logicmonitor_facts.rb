@@ -11,7 +11,7 @@ module Ansible
       class Logicmonitor_facts < Base
         # @return [:host, :hostgroup] The LogicMonitor object you wish to manage.
         attribute :target
-        validates :target, presence: true, inclusion: {:in=>[:host, :hostgroup], :message=>"%{value} needs to be :host, :hostgroup"}
+        validates :target, presence: true, expression_inclusion: {:in=>[:host, :hostgroup], :message=>"%{value} needs to be :host, :hostgroup"}
 
         # @return [String] The LogicMonitor account company name. If you would log in to your account at "superheroes.logicmonitor.com" you would use "superheroes".
         attribute :company

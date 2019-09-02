@@ -20,7 +20,7 @@ module Ansible
 
         # @return [:present, :absent] Specify action to perform. Use 'present' to create cluster and 'absent' to delete cluster.
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
+        validates :state, presence: true, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
 
         # @return [String] Specify the name of the cluster.
         attribute :pn_name
@@ -36,7 +36,7 @@ module Ansible
 
         # @return [:validate, :"no-validate", nil] Validate the inter-switch links and state of switches in the cluster.
         attribute :pn_validate
-        validates :pn_validate, inclusion: {:in=>[:validate, :"no-validate"], :message=>"%{value} needs to be :validate, :\"no-validate\""}, allow_nil: true
+        validates :pn_validate, expression_inclusion: {:in=>[:validate, :"no-validate"], :message=>"%{value} needs to be :validate, :\"no-validate\""}, allow_nil: true
       end
     end
   end

@@ -22,7 +22,7 @@ module Ansible
 
         # @return [:any, :all, nil] The I(match) argument is used in conjunction with the I(wait_for) argument to specify the match policy.  Valid values are C(all) or C(any).  If the value is set to C(all) then all conditionals in the I(wait_for) must be satisfied.  If the value is set to C(any) then only one of the values must be satisfied.
         attribute :match
-        validates :match, inclusion: {:in=>[:any, :all], :message=>"%{value} needs to be :any, :all"}, allow_nil: true
+        validates :match, expression_inclusion: {:in=>[:any, :all], :message=>"%{value} needs to be :any, :all"}, allow_nil: true
 
         # @return [Integer, nil] Specifies the number of retries a command should be tried before it is considered failed.  The command is run on the target device every retry and evaluated against the I(wait_for) conditionals.
         attribute :retries
@@ -34,7 +34,7 @@ module Ansible
 
         # @return [:text, :json, :xml, :set, nil] Encoding scheme to use when serializing output from the device. This handles how to properly understand the output and apply the conditionals path to the result set. For I(rpcs) argument default display is C(xml) and for I(commands) argument default display is C(text). Value C(set) is applicable only for fetching configuration from device.
         attribute :display
-        validates :display, inclusion: {:in=>[:text, :json, :xml, :set], :message=>"%{value} needs to be :text, :json, :xml, :set"}, allow_nil: true
+        validates :display, expression_inclusion: {:in=>[:text, :json, :xml, :set], :message=>"%{value} needs to be :text, :json, :xml, :set"}, allow_nil: true
       end
     end
   end

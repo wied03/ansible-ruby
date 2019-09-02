@@ -10,7 +10,7 @@ module Ansible
       class Redshift_subnet_group < Base
         # @return [:present, :absent, nil] Specifies whether the subnet should be present or absent.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [Object] Cluster subnet group name.
         attribute :group_name

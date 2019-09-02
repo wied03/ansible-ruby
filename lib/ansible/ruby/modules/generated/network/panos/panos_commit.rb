@@ -18,7 +18,7 @@ module Ansible
 
         # @return [:yes, :no, nil] if commit should be synchronous
         attribute :sync
-        validates :sync, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :sync, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

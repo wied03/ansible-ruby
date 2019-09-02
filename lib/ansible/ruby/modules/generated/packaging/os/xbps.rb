@@ -14,19 +14,19 @@ module Ansible
 
         # @return [:present, :absent, :latest, nil] Desired state of the package.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent, :latest], :message=>"%{value} needs to be :present, :absent, :latest"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent, :latest], :message=>"%{value} needs to be :present, :absent, :latest"}, allow_nil: true
 
         # @return [:yes, :no, nil] When removing a package, also remove its dependencies, provided that they are not required by other packages and were not explicitly installed by a user.
         attribute :recurse
-        validates :recurse, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :recurse, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:yes, :no, nil] Whether or not to refresh the master package lists. This can be run as part of a package installation or as a separate step.
         attribute :update_cache
-        validates :update_cache, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :update_cache, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:yes, :no, nil] Whether or not to upgrade whole system
         attribute :upgrade
-        validates :upgrade, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :upgrade, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

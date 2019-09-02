@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:present, :absent, :clean, nil] Element SW Storage Drive operation state.,present - To add drive of node to participate in cluster data storage.,absent  - To remove the drive from being part of active cluster.,clean   - Clean-up any residual data persistent on a *removed* drive in a secured method.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent, :clean], :message=>"%{value} needs to be :present, :absent, :clean"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent, :clean], :message=>"%{value} needs to be :present, :absent, :clean"}, allow_nil: true
 
         # @return [String] ID or Name of cluster node.
         attribute :node_id

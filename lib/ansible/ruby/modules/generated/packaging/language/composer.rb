@@ -38,7 +38,7 @@ module Ansible
 
         # @return [Boolean, nil] Disables installation of require-dev packages (see --no-dev).
         attribute :no_dev
-        validates :no_dev, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :no_dev, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Symbol, nil] Skips the execution of all scripts defined in composer.json (see --no-scripts).
         attribute :no_scripts
@@ -50,7 +50,7 @@ module Ansible
 
         # @return [Boolean, nil] Optimize autoloader during autoloader dump (see --optimize-autoloader).,Convert PSR-0/4 autoloading to classmap to get a faster autoloader.,Recommended especially for production, but can take a bit of time to run.
         attribute :optimize_autoloader
-        validates :optimize_autoloader, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :optimize_autoloader, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Symbol, nil] Autoload classes from classmap only.,Implicitely enable optimize_autoloader.,Recommended especially for production, but can take a bit of time to run.
         attribute :classmap_authoritative

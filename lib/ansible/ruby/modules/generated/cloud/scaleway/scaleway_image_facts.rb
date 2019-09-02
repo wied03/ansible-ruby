@@ -10,7 +10,7 @@ module Ansible
       class Scaleway_image_facts < Base
         # @return [:ams1, :"EMEA-NL-EVS", :par1, :"EMEA-FR-PAR1"] Scaleway compute zone
         attribute :region
-        validates :region, presence: true, inclusion: {:in=>[:ams1, :"EMEA-NL-EVS", :par1, :"EMEA-FR-PAR1"], :message=>"%{value} needs to be :ams1, :\"EMEA-NL-EVS\", :par1, :\"EMEA-FR-PAR1\""}
+        validates :region, presence: true, expression_inclusion: {:in=>[:ams1, :"EMEA-NL-EVS", :par1, :"EMEA-FR-PAR1"], :message=>"%{value} needs to be :ams1, :\"EMEA-NL-EVS\", :par1, :\"EMEA-FR-PAR1\""}
       end
     end
   end

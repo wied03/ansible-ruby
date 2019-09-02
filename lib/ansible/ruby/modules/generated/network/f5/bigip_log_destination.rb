@@ -17,7 +17,7 @@ module Ansible
 
         # @return [:"remote-high-speed-log", :"remote-syslog"] Specifies the type of log destination.,Once created, this parameter cannot be changed.
         attribute :type
-        validates :type, presence: true, inclusion: {:in=>[:"remote-high-speed-log", :"remote-syslog"], :message=>"%{value} needs to be :\"remote-high-speed-log\", :\"remote-syslog\""}
+        validates :type, presence: true, expression_inclusion: {:in=>[:"remote-high-speed-log", :"remote-syslog"], :message=>"%{value} needs to be :\"remote-high-speed-log\", :\"remote-syslog\""}
 
         # @return [Hash, nil] This parameter is only available when C(type) is C(remote-high-speed-log).
         attribute :pool_settings
@@ -33,7 +33,7 @@ module Ansible
 
         # @return [:present, :absent, nil] When C(present), ensures that the resource exists.,When C(absent), ensures the resource is removed.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

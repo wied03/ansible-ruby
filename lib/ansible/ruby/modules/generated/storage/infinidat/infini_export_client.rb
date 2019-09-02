@@ -14,11 +14,11 @@ module Ansible
 
         # @return [:present, :absent, nil] Creates/Modifies client when present and removes when absent.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [:RW, :RO, nil] Read Write or Read Only Access.
         attribute :access_mode
-        validates :access_mode, inclusion: {:in=>[:RW, :RO], :message=>"%{value} needs to be :RW, :RO"}, allow_nil: true
+        validates :access_mode, expression_inclusion: {:in=>[:RW, :RO], :message=>"%{value} needs to be :RW, :RO"}, allow_nil: true
 
         # @return [Symbol, nil] Don't squash root user to anonymous. Will be set to "no" on creation if not specified explicitly.
         attribute :no_root_squash

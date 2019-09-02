@@ -15,7 +15,7 @@ module Ansible
 
         # @return [:status, :cleanup, nil] if C(status), obtain the status; if C(cleanup), clean up the async job cache (by default in C(~/.ansible_async/)) for the specified job I(jid).
         attribute :mode
-        validates :mode, inclusion: {:in=>[:status, :cleanup], :message=>"%{value} needs to be :status, :cleanup"}, allow_nil: true
+        validates :mode, expression_inclusion: {:in=>[:status, :cleanup], :message=>"%{value} needs to be :status, :cleanup"}, allow_nil: true
       end
     end
   end

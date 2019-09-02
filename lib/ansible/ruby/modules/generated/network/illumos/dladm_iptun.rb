@@ -14,11 +14,11 @@ module Ansible
 
         # @return [Boolean, nil] Specifies that the IP tunnel interface is temporary. Temporary IP tunnel interfaces do not persist across reboots.
         attribute :temporary
-        validates :temporary, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :temporary, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [:ipv4, :ipv6, :"6to4", nil] Specifies the type of tunnel to be created.
         attribute :type
-        validates :type, inclusion: {:in=>[:ipv4, :ipv6, :"6to4"], :message=>"%{value} needs to be :ipv4, :ipv6, :\"6to4\""}, allow_nil: true
+        validates :type, expression_inclusion: {:in=>[:ipv4, :ipv6, :"6to4"], :message=>"%{value} needs to be :ipv4, :ipv6, :\"6to4\""}, allow_nil: true
 
         # @return [String, nil] Literat IP address or hostname corresponding to the tunnel source.
         attribute :local_address
@@ -30,7 +30,7 @@ module Ansible
 
         # @return [:present, :absent, nil] Create or delete Solaris/illumos VNIC.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

@@ -14,15 +14,15 @@ module Ansible
 
         # @return [:MANAGED, :UNMANAGED] The type of the compute environment.
         attribute :type
-        validates :type, presence: true, inclusion: {:in=>[:MANAGED, :UNMANAGED], :message=>"%{value} needs to be :MANAGED, :UNMANAGED"}
+        validates :type, presence: true, expression_inclusion: {:in=>[:MANAGED, :UNMANAGED], :message=>"%{value} needs to be :MANAGED, :UNMANAGED"}
 
         # @return [:present, :absent] Describes the desired state.
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
+        validates :state, presence: true, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
 
         # @return [:ENABLED, :DISABLED, nil] The state of the compute environment. If the state is ENABLED, then the compute environment accepts jobs from a queue and can scale out automatically based on queues.
         attribute :compute_environment_state
-        validates :compute_environment_state, inclusion: {:in=>[:ENABLED, :DISABLED], :message=>"%{value} needs to be :ENABLED, :DISABLED"}, allow_nil: true
+        validates :compute_environment_state, expression_inclusion: {:in=>[:ENABLED, :DISABLED], :message=>"%{value} needs to be :ENABLED, :DISABLED"}, allow_nil: true
 
         # @return [Object] The full Amazon Resource Name (ARN) of the IAM role that allows AWS Batch to make calls to other AWS services on your behalf.
         attribute :service_role
@@ -30,7 +30,7 @@ module Ansible
 
         # @return [:EC2, :SPOT] The type of compute resource.
         attribute :compute_resource_type
-        validates :compute_resource_type, presence: true, inclusion: {:in=>[:EC2, :SPOT], :message=>"%{value} needs to be :EC2, :SPOT"}
+        validates :compute_resource_type, presence: true, expression_inclusion: {:in=>[:EC2, :SPOT], :message=>"%{value} needs to be :EC2, :SPOT"}
 
         # @return [Object] The minimum number of EC2 vCPUs that an environment should maintain.
         attribute :minv_cpus

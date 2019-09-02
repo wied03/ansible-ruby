@@ -22,7 +22,7 @@ module Ansible
 
         # @return [:started, :finished, :failed] State of the deployment.
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:started, :finished, :failed], :message=>"%{value} needs to be :started, :finished, :failed"}
+        validates :state, presence: true, expression_inclusion: {:in=>[:started, :finished, :failed], :message=>"%{value} needs to be :started, :finished, :failed"}
 
         # @return [String, nil] Name of affected host name. Can be a list.
         attribute :hosts
@@ -43,7 +43,7 @@ module Ansible
 
         # @return [:yes, :no, nil] If C(no), SSL certificates for the target url will not be validated. This should only be used on personally controlled sites using self-signed certificates.
         attribute :validate_certs
-        validates :validate_certs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :validate_certs, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

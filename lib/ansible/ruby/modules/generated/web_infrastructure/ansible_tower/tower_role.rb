@@ -17,7 +17,7 @@ module Ansible
 
         # @return [:admin, :read, :member, :execute, :adhoc, :update, :use, :auditor] The role type to grant/revoke.
         attribute :role
-        validates :role, presence: true, inclusion: {:in=>[:admin, :read, :member, :execute, :adhoc, :update, :use, :auditor], :message=>"%{value} needs to be :admin, :read, :member, :execute, :adhoc, :update, :use, :auditor"}
+        validates :role, presence: true, expression_inclusion: {:in=>[:admin, :read, :member, :execute, :adhoc, :update, :use, :auditor], :message=>"%{value} needs to be :admin, :read, :member, :execute, :adhoc, :update, :use, :auditor"}
 
         # @return [String, nil] Team that the role acts on.
         attribute :target_team
@@ -40,7 +40,7 @@ module Ansible
 
         # @return [:present, :absent, nil] Desired state of the resource.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

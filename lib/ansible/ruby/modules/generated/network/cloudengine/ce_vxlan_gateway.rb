@@ -22,7 +22,7 @@ module Ansible
 
         # @return [:enable, :disable, nil] Creates all-active gateways.
         attribute :dfs_all_active
-        validates :dfs_all_active, inclusion: {:in=>[:enable, :disable], :message=>"%{value} needs to be :enable, :disable"}, allow_nil: true
+        validates :dfs_all_active, expression_inclusion: {:in=>[:enable, :disable], :message=>"%{value} needs to be :enable, :disable"}, allow_nil: true
 
         # @return [Object, nil] Configure the IP address of an all-active gateway peer. The value is in dotted decimal notation.
         attribute :dfs_peer_ip
@@ -47,15 +47,15 @@ module Ansible
 
         # @return [:enable, :disable, nil] Enable the distributed gateway function on VBDIF interface.
         attribute :arp_distribute_gateway
-        validates :arp_distribute_gateway, inclusion: {:in=>[:enable, :disable], :message=>"%{value} needs to be :enable, :disable"}, allow_nil: true
+        validates :arp_distribute_gateway, expression_inclusion: {:in=>[:enable, :disable], :message=>"%{value} needs to be :enable, :disable"}, allow_nil: true
 
         # @return [:enable, :disable, nil] Enable VLINK direct route on VBDIF interface.
         attribute :arp_direct_route
-        validates :arp_direct_route, inclusion: {:in=>[:enable, :disable], :message=>"%{value} needs to be :enable, :disable"}, allow_nil: true
+        validates :arp_direct_route, expression_inclusion: {:in=>[:enable, :disable], :message=>"%{value} needs to be :enable, :disable"}, allow_nil: true
 
         # @return [:present, :absent, nil] Determines whether the config should be present or not on the device.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

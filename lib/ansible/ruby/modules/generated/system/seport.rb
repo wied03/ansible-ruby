@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:tcp, :udp] Protocol for the specified port.
         attribute :proto
-        validates :proto, presence: true, inclusion: {:in=>[:tcp, :udp], :message=>"%{value} needs to be :tcp, :udp"}
+        validates :proto, presence: true, expression_inclusion: {:in=>[:tcp, :udp], :message=>"%{value} needs to be :tcp, :udp"}
 
         # @return [String] SELinux type for the specified port.
         attribute :setype
@@ -22,11 +22,11 @@ module Ansible
 
         # @return [:absent, :present] Desired boolean value.
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}
+        validates :state, presence: true, expression_inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}
 
         # @return [:yes, :no, nil] Reload SELinux policy after commit.
         attribute :reload
-        validates :reload, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :reload, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

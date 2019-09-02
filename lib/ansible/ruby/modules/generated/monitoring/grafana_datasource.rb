@@ -18,7 +18,7 @@ module Ansible
 
         # @return [:graphite, :prometheus, :elasticsearch, :influxdb, :opentsdb, :mysql, :postgres, :"alexanderzobnin-zabbix-datasource"] The type of the datasource.
         attribute :ds_type
-        validates :ds_type, presence: true, inclusion: {:in=>[:graphite, :prometheus, :elasticsearch, :influxdb, :opentsdb, :mysql, :postgres, :"alexanderzobnin-zabbix-datasource"], :message=>"%{value} needs to be :graphite, :prometheus, :elasticsearch, :influxdb, :opentsdb, :mysql, :postgres, :\"alexanderzobnin-zabbix-datasource\""}
+        validates :ds_type, presence: true, expression_inclusion: {:in=>[:graphite, :prometheus, :elasticsearch, :influxdb, :opentsdb, :mysql, :postgres, :"alexanderzobnin-zabbix-datasource"], :message=>"%{value} needs to be :graphite, :prometheus, :elasticsearch, :influxdb, :opentsdb, :mysql, :postgres, :\"alexanderzobnin-zabbix-datasource\""}
 
         # @return [String] The URL of the datasource.
         attribute :url
@@ -26,7 +26,7 @@ module Ansible
 
         # @return [:direct, :proxy, nil] The access mode for this datasource.
         attribute :access
-        validates :access, inclusion: {:in=>[:direct, :proxy], :message=>"%{value} needs to be :direct, :proxy"}, allow_nil: true
+        validates :access, expression_inclusion: {:in=>[:direct, :proxy], :message=>"%{value} needs to be :direct, :proxy"}, allow_nil: true
 
         # @return [String, nil] The Grafana API user.
         attribute :grafana_user
@@ -59,7 +59,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Whether credentials such as cookies or auth headers should be sent with cross-site requests.
         attribute :with_credentials
-        validates :with_credentials, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :with_credentials, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] The client TLS certificate.,If C(tls_client_cert) and C(tls_client_key) are set, this will enable TLS authentication.,Starts with ----- BEGIN CERTIFICATE -----
         attribute :tls_client_cert
@@ -77,7 +77,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Make this datasource the default one.
         attribute :is_default
-        validates :is_default, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :is_default, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] Grafana Organisation ID in which the datasource should be created.,Not used when C(grafana_api_key) is set, because the C(grafana_api_key) only belong to one organisation.
         attribute :org_id
@@ -85,11 +85,11 @@ module Ansible
 
         # @return [:absent, :present, nil] Status of the datasource
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
         # @return [2, 5, 56, nil] Elasticsearch version (for C(ds_type = elasticsearch) only),Version 56 is for elasticsearch 5.6+ where tou can specify the C(max_concurrent_shard_requests) option.
         attribute :es_version
-        validates :es_version, inclusion: {:in=>[2, 5, 56], :message=>"%{value} needs to be 2, 5, 56"}, allow_nil: true
+        validates :es_version, expression_inclusion: {:in=>[2, 5, 56], :message=>"%{value} needs to be 2, 5, 56"}, allow_nil: true
 
         # @return [Integer, nil] Starting with elasticsearch 5.6, you can specify the max concurrent shard per requests.
         attribute :max_concurrent_shard_requests
@@ -105,19 +105,19 @@ module Ansible
 
         # @return [:"", :Hourly, :Daily, :Weekly, :Monthly, :Yearly, nil] For elasticsearch C(ds_type), this is the index pattern used.
         attribute :interval
-        validates :interval, inclusion: {:in=>[:"", :Hourly, :Daily, :Weekly, :Monthly, :Yearly], :message=>"%{value} needs to be :\"\", :Hourly, :Daily, :Weekly, :Monthly, :Yearly"}, allow_nil: true
+        validates :interval, expression_inclusion: {:in=>[:"", :Hourly, :Daily, :Weekly, :Monthly, :Yearly], :message=>"%{value} needs to be :\"\", :Hourly, :Daily, :Weekly, :Monthly, :Yearly"}, allow_nil: true
 
         # @return [1, 2, 3, nil] The opentsdb version.,Use C(1) for <=2.1, C(2) for ==2.2, C(3) for ==2.3.
         attribute :tsdb_version
-        validates :tsdb_version, inclusion: {:in=>[1, 2, 3], :message=>"%{value} needs to be 1, 2, 3"}, allow_nil: true
+        validates :tsdb_version, expression_inclusion: {:in=>[1, 2, 3], :message=>"%{value} needs to be 1, 2, 3"}, allow_nil: true
 
         # @return [:millisecond, :second, nil] The opentsdb time resolution.
         attribute :tsdb_resolution
-        validates :tsdb_resolution, inclusion: {:in=>[:millisecond, :second], :message=>"%{value} needs to be :millisecond, :second"}, allow_nil: true
+        validates :tsdb_resolution, expression_inclusion: {:in=>[:millisecond, :second], :message=>"%{value} needs to be :millisecond, :second"}, allow_nil: true
 
         # @return [:disable, :require, :"verify-ca", :"verify-full", nil] SSL mode for C(postgres) datasoure type.
         attribute :sslmode
-        validates :sslmode, inclusion: {:in=>[:disable, :require, :"verify-ca", :"verify-full"], :message=>"%{value} needs to be :disable, :require, :\"verify-ca\", :\"verify-full\""}, allow_nil: true
+        validates :sslmode, expression_inclusion: {:in=>[:disable, :require, :"verify-ca", :"verify-full"], :message=>"%{value} needs to be :disable, :require, :\"verify-ca\", :\"verify-full\""}, allow_nil: true
 
         # @return [Symbol, nil] Use trends or not for zabbix datasource type
         attribute :trends
@@ -125,7 +125,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Whether to validate the Grafana certificate.
         attribute :validate_certs
-        validates :validate_certs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :validate_certs, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

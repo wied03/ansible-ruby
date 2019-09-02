@@ -11,7 +11,7 @@ module Ansible
       class Ucs_lan_connectivity < Base
         # @return [:present, :absent, nil] If C(present), will verify LAN Connectivity Policies are present and will create if needed.,If C(absent), will verify LAN Connectivity Policies are absent and will delete if needed.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String] The name of the LAN Connectivity Policy.,This name can be between 1 and 16 alphanumeric characters.,You cannot use spaces or any special characters other than - (hyphen), "_" (underscore), : (colon), and . (period).,You cannot change this name after the policy is created.
         attribute :name

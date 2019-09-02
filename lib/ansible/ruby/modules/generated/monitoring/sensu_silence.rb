@@ -29,7 +29,7 @@ module Ansible
 
         # @return [:present, :absent] Specifies to create or clear (delete) a silence entry via the Sensu API
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
+        validates :state, presence: true, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
 
         # @return [Object] Specifies the subscription which the silence entry applies to.,To create a silence entry for a client prepend C(client:) to client name. Example - C(client:server1.example.dev)
         attribute :subscription

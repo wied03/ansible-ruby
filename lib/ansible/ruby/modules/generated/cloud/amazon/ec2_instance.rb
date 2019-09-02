@@ -14,11 +14,11 @@ module Ansible
 
         # @return [:present, :terminated, :running, :started, :stopped, :restarted, :rebooted, :absent, nil] Goal state for the instances
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :terminated, :running, :started, :stopped, :restarted, :rebooted, :absent], :message=>"%{value} needs to be :present, :terminated, :running, :started, :stopped, :restarted, :rebooted, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :terminated, :running, :started, :stopped, :restarted, :rebooted, :absent], :message=>"%{value} needs to be :present, :terminated, :running, :started, :stopped, :restarted, :rebooted, :absent"}, allow_nil: true
 
         # @return [Boolean, nil] Whether or not to wait for the desired state (use wait_timeout to customize this)
         attribute :wait
-        validates :wait, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :wait, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Integer, nil] How long to wait (in seconds) for the instance to finish booting/terminating
         attribute :wait_timeout
@@ -41,7 +41,7 @@ module Ansible
 
         # @return [Boolean, nil] Delete any tags not specified in the task that are on the instance. This means you have to specify all the desired tags on each task affecting an instance.
         attribute :purge_tags
-        validates :purge_tags, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :purge_tags, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Object, nil] An image to use for the instance. The ec2_ami_facts module may be used to retrieve images. One of I(image) or I(image_id) are required when instance is not already present.,Complex object containing I(image.id), I(image.ramdisk), and I(image.kernel).,I(image.id) is the AMI ID.,I(image.ramdisk) overrides the AMI's default ramdisk ID.,I(image.kernel) is a string AKI to override the AMI kernel.
         attribute :image
@@ -84,18 +84,18 @@ module Ansible
 
         # @return [:stop, :terminate, nil] Whether to stop or terminate an instance upon shutdown.
         attribute :instance_initiated_shutdown_behavior
-        validates :instance_initiated_shutdown_behavior, inclusion: {:in=>[:stop, :terminate], :message=>"%{value} needs to be :stop, :terminate"}, allow_nil: true
+        validates :instance_initiated_shutdown_behavior, expression_inclusion: {:in=>[:stop, :terminate], :message=>"%{value} needs to be :stop, :terminate"}, allow_nil: true
 
         # @return [:dedicated, :default, nil] What type of tenancy to allow an instance to use. Default is shared tenancy. Dedicated tenancy will incur additional charges.
         attribute :tenancy
-        validates :tenancy, inclusion: {:in=>[:dedicated, :default], :message=>"%{value} needs to be :dedicated, :default"}, allow_nil: true
+        validates :tenancy, expression_inclusion: {:in=>[:dedicated, :default], :message=>"%{value} needs to be :dedicated, :default"}, allow_nil: true
 
         # @return [Object, nil] Whether to enable termination protection. This module will not terminate an instance with termination protection active, it must be turned off first.
         attribute :termination_protection
 
         # @return [:unlimited, :standard, nil] For T2 series instances, choose whether to allow increased charges to buy CPU credits if the default pool is depleted.,Choose I(unlimited) to enable buying additional CPU credits.
         attribute :cpu_credit_specification
-        validates :cpu_credit_specification, inclusion: {:in=>[:unlimited, :standard], :message=>"%{value} needs to be :unlimited, :standard"}, allow_nil: true
+        validates :cpu_credit_specification, expression_inclusion: {:in=>[:unlimited, :standard], :message=>"%{value} needs to be :unlimited, :standard"}, allow_nil: true
 
         # @return [Object, nil] Reduce the number of vCPU exposed to the instance.,Those parameters can only be set at instance launch. The two suboptions threads_per_core and core_count are mandatory.,See U(https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-optimize-cpu.html) for combinations available.,Requires botocore >= 1.10.16
         attribute :cpu_options

@@ -38,7 +38,7 @@ module Ansible
 
         # @return [Boolean, nil] If set to C(False), the SSL certificates will not be validated.,This should only set to C(False) used on personally controlled sites using self-signed certificates.
         attribute :validate_certs
-        validates :validate_certs, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :validate_certs, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
       end
     end
   end

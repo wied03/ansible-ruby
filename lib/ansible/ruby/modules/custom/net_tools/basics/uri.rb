@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# VALIDATED_CHECKSUM: ufX7Ba5/x3f/CI3oBpj+dVFvc+4g69AAPG2ZX6Yk3KM=
+# VALIDATED_CHECKSUM: FxhniNgW1GXxUXF6XTrMY60VgePavi9dDL58W3CF8Tw=
 
 require 'ansible/ruby/modules/generated/net_tools/basics/uri'
 

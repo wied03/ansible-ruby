@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:address_class, :certificate, :client_ssl_profile, :device, :device_group, :interface, :key, :node, :pool, :provision, :rule, :self_ip, :software, :system_info, :traffic_group, :trunk, :virtual_address, :virtual_server, :vlan] Fact category or list of categories to collect
         attribute :include
-        validates :include, presence: true, inclusion: {:in=>[:address_class, :certificate, :client_ssl_profile, :device, :device_group, :interface, :key, :node, :pool, :provision, :rule, :self_ip, :software, :system_info, :traffic_group, :trunk, :virtual_address, :virtual_server, :vlan], :message=>"%{value} needs to be :address_class, :certificate, :client_ssl_profile, :device, :device_group, :interface, :key, :node, :pool, :provision, :rule, :self_ip, :software, :system_info, :traffic_group, :trunk, :virtual_address, :virtual_server, :vlan"}
+        validates :include, presence: true, expression_inclusion: {:in=>[:address_class, :certificate, :client_ssl_profile, :device, :device_group, :interface, :key, :node, :pool, :provision, :rule, :self_ip, :software, :system_info, :traffic_group, :trunk, :virtual_address, :virtual_server, :vlan], :message=>"%{value} needs to be :address_class, :certificate, :client_ssl_profile, :device, :device_group, :interface, :key, :node, :pool, :provision, :rule, :self_ip, :software, :system_info, :traffic_group, :trunk, :virtual_address, :virtual_server, :vlan"}
 
         # @return [Object, nil] Shell-style glob matching string used to filter fact keys. Not applicable for software, provision, and system_info fact categories.
         attribute :filter

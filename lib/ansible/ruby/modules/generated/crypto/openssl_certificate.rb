@@ -10,7 +10,7 @@ module Ansible
       class Openssl_certificate < Base
         # @return [:present, :absent, nil] Whether the certificate should exist or not, taking action if the state is different from what is stated.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String] Remote absolute path where the generated certificate file should be created or is already located.
         attribute :path
@@ -18,7 +18,7 @@ module Ansible
 
         # @return [:selfsigned, :ownca, :assertonly, :acme] Name of the provider to use to generate/retrieve the OpenSSL certificate. The C(assertonly) provider will not generate files and fail if the certificate file is missing.
         attribute :provider
-        validates :provider, presence: true, inclusion: {:in=>[:selfsigned, :ownca, :assertonly, :acme], :message=>"%{value} needs to be :selfsigned, :ownca, :assertonly, :acme"}
+        validates :provider, presence: true, expression_inclusion: {:in=>[:selfsigned, :ownca, :assertonly, :acme], :message=>"%{value} needs to be :selfsigned, :ownca, :assertonly, :acme"}
 
         # @return [Symbol, nil] Generate the certificate, even if it already exists.
         attribute :force
@@ -84,7 +84,7 @@ module Ansible
 
         # @return [Boolean, nil] Include the intermediate certificate to the generated certificate
         attribute :acme_chain
-        validates :acme_chain, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :acme_chain, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Array<String>, String, nil] list of algorithms that you would accept the certificate to be signed with (e.g. ['sha256WithRSAEncryption', 'sha512WithRSAEncryption']).
         attribute :signature_algorithms

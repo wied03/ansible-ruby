@@ -10,14 +10,14 @@ module Ansible
       class Ce_bgp < Base
         # @return [:present, :absent, nil] Specify desired state of the resource.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [Object, nil] Local AS number. The value is a string of 1 to 11 characters.
         attribute :as_number
 
         # @return [:no_use, :true, :false, nil] Enable GR of the BGP speaker in the specified address family, peer address, or peer group.
         attribute :graceful_restart
-        validates :graceful_restart, inclusion: {:in=>[:no_use, :true, :false], :message=>"%{value} needs to be :no_use, :true, :false"}, allow_nil: true
+        validates :graceful_restart, expression_inclusion: {:in=>[:no_use, :true, :false], :message=>"%{value} needs to be :no_use, :true, :false"}, allow_nil: true
 
         # @return [Object, nil] Period of waiting for the End-Of-RIB flag. The value is an integer ranging from 3 to 3000. The default value is 600.
         attribute :time_wait_for_rib
@@ -27,34 +27,34 @@ module Ansible
 
         # @return [:no_use, :true, :false, nil] Check the first AS in the AS_Path of the update messages from EBGP peers.
         attribute :check_first_as
-        validates :check_first_as, inclusion: {:in=>[:no_use, :true, :false], :message=>"%{value} needs to be :no_use, :true, :false"}, allow_nil: true
+        validates :check_first_as, expression_inclusion: {:in=>[:no_use, :true, :false], :message=>"%{value} needs to be :no_use, :true, :false"}, allow_nil: true
 
         # @return [Object, nil] Confederation ID. The value is a string of 1 to 11 characters.
         attribute :confed_id_number
 
         # @return [:no_use, :true, :false, nil] Configure the device to be compatible with devices in a nonstandard confederation.
         attribute :confed_nonstanded
-        validates :confed_nonstanded, inclusion: {:in=>[:no_use, :true, :false], :message=>"%{value} needs to be :no_use, :true, :false"}, allow_nil: true
+        validates :confed_nonstanded, expression_inclusion: {:in=>[:no_use, :true, :false], :message=>"%{value} needs to be :no_use, :true, :false"}, allow_nil: true
 
         # @return [:no_use, :true, :false, nil] The function to automatically select router IDs for all VPN BGP instances is enabled.
         attribute :bgp_rid_auto_sel
-        validates :bgp_rid_auto_sel, inclusion: {:in=>[:no_use, :true, :false], :message=>"%{value} needs to be :no_use, :true, :false"}, allow_nil: true
+        validates :bgp_rid_auto_sel, expression_inclusion: {:in=>[:no_use, :true, :false], :message=>"%{value} needs to be :no_use, :true, :false"}, allow_nil: true
 
         # @return [:no_use, :true, :false, nil] If the value is true, the system stores all route update messages received from all peers (groups) after BGP connection setup. If the value is false, the system stores only BGP update messages that are received from peers and pass the configured import policy.
         attribute :keep_all_routes
-        validates :keep_all_routes, inclusion: {:in=>[:no_use, :true, :false], :message=>"%{value} needs to be :no_use, :true, :false"}, allow_nil: true
+        validates :keep_all_routes, expression_inclusion: {:in=>[:no_use, :true, :false], :message=>"%{value} needs to be :no_use, :true, :false"}, allow_nil: true
 
         # @return [:no_use, :true, :false, nil] Support BGP RIB memory protection.
         attribute :memory_limit
-        validates :memory_limit, inclusion: {:in=>[:no_use, :true, :false], :message=>"%{value} needs to be :no_use, :true, :false"}, allow_nil: true
+        validates :memory_limit, expression_inclusion: {:in=>[:no_use, :true, :false], :message=>"%{value} needs to be :no_use, :true, :false"}, allow_nil: true
 
         # @return [:no_use, :true, :false, nil] Peer disconnection through GR.
         attribute :gr_peer_reset
-        validates :gr_peer_reset, inclusion: {:in=>[:no_use, :true, :false], :message=>"%{value} needs to be :no_use, :true, :false"}, allow_nil: true
+        validates :gr_peer_reset, expression_inclusion: {:in=>[:no_use, :true, :false], :message=>"%{value} needs to be :no_use, :true, :false"}, allow_nil: true
 
         # @return [:no_use, :true, :false, nil] Interrupt BGP all neighbor.
         attribute :is_shutdown
-        validates :is_shutdown, inclusion: {:in=>[:no_use, :true, :false], :message=>"%{value} needs to be :no_use, :true, :false"}, allow_nil: true
+        validates :is_shutdown, expression_inclusion: {:in=>[:no_use, :true, :false], :message=>"%{value} needs to be :no_use, :true, :false"}, allow_nil: true
 
         # @return [Object, nil] Suppress interval.
         attribute :suppress_interval
@@ -73,7 +73,7 @@ module Ansible
 
         # @return [:no_use, :true, :false, nil] If the value is true, VPN BGP instances are enabled to automatically select router IDs. If the value is false, VPN BGP instances are disabled from automatically selecting router IDs.
         attribute :vrf_rid_auto_sel
-        validates :vrf_rid_auto_sel, inclusion: {:in=>[:no_use, :true, :false], :message=>"%{value} needs to be :no_use, :true, :false"}, allow_nil: true
+        validates :vrf_rid_auto_sel, expression_inclusion: {:in=>[:no_use, :true, :false], :message=>"%{value} needs to be :no_use, :true, :false"}, allow_nil: true
 
         # @return [Object, nil] ID of a router that is in IPv4 address format.
         attribute :router_id
@@ -92,11 +92,11 @@ module Ansible
 
         # @return [:no_use, :true, :false, nil] If the value is true, After the fast EBGP interface awareness function is enabled, EBGP sessions on an interface are deleted immediately when the interface goes Down. If the value is  false, After the fast EBGP interface awareness function is enabled, EBGP sessions on an interface are not deleted immediately when the interface goes Down.
         attribute :ebgp_if_sensitive
-        validates :ebgp_if_sensitive, inclusion: {:in=>[:no_use, :true, :false], :message=>"%{value} needs to be :no_use, :true, :false"}, allow_nil: true
+        validates :ebgp_if_sensitive, expression_inclusion: {:in=>[:no_use, :true, :false], :message=>"%{value} needs to be :no_use, :true, :false"}, allow_nil: true
 
         # @return [:ipv4uni, :ipv6uni, nil] Type of a created address family, which can be IPv4 unicast or IPv6 unicast. The default type is IPv4 unicast.
         attribute :default_af_type
-        validates :default_af_type, inclusion: {:in=>[:ipv4uni, :ipv6uni], :message=>"%{value} needs to be :ipv4uni, :ipv6uni"}, allow_nil: true
+        validates :default_af_type, expression_inclusion: {:in=>[:ipv4uni, :ipv6uni], :message=>"%{value} needs to be :ipv4uni, :ipv6uni"}, allow_nil: true
       end
     end
   end

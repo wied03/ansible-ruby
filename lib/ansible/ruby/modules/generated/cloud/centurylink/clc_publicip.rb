@@ -10,7 +10,7 @@ module Ansible
       class Clc_publicip < Base
         # @return [:TCP, :UDP, :ICMP, nil] The protocol that the public IP will listen for.
         attribute :protocol
-        validates :protocol, inclusion: {:in=>[:TCP, :UDP, :ICMP], :message=>"%{value} needs to be :TCP, :UDP, :ICMP"}, allow_nil: true
+        validates :protocol, expression_inclusion: {:in=>[:TCP, :UDP, :ICMP], :message=>"%{value} needs to be :TCP, :UDP, :ICMP"}, allow_nil: true
 
         # @return [Object, nil] A list of ports to expose. This is required when state is 'present'
         attribute :ports
@@ -21,11 +21,11 @@ module Ansible
 
         # @return [:present, :absent, nil] Determine whether to create or delete public IPs. If present module will not create a second public ip if one already exists.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [:yes, :no, nil] Whether to wait for the tasks to finish before returning.
         attribute :wait
-        validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :wait, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

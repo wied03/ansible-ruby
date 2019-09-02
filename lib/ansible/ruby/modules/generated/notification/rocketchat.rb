@@ -18,7 +18,7 @@ module Ansible
 
         # @return [:http, :https, nil] Specify the protocol used to send notification messages before the webhook url. (i.e. http or https)
         attribute :protocol
-        validates :protocol, inclusion: {:in=>[:http, :https], :message=>"%{value} needs to be :http, :https"}, allow_nil: true
+        validates :protocol, expression_inclusion: {:in=>[:http, :https], :message=>"%{value} needs to be :http, :https"}, allow_nil: true
 
         # @return [String, nil] Message to be sent.
         attribute :msg
@@ -41,15 +41,15 @@ module Ansible
 
         # @return [1, 0, nil] Automatically create links for channels and usernames in I(msg).
         attribute :link_names
-        validates :link_names, inclusion: {:in=>[1, 0], :message=>"%{value} needs to be 1, 0"}, allow_nil: true
+        validates :link_names, expression_inclusion: {:in=>[1, 0], :message=>"%{value} needs to be 1, 0"}, allow_nil: true
 
         # @return [:yes, :no, nil] If C(no), SSL certificates will not be validated. This should only be used on personally controlled sites using self-signed certificates.
         attribute :validate_certs
-        validates :validate_certs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :validate_certs, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:normal, :good, :warning, :danger, nil] Allow text to use default colors - use the default of 'normal' to not send a custom color bar at the start of the message
         attribute :color
-        validates :color, inclusion: {:in=>[:normal, :good, :warning, :danger], :message=>"%{value} needs to be :normal, :good, :warning, :danger"}, allow_nil: true
+        validates :color, expression_inclusion: {:in=>[:normal, :good, :warning, :danger], :message=>"%{value} needs to be :normal, :good, :warning, :danger"}, allow_nil: true
 
         # @return [Array<Hash>, Hash, nil] Define a list of attachments.
         attribute :attachments

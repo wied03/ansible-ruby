@@ -10,7 +10,7 @@ module Ansible
       class Zabbix_maintenance < Base
         # @return [:present, :absent, nil] Create or remove a maintenance window. Maintenance window to remove is identified by name.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [Array<String>, String, nil] Hosts to manage maintenance window for. Separate multiple hosts with commas. C(host_name) is an alias for C(host_names). B(Required) option when C(state) is I(present) and no C(host_groups) specified.
         attribute :host_names
@@ -34,7 +34,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Type of maintenance. With data collection, or without.
         attribute :collect_data
-        validates :collect_data, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :collect_data, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

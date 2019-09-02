@@ -32,7 +32,7 @@ module Ansible
 
         # @return [:started, :stopped, :present, :absent, nil] Intended block state after event handlers creation / update process will be completed.
         attribute :state
-        validates :state, inclusion: {:in=>[:started, :stopped, :present, :absent], :message=>"%{value} needs to be :started, :stopped, :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:started, :stopped, :present, :absent], :message=>"%{value} needs to be :started, :stopped, :present, :absent"}, allow_nil: true
 
         # @return [String] Name of managed block which will be later visible on admin.pubnub.com.
         attribute :name
@@ -50,7 +50,7 @@ module Ansible
 
         # @return [Boolean, nil] This key allow to try skip certificates check when performing REST API calls. Sometimes host may have issues with certificates on it and this will cause problems to call PubNub REST API.,If check should be ignored C(False) should be passed to this parameter.
         attribute :validate_certs
-        validates :validate_certs, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :validate_certs, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
       end
     end
   end

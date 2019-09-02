@@ -23,14 +23,14 @@ module Ansible
 
         # @return [:"JSON Patch", :"Merge Patch", :"Strategic Merge Patch", nil] Specify patch operation for Kubernetes resource update.,For details, see the description of PATCH operations at U(https://github.com/kubernetes/kubernetes/blob/release-1.5/docs/devel/api-conventions.md#patch-operations).
         attribute :patch_operation
-        validates :patch_operation, inclusion: {:in=>[:"JSON Patch", :"Merge Patch", :"Strategic Merge Patch"], :message=>"%{value} needs to be :\"JSON Patch\", :\"Merge Patch\", :\"Strategic Merge Patch\""}, allow_nil: true
+        validates :patch_operation, expression_inclusion: {:in=>[:"JSON Patch", :"Merge Patch", :"Strategic Merge Patch"], :message=>"%{value} needs to be :\"JSON Patch\", :\"Merge Patch\", :\"Strategic Merge Patch\""}, allow_nil: true
 
         # @return [Object, nil] Certificate Authority data for Kubernetes server. Should be in either standard PEM format or base64 encoded PEM data. Note that certificate verification is broken until ansible supports a version of 'match_hostname' that can match the IP address against the CA data.
         attribute :certificate_authority_data
 
         # @return [:absent, :present, :replace, :update] The desired action to take on the Kubernetes data.
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:absent, :present, :replace, :update], :message=>"%{value} needs to be :absent, :present, :replace, :update"}
+        validates :state, presence: true, expression_inclusion: {:in=>[:absent, :present, :replace, :update], :message=>"%{value} needs to be :absent, :present, :replace, :update"}
 
         # @return [String, nil] The HTTP Basic Auth password for the API I(endpoint). This should be set unless using the C('insecure') option.
         attribute :url_password
@@ -42,11 +42,11 @@ module Ansible
 
         # @return [Boolean, nil] Reverts the connection to using HTTP instead of HTTPS. This option should only be used when execuing the M('kubernetes') module local to the Kubernetes cluster using the insecure local port (locahost:8080 by default).
         attribute :insecure
-        validates :insecure, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :insecure, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [:yes, :no, nil] Enable/disable certificate validation. Note that this is set to C(false) until Ansible can support IP address based certificate hostname matching (exists in >= python3.5.0).
         attribute :validate_certs
-        validates :validate_certs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :validate_certs, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

@@ -19,7 +19,7 @@ module Ansible
 
         # @return [:present, :absent] Service state.
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
+        validates :state, presence: true, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
 
         # @return [Object, nil] List comprised of the command and the arguments to be run inside,the container
         attribute :args
@@ -56,7 +56,7 @@ module Ansible
 
         # @return [:vip, :dnsrr, nil] Service endpoint mode.,Maps docker service --endpoint-mode option.
         attribute :endpoint_mode
-        validates :endpoint_mode, inclusion: {:in=>[:vip, :dnsrr], :message=>"%{value} needs to be :vip, :dnsrr"}, allow_nil: true
+        validates :endpoint_mode, expression_inclusion: {:in=>[:vip, :dnsrr], :message=>"%{value} needs to be :vip, :dnsrr"}, allow_nil: true
 
         # @return [Object, nil] List of the service environment variables.,Maps docker service --env option.
         attribute :env
@@ -109,7 +109,7 @@ module Ansible
 
         # @return [:none, :"on-failure", :any, nil] Restart condition of the service.,Maps docker service --restart-condition option.
         attribute :restart_policy
-        validates :restart_policy, inclusion: {:in=>[:none, :"on-failure", :any], :message=>"%{value} needs to be :none, :\"on-failure\", :any"}, allow_nil: true
+        validates :restart_policy, expression_inclusion: {:in=>[:none, :"on-failure", :any], :message=>"%{value} needs to be :none, :\"on-failure\", :any"}, allow_nil: true
 
         # @return [Integer, nil] Maximum number of service restarts.,Maps docker service --restart-max-attempts option.
         attribute :restart_policy_attempts
@@ -133,7 +133,7 @@ module Ansible
 
         # @return [:continue, :pause, nil] Action to take in case of container failure,Maps to docker service --update-failure-action option
         attribute :update_failure_action
-        validates :update_failure_action, inclusion: {:in=>[:continue, :pause], :message=>"%{value} needs to be :continue, :pause"}, allow_nil: true
+        validates :update_failure_action, expression_inclusion: {:in=>[:continue, :pause], :message=>"%{value} needs to be :continue, :pause"}, allow_nil: true
 
         # @return [Integer, nil] Time to monitor updated tasks for failures, in nanoseconds.,Maps to docker service --update-monitor option
         attribute :update_monitor
@@ -145,7 +145,7 @@ module Ansible
 
         # @return [:"stop-first", :"start-first", nil] Specifies the order of operations when rolling out an updated task.,Maps to docker service --update-order
         attribute :update_order
-        validates :update_order, inclusion: {:in=>[:"stop-first", :"start-first"], :message=>"%{value} needs to be :\"stop-first\", :\"start-first\""}, allow_nil: true
+        validates :update_order, expression_inclusion: {:in=>[:"stop-first", :"start-first"], :message=>"%{value} needs to be :\"stop-first\", :\"start-first\""}, allow_nil: true
 
         # @return [String, nil] username or UID
         attribute :user

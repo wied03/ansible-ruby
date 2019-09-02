@@ -15,7 +15,7 @@ module Ansible
 
         # @return [:ensureObjectAccessibility, :evacuateAllData, :noAction, nil] Specify which VSAN compliant mode to enter.
         attribute :vsan
-        validates :vsan, inclusion: {:in=>[:ensureObjectAccessibility, :evacuateAllData, :noAction], :message=>"%{value} needs to be :ensureObjectAccessibility, :evacuateAllData, :noAction"}, allow_nil: true
+        validates :vsan, expression_inclusion: {:in=>[:ensureObjectAccessibility, :evacuateAllData, :noAction], :message=>"%{value} needs to be :ensureObjectAccessibility, :evacuateAllData, :noAction"}, allow_nil: true
 
         # @return [Symbol, nil] If set to C(True), evacuate all powered off VMs.
         attribute :evacuate
@@ -27,7 +27,7 @@ module Ansible
 
         # @return [:present, :absent, nil] Enter or exit maintenance mode.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

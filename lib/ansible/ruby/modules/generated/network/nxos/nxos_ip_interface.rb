@@ -18,7 +18,7 @@ module Ansible
 
         # @return [:v4, :v6, nil] Version of IP address. If the IP address is IPV4 version should be v4. If the IP address is IPV6 version should be v6.
         attribute :version
-        validates :version, inclusion: {:in=>[:v4, :v6], :message=>"%{value} needs to be :v4, :v6"}, allow_nil: true
+        validates :version, expression_inclusion: {:in=>[:v4, :v6], :message=>"%{value} needs to be :v4, :v6"}, allow_nil: true
 
         # @return [Integer, nil] Subnet mask for IPv4 or IPv6 Address in decimal format.
         attribute :mask
@@ -34,11 +34,11 @@ module Ansible
 
         # @return [:yes, :no, nil] Allow to configure IPv4 secondary addresses on interface.
         attribute :allow_secondary
-        validates :allow_secondary, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :allow_secondary, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:present, :absent, nil] Specify desired state of the resource.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

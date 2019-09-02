@@ -11,7 +11,7 @@ module Ansible
       class Ec2_elb_lb < Base
         # @return [:present, :absent] Create or destroy the ELB
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
+        validates :state, presence: true, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
 
         # @return [String] The name of the ELB
         attribute :name
@@ -23,15 +23,15 @@ module Ansible
 
         # @return [:yes, :no, nil] Purge existing listeners on ELB that are not found in listeners
         attribute :purge_listeners
-        validates :purge_listeners, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :purge_listeners, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:yes, :no, nil] List of instance ids to attach to this ELB
         attribute :instance_ids
-        validates :instance_ids, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :instance_ids, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:yes, :no, nil] Purge existing instance ids on ELB that are not found in instance_ids
         attribute :purge_instance_ids
-        validates :purge_instance_ids, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :purge_instance_ids, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Array<String>, String, nil] List of availability zones to enable on this ELB
         attribute :zones
@@ -39,7 +39,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Purge existing availability zones on ELB that are not found in zones
         attribute :purge_zones
-        validates :purge_zones, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :purge_zones, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Array<String>, String, nil] A list of security groups to apply to the elb
         attribute :security_group_ids
@@ -66,11 +66,11 @@ module Ansible
 
         # @return [:internal, :"internet-facing", nil] The scheme to use when creating the ELB. For a private VPC-visible ELB use 'internal'. If you choose to update your scheme with a different value the ELB will be destroyed and recreated. To update scheme you must use the option wait.
         attribute :scheme
-        validates :scheme, inclusion: {:in=>[:internal, :"internet-facing"], :message=>"%{value} needs to be :internal, :\"internet-facing\""}, allow_nil: true
+        validates :scheme, expression_inclusion: {:in=>[:internal, :"internet-facing"], :message=>"%{value} needs to be :internal, :\"internet-facing\""}, allow_nil: true
 
         # @return [:yes, :no, nil] When set to "no", SSL certificates will not be validated for boto versions >= 2.6.0.
         attribute :validate_certs
-        validates :validate_certs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :validate_certs, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] Wait a specified timeout allowing connections to drain before terminating an instance
         attribute :connection_draining_timeout
@@ -82,7 +82,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Distribute load across all configured Availability Zones
         attribute :cross_az_load_balancing
-        validates :cross_az_load_balancing, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :cross_az_load_balancing, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Hash, nil] An associative array of stickiness policy settings. Policy will be applied to all listeners ( see example )
         attribute :stickiness
@@ -90,7 +90,7 @@ module Ansible
 
         # @return [:yes, :no, nil] When specified, Ansible will check the status of the load balancer to ensure it has been successfully removed from AWS.
         attribute :wait
-        validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :wait, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] Used in conjunction with wait. Number of seconds to wait for the elb to be terminated. A maximum of 600 seconds (10 minutes) is allowed.
         attribute :wait_timeout

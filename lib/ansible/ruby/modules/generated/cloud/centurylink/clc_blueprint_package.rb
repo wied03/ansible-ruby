@@ -21,11 +21,11 @@ module Ansible
 
         # @return [:present, nil] Whether to install or un-install the package. Currently it supports only "present" for install action.
         attribute :state
-        validates :state, inclusion: {:in=>[:present], :message=>"%{value} needs to be :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present], :message=>"%{value} needs to be :present"}, allow_nil: true
 
         # @return [Boolean, nil] Whether to wait for the tasks to finish before returning.
         attribute :wait
-        validates :wait, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :wait, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
       end
     end
   end

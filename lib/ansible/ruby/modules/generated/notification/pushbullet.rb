@@ -22,7 +22,7 @@ module Ansible
 
         # @return [:note, :link, nil] Thing you wish to push.
         attribute :push_type
-        validates :push_type, inclusion: {:in=>[:note, :link], :message=>"%{value} needs to be :note, :link"}, allow_nil: true
+        validates :push_type, expression_inclusion: {:in=>[:note, :link], :message=>"%{value} needs to be :note, :link"}, allow_nil: true
 
         # @return [String] Title of the notification.
         attribute :title

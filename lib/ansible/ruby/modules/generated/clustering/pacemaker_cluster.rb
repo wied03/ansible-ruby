@@ -10,7 +10,7 @@ module Ansible
       class Pacemaker_cluster < Base
         # @return [:cleanup, :offline, :online, :restart] Indicate desired state of the cluster
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:cleanup, :offline, :online, :restart], :message=>"%{value} needs to be :cleanup, :offline, :online, :restart"}
+        validates :state, presence: true, expression_inclusion: {:in=>[:cleanup, :offline, :online, :restart], :message=>"%{value} needs to be :cleanup, :offline, :online, :restart"}
 
         # @return [Object, nil] Specify which node of the cluster you want to manage. None == the cluster status itself, 'all' == check the status of all nodes.
         attribute :node
@@ -21,7 +21,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Force the change of the cluster state
         attribute :force
-        validates :force, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :force, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

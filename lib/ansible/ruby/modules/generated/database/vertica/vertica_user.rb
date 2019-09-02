@@ -37,7 +37,7 @@ module Ansible
 
         # @return [:present, :absent, :locked, nil] Whether to create C(present), drop C(absent) or lock C(locked) a user.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent, :locked], :message=>"%{value} needs to be :present, :absent, :locked"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent, :locked], :message=>"%{value} needs to be :present, :absent, :locked"}, allow_nil: true
 
         # @return [String, nil] Name of the Vertica database.
         attribute :db

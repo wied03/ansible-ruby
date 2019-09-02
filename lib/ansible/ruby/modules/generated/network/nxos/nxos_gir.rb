@@ -26,11 +26,11 @@ module Ansible
 
         # @return [:hw_error, :svc_failure, :kern_failure, :wdog_timeout, :fatal_error, :lc_failure, :match_any, :manual_reload, :any_other, :maintenance, nil] Boots the switch into maintenance mode automatically in the event of a specified system crash. Note that not all reset reasons are applicable for all platforms. Also if reset reason is set to match_any, it is not idempotent as it turns on all reset reasons. If reset reason is match_any and state is absent, it turns off all the reset reasons.
         attribute :system_mode_maintenance_on_reload_reset_reason
-        validates :system_mode_maintenance_on_reload_reset_reason, inclusion: {:in=>[:hw_error, :svc_failure, :kern_failure, :wdog_timeout, :fatal_error, :lc_failure, :match_any, :manual_reload, :any_other, :maintenance], :message=>"%{value} needs to be :hw_error, :svc_failure, :kern_failure, :wdog_timeout, :fatal_error, :lc_failure, :match_any, :manual_reload, :any_other, :maintenance"}, allow_nil: true
+        validates :system_mode_maintenance_on_reload_reset_reason, expression_inclusion: {:in=>[:hw_error, :svc_failure, :kern_failure, :wdog_timeout, :fatal_error, :lc_failure, :match_any, :manual_reload, :any_other, :maintenance], :message=>"%{value} needs to be :hw_error, :svc_failure, :kern_failure, :wdog_timeout, :fatal_error, :lc_failure, :match_any, :manual_reload, :any_other, :maintenance"}, allow_nil: true
 
         # @return [:present, :absent] Specify desired state of the resource.
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
+        validates :state, presence: true, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
       end
     end
   end

@@ -17,7 +17,7 @@ module Ansible
 
         # @return [:present, :absent, :maintenance, :unattached, :imported, :update_ovf_store, nil] Should the storage domain be present/absent/maintenance/unattached/imported/update_ovf_store,I(imported) is supported since version 2.4.,I(update_ovf_store) is supported since version 2.5, currently if C(wait) is (true), we don't wait for update.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent, :maintenance, :unattached, :imported, :update_ovf_store], :message=>"%{value} needs to be :present, :absent, :maintenance, :unattached, :imported, :update_ovf_store"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent, :maintenance, :unattached, :imported, :update_ovf_store], :message=>"%{value} needs to be :present, :absent, :maintenance, :unattached, :imported, :update_ovf_store"}, allow_nil: true
 
         # @return [Object, nil] Description of the storage domain.
         attribute :description
@@ -31,7 +31,7 @@ module Ansible
 
         # @return [:data, :iso, :export, nil] Function of the storage domain.,This parameter isn't idempotent, it's not possible to change domain function of storage domain.
         attribute :domain_function
-        validates :domain_function, inclusion: {:in=>[:data, :iso, :export], :message=>"%{value} needs to be :data, :iso, :export"}, allow_nil: true
+        validates :domain_function, expression_inclusion: {:in=>[:data, :iso, :export], :message=>"%{value} needs to be :data, :iso, :export"}, allow_nil: true
 
         # @return [String, nil] Host to be used to mount storage.
         attribute :host

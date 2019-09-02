@@ -11,7 +11,7 @@ module Ansible
       class Sensu_client < Base
         # @return [:present, :absent, nil] Whether the client should be present or not
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String, nil] A unique name for the client. The name cannot contain special characters or spaces.
         attribute :name
@@ -27,7 +27,7 @@ module Ansible
 
         # @return [:yes, :no, nil] If safe mode is enabled for the client. Safe mode requires local check definitions in order to accept a check request and execute the check.
         attribute :safe_mode
-        validates :safe_mode, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :safe_mode, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Array<String>, String, nil] Client definition attributes to redact (values) when logging and sending client keepalives.
         attribute :redact
@@ -39,7 +39,7 @@ module Ansible
 
         # @return [:yes, :no, nil] If Sensu should monitor keepalives for this client.
         attribute :keepalives
-        validates :keepalives, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :keepalives, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Hash, nil] The keepalive definition scope, used to configure Sensu client keepalives behavior (e.g. keepalive thresholds, etc).
         attribute :keepalive
@@ -50,7 +50,7 @@ module Ansible
 
         # @return [:yes, :no, nil] If a deregistration event should be created upon Sensu client process stop.
         attribute :deregister
-        validates :deregister, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :deregister, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] The deregistration definition scope, used to configure automated Sensu client de-registration.
         attribute :deregistration

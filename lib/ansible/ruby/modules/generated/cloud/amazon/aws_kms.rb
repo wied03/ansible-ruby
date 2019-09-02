@@ -10,7 +10,7 @@ module Ansible
       class Aws_kms < Base
         # @return [:grant, :deny] Grant or deny access.
         attribute :mode
-        validates :mode, presence: true, inclusion: {:in=>[:grant, :deny], :message=>"%{value} needs to be :grant, :deny"}
+        validates :mode, presence: true, expression_inclusion: {:in=>[:grant, :deny], :message=>"%{value} needs to be :grant, :deny"}
 
         # @return [String, nil] Alias label to the key. One of C(key_alias) or C(key_arn) are required.
         attribute :key_alias
@@ -32,7 +32,7 @@ module Ansible
 
         # @return [Boolean, nil] If adding/removing a role and invalid grantees are found, remove them. These entries will cause an update to fail in all known cases.,Only cleans if changes are being made.
         attribute :clean_invalid_entries
-        validates :clean_invalid_entries, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :clean_invalid_entries, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
       end
     end
   end

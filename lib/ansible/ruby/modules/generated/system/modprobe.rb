@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:absent, :present, nil] Whether the module should be present or absent.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
         # @return [String, nil] Modules parameters.
         attribute :params

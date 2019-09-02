@@ -10,7 +10,7 @@ module Ansible
       class Na_cdot_qtree < Base
         # @return [:present, :absent] Whether the specified Qtree should exist or not.
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
+        validates :state, presence: true, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
 
         # @return [String] The name of the Qtree to manage.
         attribute :name

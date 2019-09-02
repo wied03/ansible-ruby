@@ -26,7 +26,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Enable/Disable preempt.
         attribute :preempt
-        validates :preempt, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :preempt, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] VRRP virtual IP address or 'default' keyword
         attribute :vip
@@ -38,11 +38,11 @@ module Ansible
 
         # @return [:shutdown, :"no shutdown", :default, nil] Used to enable or disable the VRRP process.
         attribute :admin_state
-        validates :admin_state, inclusion: {:in=>[:shutdown, :"no shutdown", :default], :message=>"%{value} needs to be :shutdown, :\"no shutdown\", :default"}, allow_nil: true
+        validates :admin_state, expression_inclusion: {:in=>[:shutdown, :"no shutdown", :default], :message=>"%{value} needs to be :shutdown, :\"no shutdown\", :default"}, allow_nil: true
 
         # @return [:present, :absent, nil] Specify desired state of the resource.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

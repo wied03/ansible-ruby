@@ -15,11 +15,11 @@ module Ansible
 
         # @return [Boolean, nil] boolean that indicates if the stats is per host or for all hosts in the run.
         attribute :per_host
-        validates :per_host, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :per_host, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Boolean, nil] boolean that indicates if the provided value is aggregated to the existing stat C(yes) or will replace it C(no)
         attribute :aggregate
-        validates :aggregate, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :aggregate, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
       end
     end
   end

@@ -42,11 +42,11 @@ module Ansible
 
         # @return [Boolean, nil] If yes, existing listeners will be purged from the ELB to match exactly what is defined by I(listeners) parameter. If the I(listeners) parameter is not set then listeners will not be modified
         attribute :purge_listeners
-        validates :purge_listeners, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :purge_listeners, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Boolean, nil] If yes, existing tags will be purged from the resource to match exactly what is defined by I(tags) parameter. If the I(tags) parameter is not set then tags will not be modified.
         attribute :purge_tags
-        validates :purge_tags, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :purge_tags, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Array<String>, String, nil] A list of the IDs of the subnets to attach to the load balancer. You can specify only one subnet per Availability Zone. You must specify subnets from at least two Availability Zones. Required if state=present.
         attribute :subnets
@@ -57,11 +57,11 @@ module Ansible
 
         # @return [:"internet-facing", :internal, nil] Internet-facing or internal load balancer. An ELB scheme can not be modified after creation.
         attribute :scheme
-        validates :scheme, inclusion: {:in=>[:"internet-facing", :internal], :message=>"%{value} needs to be :\"internet-facing\", :internal"}, allow_nil: true
+        validates :scheme, expression_inclusion: {:in=>[:"internet-facing", :internal], :message=>"%{value} needs to be :\"internet-facing\", :internal"}, allow_nil: true
 
         # @return [:present, :absent, nil] Create or destroy the load balancer.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [Object, nil] A dictionary of one or more tags to assign to the load balancer.
         attribute :tags
@@ -75,7 +75,7 @@ module Ansible
 
         # @return [Boolean, nil] When set to no, keep the existing load balancer rules in place. Will modify and add, but will not delete.
         attribute :purge_rules
-        validates :purge_rules, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :purge_rules, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
       end
     end
   end

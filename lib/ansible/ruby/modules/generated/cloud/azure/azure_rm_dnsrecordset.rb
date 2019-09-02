@@ -22,15 +22,15 @@ module Ansible
 
         # @return [:A, :AAAA, :CNAME, :MX, :NS, :SRV, :TXT, :PTR] the type of record set to create or delete
         attribute :record_type
-        validates :record_type, presence: true, inclusion: {:in=>[:A, :AAAA, :CNAME, :MX, :NS, :SRV, :TXT, :PTR], :message=>"%{value} needs to be :A, :AAAA, :CNAME, :MX, :NS, :SRV, :TXT, :PTR"}
+        validates :record_type, presence: true, expression_inclusion: {:in=>[:A, :AAAA, :CNAME, :MX, :NS, :SRV, :TXT, :PTR], :message=>"%{value} needs to be :A, :AAAA, :CNAME, :MX, :NS, :SRV, :TXT, :PTR"}
 
         # @return [:append, :purge, nil] whether existing record values not sent to the module should be purged
         attribute :record_mode
-        validates :record_mode, inclusion: {:in=>[:append, :purge], :message=>"%{value} needs to be :append, :purge"}, allow_nil: true
+        validates :record_mode, expression_inclusion: {:in=>[:append, :purge], :message=>"%{value} needs to be :append, :purge"}, allow_nil: true
 
         # @return [:absent, :present, nil] Assert the state of the record set. Use C(present) to create or update and C(absent) to delete.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
         # @return [Integer, nil] time to live of the record set in seconds
         attribute :time_to_live

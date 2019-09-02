@@ -36,7 +36,7 @@ module Ansible
 
         # @return [:present, :absent, nil] Creates or modifies an existing NACL,Deletes a NACL and reassociates subnets to the default NACL
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

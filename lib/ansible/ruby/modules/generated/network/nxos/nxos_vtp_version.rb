@@ -10,7 +10,7 @@ module Ansible
       class Nxos_vtp_version < Base
         # @return [1, 2] VTP version number.
         attribute :version
-        validates :version, presence: true, inclusion: {:in=>[1, 2], :message=>"%{value} needs to be 1, 2"}
+        validates :version, presence: true, expression_inclusion: {:in=>[1, 2], :message=>"%{value} needs to be 1, 2"}
       end
     end
   end

@@ -18,7 +18,7 @@ module Ansible
 
         # @return [:present, :absent] Volume state.
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
+        validates :state, presence: true, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
 
         # @return [Integer, nil] Volume size.
         attribute :size

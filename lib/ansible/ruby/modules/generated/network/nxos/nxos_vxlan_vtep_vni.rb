@@ -22,7 +22,7 @@ module Ansible
 
         # @return [:bgp, :static, :default, nil] Specifies mechanism for host reachability advertisement.
         attribute :ingress_replication
-        validates :ingress_replication, inclusion: {:in=>[:bgp, :static, :default], :message=>"%{value} needs to be :bgp, :static, :default"}, allow_nil: true
+        validates :ingress_replication, expression_inclusion: {:in=>[:bgp, :static, :default], :message=>"%{value} needs to be :bgp, :static, :default"}, allow_nil: true
 
         # @return [Object, nil] The multicast group (range) of the VNI. Valid values are string and keyword 'default'.
         attribute :multicast_group
@@ -36,7 +36,7 @@ module Ansible
 
         # @return [:present, :absent, nil] Determines whether the config should be present or not on the device.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

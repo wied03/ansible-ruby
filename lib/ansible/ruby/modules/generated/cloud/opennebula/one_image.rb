@@ -27,7 +27,7 @@ module Ansible
 
         # @return [:present, :absent, :cloned, :renamed, nil] C(present) - state that is used to manage the image,C(absent) - delete the image,C(cloned) - clone the image,C(renamed) - rename the image to the C(new_name)
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent, :cloned, :renamed], :message=>"%{value} needs to be :present, :absent, :cloned, :renamed"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent, :cloned, :renamed], :message=>"%{value} needs to be :present, :absent, :cloned, :renamed"}, allow_nil: true
 
         # @return [Symbol, nil] Whether the image should be enabled or disabled.
         attribute :enabled

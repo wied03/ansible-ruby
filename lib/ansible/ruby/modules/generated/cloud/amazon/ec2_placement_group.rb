@@ -14,11 +14,11 @@ module Ansible
 
         # @return [:present, :absent, nil] Create or delete placement group.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [:cluster, :spread, nil] Placement group strategy. Cluster will cluster instances into a low-latency group in a single Availability Zone, while Spread spreads instances across underlying hardware.
         attribute :strategy
-        validates :strategy, inclusion: {:in=>[:cluster, :spread], :message=>"%{value} needs to be :cluster, :spread"}, allow_nil: true
+        validates :strategy, expression_inclusion: {:in=>[:cluster, :spread], :message=>"%{value} needs to be :cluster, :spread"}, allow_nil: true
       end
     end
   end

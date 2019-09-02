@@ -26,7 +26,7 @@ module Ansible
 
         # @return [:present, :absent, nil] Define the state of a profile.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String, nil] The unix domain socket path or the https URL for the LXD server.
         attribute :url

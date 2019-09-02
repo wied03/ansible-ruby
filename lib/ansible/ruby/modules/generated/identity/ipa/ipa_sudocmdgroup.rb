@@ -18,7 +18,7 @@ module Ansible
 
         # @return [:present, :absent, :enabled, :disabled, nil] State to ensure
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent, :enabled, :disabled], :message=>"%{value} needs to be :present, :absent, :enabled, :disabled"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent, :enabled, :disabled], :message=>"%{value} needs to be :present, :absent, :enabled, :disabled"}, allow_nil: true
 
         # @return [Array<String>, String, nil] List of sudo commands to assign to the group.,If an empty list is passed all assigned commands will be removed from the group.,If option is omitted sudo commands will not be checked or changed.
         attribute :sudocmd

@@ -48,14 +48,14 @@ module Ansible
 
         # @return [:name, :description, :tag, :architecture, :block_device_mapping, :creationDate, :hypervisor, :is_public, :location, :owner_id, :platform, :root_device_name, :root_device_type, :state, :virtualization_type, nil] Optional attribute which with to sort the results.,If specifying 'tag', the 'tag_name' parameter is required.,Starting at version 2.1, additional sort choices of architecture, block_device_mapping, creationDate, hypervisor, is_public, location, owner_id, platform, root_device_name, root_device_type, state, and virtualization_type are supported.
         attribute :sort
-        validates :sort, inclusion: {:in=>[:name, :description, :tag, :architecture, :block_device_mapping, :creationDate, :hypervisor, :is_public, :location, :owner_id, :platform, :root_device_name, :root_device_type, :state, :virtualization_type], :message=>"%{value} needs to be :name, :description, :tag, :architecture, :block_device_mapping, :creationDate, :hypervisor, :is_public, :location, :owner_id, :platform, :root_device_name, :root_device_type, :state, :virtualization_type"}, allow_nil: true
+        validates :sort, expression_inclusion: {:in=>[:name, :description, :tag, :architecture, :block_device_mapping, :creationDate, :hypervisor, :is_public, :location, :owner_id, :platform, :root_device_name, :root_device_type, :state, :virtualization_type], :message=>"%{value} needs to be :name, :description, :tag, :architecture, :block_device_mapping, :creationDate, :hypervisor, :is_public, :location, :owner_id, :platform, :root_device_name, :root_device_type, :state, :virtualization_type"}, allow_nil: true
 
         # @return [Object, nil] Tag name with which to sort results.,Required when specifying 'sort=tag'.
         attribute :sort_tag
 
         # @return [:ascending, :descending, nil] Order in which to sort results.,Only used when the 'sort' parameter is specified.
         attribute :sort_order
-        validates :sort_order, inclusion: {:in=>[:ascending, :descending], :message=>"%{value} needs to be :ascending, :descending"}, allow_nil: true
+        validates :sort_order, expression_inclusion: {:in=>[:ascending, :descending], :message=>"%{value} needs to be :ascending, :descending"}, allow_nil: true
 
         # @return [Object, nil] Which result to start with (when sorting).,Corresponds to Python slice notation.
         attribute :sort_start
@@ -76,7 +76,7 @@ module Ansible
 
         # @return [:success, :fail, nil] What to do when no results are found.,'success' reports success and returns an empty array,'fail' causes the module to report failure
         attribute :no_result_action
-        validates :no_result_action, inclusion: {:in=>[:success, :fail], :message=>"%{value} needs to be :success, :fail"}, allow_nil: true
+        validates :no_result_action, expression_inclusion: {:in=>[:success, :fail], :message=>"%{value} needs to be :success, :fail"}, allow_nil: true
       end
     end
   end

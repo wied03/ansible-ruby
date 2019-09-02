@@ -40,7 +40,7 @@ module Ansible
 
         # @return [:present, nil] The state of the variable on the system. When C(present), guarantees that an existing variable is set to C(value).
         attribute :state
-        validates :state, inclusion: {:in=>[:present], :message=>"%{value} needs to be :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present], :message=>"%{value} needs to be :present"}, allow_nil: true
       end
     end
   end

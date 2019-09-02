@@ -45,11 +45,11 @@ module Ansible
 
         # @return [:private, :public, :shared, nil] Determines the scope of the Subnet.,The C(private) option only allows communication with hosts in the same VRF.,The C(public) option allows the Subnet to be advertised outside of the ACI Fabric, and allows communication with hosts in other VRFs.,The shared option limits communication to hosts in either the same VRF or the shared VRF.,The value is a list of options, C(private) and C(public) are mutually exclusive, but both can be used with C(shared).,The APIC defaults to C(private) when unset during creation.
         attribute :scope
-        validates :scope, inclusion: {:in=>[:private, :public, :shared], :message=>"%{value} needs to be :private, :public, :shared"}, allow_nil: true
+        validates :scope, expression_inclusion: {:in=>[:private, :public, :shared], :message=>"%{value} needs to be :private, :public, :shared"}, allow_nil: true
 
         # @return [:nd_ra, :no_gw, :querier_ip, :unspecified, nil] Determines the Subnet's Control State.,The C(querier_ip) option is used to treat the gateway_ip as an IGMP querier source IP.,The C(nd_ra) option is used to treate the gateway_ip address as a Neighbor Discovery Router Advertisement Prefix.,The C(no_gw) option is used to remove default gateway functionality from the gateway address.,The APIC defaults to C(nd_ra) when unset during creation.
         attribute :subnet_control
-        validates :subnet_control, inclusion: {:in=>[:nd_ra, :no_gw, :querier_ip, :unspecified], :message=>"%{value} needs to be :nd_ra, :no_gw, :querier_ip, :unspecified"}, allow_nil: true
+        validates :subnet_control, expression_inclusion: {:in=>[:nd_ra, :no_gw, :querier_ip, :unspecified], :message=>"%{value} needs to be :nd_ra, :no_gw, :querier_ip, :unspecified"}, allow_nil: true
 
         # @return [String, nil] The name of the Subnet.
         attribute :subnet_name
@@ -61,7 +61,7 @@ module Ansible
 
         # @return [:absent, :present, :query, nil] Use C(present) or C(absent) for adding or removing.,Use C(query) for listing an object or multiple objects.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present, :query], :message=>"%{value} needs to be :absent, :present, :query"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present, :query], :message=>"%{value} needs to be :absent, :present, :query"}, allow_nil: true
       end
     end
   end

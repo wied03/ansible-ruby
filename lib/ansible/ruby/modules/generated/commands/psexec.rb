@@ -27,7 +27,7 @@ module Ansible
 
         # @return [Boolean, nil] Will use SMB encryption to encrypt the SMB messages sent to and from the host.,This requires the SMB 3 protocol which is only supported from Windows Server 2012 or Windows 8, older versions like Windows 7 or Windows Server 2008 (R2) must set this to C(no) and use no encryption.,When setting to C(no), the packets are in plaintext and can be seen by anyone sniffing the network, any process options are included in this.
         attribute :encrypt
-        validates :encrypt, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :encrypt, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [String, nil] The timeout in seconds to wait when receiving the initial SMB negotiate response from the server.
         attribute :connection_timeout
@@ -51,7 +51,7 @@ module Ansible
 
         # @return [Boolean, nil] Runs the remote command with the user's profile loaded.
         attribute :load_profile
-        validates :load_profile, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :load_profile, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [String, nil] The user to run the process as.,This can be set to run the process under an Interactive logon of the specified account which bypasses limitations of a Network logon used when this isn't specified.,If omitted then the process is run under the same account as I(connection_username) with a Network logon.,Set to C(System) to run as the builtin SYSTEM account, no password is required with this account.,If I(encrypt) is C(no), the username and password are sent as a simple XOR scrambled byte string that is not encrypted. No special tools are required to get the username and password just knowledge of the protocol.
         attribute :process_username

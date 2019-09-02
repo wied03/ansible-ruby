@@ -12,7 +12,7 @@ module Ansible
       class Dynamodb_table < Base
         # @return [:present, :absent, nil] Create or delete the table
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String] Name of the table.
         attribute :name
@@ -24,7 +24,7 @@ module Ansible
 
         # @return [:STRING, :NUMBER, :BINARY, nil] Type of the hash key.
         attribute :hash_key_type
-        validates :hash_key_type, inclusion: {:in=>[:STRING, :NUMBER, :BINARY], :message=>"%{value} needs to be :STRING, :NUMBER, :BINARY"}, allow_nil: true
+        validates :hash_key_type, expression_inclusion: {:in=>[:STRING, :NUMBER, :BINARY], :message=>"%{value} needs to be :STRING, :NUMBER, :BINARY"}, allow_nil: true
 
         # @return [String, nil] Name of the range key.
         attribute :range_key_name
@@ -32,7 +32,7 @@ module Ansible
 
         # @return [:STRING, :NUMBER, :BINARY, nil] Type of the range key.
         attribute :range_key_type
-        validates :range_key_type, inclusion: {:in=>[:STRING, :NUMBER, :BINARY], :message=>"%{value} needs to be :STRING, :NUMBER, :BINARY"}, allow_nil: true
+        validates :range_key_type, expression_inclusion: {:in=>[:STRING, :NUMBER, :BINARY], :message=>"%{value} needs to be :STRING, :NUMBER, :BINARY"}, allow_nil: true
 
         # @return [Integer, nil] Read throughput capacity (units) to provision.
         attribute :read_capacity

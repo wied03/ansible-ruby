@@ -10,7 +10,7 @@ module Ansible
       class Na_elementsw_access_group < Base
         # @return [:present, :absent] Whether the specified access group should exist or not.
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
+        validates :state, presence: true, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
 
         # @return [String, Integer, nil] ID or Name of the access group to modify or delete.,Required for delete and modify operations.
         attribute :src_access_group_id

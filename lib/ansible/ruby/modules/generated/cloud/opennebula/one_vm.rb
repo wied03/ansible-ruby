@@ -31,7 +31,7 @@ module Ansible
 
         # @return [:present, :absent, :running, :rebooted, :poweredoff, nil] C(present) - create instances from a template specified with C(template_id)/C(template_name).,C(running) - run instances,C(poweredoff) - power-off instances,C(rebooted) - reboot instances,C(absent) - terminate instances
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent, :running, :rebooted, :poweredoff], :message=>"%{value} needs to be :present, :absent, :running, :rebooted, :poweredoff"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent, :running, :rebooted, :poweredoff], :message=>"%{value} needs to be :present, :absent, :running, :rebooted, :poweredoff"}, allow_nil: true
 
         # @return [Symbol, nil] Reboot, power-off or terminate instances C(hard)
         attribute :hard
@@ -39,7 +39,7 @@ module Ansible
 
         # @return [Boolean, nil] Wait for the instance to reach its desired state before returning. Keep,in mind if you are waiting for instance to be in running state it,doesn't mean that you will be able to SSH on that machine only that,boot process have started on that instance, see 'wait_for' example for,details.
         attribute :wait
-        validates :wait, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :wait, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Integer, nil] How long before wait gives up, in seconds
         attribute :wait_timeout

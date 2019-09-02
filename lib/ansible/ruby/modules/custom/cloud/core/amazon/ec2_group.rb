@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# VALIDATED_CHECKSUM: b9SyuShnH4Nsctr+28jLAQAU3YMezOzYm21Gs6kMQ4I=
+# VALIDATED_CHECKSUM: Qugq+Yo7e4/+12FuTIHDTMvSslvWoqvS0gxhmagEBco=
 
 # See LICENSE.txt for license
 
@@ -17,8 +17,8 @@ module Ansible
         validates :vpc_id, type: String
         remove_existing_validations :purge_rules
         remove_existing_validations :purge_rules_egress
-        validates :purge_rules, inclusion: { in: [true, false], message: '%{value} needs to be true, false' }, allow_nil: true
-        validates :purge_rules_egress, inclusion: { in: [true, false], message: '%{value} needs to be true, false' }, allow_nil: true
+        validates :purge_rules, expression_inclusion: { in: [true, false], message: '%{value} needs to be true, false' }, allow_nil: true
+        validates :purge_rules_egress, expression_inclusion: { in: [true, false], message: '%{value} needs to be true, false' }, allow_nil: true
       end
     end
   end

@@ -13,7 +13,7 @@ module Ansible
       class Cloudscale_server < Base
         # @return [:running, :stopped, :absent, nil] State of the server
         attribute :state
-        validates :state, inclusion: {:in=>[:running, :stopped, :absent], :message=>"%{value} needs to be :running, :stopped, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:running, :stopped, :absent], :message=>"%{value} needs to be :running, :stopped, :absent"}, allow_nil: true
 
         # @return [String, nil] Name of the Server.,Either C(name) or C(uuid) are required. These options are mutually exclusive.
         attribute :name
@@ -45,15 +45,15 @@ module Ansible
 
         # @return [Boolean, nil] Attach a public network interface to the server.
         attribute :use_public_network
-        validates :use_public_network, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :use_public_network, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Boolean, nil] Attach a private network interface to the server.
         attribute :use_private_network
-        validates :use_private_network, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :use_private_network, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Boolean, nil] Enable IPv6 on the public network interface.
         attribute :use_ipv6
-        validates :use_ipv6, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :use_ipv6, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [String, nil] UUID of another server to create an anti-affinity group with.
         attribute :anti_affinity_with

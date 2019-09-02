@@ -18,7 +18,7 @@ module Ansible
 
         # @return [:present, :absent, nil] Indicates the desired lunid state.,C(present) ensures specified lunid is present in the Storage Group.,C(absent) ensures specified lunid is absent from Storage Group.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

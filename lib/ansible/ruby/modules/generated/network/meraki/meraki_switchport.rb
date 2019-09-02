@@ -10,7 +10,7 @@ module Ansible
       class Meraki_switchport < Base
         # @return [:query, :present, nil] Specifies whether a switchport should be queried or modified.
         attribute :state
-        validates :state, inclusion: {:in=>[:query, :present], :message=>"%{value} needs to be :query, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:query, :present], :message=>"%{value} needs to be :query, :present"}, allow_nil: true
 
         # @return [Object, nil] Number of the access policy to apply.,Only applicable to access port types.
         attribute :access_policy_number
@@ -21,7 +21,7 @@ module Ansible
 
         # @return [Boolean, nil] Whether a switchport should be enabled or disabled.
         attribute :enabled
-        validates :enabled, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :enabled, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Symbol, nil] Isolation status of switchport.
         attribute :isolation_enabled
@@ -29,7 +29,7 @@ module Ansible
 
         # @return [:"Auto negotiate", :"100Megabit (auto)", :"100 Megabit full duplex (forced)", nil] Link speed for the switchport.
         attribute :link_negotiation
-        validates :link_negotiation, inclusion: {:in=>[:"Auto negotiate", :"100Megabit (auto)", :"100 Megabit full duplex (forced)"], :message=>"%{value} needs to be :\"Auto negotiate\", :\"100Megabit (auto)\", :\"100 Megabit full duplex (forced)\""}, allow_nil: true
+        validates :link_negotiation, expression_inclusion: {:in=>[:"Auto negotiate", :"100Megabit (auto)", :"100 Megabit full duplex (forced)"], :message=>"%{value} needs to be :\"Auto negotiate\", :\"100Megabit (auto)\", :\"100 Megabit full duplex (forced)\""}, allow_nil: true
 
         # @return [String, nil] Switchport description.
         attribute :name
@@ -41,11 +41,11 @@ module Ansible
 
         # @return [Boolean, nil] Enable or disable Power Over Ethernet on a port.
         attribute :poe_enabled
-        validates :poe_enabled, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :poe_enabled, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Boolean, nil] Enable or disable Rapid Spanning Tree Protocol on a port.
         attribute :rstp_enabled
-        validates :rstp_enabled, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :rstp_enabled, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [String, nil] Serial nubmer of the switch.
         attribute :serial
@@ -53,7 +53,7 @@ module Ansible
 
         # @return [:disabled, :"root guard", :"bpdu guard", :"loop guard", nil] Set state of STP guard.
         attribute :stp_guard
-        validates :stp_guard, inclusion: {:in=>[:disabled, :"root guard", :"bpdu guard", :"loop guard"], :message=>"%{value} needs to be :disabled, :\"root guard\", :\"bpdu guard\", :\"loop guard\""}, allow_nil: true
+        validates :stp_guard, expression_inclusion: {:in=>[:disabled, :"root guard", :"bpdu guard", :"loop guard"], :message=>"%{value} needs to be :disabled, :\"root guard\", :\"bpdu guard\", :\"loop guard\""}, allow_nil: true
 
         # @return [String, nil] Space delimited list of tags to assign to a port.
         attribute :tags
@@ -61,7 +61,7 @@ module Ansible
 
         # @return [:access, :trunk, nil] Set port type.
         attribute :type
-        validates :type, inclusion: {:in=>[:access, :trunk], :message=>"%{value} needs to be :access, :trunk"}, allow_nil: true
+        validates :type, expression_inclusion: {:in=>[:access, :trunk], :message=>"%{value} needs to be :access, :trunk"}, allow_nil: true
 
         # @return [Integer, nil] VLAN number assigned to port.,If a port is of type trunk, the specified VLAN is the native VLAN.
         attribute :vlan

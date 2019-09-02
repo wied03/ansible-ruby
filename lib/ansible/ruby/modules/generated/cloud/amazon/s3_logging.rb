@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:present, :absent, nil] Enable or disable logging.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String, nil] The bucket to log to. Required when state=present.
         attribute :target_bucket

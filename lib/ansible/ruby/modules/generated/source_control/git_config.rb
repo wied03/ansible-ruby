@@ -10,7 +10,7 @@ module Ansible
       class Git_config < Base
         # @return [:yes, :no, nil] List all settings (optionally limited to a given I(scope))
         attribute :list_all
-        validates :list_all, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :list_all, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] The name of the setting. If no value is supplied, the value will be read from the config if it has been set.
         attribute :name
@@ -22,7 +22,7 @@ module Ansible
 
         # @return [:local, :global, :system, nil] Specify which scope to read/set values from. This is required when setting config values. If this is set to local, you must also specify the repo parameter. It defaults to system only when not using I(list_all)=yes.
         attribute :scope
-        validates :scope, inclusion: {:in=>[:local, :global, :system], :message=>"%{value} needs to be :local, :global, :system"}, allow_nil: true
+        validates :scope, expression_inclusion: {:in=>[:local, :global, :system], :message=>"%{value} needs to be :local, :global, :system"}, allow_nil: true
 
         # @return [String, nil] When specifying the name of a single setting, supply a value to set that setting to the given value.
         attribute :value

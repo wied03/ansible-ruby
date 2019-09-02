@@ -10,7 +10,7 @@ module Ansible
       class Na_ontap_interface < Base
         # @return [:present, :absent, nil] Whether the specified interface should exist or not.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String] Specifies the logical interface (LIF) name.
         attribute :interface_name
@@ -50,11 +50,11 @@ module Ansible
 
         # @return [:up, :down, nil] Specifies the administrative status of the LIF.
         attribute :admin_status
-        validates :admin_status, inclusion: {:in=>[:up, :down], :message=>"%{value} needs to be :up, :down"}, allow_nil: true
+        validates :admin_status, expression_inclusion: {:in=>[:up, :down], :message=>"%{value} needs to be :up, :down"}, allow_nil: true
 
         # @return [Boolean, nil] If true, data LIF will revert to its home node under certain circumstances such as startup, and load balancing migration capability is disabled automatically
         attribute :is_auto_revert
-        validates :is_auto_revert, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :is_auto_revert, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [String, nil] Specifies the list of data protocols configured on the LIF. By default, the values in this element are nfs, cifs and fcache. Other supported protocols are iscsi and fcp. A LIF can be configured to not support any data protocols by specifying 'none'. Protocol values of none, iscsi or fcp can't be combined with any other data protocol(s).
         attribute :protocols

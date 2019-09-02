@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:REMOTE, :LOCAL, nil] Type of site to create. If the type is not specified, the appliance automatically detects and sets the type on the basis of the IP address being assigned to the site. If the specified site IP address is owned by the appliance (for example, a MIP address or SNIP address), the site is a local site. Otherwise, it is a remote site.
         attribute :sitetype
-        validates :sitetype, inclusion: {:in=>[:REMOTE, :LOCAL], :message=>"%{value} needs to be :REMOTE, :LOCAL"}, allow_nil: true
+        validates :sitetype, expression_inclusion: {:in=>[:REMOTE, :LOCAL], :message=>"%{value} needs to be :REMOTE, :LOCAL"}, allow_nil: true
 
         # @return [String, nil] IP address for the GSLB site. The GSLB site uses this IP address to communicate with other GSLB sites. For a local site, use any IP address that is owned by the appliance (for example, a SNIP or MIP address, or the IP address of the ADNS service).,Minimum length = 1
         attribute :siteipaddress
@@ -26,19 +26,19 @@ module Ansible
 
         # @return [:enabled, :disabled, nil] Exchange metrics with other sites. Metrics are exchanged by using Metric Exchange Protocol (MEP). The appliances in the GSLB setup exchange health information once every second.,If you disable metrics exchange, you can use only static load balancing methods (such as round robin, static proximity, or the hash-based methods), and if you disable metrics exchange when a dynamic load balancing method (such as least connection) is in operation, the appliance falls back to round robin. Also, if you disable metrics exchange, you must use a monitor to determine the state of GSLB services. Otherwise, the service is marked as DOWN.
         attribute :metricexchange
-        validates :metricexchange, inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
+        validates :metricexchange, expression_inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
 
         # @return [:enabled, :disabled, nil] Exchange, with other GSLB sites, network metrics such as round-trip time (RTT), learned from communications with various local DNS (LDNS) servers used by clients. RTT information is used in the dynamic RTT load balancing method, and is exchanged every 5 seconds.
         attribute :nwmetricexchange
-        validates :nwmetricexchange, inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
+        validates :nwmetricexchange, expression_inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
 
         # @return [:enabled, :disabled, nil] Exchange persistent session entries with other GSLB sites every five seconds.
         attribute :sessionexchange
-        validates :sessionexchange, inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
+        validates :sessionexchange, expression_inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
 
         # @return [:ALWAYS, :MEPDOWN, :MEPDOWN_SVCDOWN, nil] Specify the conditions under which the GSLB service must be monitored by a monitor, if one is bound. Available settings function as follows:,* C(ALWAYS) - Monitor the GSLB service at all times.,* C(MEPDOWN) - Monitor the GSLB service only when the exchange of metrics through the Metrics Exchange Protocol (MEP) is disabled.,C(MEPDOWN_SVCDOWN) - Monitor the service in either of the following situations:,* The exchange of metrics through MEP is disabled.,* The exchange of metrics through MEP is enabled but the status of the service, learned through metrics exchange, is DOWN.
         attribute :triggermonitor
-        validates :triggermonitor, inclusion: {:in=>[:ALWAYS, :MEPDOWN, :MEPDOWN_SVCDOWN], :message=>"%{value} needs to be :ALWAYS, :MEPDOWN, :MEPDOWN_SVCDOWN"}, allow_nil: true
+        validates :triggermonitor, expression_inclusion: {:in=>[:ALWAYS, :MEPDOWN, :MEPDOWN_SVCDOWN], :message=>"%{value} needs to be :ALWAYS, :MEPDOWN, :MEPDOWN_SVCDOWN"}, allow_nil: true
 
         # @return [Object, nil] Parent site of the GSLB site, in a parent-child topology.
         attribute :parentsite

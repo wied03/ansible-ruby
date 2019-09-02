@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:address, :addr, :ip, :string, :str, :integer, :int, nil] The type of records in this data group.,This parameter is especially important because it causes BIG-IP to store your data in different ways so-as to optimize access to it. For example, it would be wrong to specify a list of records containing IP addresses, but label them as a C(string) type.,This value cannot be changed once the data group is created.
         attribute :type
-        validates :type, inclusion: {:in=>[:address, :addr, :ip, :string, :str, :integer, :int], :message=>"%{value} needs to be :address, :addr, :ip, :string, :str, :integer, :int"}, allow_nil: true
+        validates :type, expression_inclusion: {:in=>[:address, :addr, :ip, :string, :str, :integer, :int], :message=>"%{value} needs to be :address, :addr, :ip, :string, :str, :integer, :int"}, allow_nil: true
 
         # @return [Symbol, nil] The type of this data group.,You should only consider setting this value in cases where you know exactly what you're doing, B(or), you are working with a pre-existing internal data group.,Be aware that if you deliberately force this parameter to C(yes), and you have a either a large number of records or a large total records size, this large amount of data will be reflected in your BIG-IP configuration. This can lead to B(long) system configuration load times due to needing to parse and verify the large configuration.,There is a limit of either 4 megabytes or 65,000 records (whichever is more restrictive) for uploads when this parameter is C(yes).,This value cannot be changed once the data group is created.
         attribute :internal
@@ -45,7 +45,7 @@ module Ansible
 
         # @return [:present, :absent, nil] When C(state) is C(present), ensures the data group exists.,When C(state) is C(absent), ensures that the data group is removed.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

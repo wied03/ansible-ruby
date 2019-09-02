@@ -10,7 +10,7 @@ module Ansible
       class Gcp_compute_target_tcp_proxy < Base
         # @return [:present, :absent, nil] Whether the given object should exist in GCP
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [Object, nil] An optional description of this resource.
         attribute :description
@@ -21,7 +21,7 @@ module Ansible
 
         # @return [:NONE, :PROXY_V1, nil] Specifies the type of proxy header to append before sending data to the backend, either NONE or PROXY_V1. The default is NONE.
         attribute :proxy_header
-        validates :proxy_header, inclusion: {:in=>[:NONE, :PROXY_V1], :message=>"%{value} needs to be :NONE, :PROXY_V1"}, allow_nil: true
+        validates :proxy_header, expression_inclusion: {:in=>[:NONE, :PROXY_V1], :message=>"%{value} needs to be :NONE, :PROXY_V1"}, allow_nil: true
 
         # @return [String] A reference to the BackendService resource.
         attribute :service

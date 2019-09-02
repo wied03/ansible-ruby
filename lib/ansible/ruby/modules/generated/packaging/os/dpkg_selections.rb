@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:install, :hold, :deinstall, :purge] The selection state to set the package to.
         attribute :selection
-        validates :selection, presence: true, inclusion: {:in=>[:install, :hold, :deinstall, :purge], :message=>"%{value} needs to be :install, :hold, :deinstall, :purge"}
+        validates :selection, presence: true, expression_inclusion: {:in=>[:install, :hold, :deinstall, :purge], :message=>"%{value} needs to be :install, :hold, :deinstall, :purge"}
       end
     end
   end

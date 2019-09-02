@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Set to C(yes) if the boolean setting should survive a reboot.
         attribute :persistent
-        validates :persistent, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :persistent, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Symbol] Desired boolean value
         attribute :state

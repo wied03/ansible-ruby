@@ -38,7 +38,7 @@ module Ansible
 
         # @return [:present, :absent, nil] State to ensure
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [Array<String>, String, nil] List of user names to assign.,If an empty list is passed all assigned users will be removed from the role.,If option is omitted users will not be checked or changed.
         attribute :user

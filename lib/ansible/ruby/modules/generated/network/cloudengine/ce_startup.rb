@@ -23,7 +23,7 @@ module Ansible
 
         # @return [:display, nil] Display the startup information.
         attribute :action
-        validates :action, inclusion: {:in=>[:display], :message=>"%{value} needs to be :display"}, allow_nil: true
+        validates :action, expression_inclusion: {:in=>[:display], :message=>"%{value} needs to be :display"}, allow_nil: true
       end
     end
   end

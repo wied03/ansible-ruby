@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:started, :stopped, :restarted, :reloaded, nil] C(started)/C(stopped) are idempotent actions that will not run commands unless necessary. C(restarted) will always bounce the service. C(reloaded) will always reload.
         attribute :state
-        validates :state, inclusion: {:in=>[:started, :stopped, :restarted, :reloaded], :message=>"%{value} needs to be :started, :stopped, :restarted, :reloaded"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:started, :stopped, :restarted, :reloaded], :message=>"%{value} needs to be :started, :stopped, :restarted, :reloaded"}, allow_nil: true
 
         # @return [Symbol, nil] Whether the service should start on boot. B(At least one of state and enabled are required.)
         attribute :enabled

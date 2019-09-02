@@ -10,7 +10,7 @@ module Ansible
       class Net_logging < Base
         # @return [:console, :host, nil] Destination of the logs.
         attribute :dest
-        validates :dest, inclusion: {:in=>[:console, :host], :message=>"%{value} needs to be :console, :host"}, allow_nil: true
+        validates :dest, expression_inclusion: {:in=>[:console, :host], :message=>"%{value} needs to be :console, :host"}, allow_nil: true
 
         # @return [String, nil] If value of C(dest) is I(host) it indicates file-name the host name to be notified.
         attribute :name
@@ -30,11 +30,11 @@ module Ansible
 
         # @return [Boolean, nil] Purge logging not defined in the I(aggregate) parameter.
         attribute :purge
-        validates :purge, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :purge, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [:present, :absent, nil] State of the logging configuration.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

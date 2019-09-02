@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:present, :absent, nil] Should the resource be present or absent.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String, nil] The name or id of the network for the virtual IP of the load balancer. One of vip_network, vip_subnet, or vip_port must be specified.
         attribute :vip_network
@@ -33,7 +33,7 @@ module Ansible
 
         # @return [:yes, :no, nil] If the module should wait for the load balancer to be created.
         attribute :wait
-        validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :wait, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] The amount of time the module should wait for the load balancer to get into ACTIVE state.
         attribute :timeout

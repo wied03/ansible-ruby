@@ -10,7 +10,7 @@ module Ansible
       class Os_server_group < Base
         # @return [:present, :absent, nil] Indicate desired state of the resource. When I(state) is 'present', then I(policies) is required.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String] Server group name.
         attribute :name

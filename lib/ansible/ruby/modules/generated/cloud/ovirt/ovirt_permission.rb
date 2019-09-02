@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:absent, :present, nil] Should the permission be present/absent.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
         # @return [Object, nil] ID of the object where the permissions should be managed.
         attribute :object_id
@@ -25,7 +25,7 @@ module Ansible
 
         # @return [:cluster, :cpu_profile, :data_center, :disk, :disk_profile, :host, :network, :storage_domain, :system, :template, :vm, :vm_pool, :vnic_profile, nil] The object where the permissions should be managed.
         attribute :object_type
-        validates :object_type, inclusion: {:in=>[:cluster, :cpu_profile, :data_center, :disk, :disk_profile, :host, :network, :storage_domain, :system, :template, :vm, :vm_pool, :vnic_profile], :message=>"%{value} needs to be :cluster, :cpu_profile, :data_center, :disk, :disk_profile, :host, :network, :storage_domain, :system, :template, :vm, :vm_pool, :vnic_profile"}, allow_nil: true
+        validates :object_type, expression_inclusion: {:in=>[:cluster, :cpu_profile, :data_center, :disk, :disk_profile, :host, :network, :storage_domain, :system, :template, :vm, :vm_pool, :vnic_profile], :message=>"%{value} needs to be :cluster, :cpu_profile, :data_center, :disk, :disk_profile, :host, :network, :storage_domain, :system, :template, :vm, :vm_pool, :vnic_profile"}, allow_nil: true
 
         # @return [String, nil] Username of the user to manage. In most LDAPs it's I(uid) of the user, but in Active Directory you must specify I(UPN) of the user.,Note that if user does not exist in the system this module will fail, you should ensure the user exists by using M(ovirt_users) module.
         attribute :user_name

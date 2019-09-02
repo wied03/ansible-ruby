@@ -22,7 +22,7 @@ module Ansible
 
         # @return [:present, :absent, nil] If set to C(present), then enter datastore into maintenance mode.,If set to C(present) and datastore is already in maintenance mode, then no action will be taken.,If set to C(absent) and datastore is in maintenance mode, then exit maintenance mode.,If set to C(absent) and datastore is not in maintenance mode, then no action will be taken.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

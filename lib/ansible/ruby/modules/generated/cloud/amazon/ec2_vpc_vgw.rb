@@ -13,7 +13,7 @@ module Ansible
       class Ec2_vpc_vgw < Base
         # @return [:present, :absent, nil] present to ensure resource is created.,absent to remove resource
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String, nil] name of the vgw to be created or deleted
         attribute :name
@@ -21,7 +21,7 @@ module Ansible
 
         # @return [:"ipsec.1", nil] type of the virtual gateway to be created
         attribute :type
-        validates :type, inclusion: {:in=>[:"ipsec.1"], :message=>"%{value} needs to be :\"ipsec.1\""}, allow_nil: true
+        validates :type, expression_inclusion: {:in=>[:"ipsec.1"], :message=>"%{value} needs to be :\"ipsec.1\""}, allow_nil: true
 
         # @return [String, nil] vpn gateway id of an existing virtual gateway
         attribute :vpn_gateway_id

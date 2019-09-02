@@ -18,7 +18,7 @@ module Ansible
 
         # @return [:absent, :present, nil] Assert the state of the route table. Use 'present' to create or update and 'absent' to delete.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
         # @return [Symbol, nil] Specified whether to disable the routes learned by BGP on that route table.
         attribute :disable_bgp_route_propagation

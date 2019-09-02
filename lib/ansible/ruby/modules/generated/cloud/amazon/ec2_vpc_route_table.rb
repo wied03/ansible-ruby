@@ -10,14 +10,14 @@ module Ansible
       class Ec2_vpc_route_table < Base
         # @return [:tag, :id, nil] Look up route table by either tags or by route table ID. Non-unique tag lookup will fail. If no tags are specified then no lookup for an existing route table is performed and a new route table will be created. To change tags of a route table you must look up by id.
         attribute :lookup
-        validates :lookup, inclusion: {:in=>[:tag, :id], :message=>"%{value} needs to be :tag, :id"}, allow_nil: true
+        validates :lookup, expression_inclusion: {:in=>[:tag, :id], :message=>"%{value} needs to be :tag, :id"}, allow_nil: true
 
         # @return [Object, nil] Enable route propagation from virtual gateways specified by ID.
         attribute :propagating_vgw_ids
 
         # @return [:yes, :no, nil] Purge existing routes that are not found in routes.
         attribute :purge_routes
-        validates :purge_routes, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :purge_routes, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] Purge existing subnets that are not found in subnets. Ignored unless the subnets option is supplied.
         attribute :purge_subnets
@@ -25,7 +25,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Purge existing tags that are not found in route table
         attribute :purge_tags
-        validates :purge_tags, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :purge_tags, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] The ID of the route table to update or delete.
         attribute :route_table_id
@@ -37,7 +37,7 @@ module Ansible
 
         # @return [:present, :absent, nil] Create or destroy the VPC route table
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [Array<String>, String, nil] An array of subnets to add to this route table. Subnets may be specified by either subnet ID, Name tag, or by a CIDR such as '10.0.0.0/24'.
         attribute :subnets

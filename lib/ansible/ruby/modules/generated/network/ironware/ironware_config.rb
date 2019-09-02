@@ -27,30 +27,30 @@ module Ansible
 
         # @return [:line, :strict, :exact, :none, nil] Instructs the module on the way to perform the matching of the set of commands against the current device config.  If match is set to I(line), commands are matched line by line.  If match is set to I(strict), command lines are matched with respect to position.  If match is set to I(exact), command lines must be an equal match.  Finally, if match is set to I(none), the module will not attempt to compare the source configuration with the running configuration on the remote device.
         attribute :match
-        validates :match, inclusion: {:in=>[:line, :strict, :exact, :none], :message=>"%{value} needs to be :line, :strict, :exact, :none"}, allow_nil: true
+        validates :match, expression_inclusion: {:in=>[:line, :strict, :exact, :none], :message=>"%{value} needs to be :line, :strict, :exact, :none"}, allow_nil: true
 
         # @return [:line, :block, nil] Instructs the module on the way to perform the configuration on the device.  If the replace argument is set to I(line) then the modified lines are pushed to the device in configuration mode.  If the replace argument is set to I(block) then the entire command block is pushed to the device in configuration mode if any line is not correct
         attribute :replace
-        validates :replace, inclusion: {:in=>[:line, :block], :message=>"%{value} needs to be :line, :block"}, allow_nil: true
+        validates :replace, expression_inclusion: {:in=>[:line, :block], :message=>"%{value} needs to be :line, :block"}, allow_nil: true
 
         # @return [:merge, :check, nil] The I(update) argument controls how the configuration statements are processed on the remote device.  Valid choices for the I(update) argument are I(merge) and I(check).  When the argument is set to I(merge), the configuration changes are merged with the current device running configuration.  When the argument is set to I(check) the configuration updates are determined but not actually configured on the remote device.
         attribute :update
-        validates :update, inclusion: {:in=>[:merge, :check], :message=>"%{value} needs to be :merge, :check"}, allow_nil: true
+        validates :update, expression_inclusion: {:in=>[:merge, :check], :message=>"%{value} needs to be :merge, :check"}, allow_nil: true
 
         # @return [:merge, :check, nil] This argument specifies the update method to use when applying the configuration changes to the remote node.  If the value is set to I(merge) the configuration updates are merged with the running- config.  If the value is set to I(check), no changes are made to the remote host.
         attribute :commit
-        validates :commit, inclusion: {:in=>[:merge, :check], :message=>"%{value} needs to be :merge, :check"}, allow_nil: true
+        validates :commit, expression_inclusion: {:in=>[:merge, :check], :message=>"%{value} needs to be :merge, :check"}, allow_nil: true
 
         # @return [:yes, :no, nil] This argument will cause the module to create a full backup of the current C(running-config) from the remote device before any changes are made.  The backup file is written to the C(backup) folder in the playbook root directory.  If the directory does not exist, it is created.
         attribute :backup
-        validates :backup, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :backup, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] The C(config) argument allows the playbook designer to supply the base configuration to be used to validate configuration changes necessary.  If this argument is provided, the module will not download the running-config from the remote node.
         attribute :config
 
         # @return [:always, :never, :modified, nil] When changes are made to the device running-configuration, the changes are not copied to non-volatile storage by default.  Using this argument will change that before.  If the argument is set to I(always), then the running-config will always be copied to the startup-config and the I(modified) flag will always be set to True.  If the argument is set to I(modified), then the running-config will only be copied to the startup-config if it has changed since the last save to startup-config.  If the argument is set to I(never), the running-config will never be copied to the startup-config
         attribute :save_when
-        validates :save_when, inclusion: {:in=>[:always, :never, :modified], :message=>"%{value} needs to be :always, :never, :modified"}, allow_nil: true
+        validates :save_when, expression_inclusion: {:in=>[:always, :never, :modified], :message=>"%{value} needs to be :always, :never, :modified"}, allow_nil: true
       end
     end
   end

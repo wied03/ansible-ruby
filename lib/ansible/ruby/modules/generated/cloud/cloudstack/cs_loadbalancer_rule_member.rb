@@ -21,7 +21,7 @@ module Ansible
 
         # @return [:present, :absent, nil] Should the VMs be present or absent from the rule.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [Object, nil] Name of the project the firewall rule is related to.
         attribute :project

@@ -10,7 +10,7 @@ module Ansible
       class Udm_user < Base
         # @return [:present, :absent, nil] Whether the user is present or not.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [Object] User name
         attribute :username
@@ -90,11 +90,11 @@ module Ansible
 
         # @return [:yes, :no, nil] Override password history
         attribute :override_pw_history
-        validates :override_pw_history, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :override_pw_history, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:yes, :no, nil] Override password check
         attribute :override_pw_length
-        validates :override_pw_length, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :override_pw_length, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] List of pager telephone numbers.
         attribute :pager_telephonenumber
@@ -114,7 +114,7 @@ module Ansible
 
         # @return [0, 1, nil] Change password on next login.
         attribute :pwd_change_next_login
-        validates :pwd_change_next_login, inclusion: {:in=>[0, 1], :message=>"%{value} needs to be 0, 1"}, allow_nil: true
+        validates :pwd_change_next_login, expression_inclusion: {:in=>[0, 1], :message=>"%{value} needs to be 0, 1"}, allow_nil: true
 
         # @return [Object, nil] Room number of users business address.
         attribute :room_number

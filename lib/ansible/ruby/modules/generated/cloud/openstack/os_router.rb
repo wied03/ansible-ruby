@@ -10,7 +10,7 @@ module Ansible
       class Os_router < Base
         # @return [:present, :absent, nil] Indicate desired state of the resource
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String] Name to be give to the router
         attribute :name
@@ -18,7 +18,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Desired admin state of the created or existing router.
         attribute :admin_state_up
-        validates :admin_state_up, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :admin_state_up, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Symbol, nil] Enable Source NAT (SNAT) attribute.
         attribute :enable_snat

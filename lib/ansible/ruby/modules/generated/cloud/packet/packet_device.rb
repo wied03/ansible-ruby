@@ -36,7 +36,7 @@ module Ansible
 
         # @return [Boolean, nil] Whether to lock a created device.
         attribute :locked
-        validates :locked, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :locked, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Object, nil] OS slug for device creation. See Packet API for current list - U(https://www.packet.net/developers/api/operatingsystems/).
         attribute :operating_system
@@ -50,14 +50,14 @@ module Ansible
 
         # @return [:present, :absent, :active, :inactive, :rebooted, nil] Desired state of the device.,If set to C(present) (the default), the module call will return immediately after the device-creating HTTP request successfully returns.,If set to C(active), the module call will block until all the specified devices are in state active due to the Packet API, or until I(wait_timeout).
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent, :active, :inactive, :rebooted], :message=>"%{value} needs to be :present, :absent, :active, :inactive, :rebooted"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent, :active, :inactive, :rebooted], :message=>"%{value} needs to be :present, :absent, :active, :inactive, :rebooted"}, allow_nil: true
 
         # @return [Object, nil] Userdata blob made available to the machine
         attribute :user_data
 
         # @return [4, 6, nil] Whether to wait for the instance to be assigned a public IPv4/IPv6 address.,If set to 4, it will wait until IPv4 is assigned to the instance.,If set to 6, wait until public IPv6 is assigned to the instance.
         attribute :wait_for_public_IPv
-        validates :wait_for_public_IPv, inclusion: {:in=>[4, 6], :message=>"%{value} needs to be 4, 6"}, allow_nil: true
+        validates :wait_for_public_IPv, expression_inclusion: {:in=>[4, 6], :message=>"%{value} needs to be 4, 6"}, allow_nil: true
 
         # @return [Integer, nil] How long (seconds) to wait either for automatic IP address assignment, or for the device to reach the C(active) I(state).,If I(wait_for_public_IPv) is set and I(state) is C(active), the module will wait for both events consequently, applying the timeout twice.
         attribute :wait_timeout
@@ -68,7 +68,7 @@ module Ansible
 
         # @return [Boolean, nil] Persist PXE as the first boot option.,Normally, the PXE process happens only on the first boot. Set this arg to have your device continuously boot to iPXE.
         attribute :always_pxe
-        validates :always_pxe, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :always_pxe, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
       end
     end
   end

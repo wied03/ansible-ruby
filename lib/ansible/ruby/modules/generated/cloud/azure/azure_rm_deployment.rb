@@ -18,11 +18,11 @@ module Ansible
 
         # @return [:complete, :incremental, nil] In incremental mode, resources are deployed without deleting existing resources that are not included in the template. In complete mode resources are deployed and existing resources in the resource group not included in the template are deleted.
         attribute :deployment_mode
-        validates :deployment_mode, inclusion: {:in=>[:complete, :incremental], :message=>"%{value} needs to be :complete, :incremental"}, allow_nil: true
+        validates :deployment_mode, expression_inclusion: {:in=>[:complete, :incremental], :message=>"%{value} needs to be :complete, :incremental"}, allow_nil: true
 
         # @return [:present, :absent, nil] If state is "present", template will be created. If state is "present" and if deployment exists, it will be updated. If state is "absent", stack will be removed.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [Hash, nil] A hash containing the templates inline. This parameter is mutually exclusive with 'template_link'. Either one of them is required if "state" parameter is "present".
         attribute :template
@@ -46,7 +46,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Whether or not to block until the deployment has completed.
         attribute :wait_for_deployment_completion
-        validates :wait_for_deployment_completion, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :wait_for_deployment_completion, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] Time (in seconds) to wait between polls when waiting for deployment completion.
         attribute :wait_for_deployment_polling_period

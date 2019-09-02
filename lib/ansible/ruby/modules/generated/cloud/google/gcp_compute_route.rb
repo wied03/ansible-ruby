@@ -13,7 +13,7 @@ module Ansible
       class Gcp_compute_route < Base
         # @return [:present, :absent, nil] Whether the given object should exist in GCP
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String] The destination range of outgoing packets that this route applies to.,Only IPv4 is supported.
         attribute :dest_range

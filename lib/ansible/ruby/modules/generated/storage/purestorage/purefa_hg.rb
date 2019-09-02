@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:absent, :present, nil] Define whether the hostgroup should exist or not.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
         # @return [Array<String>, String, nil] List of existing hosts to add to hostgroup.
         attribute :host

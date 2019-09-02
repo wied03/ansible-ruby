@@ -18,7 +18,7 @@ module Ansible
 
         # @return [1, 2, nil] HSRP version.
         attribute :version
-        validates :version, inclusion: {:in=>[1, 2], :message=>"%{value} needs to be 1, 2"}, allow_nil: true
+        validates :version, expression_inclusion: {:in=>[1, 2], :message=>"%{value} needs to be 1, 2"}, allow_nil: true
 
         # @return [Integer, nil] HSRP priority or keyword 'default'.
         attribute :priority
@@ -26,7 +26,7 @@ module Ansible
 
         # @return [:enabled, :disabled, nil] Enable/Disable preempt.
         attribute :preempt
-        validates :preempt, inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
+        validates :preempt, expression_inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
 
         # @return [String, nil] HSRP virtual IP address or keyword 'default'
         attribute :vip
@@ -38,11 +38,11 @@ module Ansible
 
         # @return [:text, :md5, nil] Authentication type.
         attribute :auth_type
-        validates :auth_type, inclusion: {:in=>[:text, :md5], :message=>"%{value} needs to be :text, :md5"}, allow_nil: true
+        validates :auth_type, expression_inclusion: {:in=>[:text, :md5], :message=>"%{value} needs to be :text, :md5"}, allow_nil: true
 
         # @return [:present, :absent, nil] Specify desired state of the resource.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

@@ -28,15 +28,15 @@ module Ansible
 
         # @return [:None, :InherityOnly, :NoPropagateInherit, nil] Propagation flag on the audit rules.,This value is ignored when the path type is a file.,For more information on the choices see MSDN PropagationFlags enumeration at U(https://msdn.microsoft.com/en-us/library/system.security.accesscontrol.propagationflags.aspx).
         attribute :propagation_flags
-        validates :propagation_flags, inclusion: {:in=>[:None, :InherityOnly, :NoPropagateInherit], :message=>"%{value} needs to be :None, :InherityOnly, :NoPropagateInherit"}, allow_nil: true
+        validates :propagation_flags, expression_inclusion: {:in=>[:None, :InherityOnly, :NoPropagateInherit], :message=>"%{value} needs to be :None, :InherityOnly, :NoPropagateInherit"}, allow_nil: true
 
         # @return [:Failure, :Success] Defines whether to log on failure, success, or both.,To log both define as comma separated list "Success, Failure".
         attribute :audit_flags
-        validates :audit_flags, presence: true, inclusion: {:in=>[:Failure, :Success], :message=>"%{value} needs to be :Failure, :Success"}
+        validates :audit_flags, presence: true, expression_inclusion: {:in=>[:Failure, :Success], :message=>"%{value} needs to be :Failure, :Success"}
 
         # @return [:absent, :present, nil] Whether the rule should be C(present) or C(absent).,For absent, only I(path), I(user), and I(state) are required.,Specifying C(absent) will remove all rules matching the defined I(user).
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
       end
     end
   end

@@ -27,7 +27,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Specifies the mode of timer to calculate interval of arrive LSA. If set the parameter but not specifies value, the default will be used. If true use general timer. If false use intelligent timer.
         attribute :lsaalflag
-        validates :lsaalflag, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :lsaalflag, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] Specifies the interval of arrive LSA when use the general timer. Valid value is an integer, in millisecond, from 0 to 10000.
         attribute :lsaainterval
@@ -43,7 +43,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Specifies whether cancel the interval of LSA originate or not. If set the parameter but noe specifies value, the default will be used. true:cancel the interval of LSA originate, the interval is 0. false:do not cancel the interval of LSA originate.
         attribute :lsaointervalflag
-        validates :lsaointervalflag, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :lsaointervalflag, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] Specifies the interval of originate LSA . Valid value is an integer, in second, from 0 to 10, the default value is 5.
         attribute :lsaointerval
@@ -59,7 +59,7 @@ module Ansible
 
         # @return [:"intelligent-timer", :timer, :millisecond, nil] Specifies the mode of timer which used to calculate SPF. If set the parameter but noe specifies value, the default will be used. If is intelligent-timer, then use intelligent timer. If is timer, then use second level timer. If is millisecond, then use millisecond level timer.
         attribute :spfintervaltype
-        validates :spfintervaltype, inclusion: {:in=>[:"intelligent-timer", :timer, :millisecond], :message=>"%{value} needs to be :\"intelligent-timer\", :timer, :millisecond"}, allow_nil: true
+        validates :spfintervaltype, expression_inclusion: {:in=>[:"intelligent-timer", :timer, :millisecond], :message=>"%{value} needs to be :\"intelligent-timer\", :timer, :millisecond"}, allow_nil: true
 
         # @return [Object, nil] Specifies the interval to calculate SPF when use second level  timer. Valid value is an integer, in second, from 1 to 10.
         attribute :spfinterval
@@ -78,7 +78,7 @@ module Ansible
 
         # @return [:present, :absent, nil] Specify desired state of the resource.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

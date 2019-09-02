@@ -24,7 +24,7 @@ module Ansible
 
         # @return [:present, :absent, nil] The state of tag.,If set to C(present) and tag does not exists, then tag is created.,If set to C(present) and tag exists, then tag is updated.,If set to C(absent) and tag exists, then tag is deleted.,If set to C(absent) and tag does not exists, no action is taken.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

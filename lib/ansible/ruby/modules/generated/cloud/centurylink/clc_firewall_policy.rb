@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:present, :absent, nil] Whether to create or delete the firewall policy
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [Object, nil] The list  of source addresses for traffic on the originating firewall. This is required when state is 'present'
         attribute :source
@@ -24,7 +24,7 @@ module Ansible
 
         # @return [:any, :icmp, :"TCP/123", :"UDP/123", :"TCP/123-456", :"UDP/123-456", nil] The list of ports associated with the policy. TCP and UDP can take in single ports or port ranges.
         attribute :ports
-        validates :ports, inclusion: {:in=>[:any, :icmp, :"TCP/123", :"UDP/123", :"TCP/123-456", :"UDP/123-456"], :message=>"%{value} needs to be :any, :icmp, :\"TCP/123\", :\"UDP/123\", :\"TCP/123-456\", :\"UDP/123-456\""}, allow_nil: true
+        validates :ports, expression_inclusion: {:in=>[:any, :icmp, :"TCP/123", :"UDP/123", :"TCP/123-456", :"UDP/123-456"], :message=>"%{value} needs to be :any, :icmp, :\"TCP/123\", :\"UDP/123\", :\"TCP/123-456\", :\"UDP/123-456\""}, allow_nil: true
 
         # @return [Object, nil] Id of the firewall policy. This is required to update or delete an existing firewall policy
         attribute :firewall_policy_id
@@ -38,11 +38,11 @@ module Ansible
 
         # @return [:yes, :no, nil] Whether to wait for the provisioning tasks to finish before returning.
         attribute :wait
-        validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :wait, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Boolean, nil] Whether the firewall policy is enabled or disabled
         attribute :enabled
-        validates :enabled, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :enabled, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
       end
     end
   end

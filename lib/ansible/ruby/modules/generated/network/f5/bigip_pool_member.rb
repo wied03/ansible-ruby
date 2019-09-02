@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:present, :absent, :enabled, :disabled, :forced_offline] Pool member state.
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:present, :absent, :enabled, :disabled, :forced_offline], :message=>"%{value} needs to be :present, :absent, :enabled, :disabled, :forced_offline"}
+        validates :state, presence: true, expression_inclusion: {:in=>[:present, :absent, :enabled, :disabled, :forced_offline], :message=>"%{value} needs to be :present, :absent, :enabled, :disabled, :forced_offline"}
 
         # @return [String] Pool name. This pool must exist.
         attribute :pool
@@ -64,7 +64,7 @@ module Ansible
 
         # @return [Boolean, nil] Reuses node definitions if requested.
         attribute :reuse_nodes
-        validates :reuse_nodes, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :reuse_nodes, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
       end
     end
   end

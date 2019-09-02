@@ -10,7 +10,7 @@ module Ansible
       class Openvswitch_db < Base
         # @return [:present, :absent, nil] Configures the state of the key. When set to I(present), the I(key) and I(value) pair will be set on the I(record) and when set to I(absent) the I(key) will not be set.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String] Identifies the table in the database.
         attribute :table
@@ -30,7 +30,7 @@ module Ansible
 
         # @return [Boolean] Expected value for the table, record, column and key.
         attribute :value
-        validates :value, presence: true, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}
+        validates :value, presence: true, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}
 
         # @return [Integer, nil] How long to wait for ovs-vswitchd to respond
         attribute :timeout

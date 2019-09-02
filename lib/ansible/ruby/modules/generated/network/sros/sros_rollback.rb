@@ -23,7 +23,7 @@ module Ansible
 
         # @return [:present, :absent, nil] The I(state) argument specifies the state of the configuration entries in the devices active configuration.  When the state value is set to C(true) the configuration is present in the devices active configuration.  When the state value is set to C(false) the configuration values are removed from the devices active configuration.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

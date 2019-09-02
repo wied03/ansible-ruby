@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:disabled, :enabled, nil] When C(disabled) then the feature will be disabled.,When C(enabled) then the feature will be enabled.
         attribute :state
-        validates :state, inclusion: {:in=>[:disabled, :enabled], :message=>"%{value} needs to be :disabled, :enabled"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:disabled, :enabled], :message=>"%{value} needs to be :disabled, :enabled"}, allow_nil: true
       end
     end
   end

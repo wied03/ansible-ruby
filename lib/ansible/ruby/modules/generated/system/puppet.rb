@@ -36,7 +36,7 @@ module Ansible
 
         # @return [:stdout, :syslog, :all, nil] Where the puppet logs should go, if puppet apply is being used. C(all)\r\nwill go to both C(stdout) and C(syslog).\r\n
         attribute :logdest
-        validates :logdest, inclusion: {:in=>[:stdout, :syslog, :all], :message=>"%{value} needs to be :stdout, :syslog, :all"}, allow_nil: true
+        validates :logdest, expression_inclusion: {:in=>[:stdout, :syslog, :all], :message=>"%{value} needs to be :stdout, :syslog, :all"}, allow_nil: true
 
         # @return [String, nil] The name to use when handling certificates.
         attribute :certname

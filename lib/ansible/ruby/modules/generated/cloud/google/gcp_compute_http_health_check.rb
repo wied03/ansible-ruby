@@ -10,7 +10,7 @@ module Ansible
       class Gcp_compute_http_health_check < Base
         # @return [:present, :absent, nil] Whether the given object should exist in GCP
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [Integer, nil] How often (in seconds) to send a health check. The default value is 5 seconds.
         attribute :check_interval_sec

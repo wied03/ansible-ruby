@@ -26,7 +26,7 @@ module Ansible
 
         # @return [:latest_release, :create_release] Action to perform
         attribute :action
-        validates :action, presence: true, inclusion: {:in=>[:latest_release, :create_release], :message=>"%{value} needs to be :latest_release, :create_release"}
+        validates :action, presence: true, expression_inclusion: {:in=>[:latest_release, :create_release], :message=>"%{value} needs to be :latest_release, :create_release"}
 
         # @return [String, nil] Tag name when creating a release. Required when using action is set to C(create_release).
         attribute :tag
@@ -46,11 +46,11 @@ module Ansible
 
         # @return [:yes, :no, nil] Sets if the release is a draft or not. (boolean)
         attribute :draft
-        validates :draft, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :draft, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:yes, :no, nil] Sets if the release is a prerelease or not. (boolean)
         attribute :prerelease
-        validates :prerelease, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :prerelease, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

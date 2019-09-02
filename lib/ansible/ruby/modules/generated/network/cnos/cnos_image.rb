@@ -10,7 +10,7 @@ module Ansible
       class Cnos_image < Base
         # @return [:SFTP, :SCP, :FTP, :TFTP] This refers to the protocol used by the network device to interact with the remote server from where to download the firmware image. The choices are FTP, SFTP, TFTP, or SCP. Any other protocols will result in error. If this parameter is not specified there is no default value to be used.
         attribute :protocol
-        validates :protocol, presence: true, inclusion: {:in=>[:SFTP, :SCP, :FTP, :TFTP], :message=>"%{value} needs to be :SFTP, :SCP, :FTP, :TFTP"}
+        validates :protocol, presence: true, expression_inclusion: {:in=>[:SFTP, :SCP, :FTP, :TFTP], :message=>"%{value} needs to be :SFTP, :SCP, :FTP, :TFTP"}
 
         # @return [Object] This specifies the IP Address of the remote server from where the software image will be downloaded.
         attribute :serverip
@@ -22,7 +22,7 @@ module Ansible
 
         # @return [:all, :boot, :os, :onie] This specifies the firmware image type to be downloaded
         attribute :imgtype
-        validates :imgtype, presence: true, inclusion: {:in=>[:all, :boot, :os, :onie], :message=>"%{value} needs to be :all, :boot, :os, :onie"}
+        validates :imgtype, presence: true, expression_inclusion: {:in=>[:all, :boot, :os, :onie], :message=>"%{value} needs to be :all, :boot, :os, :onie"}
 
         # @return [Object] Specify the username for the server relating to the protocol used
         attribute :serverusername

@@ -20,7 +20,7 @@ module Ansible
 
         # @return [:present, :absent] State the action to perform. Use 'present' to create vlan and 'absent' to delete vlan.
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
+        validates :state, presence: true, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
 
         # @return [Integer] Specify a VLAN identifier for the VLAN. This is a value between 2 and 4092.
         attribute :pn_vlanid
@@ -28,7 +28,7 @@ module Ansible
 
         # @return [:fabric, :local, nil] Specify a scope for the VLAN.,Required for vlan-create.
         attribute :pn_scope
-        validates :pn_scope, inclusion: {:in=>[:fabric, :local], :message=>"%{value} needs to be :fabric, :local"}, allow_nil: true
+        validates :pn_scope, expression_inclusion: {:in=>[:fabric, :local], :message=>"%{value} needs to be :fabric, :local"}, allow_nil: true
 
         # @return [Object, nil] Specify a description for the VLAN.
         attribute :pn_description

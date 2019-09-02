@@ -30,7 +30,7 @@ module Ansible
 
         # @return [:full, :half, :auto, nil] Interface link status.
         attribute :duplex
-        validates :duplex, inclusion: {:in=>[:full, :half, :auto], :message=>"%{value} needs to be :full, :half, :auto"}, allow_nil: true
+        validates :duplex, expression_inclusion: {:in=>[:full, :half, :auto], :message=>"%{value} needs to be :full, :half, :auto"}, allow_nil: true
 
         # @return [String, nil] Transmit rate in bits per second (bps).,This is state check parameter only.,Supports conditionals, see L(Conditionals in Networking Modules,../network/user_guide/network_working_with_command_output.html)
         attribute :tx_rate
@@ -54,11 +54,11 @@ module Ansible
 
         # @return [:present, :absent, :up, :down, nil] State of the Interface configuration, C(up) idicates present and operationally up and C(down) indicates present and operationally C(down)
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent, :up, :down], :message=>"%{value} needs to be :present, :absent, :up, :down"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent, :up, :down], :message=>"%{value} needs to be :present, :absent, :up, :down"}, allow_nil: true
 
         # @return [Boolean, nil] Specifies whether or not the configuration is active or deactivated
         attribute :active
-        validates :active, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :active, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
       end
     end
   end

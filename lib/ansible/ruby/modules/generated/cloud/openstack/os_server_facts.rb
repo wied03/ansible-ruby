@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:yes, :no, nil] when true, return additional detail about servers at the expense of additional API calls.
         attribute :detailed
-        validates :detailed, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :detailed, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] Ignored. Present for backwards compatibility
         attribute :availability_zone

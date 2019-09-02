@@ -11,7 +11,7 @@ module Ansible
       class Dynamodb_ttl < Base
         # @return [:enable, :disable, nil] state to set DynamoDB table to
         attribute :state
-        validates :state, inclusion: {:in=>[:enable, :disable], :message=>"%{value} needs to be :enable, :disable"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:enable, :disable], :message=>"%{value} needs to be :enable, :disable"}, allow_nil: true
 
         # @return [String] name of the DynamoDB table to work on
         attribute :table_name

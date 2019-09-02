@@ -22,11 +22,11 @@ module Ansible
 
         # @return [:present, :absent, :deleted, :imported, :updated, :vacuumed] State the object operated on should be in. C(imported) is an alias for for C(present) and C(deleted) for C(absent). When set to C(vacuumed) and C(uuid) to C(*), it will remove all unused images.
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:present, :absent, :deleted, :imported, :updated, :vacuumed], :message=>"%{value} needs to be :present, :absent, :deleted, :imported, :updated, :vacuumed"}
+        validates :state, presence: true, expression_inclusion: {:in=>[:present, :absent, :deleted, :imported, :updated, :vacuumed], :message=>"%{value} needs to be :present, :absent, :deleted, :imported, :updated, :vacuumed"}
 
         # @return [:imgapi, :docker, :dsapi, nil] Type for image sources.
         attribute :type
-        validates :type, inclusion: {:in=>[:imgapi, :docker, :dsapi], :message=>"%{value} needs to be :imgapi, :docker, :dsapi"}, allow_nil: true
+        validates :type, expression_inclusion: {:in=>[:imgapi, :docker, :dsapi], :message=>"%{value} needs to be :imgapi, :docker, :dsapi"}, allow_nil: true
 
         # @return [String, nil] Image UUID. Can either be a full UUID or C(*) for all images.
         attribute :uuid

@@ -18,7 +18,7 @@ module Ansible
 
         # @return [:present, :absent] Create or remove cors on the s3 bucket
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
+        validates :state, presence: true, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
       end
     end
   end

@@ -14,7 +14,7 @@ module Ansible
 
         # @return [Boolean, nil] Fail loudly if the I(job_id) does not reference a running job.
         attribute :fail_if_not_running
-        validates :fail_if_not_running, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :fail_if_not_running, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
       end
     end
   end

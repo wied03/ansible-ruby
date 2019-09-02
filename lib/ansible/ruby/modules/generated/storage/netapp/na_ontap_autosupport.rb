@@ -10,7 +10,7 @@ module Ansible
       class Na_ontap_autosupport < Base
         # @return [:present, :absent, nil] Specifies whether the AutoSupport daemon is present or absent.,When this setting is absent, delivery of all AutoSupport messages is turned off.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String] The name fo the filer that owns the AutoSupport Configuration.
         attribute :node_name
@@ -18,7 +18,7 @@ module Ansible
 
         # @return [:http, :https, :smtp, nil] The name of the transport protocol used to deliver AutoSupport messages
         attribute :transport
-        validates :transport, inclusion: {:in=>[:http, :https, :smtp], :message=>"%{value} needs to be :http, :https, :smtp"}, allow_nil: true
+        validates :transport, expression_inclusion: {:in=>[:http, :https, :smtp], :message=>"%{value} needs to be :http, :https, :smtp"}, allow_nil: true
 
         # @return [Array<String>, String, nil] Specifies up to five recipients of full AutoSupport e-mail messages.
         attribute :noteto

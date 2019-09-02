@@ -10,7 +10,7 @@ module Ansible
       class Openssl_privatekey < Base
         # @return [:present, :absent, nil] Whether the private key should exist or not, taking action if the state is different from what is stated.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [Integer, nil] Size (in bits) of the TLS/SSL key to generate
         attribute :size
@@ -18,7 +18,7 @@ module Ansible
 
         # @return [:RSA, :DSA, nil] The algorithm used to generate the TLS/SSL private key
         attribute :type
-        validates :type, inclusion: {:in=>[:RSA, :DSA], :message=>"%{value} needs to be :RSA, :DSA"}, allow_nil: true
+        validates :type, expression_inclusion: {:in=>[:RSA, :DSA], :message=>"%{value} needs to be :RSA, :DSA"}, allow_nil: true
 
         # @return [Symbol, nil] Should the key be regenerated even if it already exists
         attribute :force

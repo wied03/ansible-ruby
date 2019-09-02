@@ -27,7 +27,7 @@ module Ansible
 
         # @return [:absent, :present, nil] Set or remove an xpath selection (node(s), attribute(s)).
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
         # @return [String, nil] The attribute to select when using parameter C(value).,This is a string, not prepended with C(@).
         attribute :attribute
@@ -46,31 +46,31 @@ module Ansible
 
         # @return [:yes, :no, nil] Search for a given C(xpath) and provide the count of any matches.,This parameter requires C(xpath) to be set.
         attribute :count
-        validates :count, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :count, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:yes, :no, nil] Search for a given C(xpath) and print out any matches.,This parameter requires C(xpath) to be set.
         attribute :print_match
-        validates :print_match, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :print_match, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:yes, :no, nil] Pretty print XML output.
         attribute :pretty_print
-        validates :pretty_print, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :pretty_print, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:attribute, :text, nil] Search for a given C(xpath) and get content.,This parameter requires C(xpath) to be set.
         attribute :content
-        validates :content, inclusion: {:in=>[:attribute, :text], :message=>"%{value} needs to be :attribute, :text"}, allow_nil: true
+        validates :content, expression_inclusion: {:in=>[:attribute, :text], :message=>"%{value} needs to be :attribute, :text"}, allow_nil: true
 
         # @return [:xml, :yaml, nil] Type of input for C(add_children) and C(set_children).
         attribute :input_type
-        validates :input_type, inclusion: {:in=>[:xml, :yaml], :message=>"%{value} needs to be :xml, :yaml"}, allow_nil: true
+        validates :input_type, expression_inclusion: {:in=>[:xml, :yaml], :message=>"%{value} needs to be :xml, :yaml"}, allow_nil: true
 
         # @return [:yes, :no, nil] Create a backup file including the timestamp information so you can get the original file back if you somehow clobbered it incorrectly.
         attribute :backup
-        validates :backup, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :backup, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:yes, :no, nil] Remove CDATA tags surrounding text values.,Note that this might break your XML file if text values contain characters that could be interpreted as XML.
         attribute :strip_cdata_tags
-        validates :strip_cdata_tags, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :strip_cdata_tags, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

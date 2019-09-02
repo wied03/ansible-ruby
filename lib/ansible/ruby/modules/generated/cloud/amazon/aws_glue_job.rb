@@ -44,7 +44,7 @@ module Ansible
 
         # @return [:present, :absent] Create or delete the AWS Glue job.
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
+        validates :state, presence: true, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
 
         # @return [Object, nil] The job timeout in minutes.
         attribute :timeout

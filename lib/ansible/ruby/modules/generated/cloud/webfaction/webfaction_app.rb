@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:present, :absent, nil] Whether the application should exist
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String] The type of application to create. See the Webfaction docs at U(https://docs.webfaction.com/xmlrpc-api/apps.html) for a list.
         attribute :type
@@ -22,7 +22,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Whether the app should restart with an C(autostart.cgi) script
         attribute :autostart
-        validates :autostart, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :autostart, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] Any extra parameters required by the app
         attribute :extra_info
@@ -30,7 +30,7 @@ module Ansible
 
         # @return [:yes, :no, nil] IF the port should be opened
         attribute :port_open
-        validates :port_open, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :port_open, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String] The webfaction account to use
         attribute :login_name

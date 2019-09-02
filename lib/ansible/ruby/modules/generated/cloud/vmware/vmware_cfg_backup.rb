@@ -21,7 +21,7 @@ module Ansible
 
         # @return [:saved, :absent, :loaded, nil] If C(saved), the .tgz backup bundle will be saved in I(dest).,If C(absent), the host configuration will be reset to default values.,If C(loaded), the backup file in I(src) will be loaded to the ESXi host rewriting the hosts settings.
         attribute :state
-        validates :state, inclusion: {:in=>[:saved, :absent, :loaded], :message=>"%{value} needs to be :saved, :absent, :loaded"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:saved, :absent, :loaded], :message=>"%{value} needs to be :saved, :absent, :loaded"}, allow_nil: true
       end
     end
   end

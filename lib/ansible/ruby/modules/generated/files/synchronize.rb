@@ -22,31 +22,31 @@ module Ansible
 
         # @return [:pull, :push, nil] Specify the direction of the synchronization. In push mode the localhost or delegate is the source; In pull mode the remote host in context is the source.
         attribute :mode
-        validates :mode, inclusion: {:in=>[:pull, :push], :message=>"%{value} needs to be :pull, :push"}, allow_nil: true
+        validates :mode, expression_inclusion: {:in=>[:pull, :push], :message=>"%{value} needs to be :pull, :push"}, allow_nil: true
 
         # @return [:yes, :no, nil] Mirrors the rsync archive flag, enables recursive, links, perms, times, owner, group flags and -D.
         attribute :archive
-        validates :archive, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :archive, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:yes, :no, nil] Skip based on checksum, rather than mod-time & size; Note that that "archive" option is still enabled by default - the "checksum" option will not disable it.
         attribute :checksum
-        validates :checksum, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :checksum, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:yes, :no, nil] Compress file data during the transfer. In most cases, leave this enabled unless it causes problems.
         attribute :compress
-        validates :compress, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :compress, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:yes, :no, nil] Skip creating new files on receiver.
         attribute :existing_only
-        validates :existing_only, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :existing_only, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:yes, :no, nil] Delete files in C(dest) that don't exist (after transfer, not before) in the C(src) path. This option requires C(recursive=yes).
         attribute :delete
-        validates :delete, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :delete, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:yes, :no, nil] Transfer directories without recursing
         attribute :dirs
-        validates :dirs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :dirs, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Symbol, nil] Recurse into directories.
         attribute :recursive
@@ -58,7 +58,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Copy symlinks as the item that they point to (the referent) is copied, rather than the symlink.
         attribute :copy_links
-        validates :copy_links, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :copy_links, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Symbol, nil] Preserve permissions.
         attribute :perms
@@ -86,11 +86,11 @@ module Ansible
 
         # @return [Boolean, nil] put user@ for the remote paths. If you have a custom ssh config to define the remote user for a host that does not match the inventory user, you should set this parameter to "no".
         attribute :set_remote_user
-        validates :set_remote_user, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :set_remote_user, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [:yes, :no, nil] Use the ssh_args specified in ansible.cfg
         attribute :use_ssh_args
-        validates :use_ssh_args, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :use_ssh_args, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Array<String>, String, nil] Specify additional rsync options by passing in an array.
         attribute :rsync_opts
@@ -98,11 +98,11 @@ module Ansible
 
         # @return [:yes, :no, nil] Tells rsync to keep the partial file which should make a subsequent transfer of the rest of the file much faster.
         attribute :partial
-        validates :partial, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :partial, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:yes, :no, nil] Verify destination host key.
         attribute :verify_host
-        validates :verify_host, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :verify_host, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] Specify the private key to use for SSH-based rsync connections (e.g. C(~/.ssh/id_rsa))
         attribute :private_key

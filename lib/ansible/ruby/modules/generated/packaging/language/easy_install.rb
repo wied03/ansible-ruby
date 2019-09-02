@@ -18,7 +18,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Whether the virtual environment will inherit packages from the global site-packages directory.  Note that if this setting is changed on an already existing virtual environment it will not have any effect, the environment must be deleted and newly created.
         attribute :virtualenv_site_packages
-        validates :virtualenv_site_packages, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :virtualenv_site_packages, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] The command to create the virtual environment with. For example C(pyvenv), C(virtualenv), C(virtualenv2).
         attribute :virtualenv_command
@@ -29,7 +29,7 @@ module Ansible
 
         # @return [:present, :latest, nil] The desired state of the library. C(latest) ensures that the latest version is installed.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :latest], :message=>"%{value} needs to be :present, :latest"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :latest], :message=>"%{value} needs to be :present, :latest"}, allow_nil: true
       end
     end
   end

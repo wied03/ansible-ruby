@@ -43,18 +43,18 @@ module Ansible
 
         # @return [:md5, :default, nil] Algorithm used for authentication among neighboring routers within an area. Valid values are 'md5' and 'default'.
         attribute :message_digest_algorithm_type
-        validates :message_digest_algorithm_type, inclusion: {:in=>[:md5, :default], :message=>"%{value} needs to be :md5, :default"}, allow_nil: true
+        validates :message_digest_algorithm_type, expression_inclusion: {:in=>[:md5, :default], :message=>"%{value} needs to be :md5, :default"}, allow_nil: true
 
         # @return [:cisco_type_7, :"3des", :default, nil] Specifies the scheme used for encrypting message_digest_password. Valid values are '3des' or 'cisco_type_7' encryption or 'default'.
         attribute :message_digest_encryption_type
-        validates :message_digest_encryption_type, inclusion: {:in=>[:cisco_type_7, :"3des", :default], :message=>"%{value} needs to be :cisco_type_7, :\"3des\", :default"}, allow_nil: true
+        validates :message_digest_encryption_type, expression_inclusion: {:in=>[:cisco_type_7, :"3des", :default], :message=>"%{value} needs to be :cisco_type_7, :\"3des\", :default"}, allow_nil: true
 
         # @return [Object, nil] Specifies the message_digest password. Valid value is a string.
         attribute :message_digest_password
 
         # @return [:present, :absent, nil] Determines whether the config should be present or not on the device.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

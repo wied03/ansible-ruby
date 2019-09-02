@@ -30,7 +30,7 @@ module Ansible
 
         # @return [9.5, 9.6, nil] Server version.
         attribute :version
-        validates :version, inclusion: {:in=>[9.5, 9.6], :message=>"%{value} needs to be 9.5, 9.6"}, allow_nil: true
+        validates :version, expression_inclusion: {:in=>[9.5, 9.6], :message=>"%{value} needs to be 9.5, 9.6"}, allow_nil: true
 
         # @return [Symbol, nil] Enable SSL enforcement.
         attribute :enforce_ssl
@@ -50,7 +50,7 @@ module Ansible
 
         # @return [:present, :absent, nil] Assert the state of the PostgreSQL server. Use 'present' to create or update a server and 'absent' to delete it.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

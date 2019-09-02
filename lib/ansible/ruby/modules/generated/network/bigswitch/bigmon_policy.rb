@@ -18,7 +18,7 @@ module Ansible
 
         # @return [:forward, :drop, :"flow-gen", nil] Forward matching packets to delivery interfaces, Drop is for measure rate of matching packets, but do not forward to delivery interfaces, capture packets and write to a PCAP file, or enable NetFlow generation.
         attribute :action
-        validates :action, inclusion: {:in=>[:forward, :drop, :"flow-gen"], :message=>"%{value} needs to be :forward, :drop, :\"flow-gen\""}, allow_nil: true
+        validates :action, expression_inclusion: {:in=>[:forward, :drop, :"flow-gen"], :message=>"%{value} needs to be :forward, :drop, :\"flow-gen\""}, allow_nil: true
 
         # @return [Integer, nil] A priority associated with this policy. The higher priority policy takes precedence over a lower priority.
         attribute :priority
@@ -38,7 +38,7 @@ module Ansible
 
         # @return [:present, :absent, nil] Whether the policy should be present or absent.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String] The controller address.
         attribute :controller
@@ -46,7 +46,7 @@ module Ansible
 
         # @return [Boolean, nil] If C(false), SSL certificates will not be validated. This should only be used on personally controlled devices using self-signed certificates.
         attribute :validate_certs
-        validates :validate_certs, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :validate_certs, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Object, nil] Bigmon access token. If this isn't set, the environment variable C(BIGSWITCH_ACCESS_TOKEN) is used.
         attribute :access_token

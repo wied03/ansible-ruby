@@ -10,7 +10,7 @@ module Ansible
       class Na_elementsw_node < Base
         # @return [:present, :absent, nil] Element Software Storage Node operation state.,present - To add pending node to participate in cluster data storage.,absent  - To remove node from active cluster.  A node cannot be removed if active drives are present.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String, Integer] List of IDs or Names or IP Address of nodes from cluster used for operation.
         attribute :node_id

@@ -22,15 +22,15 @@ module Ansible
 
         # @return [Boolean, nil] Make this revision the default revision.
         attribute :make_default
-        validates :make_default, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :make_default, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [:yes, :no, nil] Remove all other non default revisions, if this is used with C(make_default) it will result in all other versions of this policy being deleted.
         attribute :only_version
-        validates :only_version, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :only_version, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:present, :absent, nil] Should this managed policy be present or absent. Set to absent to detach all entities from this policy and remove it if found.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

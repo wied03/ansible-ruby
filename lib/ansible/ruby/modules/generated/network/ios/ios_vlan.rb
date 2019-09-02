@@ -33,11 +33,11 @@ module Ansible
 
         # @return [Boolean, nil] Purge VLANs not defined in the I(aggregate) parameter.
         attribute :purge
-        validates :purge, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :purge, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [:present, :absent, :active, :suspend, nil] State of the VLAN configuration.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent, :active, :suspend], :message=>"%{value} needs to be :present, :absent, :active, :suspend"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent, :active, :suspend], :message=>"%{value} needs to be :present, :absent, :active, :suspend"}, allow_nil: true
       end
     end
   end

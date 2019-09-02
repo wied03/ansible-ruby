@@ -31,11 +31,11 @@ module Ansible
 
         # @return [:present, :absent, :started, :stopped, :restarted, nil] State of the router.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent, :started, :stopped, :restarted], :message=>"%{value} needs to be :present, :absent, :started, :stopped, :restarted"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent, :started, :stopped, :restarted], :message=>"%{value} needs to be :present, :absent, :started, :stopped, :restarted"}, allow_nil: true
 
         # @return [Boolean, nil] Poll async jobs until job has finished.
         attribute :poll_async
-        validates :poll_async, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :poll_async, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
       end
     end
   end

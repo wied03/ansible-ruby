@@ -10,7 +10,7 @@ module Ansible
       class Digital_ocean_domain < Base
         # @return [:present, :absent, nil] Indicate desired state of the target.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [Object, nil] Numeric, the droplet id you want to operate on.
         attribute :id

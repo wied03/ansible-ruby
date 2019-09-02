@@ -10,11 +10,11 @@ module Ansible
       class Na_ontap_cifs_server < Base
         # @return [:present, :absent, nil] Whether the specified cifs_server should exist or not.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [:stopped, :started, nil] CIFS Server Administrative Status.
         attribute :service_state
-        validates :service_state, inclusion: {:in=>[:stopped, :started], :message=>"%{value} needs to be :stopped, :started"}, allow_nil: true
+        validates :service_state, expression_inclusion: {:in=>[:stopped, :started], :message=>"%{value} needs to be :stopped, :started"}, allow_nil: true
 
         # @return [String] Specifies the cifs_server name.
         attribute :cifs_server_name

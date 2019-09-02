@@ -10,7 +10,7 @@ module Ansible
       class Ce_bfd_global < Base
         # @return [:enable, :disable, nil] Enables the global Bidirectional Forwarding Detection (BFD) function.
         attribute :bfd_enable
-        validates :bfd_enable, inclusion: {:in=>[:enable, :disable], :message=>"%{value} needs to be :enable, :disable"}, allow_nil: true
+        validates :bfd_enable, expression_inclusion: {:in=>[:enable, :disable], :message=>"%{value} needs to be :enable, :disable"}, allow_nil: true
 
         # @return [Object, nil] Specifies the default multicast IP address. The value ranges from 224.0.0.107 to 224.0.0.250.
         attribute :default_ip
@@ -35,7 +35,7 @@ module Ansible
 
         # @return [:present, :absent, nil] Determines whether the config should be present or not on the device.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

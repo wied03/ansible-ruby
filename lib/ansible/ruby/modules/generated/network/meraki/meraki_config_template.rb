@@ -10,7 +10,7 @@ module Ansible
       class Meraki_config_template < Base
         # @return [:absent, :query, :present, nil] Specifies whether configuration template information should be queried, modified, or deleted.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :query, :present], :message=>"%{value} needs to be :absent, :query, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :query, :present], :message=>"%{value} needs to be :absent, :query, :present"}, allow_nil: true
 
         # @return [String, nil] Name of organization containing the configuration template.
         attribute :org_name

@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:xml, :text, :set, :json, nil] The I(config_format) argument specifies the format of the configuration when serializing output from the device. This argument is applicable only when C(config) value is present in I(gather_subset). The I(config_format) should be supported by the junos version running on device. This value is not applicable while fetching old style facts that is when C(ofacts) value is present in value if I(gather_subset) value.
         attribute :config_format
-        validates :config_format, inclusion: {:in=>[:xml, :text, :set, :json], :message=>"%{value} needs to be :xml, :text, :set, :json"}, allow_nil: true
+        validates :config_format, expression_inclusion: {:in=>[:xml, :text, :set, :json], :message=>"%{value} needs to be :xml, :text, :set, :json"}, allow_nil: true
       end
     end
   end

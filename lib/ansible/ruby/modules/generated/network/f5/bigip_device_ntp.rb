@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:absent, :present, nil] The state of the NTP servers on the system. When C(present), guarantees that the NTP servers are set on the system. When C(absent), removes the specified NTP servers from the device configuration.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
         # @return [String, nil] The timezone to set for NTP lookups. At least one of C(ntp_servers) or C(timezone) is required.
         attribute :timezone

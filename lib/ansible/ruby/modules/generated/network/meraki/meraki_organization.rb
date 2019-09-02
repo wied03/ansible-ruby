@@ -10,7 +10,7 @@ module Ansible
       class Meraki_organization < Base
         # @return [:present, :query, nil] Create or modify an organization.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :query], :message=>"%{value} needs to be :present, :query"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :query], :message=>"%{value} needs to be :present, :query"}, allow_nil: true
 
         # @return [String, nil] Organization to clone to a new organization.
         attribute :clone

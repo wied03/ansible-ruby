@@ -11,7 +11,7 @@ module Ansible
       class Digital_ocean_image_facts < Base
         # @return [:all, :application, :distribution, :private, nil] Specifies the type of image facts to be retrived.,If set to C(application), then facts are gathered related to all application images.,If set to C(distribution), then facts are gathered related to all distribution images.,If set to C(private), then facts are gathered related to all private images.,If not set to any of above, then facts are gathered related to all images.
         attribute :image_type
-        validates :image_type, inclusion: {:in=>[:all, :application, :distribution, :private], :message=>"%{value} needs to be :all, :application, :distribution, :private"}, allow_nil: true
+        validates :image_type, expression_inclusion: {:in=>[:all, :application, :distribution, :private], :message=>"%{value} needs to be :all, :application, :distribution, :private"}, allow_nil: true
       end
     end
   end

@@ -24,11 +24,11 @@ module Ansible
 
         # @return [Boolean, nil] When set for PUT mode, asks for server-side encryption.
         attribute :encrypt
-        validates :encrypt, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :encrypt, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [:AES256, :"aws:kms", nil] What encryption mode to use if C(encrypt) is set
         attribute :encryption_mode
-        validates :encryption_mode, inclusion: {:in=>[:AES256, :"aws:kms"], :message=>"%{value} needs to be :AES256, :\"aws:kms\""}, allow_nil: true
+        validates :encryption_mode, expression_inclusion: {:in=>[:AES256, :"aws:kms"], :message=>"%{value} needs to be :AES256, :\"aws:kms\""}, allow_nil: true
 
         # @return [Integer, nil] Time limit (in seconds) for the URL generated and returned by S3/Walrus when performing a mode=put or mode=geturl operation.
         attribute :expiration
@@ -52,7 +52,7 @@ module Ansible
 
         # @return [:get, :put, :delete, :create, :geturl, :getstr, :delobj, :list] Switches the module behaviour between put (upload), get (download), geturl (return download url, Ansible 1.3+), getstr (download object as string (1.3+)), list (list keys, Ansible 2.0+), create (bucket), delete (bucket), and delobj (delete object, Ansible 2.0+).
         attribute :mode
-        validates :mode, presence: true, inclusion: {:in=>[:get, :put, :delete, :create, :geturl, :getstr, :delobj, :list], :message=>"%{value} needs to be :get, :put, :delete, :create, :geturl, :getstr, :delobj, :list"}
+        validates :mode, presence: true, expression_inclusion: {:in=>[:get, :put, :delete, :create, :geturl, :getstr, :delobj, :list], :message=>"%{value} needs to be :get, :put, :delete, :create, :geturl, :getstr, :delobj, :list"}
 
         # @return [String, nil] Keyname of the object inside the bucket. Can be used to create "virtual directories", see examples.
         attribute :object
@@ -88,11 +88,11 @@ module Ansible
 
         # @return [:yes, :no, nil] Enables Amazon S3 Dual-Stack Endpoints, allowing S3 communications using both IPv4 and IPv6.,Requires at least botocore version 1.4.45.
         attribute :dualstack
-        validates :dualstack, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :dualstack, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Boolean, nil] Enable Ceph RGW S3 support. This option requires an explicit url via s3_url.
         attribute :rgw
-        validates :rgw, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :rgw, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [String, nil] The source file path when performing a PUT operation.
         attribute :src

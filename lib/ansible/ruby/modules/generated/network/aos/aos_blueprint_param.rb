@@ -26,11 +26,11 @@ module Ansible
 
         # @return [Boolean, nil] Get the complete list of supported parameters for this blueprint and the description of those parameters.
         attribute :get_param_list
-        validates :get_param_list, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :get_param_list, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [:present, :absent, nil] Indicate what is the expected state of the Blueprint Parameter (present or not).
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [Hash, nil] Defines the aos-pyez collection that will is used to map the user-defined item name into the AOS unique ID value.  For example, if the caller provides an IP address pool I(param_value) called "Server-IpAddrs", then the aos-pyez collection is 'IpPools'. Some I(param_map) are already defined by default like I(logical_device_maps).
         attribute :param_map

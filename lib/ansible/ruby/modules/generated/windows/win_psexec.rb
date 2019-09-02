@@ -35,19 +35,19 @@ module Ansible
 
         # @return [:yes, :no, nil] Do not display the startup banner and copyright message.,This only works for specific versions of the PsExec binary.
         attribute :nobanner
-        validates :nobanner, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :nobanner, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:yes, :no, nil] Run the command without loading the account's profile.
         attribute :noprofile
-        validates :noprofile, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :noprofile, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:yes, :no, nil] Run the command with elevated privileges.
         attribute :elevated
-        validates :elevated, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :elevated, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:yes, :no, nil] Run the program so that it interacts with the desktop on the remote system.
         attribute :interactive
-        validates :interactive, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :interactive, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] Specifies the session ID to use.,This parameter works in conjunction with I(interactive).,It has no effect when I(interactive) is set to C(no).
         attribute :session
@@ -55,15 +55,15 @@ module Ansible
 
         # @return [:yes, :no, nil] Run the command as limited user (strips the Administrators group and allows only privileges assigned to the Users group).
         attribute :limited
-        validates :limited, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :limited, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:yes, :no, nil] Run the remote command in the System account.
         attribute :system
-        validates :system, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :system, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:background, :low, :belownormal, :abovenormal, :high, :realtime, nil] Used to run the command at a different priority.
         attribute :priority
-        validates :priority, inclusion: {:in=>[:background, :low, :belownormal, :abovenormal, :high, :realtime], :message=>"%{value} needs to be :background, :low, :belownormal, :abovenormal, :high, :realtime"}, allow_nil: true
+        validates :priority, expression_inclusion: {:in=>[:background, :low, :belownormal, :abovenormal, :high, :realtime], :message=>"%{value} needs to be :background, :low, :belownormal, :abovenormal, :high, :realtime"}, allow_nil: true
 
         # @return [Integer, nil] The connection timeout in seconds
         attribute :timeout
@@ -71,7 +71,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Wait for the application to terminate.,Only use for non-interactive applications.
         attribute :wait
-        validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :wait, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

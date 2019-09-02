@@ -20,7 +20,7 @@ module Ansible
 
         # @return [:present, :absent] Assert the state of the ospf. Use 'present' to add ospf and 'absent' to remove ospf.
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
+        validates :state, presence: true, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
 
         # @return [String] Specify the name of the vRouter.
         attribute :pn_vrouter_name

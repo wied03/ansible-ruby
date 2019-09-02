@@ -30,15 +30,15 @@ module Ansible
 
         # @return [:cdp, :lldp] Link discovery protocol between Cisco and Link Layer discovery
         attribute :discovery_proto
-        validates :discovery_proto, presence: true, inclusion: {:in=>[:cdp, :lldp], :message=>"%{value} needs to be :cdp, :lldp"}
+        validates :discovery_proto, presence: true, expression_inclusion: {:in=>[:cdp, :lldp], :message=>"%{value} needs to be :cdp, :lldp"}
 
         # @return [:both, :none, :advertise, :listen, nil] Select the discovery operation
         attribute :discovery_operation
-        validates :discovery_operation, inclusion: {:in=>[:both, :none, :advertise, :listen], :message=>"%{value} needs to be :both, :none, :advertise, :listen"}, allow_nil: true
+        validates :discovery_operation, expression_inclusion: {:in=>[:both, :none, :advertise, :listen], :message=>"%{value} needs to be :both, :none, :advertise, :listen"}, allow_nil: true
 
         # @return [:present, :absent, nil] Create or remove dvSwitch
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

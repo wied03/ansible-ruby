@@ -18,7 +18,7 @@ module Ansible
 
         # @return [:ssh, :vault, :net, :scm, :cloud, :insights, nil] The type of credential type being added. Note that only cloud and net can be used for creating credential types. Refer to the Ansible for more information.
         attribute :kind
-        validates :kind, inclusion: {:in=>[:ssh, :vault, :net, :scm, :cloud, :insights], :message=>"%{value} needs to be :ssh, :vault, :net, :scm, :cloud, :insights"}, allow_nil: true
+        validates :kind, expression_inclusion: {:in=>[:ssh, :vault, :net, :scm, :cloud, :insights], :message=>"%{value} needs to be :ssh, :vault, :net, :scm, :cloud, :insights"}, allow_nil: true
 
         # @return [String, nil] Enter inputs using either JSON or YAML syntax. Refer to the Ansible Tower documentation for example syntax.
         attribute :inputs
@@ -30,7 +30,7 @@ module Ansible
 
         # @return [:present, :absent, nil] Desired state of the resource.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [Symbol, nil] Tower option to avoid certificates check.
         attribute :tower_verify_ssl

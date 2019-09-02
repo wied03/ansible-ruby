@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
-# VALIDATED_CHECKSUM: EYdZ9aEFCSg+q5RaNSh+w+b/Kp5zI1KPHEKPkqmdODs=
+# VALIDATED_CHECKSUM: 0q0k3jl40Ssgb5i3snikBFDpfpg3pXSW1AykDzt4qZk=
+
 # See LICENSE.txt for license
 
 require 'ansible/ruby/modules/generated/cloud/amazon/iam_policy'

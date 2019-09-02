@@ -18,7 +18,7 @@ module Ansible
 
         # @return [:A, :AAAA, :A6, :CNAME, :DNAME, :PTR, :TXT, nil] The type of DNS record name.,Currently, 'A', 'AAAA', 'A6', 'CNAME', 'DNAME', 'PTR' and 'TXT' are supported.,'A6', 'CNAME', 'DNAME' and 'TXT' are added in version 2.5.
         attribute :record_type
-        validates :record_type, inclusion: {:in=>[:A, :AAAA, :A6, :CNAME, :DNAME, :PTR, :TXT], :message=>"%{value} needs to be :A, :AAAA, :A6, :CNAME, :DNAME, :PTR, :TXT"}, allow_nil: true
+        validates :record_type, expression_inclusion: {:in=>[:A, :AAAA, :A6, :CNAME, :DNAME, :PTR, :TXT], :message=>"%{value} needs to be :A, :AAAA, :A6, :CNAME, :DNAME, :PTR, :TXT"}, allow_nil: true
 
         # @return [String] Manage DNS record name with this value.,In the case of 'A' or 'AAAA' record types, this will be the IP address.,In the case of 'A6' record type, this will be the A6 Record data.,In the case of 'CNAME' record type, this will be the hostname.,In the case of 'DNAME' record type, this will be the DNAME target.,In the case of 'PTR' record type, this will be the hostname.,In the case of 'TXT' record type, this will be a text.
         attribute :record_value
@@ -30,7 +30,7 @@ module Ansible
 
         # @return [:present, :absent, nil] State to ensure
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

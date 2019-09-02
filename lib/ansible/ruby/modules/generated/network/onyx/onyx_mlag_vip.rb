@@ -22,7 +22,7 @@ module Ansible
 
         # @return [:present, :absent, nil] MLAG VIP state.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [Integer, nil] Delay interval, in seconds, waiting for the changes on mlag VIP to take effect.
         attribute :delay

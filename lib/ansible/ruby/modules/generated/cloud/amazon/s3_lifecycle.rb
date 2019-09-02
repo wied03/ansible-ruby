@@ -26,14 +26,14 @@ module Ansible
 
         # @return [Boolean, nil] "Whether to replace all the current transition(s) with the new transition(s). When false, the provided transition(s) will be added, replacing transitions with the same storage_class. When true, existing transitions will be removed and replaced with the new transition(s)\r\n
         attribute :purge_transitions
-        validates :purge_transitions, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :purge_transitions, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Object, nil] Delete noncurrent versions this many days after they become noncurrent
         attribute :noncurrent_version_expiration_days
 
         # @return [:glacier, :onezone_ia, :standard_ia, nil] Transition noncurrent versions to this storage class
         attribute :noncurrent_version_storage_class
-        validates :noncurrent_version_storage_class, inclusion: {:in=>[:glacier, :onezone_ia, :standard_ia], :message=>"%{value} needs to be :glacier, :onezone_ia, :standard_ia"}, allow_nil: true
+        validates :noncurrent_version_storage_class, expression_inclusion: {:in=>[:glacier, :onezone_ia, :standard_ia], :message=>"%{value} needs to be :glacier, :onezone_ia, :standard_ia"}, allow_nil: true
 
         # @return [Object, nil] Transition noncurrent versions this many days after they become noncurrent
         attribute :noncurrent_version_transition_days
@@ -46,15 +46,15 @@ module Ansible
 
         # @return [:present, :absent, nil] Create or remove the lifecycle rule
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [:enabled, :disabled, nil] If 'enabled', the rule is currently being applied. If 'disabled', the rule is not currently being applied.
         attribute :status
-        validates :status, inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
+        validates :status, expression_inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
 
         # @return [:glacier, :onezone_ia, :standard_ia, nil] The storage class to transition to. Currently there are two supported values - 'glacier',  'onezone_ia', or 'standard_ia'.,The 'standard_ia' class is only being available from Ansible version 2.2.
         attribute :storage_class
-        validates :storage_class, inclusion: {:in=>[:glacier, :onezone_ia, :standard_ia], :message=>"%{value} needs to be :glacier, :onezone_ia, :standard_ia"}, allow_nil: true
+        validates :storage_class, expression_inclusion: {:in=>[:glacier, :onezone_ia, :standard_ia], :message=>"%{value} needs to be :glacier, :onezone_ia, :standard_ia"}, allow_nil: true
 
         # @return [String, nil] Indicates the lifetime of the objects that are subject to the rule by the date they will transition to a different storage class. The value must be ISO-8601 format, the time must be midnight and a GMT timezone must be specified. If transition_days is not specified, this parameter is required."\r\n
         attribute :transition_date

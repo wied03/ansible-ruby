@@ -10,7 +10,7 @@ module Ansible
       class Pagerduty < Base
         # @return [:running, :started, :ongoing, :absent] Create a maintenance window or get a list of ongoing windows.
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:running, :started, :ongoing, :absent], :message=>"%{value} needs to be :running, :started, :ongoing, :absent"}
+        validates :state, presence: true, expression_inclusion: {:in=>[:running, :started, :ongoing, :absent], :message=>"%{value} needs to be :running, :started, :ongoing, :absent"}
 
         # @return [String, nil] PagerDuty unique subdomain. Obsolete. It is not used with PagerDuty REST v2 API.
         attribute :name
@@ -49,7 +49,7 @@ module Ansible
 
         # @return [:yes, :no, nil] If C(no), SSL certificates will not be validated. This should only be used on personally controlled sites using self-signed certificates.
         attribute :validate_certs
-        validates :validate_certs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :validate_certs, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

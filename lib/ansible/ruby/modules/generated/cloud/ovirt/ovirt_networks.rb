@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:present, :absent, nil] Should the network be present or absent
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String, nil] Datacenter name where network reside.
         attribute :data_center

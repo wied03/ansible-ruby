@@ -32,7 +32,7 @@ module Ansible
 
         # @return [:present, :absent, :stopped, :restarted, nil] State of the VPC.,The state C(present) creates a started VPC.,The state C(stopped) is only considered while creating the VPC, added in version 2.6.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent, :stopped, :restarted], :message=>"%{value} needs to be :present, :absent, :stopped, :restarted"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent, :stopped, :restarted], :message=>"%{value} needs to be :present, :absent, :stopped, :restarted"}, allow_nil: true
 
         # @return [Object, nil] Domain the VPC is related to.
         attribute :domain
@@ -51,7 +51,7 @@ module Ansible
 
         # @return [Boolean, nil] Poll async jobs until job has finished.
         attribute :poll_async
-        validates :poll_async, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :poll_async, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
       end
     end
   end

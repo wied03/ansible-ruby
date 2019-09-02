@@ -21,7 +21,7 @@ module Ansible
 
         # @return [:present, :absent] Whether to create(or update) or delete certificate.,If new_path or new_name is defined, specifying present will attempt to make an update these.
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
+        validates :state, presence: true, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
 
         # @return [String, nil] When creating or updating, specify the desired path of the certificate.
         attribute :path
@@ -41,7 +41,7 @@ module Ansible
 
         # @return [Boolean, nil] By default the module will not upload a certificate that is already uploaded into AWS. If set to True, it will upload the certificate as long as the name is unique.
         attribute :dup_ok
-        validates :dup_ok, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :dup_ok, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
       end
     end
   end

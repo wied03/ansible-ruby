@@ -17,23 +17,23 @@ module Ansible
 
         # @return [:"hmac-sha256", :md5, nil] Specify authentication algorithm.
         attribute :auth_mode
-        validates :auth_mode, inclusion: {:in=>[:"hmac-sha256", :md5], :message=>"%{value} needs to be :\"hmac-sha256\", :md5"}, allow_nil: true
+        validates :auth_mode, expression_inclusion: {:in=>[:"hmac-sha256", :md5], :message=>"%{value} needs to be :\"hmac-sha256\", :md5"}, allow_nil: true
 
         # @return [:text, :encrypt, nil] Whether the given password is in cleartext or has been encrypted. If in cleartext, the device will encrypt it before storing it.
         attribute :auth_type
-        validates :auth_type, inclusion: {:in=>[:text, :encrypt], :message=>"%{value} needs to be :text, :encrypt"}, allow_nil: true
+        validates :auth_type, expression_inclusion: {:in=>[:text, :encrypt], :message=>"%{value} needs to be :text, :encrypt"}, allow_nil: true
 
         # @return [:enable, :disable, nil] Whether the given key is required to be supplied by a time source for the device to synchronize to the time source.
         attribute :trusted_key
-        validates :trusted_key, inclusion: {:in=>[:enable, :disable], :message=>"%{value} needs to be :enable, :disable"}, allow_nil: true
+        validates :trusted_key, expression_inclusion: {:in=>[:enable, :disable], :message=>"%{value} needs to be :enable, :disable"}, allow_nil: true
 
         # @return [:enable, :disable, nil] Configure ntp authentication enable or unconfigure ntp authentication enable.
         attribute :authentication
-        validates :authentication, inclusion: {:in=>[:enable, :disable], :message=>"%{value} needs to be :enable, :disable"}, allow_nil: true
+        validates :authentication, expression_inclusion: {:in=>[:enable, :disable], :message=>"%{value} needs to be :enable, :disable"}, allow_nil: true
 
         # @return [:present, :absent, nil] Manage the state of the resource.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

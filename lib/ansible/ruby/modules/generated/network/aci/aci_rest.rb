@@ -11,7 +11,7 @@ module Ansible
       class Aci_rest < Base
         # @return [:delete, :get, :post, nil] The HTTP method of the request.,Using C(delete) is typically used for deleting objects.,Using C(get) is typically used for querying objects.,Using C(post) is typically used for modifying objects.
         attribute :method
-        validates :method, inclusion: {:in=>[:delete, :get, :post], :message=>"%{value} needs to be :delete, :get, :post"}, allow_nil: true
+        validates :method, expression_inclusion: {:in=>[:delete, :get, :post], :message=>"%{value} needs to be :delete, :get, :post"}, allow_nil: true
 
         # @return [Array<String>, String] URI being used to execute API calls.,Must end in C(.xml) or C(.json).
         attribute :path

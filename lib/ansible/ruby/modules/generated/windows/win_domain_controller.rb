@@ -30,7 +30,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Whether to install the domain controller as a read only replica for an existing domain.
         attribute :read_only
-        validates :read_only, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :read_only, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] Specifies the name of an existing site where you can place the new domain controller.,This option is required when I(read_only) is C(yes).
         attribute :site_name
@@ -38,7 +38,7 @@ module Ansible
 
         # @return [:domain_controller, :member_server, nil] Whether the target host should be a domain controller or a member server.
         attribute :state
-        validates :state, inclusion: {:in=>[:domain_controller, :member_server], :message=>"%{value} needs to be :domain_controller, :member_server"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:domain_controller, :member_server], :message=>"%{value} needs to be :domain_controller, :member_server"}, allow_nil: true
 
         # @return [String, nil] The path to a directory on a fixed disk of the Windows host where the domain database will be created..,If not set then the default path is C(%SYSTEMROOT%\NTDS).
         attribute :database_path

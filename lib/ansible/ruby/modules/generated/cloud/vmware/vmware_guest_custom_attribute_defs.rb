@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:present, :absent] Manage definition of custom attributes.,If set to C(present) and definition not present, then custom attribute definition is created.,If set to C(present) and definition is present, then no action taken.,If set to C(absent) and definition is present, then custom attribute definition is removed.,If set to C(absent) and definition is absent, then no action taken.
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
+        validates :state, presence: true, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
       end
     end
   end

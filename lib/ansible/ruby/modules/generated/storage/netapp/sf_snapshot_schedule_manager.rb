@@ -10,14 +10,14 @@ module Ansible
       class Sf_snapshot_schedule_manager < Base
         # @return [:present, :absent] Whether the specified schedule should exist or not.
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
+        validates :state, presence: true, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
 
         # @return [Object, nil] Pause / Resume a schedule.
         attribute :paused
 
         # @return [Boolean, nil] Should the schedule recur?
         attribute :recurring
-        validates :recurring, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :recurring, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Integer, nil] Time interval in days.
         attribute :time_interval_days

@@ -10,11 +10,11 @@ module Ansible
       class Scaleway_volume < Base
         # @return [:present, :absent, nil] Indicate desired state of the volume.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [:ams1, :"EMEA-NL-EVS", :par1, :"EMEA-FR-PAR1"] Scaleway region to use (for example par1).
         attribute :region
-        validates :region, presence: true, inclusion: {:in=>[:ams1, :"EMEA-NL-EVS", :par1, :"EMEA-FR-PAR1"], :message=>"%{value} needs to be :ams1, :\"EMEA-NL-EVS\", :par1, :\"EMEA-FR-PAR1\""}
+        validates :region, presence: true, expression_inclusion: {:in=>[:ams1, :"EMEA-NL-EVS", :par1, :"EMEA-FR-PAR1"], :message=>"%{value} needs to be :ams1, :\"EMEA-NL-EVS\", :par1, :\"EMEA-FR-PAR1\""}
 
         # @return [String] Name used to identify the volume.
         attribute :name

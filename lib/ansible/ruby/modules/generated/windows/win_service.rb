@@ -15,11 +15,11 @@ module Ansible
 
         # @return [:add, :remove, :set, nil] Used in conjunction with C(dependency) to either add the dependencies to the existing service dependencies.,Remove the dependencies to the existing dependencies.,Set the dependencies to only the values in the list replacing the existing dependencies.
         attribute :dependency_action
-        validates :dependency_action, inclusion: {:in=>[:add, :remove, :set], :message=>"%{value} needs to be :add, :remove, :set"}, allow_nil: true
+        validates :dependency_action, expression_inclusion: {:in=>[:add, :remove, :set], :message=>"%{value} needs to be :add, :remove, :set"}, allow_nil: true
 
         # @return [:yes, :no, nil] Whether to allow the service user to interact with the desktop.,This should only be set to C(yes) when using the LocalSystem username.
         attribute :desktop_interact
-        validates :desktop_interact, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :desktop_interact, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] The description to set for the service.
         attribute :description
@@ -31,7 +31,7 @@ module Ansible
 
         # @return [:yes, :no, nil] If C(yes), stopping or restarting a service with dependent services will force the dependent services to stop or restart also.,If C(no), stopping or restarting a service with dependent services may fail.
         attribute :force_dependent_services
-        validates :force_dependent_services, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :force_dependent_services, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String] Name of the service.,If only the name parameter is specified, the module will report on whether the service exists or not without making any changes.
         attribute :name
@@ -47,11 +47,11 @@ module Ansible
 
         # @return [:auto, :delayed, :disabled, :manual, nil] Set the startup type for the service.,C(delayed) added in Ansible 2.3
         attribute :start_mode
-        validates :start_mode, inclusion: {:in=>[:auto, :delayed, :disabled, :manual], :message=>"%{value} needs to be :auto, :delayed, :disabled, :manual"}, allow_nil: true
+        validates :start_mode, expression_inclusion: {:in=>[:auto, :delayed, :disabled, :manual], :message=>"%{value} needs to be :auto, :delayed, :disabled, :manual"}, allow_nil: true
 
         # @return [:absent, :paused, :started, :stopped, :restarted, nil] C(started)/C(stopped)/C(absent)/C(pause) are idempotent actions that will not run commands unless necessary.,C(restarted) will always bounce the service.,C(absent) added in Ansible 2.3,C(pause) was added in Ansible 2.4,Only services that support the paused state can be paused, you can check the return value C(can_pause_and_continue).,You can only pause a service that is already started.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :paused, :started, :stopped, :restarted], :message=>"%{value} needs to be :absent, :paused, :started, :stopped, :restarted"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :paused, :started, :stopped, :restarted], :message=>"%{value} needs to be :absent, :paused, :started, :stopped, :restarted"}, allow_nil: true
 
         # @return [String, nil] The username to set the service to start as.,This and the C(password) argument must be supplied together when using a local or domain account.,Set to C(LocalSystem) to use the SYSTEM account.
         attribute :username

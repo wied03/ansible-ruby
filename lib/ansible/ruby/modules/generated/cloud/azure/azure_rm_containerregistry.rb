@@ -18,7 +18,7 @@ module Ansible
 
         # @return [:absent, :present, nil] Assert the state of the container registry. Use 'present' to create or update an container registry and 'absent' to delete it.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
         # @return [String, nil] Valid azure location. Defaults to location of the resource group.
         attribute :location
@@ -30,7 +30,7 @@ module Ansible
 
         # @return [:Basic, :Standard, :Premium, nil] Specifies the SKU to use. Currently can be either Basic, Standard or Premium.
         attribute :sku
-        validates :sku, inclusion: {:in=>[:Basic, :Standard, :Premium], :message=>"%{value} needs to be :Basic, :Standard, :Premium"}, allow_nil: true
+        validates :sku, expression_inclusion: {:in=>[:Basic, :Standard, :Premium], :message=>"%{value} needs to be :Basic, :Standard, :Premium"}, allow_nil: true
       end
     end
   end

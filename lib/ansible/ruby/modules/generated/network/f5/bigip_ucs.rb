@@ -38,7 +38,7 @@ module Ansible
 
         # @return [:absent, :installed, :present, nil] When C(installed), ensures that the UCS is uploaded and installed, on the system. When C(present), ensures that the UCS is uploaded. When C(absent), the UCS will be removed from the system. When C(installed), the uploading of the UCS is idempotent, however the installation of that configuration is not idempotent.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :installed, :present], :message=>"%{value} needs to be :absent, :installed, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :installed, :present], :message=>"%{value} needs to be :absent, :installed, :present"}, allow_nil: true
       end
     end
   end

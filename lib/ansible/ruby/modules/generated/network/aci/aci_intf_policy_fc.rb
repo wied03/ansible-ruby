@@ -18,11 +18,11 @@ module Ansible
 
         # @return [:f, :np, nil] The Port Mode to use.,The APIC defaults to C(f) when unset during creation.
         attribute :port_mode
-        validates :port_mode, inclusion: {:in=>[:f, :np], :message=>"%{value} needs to be :f, :np"}, allow_nil: true
+        validates :port_mode, expression_inclusion: {:in=>[:f, :np], :message=>"%{value} needs to be :f, :np"}, allow_nil: true
 
         # @return [:absent, :present, :query, nil] Use C(present) or C(absent) for adding or removing.,Use C(query) for listing an object or multiple objects.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present, :query], :message=>"%{value} needs to be :absent, :present, :query"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present, :query], :message=>"%{value} needs to be :absent, :present, :query"}, allow_nil: true
       end
     end
   end

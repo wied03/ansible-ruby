@@ -73,19 +73,19 @@ module Ansible
 
         # @return [:size_small, :size_medium, :size_large, :size_disable, :default, nil] Enable/Disable cli event history buffer.
         attribute :event_history_cli
-        validates :event_history_cli, inclusion: {:in=>[:size_small, :size_medium, :size_large, :size_disable, :default], :message=>"%{value} needs to be :size_small, :size_medium, :size_large, :size_disable, :default"}, allow_nil: true
+        validates :event_history_cli, expression_inclusion: {:in=>[:size_small, :size_medium, :size_large, :size_disable, :default], :message=>"%{value} needs to be :size_small, :size_medium, :size_large, :size_disable, :default"}, allow_nil: true
 
         # @return [:size_small, :size_medium, :size_large, :size_disable, :default, nil] Enable/Disable detail event history buffer.
         attribute :event_history_detail
-        validates :event_history_detail, inclusion: {:in=>[:size_small, :size_medium, :size_large, :size_disable, :default], :message=>"%{value} needs to be :size_small, :size_medium, :size_large, :size_disable, :default"}, allow_nil: true
+        validates :event_history_detail, expression_inclusion: {:in=>[:size_small, :size_medium, :size_large, :size_disable, :default], :message=>"%{value} needs to be :size_small, :size_medium, :size_large, :size_disable, :default"}, allow_nil: true
 
         # @return [:size_small, :size_medium, :size_large, :size_disable, :default, nil] Enable/Disable event history buffer.
         attribute :event_history_events
-        validates :event_history_events, inclusion: {:in=>[:size_small, :size_medium, :size_large, :size_disable, :default], :message=>"%{value} needs to be :size_small, :size_medium, :size_large, :size_disable, :default"}, allow_nil: true
+        validates :event_history_events, expression_inclusion: {:in=>[:size_small, :size_medium, :size_large, :size_disable, :default], :message=>"%{value} needs to be :size_small, :size_medium, :size_large, :size_disable, :default"}, allow_nil: true
 
         # @return [:size_small, :size_medium, :size_large, :size_disable, :default, nil] Enable/Disable periodic event history buffer.
         attribute :event_history_periodic
-        validates :event_history_periodic, inclusion: {:in=>[:size_small, :size_medium, :size_large, :size_disable, :default], :message=>"%{value} needs to be :size_small, :size_medium, :size_large, :size_disable, :default"}, allow_nil: true
+        validates :event_history_periodic, expression_inclusion: {:in=>[:size_small, :size_medium, :size_large, :size_disable, :default], :message=>"%{value} needs to be :size_small, :size_medium, :size_large, :size_disable, :default"}, allow_nil: true
 
         # @return [Symbol, nil] Enable/Disable immediately reset the session if the link to a directly connected BGP peer goes down.  Only supported in the global BGP context.
         attribute :fast_external_fallover
@@ -153,7 +153,7 @@ module Ansible
 
         # @return [:present, :absent, nil] Determines whether the config should be present or not on the device.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

@@ -10,7 +10,7 @@ module Ansible
       class A10_service_group < Base
         # @return [:present, :absent, nil] If the specified service group should exists.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String, nil] set active-partition
         attribute :partition
@@ -22,11 +22,11 @@ module Ansible
 
         # @return [:tcp, :udp, nil] The SLB service-group protocol of TCP or UDP.
         attribute :service_group_protocol
-        validates :service_group_protocol, inclusion: {:in=>[:tcp, :udp], :message=>"%{value} needs to be :tcp, :udp"}, allow_nil: true
+        validates :service_group_protocol, expression_inclusion: {:in=>[:tcp, :udp], :message=>"%{value} needs to be :tcp, :udp"}, allow_nil: true
 
         # @return [:"round-robin", :"weighted-rr", :"least-connection", :"weighted-least-connection", :"service-least-connection", :"service-weighted-least-connection", :"fastest-response", :"least-request", :"round-robin-strict", :"src-ip-only-hash", :"src-ip-hash", nil] The SLB service-group load balancing method, such as round-robin or weighted-rr.
         attribute :service_group_method
-        validates :service_group_method, inclusion: {:in=>[:"round-robin", :"weighted-rr", :"least-connection", :"weighted-least-connection", :"service-least-connection", :"service-weighted-least-connection", :"fastest-response", :"least-request", :"round-robin-strict", :"src-ip-only-hash", :"src-ip-hash"], :message=>"%{value} needs to be :\"round-robin\", :\"weighted-rr\", :\"least-connection\", :\"weighted-least-connection\", :\"service-least-connection\", :\"service-weighted-least-connection\", :\"fastest-response\", :\"least-request\", :\"round-robin-strict\", :\"src-ip-only-hash\", :\"src-ip-hash\""}, allow_nil: true
+        validates :service_group_method, expression_inclusion: {:in=>[:"round-robin", :"weighted-rr", :"least-connection", :"weighted-least-connection", :"service-least-connection", :"service-weighted-least-connection", :"fastest-response", :"least-request", :"round-robin-strict", :"src-ip-only-hash", :"src-ip-hash"], :message=>"%{value} needs to be :\"round-robin\", :\"weighted-rr\", :\"least-connection\", :\"weighted-least-connection\", :\"service-least-connection\", :\"service-weighted-least-connection\", :\"fastest-response\", :\"least-request\", :\"round-robin-strict\", :\"src-ip-only-hash\", :\"src-ip-hash\""}, allow_nil: true
 
         # @return [Array<Hash>, Hash, nil] A list of servers to add to the service group. Each list item should be a dictionary which specifies the C(server:) and C(port:), but can also optionally specify the C(status:). See the examples below for details.
         attribute :servers
@@ -34,7 +34,7 @@ module Ansible
 
         # @return [:yes, :no, nil] If C(no), SSL certificates will not be validated. This should only be used on personally controlled devices using self-signed certificates.
         attribute :validate_certs
-        validates :validate_certs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :validate_certs, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

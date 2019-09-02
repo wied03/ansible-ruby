@@ -10,7 +10,7 @@ module Ansible
       class Na_elementsw_volume < Base
         # @return [:present, :absent] Whether the specified volume should exist or not.
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
+        validates :state, presence: true, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
 
         # @return [String] The name of the volume to manage.,It accepts volume_name or volume_id
         attribute :name
@@ -37,11 +37,11 @@ module Ansible
 
         # @return [:bytes, :b, :kb, :mb, :gb, :tb, :pb, :eb, :zb, :yb, nil] The unit used to interpret the size parameter.
         attribute :size_unit
-        validates :size_unit, inclusion: {:in=>[:bytes, :b, :kb, :mb, :gb, :tb, :pb, :eb, :zb, :yb], :message=>"%{value} needs to be :bytes, :b, :kb, :mb, :gb, :tb, :pb, :eb, :zb, :yb"}, allow_nil: true
+        validates :size_unit, expression_inclusion: {:in=>[:bytes, :b, :kb, :mb, :gb, :tb, :pb, :eb, :zb, :yb], :message=>"%{value} needs to be :bytes, :b, :kb, :mb, :gb, :tb, :pb, :eb, :zb, :yb"}, allow_nil: true
 
         # @return [:readOnly, :readWrite, :locked, :replicationTarget, nil] Access allowed for the volume.,readOnly           Only read operations are allowed.,readWrite          Reads and writes are allowed.,locked             No reads or writes are allowed.,replicationTarget  Identify a volume as the target volume for a paired set of volumes.,If the volume is not paired, the access status is locked.,If unspecified, the access settings of the clone will be the same as the source.
         attribute :access
-        validates :access, inclusion: {:in=>[:readOnly, :readWrite, :locked, :replicationTarget], :message=>"%{value} needs to be :readOnly, :readWrite, :locked, :replicationTarget"}, allow_nil: true
+        validates :access, expression_inclusion: {:in=>[:readOnly, :readWrite, :locked, :replicationTarget], :message=>"%{value} needs to be :readOnly, :readWrite, :locked, :replicationTarget"}, allow_nil: true
 
         # @return [String, nil] ElementSW access account password
         attribute :password

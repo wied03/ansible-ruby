@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:reloaded, :restarted, :started, :stopped, nil] C(started)/C(stopped) are idempotent actions that will not run commands unless necessary. C(restarted) will always bounce the service. C(reloaded) will always reload.
         attribute :state
-        validates :state, inclusion: {:in=>[:reloaded, :restarted, :started, :stopped], :message=>"%{value} needs to be :reloaded, :restarted, :started, :stopped"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:reloaded, :restarted, :started, :stopped], :message=>"%{value} needs to be :reloaded, :restarted, :started, :stopped"}, allow_nil: true
 
         # @return [Symbol, nil] Whether the service should start on boot. B(At least one of state and enabled are required.)
         attribute :enabled
@@ -30,19 +30,19 @@ module Ansible
 
         # @return [:yes, :no, nil] run daemon-reload before doing any other operations, to make sure systemd has read any changes.
         attribute :daemon_reload
-        validates :daemon_reload, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :daemon_reload, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:yes, :no, nil] (deprecated) run ``systemctl`` talking to the service manager of the calling user, rather than the service manager of the system.,This option is deprecated and will eventually be removed in 2.11. The ``scope`` option should be used instead.
         attribute :user
-        validates :user, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :user, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:system, :user, :global, nil] run systemctl within a given service manager scope, either as the default system scope (system), the current user's scope (user), or the scope of all users (global).
         attribute :scope
-        validates :scope, inclusion: {:in=>[:system, :user, :global], :message=>"%{value} needs to be :system, :user, :global"}, allow_nil: true
+        validates :scope, expression_inclusion: {:in=>[:system, :user, :global], :message=>"%{value} needs to be :system, :user, :global"}, allow_nil: true
 
         # @return [:yes, :no, nil] Do not synchronously wait for the requested operation to finish. Enqueued job will continue without Ansible blocking on its completion.
         attribute :no_block
-        validates :no_block, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :no_block, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

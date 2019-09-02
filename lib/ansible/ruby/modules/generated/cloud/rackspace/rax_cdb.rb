@@ -26,15 +26,15 @@ module Ansible
 
         # @return [5.1, 5.6, 10, nil] version of database (MySQL supports 5.1 and 5.6, MariaDB supports 10, Percona supports 5.6)
         attribute :cdb_version
-        validates :cdb_version, inclusion: {:in=>[5.1, 5.6, 10], :message=>"%{value} needs to be 5.1, 5.6, 10"}, allow_nil: true
+        validates :cdb_version, expression_inclusion: {:in=>[5.1, 5.6, 10], :message=>"%{value} needs to be 5.1, 5.6, 10"}, allow_nil: true
 
         # @return [:present, :absent, nil] Indicate desired state of the resource
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [:yes, :no, nil] wait for the instance to be in state 'running' before returning
         attribute :wait
-        validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :wait, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] how long before wait gives up, in seconds
         attribute :wait_timeout

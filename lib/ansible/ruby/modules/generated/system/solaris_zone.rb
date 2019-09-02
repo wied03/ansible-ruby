@@ -10,7 +10,7 @@ module Ansible
       class Solaris_zone < Base
         # @return [:absent, :attached, :configured, :detached, :installed, :present, :running, :started, :stopped] C(present), configure and install the zone.,C(installed), synonym for C(present).,C(running), if the zone already exists, boot it, otherwise, configure and install the zone first, then boot it.,C(started), synonym for C(running).,C(stopped), shutdown a zone.,C(absent), destroy the zone.,C(configured), configure the ready so that it's to be attached.,C(attached), attach a zone, but do not boot it.,C(detached), shutdown and detach a zone
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:absent, :attached, :configured, :detached, :installed, :present, :running, :started, :stopped], :message=>"%{value} needs to be :absent, :attached, :configured, :detached, :installed, :present, :running, :started, :stopped"}
+        validates :state, presence: true, expression_inclusion: {:in=>[:absent, :attached, :configured, :detached, :installed, :present, :running, :started, :stopped], :message=>"%{value} needs to be :absent, :attached, :configured, :detached, :installed, :present, :running, :started, :stopped"}
 
         # @return [String] Zone name.
         attribute :name
@@ -22,7 +22,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Whether to create a sparse (C(true)) or whole root (C(false)) zone.
         attribute :sparse
-        validates :sparse, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :sparse, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] The password hash for the root account. If not specified, the zone's root account will not have a password.
         attribute :root_password

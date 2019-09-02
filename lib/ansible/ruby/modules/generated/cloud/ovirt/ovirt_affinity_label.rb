@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:present, :absent, nil] Should the affinity label be present or absent.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String, nil] Name of the cluster where vms and hosts resides.
         attribute :cluster

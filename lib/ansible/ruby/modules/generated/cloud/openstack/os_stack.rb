@@ -10,7 +10,7 @@ module Ansible
       class Os_stack < Base
         # @return [:present, :absent, nil] Indicate desired state of the resource
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String] Name of the stack that should be created, name could be char and digit, no space
         attribute :name
@@ -34,7 +34,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Rollback stack creation
         attribute :rollback
-        validates :rollback, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :rollback, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] Maximum number of seconds to wait for the stack creation
         attribute :timeout

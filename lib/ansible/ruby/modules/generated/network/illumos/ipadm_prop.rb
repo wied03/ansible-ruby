@@ -26,7 +26,7 @@ module Ansible
 
         # @return [:present, :absent, :reset, nil] Set or reset the property value.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent, :reset], :message=>"%{value} needs to be :present, :absent, :reset"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent, :reset], :message=>"%{value} needs to be :present, :absent, :reset"}, allow_nil: true
       end
     end
   end

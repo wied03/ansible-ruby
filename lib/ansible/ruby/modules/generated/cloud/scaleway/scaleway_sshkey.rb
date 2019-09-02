@@ -10,7 +10,7 @@ module Ansible
       class Scaleway_sshkey < Base
         # @return [:present, :absent, nil] Indicate desired state of the SSH key.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String] The public SSH key as a string to add.
         attribute :ssh_pub_key

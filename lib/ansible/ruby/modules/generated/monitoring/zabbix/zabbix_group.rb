@@ -11,7 +11,7 @@ module Ansible
       class Zabbix_group < Base
         # @return [:present, :absent, nil] Create or delete host group.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [Array<String>, String] List of host groups to create or delete.
         attribute :host_groups

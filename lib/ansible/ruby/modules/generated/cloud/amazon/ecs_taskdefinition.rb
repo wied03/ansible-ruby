@@ -10,7 +10,7 @@ module Ansible
       class Ecs_taskdefinition < Base
         # @return [:present, :absent] State whether the task definition should exist or be deleted
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
+        validates :state, presence: true, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
 
         # @return [Object, nil] The arn of the task description to delete
         attribute :arn
@@ -31,7 +31,7 @@ module Ansible
 
         # @return [:bridge, :host, :none, :awsvpc, nil] The Docker networking mode to use for the containers in the task.,C(awsvpc) mode was added in Ansible 2.5
         attribute :network_mode
-        validates :network_mode, inclusion: {:in=>[:bridge, :host, :none, :awsvpc], :message=>"%{value} needs to be :bridge, :host, :none, :awsvpc"}, allow_nil: true
+        validates :network_mode, expression_inclusion: {:in=>[:bridge, :host, :none, :awsvpc], :message=>"%{value} needs to be :bridge, :host, :none, :awsvpc"}, allow_nil: true
 
         # @return [Object, nil] The Amazon Resource Name (ARN) of the IAM role that containers in this task can assume. All containers in this task are granted the permissions that are specified in this role.
         attribute :task_role_arn
@@ -45,7 +45,7 @@ module Ansible
 
         # @return [:EC2, :FARGATE, nil] The launch type on which to run your task
         attribute :launch_type
-        validates :launch_type, inclusion: {:in=>[:EC2, :FARGATE], :message=>"%{value} needs to be :EC2, :FARGATE"}, allow_nil: true
+        validates :launch_type, expression_inclusion: {:in=>[:EC2, :FARGATE], :message=>"%{value} needs to be :EC2, :FARGATE"}, allow_nil: true
 
         # @return [Integer, nil] The number of cpu units used by the task. If using the EC2 launch type, this field is optional and any value can be used. If using the Fargate launch type, this field is required and you must use one of [256, 512, 1024, 2048, 4096]
         attribute :cpu

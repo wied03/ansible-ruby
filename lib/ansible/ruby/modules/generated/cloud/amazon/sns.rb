@@ -51,7 +51,7 @@ module Ansible
 
         # @return [:json, :string] The payload format to use for the message.,This must be 'json' to support non-default messages (`http`, `https`, `email`, `sms`, `sqs`). It must be 'string' to support message_attributes.
         attribute :message_structure
-        validates :message_structure, presence: true, inclusion: {:in=>[:json, :string], :message=>"%{value} needs to be :json, :string"}
+        validates :message_structure, presence: true, expression_inclusion: {:in=>[:json, :string], :message=>"%{value} needs to be :json, :string"}
       end
     end
   end

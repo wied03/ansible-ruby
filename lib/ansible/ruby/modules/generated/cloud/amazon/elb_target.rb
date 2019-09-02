@@ -32,7 +32,7 @@ module Ansible
 
         # @return [:initial, :healthy, :unhealthy, :unused, :draining, :unavailable, nil] Blocks and waits for the target status to equal given value. For more detail on target status see U(http://docs.aws.amazon.com/elasticloadbalancing/latest/application/target-group-health-checks.html#target-health-states)
         attribute :target_status
-        validates :target_status, inclusion: {:in=>[:initial, :healthy, :unhealthy, :unused, :draining, :unavailable], :message=>"%{value} needs to be :initial, :healthy, :unhealthy, :unused, :draining, :unavailable"}, allow_nil: true
+        validates :target_status, expression_inclusion: {:in=>[:initial, :healthy, :unhealthy, :unused, :draining, :unavailable], :message=>"%{value} needs to be :initial, :healthy, :unhealthy, :unused, :draining, :unavailable"}, allow_nil: true
 
         # @return [Integer, nil] Maximum time in seconds to wait for target_status change
         attribute :target_status_timeout
@@ -40,7 +40,7 @@ module Ansible
 
         # @return [:present, :absent] Register or deregister the target.
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
+        validates :state, presence: true, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
       end
     end
   end

@@ -24,7 +24,7 @@ module Ansible
 
         # @return [:cpu, :memory, :disk, nil] The metric on which to measure the condition that will trigger the alert. This is required for state 'present'
         attribute :metric
-        validates :metric, inclusion: {:in=>[:cpu, :memory, :disk], :message=>"%{value} needs to be :cpu, :memory, :disk"}, allow_nil: true
+        validates :metric, expression_inclusion: {:in=>[:cpu, :memory, :disk], :message=>"%{value} needs to be :cpu, :memory, :disk"}, allow_nil: true
 
         # @return [Object, nil] The length of time in minutes that the condition must exceed the threshold. This is required for state 'present'
         attribute :duration
@@ -34,7 +34,7 @@ module Ansible
 
         # @return [:present, :absent, nil] Whether to create or delete the policy.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

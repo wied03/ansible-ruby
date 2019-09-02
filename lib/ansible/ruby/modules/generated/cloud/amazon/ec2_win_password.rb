@@ -22,7 +22,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Whether or not to wait for the password to be available before returning.
         attribute :wait
-        validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :wait, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] Number of seconds to wait before giving up.
         attribute :wait_timeout

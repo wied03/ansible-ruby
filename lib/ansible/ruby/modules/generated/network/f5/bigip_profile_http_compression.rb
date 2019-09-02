@@ -25,15 +25,15 @@ module Ansible
 
         # @return [1, 2, 3, 4, 5, 6, 7, 8, 9, nil] Specifies the degree to which the system compresses the content.,Higher compression levels cause the compression process to be slower.,Valid values are between 1 (least compression and fastest) to 9 (most compression and slowest).
         attribute :gzip_level
-        validates :gzip_level, inclusion: {:in=>[1, 2, 3, 4, 5, 6, 7, 8, 9], :message=>"%{value} needs to be 1, 2, 3, 4, 5, 6, 7, 8, 9"}, allow_nil: true
+        validates :gzip_level, expression_inclusion: {:in=>[1, 2, 3, 4, 5, 6, 7, 8, 9], :message=>"%{value} needs to be 1, 2, 3, 4, 5, 6, 7, 8, 9"}, allow_nil: true
 
         # @return [1, 2, 4, 8, 16, 32, 64, 128, 256, nil] Number of kilobytes of memory that the system uses for internal compression buffers when compressing a server response.
         attribute :gzip_memory_level
-        validates :gzip_memory_level, inclusion: {:in=>[1, 2, 4, 8, 16, 32, 64, 128, 256], :message=>"%{value} needs to be 1, 2, 4, 8, 16, 32, 64, 128, 256"}, allow_nil: true
+        validates :gzip_memory_level, expression_inclusion: {:in=>[1, 2, 4, 8, 16, 32, 64, 128, 256], :message=>"%{value} needs to be 1, 2, 4, 8, 16, 32, 64, 128, 256"}, allow_nil: true
 
         # @return [1, 2, 4, 8, 16, 32, 64, 128, nil] Number of kilobytes in the window size that the system uses when compressing a server response.
         attribute :gzip_window_size
-        validates :gzip_window_size, inclusion: {:in=>[1, 2, 4, 8, 16, 32, 64, 128], :message=>"%{value} needs to be 1, 2, 4, 8, 16, 32, 64, 128"}, allow_nil: true
+        validates :gzip_window_size, expression_inclusion: {:in=>[1, 2, 4, 8, 16, 32, 64, 128], :message=>"%{value} needs to be 1, 2, 4, 8, 16, 32, 64, 128"}, allow_nil: true
 
         # @return [String, nil] Device partition to manage resources on.
         attribute :partition
@@ -41,7 +41,7 @@ module Ansible
 
         # @return [:present, :absent, nil] When C(present), ensures that the profile exists.,When C(absent), ensures the profile is removed.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

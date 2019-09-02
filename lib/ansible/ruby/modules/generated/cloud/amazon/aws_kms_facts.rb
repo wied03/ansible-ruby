@@ -14,7 +14,7 @@ module Ansible
 
         # @return [Boolean, nil] Whether to get full details (tags, grants etc.) of keys pending deletion
         attribute :pending_deletion
-        validates :pending_deletion, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :pending_deletion, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
       end
     end
   end

@@ -30,11 +30,11 @@ module Ansible
 
         # @return [:maximum, :minimum, nil] Sets the interphysical volume allocation policy. C(maximum) allocates logical partitions across the maximum number of physical volumes. C(minimum) allocates logical partitions across the minimum number of physical volumes.
         attribute :policy
-        validates :policy, inclusion: {:in=>[:maximum, :minimum], :message=>"%{value} needs to be :maximum, :minimum"}, allow_nil: true
+        validates :policy, expression_inclusion: {:in=>[:maximum, :minimum], :message=>"%{value} needs to be :maximum, :minimum"}, allow_nil: true
 
         # @return [:absent, :present, nil] Control if the logical volume exists. If C(present) and the volume does not already exist then the C(size) option is required.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
         # @return [String, nil] Free-form options to be passed to the mklv command.
         attribute :opts

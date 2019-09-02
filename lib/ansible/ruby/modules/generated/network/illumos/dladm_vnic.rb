@@ -22,15 +22,15 @@ module Ansible
 
         # @return [Boolean, nil] Sets the VNIC's MAC address. Must be valid unicast MAC address.
         attribute :mac
-        validates :mac, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :mac, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Boolean, nil] Enable VLAN tagging for this VNIC. The VLAN tag will have id I(vlan).
         attribute :vlan
-        validates :vlan, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :vlan, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [:present, :absent, nil] Create or delete Solaris/illumos VNIC.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

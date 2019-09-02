@@ -30,7 +30,7 @@ module Ansible
 
         # @return [:present, :started, :stopped, :restarted, :absent] The desired state of program/group.
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:present, :started, :stopped, :restarted, :absent], :message=>"%{value} needs to be :present, :started, :stopped, :restarted, :absent"}
+        validates :state, presence: true, expression_inclusion: {:in=>[:present, :started, :stopped, :restarted, :absent], :message=>"%{value} needs to be :present, :started, :stopped, :restarted, :absent"}
 
         # @return [Object, nil] path to supervisorctl executable
         attribute :supervisorctl_path

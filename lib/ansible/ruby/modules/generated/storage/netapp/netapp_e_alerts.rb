@@ -11,7 +11,7 @@ module Ansible
       class Netapp_e_alerts < Base
         # @return [:enabled, :disabled, nil] Enable/disable the sending of email-based alerts.
         attribute :state
-        validates :state, inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
 
         # @return [String, nil] A fully qualified domain name, IPv4 address, or IPv6 address of a mail server.,To use a fully qualified domain name, you must configure a DNS server on both controllers using M(netapp_e_mgmt_interface). - Required when I(state=enabled).
         attribute :server

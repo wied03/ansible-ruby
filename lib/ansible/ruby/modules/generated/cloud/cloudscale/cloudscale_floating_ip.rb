@@ -13,7 +13,7 @@ module Ansible
       class Cloudscale_floating_ip < Base
         # @return [:present, :absent, nil] State of the floating IP.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String, nil] Floating IP address to change.,Required to assign the IP to a different server or if I(state) is absent.
         attribute :ip
@@ -21,7 +21,7 @@ module Ansible
 
         # @return [4, 6, nil] IP protocol version of the floating IP.
         attribute :ip_version
-        validates :ip_version, inclusion: {:in=>[4, 6], :message=>"%{value} needs to be 4, 6"}, allow_nil: true
+        validates :ip_version, expression_inclusion: {:in=>[4, 6], :message=>"%{value} needs to be 4, 6"}, allow_nil: true
 
         # @return [String, nil] UUID of the server assigned to this floating IP.,Required unless I(state) is absent.
         attribute :server
@@ -29,7 +29,7 @@ module Ansible
 
         # @return [56, nil] Only valid if I(ip_version) is 6.,Prefix length for the IPv6 network. Currently only a prefix of /56 can be requested. If no I(prefix_length) is present, a single address is created.
         attribute :prefix_length
-        validates :prefix_length, inclusion: {:in=>[56], :message=>"%{value} needs to be 56"}, allow_nil: true
+        validates :prefix_length, expression_inclusion: {:in=>[56], :message=>"%{value} needs to be 56"}, allow_nil: true
 
         # @return [String, nil] Reverse PTR entry for this address.,You cannot set a reverse PTR entry for IPv6 floating networks. Reverse PTR entries are only allowed for single addresses.
         attribute :reverse_ptr

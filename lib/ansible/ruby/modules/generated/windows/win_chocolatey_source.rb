@@ -49,11 +49,11 @@ module Ansible
 
         # @return [:absent, :disabled, :present, nil] When C(absent), will remove the source.,When C(disabled), will ensure the source exists but is disabled.,When C(present), will ensure the source exists and is enabled.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :disabled, :present], :message=>"%{value} needs to be :absent, :disabled, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :disabled, :present], :message=>"%{value} needs to be :absent, :disabled, :present"}, allow_nil: true
 
         # @return [:always, :on_create, nil] When C(always), the module will always set the password and report a change if I(certificate_password) or I(source_password) is set.,When C(on_create), the module will only set the password if the source is being created.
         attribute :update_password
-        validates :update_password, inclusion: {:in=>[:always, :on_create], :message=>"%{value} needs to be :always, :on_create"}, allow_nil: true
+        validates :update_password, expression_inclusion: {:in=>[:always, :on_create], :message=>"%{value} needs to be :always, :on_create"}, allow_nil: true
       end
     end
   end

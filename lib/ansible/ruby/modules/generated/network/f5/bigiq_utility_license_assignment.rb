@@ -10,7 +10,7 @@ module Ansible
       class Bigiq_utility_license_assignment < Base
         # @return [:hourly, :daily, :monthly, :yearly, nil] Sets the rate at which this license usage is billed.,Depending on your license, you may have different units of measures available to you. If a particular unit is not available to you, the module will notify you at licensing time.
         attribute :unit_of_measure
-        validates :unit_of_measure, inclusion: {:in=>[:hourly, :daily, :monthly, :yearly], :message=>"%{value} needs to be :hourly, :daily, :monthly, :yearly"}, allow_nil: true
+        validates :unit_of_measure, expression_inclusion: {:in=>[:hourly, :daily, :monthly, :yearly], :message=>"%{value} needs to be :hourly, :daily, :monthly, :yearly"}, allow_nil: true
 
         # @return [String] The registration key that you want choose an offering from.
         attribute :key
@@ -42,7 +42,7 @@ module Ansible
 
         # @return [:present, :absent, nil] When C(present), ensures that the device is assigned the specified license.,When C(absent), ensures the license is revokes from the remote device and freed on the BIG-IQ.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

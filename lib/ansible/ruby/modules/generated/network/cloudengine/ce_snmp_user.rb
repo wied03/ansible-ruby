@@ -25,14 +25,14 @@ module Ansible
 
         # @return [:noAuth, :md5, :sha, nil] Authentication protocol.
         attribute :auth_protocol
-        validates :auth_protocol, inclusion: {:in=>[:noAuth, :md5, :sha], :message=>"%{value} needs to be :noAuth, :md5, :sha"}, allow_nil: true
+        validates :auth_protocol, expression_inclusion: {:in=>[:noAuth, :md5, :sha], :message=>"%{value} needs to be :noAuth, :md5, :sha"}, allow_nil: true
 
         # @return [Object, nil] The authentication password. Password length, 8-255 characters.
         attribute :auth_key
 
         # @return [:noPriv, :des56, :"3des168", :aes128, :aes192, :aes256, nil] Encryption protocol.
         attribute :priv_protocol
-        validates :priv_protocol, inclusion: {:in=>[:noPriv, :des56, :"3des168", :aes128, :aes192, :aes256], :message=>"%{value} needs to be :noPriv, :des56, :\"3des168\", :aes128, :aes192, :aes256"}, allow_nil: true
+        validates :priv_protocol, expression_inclusion: {:in=>[:noPriv, :des56, :"3des168", :aes128, :aes192, :aes256], :message=>"%{value} needs to be :noPriv, :des56, :\"3des168\", :aes128, :aes192, :aes256"}, allow_nil: true
 
         # @return [Object, nil] The encryption password. Password length 8-255 characters.
         attribute :priv_key

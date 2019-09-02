@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:"802.3ad", :"active-backup", :broadcast, :"round-robin", :"transmit-load-balance", :"adaptive-load-balance", :"xor-hash", :on, nil] Mode of the link aggregation group.
         attribute :mode
-        validates :mode, inclusion: {:in=>[:"802.3ad", :"active-backup", :broadcast, :"round-robin", :"transmit-load-balance", :"adaptive-load-balance", :"xor-hash", :on], :message=>"%{value} needs to be :\"802.3ad\", :\"active-backup\", :broadcast, :\"round-robin\", :\"transmit-load-balance\", :\"adaptive-load-balance\", :\"xor-hash\", :on"}, allow_nil: true
+        validates :mode, expression_inclusion: {:in=>[:"802.3ad", :"active-backup", :broadcast, :"round-robin", :"transmit-load-balance", :"adaptive-load-balance", :"xor-hash", :on], :message=>"%{value} needs to be :\"802.3ad\", :\"active-backup\", :broadcast, :\"round-robin\", :\"transmit-load-balance\", :\"adaptive-load-balance\", :\"xor-hash\", :on"}, allow_nil: true
 
         # @return [Array<String>, String, nil] List of members of the link aggregation group.
         attribute :members
@@ -26,7 +26,7 @@ module Ansible
 
         # @return [:present, :absent, :up, :down, nil] State of the link aggregation group.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent, :up, :down], :message=>"%{value} needs to be :present, :absent, :up, :down"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent, :up, :down], :message=>"%{value} needs to be :present, :absent, :up, :down"}, allow_nil: true
       end
     end
   end

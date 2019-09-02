@@ -39,7 +39,7 @@ module Ansible
 
         # @return [:present, :absent, nil] C(present) - instantiate a service from a template specified with C(template_id)/C(template_name).,C(absent) - terminate an instance of a service specified with C(service_id)/C(service_name).
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String, nil] Set permission mode of a service instance in octet format, e.g. C(600) to give owner C(use) and C(manage) and nothing to group and others.
         attribute :mode

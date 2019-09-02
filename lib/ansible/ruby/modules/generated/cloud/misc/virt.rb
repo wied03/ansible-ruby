@@ -14,11 +14,11 @@ module Ansible
 
         # @return [:destroyed, :paused, :running, :shutdown, nil] Note that there may be some lag for state requests like C(shutdown) since these refer only to VM states. After starting a guest, it may not be immediately accessible.
         attribute :state
-        validates :state, inclusion: {:in=>[:destroyed, :paused, :running, :shutdown], :message=>"%{value} needs to be :destroyed, :paused, :running, :shutdown"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:destroyed, :paused, :running, :shutdown], :message=>"%{value} needs to be :destroyed, :paused, :running, :shutdown"}, allow_nil: true
 
         # @return [:create, :define, :destroy, :freemem, :get_xml, :info, :list_vms, :nodeinfo, :pause, :shutdown, :start, :status, :stop, :undefine, :unpause, :virttype, nil] In addition to state management, various non-idempotent commands are available.
         attribute :command
-        validates :command, inclusion: {:in=>[:create, :define, :destroy, :freemem, :get_xml, :info, :list_vms, :nodeinfo, :pause, :shutdown, :start, :status, :stop, :undefine, :unpause, :virttype], :message=>"%{value} needs to be :create, :define, :destroy, :freemem, :get_xml, :info, :list_vms, :nodeinfo, :pause, :shutdown, :start, :status, :stop, :undefine, :unpause, :virttype"}, allow_nil: true
+        validates :command, expression_inclusion: {:in=>[:create, :define, :destroy, :freemem, :get_xml, :info, :list_vms, :nodeinfo, :pause, :shutdown, :start, :status, :stop, :undefine, :unpause, :virttype], :message=>"%{value} needs to be :create, :define, :destroy, :freemem, :get_xml, :info, :list_vms, :nodeinfo, :pause, :shutdown, :start, :status, :stop, :undefine, :unpause, :virttype"}, allow_nil: true
 
         # @return [Symbol, nil] start VM at host startup.
         attribute :autostart

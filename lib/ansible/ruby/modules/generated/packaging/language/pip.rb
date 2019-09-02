@@ -25,7 +25,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Whether the virtual environment will inherit packages from the global site-packages directory.  Note that if this setting is changed on an already existing virtual environment it will not have any effect, the environment must be deleted and newly created.
         attribute :virtualenv_site_packages
-        validates :virtualenv_site_packages, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :virtualenv_site_packages, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] The command or a pathname to the command to create the virtual environment with. For example C(pyvenv), C(virtualenv), C(virtualenv2), C(~/bin/virtualenv), C(/usr/local/bin/virtualenv).
         attribute :virtualenv_command
@@ -36,7 +36,7 @@ module Ansible
 
         # @return [:absent, :forcereinstall, :latest, :present, nil] The state of module,The 'forcereinstall' option is only available in Ansible 2.1 and above.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :forcereinstall, :latest, :present], :message=>"%{value} needs to be :absent, :forcereinstall, :latest, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :forcereinstall, :latest, :present], :message=>"%{value} needs to be :absent, :forcereinstall, :latest, :present"}, allow_nil: true
 
         # @return [String, nil] Extra arguments passed to pip.
         attribute :extra_args
@@ -44,7 +44,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Pass the editable flag.
         attribute :editable
-        validates :editable, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :editable, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] cd into this directory before running the command
         attribute :chdir

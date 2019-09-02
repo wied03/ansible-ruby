@@ -10,7 +10,7 @@ module Ansible
       class Ovirt_external_provider_facts < Base
         # @return [:os_image, :os_network, :os_volume, :foreman] Type of the external provider.
         attribute :type
-        validates :type, presence: true, inclusion: {:in=>[:os_image, :os_network, :os_volume, :foreman], :message=>"%{value} needs to be :os_image, :os_network, :os_volume, :foreman"}
+        validates :type, presence: true, expression_inclusion: {:in=>[:os_image, :os_network, :os_volume, :foreman], :message=>"%{value} needs to be :os_image, :os_network, :os_volume, :foreman"}
 
         # @return [String, nil] Name of the external provider, can be used as glob expression.
         attribute :name

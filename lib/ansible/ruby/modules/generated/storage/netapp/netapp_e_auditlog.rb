@@ -14,11 +14,11 @@ module Ansible
 
         # @return [:all, :writeOnly, nil] Filters the log messages according to the specified log level selection.
         attribute :log_level
-        validates :log_level, inclusion: {:in=>[:all, :writeOnly], :message=>"%{value} needs to be :all, :writeOnly"}, allow_nil: true
+        validates :log_level, expression_inclusion: {:in=>[:all, :writeOnly], :message=>"%{value} needs to be :all, :writeOnly"}, allow_nil: true
 
         # @return [:overWrite, :preventSystemAccess, nil] Specifies what audit-log should do once the number of entries approach the record limit.
         attribute :full_policy
-        validates :full_policy, inclusion: {:in=>[:overWrite, :preventSystemAccess], :message=>"%{value} needs to be :overWrite, :preventSystemAccess"}, allow_nil: true
+        validates :full_policy, expression_inclusion: {:in=>[:overWrite, :preventSystemAccess], :message=>"%{value} needs to be :overWrite, :preventSystemAccess"}, allow_nil: true
 
         # @return [Integer, nil] This is the memory full percent threshold that audit-log will start issuing warning messages.,Percent range must be between and including 60 and 90.
         attribute :threshold

@@ -23,7 +23,7 @@ module Ansible
 
         # @return [:yes, :no, nil] A boolean switch to make a secure or insecure connection to the server.
         attribute :insecure_api
-        validates :insecure_api, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :insecure_api, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] The name of the VM.
         attribute :name
@@ -39,7 +39,7 @@ module Ansible
 
         # @return [:ping, :present, :absent, :up, :down, :restarted, :cd, :info, nil] This serves to create/remove/update or powermanage your VM.
         attribute :state
-        validates :state, inclusion: {:in=>[:ping, :present, :absent, :up, :down, :restarted, :cd, :info], :message=>"%{value} needs to be :ping, :present, :absent, :up, :down, :restarted, :cd, :info"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:ping, :present, :absent, :up, :down, :restarted, :cd, :info], :message=>"%{value} needs to be :ping, :present, :absent, :up, :down, :restarted, :cd, :info"}, allow_nil: true
 
         # @return [String, nil] The template to use for the VM.
         attribute :image
@@ -47,7 +47,7 @@ module Ansible
 
         # @return [:server, :desktop, :host, nil] To define if the VM is a server or desktop.
         attribute :type
-        validates :type, inclusion: {:in=>[:server, :desktop, :host], :message=>"%{value} needs to be :server, :desktop, :host"}, allow_nil: true
+        validates :type, expression_inclusion: {:in=>[:server, :desktop, :host], :message=>"%{value} needs to be :server, :desktop, :host"}, allow_nil: true
 
         # @return [Object, nil] The host you wish your VM to run on.
         attribute :vmhost
@@ -74,7 +74,7 @@ module Ansible
 
         # @return [:yes, :no, nil] To make your VM High Available.
         attribute :vm_ha
-        validates :vm_ha, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :vm_ha, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Array<Hash>, Hash, nil] This option uses complex arguments and is a list of disks with the options name, size and domain.
         attribute :disks
@@ -90,7 +90,7 @@ module Ansible
 
         # @return [Boolean, nil] This option sets the delete protection checkbox.
         attribute :del_prot
-        validates :del_prot, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :del_prot, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [String, nil] The CD you wish to have mounted on the VM when I(state = 'CD').
         attribute :cd_drive

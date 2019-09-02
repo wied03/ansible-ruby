@@ -18,7 +18,7 @@ module Ansible
 
         # @return [:daily, :monthly, :weekly, nil] Specifies the schedule for the automatic update check.
         attribute :frequency
-        validates :frequency, inclusion: {:in=>[:daily, :monthly, :weekly], :message=>"%{value} needs to be :daily, :monthly, :weekly"}, allow_nil: true
+        validates :frequency, expression_inclusion: {:in=>[:daily, :monthly, :weekly], :message=>"%{value} needs to be :daily, :monthly, :weekly"}, allow_nil: true
       end
     end
   end

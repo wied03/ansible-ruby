@@ -10,7 +10,7 @@ module Ansible
       class Na_ontap_license < Base
         # @return [:present, :absent, nil] Whether the specified license should exist or not.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [Symbol, nil] Remove licenses that have no controller affiliation in the cluster.
         attribute :remove_unused

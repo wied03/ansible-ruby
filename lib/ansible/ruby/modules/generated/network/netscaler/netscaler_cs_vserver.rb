@@ -18,7 +18,7 @@ module Ansible
 
         # @return [:HTTP, :SSL, :TCP, :FTP, :RTSP, :SSL_TCP, :UDP, :DNS, :SIP_UDP, :SIP_TCP, :SIP_SSL, :ANY, :RADIUS, :RDP, :MYSQL, :MSSQL, :DIAMETER, :SSL_DIAMETER, :DNS_TCP, :ORACLE, :SMPP, nil] Protocol used by the virtual server.
         attribute :servicetype
-        validates :servicetype, inclusion: {:in=>[:HTTP, :SSL, :TCP, :FTP, :RTSP, :SSL_TCP, :UDP, :DNS, :SIP_UDP, :SIP_TCP, :SIP_SSL, :ANY, :RADIUS, :RDP, :MYSQL, :MSSQL, :DIAMETER, :SSL_DIAMETER, :DNS_TCP, :ORACLE, :SMPP], :message=>"%{value} needs to be :HTTP, :SSL, :TCP, :FTP, :RTSP, :SSL_TCP, :UDP, :DNS, :SIP_UDP, :SIP_TCP, :SIP_SSL, :ANY, :RADIUS, :RDP, :MYSQL, :MSSQL, :DIAMETER, :SSL_DIAMETER, :DNS_TCP, :ORACLE, :SMPP"}, allow_nil: true
+        validates :servicetype, expression_inclusion: {:in=>[:HTTP, :SSL, :TCP, :FTP, :RTSP, :SSL_TCP, :UDP, :DNS, :SIP_UDP, :SIP_TCP, :SIP_SSL, :ANY, :RADIUS, :RDP, :MYSQL, :MSSQL, :DIAMETER, :SSL_DIAMETER, :DNS_TCP, :ORACLE, :SMPP], :message=>"%{value} needs to be :HTTP, :SSL, :TCP, :FTP, :RTSP, :SSL_TCP, :UDP, :DNS, :SIP_UDP, :SIP_TCP, :SIP_SSL, :ANY, :RADIUS, :RDP, :MYSQL, :MSSQL, :DIAMETER, :SSL_DIAMETER, :DNS_TCP, :ORACLE, :SMPP"}, allow_nil: true
 
         # @return [String, nil] IP address of the content switching virtual server.,Minimum length = 1
         attribute :ipv46
@@ -26,7 +26,7 @@ module Ansible
 
         # @return [:GSLB, nil] Virtual server target type.
         attribute :targettype
-        validates :targettype, inclusion: {:in=>[:GSLB], :message=>"%{value} needs to be :GSLB"}, allow_nil: true
+        validates :targettype, expression_inclusion: {:in=>[:GSLB], :message=>"%{value} needs to be :GSLB"}, allow_nil: true
 
         # @return [Object, nil] IP address pattern, in dotted decimal notation, for identifying packets to be accepted by the virtual server. The IP Mask parameter specifies which part of the destination IP address is matched against the pattern. Mutually exclusive with the IP Address parameter.,For example, if the IP pattern assigned to the virtual server is C(198.51.100.0) and the IP mask is C(255.255.240.0) (a forward mask), the first 20 bits in the destination IP addresses are matched with the first 20 bits in the pattern. The virtual server accepts requests with IP addresses that range from 198.51.96.1 to 198.51.111.254. You can also use a pattern such as C(0.0.2.2) and a mask such as C(0.0.255.255) (a reverse mask).,If a destination IP address matches more than one IP pattern, the pattern with the longest match is selected, and the associated virtual server processes the request. For example, if the virtual servers, C(vs1) and C(vs2), have the same IP pattern, C(0.0.100.128), but different IP masks of C(0.0.255.255) and C(0.0.224.255), a destination IP address of 198.51.100.128 has the longest match with the IP pattern of C(vs1). If a destination IP address matches two or more virtual servers to the same extent, the request is processed by the virtual server whose port number matches the port number in the request.
         attribute :ippattern
@@ -43,7 +43,7 @@ module Ansible
 
         # @return [:enabled, :disabled, nil] Enable state updates for a specific content switching virtual server. By default, the Content Switching virtual server is always UP, regardless of the state of the Load Balancing virtual servers bound to it. This parameter interacts with the global setting as follows:,Global Level | Vserver Level | Result,enabled enabled enabled,enabled disabled enabled,disabled enabled enabled,disabled disabled disabled,If you want to enable state updates for only some content switching virtual servers, be sure to disable the state update parameter.
         attribute :stateupdate
-        validates :stateupdate, inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
+        validates :stateupdate, expression_inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
 
         # @return [Symbol, nil] Use this option to specify whether a virtual server, used for load balancing or content switching, routes requests to the cache redirection virtual server before sending it to the configured servers.
         attribute :cacheable
@@ -57,7 +57,7 @@ module Ansible
 
         # @return [:RULE, :URL, nil] Type of precedence to use for both RULE-based and URL-based policies on the content switching virtual server. With the default C(RULE) setting, incoming requests are evaluated against the rule-based content switching policies. If none of the rules match, the URL in the request is evaluated against the URL-based content switching policies.
         attribute :precedence
-        validates :precedence, inclusion: {:in=>[:RULE, :URL], :message=>"%{value} needs to be :RULE, :URL"}, allow_nil: true
+        validates :precedence, expression_inclusion: {:in=>[:RULE, :URL], :message=>"%{value} needs to be :RULE, :URL"}, allow_nil: true
 
         # @return [Symbol, nil] Consider case in URLs (for policies that use URLs instead of RULES). For example, with the C(on) setting, the URLs /a/1.html and /A/1.HTML are treated differently and can have different targets (set by content switching policies). With the C(off) setting, /a/1.html and /A/1.HTML are switched to the same target.
         attribute :casesensitive
@@ -65,11 +65,11 @@ module Ansible
 
         # @return [:CONNECTION, :DYNAMICCONNECTION, :BANDWIDTH, :HEALTH, :NONE, nil] Type of spillover used to divert traffic to the backup virtual server when the primary virtual server reaches the spillover threshold. Connection spillover is based on the number of connections. Bandwidth spillover is based on the total Kbps of incoming and outgoing traffic.
         attribute :somethod
-        validates :somethod, inclusion: {:in=>[:CONNECTION, :DYNAMICCONNECTION, :BANDWIDTH, :HEALTH, :NONE], :message=>"%{value} needs to be :CONNECTION, :DYNAMICCONNECTION, :BANDWIDTH, :HEALTH, :NONE"}, allow_nil: true
+        validates :somethod, expression_inclusion: {:in=>[:CONNECTION, :DYNAMICCONNECTION, :BANDWIDTH, :HEALTH, :NONE], :message=>"%{value} needs to be :CONNECTION, :DYNAMICCONNECTION, :BANDWIDTH, :HEALTH, :NONE"}, allow_nil: true
 
         # @return [:enabled, :disabled, nil] Maintain source-IP based persistence on primary and backup virtual servers.
         attribute :sopersistence
-        validates :sopersistence, inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
+        validates :sopersistence, expression_inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
 
         # @return [Object, nil] Time-out value, in minutes, for spillover persistence.,Minimum value = C(2),Maximum value = C(1440)
         attribute :sopersistencetimeout
@@ -79,26 +79,26 @@ module Ansible
 
         # @return [:DROP, :ACCEPT, :REDIRECT, nil] Action to be performed if spillover is to take effect, but no backup chain to spillover is usable or exists.
         attribute :sobackupaction
-        validates :sobackupaction, inclusion: {:in=>[:DROP, :ACCEPT, :REDIRECT], :message=>"%{value} needs to be :DROP, :ACCEPT, :REDIRECT"}, allow_nil: true
+        validates :sobackupaction, expression_inclusion: {:in=>[:DROP, :ACCEPT, :REDIRECT], :message=>"%{value} needs to be :DROP, :ACCEPT, :REDIRECT"}, allow_nil: true
 
         # @return [:enabled, :disabled, nil] State of port rewrite while performing HTTP redirect.
         attribute :redirectportrewrite
-        validates :redirectportrewrite, inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
+        validates :redirectportrewrite, expression_inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
 
         # @return [:enabled, :disabled, nil] Flush all active transactions associated with a virtual server whose state transitions from UP to DOWN. Do not enable this option for applications that must complete their transactions.
         attribute :downstateflush
-        validates :downstateflush, inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
+        validates :downstateflush, expression_inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
 
         # @return [Object, nil] Name of the backup virtual server that you are configuring. Must begin with an ASCII alphanumeric or underscore C(_) character, and must contain only ASCII alphanumeric, underscore C(_), hash C(#), period C(.), space C( ), colon C(:), at sign C(@), equal sign C(=), and hyphen C(-) characters. Can be changed after the backup virtual server is created. You can assign a different backup virtual server or rename the existing virtual server.,Minimum length = 1
         attribute :backupvserver
 
         # @return [:enabled, :disabled, nil] Continue forwarding the traffic to backup virtual server even after the primary server comes UP from the DOWN state.
         attribute :disableprimaryondown
-        validates :disableprimaryondown, inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
+        validates :disableprimaryondown, expression_inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
 
         # @return [:OFF, :VIPADDR, :V6TOV4MAPPING, nil] Insert the virtual server's VIP address and port number in the request header. Available values function as follows:,C(VIPADDR) - Header contains the vserver's IP address and port number without any translation.,C(OFF) - The virtual IP and port header insertion option is disabled.,C(V6TOV4MAPPING) - Header contains the mapped IPv4 address corresponding to the IPv6 address of the vserver and the port number. An IPv6 address can be mapped to a user-specified IPv4 address using the set ns ip6 command.
         attribute :insertvserveripport
-        validates :insertvserveripport, inclusion: {:in=>[:OFF, :VIPADDR, :V6TOV4MAPPING], :message=>"%{value} needs to be :OFF, :VIPADDR, :V6TOV4MAPPING"}, allow_nil: true
+        validates :insertvserveripport, expression_inclusion: {:in=>[:OFF, :VIPADDR, :V6TOV4MAPPING], :message=>"%{value} needs to be :OFF, :VIPADDR, :V6TOV4MAPPING"}, allow_nil: true
 
         # @return [Object, nil] Name of virtual server IP and port header, for use with the VServer IP Port Insertion parameter.,Minimum length = 1
         attribute :vipheader
@@ -126,7 +126,7 @@ module Ansible
 
         # @return [:enabled, :disabled, nil] Process traffic with the push virtual server that is bound to this content switching virtual server (specified by the Push VServer parameter). The service type of the push virtual server should be either C(HTTP) or C(SSL).
         attribute :push
-        validates :push, inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
+        validates :push, expression_inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
 
         # @return [Object, nil] Name of the load balancing virtual server, of type C(PUSH) or C(SSL_PUSH), to which the server pushes updates received on the client-facing load balancing virtual server.,Minimum length = 1
         attribute :pushvserver
@@ -149,14 +149,14 @@ module Ansible
 
         # @return [:"10G", :"11G", nil] Oracle server version.
         attribute :oracleserverversion
-        validates :oracleserverversion, inclusion: {:in=>[:"10G", :"11G"], :message=>"%{value} needs to be :\"10G\", :\"11G\""}, allow_nil: true
+        validates :oracleserverversion, expression_inclusion: {:in=>[:"10G", :"11G"], :message=>"%{value} needs to be :\"10G\", :\"11G\""}, allow_nil: true
 
         # @return [Object, nil] Information about this virtual server.
         attribute :comment
 
         # @return [70, 2000, :"2000SP1", 2005, 2008, :"2008R2", 2012, 2014, nil] The version of the MSSQL server.
         attribute :mssqlserverversion
-        validates :mssqlserverversion, inclusion: {:in=>[70, 2000, :"2000SP1", 2005, 2008, :"2008R2", 2012, 2014], :message=>"%{value} needs to be 70, 2000, :\"2000SP1\", 2005, 2008, :\"2008R2\", 2012, 2014"}, allow_nil: true
+        validates :mssqlserverversion, expression_inclusion: {:in=>[70, 2000, :"2000SP1", 2005, 2008, :"2008R2", 2012, 2014], :message=>"%{value} needs to be 70, 2000, :\"2000SP1\", 2005, 2008, :\"2008R2\", 2012, 2014"}, allow_nil: true
 
         # @return [Object, nil] Use L2 Parameters to identify a connection.
         attribute :l2conn
@@ -175,18 +175,18 @@ module Ansible
 
         # @return [:enabled, :disabled, nil] Enable logging appflow flow information.
         attribute :appflowlog
-        validates :appflowlog, inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
+        validates :appflowlog, expression_inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
 
         # @return [Object, nil] The name of the network profile.,Minimum length = 1,Maximum length = 127
         attribute :netprofile
 
         # @return [:PASSIVE, :ACTIVE, nil] Can be active or passive.
         attribute :icmpvsrresponse
-        validates :icmpvsrresponse, inclusion: {:in=>[:PASSIVE, :ACTIVE], :message=>"%{value} needs to be :PASSIVE, :ACTIVE"}, allow_nil: true
+        validates :icmpvsrresponse, expression_inclusion: {:in=>[:PASSIVE, :ACTIVE], :message=>"%{value} needs to be :PASSIVE, :ACTIVE"}, allow_nil: true
 
         # @return [:PASSIVE, :ACTIVE, nil] A host route is injected according to the setting on the virtual servers,* If set to C(PASSIVE) on all the virtual servers that share the IP address, the appliance always injects the hostroute.,* If set to C(ACTIVE) on all the virtual servers that share the IP address, the appliance injects even if one virtual server is UP.,* If set to C(ACTIVE) on some virtual servers and C(PASSIVE) on the others, the appliance, injects even if one virtual server set to C(ACTIVE) is UP.
         attribute :rhistate
-        validates :rhistate, inclusion: {:in=>[:PASSIVE, :ACTIVE], :message=>"%{value} needs to be :PASSIVE, :ACTIVE"}, allow_nil: true
+        validates :rhistate, expression_inclusion: {:in=>[:PASSIVE, :ACTIVE], :message=>"%{value} needs to be :PASSIVE, :ACTIVE"}, allow_nil: true
 
         # @return [Object, nil] Name of the authentication profile to be used when authentication is turned on.
         attribute :authnprofile
@@ -220,7 +220,7 @@ module Ansible
 
         # @return [:yes, :no, nil] When set to C(yes) the cs vserver will be disabled.,When set to C(no) the cs vserver will be enabled.,Note that due to limitations of the underlying NITRO API a C(disabled) state change alone does not cause the module result to report a changed status.
         attribute :disabled
-        validates :disabled, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :disabled, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

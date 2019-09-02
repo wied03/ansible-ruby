@@ -19,7 +19,7 @@ module Ansible
 
         # @return [:add, :remove, :set, nil] C(add) will add the users/groups to the existing right.,C(remove) will remove the users/groups from the existing right.,C(set) will replace the users/groups of the existing right.
         attribute :action
-        validates :action, inclusion: {:in=>[:add, :remove, :set], :message=>"%{value} needs to be :add, :remove, :set"}, allow_nil: true
+        validates :action, expression_inclusion: {:in=>[:add, :remove, :set], :message=>"%{value} needs to be :add, :remove, :set"}, allow_nil: true
       end
     end
   end

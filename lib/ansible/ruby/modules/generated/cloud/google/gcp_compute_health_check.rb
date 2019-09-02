@@ -10,7 +10,7 @@ module Ansible
       class Gcp_compute_health_check < Base
         # @return [:present, :absent, nil] Whether the given object should exist in GCP
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [Integer, nil] How often (in seconds) to send a health check. The default value is 5 seconds.
         attribute :check_interval_sec
@@ -37,7 +37,7 @@ module Ansible
 
         # @return [:TCP, :SSL, :HTTP, nil] Specifies the type of the healthCheck, either TCP, SSL, HTTP or HTTPS. If not specified, the default is TCP. Exactly one of the protocol-specific health check field must be specified, which must match type field.
         attribute :type
-        validates :type, inclusion: {:in=>[:TCP, :SSL, :HTTP], :message=>"%{value} needs to be :TCP, :SSL, :HTTP"}, allow_nil: true
+        validates :type, expression_inclusion: {:in=>[:TCP, :SSL, :HTTP], :message=>"%{value} needs to be :TCP, :SSL, :HTTP"}, allow_nil: true
 
         # @return [Object, nil] A nested object resource.
         attribute :http_health_check

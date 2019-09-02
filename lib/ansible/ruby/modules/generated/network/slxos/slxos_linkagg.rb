@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:active, :on, :passive, nil] Mode of the link aggregation group.
         attribute :mode
-        validates :mode, inclusion: {:in=>[:active, :on, :passive], :message=>"%{value} needs to be :active, :on, :passive"}, allow_nil: true
+        validates :mode, expression_inclusion: {:in=>[:active, :on, :passive], :message=>"%{value} needs to be :active, :on, :passive"}, allow_nil: true
 
         # @return [Array<String>, String, nil] List of members of the link aggregation group.
         attribute :members
@@ -26,7 +26,7 @@ module Ansible
 
         # @return [:present, :absent, nil] State of the link aggregation group.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [Symbol, nil] Purge links not defined in the I(aggregate) parameter.
         attribute :purge

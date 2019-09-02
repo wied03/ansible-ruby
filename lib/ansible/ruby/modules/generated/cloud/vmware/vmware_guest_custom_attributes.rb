@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:present, :absent, nil] The action to take.,If set to C(present), then custom attribute is added or updated.,If set to C(absent), then custom attribute is removed.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String, nil] UUID of the virtual machine to manage if known. This is VMware's unique identifier.,This is required parameter, if C(name) is not supplied.
         attribute :uuid

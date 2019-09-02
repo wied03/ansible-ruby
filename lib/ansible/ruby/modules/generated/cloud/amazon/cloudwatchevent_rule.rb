@@ -21,7 +21,7 @@ module Ansible
 
         # @return [:present, :disabled, :absent, nil] Whether the rule is present (and enabled), disabled, or absent
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :disabled, :absent], :message=>"%{value} needs to be :present, :disabled, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :disabled, :absent], :message=>"%{value} needs to be :present, :disabled, :absent"}, allow_nil: true
 
         # @return [String, nil] A description of the rule
         attribute :description

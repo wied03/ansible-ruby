@@ -10,7 +10,7 @@ module Ansible
       class Na_elementsw_snapshot_schedule < Base
         # @return [:present, :absent] Whether the specified schedule should exist or not.
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
+        validates :state, presence: true, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
 
         # @return [Symbol, nil] Pause / Resume a schedule.
         attribute :paused
@@ -22,7 +22,7 @@ module Ansible
 
         # @return [:DaysOfWeekFrequency, :DaysOfMonthFrequency, :TimeIntervalFrequency, nil] Schedule type for creating schedule.
         attribute :schedule_type
-        validates :schedule_type, inclusion: {:in=>[:DaysOfWeekFrequency, :DaysOfMonthFrequency, :TimeIntervalFrequency], :message=>"%{value} needs to be :DaysOfWeekFrequency, :DaysOfMonthFrequency, :TimeIntervalFrequency"}, allow_nil: true
+        validates :schedule_type, expression_inclusion: {:in=>[:DaysOfWeekFrequency, :DaysOfMonthFrequency, :TimeIntervalFrequency], :message=>"%{value} needs to be :DaysOfWeekFrequency, :DaysOfMonthFrequency, :TimeIntervalFrequency"}, allow_nil: true
 
         # @return [Integer, nil] Time interval in days.
         attribute :time_interval_days

@@ -30,7 +30,7 @@ module Ansible
 
         # @return [:A, :AAAA, :MX, :CNAME, :CAA, :SRV, :TXT, :TLSA, :NS, :DS] Record type
         attribute :type
-        validates :type, presence: true, inclusion: {:in=>[:A, :AAAA, :MX, :CNAME, :CAA, :SRV, :TXT, :TLSA, :NS, :DS], :message=>"%{value} needs to be :A, :AAAA, :MX, :CNAME, :CAA, :SRV, :TXT, :TLSA, :NS, :DS"}
+        validates :type, presence: true, expression_inclusion: {:in=>[:A, :AAAA, :MX, :CNAME, :CAA, :SRV, :TXT, :TLSA, :NS, :DS], :message=>"%{value} needs to be :A, :AAAA, :MX, :CNAME, :CAA, :SRV, :TXT, :TLSA, :NS, :DS"}
 
         # @return [String] Record value
         attribute :value
@@ -45,7 +45,7 @@ module Ansible
 
         # @return [:present, :absent, nil] Whether the record should exist or not
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

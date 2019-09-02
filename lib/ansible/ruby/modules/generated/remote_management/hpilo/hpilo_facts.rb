@@ -23,7 +23,7 @@ module Ansible
 
         # @return [:SSLv3, :SSLv23, :TLSv1, :TLSv1_1, :TLSv1_2, nil] Change the ssl_version used.
         attribute :ssl_version
-        validates :ssl_version, inclusion: {:in=>[:SSLv3, :SSLv23, :TLSv1, :TLSv1_1, :TLSv1_2], :message=>"%{value} needs to be :SSLv3, :SSLv23, :TLSv1, :TLSv1_1, :TLSv1_2"}, allow_nil: true
+        validates :ssl_version, expression_inclusion: {:in=>[:SSLv3, :SSLv23, :TLSv1, :TLSv1_1, :TLSv1_2], :message=>"%{value} needs to be :SSLv3, :SSLv23, :TLSv1, :TLSv1_1, :TLSv1_2"}, allow_nil: true
       end
     end
   end

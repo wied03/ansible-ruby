@@ -17,7 +17,7 @@ module Ansible
 
         # @return [:first, :last, nil] If multiple virtual machines matching the name, use the first or last found.
         attribute :name_match
-        validates :name_match, inclusion: {:in=>[:first, :last], :message=>"%{value} needs to be :first, :last"}, allow_nil: true
+        validates :name_match, expression_inclusion: {:in=>[:first, :last], :message=>"%{value} needs to be :first, :last"}, allow_nil: true
       end
     end
   end

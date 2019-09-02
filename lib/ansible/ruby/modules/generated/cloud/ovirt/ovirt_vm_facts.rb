@@ -18,7 +18,7 @@ module Ansible
 
         # @return [Boolean, nil] If I(true) performed search will take case into account.
         attribute :case_sensitive
-        validates :case_sensitive, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :case_sensitive, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Object, nil] The maximum number of results to return.
         attribute :max

@@ -18,11 +18,11 @@ module Ansible
 
         # @return [:absent, :present, nil] whether to ensure the application is present or absent
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
         # @return [Boolean, nil] when set to true, running environments will be terminated before deleting the application
         attribute :terminate_by_force
-        validates :terminate_by_force, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :terminate_by_force, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
       end
     end
   end

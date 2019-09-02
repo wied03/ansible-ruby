@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:killed, :once, :reloaded, :restarted, :started, :stopped, nil] C(started)/C(stopped) are idempotent actions that will not run commands unless necessary.  C(restarted) will always bounce the service (sv restart) and C(killed) will always bounce the service (sv force-stop). C(reloaded) will send a HUP (sv reload). C(once) will run a normally downed sv once (sv once), not really an idempotent operation.
         attribute :state
-        validates :state, inclusion: {:in=>[:killed, :once, :reloaded, :restarted, :started, :stopped], :message=>"%{value} needs to be :killed, :once, :reloaded, :restarted, :started, :stopped"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:killed, :once, :reloaded, :restarted, :started, :stopped], :message=>"%{value} needs to be :killed, :once, :reloaded, :restarted, :started, :stopped"}, allow_nil: true
 
         # @return [Symbol, nil] Whether the service is enabled or not, if disabled it also implies stopped.
         attribute :enabled

@@ -11,11 +11,11 @@ module Ansible
       class Logicmonitor < Base
         # @return [:collector, :host, :datsource, :hostgroup] The type of LogicMonitor object you wish to manage.,Collector: Perform actions on a LogicMonitor collector.,NOTE You should use Ansible service modules such as M(service) or M(supervisorctl) for managing the Collector 'logicmonitor-agent' and 'logicmonitor-watchdog' services. Specifically, you'll probably want to start these services after a Collector add and stop these services before a Collector remove.,Host: Perform actions on a host device.,Hostgroup: Perform actions on a LogicMonitor host group.,NOTE Host and Hostgroup tasks should always be performed via delegate_to: localhost. There are no benefits to running these tasks on the remote host and doing so will typically cause problems.\r\n
         attribute :target
-        validates :target, presence: true, inclusion: {:in=>[:collector, :host, :datsource, :hostgroup], :message=>"%{value} needs to be :collector, :host, :datsource, :hostgroup"}
+        validates :target, presence: true, expression_inclusion: {:in=>[:collector, :host, :datsource, :hostgroup], :message=>"%{value} needs to be :collector, :host, :datsource, :hostgroup"}
 
         # @return [:add, :remove, :update, :sdt] The action you wish to perform on target.,Add: Add an object to your LogicMonitor account.,Remove: Remove an object from your LogicMonitor account.,Update: Update properties, description, or groups (target=host) for an object in your LogicMonitor account.,SDT: Schedule downtime for an object in your LogicMonitor account.
         attribute :action
-        validates :action, presence: true, inclusion: {:in=>[:add, :remove, :update, :sdt], :message=>"%{value} needs to be :add, :remove, :update, :sdt"}
+        validates :action, presence: true, expression_inclusion: {:in=>[:add, :remove, :update, :sdt], :message=>"%{value} needs to be :add, :remove, :update, :sdt"}
 
         # @return [String] The LogicMonitor account company name. If you would log in to your account at "superheroes.logicmonitor.com" you would use "superheroes."
         attribute :company
@@ -58,7 +58,7 @@ module Ansible
 
         # @return [:yes, :no, nil] A boolean flag to turn alerting on or off for an object.,Optional for managing all hosts (action=add or action=update).
         attribute :alertenable
-        validates :alertenable, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :alertenable, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] The time that the Scheduled Down Time (SDT) should begin.,Optional for managing SDT (action=sdt).,Y-m-d H:M
         attribute :starttime

@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:present, :absent, nil] Whether the Config rule should be present or absent.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String, nil] The description that you provide for the AWS Config rule.
         attribute :description
@@ -33,7 +33,7 @@ module Ansible
 
         # @return [:One_Hour, :Three_Hours, :Six_Hours, :Twelve_Hours, :TwentyFour_Hours, nil] The maximum frequency with which AWS Config runs evaluations for a rule.
         attribute :execution_frequency
-        validates :execution_frequency, inclusion: {:in=>[:One_Hour, :Three_Hours, :Six_Hours, :Twelve_Hours, :TwentyFour_Hours], :message=>"%{value} needs to be :One_Hour, :Three_Hours, :Six_Hours, :Twelve_Hours, :TwentyFour_Hours"}, allow_nil: true
+        validates :execution_frequency, expression_inclusion: {:in=>[:One_Hour, :Three_Hours, :Six_Hours, :Twelve_Hours, :TwentyFour_Hours], :message=>"%{value} needs to be :One_Hour, :Three_Hours, :Six_Hours, :Twelve_Hours, :TwentyFour_Hours"}, allow_nil: true
       end
     end
   end

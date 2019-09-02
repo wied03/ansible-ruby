@@ -26,7 +26,7 @@ module Ansible
 
         # @return [:yes, :no, nil] commit if changed
         attribute :commit
-        validates :commit, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :commit, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

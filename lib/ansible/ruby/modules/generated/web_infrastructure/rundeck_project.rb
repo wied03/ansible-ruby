@@ -10,7 +10,7 @@ module Ansible
       class Rundeck_project < Base
         # @return [:present, :absent, nil] Create or remove Rundeck project.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String] Sets the project name.
         attribute :name

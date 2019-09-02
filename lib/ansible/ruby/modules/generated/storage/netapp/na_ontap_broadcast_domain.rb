@@ -10,7 +10,7 @@ module Ansible
       class Na_ontap_broadcast_domain < Base
         # @return [:present, :absent, nil] Whether the specified broadcast domain should exist or not.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String] Specify the broadcast_domain name
         attribute :broadcast_domain

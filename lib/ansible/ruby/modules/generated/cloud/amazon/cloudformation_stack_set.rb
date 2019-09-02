@@ -21,7 +21,7 @@ module Ansible
 
         # @return [:present, :absent, nil] If state is "present", stack will be created.  If state is "present" and if stack exists and template has changed, it will be updated. If state is "absent", stack will be removed.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [Object, nil] The local path of the cloudformation template.,This must be the full path to the file, relative to the working directory. If using roles this may look like "roles/cloudformation/files/cloudformation-example.json".,If 'state' is 'present' and the stack does not exist yet, either 'template', 'template_body' or 'template_url' must be specified (but only one of them). If 'state' is present, the stack does exist, and neither 'template', 'template_body' nor 'template_url' are specified, the previous template will be reused.
         attribute :template
@@ -35,7 +35,7 @@ module Ansible
 
         # @return [Boolean, nil] Only applicable when I(state=absent). Sets whether, when deleting a stack set, the stack instances should also be deleted.,By default, instances will be deleted. Set to 'no' or 'false' to keep stacks when stack set is deleted.
         attribute :purge_stacks
-        validates :purge_stacks, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :purge_stacks, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Symbol, nil] Whether or not to wait for stack operation to complete. This includes waiting for stack instances to reach UPDATE_COMPLETE status.,If you choose not to wait, this module will not notify when stack operations fail because it will not wait for them to finish.
         attribute :wait
@@ -47,7 +47,7 @@ module Ansible
 
         # @return [:CAPABILITY_IAM, :CAPABILITY_NAMED_IAM, nil] Capabilities allow stacks to create and modify IAM resources, which may include adding users or roles.,Currently the only available values are 'CAPABILITY_IAM' and 'CAPABILITY_NAMED_IAM'. Either or both may be provided.,The following resources require that one or both of these parameters is specified: AWS::IAM::AccessKey, AWS::IAM::Group, AWS::IAM::InstanceProfile, AWS::IAM::Policy, AWS::IAM::Role, AWS::IAM::User, AWS::IAM::UserToGroupAddition\r\n
         attribute :capabilities
-        validates :capabilities, inclusion: {:in=>[:CAPABILITY_IAM, :CAPABILITY_NAMED_IAM], :message=>"%{value} needs to be :CAPABILITY_IAM, :CAPABILITY_NAMED_IAM"}, allow_nil: true
+        validates :capabilities, expression_inclusion: {:in=>[:CAPABILITY_IAM, :CAPABILITY_NAMED_IAM], :message=>"%{value} needs to be :CAPABILITY_IAM, :CAPABILITY_NAMED_IAM"}, allow_nil: true
 
         # @return [Array<String>, String, nil] A list of AWS regions to create instances of a stack in. The I(region) parameter chooses where the Stack Set is created, and I(regions) specifies the region for stack instances.,At least one region must be specified to create a stack set. On updates, if fewer regions are specified only the specified regions will have their stack instances updated.
         attribute :regions

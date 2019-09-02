@@ -19,11 +19,11 @@ module Ansible
 
         # @return [:absent, :present, nil] Specify whether to add C(present) or remove C(absent) the specified access rule.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
         # @return [:allow, :deny] Specify whether to allow or deny the rights specified.
         attribute :type
-        validates :type, presence: true, inclusion: {:in=>[:allow, :deny], :message=>"%{value} needs to be :allow, :deny"}
+        validates :type, presence: true, expression_inclusion: {:in=>[:allow, :deny], :message=>"%{value} needs to be :allow, :deny"}
 
         # @return [Array<String>, String] The rights/permissions that are to be allowed/denied for the specified user or group for the item at C(path).,If C(path) is a file or directory, rights can be any right under MSDN FileSystemRights U(https://msdn.microsoft.com/en-us/library/system.security.accesscontrol.filesystemrights.aspx).,If C(path) is a registry key, rights can be any right under MSDN RegistryRights U(https://msdn.microsoft.com/en-us/library/system.security.accesscontrol.registryrights.aspx).
         attribute :rights
@@ -31,11 +31,11 @@ module Ansible
 
         # @return [:ContainerInherit, :ObjectInherit, nil] Inherit flags on the ACL rules.,Can be specified as a comma separated list, e.g. C(ContainerInherit), C(ObjectInherit).,For more information on the choices see MSDN InheritanceFlags enumeration at U(https://msdn.microsoft.com/en-us/library/system.security.accesscontrol.inheritanceflags.aspx).,Defaults to C(ContainerInherit, ObjectInherit) for Directories.
         attribute :inherit
-        validates :inherit, inclusion: {:in=>[:ContainerInherit, :ObjectInherit], :message=>"%{value} needs to be :ContainerInherit, :ObjectInherit"}, allow_nil: true
+        validates :inherit, expression_inclusion: {:in=>[:ContainerInherit, :ObjectInherit], :message=>"%{value} needs to be :ContainerInherit, :ObjectInherit"}, allow_nil: true
 
         # @return [:InheritOnly, :None, :NoPropagateInherit, nil] Propagation flag on the ACL rules.,For more information on the choices see MSDN PropagationFlags enumeration at U(https://msdn.microsoft.com/en-us/library/system.security.accesscontrol.propagationflags.aspx).
         attribute :propagation
-        validates :propagation, inclusion: {:in=>[:InheritOnly, :None, :NoPropagateInherit], :message=>"%{value} needs to be :InheritOnly, :None, :NoPropagateInherit"}, allow_nil: true
+        validates :propagation, expression_inclusion: {:in=>[:InheritOnly, :None, :NoPropagateInherit], :message=>"%{value} needs to be :InheritOnly, :None, :NoPropagateInherit"}, allow_nil: true
       end
     end
   end

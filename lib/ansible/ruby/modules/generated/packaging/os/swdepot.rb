@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:present, :latest, :absent] whether to install (C(present), C(latest)), or remove (C(absent)) a package.
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:present, :latest, :absent], :message=>"%{value} needs to be :present, :latest, :absent"}
+        validates :state, presence: true, expression_inclusion: {:in=>[:present, :latest, :absent], :message=>"%{value} needs to be :present, :latest, :absent"}
 
         # @return [String, nil] The source repository from which install or upgrade a package.
         attribute :depot

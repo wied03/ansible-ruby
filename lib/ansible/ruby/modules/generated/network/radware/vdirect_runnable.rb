@@ -25,7 +25,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Wait for async operation to complete, may be set as C(VDIRECT_WAIT) environment variable.
         attribute :vdirect_wait
-        validates :vdirect_wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :vdirect_wait, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] vDirect server HTTPS port number, may be set as C(VDIRECT_HTTPS_PORT) environment variable.
         attribute :vdirect_https_port
@@ -41,15 +41,15 @@ module Ansible
 
         # @return [:yes, :no, nil] If C(no), an HTTP connection will be used instead of the default HTTPS connection,,may be set as C(VDIRECT_HTTPS) or C(VDIRECT_USE_SSL) environment variable.
         attribute :vdirect_use_ssl
-        validates :vdirect_use_ssl, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :vdirect_use_ssl, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:yes, :no, nil] If C(no), SSL certificates will not be validated,,may be set as C(VDIRECT_VALIDATE_CERTS) or C(VDIRECT_VERIFY) environment variable.,This should only set to C(no) used on personally controlled sites using self-signed certificates.
         attribute :vdirect_validate_certs
-        validates :vdirect_validate_certs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :vdirect_validate_certs, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:ConfigurationTemplate, :Workflow, :WorkflowTemplate] vDirect runnable type.
         attribute :runnable_type
-        validates :runnable_type, presence: true, inclusion: {:in=>[:ConfigurationTemplate, :Workflow, :WorkflowTemplate], :message=>"%{value} needs to be :ConfigurationTemplate, :Workflow, :WorkflowTemplate"}
+        validates :runnable_type, presence: true, expression_inclusion: {:in=>[:ConfigurationTemplate, :Workflow, :WorkflowTemplate], :message=>"%{value} needs to be :ConfigurationTemplate, :Workflow, :WorkflowTemplate"}
 
         # @return [String] vDirect runnable name to run.,May be configuration template name, workflow template name or workflow instance name.
         attribute :runnable_name

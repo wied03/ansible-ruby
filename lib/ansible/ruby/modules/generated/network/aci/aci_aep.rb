@@ -18,11 +18,11 @@ module Ansible
 
         # @return [:yes, :no, nil] Enable infrastructure VLAN.,The hypervisor functions of the AEP.,C(no) will disable the infrastructure vlan if it is enabled.
         attribute :infra_vlan
-        validates :infra_vlan, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :infra_vlan, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:absent, :present, :query, nil] Use C(present) or C(absent) for adding or removing.,Use C(query) for listing an object or multiple objects.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present, :query], :message=>"%{value} needs to be :absent, :present, :query"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present, :query], :message=>"%{value} needs to be :absent, :present, :query"}, allow_nil: true
       end
     end
   end

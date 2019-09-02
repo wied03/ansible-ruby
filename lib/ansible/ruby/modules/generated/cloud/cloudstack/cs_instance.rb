@@ -21,7 +21,7 @@ module Ansible
 
         # @return [:deployed, :started, :stopped, :restarted, :restored, :destroyed, :expunged, :present, :absent, nil] State of the instance.
         attribute :state
-        validates :state, inclusion: {:in=>[:deployed, :started, :stopped, :restarted, :restored, :destroyed, :expunged, :present, :absent], :message=>"%{value} needs to be :deployed, :started, :stopped, :restarted, :restored, :destroyed, :expunged, :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:deployed, :started, :stopped, :restarted, :restored, :destroyed, :expunged, :present, :absent], :message=>"%{value} needs to be :deployed, :started, :stopped, :restarted, :restored, :destroyed, :expunged, :present, :absent"}, allow_nil: true
 
         # @return [String, nil] Name or id of the service offering of the new instance.,If not set, first found service offering is used.
         attribute :service_offering
@@ -46,15 +46,15 @@ module Ansible
 
         # @return [:all, :featured, :self, :selfexecutable, :sharedexecutable, :executable, :community, nil] Name of the filter used to search for the template or iso.,Used for params C(iso) or C(template) on I(state=present).,The filter C(all) was added in 2.6.
         attribute :template_filter
-        validates :template_filter, inclusion: {:in=>[:all, :featured, :self, :selfexecutable, :sharedexecutable, :executable, :community], :message=>"%{value} needs to be :all, :featured, :self, :selfexecutable, :sharedexecutable, :executable, :community"}, allow_nil: true
+        validates :template_filter, expression_inclusion: {:in=>[:all, :featured, :self, :selfexecutable, :sharedexecutable, :executable, :community], :message=>"%{value} needs to be :all, :featured, :self, :selfexecutable, :sharedexecutable, :executable, :community"}, allow_nil: true
 
         # @return [:KVM, :kvm, :VMware, :vmware, :BareMetal, :baremetal, :XenServer, :xenserver, :LXC, :lxc, :HyperV, :hyperv, :UCS, :ucs, :OVM, :ovm, :Simulator, :simulator, nil] Name the hypervisor to be used for creating the new instance.,Relevant when using I(state=present), but only considered if not set on ISO/template.,If not set or found on ISO/template, first found hypervisor will be used.
         attribute :hypervisor
-        validates :hypervisor, inclusion: {:in=>[:KVM, :kvm, :VMware, :vmware, :BareMetal, :baremetal, :XenServer, :xenserver, :LXC, :lxc, :HyperV, :hyperv, :UCS, :ucs, :OVM, :ovm, :Simulator, :simulator], :message=>"%{value} needs to be :KVM, :kvm, :VMware, :vmware, :BareMetal, :baremetal, :XenServer, :xenserver, :LXC, :lxc, :HyperV, :hyperv, :UCS, :ucs, :OVM, :ovm, :Simulator, :simulator"}, allow_nil: true
+        validates :hypervisor, expression_inclusion: {:in=>[:KVM, :kvm, :VMware, :vmware, :BareMetal, :baremetal, :XenServer, :xenserver, :LXC, :lxc, :HyperV, :hyperv, :UCS, :ucs, :OVM, :ovm, :Simulator, :simulator], :message=>"%{value} needs to be :KVM, :kvm, :VMware, :vmware, :BareMetal, :baremetal, :XenServer, :xenserver, :LXC, :lxc, :HyperV, :hyperv, :UCS, :ucs, :OVM, :ovm, :Simulator, :simulator"}, allow_nil: true
 
         # @return [:de, :"de-ch", :es, :fi, :fr, :"fr-be", :"fr-ch", :is, :it, :jp, :"nl-be", :no, :pt, :uk, :us, nil] Keyboard device type for the instance.
         attribute :keyboard
-        validates :keyboard, inclusion: {:in=>[:de, :"de-ch", :es, :fi, :fr, :"fr-be", :"fr-ch", :is, :it, :jp, :"nl-be", :no, :pt, :uk, :us], :message=>"%{value} needs to be :de, :\"de-ch\", :es, :fi, :fr, :\"fr-be\", :\"fr-ch\", :is, :it, :jp, :\"nl-be\", :no, :pt, :uk, :us"}, allow_nil: true
+        validates :keyboard, expression_inclusion: {:in=>[:de, :"de-ch", :es, :fi, :fr, :"fr-be", :"fr-ch", :is, :it, :jp, :"nl-be", :no, :pt, :uk, :us], :message=>"%{value} needs to be :de, :\"de-ch\", :es, :fi, :fr, :\"fr-be\", :\"fr-ch\", :is, :it, :jp, :\"nl-be\", :no, :pt, :uk, :us"}, allow_nil: true
 
         # @return [Array<String>, String, nil] List of networks to use for the new instance.
         attribute :networks
@@ -126,7 +126,7 @@ module Ansible
 
         # @return [Boolean, nil] Poll async jobs until job has finished.
         attribute :poll_async
-        validates :poll_async, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :poll_async, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Object, nil] Map to specify custom parameters.
         attribute :details

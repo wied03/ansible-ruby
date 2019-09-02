@@ -10,7 +10,7 @@ module Ansible
       class Na_ontap_vserver_peer < Base
         # @return [:present, :absent, nil] Whether the specified vserver peer should exist or not.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String, nil] Specifies name of the source Vserver in the relationship.
         attribute :vserver
@@ -18,7 +18,7 @@ module Ansible
 
         # @return [:snapmirror, :file_copy, :lun_copy, nil] List of applications which can make use of the peering relationship.
         attribute :applications
-        validates :applications, inclusion: {:in=>[:snapmirror, :file_copy, :lun_copy], :message=>"%{value} needs to be :snapmirror, :file_copy, :lun_copy"}, allow_nil: true
+        validates :applications, expression_inclusion: {:in=>[:snapmirror, :file_copy, :lun_copy], :message=>"%{value} needs to be :snapmirror, :file_copy, :lun_copy"}, allow_nil: true
 
         # @return [String, nil] Specifies name of the peer Vserver in the relationship.
         attribute :peer_vserver

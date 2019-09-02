@@ -26,11 +26,11 @@ module Ansible
 
         # @return [:earlyBinding, :lateBinding, :ephemeral] See VMware KB 1022312 regarding portgroup types.
         attribute :portgroup_type
-        validates :portgroup_type, presence: true, inclusion: {:in=>[:earlyBinding, :lateBinding, :ephemeral], :message=>"%{value} needs to be :earlyBinding, :lateBinding, :ephemeral"}
+        validates :portgroup_type, presence: true, expression_inclusion: {:in=>[:earlyBinding, :lateBinding, :ephemeral], :message=>"%{value} needs to be :earlyBinding, :lateBinding, :ephemeral"}
 
         # @return [:present, :absent] Determines if the portgroup should be present or not.
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
+        validates :state, presence: true, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
 
         # @return [Symbol, nil] Indicates whether this is a VLAN trunk or not.
         attribute :vlan_trunk

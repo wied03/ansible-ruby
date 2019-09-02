@@ -18,7 +18,7 @@ module Ansible
 
         # @return [:xml, :set, :text, :json, nil] The I(src_format) argument specifies the format of the configuration found int I(src).  If the I(src_format) argument is not provided, the module will attempt to determine the format of the configuration file specified in I(src).
         attribute :src_format
-        validates :src_format, inclusion: {:in=>[:xml, :set, :text, :json], :message=>"%{value} needs to be :xml, :set, :text, :json"}, allow_nil: true
+        validates :src_format, expression_inclusion: {:in=>[:xml, :set, :text, :json], :message=>"%{value} needs to be :xml, :set, :text, :json"}, allow_nil: true
 
         # @return [Integer, nil] The C(rollback) argument instructs the module to rollback the current configuration to the identifier specified in the argument.  If the specified rollback identifier does not exist on the remote device, the module will fail.  To rollback to the most recent commit, set the C(rollback) argument to 0.
         attribute :rollback
@@ -26,7 +26,7 @@ module Ansible
 
         # @return [Boolean, nil] The C(zeroize) argument is used to completely sanitize the remote device configuration back to initial defaults.  This argument will effectively remove all current configuration statements on the remote device.
         attribute :zeroize
-        validates :zeroize, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :zeroize, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Integer, nil] The C(confirm) argument will configure a time out value in minutes for the commit to be confirmed before it is automatically rolled back.  If the C(confirm) argument is set to False, this argument is silently ignored.  If the value for this argument is set to 0, the commit is confirmed immediately.
         attribute :confirm
@@ -38,19 +38,19 @@ module Ansible
 
         # @return [:yes, :no, nil] The C(replace) argument will instruct the remote device to replace the current configuration hierarchy with the one specified in the corresponding hierarchy of the source configuration loaded from this module.,Note this argument should be considered deprecated.  To achieve the equivalent, set the I(update) argument to C(replace). This argument will be removed in a future release. The C(replace) and C(update) argument is mutually exclusive.
         attribute :replace
-        validates :replace, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :replace, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:yes, :no, nil] This argument will cause the module to create a full backup of the current C(running-config) from the remote device before any changes are made.  The backup file is written to the C(backup) folder in the playbook root directory or role root directory, if playbook is part of an ansible role. If the directory does not exist, it is created.
         attribute :backup
-        validates :backup, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :backup, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:merge, :override, :replace, nil] This argument will decide how to load the configuration data particulary when the candidate configuration and loaded configuration contain conflicting statements. Following are accepted values. C(merge) combines the data in the loaded configuration with the candidate configuration. If statements in the loaded configuration conflict with statements in the candidate configuration, the loaded statements replace the candidate ones. C(override) discards the entire candidate configuration and replaces it with the loaded configuration. C(replace) substitutes each hierarchy level in the loaded configuration for the corresponding level.
         attribute :update
-        validates :update, inclusion: {:in=>[:merge, :override, :replace], :message=>"%{value} needs to be :merge, :override, :replace"}, allow_nil: true
+        validates :update, expression_inclusion: {:in=>[:merge, :override, :replace], :message=>"%{value} needs to be :merge, :override, :replace"}, allow_nil: true
 
         # @return [:yes, :no, nil] This argument will execute commit operation on remote device. It can be used to confirm a previous commit.
         attribute :confirm_commit
-        validates :confirm_commit, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :confirm_commit, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

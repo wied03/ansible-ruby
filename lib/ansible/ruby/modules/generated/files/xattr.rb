@@ -26,11 +26,11 @@ module Ansible
 
         # @return [:absent, :all, :keys, :present, :read, nil] defines which state you want to do. C(read) retrieves the current value for a C(key) (default) C(present) sets C(name) to C(value), default if value is set C(all) dumps all data C(keys) retrieves all keys C(absent) deletes the key
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :all, :keys, :present, :read], :message=>"%{value} needs to be :absent, :all, :keys, :present, :read"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :all, :keys, :present, :read], :message=>"%{value} needs to be :absent, :all, :keys, :present, :read"}, allow_nil: true
 
         # @return [:yes, :no, nil] If C(yes), dereferences symlinks and sets/gets attributes on symlink target, otherwise acts on symlink itself.
         attribute :follow
-        validates :follow, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :follow, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

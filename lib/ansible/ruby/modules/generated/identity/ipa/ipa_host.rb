@@ -46,7 +46,7 @@ module Ansible
 
         # @return [:present, :absent, :enabled, :disabled, nil] State to ensure
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent, :enabled, :disabled], :message=>"%{value} needs to be :present, :absent, :enabled, :disabled"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent, :enabled, :disabled], :message=>"%{value} needs to be :present, :absent, :enabled, :disabled"}, allow_nil: true
 
         # @return [Symbol, nil] If set C("True") with state as C("absent"), then removes DNS records of the host managed by FreeIPA DNS.,This option has no effect for states other than "absent".
         attribute :update_dns

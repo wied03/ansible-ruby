@@ -10,7 +10,7 @@ module Ansible
       class Meraki_vlan < Base
         # @return [:absent, :present, :query, nil] Specifies whether object should be queried, created/modified, or removed.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present, :query], :message=>"%{value} needs to be :absent, :present, :query"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present, :query], :message=>"%{value} needs to be :absent, :present, :query"}, allow_nil: true
 
         # @return [String, nil] Name of network which VLAN is in or should be in.
         attribute :net_name

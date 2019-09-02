@@ -25,7 +25,7 @@ module Ansible
 
         # @return [:automated, :manual, :shared, :public, nil] Type of snapshot to find. By default both automated and manual snapshots will be returned.
         attribute :snapshot_type
-        validates :snapshot_type, inclusion: {:in=>[:automated, :manual, :shared, :public], :message=>"%{value} needs to be :automated, :manual, :shared, :public"}, allow_nil: true
+        validates :snapshot_type, expression_inclusion: {:in=>[:automated, :manual, :shared, :public], :message=>"%{value} needs to be :automated, :manual, :shared, :public"}, allow_nil: true
       end
     end
   end

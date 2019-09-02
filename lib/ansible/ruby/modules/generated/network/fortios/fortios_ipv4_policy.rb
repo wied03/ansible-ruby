@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:present, :absent, nil] Specifies if policy I(id) need to be added or deleted.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String, nil] Specifies source interface name(s).
         attribute :src_intf
@@ -42,7 +42,7 @@ module Ansible
 
         # @return [:accept, :deny, nil] Specifies accept or deny action policy. Required when I(state=present).
         attribute :policy_action
-        validates :policy_action, inclusion: {:in=>[:accept, :deny], :message=>"%{value} needs to be :accept, :deny"}, allow_nil: true
+        validates :policy_action, expression_inclusion: {:in=>[:accept, :deny], :message=>"%{value} needs to be :accept, :deny"}, allow_nil: true
 
         # @return [String, nil] Specifies policy service(s), could be a list (ex: ['MAIL','DNS']). Required when I(state=present).
         attribute :service
@@ -81,7 +81,7 @@ module Ansible
 
         # @return [:disable, :utm, :all, nil] Logs sessions that matched policy.
         attribute :logtraffic
-        validates :logtraffic, inclusion: {:in=>[:disable, :utm, :all], :message=>"%{value} needs to be :disable, :utm, :all"}, allow_nil: true
+        validates :logtraffic, expression_inclusion: {:in=>[:disable, :utm, :all], :message=>"%{value} needs to be :disable, :utm, :all"}, allow_nil: true
 
         # @return [Symbol, nil] Logs beginning of session as well.
         attribute :logtraffic_start

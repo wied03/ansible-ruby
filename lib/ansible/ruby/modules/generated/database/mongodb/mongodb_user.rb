@@ -45,11 +45,11 @@ module Ansible
 
         # @return [Boolean, nil] Whether to use an SSL connection when connecting to the database
         attribute :ssl
-        validates :ssl, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :ssl, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [:CERT_REQUIRED, :CERT_OPTIONAL, :CERT_NONE, nil] Specifies whether a certificate is required from the other side of the connection, and whether it will be validated if provided.
         attribute :ssl_cert_reqs
-        validates :ssl_cert_reqs, inclusion: {:in=>[:CERT_REQUIRED, :CERT_OPTIONAL, :CERT_NONE], :message=>"%{value} needs to be :CERT_REQUIRED, :CERT_OPTIONAL, :CERT_NONE"}, allow_nil: true
+        validates :ssl_cert_reqs, expression_inclusion: {:in=>[:CERT_REQUIRED, :CERT_OPTIONAL, :CERT_NONE], :message=>"%{value} needs to be :CERT_REQUIRED, :CERT_OPTIONAL, :CERT_NONE"}, allow_nil: true
 
         # @return [String, nil] The database user roles valid values could either be one or more of the following strings: 'read', 'readWrite', 'dbAdmin', 'userAdmin', 'clusterAdmin', 'readAnyDatabase', 'readWriteAnyDatabase', 'userAdminAnyDatabase', 'dbAdminAnyDatabase'\r\n,Or the following dictionary '{ db: DATABASE_NAME, role: ROLE_NAME }'.,This param requires pymongo 2.5+. If it is a string, mongodb 2.4+ is also required. If it is a dictionary, mongo 2.6+  is required.
         attribute :roles
@@ -57,11 +57,11 @@ module Ansible
 
         # @return [:present, :absent, nil] The database user state
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [:always, :on_create, nil] C(always) will update passwords if they differ.  C(on_create) will only set the password for newly created users.
         attribute :update_password
-        validates :update_password, inclusion: {:in=>[:always, :on_create], :message=>"%{value} needs to be :always, :on_create"}, allow_nil: true
+        validates :update_password, expression_inclusion: {:in=>[:always, :on_create], :message=>"%{value} needs to be :always, :on_create"}, allow_nil: true
       end
     end
   end

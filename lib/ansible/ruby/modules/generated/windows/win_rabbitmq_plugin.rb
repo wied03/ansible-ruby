@@ -14,11 +14,11 @@ module Ansible
 
         # @return [:yes, :no, nil] Only enable missing plugins.,Does not disable plugins that are not in the names list.
         attribute :new_only
-        validates :new_only, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :new_only, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:disabled, :enabled, nil] Specify if plugins are to be enabled or disabled.
         attribute :state
-        validates :state, inclusion: {:in=>[:disabled, :enabled], :message=>"%{value} needs to be :disabled, :enabled"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:disabled, :enabled], :message=>"%{value} needs to be :disabled, :enabled"}, allow_nil: true
 
         # @return [Object, nil] Specify a custom install prefix to a Rabbit.
         attribute :prefix

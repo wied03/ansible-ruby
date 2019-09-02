@@ -10,19 +10,19 @@ module Ansible
       class Cnos_vlag < Base
         # @return [:enable, :"auto-recovery", :"config-consistency", :isl, :"mac-address-table", :"peer-gateway", :priority, :"startup-delay", :"tier-id", :vrrp, :instance, :hlthchk] This is an overloaded vlag first argument. Usage of this argument can be found is the User Guide referenced above.
         attribute :vlagArg1
-        validates :vlagArg1, presence: true, inclusion: {:in=>[:enable, :"auto-recovery", :"config-consistency", :isl, :"mac-address-table", :"peer-gateway", :priority, :"startup-delay", :"tier-id", :vrrp, :instance, :hlthchk], :message=>"%{value} needs to be :enable, :\"auto-recovery\", :\"config-consistency\", :isl, :\"mac-address-table\", :\"peer-gateway\", :priority, :\"startup-delay\", :\"tier-id\", :vrrp, :instance, :hlthchk"}
+        validates :vlagArg1, presence: true, expression_inclusion: {:in=>[:enable, :"auto-recovery", :"config-consistency", :isl, :"mac-address-table", :"peer-gateway", :priority, :"startup-delay", :"tier-id", :vrrp, :instance, :hlthchk], :message=>"%{value} needs to be :enable, :\"auto-recovery\", :\"config-consistency\", :isl, :\"mac-address-table\", :\"peer-gateway\", :priority, :\"startup-delay\", :\"tier-id\", :vrrp, :instance, :hlthchk"}
 
         # @return [:"Interval in seconds", :"disable or strict", :"Port Aggregation Number", :"VLAG priority", :"Delay time in seconds", :"VLAG tier-id value", :"VLAG instance number", :"keepalive-attempts", :"keepalive-interval", :"retry-interval", :"peer-ip", nil] This is an overloaded vlag second argument. Usage of this argument can be found is the User Guide referenced above.
         attribute :vlagArg2
-        validates :vlagArg2, inclusion: {:in=>[:"Interval in seconds", :"disable or strict", :"Port Aggregation Number", :"VLAG priority", :"Delay time in seconds", :"VLAG tier-id value", :"VLAG instance number", :"keepalive-attempts", :"keepalive-interval", :"retry-interval", :"peer-ip"], :message=>"%{value} needs to be :\"Interval in seconds\", :\"disable or strict\", :\"Port Aggregation Number\", :\"VLAG priority\", :\"Delay time in seconds\", :\"VLAG tier-id value\", :\"VLAG instance number\", :\"keepalive-attempts\", :\"keepalive-interval\", :\"retry-interval\", :\"peer-ip\""}, allow_nil: true
+        validates :vlagArg2, expression_inclusion: {:in=>[:"Interval in seconds", :"disable or strict", :"Port Aggregation Number", :"VLAG priority", :"Delay time in seconds", :"VLAG tier-id value", :"VLAG instance number", :"keepalive-attempts", :"keepalive-interval", :"retry-interval", :"peer-ip"], :message=>"%{value} needs to be :\"Interval in seconds\", :\"disable or strict\", :\"Port Aggregation Number\", :\"VLAG priority\", :\"Delay time in seconds\", :\"VLAG tier-id value\", :\"VLAG instance number\", :\"keepalive-attempts\", :\"keepalive-interval\", :\"retry-interval\", :\"peer-ip\""}, allow_nil: true
 
         # @return [:"enable or port-aggregation", :"Number of keepalive attempts", :"Interval in seconds", :"Interval in seconds", :"VLAG health check peer IP4 address", nil] This is an overloaded vlag third argument. Usage of this argument can be found is the User Guide referenced above.
         attribute :vlagArg3
-        validates :vlagArg3, inclusion: {:in=>[:"enable or port-aggregation", :"Number of keepalive attempts", :"Interval in seconds", :"Interval in seconds", :"VLAG health check peer IP4 address"], :message=>"%{value} needs to be :\"enable or port-aggregation\", :\"Number of keepalive attempts\", :\"Interval in seconds\", :\"Interval in seconds\", :\"VLAG health check peer IP4 address\""}, allow_nil: true
+        validates :vlagArg3, expression_inclusion: {:in=>[:"enable or port-aggregation", :"Number of keepalive attempts", :"Interval in seconds", :"Interval in seconds", :"VLAG health check peer IP4 address"], :message=>"%{value} needs to be :\"enable or port-aggregation\", :\"Number of keepalive attempts\", :\"Interval in seconds\", :\"Interval in seconds\", :\"VLAG health check peer IP4 address\""}, allow_nil: true
 
         # @return [:"Port Aggregation Number", :"default or management", nil] This is an overloaded vlag fourth argument. Usage of this argument can be found is the User Guide referenced above.
         attribute :vlagArg4
-        validates :vlagArg4, inclusion: {:in=>[:"Port Aggregation Number", :"default or management"], :message=>"%{value} needs to be :\"Port Aggregation Number\", :\"default or management\""}, allow_nil: true
+        validates :vlagArg4, expression_inclusion: {:in=>[:"Port Aggregation Number", :"default or management"], :message=>"%{value} needs to be :\"Port Aggregation Number\", :\"default or management\""}, allow_nil: true
       end
     end
   end

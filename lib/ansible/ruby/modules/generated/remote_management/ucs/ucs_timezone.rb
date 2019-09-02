@@ -11,11 +11,11 @@ module Ansible
       class Ucs_timezone < Base
         # @return [:absent, :present, nil] If C(absent), will unset timezone.,If C(present), will set or update timezone.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
         # @return [:disabled, :enabled, nil] The admin_state setting,The enabled admin_state indicates the timezone confguration is utilized by UCS Manager.,The disabled admin_state indicates the timezone confguration is ignored by UCS Manager.
         attribute :admin_state
-        validates :admin_state, inclusion: {:in=>[:disabled, :enabled], :message=>"%{value} needs to be :disabled, :enabled"}, allow_nil: true
+        validates :admin_state, expression_inclusion: {:in=>[:disabled, :enabled], :message=>"%{value} needs to be :disabled, :enabled"}, allow_nil: true
 
         # @return [String, nil] A user-defined description of the timezone.,Enter up to 256 characters.,You can use any characters or spaces except the following:,` (accent mark),  (backslash), ^ (carat), " (double quote), = (equal sign), > (greater than), < (less than), or ' (single quote).
         attribute :description

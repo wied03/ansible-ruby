@@ -14,7 +14,7 @@ module Ansible
       class Nagios < Base
         # @return [:downtime, :delete_downtime, :enable_alerts, :disable_alerts, :silence, :unsilence, :silence_nagios, :unsilence_nagios, :command, :servicegroup_service_downtime, :servicegroup_host_downtime] Action to take.,servicegroup options were added in 2.0.,delete_downtime options were added in 2.2.
         attribute :action
-        validates :action, presence: true, inclusion: {:in=>[:downtime, :delete_downtime, :enable_alerts, :disable_alerts, :silence, :unsilence, :silence_nagios, :unsilence_nagios, :command, :servicegroup_service_downtime, :servicegroup_host_downtime], :message=>"%{value} needs to be :downtime, :delete_downtime, :enable_alerts, :disable_alerts, :silence, :unsilence, :silence_nagios, :unsilence_nagios, :command, :servicegroup_service_downtime, :servicegroup_host_downtime"}
+        validates :action, presence: true, expression_inclusion: {:in=>[:downtime, :delete_downtime, :enable_alerts, :disable_alerts, :silence, :unsilence, :silence_nagios, :unsilence_nagios, :command, :servicegroup_service_downtime, :servicegroup_host_downtime], :message=>"%{value} needs to be :downtime, :delete_downtime, :enable_alerts, :disable_alerts, :silence, :unsilence, :silence_nagios, :unsilence_nagios, :command, :servicegroup_service_downtime, :servicegroup_host_downtime"}
 
         # @return [String, nil] Host to operate on in Nagios.
         attribute :host

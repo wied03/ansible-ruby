@@ -10,7 +10,7 @@ module Ansible
       class Rax_mon_alarm < Base
         # @return [:present, :absent, nil] Ensure that the alarm with this C(label) exists or does not exist.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [Object] Friendly name for this alarm, used to achieve idempotence. Must be a String between 1 and 255 characters long.
         attribute :label

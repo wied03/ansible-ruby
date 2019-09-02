@@ -46,7 +46,7 @@ module Ansible
 
         # @return [:absent, :drained, :present, :started, :stopped, nil] When checking a port, C(started) will ensure the port is open, C(stopped) will check that is it closed and C(drained) will check for active connections.,When checking for a file or a search string C(present) or C(started) will ensure that the file or string is present, C(absent) will check that the file or search string is absent or removed.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :drained, :present, :started, :stopped], :message=>"%{value} needs to be :absent, :drained, :present, :started, :stopped"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :drained, :present, :started, :stopped], :message=>"%{value} needs to be :absent, :drained, :present, :started, :stopped"}, allow_nil: true
 
         # @return [Integer, nil] The maximum number of seconds to wait for.
         attribute :timeout

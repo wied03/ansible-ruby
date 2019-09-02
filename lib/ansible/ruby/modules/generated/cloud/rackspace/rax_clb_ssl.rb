@@ -14,11 +14,11 @@ module Ansible
 
         # @return [:present, :absent, nil] If set to "present", SSL termination will be added to this load balancer.,If "absent", SSL termination will be removed instead.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [Boolean, nil] If set to "false", temporarily disable SSL termination without discarding,existing credentials.
         attribute :enabled
-        validates :enabled, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :enabled, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [String, nil] The private SSL key as a string in PEM format.
         attribute :private_key
@@ -38,14 +38,14 @@ module Ansible
 
         # @return [Boolean, nil] If "true", the load balancer will *only* accept secure traffic.
         attribute :secure_traffic_only
-        validates :secure_traffic_only, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :secure_traffic_only, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Object, nil] If "true", the load balancer will redirect HTTP traffic to HTTPS.,Requires "secure_traffic_only" to be true. Incurs an implicit wait if SSL,termination is also applied or removed.
         attribute :https_redirect
 
         # @return [Boolean, nil] Wait for the balancer to be in state "running" before turning.
         attribute :wait
-        validates :wait, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :wait, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Integer, nil] How long before "wait" gives up, in seconds.
         attribute :wait_timeout

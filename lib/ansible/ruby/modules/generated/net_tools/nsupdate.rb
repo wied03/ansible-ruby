@@ -11,7 +11,7 @@ module Ansible
       class Nsupdate < Base
         # @return [:present, :absent, nil] Manage DNS record.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String] Apply DNS modification on this server.
         attribute :server
@@ -31,7 +31,7 @@ module Ansible
 
         # @return [:"HMAC-MD5.SIG-ALG.REG.INT", :"hmac-md5", :"hmac-sha1", :"hmac-sha224", :"hmac-sha256", :"hmac-sha384", :"hmac-sha512", nil] Specify key algorithm used by C(key_secret).
         attribute :key_algorithm
-        validates :key_algorithm, inclusion: {:in=>[:"HMAC-MD5.SIG-ALG.REG.INT", :"hmac-md5", :"hmac-sha1", :"hmac-sha224", :"hmac-sha256", :"hmac-sha384", :"hmac-sha512"], :message=>"%{value} needs to be :\"HMAC-MD5.SIG-ALG.REG.INT\", :\"hmac-md5\", :\"hmac-sha1\", :\"hmac-sha224\", :\"hmac-sha256\", :\"hmac-sha384\", :\"hmac-sha512\""}, allow_nil: true
+        validates :key_algorithm, expression_inclusion: {:in=>[:"HMAC-MD5.SIG-ALG.REG.INT", :"hmac-md5", :"hmac-sha1", :"hmac-sha224", :"hmac-sha256", :"hmac-sha384", :"hmac-sha512"], :message=>"%{value} needs to be :\"HMAC-MD5.SIG-ALG.REG.INT\", :\"hmac-md5\", :\"hmac-sha1\", :\"hmac-sha224\", :\"hmac-sha256\", :\"hmac-sha384\", :\"hmac-sha512\""}, allow_nil: true
 
         # @return [String, nil] DNS record will be modified on this C(zone).,When omitted DNS will be queried to attempt finding the correct zone.,Starting with Ansible 2.7 this parameter is optional.
         attribute :zone

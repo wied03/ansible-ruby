@@ -14,15 +14,15 @@ module Ansible
 
         # @return [:present, :absent, nil] State of the security group rule.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [:tcp, :udp, :icmp, :ah, :esp, :gre, nil] Protocol of the security group rule.
         attribute :protocol
-        validates :protocol, inclusion: {:in=>[:tcp, :udp, :icmp, :ah, :esp, :gre], :message=>"%{value} needs to be :tcp, :udp, :icmp, :ah, :esp, :gre"}, allow_nil: true
+        validates :protocol, expression_inclusion: {:in=>[:tcp, :udp, :icmp, :ah, :esp, :gre], :message=>"%{value} needs to be :tcp, :udp, :icmp, :ah, :esp, :gre"}, allow_nil: true
 
         # @return [:ingress, :egress, nil] Ingress or egress security group rule.
         attribute :type
-        validates :type, inclusion: {:in=>[:ingress, :egress], :message=>"%{value} needs to be :ingress, :egress"}, allow_nil: true
+        validates :type, expression_inclusion: {:in=>[:ingress, :egress], :message=>"%{value} needs to be :ingress, :egress"}, allow_nil: true
 
         # @return [String, nil] CIDR (full notation) to be used for security group rule.
         attribute :cidr
@@ -53,7 +53,7 @@ module Ansible
 
         # @return [Boolean, nil] Poll async jobs until job has finished.
         attribute :poll_async
-        validates :poll_async, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :poll_async, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
       end
     end
   end

@@ -14,11 +14,11 @@ module Ansible
 
         # @return [:yes, :no, nil] Install packages from local cache, if the packages were installed before
         attribute :offline
-        validates :offline, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :offline, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:yes, :no, nil] Install with --production flag
         attribute :production
-        validates :production, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :production, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String] The base path where to install the bower packages
         attribute :path
@@ -30,7 +30,7 @@ module Ansible
 
         # @return [:present, :absent, :latest, nil] The state of the bower package
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent, :latest], :message=>"%{value} needs to be :present, :absent, :latest"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent, :latest], :message=>"%{value} needs to be :present, :absent, :latest"}, allow_nil: true
 
         # @return [String, nil] The version to be installed
         attribute :version

@@ -10,7 +10,7 @@ module Ansible
       class Rds < Base
         # @return [:create, :replicate, :delete, :facts, :modify, :promote, :snapshot, :reboot, :restore] Specifies the action to take. The 'reboot' option is available starting at version 2.0
         attribute :command
-        validates :command, presence: true, inclusion: {:in=>[:create, :replicate, :delete, :facts, :modify, :promote, :snapshot, :reboot, :restore], :message=>"%{value} needs to be :create, :replicate, :delete, :facts, :modify, :promote, :snapshot, :reboot, :restore"}
+        validates :command, presence: true, expression_inclusion: {:in=>[:create, :replicate, :delete, :facts, :modify, :promote, :snapshot, :reboot, :restore], :message=>"%{value} needs to be :create, :replicate, :delete, :facts, :modify, :promote, :snapshot, :reboot, :restore"}
 
         # @return [String, nil] Database instance identifier. Required except when using command=facts or command=delete on just a snapshot
         attribute :instance_name
@@ -22,7 +22,7 @@ module Ansible
 
         # @return [:mariadb, :MySQL, :"oracle-se1", :"oracle-se2", :"oracle-se", :"oracle-ee", :"sqlserver-ee", :"sqlserver-se", :"sqlserver-ex", :"sqlserver-web", :postgres, :aurora, nil] The type of database.  Used only when command=create.,mariadb was added in version 2.2
         attribute :db_engine
-        validates :db_engine, inclusion: {:in=>[:mariadb, :MySQL, :"oracle-se1", :"oracle-se2", :"oracle-se", :"oracle-ee", :"sqlserver-ee", :"sqlserver-se", :"sqlserver-ex", :"sqlserver-web", :postgres, :aurora], :message=>"%{value} needs to be :mariadb, :MySQL, :\"oracle-se1\", :\"oracle-se2\", :\"oracle-se\", :\"oracle-ee\", :\"sqlserver-ee\", :\"sqlserver-se\", :\"sqlserver-ex\", :\"sqlserver-web\", :postgres, :aurora"}, allow_nil: true
+        validates :db_engine, expression_inclusion: {:in=>[:mariadb, :MySQL, :"oracle-se1", :"oracle-se2", :"oracle-se", :"oracle-ee", :"sqlserver-ee", :"sqlserver-se", :"sqlserver-ex", :"sqlserver-web", :postgres, :aurora], :message=>"%{value} needs to be :mariadb, :MySQL, :\"oracle-se1\", :\"oracle-se2\", :\"oracle-se\", :\"oracle-ee\", :\"sqlserver-ee\", :\"sqlserver-se\", :\"sqlserver-ex\", :\"sqlserver-web\", :postgres, :aurora"}, allow_nil: true
 
         # @return [Integer, nil] Size in gigabytes of the initial storage for the DB instance. Used only when command=create or command=modify.
         attribute :size
@@ -55,7 +55,7 @@ module Ansible
 
         # @return [:"license-included", :"bring-your-own-license", :"general-public-license", :"postgresql-license", nil] The license model for this DB instance. Used only when command=create or command=restore.
         attribute :license_model
-        validates :license_model, inclusion: {:in=>[:"license-included", :"bring-your-own-license", :"general-public-license", :"postgresql-license"], :message=>"%{value} needs to be :\"license-included\", :\"bring-your-own-license\", :\"general-public-license\", :\"postgresql-license\""}, allow_nil: true
+        validates :license_model, expression_inclusion: {:in=>[:"license-included", :"bring-your-own-license", :"general-public-license", :"postgresql-license"], :message=>"%{value} needs to be :\"license-included\", :\"bring-your-own-license\", :\"general-public-license\", :\"postgresql-license\""}, allow_nil: true
 
         # @return [Symbol, nil] Specifies if this is a Multi-availability-zone deployment. Can not be used in conjunction with zone parameter. Used only when command=create or command=modify.
         attribute :multi_zone
@@ -77,7 +77,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Indicates that minor version upgrades should be applied automatically. Used only when command=create or command=replicate.
         attribute :upgrade
-        validates :upgrade, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :upgrade, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] The name of the option group to use.  If not specified then the default option group is used. Used only when command=create.
         attribute :option_group
@@ -111,7 +111,7 @@ module Ansible
 
         # @return [:yes, :no, nil] When command=create, replicate, modify or restore then wait for the database to enter the 'available' state.  When command=delete wait for the database to be terminated.
         attribute :wait
-        validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :wait, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] how long before wait gives up, in seconds
         attribute :wait_timeout
@@ -119,11 +119,11 @@ module Ansible
 
         # @return [:yes, :no, nil] Used only when command=modify.  If enabled, the modifications will be applied as soon as possible rather than waiting for the next preferred maintenance window.
         attribute :apply_immediately
-        validates :apply_immediately, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :apply_immediately, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:yes, :no, nil] Used only when command=reboot.  If enabled, the reboot is done using a MultiAZ failover.
         attribute :force_failover
-        validates :force_failover, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :force_failover, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] Name to rename an instance to. Used only when command=modify.
         attribute :new_instance_name
@@ -134,7 +134,7 @@ module Ansible
 
         # @return [Boolean, nil] explicitly set whether the resource should be publicly accessible or not. Used with command=create, command=replicate. Requires boto >= 2.26.0
         attribute :publicly_accessible
-        validates :publicly_accessible, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :publicly_accessible, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Hash, nil] tags dict to apply to a resource. Used with command=create, command=replicate, command=restore. Requires boto >= 2.26.0
         attribute :tags

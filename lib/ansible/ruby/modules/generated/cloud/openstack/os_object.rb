@@ -22,11 +22,11 @@ module Ansible
 
         # @return [:private, :public, nil] desired container access level.
         attribute :container_access
-        validates :container_access, inclusion: {:in=>[:private, :public], :message=>"%{value} needs to be :private, :public"}, allow_nil: true
+        validates :container_access, expression_inclusion: {:in=>[:private, :public], :message=>"%{value} needs to be :private, :public"}, allow_nil: true
 
         # @return [:present, :absent, nil] Should the resource be present or absent.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [Object, nil] Ignored. Present for backwards compatibility
         attribute :availability_zone

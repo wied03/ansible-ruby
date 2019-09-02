@@ -11,7 +11,7 @@ module Ansible
       class Ec2_asg < Base
         # @return [:present, :absent, nil] register or deregister the instance
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String] Unique name for group to be created or deleted
         attribute :name
@@ -77,7 +77,7 @@ module Ansible
 
         # @return [:EC2, :ELB, nil] The service you want the health status from, Amazon EC2 or Elastic Load Balancer.
         attribute :health_check_type
-        validates :health_check_type, inclusion: {:in=>[:EC2, :ELB], :message=>"%{value} needs to be :EC2, :ELB"}, allow_nil: true
+        validates :health_check_type, expression_inclusion: {:in=>[:EC2, :ELB], :message=>"%{value} needs to be :EC2, :ELB"}, allow_nil: true
 
         # @return [String, nil] The number of seconds after a scaling activity completes before another can begin.
         attribute :default_cooldown
@@ -93,7 +93,7 @@ module Ansible
 
         # @return [:OldestInstance, :NewestInstance, :OldestLaunchConfiguration, :ClosestToNextInstanceHour, :Default, nil] An ordered list of criteria used for selecting instances to be removed from the Auto Scaling group when reducing capacity.,For 'Default', when used to create a new autoscaling group, the "Default"i value is used. When used to change an existent autoscaling group, the current termination policies are maintained.
         attribute :termination_policies
-        validates :termination_policies, inclusion: {:in=>[:OldestInstance, :NewestInstance, :OldestLaunchConfiguration, :ClosestToNextInstanceHour, :Default], :message=>"%{value} needs to be :OldestInstance, :NewestInstance, :OldestLaunchConfiguration, :ClosestToNextInstanceHour, :Default"}, allow_nil: true
+        validates :termination_policies, expression_inclusion: {:in=>[:OldestInstance, :NewestInstance, :OldestLaunchConfiguration, :ClosestToNextInstanceHour, :Default], :message=>"%{value} needs to be :OldestInstance, :NewestInstance, :OldestLaunchConfiguration, :ClosestToNextInstanceHour, :Default"}, allow_nil: true
 
         # @return [Object, nil] A SNS topic ARN to send auto scaling notifications to.
         attribute :notification_topic
@@ -104,11 +104,11 @@ module Ansible
 
         # @return [:Launch, :Terminate, :HealthCheck, :ReplaceUnhealthy, :AZRebalance, :AlarmNotification, :ScheduledActions, :AddToLoadBalancer, nil] A list of scaling processes to suspend.
         attribute :suspend_processes
-        validates :suspend_processes, inclusion: {:in=>[:Launch, :Terminate, :HealthCheck, :ReplaceUnhealthy, :AZRebalance, :AlarmNotification, :ScheduledActions, :AddToLoadBalancer], :message=>"%{value} needs to be :Launch, :Terminate, :HealthCheck, :ReplaceUnhealthy, :AZRebalance, :AlarmNotification, :ScheduledActions, :AddToLoadBalancer"}, allow_nil: true
+        validates :suspend_processes, expression_inclusion: {:in=>[:Launch, :Terminate, :HealthCheck, :ReplaceUnhealthy, :AZRebalance, :AlarmNotification, :ScheduledActions, :AddToLoadBalancer], :message=>"%{value} needs to be :Launch, :Terminate, :HealthCheck, :ReplaceUnhealthy, :AZRebalance, :AlarmNotification, :ScheduledActions, :AddToLoadBalancer"}, allow_nil: true
 
         # @return [:yes, :no, nil] Enable ASG metrics collection
         attribute :metrics_collection
-        validates :metrics_collection, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :metrics_collection, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] When metrics_collection is enabled this will determine granularity of metrics collected by CloudWatch
         attribute :metrics_granularity

@@ -10,7 +10,7 @@ module Ansible
       class Uptimerobot < Base
         # @return [:started, :paused] Define whether or not the monitor should be running or paused.
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:started, :paused], :message=>"%{value} needs to be :started, :paused"}
+        validates :state, presence: true, expression_inclusion: {:in=>[:started, :paused], :message=>"%{value} needs to be :started, :paused"}
 
         # @return [Integer] ID of the monitor to check.
         attribute :monitorid

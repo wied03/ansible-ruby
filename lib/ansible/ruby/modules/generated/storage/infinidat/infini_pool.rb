@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:present, :absent, nil] Creates/Modifies Pool when present or removes when absent
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String, nil] Pool Physical Capacity in MB, GB or TB units. If pool size is not set on pool creation, size will be equal to 1TB. See examples.
         attribute :size
@@ -26,7 +26,7 @@ module Ansible
 
         # @return [Boolean, nil] Enable/Disable SSD Cache on Pool
         attribute :ssd_cache
-        validates :ssd_cache, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :ssd_cache, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
       end
     end
   end

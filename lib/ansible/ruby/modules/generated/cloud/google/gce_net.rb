@@ -35,7 +35,7 @@ module Ansible
 
         # @return [:active, :present, :absent, :deleted, nil] desired state of the network or firewall
         attribute :state
-        validates :state, inclusion: {:in=>[:active, :present, :absent, :deleted], :message=>"%{value} needs to be :active, :present, :absent, :deleted"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:active, :present, :absent, :deleted], :message=>"%{value} needs to be :active, :present, :absent, :deleted"}, allow_nil: true
 
         # @return [Object, nil] service account email
         attribute :service_account_email
@@ -51,7 +51,7 @@ module Ansible
 
         # @return [:legacy, :auto, :custom, nil] network mode for Google Cloud C(legacy) indicates a network with an IP address range; C(auto) automatically generates subnetworks in different regions; C(custom) uses networks to group subnets of user specified IP address ranges https://cloud.google.com/compute/docs/networking#network_types
         attribute :mode
-        validates :mode, inclusion: {:in=>[:legacy, :auto, :custom], :message=>"%{value} needs to be :legacy, :auto, :custom"}, allow_nil: true
+        validates :mode, expression_inclusion: {:in=>[:legacy, :auto, :custom], :message=>"%{value} needs to be :legacy, :auto, :custom"}, allow_nil: true
 
         # @return [String, nil] name of subnet to create
         attribute :subnet_name

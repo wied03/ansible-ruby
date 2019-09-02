@@ -25,7 +25,7 @@ module Ansible
 
         # @return [:present, :absent, nil] Indicate what is the expected state of the ASN Pool (present or not).
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [Array<Array>, Array, nil] List of ASNs ranges to add to the ASN Pool. Each range must have 2 values.
         attribute :ranges

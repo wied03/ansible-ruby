@@ -20,7 +20,7 @@ module Ansible
 
         # @return [:multiple, :single, nil] The category cardinality.,This parameter is ignored, when updating existing category.
         attribute :category_cardinality
-        validates :category_cardinality, inclusion: {:in=>[:multiple, :single], :message=>"%{value} needs to be :multiple, :single"}, allow_nil: true
+        validates :category_cardinality, expression_inclusion: {:in=>[:multiple, :single], :message=>"%{value} needs to be :multiple, :single"}, allow_nil: true
 
         # @return [String, nil] The new name for an existing category.,This value is used while updating an existing category.
         attribute :new_category_name
@@ -28,7 +28,7 @@ module Ansible
 
         # @return [:present, :absent, nil] The state of category.,If set to C(present) and category does not exists, then category is created.,If set to C(present) and category exists, then category is updated.,If set to C(absent) and category exists, then category is deleted.,If set to C(absent) and category does not exists, no action is taken.,Process of updating category only allows name, description change.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

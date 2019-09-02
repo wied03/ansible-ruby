@@ -78,11 +78,11 @@ module Ansible
 
         # @return [Boolean, nil] Whether to log at session start.
         attribute :log_start
-        validates :log_start, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :log_start, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Boolean, nil] Whether to log at session end.
         attribute :log_end
-        validates :log_end, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :log_end, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [String, nil] Action to apply once rules maches.
         attribute :action
@@ -123,7 +123,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Commit configuration if changed.
         attribute :commit
-        validates :commit, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :commit, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

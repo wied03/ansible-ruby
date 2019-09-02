@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:scp, :sftp, nil] Protocol used to transfer file.
         attribute :protocol
-        validates :protocol, inclusion: {:in=>[:scp, :sftp], :message=>"%{value} needs to be :scp, :sftp"}, allow_nil: true
+        validates :protocol, expression_inclusion: {:in=>[:scp, :sftp], :message=>"%{value} needs to be :scp, :sftp"}, allow_nil: true
 
         # @return [String, nil] Specifies the destination file. The path to the destination file can either be the full path on the Ansible control host or a relative path from the playbook or role root directory.
         attribute :dest

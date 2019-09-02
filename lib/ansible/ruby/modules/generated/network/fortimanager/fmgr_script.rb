@@ -29,7 +29,7 @@ module Ansible
 
         # @return [:present, :execute, :delete, nil] The desired state of the specified object.,present - will create a script.,execute - execute the scipt.,delete - delete the script.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :execute, :delete], :message=>"%{value} needs to be :present, :execute, :delete"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :execute, :delete], :message=>"%{value} needs to be :present, :execute, :delete"}, allow_nil: true
 
         # @return [String] The name of the script.
         attribute :script_name

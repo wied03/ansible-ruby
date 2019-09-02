@@ -17,7 +17,7 @@ module Ansible
 
         # @return [:present, :absent, nil] Indicate desired state of the role.,If the role already exists when C(state=present), the role info is updated.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [Symbol, nil] If set to C(False) then prevents the role from being removed if any permissions are using it.
         attribute :force_remove

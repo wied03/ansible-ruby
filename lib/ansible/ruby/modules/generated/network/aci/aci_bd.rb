@@ -18,7 +18,7 @@ module Ansible
 
         # @return [:ethernet, :fc, nil] The type of traffic on the Bridge Domain.,The APIC defaults to C(ethernet) when unset during creation.
         attribute :bd_type
-        validates :bd_type, inclusion: {:in=>[:ethernet, :fc], :message=>"%{value} needs to be :ethernet, :fc"}, allow_nil: true
+        validates :bd_type, expression_inclusion: {:in=>[:ethernet, :fc], :message=>"%{value} needs to be :ethernet, :fc"}, allow_nil: true
 
         # @return [Object, nil] Description for the Bridge Domain.
         attribute :description
@@ -37,11 +37,11 @@ module Ansible
 
         # @return [:default, :garp, nil] Determines if GARP should be enabled to detect when End Points move.,The APIC defaults to C(garp) when unset during creation.
         attribute :endpoint_move_detect
-        validates :endpoint_move_detect, inclusion: {:in=>[:default, :garp], :message=>"%{value} needs to be :default, :garp"}, allow_nil: true
+        validates :endpoint_move_detect, expression_inclusion: {:in=>[:default, :garp], :message=>"%{value} needs to be :default, :garp"}, allow_nil: true
 
         # @return [:inherit, :resolve, nil] Determines if the Bridge Domain should inherit or resolve the End Point Retention Policy.,The APIC defaults to C(resolve) when unset during creation.
         attribute :endpoint_retention_action
-        validates :endpoint_retention_action, inclusion: {:in=>[:inherit, :resolve], :message=>"%{value} needs to be :inherit, :resolve"}, allow_nil: true
+        validates :endpoint_retention_action, expression_inclusion: {:in=>[:inherit, :resolve], :message=>"%{value} needs to be :inherit, :resolve"}, allow_nil: true
 
         # @return [Object, nil] The name of the End Point Retention Policy the Bridge Domain should use when overriding the default End Point Retention Policy.
         attribute :endpoint_retention_policy
@@ -58,11 +58,11 @@ module Ansible
 
         # @return [:proxy, :flood, nil] Determines what forwarding method to use for unknown l2 destinations.,The APIC defaults to C(proxy) when unset during creation.
         attribute :l2_unknown_unicast
-        validates :l2_unknown_unicast, inclusion: {:in=>[:proxy, :flood], :message=>"%{value} needs to be :proxy, :flood"}, allow_nil: true
+        validates :l2_unknown_unicast, expression_inclusion: {:in=>[:proxy, :flood], :message=>"%{value} needs to be :proxy, :flood"}, allow_nil: true
 
         # @return [:flood, :"opt-flood", nil] Determines the forwarding method to use for unknown multicast destinations.,The APIC defaults to C(flood) when unset during creation.
         attribute :l3_unknown_multicast
-        validates :l3_unknown_multicast, inclusion: {:in=>[:flood, :"opt-flood"], :message=>"%{value} needs to be :flood, :\"opt-flood\""}, allow_nil: true
+        validates :l3_unknown_multicast, expression_inclusion: {:in=>[:flood, :"opt-flood"], :message=>"%{value} needs to be :flood, :\"opt-flood\""}, allow_nil: true
 
         # @return [Symbol, nil] Determines if the BD should limit IP learning to only subnets owned by the Bridge Domain.,The APIC defaults to C(yes) when unset during creation.
         attribute :limit_ip_learn
@@ -74,11 +74,11 @@ module Ansible
 
         # @return [:"bd-flood", :drop, :"encap-flood", nil] Determines the forwarding method for L2 multicast, broadcast, and link layer traffic.,The APIC defaults to C(bd-flood) when unset during creation.
         attribute :multi_dest
-        validates :multi_dest, inclusion: {:in=>[:"bd-flood", :drop, :"encap-flood"], :message=>"%{value} needs to be :\"bd-flood\", :drop, :\"encap-flood\""}, allow_nil: true
+        validates :multi_dest, expression_inclusion: {:in=>[:"bd-flood", :drop, :"encap-flood"], :message=>"%{value} needs to be :\"bd-flood\", :drop, :\"encap-flood\""}, allow_nil: true
 
         # @return [:absent, :present, :query, nil] Use C(present) or C(absent) for adding or removing.,Use C(query) for listing an object or multiple objects.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present, :query], :message=>"%{value} needs to be :absent, :present, :query"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present, :query], :message=>"%{value} needs to be :absent, :present, :query"}, allow_nil: true
 
         # @return [String, nil] The name of the Tenant.
         attribute :tenant

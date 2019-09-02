@@ -10,7 +10,7 @@ module Ansible
       class Netapp_e_storagepool < Base
         # @return [:present, :absent] Whether the specified storage pool should exist or not.,Note that removing a storage pool currently requires the removal of all defined volumes first.
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
+        validates :state, presence: true, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
 
         # @return [String] The name of the storage pool to manage
         attribute :name
@@ -21,11 +21,11 @@ module Ansible
 
         # @return [:hdd, :ssd, nil] The type of disk (hdd or ssd) to use when searching for candidates to use.
         attribute :criteria_drive_type
-        validates :criteria_drive_type, inclusion: {:in=>[:hdd, :ssd], :message=>"%{value} needs to be :hdd, :ssd"}, allow_nil: true
+        validates :criteria_drive_type, expression_inclusion: {:in=>[:hdd, :ssd], :message=>"%{value} needs to be :hdd, :ssd"}, allow_nil: true
 
         # @return [:bytes, :b, :kb, :mb, :gb, :tb, :pb, :eb, :zb, :yb, nil] The unit used to interpret size parameters
         attribute :criteria_size_unit
-        validates :criteria_size_unit, inclusion: {:in=>[:bytes, :b, :kb, :mb, :gb, :tb, :pb, :eb, :zb, :yb], :message=>"%{value} needs to be :bytes, :b, :kb, :mb, :gb, :tb, :pb, :eb, :zb, :yb"}, allow_nil: true
+        validates :criteria_size_unit, expression_inclusion: {:in=>[:bytes, :b, :kb, :mb, :gb, :tb, :pb, :eb, :zb, :yb], :message=>"%{value} needs to be :bytes, :b, :kb, :mb, :gb, :tb, :pb, :eb, :zb, :yb"}, allow_nil: true
 
         # @return [Object, nil] The minimum individual drive size (in size_unit) to consider when choosing drives for the storage pool.
         attribute :criteria_drive_min_size
@@ -35,14 +35,14 @@ module Ansible
 
         # @return [:sas, :sas4k, :fibre, :fibre520b, :scsi, :sata, :pata, nil] The interface type to use when selecting drives for the storage pool (no value means all interface types will be considered)
         attribute :criteria_drive_interface_type
-        validates :criteria_drive_interface_type, inclusion: {:in=>[:sas, :sas4k, :fibre, :fibre520b, :scsi, :sata, :pata], :message=>"%{value} needs to be :sas, :sas4k, :fibre, :fibre520b, :scsi, :sata, :pata"}, allow_nil: true
+        validates :criteria_drive_interface_type, expression_inclusion: {:in=>[:sas, :sas4k, :fibre, :fibre520b, :scsi, :sata, :pata], :message=>"%{value} needs to be :sas, :sas4k, :fibre, :fibre520b, :scsi, :sata, :pata"}, allow_nil: true
 
         # @return [Object, nil] Whether full disk encryption ability is required for drives to be added to the storage pool
         attribute :criteria_drive_require_fde
 
         # @return [:raidAll, :raid0, :raid1, :raid3, :raid5, :raid6, :raidDiskPool] Only required when the requested state is 'present'.  The RAID level of the storage pool to be created.
         attribute :raid_level
-        validates :raid_level, presence: true, inclusion: {:in=>[:raidAll, :raid0, :raid1, :raid3, :raid5, :raid6, :raidDiskPool], :message=>"%{value} needs to be :raidAll, :raid0, :raid1, :raid3, :raid5, :raid6, :raidDiskPool"}
+        validates :raid_level, presence: true, expression_inclusion: {:in=>[:raidAll, :raid0, :raid1, :raid3, :raid5, :raid6, :raidDiskPool], :message=>"%{value} needs to be :raidAll, :raid0, :raid1, :raid3, :raid5, :raid6, :raidDiskPool"}
 
         # @return [Symbol, nil] Whether to erase secured disks before adding to storage pool
         attribute :erase_secured_drives
@@ -57,7 +57,7 @@ module Ansible
 
         # @return [Boolean, nil] Prior to removing a storage pool, delete all volumes in the pool.
         attribute :remove_volumes
-        validates :remove_volumes, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :remove_volumes, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
       end
     end
   end

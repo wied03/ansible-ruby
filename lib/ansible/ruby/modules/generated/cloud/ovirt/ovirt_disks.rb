@@ -29,7 +29,7 @@ module Ansible
 
         # @return [:present, :absent, :attached, :detached, nil] Should the Virtual Machine disk be present/absent/attached/detached.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent, :attached, :detached], :message=>"%{value} needs to be :present, :absent, :attached, :detached"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent, :attached, :detached], :message=>"%{value} needs to be :present, :absent, :attached, :detached"}, allow_nil: true
 
         # @return [String, nil] Path on a file system where disk should be downloaded.,Note that you must have an valid oVirt/RHV engine CA in your system trust store or you must provide it in C(ca_file) parameter.,Note that the disk is not downloaded when the file already exists, but you can forcibly download the disk when using C(force) I (true).
         attribute :download_image_path
@@ -44,11 +44,11 @@ module Ansible
 
         # @return [:virtio, :ide, :virtio_scsi, nil] Driver of the storage interface.,It's required parameter when creating the new disk.
         attribute :interface
-        validates :interface, inclusion: {:in=>[:virtio, :ide, :virtio_scsi], :message=>"%{value} needs to be :virtio, :ide, :virtio_scsi"}, allow_nil: true
+        validates :interface, expression_inclusion: {:in=>[:virtio, :ide, :virtio_scsi], :message=>"%{value} needs to be :virtio, :ide, :virtio_scsi"}, allow_nil: true
 
         # @return [:raw, :cow, nil] Specify format of the disk.,Note that this option isn't idempotent as it's not currently possible to change format of the disk via API.
         attribute :format
-        validates :format, inclusion: {:in=>[:raw, :cow], :message=>"%{value} needs to be :raw, :cow"}, allow_nil: true
+        validates :format, expression_inclusion: {:in=>[:raw, :cow], :message=>"%{value} needs to be :raw, :cow"}, allow_nil: true
 
         # @return [Object, nil] I(True) if the disk should be sparse (also known as I(thin provision)). If the parameter is omitted, cow disks will be created as sparse and raw disks as I(preallocated),Note that this option isn't idempotent as it's not currently possible to change sparseness of the disk via API.
         attribute :sparse

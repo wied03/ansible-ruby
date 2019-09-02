@@ -22,7 +22,7 @@ module Ansible
 
         # @return [:absent, :plugged, :present, :unplugged, nil] Should the Virtual Machine NIC be present/absent/plugged/unplugged.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :plugged, :present, :unplugged], :message=>"%{value} needs to be :absent, :plugged, :present, :unplugged"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :plugged, :present, :unplugged], :message=>"%{value} needs to be :absent, :plugged, :present, :unplugged"}, allow_nil: true
 
         # @return [String, nil] Logical network to which the VM network interface should use, by default Empty network is used if network is not specified.
         attribute :network

@@ -10,7 +10,7 @@ module Ansible
       class Iam_policy < Base
         # @return [:user, :group, :role] Type of IAM resource
         attribute :iam_type
-        validates :iam_type, presence: true, inclusion: {:in=>[:user, :group, :role], :message=>"%{value} needs to be :user, :group, :role"}
+        validates :iam_type, presence: true, expression_inclusion: {:in=>[:user, :group, :role], :message=>"%{value} needs to be :user, :group, :role"}
 
         # @return [String] Name of IAM resource you wish to target for policy actions. In other words, the user name, group name or role name.
         attribute :iam_name
@@ -30,7 +30,7 @@ module Ansible
 
         # @return [:present, :absent] Whether to create or delete the IAM policy.
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
+        validates :state, presence: true, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
 
         # @return [String, nil] By default the module looks for any policies that match the document you pass in, if there is a match it will not make a new policy object with the same rules. You can override this by specifying false which would allow for two policy objects with different names but same rules.
         attribute :skip_duplicates

@@ -22,11 +22,11 @@ module Ansible
 
         # @return [0, 1, 2, 3, nil] Certificate usage number. Required for C(type=TLSA) when C(state=present).
         attribute :cert_usage
-        validates :cert_usage, inclusion: {:in=>[0, 1, 2, 3], :message=>"%{value} needs to be 0, 1, 2, 3"}, allow_nil: true
+        validates :cert_usage, expression_inclusion: {:in=>[0, 1, 2, 3], :message=>"%{value} needs to be 0, 1, 2, 3"}, allow_nil: true
 
         # @return [1, 2, nil] Hash type number. Required for C(type=DS), C(type=SSHFP) and C(type=TLSA) when C(state=present).
         attribute :hash_type
-        validates :hash_type, inclusion: {:in=>[1, 2], :message=>"%{value} needs to be 1, 2"}, allow_nil: true
+        validates :hash_type, expression_inclusion: {:in=>[1, 2], :message=>"%{value} needs to be 1, 2"}, allow_nil: true
 
         # @return [Integer, nil] DNSSEC key tag. Needed for C(type=DS) when C(state=present).
         attribute :key_tag
@@ -46,7 +46,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Proxy through cloudflare network or just use DNS
         attribute :proxied
-        validates :proxied, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :proxied, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] Record to add. Required if C(state=present). Default is C(@) (e.g. the zone name)
         attribute :record
@@ -54,7 +54,7 @@ module Ansible
 
         # @return [0, 1, nil] Selector number. Required for C(type=TLSA) when C(state=present).
         attribute :selector
-        validates :selector, inclusion: {:in=>[0, 1], :message=>"%{value} needs to be 0, 1"}, allow_nil: true
+        validates :selector, expression_inclusion: {:in=>[0, 1], :message=>"%{value} needs to be 0, 1"}, allow_nil: true
 
         # @return [String, nil] Record service. Required for C(type=SRV)
         attribute :service
@@ -62,11 +62,11 @@ module Ansible
 
         # @return [Boolean, nil] Whether the record should be the only one for that record type and record name. Only use with C(state=present),This will delete all other records with the same record name and type.
         attribute :solo
-        validates :solo, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :solo, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [:present, :absent, nil] Whether the record(s) should exist or not
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [Integer, nil] Timeout for Cloudflare API calls
         attribute :timeout
@@ -78,7 +78,7 @@ module Ansible
 
         # @return [:A, :AAAA, :CNAME, :TXT, :SRV, :MX, :NS, :DS, :SPF, :SSHFP, :TLSA, nil] The type of DNS record to create. Required if C(state=present),C(type=DS), C(type=SSHFP) and C(type=TLSA) added in Ansible 2.7.
         attribute :type
-        validates :type, inclusion: {:in=>[:A, :AAAA, :CNAME, :TXT, :SRV, :MX, :NS, :DS, :SPF, :SSHFP, :TLSA], :message=>"%{value} needs to be :A, :AAAA, :CNAME, :TXT, :SRV, :MX, :NS, :DS, :SPF, :SSHFP, :TLSA"}, allow_nil: true
+        validates :type, expression_inclusion: {:in=>[:A, :AAAA, :CNAME, :TXT, :SRV, :MX, :NS, :DS, :SPF, :SSHFP, :TLSA], :message=>"%{value} needs to be :A, :AAAA, :CNAME, :TXT, :SRV, :MX, :NS, :DS, :SPF, :SSHFP, :TLSA"}, allow_nil: true
 
         # @return [String, nil] The record value. Required for C(state=present)
         attribute :value

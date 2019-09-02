@@ -10,7 +10,7 @@ module Ansible
       class Na_ontap_gather_facts < Base
         # @return [:info, nil] Returns "info"
         attribute :state
-        validates :state, inclusion: {:in=>[:info], :message=>"%{value} needs to be :info"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:info], :message=>"%{value} needs to be :info"}, allow_nil: true
       end
     end
   end

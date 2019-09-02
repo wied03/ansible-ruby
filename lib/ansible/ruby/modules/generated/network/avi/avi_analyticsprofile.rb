@@ -11,15 +11,15 @@ module Ansible
       class Avi_analyticsprofile < Base
         # @return [:absent, :present, nil] The state that should be applied on the entity.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
         # @return [:put, :patch, nil] Default method for object update is HTTP PUT.,Setting to patch will override that behavior to use HTTP PATCH.
         attribute :avi_api_update_method
-        validates :avi_api_update_method, inclusion: {:in=>[:put, :patch], :message=>"%{value} needs to be :put, :patch"}, allow_nil: true
+        validates :avi_api_update_method, expression_inclusion: {:in=>[:put, :patch], :message=>"%{value} needs to be :put, :patch"}, allow_nil: true
 
         # @return [:add, :replace, :delete, nil] Patch operation to use when using avi_api_update_method as patch.
         attribute :avi_api_patch_op
-        validates :avi_api_patch_op, inclusion: {:in=>[:add, :replace, :delete], :message=>"%{value} needs to be :add, :replace, :delete"}, allow_nil: true
+        validates :avi_api_patch_op, expression_inclusion: {:in=>[:add, :replace, :delete], :message=>"%{value} needs to be :add, :replace, :delete"}, allow_nil: true
 
         # @return [Integer, nil] If a client receives an http response in less than the satisfactory latency threshold, the request is considered satisfied.,It is considered tolerated if it is not satisfied and less than tolerated latency factor multiplied by the satisfactory latency threshold.,Greater than this number and the client's request is considered frustrated.,Allowed values are 1-30000.,Default value when not specified in API or module is interpreted by Avi Controller as 500.,Units(MILLISECONDS).
         attribute :apdex_response_threshold

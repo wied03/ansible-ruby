@@ -10,7 +10,7 @@ module Ansible
       class Na_ontap_lun < Base
         # @return [:present, :absent, nil] Whether the specified LUN should exist or not.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String] The name of the LUN to manage.
         attribute :name
@@ -26,7 +26,7 @@ module Ansible
 
         # @return [:bytes, :b, :kb, :mb, :gb, :tb, :pb, :eb, :zb, :yb, nil] The unit used to interpret the size parameter.
         attribute :size_unit
-        validates :size_unit, inclusion: {:in=>[:bytes, :b, :kb, :mb, :gb, :tb, :pb, :eb, :zb, :yb], :message=>"%{value} needs to be :bytes, :b, :kb, :mb, :gb, :tb, :pb, :eb, :zb, :yb"}, allow_nil: true
+        validates :size_unit, expression_inclusion: {:in=>[:bytes, :b, :kb, :mb, :gb, :tb, :pb, :eb, :zb, :yb], :message=>"%{value} needs to be :bytes, :b, :kb, :mb, :gb, :tb, :pb, :eb, :zb, :yb"}, allow_nil: true
 
         # @return [Symbol, nil] Forcibly reduce the size. This is required for reducing the size of the LUN to avoid accidentally reducing the LUN size.
         attribute :force_resize
@@ -50,7 +50,7 @@ module Ansible
 
         # @return [Boolean, nil] This can be set to "false" which will create a LUN without any space being reserved.
         attribute :space_reserve
-        validates :space_reserve, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :space_reserve, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Symbol, nil] This enables support for the SCSI Thin Provisioning features.  If the Host and file system do not support this do not enable it.
         attribute :space_allocation

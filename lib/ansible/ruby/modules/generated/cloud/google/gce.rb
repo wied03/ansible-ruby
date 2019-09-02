@@ -38,7 +38,7 @@ module Ansible
 
         # @return [:bigquery, :"cloud-platform", :"compute-ro", :"compute-rw", :"useraccounts-ro", :"useraccounts-rw", :datastore, :"logging-write", :monitoring, :"sql-admin", :"storage-full", :"storage-ro", :"storage-rw", :taskqueue, :"userinfo-email", nil] service account permissions (see U(https://cloud.google.com/sdk/gcloud/reference/compute/instances/create), --scopes section for detailed information)
         attribute :service_account_permissions
-        validates :service_account_permissions, inclusion: {:in=>[:bigquery, :"cloud-platform", :"compute-ro", :"compute-rw", :"useraccounts-ro", :"useraccounts-rw", :datastore, :"logging-write", :monitoring, :"sql-admin", :"storage-full", :"storage-ro", :"storage-rw", :taskqueue, :"userinfo-email"], :message=>"%{value} needs to be :bigquery, :\"cloud-platform\", :\"compute-ro\", :\"compute-rw\", :\"useraccounts-ro\", :\"useraccounts-rw\", :datastore, :\"logging-write\", :monitoring, :\"sql-admin\", :\"storage-full\", :\"storage-ro\", :\"storage-rw\", :taskqueue, :\"userinfo-email\""}, allow_nil: true
+        validates :service_account_permissions, expression_inclusion: {:in=>[:bigquery, :"cloud-platform", :"compute-ro", :"compute-rw", :"useraccounts-ro", :"useraccounts-rw", :datastore, :"logging-write", :monitoring, :"sql-admin", :"storage-full", :"storage-ro", :"storage-rw", :taskqueue, :"userinfo-email"], :message=>"%{value} needs to be :bigquery, :\"cloud-platform\", :\"compute-ro\", :\"compute-rw\", :\"useraccounts-ro\", :\"useraccounts-rw\", :datastore, :\"logging-write\", :monitoring, :\"sql-admin\", :\"storage-full\", :\"storage-ro\", :\"storage-rw\", :taskqueue, :\"userinfo-email\""}, allow_nil: true
 
         # @return [Object, nil] path to the pem file associated with the service account email This option is deprecated. Use 'credentials_file'.
         attribute :pem_file
@@ -67,7 +67,7 @@ module Ansible
 
         # @return [:yes, :no, nil] if set, create the instance with a persistent boot disk
         attribute :persistent_boot_disk
-        validates :persistent_boot_disk, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :persistent_boot_disk, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Array<Hash>, Hash, nil] a list of persistent disks to attach to the instance; a string value gives the name of the disk; alternatively, a dictionary value can define 'name' and 'mode' ('READ_ONLY' or 'READ_WRITE'). The first entry will be the boot disk (which must be READ_WRITE).
         attribute :disks
@@ -75,7 +75,7 @@ module Ansible
 
         # @return [:active, :present, :absent, :deleted, :started, :stopped, :terminated, nil] desired state of the resource
         attribute :state
-        validates :state, inclusion: {:in=>[:active, :present, :absent, :deleted, :started, :stopped, :terminated], :message=>"%{value} needs to be :active, :present, :absent, :deleted, :started, :stopped, :terminated"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:active, :present, :absent, :deleted, :started, :stopped, :terminated], :message=>"%{value} needs to be :active, :present, :absent, :deleted, :started, :stopped, :terminated"}, allow_nil: true
 
         # @return [Array<String>, String, nil] a comma-separated list of tags to associate with the instance
         attribute :tags
@@ -87,7 +87,7 @@ module Ansible
 
         # @return [:yes, :no, nil] set to C(yes) if the instance can forward ip packets (useful for gateways)
         attribute :ip_forward
-        validates :ip_forward, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :ip_forward, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] type of external ip, ephemeral by default; alternatively, a fixed gce ip or ip name can be given. Specify 'none' if no external ip is desired.
         attribute :external_ip
@@ -95,11 +95,11 @@ module Ansible
 
         # @return [:yes, :no, nil] if set boot disk will be removed after instance destruction
         attribute :disk_auto_delete
-        validates :disk_auto_delete, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :disk_auto_delete, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:yes, :no, nil] if set to C(yes), instances will be preemptible and time-limited. (requires libcloud >= 0.20.0)
         attribute :preemptible
-        validates :preemptible, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :preemptible, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] The size of the boot disk created for this instance (in GB)
         attribute :disk_size

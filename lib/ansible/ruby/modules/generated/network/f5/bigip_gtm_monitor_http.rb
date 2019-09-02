@@ -44,7 +44,7 @@ module Ansible
 
         # @return [:present, :absent, nil] When C(present), ensures that the monitor exists.,When C(absent), ensures the monitor is removed.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [Object, nil] Specifies the number of seconds after which the system times out the probe request to the system.,When creating a new monitor, if this parameter is not provided, then the default value will be C(5).
         attribute :probe_timeout
@@ -69,7 +69,7 @@ module Ansible
 
         # @return [:always, :on_create, nil] C(always) will update passwords if the C(target_password) is specified.,C(on_create) will only set the password for newly created monitors.
         attribute :update_password
-        validates :update_password, inclusion: {:in=>[:always, :on_create], :message=>"%{value} needs to be :always, :on_create"}, allow_nil: true
+        validates :update_password, expression_inclusion: {:in=>[:always, :on_create], :message=>"%{value} needs to be :always, :on_create"}, allow_nil: true
       end
     end
   end

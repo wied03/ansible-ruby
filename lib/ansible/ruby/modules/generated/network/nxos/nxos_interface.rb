@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:loopback, :portchannel, :svi, :nve, nil] Interface type to be unconfigured from the device.
         attribute :interface_type
-        validates :interface_type, inclusion: {:in=>[:loopback, :portchannel, :svi, :nve], :message=>"%{value} needs to be :loopback, :portchannel, :svi, :nve"}, allow_nil: true
+        validates :interface_type, expression_inclusion: {:in=>[:loopback, :portchannel, :svi, :nve], :message=>"%{value} needs to be :loopback, :portchannel, :svi, :nve"}, allow_nil: true
 
         # @return [Integer, nil] Interface link speed. Applicable for ethernet interface only.
         attribute :speed
@@ -22,7 +22,7 @@ module Ansible
 
         # @return [:up, :down, nil] Administrative state of the interface.
         attribute :admin_state
-        validates :admin_state, inclusion: {:in=>[:up, :down], :message=>"%{value} needs to be :up, :down"}, allow_nil: true
+        validates :admin_state, expression_inclusion: {:in=>[:up, :down], :message=>"%{value} needs to be :up, :down"}, allow_nil: true
 
         # @return [String, nil] Interface description.
         attribute :description
@@ -30,14 +30,14 @@ module Ansible
 
         # @return [:layer2, :layer3, nil] Manage Layer 2 or Layer 3 state of the interface. This option is supported for ethernet and portchannel interface. Applicable for ethernet and portchannel interface only.
         attribute :mode
-        validates :mode, inclusion: {:in=>[:layer2, :layer3], :message=>"%{value} needs to be :layer2, :layer3"}, allow_nil: true
+        validates :mode, expression_inclusion: {:in=>[:layer2, :layer3], :message=>"%{value} needs to be :layer2, :layer3"}, allow_nil: true
 
         # @return [Object, nil] MTU for a specific interface. Must be an even number between 576 and 9216. Applicable for ethernet interface only.
         attribute :mtu
 
         # @return [:enable, :disable, nil] Enable/Disable ip forward feature on SVIs.
         attribute :ip_forward
-        validates :ip_forward, inclusion: {:in=>[:enable, :disable], :message=>"%{value} needs to be :enable, :disable"}, allow_nil: true
+        validates :ip_forward, expression_inclusion: {:in=>[:enable, :disable], :message=>"%{value} needs to be :enable, :disable"}, allow_nil: true
 
         # @return [Symbol, nil] Associate SVI with anycast gateway under VLAN configuration mode. Applicable for SVI interface only.
         attribute :fabric_forwarding_anycast_gateway
@@ -45,7 +45,7 @@ module Ansible
 
         # @return [:full, :half, :auto, nil] Interface link status. Applicable for ethernet interface only.
         attribute :duplex
-        validates :duplex, inclusion: {:in=>[:full, :half, :auto], :message=>"%{value} needs to be :full, :half, :auto"}, allow_nil: true
+        validates :duplex, expression_inclusion: {:in=>[:full, :half, :auto], :message=>"%{value} needs to be :full, :half, :auto"}, allow_nil: true
 
         # @return [String, nil] Transmit rate in bits per second (bps).,This is state check parameter only.,Supports conditionals, see L(Conditionals in Networking Modules,../network/user_guide/network_working_with_command_output.html)
         attribute :tx_rate
@@ -65,7 +65,7 @@ module Ansible
 
         # @return [:present, :absent, :default, nil] Specify desired state of the resource.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent, :default], :message=>"%{value} needs to be :present, :absent, :default"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent, :default], :message=>"%{value} needs to be :present, :absent, :default"}, allow_nil: true
 
         # @return [Integer, nil] Time in seconds to wait before checking for the operational state on remote device. This wait is applicable for operational state arguments.
         attribute :delay

@@ -26,7 +26,7 @@ module Ansible
 
         # @return [Boolean, nil] Whether or not the destination snapshots of the copied AMI should be encrypted.
         attribute :encrypted
-        validates :encrypted, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :encrypted, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [String, nil] KMS key id used to encrypt image. If not specified, uses default EBS Customer Master Key (CMK) for your account.
         attribute :kms_key_id
@@ -34,7 +34,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Wait for the copied AMI to be in state 'available' before returning.
         attribute :wait
-        validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :wait, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] How long before wait gives up, in seconds. Prior to 2.3 the default was 1200.,From 2.3-2.5 this option was deprecated in favor of boto3 waiter defaults. This was reenabled in 2.6 to allow timeouts greater than 10 minutes.
         attribute :wait_timeout
@@ -46,7 +46,7 @@ module Ansible
 
         # @return [Boolean, nil] Whether to use tags if the source AMI already exists in the target region. If this is set, and all tags match in an existing AMI, the AMI will not be copied again.
         attribute :tag_equality
-        validates :tag_equality, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :tag_equality, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
       end
     end
   end

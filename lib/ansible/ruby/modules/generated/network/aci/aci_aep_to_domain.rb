@@ -18,15 +18,15 @@ module Ansible
 
         # @return [:fc, :l2dom, :l3dom, :phys, :vmm, nil] Determines if the Domain is physical (phys) or virtual (vmm).
         attribute :domain_type
-        validates :domain_type, inclusion: {:in=>[:fc, :l2dom, :l3dom, :phys, :vmm], :message=>"%{value} needs to be :fc, :l2dom, :l3dom, :phys, :vmm"}, allow_nil: true
+        validates :domain_type, expression_inclusion: {:in=>[:fc, :l2dom, :l3dom, :phys, :vmm], :message=>"%{value} needs to be :fc, :l2dom, :l3dom, :phys, :vmm"}, allow_nil: true
 
         # @return [:absent, :present, :query, nil] Use C(present) or C(absent) for adding or removing.,Use C(query) for listing an object or multiple objects.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present, :query], :message=>"%{value} needs to be :absent, :present, :query"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present, :query], :message=>"%{value} needs to be :absent, :present, :query"}, allow_nil: true
 
         # @return [:cloudfoundry, :kubernetes, :microsoft, :openshift, :openstack, :redhat, :vmware, nil] The VM platform for VMM Domains.,Support for Kubernetes was added in ACI v3.0.,Support for CloudFoundry, OpenShift and Red Hat was added in ACI v3.1.
         attribute :vm_provider
-        validates :vm_provider, inclusion: {:in=>[:cloudfoundry, :kubernetes, :microsoft, :openshift, :openstack, :redhat, :vmware], :message=>"%{value} needs to be :cloudfoundry, :kubernetes, :microsoft, :openshift, :openstack, :redhat, :vmware"}, allow_nil: true
+        validates :vm_provider, expression_inclusion: {:in=>[:cloudfoundry, :kubernetes, :microsoft, :openshift, :openstack, :redhat, :vmware], :message=>"%{value} needs to be :cloudfoundry, :kubernetes, :microsoft, :openshift, :openstack, :redhat, :vmware"}, allow_nil: true
       end
     end
   end

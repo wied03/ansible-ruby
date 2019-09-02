@@ -18,7 +18,7 @@ module Ansible
 
         # @return [:md5, :sha, nil] Authentication parameters for the user.
         attribute :authentication
-        validates :authentication, inclusion: {:in=>[:md5, :sha], :message=>"%{value} needs to be :md5, :sha"}, allow_nil: true
+        validates :authentication, expression_inclusion: {:in=>[:md5, :sha], :message=>"%{value} needs to be :md5, :sha"}, allow_nil: true
 
         # @return [String, nil] Authentication password when using md5 or sha. This is not idempotent
         attribute :pwd
@@ -33,7 +33,7 @@ module Ansible
 
         # @return [:present, :absent, nil] Manage the state of the resource.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

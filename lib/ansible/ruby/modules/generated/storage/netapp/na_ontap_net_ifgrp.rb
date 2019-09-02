@@ -10,11 +10,11 @@ module Ansible
       class Na_ontap_net_ifgrp < Base
         # @return [:present, :absent, nil] Whether the specified network interface group should exist or not.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [:mac, :ip, :sequential, :port, nil] Specifies the traffic distribution function for the ifgrp.
         attribute :distribution_function
-        validates :distribution_function, inclusion: {:in=>[:mac, :ip, :sequential, :port], :message=>"%{value} needs to be :mac, :ip, :sequential, :port"}, allow_nil: true
+        validates :distribution_function, expression_inclusion: {:in=>[:mac, :ip, :sequential, :port], :message=>"%{value} needs to be :mac, :ip, :sequential, :port"}, allow_nil: true
 
         # @return [String] Specifies the interface group name.
         attribute :name

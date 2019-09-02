@@ -10,7 +10,7 @@ module Ansible
       class Meraki_mr_l3_firewall < Base
         # @return [:present, :query, nil] Create or modify an organization.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :query], :message=>"%{value} needs to be :present, :query"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :query], :message=>"%{value} needs to be :present, :query"}, allow_nil: true
 
         # @return [String, nil] Name of organization.
         attribute :org_name
@@ -36,7 +36,7 @@ module Ansible
 
         # @return [Boolean, nil] Sets whether devices can talk to other devices on the same LAN.
         attribute :allow_lan_access
-        validates :allow_lan_access, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :allow_lan_access, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [NilClass, Array<Hash>, Hash, nil] List of firewall rules.
         attribute :rules

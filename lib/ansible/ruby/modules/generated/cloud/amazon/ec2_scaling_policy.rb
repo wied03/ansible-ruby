@@ -11,7 +11,7 @@ module Ansible
       class Ec2_scaling_policy < Base
         # @return [:present, :absent] register or deregister the policy
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
+        validates :state, presence: true, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
 
         # @return [String] Unique name for the scaling policy
         attribute :name
@@ -23,7 +23,7 @@ module Ansible
 
         # @return [:ChangeInCapacity, :ExactCapacity, :PercentChangeInCapacity, nil] The type of change in capacity of the autoscaling group
         attribute :adjustment_type
-        validates :adjustment_type, inclusion: {:in=>[:ChangeInCapacity, :ExactCapacity, :PercentChangeInCapacity], :message=>"%{value} needs to be :ChangeInCapacity, :ExactCapacity, :PercentChangeInCapacity"}, allow_nil: true
+        validates :adjustment_type, expression_inclusion: {:in=>[:ChangeInCapacity, :ExactCapacity, :PercentChangeInCapacity], :message=>"%{value} needs to be :ChangeInCapacity, :ExactCapacity, :PercentChangeInCapacity"}, allow_nil: true
 
         # @return [Integer, nil] The amount by which the autoscaling group is adjusted by the policy
         attribute :scaling_adjustment

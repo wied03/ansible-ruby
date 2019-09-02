@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:boot, :pxe, nil] The script type, can not be changed once created.
         attribute :script_type
-        validates :script_type, inclusion: {:in=>[:boot, :pxe], :message=>"%{value} needs to be :boot, :pxe"}, allow_nil: true
+        validates :script_type, expression_inclusion: {:in=>[:boot, :pxe], :message=>"%{value} needs to be :boot, :pxe"}, allow_nil: true
 
         # @return [String, nil] The script source code.,Required if (state=present).
         attribute :script
@@ -22,7 +22,7 @@ module Ansible
 
         # @return [:present, :absent, nil] State of the script.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:present, :absent, :list, nil] Whether the tags should be present or absent on the resource. Use list to interrogate the tags of an instance.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent, :list], :message=>"%{value} needs to be :present, :absent, :list"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent, :list], :message=>"%{value} needs to be :present, :absent, :list"}, allow_nil: true
 
         # @return [Hash] a hash/dictionary of tags to add to the resource; '{"key":"value"}' and '{"key":"value","key":"value"}'
         attribute :tags

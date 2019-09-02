@@ -14,11 +14,11 @@ module Ansible
 
         # @return [:present, :absent] Describes the desired state.
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
+        validates :state, presence: true, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
 
         # @return [:ENABLED, :DISABLED, nil] The state of the job queue. If the job queue state is ENABLED , it is able to accept jobs.
         attribute :job_queue_state
-        validates :job_queue_state, inclusion: {:in=>[:ENABLED, :DISABLED], :message=>"%{value} needs to be :ENABLED, :DISABLED"}, allow_nil: true
+        validates :job_queue_state, expression_inclusion: {:in=>[:ENABLED, :DISABLED], :message=>"%{value} needs to be :ENABLED, :DISABLED"}, allow_nil: true
 
         # @return [Object] The priority of the job queue. Job queues with a higher priority (or a lower integer value for the priority parameter) are evaluated first when associated with same compute environment. Priority is determined in ascending order, for example, a job queue with a priority value of 1 is given scheduling preference over a job queue with a priority value of 10.
         attribute :priority

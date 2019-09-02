@@ -40,7 +40,7 @@ module Ansible
 
         # @return [:low, :medium, :high, nil] Sets the relative priority for the flow.
         attribute :priority
-        validates :priority, inclusion: {:in=>[:low, :medium, :high], :message=>"%{value} needs to be :low, :medium, :high"}, allow_nil: true
+        validates :priority, expression_inclusion: {:in=>[:low, :medium, :high], :message=>"%{value} needs to be :low, :medium, :high"}, allow_nil: true
 
         # @return [Symbol, nil] Specifies that the configured flow is temporary. Temporary flows do not persist across reboots.
         attribute :temporary
@@ -48,7 +48,7 @@ module Ansible
 
         # @return [:absent, :present, :resetted, nil] Create/delete/enable/disable an IP address on the network interface.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present, :resetted], :message=>"%{value} needs to be :absent, :present, :resetted"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present, :resetted], :message=>"%{value} needs to be :absent, :present, :resetted"}, allow_nil: true
       end
     end
   end

@@ -34,7 +34,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Whether to use an SSL connection when connecting to the database
         attribute :ssl
-        validates :ssl, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :ssl, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String] MongoDB administrative parameter to modify
         attribute :param

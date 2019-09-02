@@ -10,7 +10,7 @@ module Ansible
       class Na_ontap_snapshot < Base
         # @return [:present, :absent, nil] If you want to create/modify a snapshot, or delete it.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String] Name of the snapshot to be managed. The maximum string length is 256 characters.
         attribute :snapshot

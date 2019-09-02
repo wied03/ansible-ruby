@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:appuser, :user, nil] Whether this is a normal user or an appuser.
         attribute :aaa_user_type
-        validates :aaa_user_type, inclusion: {:in=>[:appuser, :user], :message=>"%{value} needs to be :appuser, :user"}, allow_nil: true
+        validates :aaa_user_type, expression_inclusion: {:in=>[:appuser, :user], :message=>"%{value} needs to be :appuser, :user"}, allow_nil: true
 
         # @return [Object, nil] The PEM format public key extracted from the X.509 certificate.
         attribute :certificate
@@ -25,7 +25,7 @@ module Ansible
 
         # @return [:absent, :present, :query, nil] Use C(present) or C(absent) for adding or removing.,Use C(query) for listing an object or multiple objects.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present, :query], :message=>"%{value} needs to be :absent, :present, :query"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present, :query], :message=>"%{value} needs to be :absent, :present, :query"}, allow_nil: true
       end
     end
   end

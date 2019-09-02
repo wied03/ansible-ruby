@@ -18,7 +18,7 @@ module Ansible
 
         # @return [:absent, :present, nil] Assert the state of the availability set. Use 'present' to create or update a availability set and 'absent' to delete a availability set.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
         # @return [String, nil] Valid azure location. Defaults to location of the resource group.
         attribute :location
@@ -34,7 +34,7 @@ module Ansible
 
         # @return [:Classic, :Aligned, nil] Define if the availability set supports managed disks.
         attribute :sku
-        validates :sku, inclusion: {:in=>[:Classic, :Aligned], :message=>"%{value} needs to be :Classic, :Aligned"}, allow_nil: true
+        validates :sku, expression_inclusion: {:in=>[:Classic, :Aligned], :message=>"%{value} needs to be :Classic, :Aligned"}, allow_nil: true
       end
     end
   end

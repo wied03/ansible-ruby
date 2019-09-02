@@ -22,7 +22,7 @@ module Ansible
 
         # @return [:bash, :none, :tmsh, nil] Optionally set the users shell.
         attribute :shell
-        validates :shell, inclusion: {:in=>[:bash, :none, :tmsh], :message=>"%{value} needs to be :bash, :none, :tmsh"}, allow_nil: true
+        validates :shell, expression_inclusion: {:in=>[:bash, :none, :tmsh], :message=>"%{value} needs to be :bash, :none, :tmsh"}, allow_nil: true
 
         # @return [String, nil] Specifies the administrative partition to which the user has access. C(partition_access) is required when creating a new account. Should be in the form "partition:role". Valid roles include C(acceleration-policy-editor), C(admin), C(application-editor), C(auditor) C(certificate-manager), C(guest), C(irule-manager), C(manager), C(no-access) C(operator), C(resource-admin), C(user-manager), C(web-application-security-administrator), and C(web-application-security-editor). Partition portion of tuple should be an existing partition or the value 'all'.
         attribute :partition_access
@@ -30,11 +30,11 @@ module Ansible
 
         # @return [:present, :absent, nil] Whether the account should exist or not, taking action if the state is different from what is stated.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [:always, :on_create, nil] C(always) will allow to update passwords if the user chooses to do so. C(on_create) will only set the password for newly created users. When C(username_credential) is C(root), this value will be forced to C(always).
         attribute :update_password
-        validates :update_password, inclusion: {:in=>[:always, :on_create], :message=>"%{value} needs to be :always, :on_create"}, allow_nil: true
+        validates :update_password, expression_inclusion: {:in=>[:always, :on_create], :message=>"%{value} needs to be :always, :on_create"}, allow_nil: true
 
         # @return [String, nil] Device partition to manage resources on.
         attribute :partition

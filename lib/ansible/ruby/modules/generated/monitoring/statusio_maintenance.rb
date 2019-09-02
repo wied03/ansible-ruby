@@ -19,7 +19,7 @@ module Ansible
 
         # @return [:present, :absent, nil] Desired state of the package.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String] Your unique API ID from status.io
         attribute :api_id
@@ -46,27 +46,27 @@ module Ansible
 
         # @return [:yes, :no, nil] If it affects all components and containers
         attribute :all_infrastructure_affected
-        validates :all_infrastructure_affected, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :all_infrastructure_affected, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:yes, :no, nil] Automatically start and end the maintenance window
         attribute :automation
-        validates :automation, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :automation, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:yes, :no, nil] Notify subscribers now
         attribute :maintenance_notify_now
-        validates :maintenance_notify_now, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :maintenance_notify_now, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:yes, :no, nil] Notify subscribers 72 hours before maintenance start time
         attribute :maintenance_notify_72_hr
-        validates :maintenance_notify_72_hr, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :maintenance_notify_72_hr, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:yes, :no, nil] Notify subscribers 24 hours before maintenance start time
         attribute :maintenance_notify_24_hr
-        validates :maintenance_notify_24_hr, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :maintenance_notify_24_hr, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:yes, :no, nil] Notify subscribers 1 hour before maintenance start time
         attribute :maintenance_notify_1_hr
-        validates :maintenance_notify_1_hr, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :maintenance_notify_1_hr, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] The maintenance id number when deleting a maintenance window
         attribute :maintenance_id

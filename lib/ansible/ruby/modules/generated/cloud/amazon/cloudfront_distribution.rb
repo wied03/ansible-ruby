@@ -10,7 +10,7 @@ module Ansible
       class Cloudfront_distribution < Base
         # @return [:present, :absent, nil] The desired state of the distribution present - creates a new distribution or updates an existing distribution. absent - deletes an existing distribution.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String, nil] The id of the cloudfront distribution. This parameter can be exchanged with I(alias) or I(caller_reference) and is used in conjunction with I(e_tag).
         attribute :distribution_id
@@ -29,7 +29,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Specifies whether existing tags will be removed before adding new tags. When I(purge_tags=yes), existing tags are removed and I(tags) are added, if specified. If no tags are specified, it removes all existing tags for the distribution. When I(purge_tags=no), existing tags are kept and I(tags) are added, if specified.
         attribute :purge_tags
-        validates :purge_tags, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :purge_tags, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] The name of an alias (CNAME) that is used in a distribution. This is used to effectively reference a distribution by its alias as an alias can only be used by one distribution per AWS account. This variable avoids having to provide the I(distribution_id) as well as the I(e_tag), or I(caller_reference) of an existing distribution.
         attribute :alias
@@ -40,7 +40,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Specifies whether existing aliases will be removed before adding new aliases. When I(purge_aliases=yes), existing aliases are removed and I(aliases) are added.
         attribute :purge_aliases
-        validates :purge_aliases, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :purge_aliases, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] A config element that specifies the path to request when the user requests the origin. e.g. if specified as 'index.html', this maps to www.example.com/index.html when www.example.com is called by the user. This prevents the entire distribution origin from being exposed at the root.
         attribute :default_root_object
@@ -58,7 +58,7 @@ module Ansible
 
         # @return [Boolean, nil] Whether to remove any origins that aren't listed in I(origins)
         attribute :purge_origins
-        validates :purge_origins, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :purge_origins, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Hash, nil] A config element that is a complex object specifying the default cache behavior of the distribution. If not specified, the I(target_origin_id) is defined as the I(target_origin_id) of the first valid I(cache_behavior) in I(cache_behaviors) with defaults. The default cache behavior comprises the attributes I(target_origin_id) I(forwarded_values) I(query_string) I(cookies) I(forward) I(whitelisted_names) I(headers[]) I(query_string_cache_keys[]) I(trusted_signers) I(enabled) I(items[]) I(viewer_protocol_policy) I(min_ttl) I(allowed_methods) I(items[]) I(cached_methods[]) I(smooth_streaming) I(default_ttl) I(max_ttl) I(compress) I(lambda_function_associations[]) I(lambda_function_arn) I(event_type) I(field_level_encryption_id)
         attribute :default_cache_behavior
@@ -69,14 +69,14 @@ module Ansible
 
         # @return [Boolean, nil] Whether to remove any cache behaviors that aren't listed in I(cache_behaviors). This switch also allows the reordering of cache_behaviors.
         attribute :purge_cache_behaviors
-        validates :purge_cache_behaviors, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :purge_cache_behaviors, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Object, nil] A config element that is a I(list[]) of complex custom error responses to be specified for the distribution. This attribute configures custom http error messages returned to the user. Each custom error response object comprises the attributes I(error_code) I(reponse_page_path) I(response_code) I(error_caching_min_ttl)
         attribute :custom_error_responses
 
         # @return [Boolean, nil] Whether to remove any custom error responses that aren't listed in I(custom_error_responses)
         attribute :purge_custom_error_responses
-        validates :purge_custom_error_responses, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :purge_custom_error_responses, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [String, nil] A comment that describes the cloudfront distribution. If not specified, it defaults to a generic message that it has been created with Ansible, and a datetime stamp.
         attribute :comment
@@ -88,11 +88,11 @@ module Ansible
 
         # @return [:PriceClass_100, :PriceClass_200, :PriceClass_All, nil] A string that specifies the pricing class of the distribution. As per U(https://aws.amazon.com/cloudfront/pricing/) I(price_class=PriceClass_100) consists of the areas United States Canada Europe I(price_class=PriceClass_200) consists of the areas United States Canada Europe Hong Kong, Philippines, S. Korea, Singapore & Taiwan Japan India I(price_class=PriceClass_All) consists of the areas United States Canada Europe Hong Kong, Philippines, S. Korea, Singapore & Taiwan Japan India South America Australia
         attribute :price_class
-        validates :price_class, inclusion: {:in=>[:PriceClass_100, :PriceClass_200, :PriceClass_All], :message=>"%{value} needs to be :PriceClass_100, :PriceClass_200, :PriceClass_All"}, allow_nil: true
+        validates :price_class, expression_inclusion: {:in=>[:PriceClass_100, :PriceClass_200, :PriceClass_All], :message=>"%{value} needs to be :PriceClass_100, :PriceClass_200, :PriceClass_All"}, allow_nil: true
 
         # @return [:yes, :no, nil] A boolean value that specifies whether the distribution is enabled or disabled.
         attribute :enabled
-        validates :enabled, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :enabled, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] A config element that is a complex object that specifies the encryption details of the distribution. Comprises the following attributes I(cloudfront_default_certificate) I(iam_certificate_id) I(acm_certificate_arn) I(ssl_support_method) I(minimum_protocol_version) I(certificate) I(certificate_source)
         attribute :viewer_certificate
@@ -105,15 +105,15 @@ module Ansible
 
         # @return [:"http1.1", :http2, nil] The version of the http protocol to use for the distribution.
         attribute :http_version
-        validates :http_version, inclusion: {:in=>[:"http1.1", :http2], :message=>"%{value} needs to be :\"http1.1\", :http2"}, allow_nil: true
+        validates :http_version, expression_inclusion: {:in=>[:"http1.1", :http2], :message=>"%{value} needs to be :\"http1.1\", :http2"}, allow_nil: true
 
         # @return [:yes, :no, nil] Determines whether IPv6 support is enabled or not.
         attribute :ipv6_enabled
-        validates :ipv6_enabled, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :ipv6_enabled, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:yes, :no, nil] Specifies whether the module waits until the distribution has completed processing the creation or update.
         attribute :wait
-        validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :wait, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] Specifies the duration in seconds to wait for a timeout of a cloudfront create or update. Defaults to 1800 seconds (30 minutes).
         attribute :wait_timeout

@@ -18,7 +18,7 @@ module Ansible
 
         # @return [:absent, :present, nil] Assert the state of the Traffic Manager profile. Use C(present) to create or update a Traffic Manager profile and C(absent) to delete it.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
         # @return [String, nil] Valid azure location. Defaults to 'global' because in default public Azure cloud, Traffic Manager profile can only be deployed globally.,Reference https://docs.microsoft.com/en-us/azure/traffic-manager/quickstart-create-traffic-manager-profile#create-a-traffic-manager-profile
         attribute :location
@@ -26,11 +26,11 @@ module Ansible
 
         # @return [:enabled, :disabled, nil] The status of the Traffic Manager profile.
         attribute :profile_status
-        validates :profile_status, inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
+        validates :profile_status, expression_inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
 
         # @return [:performance, :priority, :weighted, :geographic, nil] The traffic routing method of the Traffic Manager profile.
         attribute :routing_method
-        validates :routing_method, inclusion: {:in=>[:performance, :priority, :weighted, :geographic], :message=>"%{value} needs to be :performance, :priority, :weighted, :geographic"}, allow_nil: true
+        validates :routing_method, expression_inclusion: {:in=>[:performance, :priority, :weighted, :geographic], :message=>"%{value} needs to be :performance, :priority, :weighted, :geographic"}, allow_nil: true
 
         # @return [Hash, nil] The DNS settings of the Traffic Manager profile.
         attribute :dns_config

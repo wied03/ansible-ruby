@@ -32,7 +32,7 @@ module Ansible
 
         # @return [Boolean, nil] Whether or not to echo out your response strings.
         attribute :echo
-        validates :echo, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :echo, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
       end
     end
   end

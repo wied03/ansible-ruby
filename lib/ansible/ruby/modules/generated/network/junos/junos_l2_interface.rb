@@ -22,7 +22,7 @@ module Ansible
 
         # @return [:access, :trunk, nil] Mode in which interface needs to be configured.
         attribute :mode
-        validates :mode, inclusion: {:in=>[:access, :trunk], :message=>"%{value} needs to be :access, :trunk"}, allow_nil: true
+        validates :mode, expression_inclusion: {:in=>[:access, :trunk], :message=>"%{value} needs to be :access, :trunk"}, allow_nil: true
 
         # @return [String, nil] Configure given VLAN in access port. The value of C(access_vlan) should be vlan name.
         attribute :access_vlan
@@ -38,7 +38,7 @@ module Ansible
 
         # @return [Boolean, nil] True if your device has Enhanced Layer 2 Software (ELS).
         attribute :enhanced_layer
-        validates :enhanced_layer, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :enhanced_layer, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Integer, nil] Logical interface number. Value of C(unit) should be of type integer.
         attribute :unit
@@ -46,11 +46,11 @@ module Ansible
 
         # @return [:present, :absent, nil] State of the Layer-2 Interface configuration.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [Boolean, nil] Specifies whether or not the configuration is active or deactivated
         attribute :active
-        validates :active, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :active, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
       end
     end
   end

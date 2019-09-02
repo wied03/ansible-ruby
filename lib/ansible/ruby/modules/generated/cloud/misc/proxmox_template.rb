@@ -22,7 +22,7 @@ module Ansible
 
         # @return [:yes, :no, nil] enable / disable https certificate verification
         attribute :validate_certs
-        validates :validate_certs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :validate_certs, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String] Proxmox VE node, when you will operate with template
         attribute :node
@@ -38,7 +38,7 @@ module Ansible
 
         # @return [:vztmpl, :iso, nil] content type,required only for C(state=present)
         attribute :content_type
-        validates :content_type, inclusion: {:in=>[:vztmpl, :iso], :message=>"%{value} needs to be :vztmpl, :iso"}, allow_nil: true
+        validates :content_type, expression_inclusion: {:in=>[:vztmpl, :iso], :message=>"%{value} needs to be :vztmpl, :iso"}, allow_nil: true
 
         # @return [String, nil] target storage
         attribute :storage
@@ -50,11 +50,11 @@ module Ansible
 
         # @return [:yes, :no, nil] can be used only with C(state=present), exists template will be overwritten
         attribute :force
-        validates :force, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :force, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:present, :absent, nil] Indicate desired state of the template
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

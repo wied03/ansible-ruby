@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:absent, :present] Whether to create (C(present)), or remove (C(absent)) a file system, snapshot or volume. All parents/children will be created/destroyed as needed to reach the desired state.
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}
+        validates :state, presence: true, expression_inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}
 
         # @return [String, nil] Snapshot from which to create a clone.
         attribute :origin

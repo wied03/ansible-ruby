@@ -17,22 +17,22 @@ module Ansible
 
         # @return [:enable, :disable, nil] Enable or disable the BGP-EVPN address family.
         attribute :bgp_evpn_enable
-        validates :bgp_evpn_enable, inclusion: {:in=>[:enable, :disable], :message=>"%{value} needs to be :enable, :disable"}, allow_nil: true
+        validates :bgp_evpn_enable, expression_inclusion: {:in=>[:enable, :disable], :message=>"%{value} needs to be :enable, :disable"}, allow_nil: true
 
         # @return [:group_name, :ipv4_address, nil] Specify the peer type.
         attribute :peer_type
-        validates :peer_type, inclusion: {:in=>[:group_name, :ipv4_address], :message=>"%{value} needs to be :group_name, :ipv4_address"}, allow_nil: true
+        validates :peer_type, expression_inclusion: {:in=>[:group_name, :ipv4_address], :message=>"%{value} needs to be :group_name, :ipv4_address"}, allow_nil: true
 
         # @return [Object, nil] Specifies the IPv4 address or the group name of a peer.
         attribute :peer
 
         # @return [:enable, :disable, nil] Configure the local device as the route reflector and the peer or peer group as the client of the route reflector.
         attribute :reflect_client
-        validates :reflect_client, inclusion: {:in=>[:enable, :disable], :message=>"%{value} needs to be :enable, :disable"}, allow_nil: true
+        validates :reflect_client, expression_inclusion: {:in=>[:enable, :disable], :message=>"%{value} needs to be :enable, :disable"}, allow_nil: true
 
         # @return [:enable, :disable, nil] Enable or disable the VPN-Target filtering.
         attribute :policy_vpn_target
-        validates :policy_vpn_target, inclusion: {:in=>[:enable, :disable], :message=>"%{value} needs to be :enable, :disable"}, allow_nil: true
+        validates :policy_vpn_target, expression_inclusion: {:in=>[:enable, :disable], :message=>"%{value} needs to be :enable, :disable"}, allow_nil: true
       end
     end
   end

@@ -15,7 +15,7 @@ module Ansible
 
         # @return [:static, :dhcp, :addrconf, nil] Specifiies a type of IP address to configure.
         attribute :addrtype
-        validates :addrtype, inclusion: {:in=>[:static, :dhcp, :addrconf], :message=>"%{value} needs to be :static, :dhcp, :addrconf"}, allow_nil: true
+        validates :addrtype, expression_inclusion: {:in=>[:static, :dhcp, :addrconf], :message=>"%{value} needs to be :static, :dhcp, :addrconf"}, allow_nil: true
 
         # @return [String] Specifies an unique IP address on the system.
         attribute :addrobj
@@ -23,7 +23,7 @@ module Ansible
 
         # @return [Boolean, nil] Specifies that the configured IP address is temporary. Temporary IP addresses do not persist across reboots.
         attribute :temporary
-        validates :temporary, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :temporary, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Integer, nil] Specifies the time in seconds we wait for obtaining address via DHCP.
         attribute :wait
@@ -31,7 +31,7 @@ module Ansible
 
         # @return [:absent, :present, :up, :down, :enabled, :disabled, :refreshed, nil] Create/delete/enable/disable an IP address on the network interface.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present, :up, :down, :enabled, :disabled, :refreshed], :message=>"%{value} needs to be :absent, :present, :up, :down, :enabled, :disabled, :refreshed"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present, :up, :down, :enabled, :disabled, :refreshed], :message=>"%{value} needs to be :absent, :present, :up, :down, :enabled, :disabled, :refreshed"}, allow_nil: true
       end
     end
   end

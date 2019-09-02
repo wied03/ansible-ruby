@@ -42,7 +42,7 @@ module Ansible
 
         # @return [:GET, :PUT, :POST, :HEAD, :PATCH, :DELETE, :MERGE, nil] The HTTP method of the request or response. It MUST be uppercase.
         attribute :method
-        validates :method, inclusion: {:in=>[:GET, :PUT, :POST, :HEAD, :PATCH, :DELETE, :MERGE], :message=>"%{value} needs to be :GET, :PUT, :POST, :HEAD, :PATCH, :DELETE, :MERGE"}, allow_nil: true
+        validates :method, expression_inclusion: {:in=>[:GET, :PUT, :POST, :HEAD, :PATCH, :DELETE, :MERGE], :message=>"%{value} needs to be :GET, :PUT, :POST, :HEAD, :PATCH, :DELETE, :MERGE"}, allow_nil: true
 
         # @return [Integer, nil] A valid, numeric, HTTP status code that signifies success of the request. Can also be comma separated list of status codes.
         attribute :status_code
@@ -54,7 +54,7 @@ module Ansible
 
         # @return [:absent, :present, nil] Assert the state of the resource. Use C(present) to create or update resource or C(absent) to delete resource.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
       end
     end
   end

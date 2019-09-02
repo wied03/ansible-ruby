@@ -18,7 +18,7 @@ module Ansible
 
         # @return [:absent, :present, nil] Whether to install or uninstall the hotfix.,When C(present), C(source) MUST be set.,When C(absent), C(hotfix_identifier) or C(hotfix_kb) MUST be set.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
         # @return [String, nil] The path to the downloaded hotfix .msu file.,This MUST be set if C(state=present) and MUST be a .msu hotfix file.
         attribute :source

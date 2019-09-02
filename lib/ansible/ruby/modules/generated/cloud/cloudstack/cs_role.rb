@@ -18,14 +18,14 @@ module Ansible
 
         # @return [:User, :DomainAdmin, :ResourceAdmin, :Admin, nil] Type of the role.,Only considered for creation.
         attribute :role_type
-        validates :role_type, inclusion: {:in=>[:User, :DomainAdmin, :ResourceAdmin, :Admin], :message=>"%{value} needs to be :User, :DomainAdmin, :ResourceAdmin, :Admin"}, allow_nil: true
+        validates :role_type, expression_inclusion: {:in=>[:User, :DomainAdmin, :ResourceAdmin, :Admin], :message=>"%{value} needs to be :User, :DomainAdmin, :ResourceAdmin, :Admin"}, allow_nil: true
 
         # @return [Object, nil] Description of the role.
         attribute :description
 
         # @return [:present, :absent, nil] State of the role.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

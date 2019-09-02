@@ -21,11 +21,11 @@ module Ansible
 
         # @return [:accept, :drop, :reject, :"accept-decisively", nil] Specifies the action for the firewall rule.,When C(accept), allows packets with the specified source, destination, and protocol to pass through the firewall. Packets that match the rule, and are accepted, traverse the system as if the firewall is not present.,When C(drop), drops packets with the specified source, destination, and protocol. Dropping a packet is a silent action with no notification to the source or destination systems. Dropping the packet causes the connection to be retried until the retry threshold is reached.,When C(reject), rejects packets with the specified source, destination, and protocol. When a packet is rejected the firewall sends a destination unreachable message to the sender.,When C(accept-decisively), allows packets with the specified source, destination, and protocol to pass through the firewall, and does not require any further processing by any of the further firewalls. Packets that match the rule, and are accepted, traverse the system as if the firewall is not present. If the Rule List is applied to a virtual server, management IP, or self IP firewall rule, then Accept Decisively is equivalent to Accept.,When creating a new rule, if this parameter is not provided, the default is C(reject).
         attribute :action
-        validates :action, inclusion: {:in=>[:accept, :drop, :reject, :"accept-decisively"], :message=>"%{value} needs to be :accept, :drop, :reject, :\"accept-decisively\""}, allow_nil: true
+        validates :action, expression_inclusion: {:in=>[:accept, :drop, :reject, :"accept-decisively"], :message=>"%{value} needs to be :accept, :drop, :reject, :\"accept-decisively\""}, allow_nil: true
 
         # @return [:enabled, :disabled, :scheduled, nil] Indicates the activity state of the rule or rule list.,When C(disabled), specifies that the rule or rule list does not apply at all.,When C(enabled), specifies that the system applies the firewall rule or rule list to the given context and addresses.,When C(scheduled), specifies that the system applies the rule or rule list according to the specified schedule.,When creating a new rule, if this parameter is not provided, the default is C(enabled).
         attribute :status
-        validates :status, inclusion: {:in=>[:enabled, :disabled, :scheduled], :message=>"%{value} needs to be :enabled, :disabled, :scheduled"}, allow_nil: true
+        validates :status, expression_inclusion: {:in=>[:enabled, :disabled, :scheduled], :message=>"%{value} needs to be :enabled, :disabled, :scheduled"}, allow_nil: true
 
         # @return [Object, nil] Specifies a schedule for the firewall rule.,You configure schedules to define days and times when the firewall rule is made active.
         attribute :schedule
@@ -67,7 +67,7 @@ module Ansible
 
         # @return [:present, :absent, nil] When C(state) is C(present), ensures that the rule exists.,When C(state) is C(absent), ensures that the rule is removed.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

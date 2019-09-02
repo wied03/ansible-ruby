@@ -35,7 +35,7 @@ module Ansible
 
         # @return [:none, :idle, :strict, nil] When C(none), simultaneous in-flight requests and responses over TCP connections to a pool member are counted toward the limit. This is the historical behavior.,When C(idle), idle connections will be dropped as the TCP connection limit is reached. For short intervals, during the overlap of the idle connection being dropped and the new connection being established, the TCP connection limit may be exceeded.,When C(strict), the TCP connection limit is honored with no exceptions. This means that idle connections will prevent new TCP connections from being made until they expire, even if they could otherwise be reused.,C(strict) is not a recommended configuration except in very special cases with short expiration timeouts.,When creating a new profile, if this parameter is not specified, the default is provided by the parent profile.
         attribute :limit_type
-        validates :limit_type, inclusion: {:in=>[:none, :idle, :strict], :message=>"%{value} needs to be :none, :idle, :strict"}, allow_nil: true
+        validates :limit_type, expression_inclusion: {:in=>[:none, :idle, :strict], :message=>"%{value} needs to be :none, :idle, :strict"}, allow_nil: true
 
         # @return [Symbol, nil] Indicates that connections may be shared not only within a virtual server, but also among similar virtual servers,When C(yes), all virtual servers that use the same OneConnect and other internal network profiles can share connections.,When creating a new profile, if this parameter is not specified, the default is provided by the parent profile.
         attribute :share_pools
@@ -47,7 +47,7 @@ module Ansible
 
         # @return [:present, :absent, nil] When C(present), ensures that the profile exists.,When C(absent), ensures the profile is removed.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

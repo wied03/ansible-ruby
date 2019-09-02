@@ -15,7 +15,7 @@ module Ansible
 
         # @return [:present, :absent, nil] Whether to create(or update) or delete the identity.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [Hash, nil] Setup the SNS topic used to report bounce notifications.,If omitted, bounce notifications will not be delivered to a SNS topic.,If bounce notifications are not delivered to a SNS topic, I(feedback_forwarding) must be enabled.
         attribute :bounce_notifications
@@ -31,7 +31,7 @@ module Ansible
 
         # @return [Boolean, nil] Whether or not to enable feedback forwarding.,This can only be false if both I(bounce_notifications) and I(complaint_notifications) specify SNS topics.
         attribute :feedback_forwarding
-        validates :feedback_forwarding, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :feedback_forwarding, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
       end
     end
   end

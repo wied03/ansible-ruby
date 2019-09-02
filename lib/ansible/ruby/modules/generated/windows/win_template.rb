@@ -19,7 +19,7 @@ module Ansible
 
         # @return [:"\\n", :"\\r", :"\\r\\n", nil] Specify the newline sequence to use for templating files.
         attribute :newline_sequence
-        validates :newline_sequence, inclusion: {:in=>[:"\\n", :"\\r", :"\\r\\n"], :message=>"%{value} needs to be :\"\\\\n\", :\"\\\\r\", :\"\\\\r\\\\n\""}, allow_nil: true
+        validates :newline_sequence, expression_inclusion: {:in=>[:"\\n", :"\\r", :"\\r\\n"], :message=>"%{value} needs to be :\"\\\\n\", :\"\\\\r\", :\"\\\\r\\\\n\""}, allow_nil: true
 
         # @return [String, nil] The string marking the beginning of a block.
         attribute :block_start_string
@@ -39,11 +39,11 @@ module Ansible
 
         # @return [:yes, :no, nil] If this is set to C(yes) the first newline after a block is removed (block, not variable tag!).
         attribute :trim_blocks
-        validates :trim_blocks, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :trim_blocks, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:yes, :no, nil] If C(yes), will replace the remote file when contents are different from the source.,If C(no), the file will only be transferred if the destination does not exist.
         attribute :force
-        validates :force, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :force, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

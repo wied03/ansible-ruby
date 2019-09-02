@@ -18,7 +18,7 @@ module Ansible
 
         # @return [:absent, :present, nil] Specify whether to add C(present) or remove C(absent) the specified share.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
         # @return [String, nil] Share description.
         attribute :description
@@ -26,7 +26,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Specify whether to allow or deny file listing, in case user has no permission on share. Also known as Access-Based Enumeration.
         attribute :list
-        validates :list, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :list, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] Specify user list that should get read access on share, separated by comma.
         attribute :read
@@ -45,11 +45,11 @@ module Ansible
 
         # @return [:BranchCache, :Documents, :Manual, :None, :Programs, :Unknown, nil] Set the CachingMode for this share.
         attribute :caching_mode
-        validates :caching_mode, inclusion: {:in=>[:BranchCache, :Documents, :Manual, :None, :Programs, :Unknown], :message=>"%{value} needs to be :BranchCache, :Documents, :Manual, :None, :Programs, :Unknown"}, allow_nil: true
+        validates :caching_mode, expression_inclusion: {:in=>[:BranchCache, :Documents, :Manual, :None, :Programs, :Unknown], :message=>"%{value} needs to be :BranchCache, :Documents, :Manual, :None, :Programs, :Unknown"}, allow_nil: true
 
         # @return [:yes, :no, nil] Sets whether to encrypt the traffic to the share or not.
         attribute :encrypt
-        validates :encrypt, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :encrypt, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

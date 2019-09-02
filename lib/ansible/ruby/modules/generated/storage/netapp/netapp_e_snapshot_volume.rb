@@ -22,7 +22,7 @@ module Ansible
 
         # @return [Boolean, nil] Should https certificates be validated?
         attribute :validate_certs
-        validates :validate_certs, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :validate_certs, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [String] storage array ID
         attribute :ssid
@@ -42,7 +42,7 @@ module Ansible
 
         # @return [:modeUnknown, :readWrite, :readOnly, :__UNDEFINED] The snapshot volume access mode
         attribute :view_mode
-        validates :view_mode, presence: true, inclusion: {:in=>[:modeUnknown, :readWrite, :readOnly, :__UNDEFINED], :message=>"%{value} needs to be :modeUnknown, :readWrite, :readOnly, :__UNDEFINED"}
+        validates :view_mode, presence: true, expression_inclusion: {:in=>[:modeUnknown, :readWrite, :readOnly, :__UNDEFINED], :message=>"%{value} needs to be :modeUnknown, :readWrite, :readOnly, :__UNDEFINED"}
 
         # @return [Integer, nil] The size of the view in relation to the size of the base volume
         attribute :repo_percentage
@@ -54,7 +54,7 @@ module Ansible
 
         # @return [:absent, :present] Whether to create or remove the snapshot volume
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}
+        validates :state, presence: true, expression_inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}
       end
     end
   end

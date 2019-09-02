@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:absent, :present, :started, :stopped] Use present/absent ensure if a volume exists or not. Use started/stopped to control its availability.
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:absent, :present, :started, :stopped], :message=>"%{value} needs to be :absent, :present, :started, :stopped"}
+        validates :state, presence: true, expression_inclusion: {:in=>[:absent, :present, :started, :stopped], :message=>"%{value} needs to be :absent, :present, :started, :stopped"}
 
         # @return [Array<String>, String, nil] List of hosts to use for probing and brick setup.
         attribute :cluster
@@ -40,7 +40,7 @@ module Ansible
 
         # @return [:tcp, :rdma, :"tcp,rdma", nil] Transport type for volume.
         attribute :transport
-        validates :transport, inclusion: {:in=>[:tcp, :rdma, :"tcp,rdma"], :message=>"%{value} needs to be :tcp, :rdma, :\"tcp,rdma\""}, allow_nil: true
+        validates :transport, expression_inclusion: {:in=>[:tcp, :rdma, :"tcp,rdma"], :message=>"%{value} needs to be :tcp, :rdma, :\"tcp,rdma\""}, allow_nil: true
 
         # @return [Array<String>, String, nil] Brick paths on servers. Multiple brick paths can be separated by commas.
         attribute :bricks
@@ -48,11 +48,11 @@ module Ansible
 
         # @return [:yes, :no, nil] Controls whether the volume is started after creation or not.
         attribute :start_on_create
-        validates :start_on_create, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :start_on_create, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:yes, :no, nil] Controls whether the cluster is rebalanced after changes.
         attribute :rebalance
-        validates :rebalance, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :rebalance, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] Directory for limit-usage.
         attribute :directory

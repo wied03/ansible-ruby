@@ -19,11 +19,11 @@ module Ansible
 
         # @return [:absent, :present, :copy, nil] Define whether the protection group snapshot should exist or not. Copy (added in 2.7) will force an overwrite of an exisitng volume from a snapshot.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present, :copy], :message=>"%{value} needs to be :absent, :present, :copy"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present, :copy], :message=>"%{value} needs to be :absent, :present, :copy"}, allow_nil: true
 
         # @return [:yes, :no, nil] Define whether to eradicate the snapshot on delete or leave in trash.
         attribute :eradicate
-        validates :eradicate, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :eradicate, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] Restore a specific volume from a protection group snapshot. This implies overwrite of the current full volume. USE WITH CARE!!
         attribute :restore

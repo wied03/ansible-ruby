@@ -10,7 +10,7 @@ module Ansible
       class Ovirt_auth < Base
         # @return [:present, :absent, nil] Specifies if a token should be created or revoked.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [Object, nil] The name of the user. For example: I(admin@internal) Default value is set by I(OVIRT_USERNAME) environment variable.
         attribute :username

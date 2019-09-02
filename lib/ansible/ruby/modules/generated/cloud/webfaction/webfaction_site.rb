@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:present, :absent, nil] Whether the website should exist
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String] The webfaction host on which the site should be created.
         attribute :host
@@ -22,7 +22,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Whether or not to use HTTPS
         attribute :https
-        validates :https, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :https, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] A mapping of URLs to apps
         attribute :site_apps

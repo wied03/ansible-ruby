@@ -26,7 +26,7 @@ module Ansible
 
         # @return [:absent, :present, nil] Assert the state of the subnet. Use 'present' to create or update a subnet and 'absent' to delete a subnet.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
         # @return [String] Name of an existing virtual network with which the subnet is or will be associated.
         attribute :virtual_network_name

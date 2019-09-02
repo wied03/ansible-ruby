@@ -16,7 +16,7 @@ module Ansible
 
         # @return [:present, :absent] Whether to install (C(present)), or remove (C(absent)) a package.,If the package is to be installed, then I(src) is required.,The SVR4 package system doesn't provide an upgrade operation. You need to uninstall the old, then install the new package.
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
+        validates :state, presence: true, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
 
         # @return [String, nil] Specifies the location to install the package from. Required when C(state=present).,Can be any path acceptable to the C(pkgadd) command's C(-d) option. e.g.: C(somefile.pkg), C(/dir/with/pkgs), C(http:/server/mypkgs.pkg).,If using a file or directory, they must already be accessible by the host. See the M(copy) module for a way to get them there.
         attribute :src
@@ -31,7 +31,7 @@ module Ansible
 
         # @return [:current, :all, nil] Whether to install the package only in the current zone, or install it into all zones.,The installation into all zones works only if you are working with the global zone.
         attribute :zone
-        validates :zone, inclusion: {:in=>[:current, :all], :message=>"%{value} needs to be :current, :all"}, allow_nil: true
+        validates :zone, expression_inclusion: {:in=>[:current, :all], :message=>"%{value} needs to be :current, :all"}, allow_nil: true
 
         # @return [Symbol, nil] Install/Remove category instead of a single package.
         attribute :category

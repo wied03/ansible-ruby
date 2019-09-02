@@ -13,7 +13,7 @@ module Ansible
       class Consul < Base
         # @return [:present, :absent] register or deregister the consul service, defaults to present
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
+        validates :state, presence: true, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
 
         # @return [String, nil] Unique name for the service on a node, must be unique per node, required if registering a service. May be omitted if registering a node level check
         attribute :service_name
@@ -37,7 +37,7 @@ module Ansible
 
         # @return [:yes, :no, nil] whether to verify the tls certificate of the consul agent
         attribute :validate_certs
-        validates :validate_certs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :validate_certs, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] Notes to attach to check when registering it.
         attribute :notes

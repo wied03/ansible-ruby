@@ -28,11 +28,11 @@ module Ansible
 
         # @return [:yes, :no, nil] When set to C(true), will delete and recreate the existing PostgreSQL database if any of the properties don't match what is set.,When set to C(false), no change will occur to the database even if any of the properties do not match.
         attribute :force_update
-        validates :force_update, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :force_update, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:absent, :present, nil] Assert the state of the PostgreSQL database. Use 'present' to create or update a database and 'absent' to delete it.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
       end
     end
   end

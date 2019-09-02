@@ -22,7 +22,7 @@ module Ansible
 
         # @return [Boolean, nil] If C(no), the notification will not pop up and will only appear in the Action Center.
         attribute :popup
-        validates :popup, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :popup, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [String, nil] The tag to add to the notification.
         attribute :tag

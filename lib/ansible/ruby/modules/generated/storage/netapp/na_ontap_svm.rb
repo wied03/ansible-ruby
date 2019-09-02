@@ -10,7 +10,7 @@ module Ansible
       class Na_ontap_svm < Base
         # @return [:present, :absent, nil] Whether the specified SVM should exist or not.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String] The name of the SVM to manage.
         attribute :name
@@ -29,7 +29,7 @@ module Ansible
 
         # @return [:unix, :ntfs, :mixed, :unified, nil] Security Style of the root volume.,When specified as part of the vserver-create, this field represents the security style for the Vserver root volume.,When specified as part of vserver-get-iter call, this will return the list of matching Vservers.,The 'unified' security style, which applies only to Infinite Volumes, cannot be applied to a Vserver's root volume.,Cannot be modified after creation.
         attribute :root_volume_security_style
-        validates :root_volume_security_style, inclusion: {:in=>[:unix, :ntfs, :mixed, :unified], :message=>"%{value} needs to be :unix, :ntfs, :mixed, :unified"}, allow_nil: true
+        validates :root_volume_security_style, expression_inclusion: {:in=>[:unix, :ntfs, :mixed, :unified], :message=>"%{value} needs to be :unix, :ntfs, :mixed, :unified"}, allow_nil: true
 
         # @return [Object, nil] Allowed Protocols.,When specified as part of a vserver-create, this field represent the list of protocols allowed on the Vserver.,When part of vserver-get-iter call, this will return the list of Vservers which have any of the protocols specified as part of the allowed-protocols.,When part of vserver-modify, this field should include the existing list along with new protocol list to be added to prevent data disruptions.,Possible values,nfs   NFS protocol,,cifs   CIFS protocol,,fcp   FCP protocol,,iscsi   iSCSI protocol,,ndmp   NDMP protocol,,http   HTTP protocol,,nvme   NVMe protocol
         attribute :allowed_protocols
@@ -48,7 +48,7 @@ module Ansible
 
         # @return [:default, :dp_destination, :sync_source, :sync_destination, nil] The subtype for vserver to be created.,Cannot be modified after creation.
         attribute :subtype
-        validates :subtype, inclusion: {:in=>[:default, :dp_destination, :sync_source, :sync_destination], :message=>"%{value} needs to be :default, :dp_destination, :sync_source, :sync_destination"}, allow_nil: true
+        validates :subtype, expression_inclusion: {:in=>[:default, :dp_destination, :sync_source, :sync_destination], :message=>"%{value} needs to be :default, :dp_destination, :sync_source, :sync_destination"}, allow_nil: true
       end
     end
   end

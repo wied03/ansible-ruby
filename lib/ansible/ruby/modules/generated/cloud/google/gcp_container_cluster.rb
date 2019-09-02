@@ -10,7 +10,7 @@ module Ansible
       class Gcp_container_cluster < Base
         # @return [:present, :absent, nil] Whether the given object should exist in GCP
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String, nil] The name of this cluster. The name must be unique within this project and zone, and can be up to 40 characters. Must be Lowercase letters, numbers, and hyphens only. Must start with a letter. Must end with a number or a letter.
         attribute :name
@@ -33,11 +33,11 @@ module Ansible
 
         # @return [:"logging.googleapis.com", :none, nil] The logging service the cluster should use to write logs. Currently available options:  logging.googleapis.com - the Google Cloud Logging service.,none - no logs will be exported from the cluster.,if left as an empty string,logging.googleapis.com will be used.
         attribute :logging_service
-        validates :logging_service, inclusion: {:in=>[:"logging.googleapis.com", :none], :message=>"%{value} needs to be :\"logging.googleapis.com\", :none"}, allow_nil: true
+        validates :logging_service, expression_inclusion: {:in=>[:"logging.googleapis.com", :none], :message=>"%{value} needs to be :\"logging.googleapis.com\", :none"}, allow_nil: true
 
         # @return [:"monitoring.googleapis.com", :none, nil] The monitoring service the cluster should use to write metrics.,Currently available options:  monitoring.googleapis.com - the Google Cloud Monitoring service.,none - no metrics will be exported from the cluster.,if left as an empty string, monitoring.googleapis.com will be used.
         attribute :monitoring_service
-        validates :monitoring_service, inclusion: {:in=>[:"monitoring.googleapis.com", :none], :message=>"%{value} needs to be :\"monitoring.googleapis.com\", :none"}, allow_nil: true
+        validates :monitoring_service, expression_inclusion: {:in=>[:"monitoring.googleapis.com", :none], :message=>"%{value} needs to be :\"monitoring.googleapis.com\", :none"}, allow_nil: true
 
         # @return [Object, nil] The name of the Google Compute Engine network to which the cluster is connected. If left unspecified, the default network will be used.,To ensure it exists and it is operations, configure the network using 'gcompute_network' resource.
         attribute :network

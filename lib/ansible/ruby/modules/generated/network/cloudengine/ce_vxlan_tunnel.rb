@@ -19,21 +19,21 @@ module Ansible
 
         # @return [:"mode-l2", :"mode-l3", nil] Specifies the working mode of an NVE interface.
         attribute :nve_mode
-        validates :nve_mode, inclusion: {:in=>[:"mode-l2", :"mode-l3"], :message=>"%{value} needs to be :\"mode-l2\", :\"mode-l3\""}, allow_nil: true
+        validates :nve_mode, expression_inclusion: {:in=>[:"mode-l2", :"mode-l3"], :message=>"%{value} needs to be :\"mode-l2\", :\"mode-l3\""}, allow_nil: true
 
         # @return [Object, nil] Specifies the IP address of a remote VXLAN tunnel endpoints (VTEP). The value is in dotted decimal notation.
         attribute :peer_list_ip
 
         # @return [:bgp, :null, nil] The operation type of routing protocol.
         attribute :protocol_type
-        validates :protocol_type, inclusion: {:in=>[:bgp, :null], :message=>"%{value} needs to be :bgp, :null"}, allow_nil: true
+        validates :protocol_type, expression_inclusion: {:in=>[:bgp, :null], :message=>"%{value} needs to be :bgp, :null"}, allow_nil: true
 
         # @return [Object, nil] Specifies an IP address for a source VTEP. The value is in dotted decimal notation.
         attribute :source_ip
 
         # @return [:present, :absent, nil] Manage the state of the resource.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

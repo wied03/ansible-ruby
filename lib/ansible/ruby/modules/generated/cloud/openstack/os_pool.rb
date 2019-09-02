@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:present, :absent, nil] Should the resource be present or absent.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String, nil] The name or id of the load balancer that this pool belongs to. Either loadbalancer or listener must be specified for pool creation.
         attribute :loadbalancer
@@ -25,15 +25,15 @@ module Ansible
 
         # @return [:HTTP, :HTTPS, :PROXY, :TCP, :UDP, nil] The protocol for the pool.
         attribute :protocol
-        validates :protocol, inclusion: {:in=>[:HTTP, :HTTPS, :PROXY, :TCP, :UDP], :message=>"%{value} needs to be :HTTP, :HTTPS, :PROXY, :TCP, :UDP"}, allow_nil: true
+        validates :protocol, expression_inclusion: {:in=>[:HTTP, :HTTPS, :PROXY, :TCP, :UDP], :message=>"%{value} needs to be :HTTP, :HTTPS, :PROXY, :TCP, :UDP"}, allow_nil: true
 
         # @return [:LEAST_CONNECTIONS, :ROUND_ROBIN, :SOURCE_IP, nil] The load balancing algorithm for the pool.
         attribute :lb_algorithm
-        validates :lb_algorithm, inclusion: {:in=>[:LEAST_CONNECTIONS, :ROUND_ROBIN, :SOURCE_IP], :message=>"%{value} needs to be :LEAST_CONNECTIONS, :ROUND_ROBIN, :SOURCE_IP"}, allow_nil: true
+        validates :lb_algorithm, expression_inclusion: {:in=>[:LEAST_CONNECTIONS, :ROUND_ROBIN, :SOURCE_IP], :message=>"%{value} needs to be :LEAST_CONNECTIONS, :ROUND_ROBIN, :SOURCE_IP"}, allow_nil: true
 
         # @return [:yes, :no, nil] If the module should wait for the pool to be ACTIVE.
         attribute :wait
-        validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :wait, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] The amount of time the module should wait for the pool to get into ACTIVE state.
         attribute :timeout

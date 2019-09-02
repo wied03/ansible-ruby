@@ -18,7 +18,7 @@ module Ansible
 
         # @return [:all, :exchanges, :queues, nil] What the policy applies to. Requires RabbitMQ 3.2.0 or later.
         attribute :apply_to
-        validates :apply_to, inclusion: {:in=>[:all, :exchanges, :queues], :message=>"%{value} needs to be :all, :exchanges, :queues"}, allow_nil: true
+        validates :apply_to, expression_inclusion: {:in=>[:all, :exchanges, :queues], :message=>"%{value} needs to be :all, :exchanges, :queues"}, allow_nil: true
 
         # @return [String] A regex of queues to apply the policy to.
         attribute :pattern
@@ -38,7 +38,7 @@ module Ansible
 
         # @return [:present, :absent, nil] The state of the policy.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

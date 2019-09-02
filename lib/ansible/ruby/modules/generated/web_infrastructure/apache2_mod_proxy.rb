@@ -22,15 +22,15 @@ module Ansible
 
         # @return [:present, :absent, :enabled, :disabled, :drained, :hot_standby, :ignore_errors, nil] Desired state of the member host. (absent|disabled),drained,hot_standby,ignore_errors can be simultaneously invoked by separating them with a comma (e.g. state=drained,ignore_errors).
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent, :enabled, :disabled, :drained, :hot_standby, :ignore_errors], :message=>"%{value} needs to be :present, :absent, :enabled, :disabled, :drained, :hot_standby, :ignore_errors"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent, :enabled, :disabled, :drained, :hot_standby, :ignore_errors], :message=>"%{value} needs to be :present, :absent, :enabled, :disabled, :drained, :hot_standby, :ignore_errors"}, allow_nil: true
 
         # @return [:yes, :no, nil] Use https to access balancer management page.
         attribute :tls
-        validates :tls, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :tls, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:yes, :no, nil] Validate ssl/tls certificates.
         attribute :validate_certs
-        validates :validate_certs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :validate_certs, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

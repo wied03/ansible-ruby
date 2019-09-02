@@ -26,7 +26,7 @@ module Ansible
 
         # @return [:rollback, :clear, :set, :display, :commit] The operation of configuration rollback.
         attribute :action
-        validates :action, presence: true, inclusion: {:in=>[:rollback, :clear, :set, :display, :commit], :message=>"%{value} needs to be :rollback, :clear, :set, :display, :commit"}
+        validates :action, presence: true, expression_inclusion: {:in=>[:rollback, :clear, :set, :display, :commit], :message=>"%{value} needs to be :rollback, :clear, :set, :display, :commit"}
       end
     end
   end

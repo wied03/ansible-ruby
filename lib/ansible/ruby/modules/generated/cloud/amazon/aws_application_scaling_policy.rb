@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:ecs, :elasticmapreduce, :ec2, :appstream, :dynamodb] The namespace of the AWS service.
         attribute :service_namespace
-        validates :service_namespace, presence: true, inclusion: {:in=>[:ecs, :elasticmapreduce, :ec2, :appstream, :dynamodb], :message=>"%{value} needs to be :ecs, :elasticmapreduce, :ec2, :appstream, :dynamodb"}
+        validates :service_namespace, presence: true, expression_inclusion: {:in=>[:ecs, :elasticmapreduce, :ec2, :appstream, :dynamodb], :message=>"%{value} needs to be :ecs, :elasticmapreduce, :ec2, :appstream, :dynamodb"}
 
         # @return [String] The identifier of the resource associated with the scalable target.
         attribute :resource_id
@@ -22,11 +22,11 @@ module Ansible
 
         # @return [:"ecs:service:DesiredCount", :"ec2:spot-fleet-request:TargetCapacity", :"elasticmapreduce:instancegroup:InstanceCount", :"appstream:fleet:DesiredCapacity", :"dynamodb:table:ReadCapacityUnits", :"dynamodb:table:WriteCapacityUnits", :"dynamodb:index:ReadCapacityUnits", :"dynamodb:index:WriteCapacityUnits"] The scalable dimension associated with the scalable target.
         attribute :scalable_dimension
-        validates :scalable_dimension, presence: true, inclusion: {:in=>[:"ecs:service:DesiredCount", :"ec2:spot-fleet-request:TargetCapacity", :"elasticmapreduce:instancegroup:InstanceCount", :"appstream:fleet:DesiredCapacity", :"dynamodb:table:ReadCapacityUnits", :"dynamodb:table:WriteCapacityUnits", :"dynamodb:index:ReadCapacityUnits", :"dynamodb:index:WriteCapacityUnits"], :message=>"%{value} needs to be :\"ecs:service:DesiredCount\", :\"ec2:spot-fleet-request:TargetCapacity\", :\"elasticmapreduce:instancegroup:InstanceCount\", :\"appstream:fleet:DesiredCapacity\", :\"dynamodb:table:ReadCapacityUnits\", :\"dynamodb:table:WriteCapacityUnits\", :\"dynamodb:index:ReadCapacityUnits\", :\"dynamodb:index:WriteCapacityUnits\""}
+        validates :scalable_dimension, presence: true, expression_inclusion: {:in=>[:"ecs:service:DesiredCount", :"ec2:spot-fleet-request:TargetCapacity", :"elasticmapreduce:instancegroup:InstanceCount", :"appstream:fleet:DesiredCapacity", :"dynamodb:table:ReadCapacityUnits", :"dynamodb:table:WriteCapacityUnits", :"dynamodb:index:ReadCapacityUnits", :"dynamodb:index:WriteCapacityUnits"], :message=>"%{value} needs to be :\"ecs:service:DesiredCount\", :\"ec2:spot-fleet-request:TargetCapacity\", :\"elasticmapreduce:instancegroup:InstanceCount\", :\"appstream:fleet:DesiredCapacity\", :\"dynamodb:table:ReadCapacityUnits\", :\"dynamodb:table:WriteCapacityUnits\", :\"dynamodb:index:ReadCapacityUnits\", :\"dynamodb:index:WriteCapacityUnits\""}
 
         # @return [:StepScaling, :TargetTrackingScaling] The policy type.
         attribute :policy_type
-        validates :policy_type, presence: true, inclusion: {:in=>[:StepScaling, :TargetTrackingScaling], :message=>"%{value} needs to be :StepScaling, :TargetTrackingScaling"}
+        validates :policy_type, presence: true, expression_inclusion: {:in=>[:StepScaling, :TargetTrackingScaling], :message=>"%{value} needs to be :StepScaling, :TargetTrackingScaling"}
 
         # @return [Hash, nil] A step scaling policy. This parameter is required if you are creating a policy and the policy type is StepScaling.
         attribute :step_scaling_policy_configuration

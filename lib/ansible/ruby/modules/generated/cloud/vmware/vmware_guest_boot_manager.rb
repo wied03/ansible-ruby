@@ -20,7 +20,7 @@ module Ansible
 
         # @return [:first, :last, nil] If multiple virtual machines matching the name, use the first or last found.
         attribute :name_match
-        validates :name_match, inclusion: {:in=>[:first, :last], :message=>"%{value} needs to be :first, :last"}, allow_nil: true
+        validates :name_match, expression_inclusion: {:in=>[:first, :last], :message=>"%{value} needs to be :first, :last"}, allow_nil: true
 
         # @return [Integer, nil] Delay in milliseconds before starting the boot sequence.
         attribute :boot_delay
@@ -40,7 +40,7 @@ module Ansible
 
         # @return [:bios, :efi, nil] Choose which firmware should be used to boot the virtual machine.
         attribute :boot_firmware
-        validates :boot_firmware, inclusion: {:in=>[:bios, :efi], :message=>"%{value} needs to be :bios, :efi"}, allow_nil: true
+        validates :boot_firmware, expression_inclusion: {:in=>[:bios, :efi], :message=>"%{value} needs to be :bios, :efi"}, allow_nil: true
       end
     end
   end

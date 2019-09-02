@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-require 'ansible/ruby/models/base'
-require 'ansible/ruby/models/tasks'
-
 module Ansible
   module Ruby
     module Models

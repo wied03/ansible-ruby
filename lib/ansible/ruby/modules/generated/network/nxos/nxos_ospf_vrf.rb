@@ -24,7 +24,7 @@ module Ansible
 
         # @return [:log, :detail, :default, nil] Controls the level of log messages generated whenever a neighbor changes state. Valid values are 'log', 'detail', and 'default'.
         attribute :log_adjacency
-        validates :log_adjacency, inclusion: {:in=>[:log, :detail, :default], :message=>"%{value} needs to be :log, :detail, :default"}, allow_nil: true
+        validates :log_adjacency, expression_inclusion: {:in=>[:log, :detail, :default], :message=>"%{value} needs to be :log, :detail, :default"}, allow_nil: true
 
         # @return [Integer, nil] Specify the start interval for rate-limiting Link-State Advertisement (LSA) generation. Valid values are an integer, in milliseconds, or the keyword 'default'.
         attribute :timer_throttle_lsa_start
@@ -59,7 +59,7 @@ module Ansible
 
         # @return [:present, :absent, nil] State of ospf vrf configuration.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

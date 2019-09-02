@@ -30,7 +30,7 @@ module Ansible
 
         # @return [:present, :default, nil] Manage the state of the resource.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :default], :message=>"%{value} needs to be :present, :default"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :default], :message=>"%{value} needs to be :present, :default"}, allow_nil: true
       end
     end
   end

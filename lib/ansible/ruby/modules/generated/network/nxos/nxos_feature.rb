@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:enabled, :disabled, nil] Desired state of the feature.
         attribute :state
-        validates :state, inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
       end
     end
   end

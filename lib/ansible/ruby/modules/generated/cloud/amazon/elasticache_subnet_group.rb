@@ -10,7 +10,7 @@ module Ansible
       class Elasticache_subnet_group < Base
         # @return [:present, :absent] Specifies whether the subnet should be present or absent.
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
+        validates :state, presence: true, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
 
         # @return [String] Database subnet group identifier.
         attribute :name

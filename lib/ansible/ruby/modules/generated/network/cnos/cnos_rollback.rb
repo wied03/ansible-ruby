@@ -10,11 +10,11 @@ module Ansible
       class Cnos_rollback < Base
         # @return [:"running-config", :"startup-config"] This refers to the type of configuration which will be used for the rolling back process. The choices are the running or startup configurations. There is no default value, so it will result in an error if the input is incorrect.
         attribute :configType
-        validates :configType, presence: true, inclusion: {:in=>[:"running-config", :"startup-config"], :message=>"%{value} needs to be :\"running-config\", :\"startup-config\""}
+        validates :configType, presence: true, expression_inclusion: {:in=>[:"running-config", :"startup-config"], :message=>"%{value} needs to be :\"running-config\", :\"startup-config\""}
 
         # @return [:SFTP, :SCP, :FTP, :TFTP] This refers to the protocol used by the network device to interact with the remote server from where to download the backup configuration. The choices are FTP, SFTP, TFTP, or SCP. Any other protocols will result in error. If this parameter is not specified, there is no default value to be used.
         attribute :protocol
-        validates :protocol, presence: true, inclusion: {:in=>[:SFTP, :SCP, :FTP, :TFTP], :message=>"%{value} needs to be :SFTP, :SCP, :FTP, :TFTP"}
+        validates :protocol, presence: true, expression_inclusion: {:in=>[:SFTP, :SCP, :FTP, :TFTP], :message=>"%{value} needs to be :SFTP, :SCP, :FTP, :TFTP"}
 
         # @return [Object] This specifies the IP Address of the remote server from where the backup configuration will be downloaded.
         attribute :rcserverip

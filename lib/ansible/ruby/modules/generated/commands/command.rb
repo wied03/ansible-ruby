@@ -31,7 +31,7 @@ module Ansible
 
         # @return [:yes, :no, nil] If command_warnings are on in ansible.cfg, do not warn about this particular line if set to C(no).
         attribute :warn
-        validates :warn, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :warn, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] Set the stdin of the command directly to the specified value.
         attribute :stdin

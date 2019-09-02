@@ -10,7 +10,7 @@ module Ansible
       class Gce_pd < Base
         # @return [:yes, :no, nil] do not destroy the disk, merely detach it from an instance
         attribute :detach_only
-        validates :detach_only, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :detach_only, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] instance name if you wish to attach or detach the disk
         attribute :instance_name
@@ -18,7 +18,7 @@ module Ansible
 
         # @return [:READ_WRITE, :READ_ONLY, nil] GCE mount mode of disk, READ_ONLY (default) or READ_WRITE
         attribute :mode
-        validates :mode, inclusion: {:in=>[:READ_WRITE, :READ_ONLY], :message=>"%{value} needs to be :READ_WRITE, :READ_ONLY"}, allow_nil: true
+        validates :mode, expression_inclusion: {:in=>[:READ_WRITE, :READ_ONLY], :message=>"%{value} needs to be :READ_WRITE, :READ_ONLY"}, allow_nil: true
 
         # @return [String] name of the disk
         attribute :name
@@ -36,7 +36,7 @@ module Ansible
 
         # @return [:active, :present, :absent, :deleted, nil] desired state of the persistent disk
         attribute :state
-        validates :state, inclusion: {:in=>[:active, :present, :absent, :deleted], :message=>"%{value} needs to be :active, :present, :absent, :deleted"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:active, :present, :absent, :deleted], :message=>"%{value} needs to be :active, :present, :absent, :deleted"}, allow_nil: true
 
         # @return [String, nil] zone in which to create the disk
         attribute :zone
@@ -56,11 +56,11 @@ module Ansible
 
         # @return [:"pd-standard", :"pd-ssd", nil] type of disk provisioned
         attribute :disk_type
-        validates :disk_type, inclusion: {:in=>[:"pd-standard", :"pd-ssd"], :message=>"%{value} needs to be :\"pd-standard\", :\"pd-ssd\""}, allow_nil: true
+        validates :disk_type, expression_inclusion: {:in=>[:"pd-standard", :"pd-ssd"], :message=>"%{value} needs to be :\"pd-standard\", :\"pd-ssd\""}, allow_nil: true
 
         # @return [:yes, :no, nil] If C(yes), deletes the volume when instance is terminated
         attribute :delete_on_termination
-        validates :delete_on_termination, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :delete_on_termination, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

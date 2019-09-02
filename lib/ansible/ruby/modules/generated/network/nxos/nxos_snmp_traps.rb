@@ -10,11 +10,11 @@ module Ansible
       class Nxos_snmp_traps < Base
         # @return [:aaa, :bfd, :bgp, :bridge, :callhome, :cfs, :config, :eigrp, :entity, :"feature-control", :generic, :hsrp, :license, :link, :lldp, :mmode, :ospf, :pim, :rf, :rmon, :snmp, :"storm-control", :stpx, :switchfabric, :syslog, :sysmgr, :system, :upgrade, :vtp, :all] Case sensitive group.
         attribute :group
-        validates :group, presence: true, inclusion: {:in=>[:aaa, :bfd, :bgp, :bridge, :callhome, :cfs, :config, :eigrp, :entity, :"feature-control", :generic, :hsrp, :license, :link, :lldp, :mmode, :ospf, :pim, :rf, :rmon, :snmp, :"storm-control", :stpx, :switchfabric, :syslog, :sysmgr, :system, :upgrade, :vtp, :all], :message=>"%{value} needs to be :aaa, :bfd, :bgp, :bridge, :callhome, :cfs, :config, :eigrp, :entity, :\"feature-control\", :generic, :hsrp, :license, :link, :lldp, :mmode, :ospf, :pim, :rf, :rmon, :snmp, :\"storm-control\", :stpx, :switchfabric, :syslog, :sysmgr, :system, :upgrade, :vtp, :all"}
+        validates :group, presence: true, expression_inclusion: {:in=>[:aaa, :bfd, :bgp, :bridge, :callhome, :cfs, :config, :eigrp, :entity, :"feature-control", :generic, :hsrp, :license, :link, :lldp, :mmode, :ospf, :pim, :rf, :rmon, :snmp, :"storm-control", :stpx, :switchfabric, :syslog, :sysmgr, :system, :upgrade, :vtp, :all], :message=>"%{value} needs to be :aaa, :bfd, :bgp, :bridge, :callhome, :cfs, :config, :eigrp, :entity, :\"feature-control\", :generic, :hsrp, :license, :link, :lldp, :mmode, :ospf, :pim, :rf, :rmon, :snmp, :\"storm-control\", :stpx, :switchfabric, :syslog, :sysmgr, :system, :upgrade, :vtp, :all"}
 
         # @return [:enabled, :disabled, nil] Manage the state of the resource.
         attribute :state
-        validates :state, inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
       end
     end
   end

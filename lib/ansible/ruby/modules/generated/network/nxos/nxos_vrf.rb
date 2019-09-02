@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:up, :down, nil] Administrative state of the VRF.
         attribute :admin_state
-        validates :admin_state, inclusion: {:in=>[:up, :down], :message=>"%{value} needs to be :up, :down"}, allow_nil: true
+        validates :admin_state, expression_inclusion: {:in=>[:up, :down], :message=>"%{value} needs to be :up, :down"}, allow_nil: true
 
         # @return [Object, nil] Specify virtual network identifier. Valid values are Integer or keyword 'default'.
         attribute :vni
@@ -36,11 +36,11 @@ module Ansible
 
         # @return [:yes, :no, nil] Purge VRFs not defined in the I(aggregate) parameter.
         attribute :purge
-        validates :purge, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :purge, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:present, :absent, nil] Manages desired state of the resource.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String, nil] Description of the VRF or keyword 'default'.
         attribute :description

@@ -13,7 +13,7 @@ module Ansible
 
         # @return [:enabled, :disabled, nil] Whether to enable the banner or not.
         attribute :banner
-        validates :banner, inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
+        validates :banner, expression_inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
 
         # @return [String, nil] Specifies the text to include on the pre-login banner that displays when a user attempts to login to the system using SSH.
         attribute :banner_text
@@ -24,11 +24,11 @@ module Ansible
 
         # @return [:debug, :debug1, :debug2, :debug3, :error, :fatal, :info, :quiet, :verbose, nil] Specifies the minimum SSHD message level to include in the system log.
         attribute :log_level
-        validates :log_level, inclusion: {:in=>[:debug, :debug1, :debug2, :debug3, :error, :fatal, :info, :quiet, :verbose], :message=>"%{value} needs to be :debug, :debug1, :debug2, :debug3, :error, :fatal, :info, :quiet, :verbose"}, allow_nil: true
+        validates :log_level, expression_inclusion: {:in=>[:debug, :debug1, :debug2, :debug3, :error, :fatal, :info, :quiet, :verbose], :message=>"%{value} needs to be :debug, :debug1, :debug2, :debug3, :error, :fatal, :info, :quiet, :verbose"}, allow_nil: true
 
         # @return [:enabled, :disabled, nil] Specifies, when checked C(enabled), that the system accepts SSH communications.
         attribute :login
-        validates :login, inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
+        validates :login, expression_inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
 
         # @return [Integer, nil] Port that you want the SSH daemon to run on.
         attribute :port

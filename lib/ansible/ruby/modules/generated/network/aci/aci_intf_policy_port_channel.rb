@@ -26,7 +26,7 @@ module Ansible
 
         # @return [:active, :"mac-pin", :"mac-pin-nicload", :off, :passive, nil] Port channel interface policy mode.,Determines the LACP method to use for forming port-channels.,The APIC defaults to C(off) when unset during creation.
         attribute :mode
-        validates :mode, inclusion: {:in=>[:active, :"mac-pin", :"mac-pin-nicload", :off, :passive], :message=>"%{value} needs to be :active, :\"mac-pin\", :\"mac-pin-nicload\", :off, :passive"}, allow_nil: true
+        validates :mode, expression_inclusion: {:in=>[:active, :"mac-pin", :"mac-pin-nicload", :off, :passive], :message=>"%{value} needs to be :active, :\"mac-pin\", :\"mac-pin-nicload\", :off, :passive"}, allow_nil: true
 
         # @return [Symbol, nil] Determines if Fast Select is enabled for Hot Standby Ports.,This makes up the LACP Policy Control Policy; if one setting is defined, then all other Control Properties left undefined or set to false will not exist after the task is ran.,The APIC defaults to C(yes) when unset during creation.
         attribute :fast_select
@@ -50,7 +50,7 @@ module Ansible
 
         # @return [:absent, :present, :query, nil] Use C(present) or C(absent) for adding or removing.,Use C(query) for listing an object or multiple objects.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present, :query], :message=>"%{value} needs to be :absent, :present, :query"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present, :query], :message=>"%{value} needs to be :absent, :present, :query"}, allow_nil: true
       end
     end
   end

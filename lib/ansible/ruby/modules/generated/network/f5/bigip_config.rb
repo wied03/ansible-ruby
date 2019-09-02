@@ -10,7 +10,7 @@ module Ansible
       class Bigip_config < Base
         # @return [Boolean, nil] The C(save) argument instructs the module to save the running-config to startup-config.,This operation is performed after any changes are made to the current running config. If no changes are made, the configuration is still saved to the startup config.,This option will always cause the module to return changed.
         attribute :save
-        validates :save, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :save, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Symbol, nil] Loads the default configuration on the device.,If this option is specified, the default configuration will be loaded before any commands or other provided configuration is run.
         attribute :reset

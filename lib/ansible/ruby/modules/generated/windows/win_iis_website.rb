@@ -17,7 +17,7 @@ module Ansible
 
         # @return [:absent, :started, :stopped, :restarted, nil] State of the web site
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :started, :stopped, :restarted], :message=>"%{value} needs to be :absent, :started, :stopped, :restarted"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :started, :stopped, :restarted], :message=>"%{value} needs to be :absent, :started, :stopped, :restarted"}, allow_nil: true
 
         # @return [String, nil] The physical path on the remote host to use for the new site.,The specified folder must already exist.
         attribute :physical_path

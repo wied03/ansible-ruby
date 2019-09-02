@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:v2, :v2c, :v3] SNMP Version to use, v2/v2c or v3
         attribute :version
-        validates :version, presence: true, inclusion: {:in=>[:v2, :v2c, :v3], :message=>"%{value} needs to be :v2, :v2c, :v3"}
+        validates :version, presence: true, expression_inclusion: {:in=>[:v2, :v2c, :v3], :message=>"%{value} needs to be :v2, :v2c, :v3"}
 
         # @return [String, nil] The SNMP community string, required if version is v2/v2c
         attribute :community
@@ -22,7 +22,7 @@ module Ansible
 
         # @return [:authPriv, :authNoPriv, nil] Authentication level, required if version is v3
         attribute :level
-        validates :level, inclusion: {:in=>[:authPriv, :authNoPriv], :message=>"%{value} needs to be :authPriv, :authNoPriv"}, allow_nil: true
+        validates :level, expression_inclusion: {:in=>[:authPriv, :authNoPriv], :message=>"%{value} needs to be :authPriv, :authNoPriv"}, allow_nil: true
 
         # @return [String, nil] Username for SNMPv3, required if version is v3
         attribute :username
@@ -30,7 +30,7 @@ module Ansible
 
         # @return [:md5, :sha, nil] Hashing algorithm, required if version is v3
         attribute :integrity
-        validates :integrity, inclusion: {:in=>[:md5, :sha], :message=>"%{value} needs to be :md5, :sha"}, allow_nil: true
+        validates :integrity, expression_inclusion: {:in=>[:md5, :sha], :message=>"%{value} needs to be :md5, :sha"}, allow_nil: true
 
         # @return [String, nil] Authentication key, required if version is v3
         attribute :authkey
@@ -38,7 +38,7 @@ module Ansible
 
         # @return [:des, :aes, nil] Encryption algorithm, required if level is authPriv
         attribute :privacy
-        validates :privacy, inclusion: {:in=>[:des, :aes], :message=>"%{value} needs to be :des, :aes"}, allow_nil: true
+        validates :privacy, expression_inclusion: {:in=>[:des, :aes], :message=>"%{value} needs to be :des, :aes"}, allow_nil: true
 
         # @return [String, nil] Encryption key, required if version is authPriv
         attribute :privkey

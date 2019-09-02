@@ -18,7 +18,7 @@ module Ansible
 
         # @return [:a, :aaaa, :cname, :mx, :naptr, :srv] The type of GTM pool that the member is in.
         attribute :type
-        validates :type, presence: true, inclusion: {:in=>[:a, :aaaa, :cname, :mx, :naptr, :srv], :message=>"%{value} needs to be :a, :aaaa, :cname, :mx, :naptr, :srv"}
+        validates :type, presence: true, expression_inclusion: {:in=>[:a, :aaaa, :cname, :mx, :naptr, :srv], :message=>"%{value} needs to be :a, :aaaa, :cname, :mx, :naptr, :srv"}
 
         # @return [Object] Name of the GTM pool.
         attribute :pool
@@ -45,7 +45,7 @@ module Ansible
 
         # @return [:present, :absent, :enabled, :disabled, nil] Pool member state. When C(present), ensures that the pool member is created and enabled. When C(absent), ensures that the pool member is removed from the system. When C(enabled) or C(disabled), ensures that the pool member is enabled or disabled (respectively) on the remote device.,It is recommended that you use the C(members) parameter of the C(bigip_gtm_pool) module when adding and removing members and it provides an easier way of specifying order. If this is not possible, then the C(state) parameter here should be used.,Remember that the order of the members will be affected if you add or remove them using this method. To some extent, this can be controlled using the C(member_order) parameter.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent, :enabled, :disabled], :message=>"%{value} needs to be :present, :absent, :enabled, :disabled"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent, :enabled, :disabled], :message=>"%{value} needs to be :present, :absent, :enabled, :disabled"}, allow_nil: true
       end
     end
   end

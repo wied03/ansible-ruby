@@ -11,7 +11,7 @@ module Ansible
       class Ucs_storage_profile < Base
         # @return [:absent, :present, nil] If C(present), will verify that the storage profile is present and will create if needed.,If C(absent), will verify that the storage profile is absent and will delete if needed.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
         # @return [String] The name of the storage profile.,This name can be between 1 and 16 alphanumeric characters.,You cannot use spaces or any special characters other than - (hyphen), "_" (underscore), : (colon), and . (period).,You cannot change this name after profile is created.
         attribute :name

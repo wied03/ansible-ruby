@@ -18,7 +18,7 @@ module Ansible
 
         # @return [:absent, :present, nil] Assert the state of the managed disk. Use C(present) to create or update a managed disk and 'absent' to delete a managed disk.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
         # @return [String, nil] Valid Azure location. Defaults to location of the resource group.
         attribute :location
@@ -26,11 +26,11 @@ module Ansible
 
         # @return [:Standard_LRS, :Premium_LRS, nil] Type of storage for the managed disk: C(Standard_LRS)  or C(Premium_LRS). If not specified the disk is created C(Standard_LRS).
         attribute :storage_account_type
-        validates :storage_account_type, inclusion: {:in=>[:Standard_LRS, :Premium_LRS], :message=>"%{value} needs to be :Standard_LRS, :Premium_LRS"}, allow_nil: true
+        validates :storage_account_type, expression_inclusion: {:in=>[:Standard_LRS, :Premium_LRS], :message=>"%{value} needs to be :Standard_LRS, :Premium_LRS"}, allow_nil: true
 
         # @return [:empty, :import, :copy, nil] Allowed values: empty, import, copy. C(import) from a VHD file in I(source_uri) and C(copy) from previous managed disk I(source_resource_uri).
         attribute :create_option
-        validates :create_option, inclusion: {:in=>[:empty, :import, :copy], :message=>"%{value} needs to be :empty, :import, :copy"}, allow_nil: true
+        validates :create_option, expression_inclusion: {:in=>[:empty, :import, :copy], :message=>"%{value} needs to be :empty, :import, :copy"}, allow_nil: true
 
         # @return [Object, nil] URI to a valid VHD file to be used when I(create_option) is C(import).
         attribute :source_uri
@@ -40,7 +40,7 @@ module Ansible
 
         # @return [:linux, :windows, nil] Type of Operating System: C(linux) or C(windows). Used when I(create_option) is either C(copy) or C(import) and the source is an OS disk.
         attribute :os_type
-        validates :os_type, inclusion: {:in=>[:linux, :windows], :message=>"%{value} needs to be :linux, :windows"}, allow_nil: true
+        validates :os_type, expression_inclusion: {:in=>[:linux, :windows], :message=>"%{value} needs to be :linux, :windows"}, allow_nil: true
 
         # @return [Integer, nil] Size in GB of the managed disk to be created. If I(create_option) is C(copy) then the value must be greater than or equal to the source's size.
         attribute :disk_size_gb

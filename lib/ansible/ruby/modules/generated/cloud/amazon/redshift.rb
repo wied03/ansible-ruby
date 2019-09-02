@@ -10,7 +10,7 @@ module Ansible
       class Redshift < Base
         # @return [:create, :facts, :delete, :modify] Specifies the action to take.
         attribute :command
-        validates :command, presence: true, inclusion: {:in=>[:create, :facts, :delete, :modify], :message=>"%{value} needs to be :create, :facts, :delete, :modify"}
+        validates :command, presence: true, expression_inclusion: {:in=>[:create, :facts, :delete, :modify], :message=>"%{value} needs to be :create, :facts, :delete, :modify"}
 
         # @return [String] Redshift cluster identifier.
         attribute :identifier
@@ -18,7 +18,7 @@ module Ansible
 
         # @return [:"ds1.xlarge", :"ds1.8xlarge", :"ds2.xlarge", :"ds2.8xlarge", :"dc1.large", :"dc1.8xlarge", :"dc2.large", :"dc2.8xlarge", :"dw1.xlarge", :"dw1.8xlarge", :"dw2.large", :"dw2.8xlarge", nil] The node type of the cluster. Must be specified when command=create.
         attribute :node_type
-        validates :node_type, inclusion: {:in=>[:"ds1.xlarge", :"ds1.8xlarge", :"ds2.xlarge", :"ds2.8xlarge", :"dc1.large", :"dc1.8xlarge", :"dc2.large", :"dc2.8xlarge", :"dw1.xlarge", :"dw1.8xlarge", :"dw2.large", :"dw2.8xlarge"], :message=>"%{value} needs to be :\"ds1.xlarge\", :\"ds1.8xlarge\", :\"ds2.xlarge\", :\"ds2.8xlarge\", :\"dc1.large\", :\"dc1.8xlarge\", :\"dc2.large\", :\"dc2.8xlarge\", :\"dw1.xlarge\", :\"dw1.8xlarge\", :\"dw2.large\", :\"dw2.8xlarge\""}, allow_nil: true
+        validates :node_type, expression_inclusion: {:in=>[:"ds1.xlarge", :"ds1.8xlarge", :"ds2.xlarge", :"ds2.8xlarge", :"dc1.large", :"dc1.8xlarge", :"dc2.large", :"dc2.8xlarge", :"dw1.xlarge", :"dw1.8xlarge", :"dw2.large", :"dw2.8xlarge"], :message=>"%{value} needs to be :\"ds1.xlarge\", :\"ds1.8xlarge\", :\"ds2.xlarge\", :\"ds2.8xlarge\", :\"dc1.large\", :\"dc1.8xlarge\", :\"dc2.large\", :\"dc2.8xlarge\", :\"dw1.xlarge\", :\"dw1.8xlarge\", :\"dw2.large\", :\"dw2.8xlarge\""}, allow_nil: true
 
         # @return [String, nil] Master database username. Used only when command=create.
         attribute :username
@@ -30,7 +30,7 @@ module Ansible
 
         # @return [:"multi-node", :"single-node", nil] The type of cluster.
         attribute :cluster_type
-        validates :cluster_type, inclusion: {:in=>[:"multi-node", :"single-node"], :message=>"%{value} needs to be :\"multi-node\", :\"single-node\""}, allow_nil: true
+        validates :cluster_type, expression_inclusion: {:in=>[:"multi-node", :"single-node"], :message=>"%{value} needs to be :\"multi-node\", :\"single-node\""}, allow_nil: true
 
         # @return [Object, nil] Name of the database.
         attribute :db_name
@@ -71,7 +71,7 @@ module Ansible
 
         # @return [1.0, nil] which version the cluster should have
         attribute :cluster_version
-        validates :cluster_version, inclusion: {:in=>[1.0], :message=>"%{value} needs to be 1.0"}, allow_nil: true
+        validates :cluster_version, expression_inclusion: {:in=>[1.0], :message=>"%{value} needs to be 1.0"}, allow_nil: true
 
         # @return [String, nil] flag to determinate if upgrade of version is possible
         attribute :allow_version_upgrade
@@ -93,7 +93,7 @@ module Ansible
 
         # @return [:yes, :no, nil] When command=create, modify or restore then wait for the database to enter the 'available' state. When command=delete wait for the database to be terminated.
         attribute :wait
-        validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :wait, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] how long before wait gives up, in seconds
         attribute :wait_timeout

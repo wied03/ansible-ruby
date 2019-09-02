@@ -20,15 +20,15 @@ module Ansible
 
         # @return [:yes, :no, nil] Boolean indicating whether you agree to the terms of service document.,ACME servers can require this to be true.,This option will only be used when C(acme_version) is not 1.
         attribute :terms_agreed
-        validates :terms_agreed, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :terms_agreed, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:yes, :no, nil] Boolean indicating whether the module should create the account if necessary, and update its contact data.,Set to C(no) if you want to use the M(acme_account) module to manage your account instead, and to avoid accidental creation of a new account using an old key if you changed the account key with M(acme_account).,If set to C(no), C(terms_agreed) and C(account_email) are ignored.
         attribute :modify_account
-        validates :modify_account, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :modify_account, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:"http-01", :"dns-01", :"tls-alpn-01", nil] The challenge to be performed.
         attribute :challenge
-        validates :challenge, inclusion: {:in=>[:"http-01", :"dns-01", :"tls-alpn-01"], :message=>"%{value} needs to be :\"http-01\", :\"dns-01\", :\"tls-alpn-01\""}, allow_nil: true
+        validates :challenge, expression_inclusion: {:in=>[:"http-01", :"dns-01", :"tls-alpn-01"], :message=>"%{value} needs to be :\"http-01\", :\"dns-01\", :\"tls-alpn-01\""}, allow_nil: true
 
         # @return [String] File containing the CSR for the new certificate.,Can be created with C(openssl req ...).,The CSR may contain multiple Subject Alternate Names, but each one will lead to an individual challenge that must be fulfilled for the CSR to be signed.,I(Note): the private key used to create the CSR I(must not) be the account key. This is a bad idea from a security point of view, and the CA should not accept the CSR. The ACME server should return an error in this case.
         attribute :csr
@@ -56,11 +56,11 @@ module Ansible
 
         # @return [:yes, :no, nil] Deactivate authentication objects (authz) after issuing a certificate, or when issuing the certificate failed.,Authentication objects are bound to an account key and remain valid for a certain amount of time, and can be used to issue certificates without having to re-authenticate the domain. This can be a security concern.
         attribute :deactivate_authzs
-        validates :deactivate_authzs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :deactivate_authzs, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:yes, :no, nil] Enforces the execution of the challenge and validation, even if an existing certificate is still valid for more than C(remaining_days).,This is especially helpful when having an updated CSR e.g. with additional domains for which a new certificate is desired.
         attribute :force
-        validates :force, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :force, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

@@ -29,7 +29,7 @@ module Ansible
 
         # @return [:copy, :default, :non_readable_secondary, :online_secondary, :point_in_time_restore, :recovery, :restore, :restore_long_term_retention_backup, nil] Specifies the mode of database creation.,C(default): regular database creation.,C(copy): creates a database as a copy of an existing database.,C(online_secondary)/C(non_readable_secondary): creates a database as a (readable or nonreadable) secondary replica of an existing database.,C(point_in_time_restore): Creates a database by restoring a point in time backup of an existing database.,C(recovery): Creates a database by restoring a geo-replicated backup.,C(restore): Creates a database by restoring a backup of a deleted database.,C(restore_long_term_retention_backup): Creates a database by restoring from a long term retention vault.,C(copy), C(non_readable_secondary), C(online_secondary) and C(restore_long_term_retention_backup) are not supported for C(data_warehouse) edition.
         attribute :create_mode
-        validates :create_mode, inclusion: {:in=>[:copy, :default, :non_readable_secondary, :online_secondary, :point_in_time_restore, :recovery, :restore, :restore_long_term_retention_backup], :message=>"%{value} needs to be :copy, :default, :non_readable_secondary, :online_secondary, :point_in_time_restore, :recovery, :restore, :restore_long_term_retention_backup"}, allow_nil: true
+        validates :create_mode, expression_inclusion: {:in=>[:copy, :default, :non_readable_secondary, :online_secondary, :point_in_time_restore, :recovery, :restore, :restore_long_term_retention_backup], :message=>"%{value} needs to be :copy, :default, :non_readable_secondary, :online_secondary, :point_in_time_restore, :recovery, :restore, :restore_long_term_retention_backup"}, allow_nil: true
 
         # @return [String, nil] Required unless I(create_mode) is C(default) or C(restore_long_term_retention_backup).,Specifies the resource ID of the source database
         attribute :source_database_id
@@ -46,7 +46,7 @@ module Ansible
 
         # @return [:web, :business, :basic, :standard, :premium, :free, :stretch, :data_warehouse, :system, :system2, nil] The edition of the database. The DatabaseEditions enumeration contains all the valid editions. If I(create_mode) is C(non_readable_secondary) or C(online_secondary), this value is ignored. To see possible values, query the capabilities API (/subscriptions/{subscriptionId}/providers/Microsoft.Sql/locations/{locationID}/capabilities) referred to by operationId: 'Capabilities_ListByLocation.'.
         attribute :edition
-        validates :edition, inclusion: {:in=>[:web, :business, :basic, :standard, :premium, :free, :stretch, :data_warehouse, :system, :system2], :message=>"%{value} needs to be :web, :business, :basic, :standard, :premium, :free, :stretch, :data_warehouse, :system, :system2"}, allow_nil: true
+        validates :edition, expression_inclusion: {:in=>[:web, :business, :basic, :standard, :premium, :free, :stretch, :data_warehouse, :system, :system2], :message=>"%{value} needs to be :web, :business, :basic, :standard, :premium, :free, :stretch, :data_warehouse, :system, :system2"}, allow_nil: true
 
         # @return [Object, nil] The max size of the database expressed in bytes. If I(create_mode) is not C(default), this value is ignored. To see possible values, query the capabilities API (/subscriptions/{subscriptionId}/providers/Microsoft.Sql/locations/{locationID}/capabilities) referred to by operationId: 'Capabilities_ListByLocation.'
         attribute :max_size_bytes
@@ -60,7 +60,7 @@ module Ansible
 
         # @return [:adventure_works_lt, nil] Indicates the name of the sample schema to apply when creating this database. If I(create_mode) is not C(default), this value is ignored. Not supported for C(data_warehouse) edition.
         attribute :sample_name
-        validates :sample_name, inclusion: {:in=>[:adventure_works_lt], :message=>"%{value} needs to be :adventure_works_lt"}, allow_nil: true
+        validates :sample_name, expression_inclusion: {:in=>[:adventure_works_lt], :message=>"%{value} needs to be :adventure_works_lt"}, allow_nil: true
 
         # @return [Symbol, nil] Is this database is zone redundant? It means the replicas of this database will be spread across multiple availability zones.
         attribute :zone_redundant
@@ -72,7 +72,7 @@ module Ansible
 
         # @return [:absent, :present, nil] Assert the state of the SQL Database. Use 'present' to create or update an SQL Database and 'absent' to delete it.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
       end
     end
   end

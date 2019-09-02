@@ -21,7 +21,7 @@ module Ansible
 
         # @return [:present, :absent, nil] If the state is present, the rpm will be installed, If the state is absent, it will be removed.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

@@ -18,11 +18,11 @@ module Ansible
 
         # @return [:list, :present, nil] Set or list acceptance level of the given ESXi host.,If set to C(list), then will return current acceptance level of given host system/s.,If set to C(present), then will set given acceptance level.
         attribute :state
-        validates :state, inclusion: {:in=>[:list, :present], :message=>"%{value} needs to be :list, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:list, :present], :message=>"%{value} needs to be :list, :present"}, allow_nil: true
 
         # @return [:community, :partner, :vmware_accepted, :vmware_certified, nil] Name of acceptance level.,If set to C(partner), then accept only partner and VMware signed and certified VIBs.,If set to C(vmware_certified), then accept only VIBs that are signed and certified by VMware.,If set to C(vmware_accepted), then accept VIBs that have been accepted by VMware.,If set to C(community), then accept all VIBs, even those that are not signed.
         attribute :acceptance_level
-        validates :acceptance_level, inclusion: {:in=>[:community, :partner, :vmware_accepted, :vmware_certified], :message=>"%{value} needs to be :community, :partner, :vmware_accepted, :vmware_certified"}, allow_nil: true
+        validates :acceptance_level, expression_inclusion: {:in=>[:community, :partner, :vmware_accepted, :vmware_certified], :message=>"%{value} needs to be :community, :partner, :vmware_accepted, :vmware_certified"}, allow_nil: true
       end
     end
   end

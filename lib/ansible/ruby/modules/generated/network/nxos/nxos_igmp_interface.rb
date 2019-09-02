@@ -14,7 +14,7 @@ module Ansible
 
         # @return [2, 3, :default, nil] IGMP version. It can be 2 or 3 or keyword 'default'.
         attribute :version
-        validates :version, inclusion: {:in=>[2, 3, :default], :message=>"%{value} needs to be 2, 3, :default"}, allow_nil: true
+        validates :version, expression_inclusion: {:in=>[2, 3, :default], :message=>"%{value} needs to be 2, 3, :default"}, allow_nil: true
 
         # @return [Integer, nil] Query interval used when the IGMP process starts up. The range is from 1 to 18000 or keyword 'default'. The default is 31.
         attribute :startup_query_interval
@@ -71,7 +71,7 @@ module Ansible
 
         # @return [:present, :absent, :default, nil] Manages desired state of the resource.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent, :default], :message=>"%{value} needs to be :present, :absent, :default"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent, :default], :message=>"%{value} needs to be :present, :absent, :default"}, allow_nil: true
       end
     end
   end

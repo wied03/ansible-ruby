@@ -11,7 +11,7 @@ module Ansible
       class Ec2_metric_alarm < Base
         # @return [:present, :absent] register or deregister the alarm
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
+        validates :state, presence: true, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
 
         # @return [String] Unique name for the alarm
         attribute :name
@@ -27,11 +27,11 @@ module Ansible
 
         # @return [:SampleCount, :Average, :Sum, :Minimum, :Maximum, nil] Operation applied to the metric,Works in conjunction with period and evaluation_periods to determine the comparison value
         attribute :statistic
-        validates :statistic, inclusion: {:in=>[:SampleCount, :Average, :Sum, :Minimum, :Maximum], :message=>"%{value} needs to be :SampleCount, :Average, :Sum, :Minimum, :Maximum"}, allow_nil: true
+        validates :statistic, expression_inclusion: {:in=>[:SampleCount, :Average, :Sum, :Minimum, :Maximum], :message=>"%{value} needs to be :SampleCount, :Average, :Sum, :Minimum, :Maximum"}, allow_nil: true
 
         # @return [:<=, :<, :>, :>=, nil] Determines how the threshold value is compared
         attribute :comparison
-        validates :comparison, inclusion: {:in=>[:<=, :<, :>, :>=], :message=>"%{value} needs to be :<=, :<, :>, :>="}, allow_nil: true
+        validates :comparison, expression_inclusion: {:in=>[:<=, :<, :>, :>=], :message=>"%{value} needs to be :<=, :<, :>, :>="}, allow_nil: true
 
         # @return [Float, nil] Sets the min/max bound for triggering the alarm
         attribute :threshold
@@ -47,7 +47,7 @@ module Ansible
 
         # @return [:Seconds, :Microseconds, :Milliseconds, :Bytes, :Kilobytes, :Megabytes, :Gigabytes, :Terabytes, :Bits, :Kilobits, :Megabits, :Gigabits, :Terabits, :Percent, :Count, :"Bytes/Second", :"Kilobytes/Second", :"Megabytes/Second", :"Gigabytes/Second", :"Terabytes/Second", :"Bits/Second", :"Kilobits/Second", :"Megabits/Second", :"Gigabits/Second", :"Terabits/Second", :"Count/Second", :None, nil] The threshold's unit of measurement
         attribute :unit
-        validates :unit, inclusion: {:in=>[:Seconds, :Microseconds, :Milliseconds, :Bytes, :Kilobytes, :Megabytes, :Gigabytes, :Terabytes, :Bits, :Kilobits, :Megabits, :Gigabits, :Terabits, :Percent, :Count, :"Bytes/Second", :"Kilobytes/Second", :"Megabytes/Second", :"Gigabytes/Second", :"Terabytes/Second", :"Bits/Second", :"Kilobits/Second", :"Megabits/Second", :"Gigabits/Second", :"Terabits/Second", :"Count/Second", :None], :message=>"%{value} needs to be :Seconds, :Microseconds, :Milliseconds, :Bytes, :Kilobytes, :Megabytes, :Gigabytes, :Terabytes, :Bits, :Kilobits, :Megabits, :Gigabits, :Terabits, :Percent, :Count, :\"Bytes/Second\", :\"Kilobytes/Second\", :\"Megabytes/Second\", :\"Gigabytes/Second\", :\"Terabytes/Second\", :\"Bits/Second\", :\"Kilobits/Second\", :\"Megabits/Second\", :\"Gigabits/Second\", :\"Terabits/Second\", :\"Count/Second\", :None"}, allow_nil: true
+        validates :unit, expression_inclusion: {:in=>[:Seconds, :Microseconds, :Milliseconds, :Bytes, :Kilobytes, :Megabytes, :Gigabytes, :Terabytes, :Bits, :Kilobits, :Megabits, :Gigabits, :Terabits, :Percent, :Count, :"Bytes/Second", :"Kilobytes/Second", :"Megabytes/Second", :"Gigabytes/Second", :"Terabytes/Second", :"Bits/Second", :"Kilobits/Second", :"Megabits/Second", :"Gigabits/Second", :"Terabits/Second", :"Count/Second", :None], :message=>"%{value} needs to be :Seconds, :Microseconds, :Milliseconds, :Bytes, :Kilobytes, :Megabytes, :Gigabytes, :Terabytes, :Bits, :Kilobits, :Megabits, :Gigabits, :Terabits, :Percent, :Count, :\"Bytes/Second\", :\"Kilobytes/Second\", :\"Megabytes/Second\", :\"Gigabytes/Second\", :\"Terabytes/Second\", :\"Bits/Second\", :\"Kilobits/Second\", :\"Megabits/Second\", :\"Gigabits/Second\", :\"Terabits/Second\", :\"Count/Second\", :None"}, allow_nil: true
 
         # @return [String, nil] A longer description of the alarm
         attribute :description

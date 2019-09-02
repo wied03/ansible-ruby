@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# VALIDATED_CHECKSUM: ip23tisTReUfc1MZGw0hNQOlLVxf90rfNQlHDz2ASSM=
+# VALIDATED_CHECKSUM: 2Xw3BWuyYAdBR5uBu3zJMb/O3rosKreeI2Cpo0B0ul8=
 
 # see LICENSE.txt in project root
 
@@ -11,7 +11,7 @@ module Ansible
     module Modules
       class Firewalld
         remove_existing_validations :permanent
-        validates :permanent, inclusion: { in: [true, false], message: '%{value} needs to be true, false' }, allow_nil: true
+        validates :permanent, expression_inclusion: { in: [true, false], message: '%{value} needs to be true, false' }, allow_nil: true
       end
     end
   end

@@ -17,7 +17,7 @@ module Ansible
 
         # @return [:present, :absent, nil] When C(state) is C(present), ensures that the policy exists.,When C(state) is C(absent), ensures that the policy is removed.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [Array<String>, String, nil] Specifies a list of rules that you want associated with this policy. The order of this list is the order they will be evaluated by BIG-IP. If the specified rules do not exist (for example when creating a new policy) then they will be created.,Rules specified here, if they do not exist, will be created with "default deny" behavior. It is expected that you follow-up this module with the actual configuration for these rules.,The C(bigip_firewall_rule) module can be used to also create, as well as edit, existing and new rules.
         attribute :rules

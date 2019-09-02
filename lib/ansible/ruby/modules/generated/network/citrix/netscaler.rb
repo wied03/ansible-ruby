@@ -26,7 +26,7 @@ module Ansible
 
         # @return [:disable, :enable, nil] The action you want to perform on the entity.
         attribute :action
-        validates :action, inclusion: {:in=>[:disable, :enable], :message=>"%{value} needs to be :disable, :enable"}, allow_nil: true
+        validates :action, expression_inclusion: {:in=>[:disable, :enable], :message=>"%{value} needs to be :disable, :enable"}, allow_nil: true
 
         # @return [String] Name of the entity.
         attribute :name
@@ -34,11 +34,11 @@ module Ansible
 
         # @return [:server, :service, nil] Type of the entity.
         attribute :type
-        validates :type, inclusion: {:in=>[:server, :service], :message=>"%{value} needs to be :server, :service"}, allow_nil: true
+        validates :type, expression_inclusion: {:in=>[:server, :service], :message=>"%{value} needs to be :server, :service"}, allow_nil: true
 
         # @return [:yes, :no, nil] If C(no), SSL certificates for the target url will not be validated.,This should only be used on personally controlled sites using self-signed certificates.
         attribute :validate_certs
-        validates :validate_certs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :validate_certs, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

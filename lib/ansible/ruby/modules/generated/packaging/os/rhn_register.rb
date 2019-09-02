@@ -10,7 +10,7 @@ module Ansible
       class Rhn_register < Base
         # @return [:present, :absent, nil] whether to register (C(present)), or unregister (C(absent)) a system
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String, nil] Red Hat Network username
         attribute :username
@@ -43,11 +43,11 @@ module Ansible
 
         # @return [:yes, :no, nil] If C(no), extended update support will be requested.
         attribute :enable_eus
-        validates :enable_eus, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :enable_eus, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:yes, :no, nil] If C(yes), the registered node will not upload its installed packages information to Satellite server
         attribute :nopackages
-        validates :nopackages, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :nopackages, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

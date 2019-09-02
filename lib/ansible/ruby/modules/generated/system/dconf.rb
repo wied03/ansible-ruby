@@ -19,7 +19,7 @@ module Ansible
 
         # @return [:read, :present, :absent, nil] The action to take upon the key/value.
         attribute :state
-        validates :state, inclusion: {:in=>[:read, :present, :absent], :message=>"%{value} needs to be :read, :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:read, :present, :absent], :message=>"%{value} needs to be :read, :present, :absent"}, allow_nil: true
       end
     end
   end

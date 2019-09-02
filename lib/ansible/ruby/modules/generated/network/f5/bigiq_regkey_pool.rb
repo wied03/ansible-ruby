@@ -17,7 +17,7 @@ module Ansible
 
         # @return [:absent, :present, nil] The state of the regkey pool on the system.,When C(present), guarantees that the pool exists.,When C(absent), removes the pool, and the licenses it contains, from the system.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
       end
     end
   end

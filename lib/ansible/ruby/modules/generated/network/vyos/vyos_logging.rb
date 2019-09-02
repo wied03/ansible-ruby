@@ -10,7 +10,7 @@ module Ansible
       class Vyos_logging < Base
         # @return [:console, :file, :global, :host, :user, nil] Destination of the logs.
         attribute :dest
-        validates :dest, inclusion: {:in=>[:console, :file, :global, :host, :user], :message=>"%{value} needs to be :console, :file, :global, :host, :user"}, allow_nil: true
+        validates :dest, expression_inclusion: {:in=>[:console, :file, :global, :host, :user], :message=>"%{value} needs to be :console, :file, :global, :host, :user"}, allow_nil: true
 
         # @return [String, nil] If value of C(dest) is I(file) it indicates file-name, for I(user) it indicates username and for I(host) indicates the host name to be notified.
         attribute :name
@@ -30,7 +30,7 @@ module Ansible
 
         # @return [:present, :absent, nil] State of the logging configuration.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

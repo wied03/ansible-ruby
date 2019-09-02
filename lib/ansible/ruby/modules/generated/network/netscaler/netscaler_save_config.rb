@@ -24,7 +24,7 @@ module Ansible
 
         # @return [:http, :https, nil] Which protocol to use when accessing the nitro API objects.
         attribute :nitro_protocol
-        validates :nitro_protocol, inclusion: {:in=>[:http, :https], :message=>"%{value} needs to be :http, :https"}, allow_nil: true
+        validates :nitro_protocol, expression_inclusion: {:in=>[:http, :https], :message=>"%{value} needs to be :http, :https"}, allow_nil: true
 
         # @return [String, nil] If C(no), SSL certificates will not be validated. This should only be used on personally controlled sites using self-signed certificates.
         attribute :validate_certs

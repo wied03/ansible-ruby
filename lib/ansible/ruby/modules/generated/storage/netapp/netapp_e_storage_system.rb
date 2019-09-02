@@ -22,7 +22,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Should https certificates be validated?
         attribute :validate_certs
-        validates :validate_certs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :validate_certs, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String] The ID of the array to manage. This value must be unique for each array.
         attribute :ssid
@@ -30,7 +30,7 @@ module Ansible
 
         # @return [:present, :absent] Whether the specified array should be configured on the Web Services Proxy or not.
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
+        validates :state, presence: true, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
 
         # @return [Array<String>, String] The list addresses for the out-of-band management adapter or the agent host. Mutually exclusive of array_wwn parameter.
         attribute :controller_addresses
@@ -44,7 +44,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Enable trace logging for SYMbol calls to the storage system.
         attribute :enable_trace
-        validates :enable_trace, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :enable_trace, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] Optional meta tags to associate to this storage system
         attribute :meta_tags

@@ -19,11 +19,11 @@ module Ansible
 
         # @return [:yes, :no, nil] Use with state C(present) to force creating a new Swarm, even if already part of one.,Use with state C(absent) to Leave the swarm even if this node is a manager.
         attribute :force
-        validates :force, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :force, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:present, :join, :absent, :remove, :inspect] Set to C(present), to create/update a new cluster.,Set to C(join), to join an existing cluster.,Set to C(absent), to leave an existing cluster.,Set to C(remove), to remove an absent node from the cluster.,Set to C(inspect) to display swarm informations.
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:present, :join, :absent, :remove, :inspect], :message=>"%{value} needs to be :present, :join, :absent, :remove, :inspect"}
+        validates :state, presence: true, expression_inclusion: {:in=>[:present, :join, :absent, :remove, :inspect], :message=>"%{value} needs to be :present, :join, :absent, :remove, :inspect"}
 
         # @return [String, nil] Swarm id of the node to remove.,Used with I(state=remove).
         attribute :node_id
@@ -83,11 +83,11 @@ module Ansible
 
         # @return [:yes, :no, nil] Rotate the worker join token.
         attribute :rotate_worker_token
-        validates :rotate_worker_token, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :rotate_worker_token, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:yes, :no, nil] Rotate the manager join token.
         attribute :rotate_manager_token
-        validates :rotate_manager_token, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :rotate_manager_token, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

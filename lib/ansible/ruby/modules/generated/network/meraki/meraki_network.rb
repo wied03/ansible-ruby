@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:absent, :present, :query, nil] Create or modify an organization.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present, :query], :message=>"%{value} needs to be :absent, :present, :query"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present, :query], :message=>"%{value} needs to be :absent, :present, :query"}, allow_nil: true
 
         # @return [String, nil] Name of a network.
         attribute :net_name
@@ -32,7 +32,7 @@ module Ansible
 
         # @return [:appliance, :combined, :switch, :wireless, nil] Type of network device network manages.,Required when creating a network.
         attribute :type
-        validates :type, inclusion: {:in=>[:appliance, :combined, :switch, :wireless], :message=>"%{value} needs to be :appliance, :combined, :switch, :wireless"}, allow_nil: true
+        validates :type, expression_inclusion: {:in=>[:appliance, :combined, :switch, :wireless], :message=>"%{value} needs to be :appliance, :combined, :switch, :wireless"}, allow_nil: true
 
         # @return [Array<String>, String, nil] Comma delimited list of tags to assign to network.
         attribute :tags

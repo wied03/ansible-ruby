@@ -24,7 +24,7 @@ module Ansible
 
         # @return [Boolean, nil] Whether to display the volume to the end user or not.,Allowed to Root Admins only.
         attribute :display_volume
-        validates :display_volume, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :display_volume, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Object, nil] Name of the domain the volume to be deployed in.
         attribute :domain
@@ -48,11 +48,11 @@ module Ansible
 
         # @return [Boolean, nil] Force removal of volume even it is attached to a VM.,Considered on C(state=absnet) only.
         attribute :force
-        validates :force, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :force, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Boolean, nil] Whether to allow to shrink the volume.
         attribute :shrink_ok
-        validates :shrink_ok, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :shrink_ok, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [String, nil] Name of the virtual machine to attach the volume to.
         attribute :vm
@@ -64,11 +64,11 @@ module Ansible
 
         # @return [:present, :absent, :attached, :detached, nil] State of the volume.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent, :attached, :detached], :message=>"%{value} needs to be :present, :absent, :attached, :detached"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent, :attached, :detached], :message=>"%{value} needs to be :present, :absent, :attached, :detached"}, allow_nil: true
 
         # @return [Boolean, nil] Poll async jobs until job has finished.
         attribute :poll_async
-        validates :poll_async, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :poll_async, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Object, nil] List of tags. Tags are a list of dictionaries having keys C(key) and C(value).,To delete all tags, set a empty list e.g. C(tags: []).
         attribute :tags

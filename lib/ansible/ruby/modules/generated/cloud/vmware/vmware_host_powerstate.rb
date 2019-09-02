@@ -12,7 +12,7 @@ module Ansible
       class Vmware_host_powerstate < Base
         # @return [:"power-down-to-standby", :"power-up-from-standby", :"shutdown-host", :"reboot-host", nil] Set the state of the host system.
         attribute :state
-        validates :state, inclusion: {:in=>[:"power-down-to-standby", :"power-up-from-standby", :"shutdown-host", :"reboot-host"], :message=>"%{value} needs to be :\"power-down-to-standby\", :\"power-up-from-standby\", :\"shutdown-host\", :\"reboot-host\""}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:"power-down-to-standby", :"power-up-from-standby", :"shutdown-host", :"reboot-host"], :message=>"%{value} needs to be :\"power-down-to-standby\", :\"power-up-from-standby\", :\"shutdown-host\", :\"reboot-host\""}, allow_nil: true
 
         # @return [String, nil] Name of the host system to work with.,This is required parameter if C(cluster_name) is not specified.
         attribute :esxi_hostname

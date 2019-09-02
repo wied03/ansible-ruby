@@ -22,7 +22,7 @@ module Ansible
 
         # @return [:present, :absent, :update] State the action to perform. Use 'present' to add vrouter interface, 'absent' to remove vrouter interface and 'update' to modify vrouter interface.
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:present, :absent, :update], :message=>"%{value} needs to be :present, :absent, :update"}
+        validates :state, presence: true, expression_inclusion: {:in=>[:present, :absent, :update], :message=>"%{value} needs to be :present, :absent, :update"}
 
         # @return [String] Specify the name of the vRouter interface.
         attribute :pn_vrouter_name
@@ -38,14 +38,14 @@ module Ansible
 
         # @return [:none, :dhcp, :dhcpv6, :autov6, nil] Specify the DHCP method for IP address assignment.
         attribute :pn_assignment
-        validates :pn_assignment, inclusion: {:in=>[:none, :dhcp, :dhcpv6, :autov6], :message=>"%{value} needs to be :none, :dhcp, :dhcpv6, :autov6"}, allow_nil: true
+        validates :pn_assignment, expression_inclusion: {:in=>[:none, :dhcp, :dhcpv6, :autov6], :message=>"%{value} needs to be :none, :dhcp, :dhcpv6, :autov6"}, allow_nil: true
 
         # @return [Object, nil] Specify the VXLAN identifier. This is a value between 1 and 16777215.
         attribute :pn_vxlan
 
         # @return [:mgmt, :data, :span, nil] Specify if the interface is management, data or span interface.
         attribute :pn_interface
-        validates :pn_interface, inclusion: {:in=>[:mgmt, :data, :span], :message=>"%{value} needs to be :mgmt, :data, :span"}, allow_nil: true
+        validates :pn_interface, expression_inclusion: {:in=>[:mgmt, :data, :span], :message=>"%{value} needs to be :mgmt, :data, :span"}, allow_nil: true
 
         # @return [Object, nil] Specify an alias for the interface.
         attribute :pn_alias

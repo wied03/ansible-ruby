@@ -19,7 +19,7 @@ module Ansible
 
         # @return [:present, :absent, nil] If present, allocate an EIP or associate an existing EIP with a device.,If absent, disassociate the EIP from the device and optionally release it.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String, nil] Allocate an EIP inside a VPC or not. Required if specifying an ENI.
         attribute :in_vpc

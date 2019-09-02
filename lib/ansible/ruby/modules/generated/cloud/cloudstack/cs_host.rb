@@ -31,11 +31,11 @@ module Ansible
 
         # @return [:KVM, :VMware, :BareMetal, :XenServer, :LXC, :HyperV, :UCS, :OVM, :Simulator, nil] Name of the cluster.,Required if C(state=present) and host does not yet exist.
         attribute :hypervisor
-        validates :hypervisor, inclusion: {:in=>[:KVM, :VMware, :BareMetal, :XenServer, :LXC, :HyperV, :UCS, :OVM, :Simulator], :message=>"%{value} needs to be :KVM, :VMware, :BareMetal, :XenServer, :LXC, :HyperV, :UCS, :OVM, :Simulator"}, allow_nil: true
+        validates :hypervisor, expression_inclusion: {:in=>[:KVM, :VMware, :BareMetal, :XenServer, :LXC, :HyperV, :UCS, :OVM, :Simulator], :message=>"%{value} needs to be :KVM, :VMware, :BareMetal, :XenServer, :LXC, :HyperV, :UCS, :OVM, :Simulator"}, allow_nil: true
 
         # @return [:enabled, :disabled, nil] Allocation state of the host.
         attribute :allocation_state
-        validates :allocation_state, inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
+        validates :allocation_state, expression_inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
 
         # @return [Array<String>, String, nil] Tags of the host.
         attribute :host_tags
@@ -43,7 +43,7 @@ module Ansible
 
         # @return [:present, :absent, nil] State of the host.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String, nil] Name of the zone in which the host should be deployed.,If not set, default zone is used.
         attribute :zone

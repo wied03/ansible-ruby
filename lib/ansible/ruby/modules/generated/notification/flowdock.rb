@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:inbox, :chat] Whether to post to 'inbox' or 'chat'
         attribute :type
-        validates :type, presence: true, inclusion: {:in=>[:inbox, :chat], :message=>"%{value} needs to be :inbox, :chat"}
+        validates :type, presence: true, expression_inclusion: {:in=>[:inbox, :chat], :message=>"%{value} needs to be :inbox, :chat"}
 
         # @return [String] Content of the message
         attribute :msg
@@ -54,7 +54,7 @@ module Ansible
 
         # @return [:yes, :no, nil] If C(no), SSL certificates will not be validated. This should only be used on personally controlled sites using self-signed certificates.
         attribute :validate_certs
-        validates :validate_certs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :validate_certs, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

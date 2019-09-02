@@ -18,7 +18,7 @@ module Ansible
 
         # @return [:absent, :present, :restarted, :started, :stopped, nil] The state of the application pool.,If C(absent) will ensure the app pool is removed.,If C(present) will ensure the app pool is configured and exists.,If C(restarted) will ensure the app pool exists and will restart, this is never idempotent.,If C(started) will ensure the app pool exists and is started.,If C(stopped) will ensure the app pool exists and is stopped.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present, :restarted, :started, :stopped], :message=>"%{value} needs to be :absent, :present, :restarted, :started, :stopped"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present, :restarted, :started, :stopped], :message=>"%{value} needs to be :absent, :present, :restarted, :started, :stopped"}, allow_nil: true
       end
     end
   end

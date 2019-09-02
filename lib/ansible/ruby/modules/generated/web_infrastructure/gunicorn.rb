@@ -29,7 +29,7 @@ module Ansible
 
         # @return [:sync, :eventlet, :gevent, :"tornado ", :gthread, :gaiohttp, nil] The type of workers to use. The default class (sync) should handle most "normal" types of workloads.
         attribute :worker
-        validates :worker, inclusion: {:in=>[:sync, :eventlet, :gevent, :"tornado ", :gthread, :gaiohttp], :message=>"%{value} needs to be :sync, :eventlet, :gevent, :\"tornado \", :gthread, :gaiohttp"}, allow_nil: true
+        validates :worker, expression_inclusion: {:in=>[:sync, :eventlet, :gevent, :"tornado ", :gthread, :gaiohttp], :message=>"%{value} needs to be :sync, :eventlet, :gevent, :\"tornado \", :gthread, :gaiohttp"}, allow_nil: true
 
         # @return [String, nil] Switch worker processes to run as this user.
         attribute :user

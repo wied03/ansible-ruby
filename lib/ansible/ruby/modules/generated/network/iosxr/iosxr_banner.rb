@@ -10,7 +10,7 @@ module Ansible
       class Iosxr_banner < Base
         # @return [:login, :motd] Specifies the type of banner to configure on remote device.
         attribute :banner
-        validates :banner, presence: true, inclusion: {:in=>[:login, :motd], :message=>"%{value} needs to be :login, :motd"}
+        validates :banner, presence: true, expression_inclusion: {:in=>[:login, :motd], :message=>"%{value} needs to be :login, :motd"}
 
         # @return [String, nil] Banner text to be configured. Accepts multiline string, without empty lines. Requires I(state=present).
         attribute :text
@@ -18,7 +18,7 @@ module Ansible
 
         # @return [:present, :absent, nil] Existential state of the configuration on the device.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

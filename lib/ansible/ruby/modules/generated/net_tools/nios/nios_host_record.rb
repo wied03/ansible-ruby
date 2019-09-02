@@ -19,7 +19,7 @@ module Ansible
 
         # @return [Boolean, nil] Sets the DNS to particular parent. If user needs to bypass DNS user can make the value to false.
         attribute :configure_for_dns
-        validates :configure_for_dns, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :configure_for_dns, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Object, nil] Configures the IPv4 addresses for this host record.  This argument accepts a list of values (see suboptions)
         attribute :ipv4addrs
@@ -43,7 +43,7 @@ module Ansible
 
         # @return [:present, :absent, nil] Configures the intended state of the instance of the object on the NIOS server.  When this value is set to C(present), the object is configured on the device and when this value is set to C(absent) the value is removed (if necessary) from the device.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

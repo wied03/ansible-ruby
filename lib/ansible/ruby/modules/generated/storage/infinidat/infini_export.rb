@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:present, :absent, nil] Creates/Modifies export when present and removes when absent.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String, nil] Internal path of the export.
         attribute :inner_path

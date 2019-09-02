@@ -10,7 +10,7 @@ module Ansible
       class Gcp_compute_target_https_proxy < Base
         # @return [:present, :absent, nil] Whether the given object should exist in GCP
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String, nil] An optional description of this resource.
         attribute :description
@@ -22,7 +22,7 @@ module Ansible
 
         # @return [:NONE, :ENABLE, :DISABLE, nil] Specifies the QUIC override policy for this resource. This determines whether the load balancer will attempt to negotiate QUIC with clients or not. Can specify one of NONE, ENABLE, or DISABLE. If NONE is specified, uses the QUIC policy with no user overrides, which is equivalent to DISABLE. Not specifying this field is equivalent to specifying NONE.
         attribute :quic_override
-        validates :quic_override, inclusion: {:in=>[:NONE, :ENABLE, :DISABLE], :message=>"%{value} needs to be :NONE, :ENABLE, :DISABLE"}, allow_nil: true
+        validates :quic_override, expression_inclusion: {:in=>[:NONE, :ENABLE, :DISABLE], :message=>"%{value} needs to be :NONE, :ENABLE, :DISABLE"}, allow_nil: true
 
         # @return [Object] A list of SslCertificate resources that are used to authenticate connections between users and the load balancer. Currently, exactly one SSL certificate must be specified.
         attribute :ssl_certificates

@@ -26,11 +26,11 @@ module Ansible
 
         # @return [:level1, :level2, :level3, :unspecified, nil] The QoS class.,The APIC defaults to C(unspecified) when unset during creation.
         attribute :priority
-        validates :priority, inclusion: {:in=>[:level1, :level2, :level3, :unspecified], :message=>"%{value} needs to be :level1, :level2, :level3, :unspecified"}, allow_nil: true
+        validates :priority, expression_inclusion: {:in=>[:level1, :level2, :level3, :unspecified], :message=>"%{value} needs to be :level1, :level2, :level3, :unspecified"}, allow_nil: true
 
         # @return [:enforced, :unenforced, nil] The Intra EPG Isolation.,The APIC defaults to C(unenforced) when unset during creation.
         attribute :intra_epg_isolation
-        validates :intra_epg_isolation, inclusion: {:in=>[:enforced, :unenforced], :message=>"%{value} needs to be :enforced, :unenforced"}, allow_nil: true
+        validates :intra_epg_isolation, expression_inclusion: {:in=>[:enforced, :unenforced], :message=>"%{value} needs to be :enforced, :unenforced"}, allow_nil: true
 
         # @return [String, nil] Description for the EPG.
         attribute :description
@@ -38,7 +38,7 @@ module Ansible
 
         # @return [:none, :"proxy-arp", nil] The forwarding control used by the EPG.,The APIC defaults to C(none) when unset during creation.
         attribute :fwd_control
-        validates :fwd_control, inclusion: {:in=>[:none, :"proxy-arp"], :message=>"%{value} needs to be :none, :\"proxy-arp\""}, allow_nil: true
+        validates :fwd_control, expression_inclusion: {:in=>[:none, :"proxy-arp"], :message=>"%{value} needs to be :none, :\"proxy-arp\""}, allow_nil: true
 
         # @return [Symbol, nil] Whether ot not the EPG is part of the Preferred Group and can communicate without contracts.,This is very convenient for migration scenarios, or when ACI is used for network automation but not for policy.,The APIC defaults to C(no) when unset during creation.
         attribute :preferred_group
@@ -46,7 +46,7 @@ module Ansible
 
         # @return [:absent, :present, :query, nil] Use C(present) or C(absent) for adding or removing.,Use C(query) for listing an object or multiple objects.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present, :query], :message=>"%{value} needs to be :absent, :present, :query"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present, :query], :message=>"%{value} needs to be :absent, :present, :query"}, allow_nil: true
       end
     end
   end

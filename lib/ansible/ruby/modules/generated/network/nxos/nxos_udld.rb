@@ -10,7 +10,7 @@ module Ansible
       class Nxos_udld < Base
         # @return [:enabled, :disabled, nil] Toggles aggressive mode.
         attribute :aggressive
-        validates :aggressive, inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
+        validates :aggressive, expression_inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
 
         # @return [Integer, nil] Message time in seconds for UDLD packets or keyword 'default'.
         attribute :msg_time
@@ -18,11 +18,11 @@ module Ansible
 
         # @return [:yes, :no, nil] Ability to reset all ports shut down by UDLD. 'state' parameter cannot be 'absent' when this is present.
         attribute :reset
-        validates :reset, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :reset, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:present, :absent, nil] Manage the state of the resource. When set to 'absent', aggressive and msg_time are set to their default values.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

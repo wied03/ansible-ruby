@@ -18,7 +18,7 @@ module Ansible
 
         # @return [:full, :none, :"read-only", nil] Privileges assigned to the administrator in the organization.
         attribute :orgAccess
-        validates :orgAccess, inclusion: {:in=>[:full, :none, :"read-only"], :message=>"%{value} needs to be :full, :none, :\"read-only\""}, allow_nil: true
+        validates :orgAccess, expression_inclusion: {:in=>[:full, :none, :"read-only"], :message=>"%{value} needs to be :full, :none, :\"read-only\""}, allow_nil: true
 
         # @return [Object, nil] Tags the administrator has privileges on.,When creating a new administrator, C(org_name), C(network), or C(tags) must be specified.,If C(none) is specified, C(network) or C(tags) must be specified.
         attribute :tags
@@ -28,7 +28,7 @@ module Ansible
 
         # @return [:absent, :present, :query] Create or modify an organization
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:absent, :present, :query], :message=>"%{value} needs to be :absent, :present, :query"}
+        validates :state, presence: true, expression_inclusion: {:in=>[:absent, :present, :query], :message=>"%{value} needs to be :absent, :present, :query"}
 
         # @return [String, nil] Name of organization.,Used when C(name) should refer to another object.,When creating a new administrator, C(org_name), C(network), or C(tags) must be specified.
         attribute :org_name

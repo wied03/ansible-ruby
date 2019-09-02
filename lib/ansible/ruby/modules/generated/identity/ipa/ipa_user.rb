@@ -39,7 +39,7 @@ module Ansible
 
         # @return [:present, :absent, :enabled, :disabled, nil] State to ensure
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent, :enabled, :disabled], :message=>"%{value} needs to be :present, :absent, :enabled, :disabled"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent, :enabled, :disabled], :message=>"%{value} needs to be :present, :absent, :enabled, :disabled"}, allow_nil: true
 
         # @return [Array<Integer>, Integer, nil] List of telephone numbers assigned to the user.,If an empty list is passed all assigned telephone numbers will be deleted.,If None is passed telephone numbers will not be checked or changed.
         attribute :telephonenumber

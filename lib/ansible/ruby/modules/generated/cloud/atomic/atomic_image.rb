@@ -11,7 +11,7 @@ module Ansible
       class Atomic_image < Base
         # @return [:docker, :ostree, nil] Define the backend where the image is pulled.
         attribute :backend
-        validates :backend, inclusion: {:in=>[:docker, :ostree], :message=>"%{value} needs to be :docker, :ostree"}, allow_nil: true
+        validates :backend, expression_inclusion: {:in=>[:docker, :ostree], :message=>"%{value} needs to be :docker, :ostree"}, allow_nil: true
 
         # @return [String] Name of the container image.
         attribute :name
@@ -19,11 +19,11 @@ module Ansible
 
         # @return [:absent, :latest, :present, nil] The state of the container image.,The state C(latest) will ensure container image is upgraded to the latest version and forcefully restart container, if running.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :latest, :present], :message=>"%{value} needs to be :absent, :latest, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :latest, :present], :message=>"%{value} needs to be :absent, :latest, :present"}, allow_nil: true
 
         # @return [:yes, :no, nil] Start or Stop the container.
         attribute :started
-        validates :started, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :started, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

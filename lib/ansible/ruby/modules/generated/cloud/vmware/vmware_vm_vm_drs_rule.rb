@@ -30,11 +30,11 @@ module Ansible
 
         # @return [Boolean, nil] If set to C(True), the DRS rule will be an Affinity rule.,If set to C(False), the DRS rule will be an Anti-Affinity rule.,Effective only if C(state) is set to C(present).
         attribute :affinity_rule
-        validates :affinity_rule, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :affinity_rule, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [:present, :absent, nil] If set to C(present), then the DRS rule is created if not present.,If set to C(present), then the DRS rule is deleted and created if present already.,If set to C(absent), then the DRS rule is deleted if present.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

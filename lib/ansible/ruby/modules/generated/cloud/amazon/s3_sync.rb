@@ -10,11 +10,11 @@ module Ansible
       class S3_sync < Base
         # @return [:push] sync direction.
         attribute :mode
-        validates :mode, presence: true, inclusion: {:in=>[:push], :message=>"%{value} needs to be :push"}
+        validates :mode, presence: true, expression_inclusion: {:in=>[:push], :message=>"%{value} needs to be :push"}
 
         # @return [:force, :checksum, :date_size, nil] Difference determination method to allow changes-only syncing. Unlike rsync, files are not patched- they are fully skipped or fully uploaded.,date_size will upload if file sizes don't match or if local file modified date is newer than s3's version,checksum will compare etag values based on s3's implementation of chunked md5s.,force will always upload all files.
         attribute :file_change_strategy
-        validates :file_change_strategy, inclusion: {:in=>[:force, :checksum, :date_size], :message=>"%{value} needs to be :force, :checksum, :date_size"}, allow_nil: true
+        validates :file_change_strategy, expression_inclusion: {:in=>[:force, :checksum, :date_size], :message=>"%{value} needs to be :force, :checksum, :date_size"}, allow_nil: true
 
         # @return [String] Bucket name.
         attribute :bucket
@@ -30,7 +30,7 @@ module Ansible
 
         # @return [:"", :private, :"public-read", :"public-read-write", :"authenticated-read", :"aws-exec-read", :"bucket-owner-read", :"bucket-owner-full-control", nil] Canned ACL to apply to synced files.,Changing this ACL only changes newly synced files, it does not trigger a full reupload.
         attribute :permission
-        validates :permission, inclusion: {:in=>[:"", :private, :"public-read", :"public-read-write", :"authenticated-read", :"aws-exec-read", :"bucket-owner-read", :"bucket-owner-full-control"], :message=>"%{value} needs to be :\"\", :private, :\"public-read\", :\"public-read-write\", :\"authenticated-read\", :\"aws-exec-read\", :\"bucket-owner-read\", :\"bucket-owner-full-control\""}, allow_nil: true
+        validates :permission, expression_inclusion: {:in=>[:"", :private, :"public-read", :"public-read-write", :"authenticated-read", :"aws-exec-read", :"bucket-owner-read", :"bucket-owner-full-control"], :message=>"%{value} needs to be :\"\", :private, :\"public-read\", :\"public-read-write\", :\"authenticated-read\", :\"aws-exec-read\", :\"bucket-owner-read\", :\"bucket-owner-full-control\""}, allow_nil: true
 
         # @return [Hash, nil] Dict entry from extension to MIME type. This will override any default/sniffed MIME type. For example C({".txt": "application/text", ".yml": "application/text"})\r\n
         attribute :mime_map
@@ -50,7 +50,7 @@ module Ansible
 
         # @return [Boolean, nil] Remove remote files that exist in bucket but are not present in the file root.
         attribute :delete
-        validates :delete, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :delete, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
       end
     end
   end

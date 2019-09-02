@@ -19,11 +19,11 @@ module Ansible
 
         # @return [:yes, :no, nil] Includes all subdirectories (Toggles the C(/e) flag to RoboCopy).,If C(flags) is set, this will be ignored.
         attribute :recurse
-        validates :recurse, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :recurse, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:yes, :no, nil] Deletes any files/directories found in the destination that do not exist in the source.,Toggles the C(/purge) flag to RoboCopy. If C(flags) is set, this will be ignored.
         attribute :purge
-        validates :purge, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :purge, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] Directly supply Robocopy flags. If set, C(purge) and C(recurse) will be ignored.
         attribute :flags

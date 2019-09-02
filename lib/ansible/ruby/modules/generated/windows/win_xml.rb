@@ -22,11 +22,11 @@ module Ansible
 
         # @return [:yes, :no, nil] Whether to backup the remote server's XML before applying the change.
         attribute :backup
-        validates :backup, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :backup, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:element, :attribute, :text] The type of XML you are working with.
         attribute :type
-        validates :type, presence: true, inclusion: {:in=>[:element, :attribute, :text], :message=>"%{value} needs to be :element, :attribute, :text"}
+        validates :type, presence: true, expression_inclusion: {:in=>[:element, :attribute, :text], :message=>"%{value} needs to be :element, :attribute, :text"}
 
         # @return [String, nil] The attribute name if the type is 'attribute'. Required if C(type=attribute).
         attribute :attribute

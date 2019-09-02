@@ -45,7 +45,7 @@ module Ansible
 
         # @return [Boolean, nil] Create keystore if it doesn't exist
         attribute :keystore_create
-        validates :keystore_create, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :keystore_create, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [String, nil] Path to keytool binary if not used we search in PATH for it.
         attribute :executable
@@ -53,7 +53,7 @@ module Ansible
 
         # @return [:absent, :present, nil] Defines action which can be either certificate import or removal.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
       end
     end
   end

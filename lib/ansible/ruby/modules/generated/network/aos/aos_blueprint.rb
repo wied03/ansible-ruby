@@ -21,7 +21,7 @@ module Ansible
 
         # @return [:present, :absent, :"build-ready", nil] Indicate what is the expected state of the Blueprint.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent, :"build-ready"], :message=>"%{value} needs to be :present, :absent, :\"build-ready\""}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent, :"build-ready"], :message=>"%{value} needs to be :present, :absent, :\"build-ready\""}, allow_nil: true
 
         # @return [Integer, nil] When I(state=build-ready), this timeout identifies timeout in seconds to wait before declaring a failure.
         attribute :timeout

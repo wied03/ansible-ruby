@@ -14,11 +14,11 @@ module Ansible
 
         # @return [:enabled, :disabled, nil] The policy(ies) will be C(enabled),The policy(ies) will be C(disabled)
         attribute :state
-        validates :state, inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
 
         # @return [:yes, :no, nil] Activate the new firewall rules. Can be run with other steps or on it's own.
         attribute :activate
-        validates :activate, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :activate, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

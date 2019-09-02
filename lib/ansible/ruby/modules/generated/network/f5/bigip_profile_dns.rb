@@ -52,7 +52,7 @@ module Ansible
 
         # @return [:allow, :drop, :reject, :hint, :"no-error", nil] Specifies the action to take when a query does not match a Wide IP or a DNS Express Zone.,When C(allow), the BIG-IP system forwards queries to a DNS server or pool member. If a pool is not associated with a listener and the Use BIND Server on BIG-IP setting is set to Enabled, requests are forwarded to the local BIND server.,When C(drop), the BIG-IP system does not respond to the query.,When C(reject), the BIG-IP system returns the query with the REFUSED return code.,When C(hint), the BIG-IP system returns the query with a list of root name servers.,When C(no-error), the BIG-IP system returns the query with the NOERROR return code.,When creating a new profile, if this parameter is not specified, the default is provided by the parent profile.
         attribute :unhandled_query_action
-        validates :unhandled_query_action, inclusion: {:in=>[:allow, :drop, :reject, :hint, :"no-error"], :message=>"%{value} needs to be :allow, :drop, :reject, :hint, :\"no-error\""}, allow_nil: true
+        validates :unhandled_query_action, expression_inclusion: {:in=>[:allow, :drop, :reject, :hint, :"no-error"], :message=>"%{value} needs to be :allow, :drop, :reject, :hint, :\"no-error\""}, allow_nil: true
 
         # @return [String, nil] Device partition to manage resources on.
         attribute :partition
@@ -60,7 +60,7 @@ module Ansible
 
         # @return [:present, :absent, nil] When C(present), ensures that the profile exists.,When C(absent), ensures the profile is removed.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

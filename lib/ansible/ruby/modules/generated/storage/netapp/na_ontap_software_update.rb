@@ -10,7 +10,7 @@ module Ansible
       class Na_ontap_software_update < Base
         # @return [:present, :absent, nil] Whether the specified ONTAP package should update or not.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String, nil] List of nodes to be updated, the nodes have to be a part of a HA Pair.
         attribute :node

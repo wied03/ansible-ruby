@@ -10,7 +10,7 @@ module Ansible
       class Django_manage < Base
         # @return [:cleanup, :collectstatic, :flush, :loaddata, :migrate, :runfcgi, :syncdb, :test, :validate] The name of the Django management command to run. Built in commands are cleanup, collectstatic, flush, loaddata, migrate, runfcgi, syncdb, test, and validate.,Other commands can be entered, but will fail if they're unknown to Django.  Other commands that may prompt for user input should be run with the I(--noinput) flag.
         attribute :command
-        validates :command, presence: true, inclusion: {:in=>[:cleanup, :collectstatic, :flush, :loaddata, :migrate, :runfcgi, :syncdb, :test, :validate], :message=>"%{value} needs to be :cleanup, :collectstatic, :flush, :loaddata, :migrate, :runfcgi, :syncdb, :test, :validate"}
+        validates :command, presence: true, expression_inclusion: {:in=>[:cleanup, :collectstatic, :flush, :loaddata, :migrate, :runfcgi, :syncdb, :test, :validate], :message=>"%{value} needs to be :cleanup, :collectstatic, :flush, :loaddata, :migrate, :runfcgi, :syncdb, :test, :validate"}
 
         # @return [String] The path to the root of the Django application where B(manage.py) lives.
         attribute :app_path
@@ -44,7 +44,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Fail the command immediately if a test fails. Used by the 'test' command.
         attribute :failfast
-        validates :failfast, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :failfast, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] A space-delimited list of fixture file names to load in the database. B(Required) by the 'loaddata' command.
         attribute :fixtures

@@ -18,11 +18,11 @@ module Ansible
 
         # @return [:present, :absent, :upgraded, nil] state of the cask
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent, :upgraded], :message=>"%{value} needs to be :present, :absent, :upgraded"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent, :upgraded], :message=>"%{value} needs to be :present, :absent, :upgraded"}, allow_nil: true
 
         # @return [:yes, :no, nil] update homebrew itself first. Note that C(brew cask update) is a synonym for C(brew update).
         attribute :update_homebrew
-        validates :update_homebrew, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :update_homebrew, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Array<String>, String, nil] options flags to install a package
         attribute :install_options
@@ -30,19 +30,19 @@ module Ansible
 
         # @return [:yes, :no, nil] allow external apps
         attribute :accept_external_apps
-        validates :accept_external_apps, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :accept_external_apps, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:yes, :no, nil] upgrade all casks (mutually exclusive with `upgrade`)
         attribute :upgrade_all
-        validates :upgrade_all, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :upgrade_all, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:yes, :no, nil] upgrade all casks (mutually exclusive with `upgrade_all`)
         attribute :upgrade
-        validates :upgrade, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :upgrade, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:yes, :no, nil] upgrade casks that auto update; passes --greedy to brew cask outdated when checking if an installed cask has a newer version available
         attribute :greedy
-        validates :greedy, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :greedy, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

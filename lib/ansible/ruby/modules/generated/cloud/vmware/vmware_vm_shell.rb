@@ -25,7 +25,7 @@ module Ansible
 
         # @return [:uuid, :dns_name, :inventory_path, :vm_name, nil] The VMware identification method by which the virtual machine will be identified.
         attribute :vm_id_type
-        validates :vm_id_type, inclusion: {:in=>[:uuid, :dns_name, :inventory_path, :vm_name], :message=>"%{value} needs to be :uuid, :dns_name, :inventory_path, :vm_name"}, allow_nil: true
+        validates :vm_id_type, expression_inclusion: {:in=>[:uuid, :dns_name, :inventory_path, :vm_name], :message=>"%{value} needs to be :uuid, :dns_name, :inventory_path, :vm_name"}, allow_nil: true
 
         # @return [String] The user to login-in to the virtual machine.
         attribute :vm_username

@@ -22,7 +22,7 @@ module Ansible
 
         # @return [:file, :scm, :ec2, :gce, :azure, :azure_rm, :vmware, :satellite6, :cloudforms, :openstack, :rhv, :tower, :custom] Types of inventory source.
         attribute :source
-        validates :source, presence: true, inclusion: {:in=>[:file, :scm, :ec2, :gce, :azure, :azure_rm, :vmware, :satellite6, :cloudforms, :openstack, :rhv, :tower, :custom], :message=>"%{value} needs to be :file, :scm, :ec2, :gce, :azure, :azure_rm, :vmware, :satellite6, :cloudforms, :openstack, :rhv, :tower, :custom"}
+        validates :source, presence: true, expression_inclusion: {:in=>[:file, :scm, :ec2, :gce, :azure, :azure_rm, :vmware, :satellite6, :cloudforms, :openstack, :rhv, :tower, :custom], :message=>"%{value} needs to be :file, :scm, :ec2, :gce, :azure, :azure_rm, :vmware, :satellite6, :cloudforms, :openstack, :rhv, :tower, :custom"}
 
         # @return [String, nil] Credential to use to retrieve the inventory from.
         attribute :credential
@@ -74,7 +74,7 @@ module Ansible
 
         # @return [:present, :absent, nil] Desired state of the resource.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [Symbol, nil] Tower option to avoid certificates check.
         attribute :tower_verify_ssl

@@ -27,7 +27,7 @@ module Ansible
 
         # @return [:absent, :present, nil] Assert the state of the key. Use 'present' to create a key and 'absent' to delete a key.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
       end
     end
   end

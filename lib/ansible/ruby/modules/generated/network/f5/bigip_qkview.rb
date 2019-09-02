@@ -34,11 +34,11 @@ module Ansible
 
         # @return [:all, :audit, :secure, :bash_history, nil] Exclude various file from the qkview.
         attribute :exclude
-        validates :exclude, inclusion: {:in=>[:all, :audit, :secure, :bash_history], :message=>"%{value} needs to be :all, :audit, :secure, :bash_history"}, allow_nil: true
+        validates :exclude, expression_inclusion: {:in=>[:all, :audit, :secure, :bash_history], :message=>"%{value} needs to be :all, :audit, :secure, :bash_history"}, allow_nil: true
 
         # @return [Boolean, nil] If C(no), the file will only be transferred if the destination does not exist.
         attribute :force
-        validates :force, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :force, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
       end
     end
   end

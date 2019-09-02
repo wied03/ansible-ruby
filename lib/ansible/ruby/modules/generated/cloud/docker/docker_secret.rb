@@ -30,7 +30,7 @@ module Ansible
 
         # @return [:absent, :present, nil] Set to C(present), if the secret should exist, and C(absent), if it should not.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
       end
     end
   end

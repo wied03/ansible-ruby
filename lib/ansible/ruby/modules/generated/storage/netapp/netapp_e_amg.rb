@@ -22,7 +22,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Setting this to true will cause other synchronization values to be ignored
         attribute :manualSync
-        validates :manualSync, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :manualSync, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] Recovery point warning threshold (minutes). The user will be warned when the age of the last good failures point exceeds this value
         attribute :recoveryWarnThresholdMinutes
@@ -34,7 +34,7 @@ module Ansible
 
         # @return [:iscsi, :fibre, nil] The intended protocol to use if both Fibre and iSCSI are available.
         attribute :interfaceType
-        validates :interfaceType, inclusion: {:in=>[:iscsi, :fibre], :message=>"%{value} needs to be :iscsi, :fibre"}, allow_nil: true
+        validates :interfaceType, expression_inclusion: {:in=>[:iscsi, :fibre], :message=>"%{value} needs to be :iscsi, :fibre"}, allow_nil: true
 
         # @return [Integer, nil] The threshold (in minutes) for notifying the user that periodic synchronization has taken too long to complete.
         attribute :syncWarnThresholdMinutes
@@ -42,7 +42,7 @@ module Ansible
 
         # @return [:absent, :present] A C(state) of present will either create or update the async mirror group.,A C(state) of absent will remove the async mirror group.
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}
+        validates :state, presence: true, expression_inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}
       end
     end
   end

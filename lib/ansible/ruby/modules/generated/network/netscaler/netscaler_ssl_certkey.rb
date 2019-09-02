@@ -22,11 +22,11 @@ module Ansible
 
         # @return [Boolean, nil] Passphrase that was used to encrypt the private-key. Use this option to load encrypted private-keys in PEM format.
         attribute :password
-        validates :password, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :password, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [:DER, :PEM, :PFX, nil] Input format of the certificate and the private-key files. The three formats supported by the appliance are:,PEM - Privacy Enhanced Mail,DER - Distinguished Encoding Rule,PFX - Personal Information Exchange.
         attribute :inform
-        validates :inform, inclusion: {:in=>[:DER, :PEM, :PFX], :message=>"%{value} needs to be :DER, :PEM, :PFX"}, allow_nil: true
+        validates :inform, expression_inclusion: {:in=>[:DER, :PEM, :PFX], :message=>"%{value} needs to be :DER, :PEM, :PFX"}, allow_nil: true
 
         # @return [String, nil] Pass phrase used to encrypt the private-key. Required when adding an encrypted private-key in PEM format.,Minimum length = 1
         attribute :passplain
@@ -34,7 +34,7 @@ module Ansible
 
         # @return [:enabled, :disabled, nil] Issue an alert when the certificate is about to expire.
         attribute :expirymonitor
-        validates :expirymonitor, inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
+        validates :expirymonitor, expression_inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
 
         # @return [Integer, nil] Time, in number of days, before certificate expiration, at which to generate an alert that the certificate is about to expire.,Minimum value = C(10),Maximum value = C(100)
         attribute :notificationperiod

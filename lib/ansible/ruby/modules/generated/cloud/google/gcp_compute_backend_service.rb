@@ -10,7 +10,7 @@ module Ansible
       class Gcp_compute_backend_service < Base
         # @return [:present, :absent, nil] Whether the given object should exist in GCP
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [Object, nil] Lifetime of cookies in seconds if session_affinity is GENERATED_COOKIE. If set to 0, the cookie is non-persistent and lasts only until the end of the browser session (or equivalent). The maximum allowed value for TTL is one day.,When the load balancing scheme is INTERNAL, this field is not used.
         attribute :affinity_cookie_ttl_sec
@@ -41,7 +41,7 @@ module Ansible
 
         # @return [:INTERNAL, :EXTERNAL, nil] Indicates whether the backend service will be used with internal or external load balancing. A backend service created for one type of load balancing cannot be used with the other.
         attribute :load_balancing_scheme
-        validates :load_balancing_scheme, inclusion: {:in=>[:INTERNAL, :EXTERNAL], :message=>"%{value} needs to be :INTERNAL, :EXTERNAL"}, allow_nil: true
+        validates :load_balancing_scheme, expression_inclusion: {:in=>[:INTERNAL, :EXTERNAL], :message=>"%{value} needs to be :INTERNAL, :EXTERNAL"}, allow_nil: true
 
         # @return [String, nil] Name of the resource. Provided by the client when the resource is created. The name must be 1-63 characters long, and comply with RFC1035. Specifically, the name must be 1-63 characters long and match the regular expression `[a-z]([-a-z0-9]*[a-z0-9])?` which means the first character must be a lowercase letter, and all following characters must be a dash, lowercase letter, or digit, except the last character, which cannot be a dash.
         attribute :name
@@ -52,14 +52,14 @@ module Ansible
 
         # @return [:HTTP, :HTTPS, :TCP, :SSL, nil] The protocol this BackendService uses to communicate with backends.,Possible values are HTTP, HTTPS, TCP, and SSL. The default is HTTP.,For internal load balancing, the possible values are TCP and UDP, and the default is TCP.
         attribute :protocol
-        validates :protocol, inclusion: {:in=>[:HTTP, :HTTPS, :TCP, :SSL], :message=>"%{value} needs to be :HTTP, :HTTPS, :TCP, :SSL"}, allow_nil: true
+        validates :protocol, expression_inclusion: {:in=>[:HTTP, :HTTPS, :TCP, :SSL], :message=>"%{value} needs to be :HTTP, :HTTPS, :TCP, :SSL"}, allow_nil: true
 
         # @return [Object, nil] The region where the regional backend service resides.,This field is not applicable to global backend services.
         attribute :region
 
         # @return [:NONE, :CLIENT_IP, :GENERATED_COOKIE, :CLIENT_IP_PROTO, :CLIENT_IP_PORT_PROTO, nil] Type of session affinity to use. The default is NONE.,When the load balancing scheme is EXTERNAL, can be NONE, CLIENT_IP, or GENERATED_COOKIE.,When the load balancing scheme is INTERNAL, can be NONE, CLIENT_IP, CLIENT_IP_PROTO, or CLIENT_IP_PORT_PROTO.,When the protocol is UDP, this field is not used.
         attribute :session_affinity
-        validates :session_affinity, inclusion: {:in=>[:NONE, :CLIENT_IP, :GENERATED_COOKIE, :CLIENT_IP_PROTO, :CLIENT_IP_PORT_PROTO], :message=>"%{value} needs to be :NONE, :CLIENT_IP, :GENERATED_COOKIE, :CLIENT_IP_PROTO, :CLIENT_IP_PORT_PROTO"}, allow_nil: true
+        validates :session_affinity, expression_inclusion: {:in=>[:NONE, :CLIENT_IP, :GENERATED_COOKIE, :CLIENT_IP_PROTO, :CLIENT_IP_PORT_PROTO], :message=>"%{value} needs to be :NONE, :CLIENT_IP, :GENERATED_COOKIE, :CLIENT_IP_PROTO, :CLIENT_IP_PORT_PROTO"}, allow_nil: true
 
         # @return [Integer, nil] How many seconds to wait for the backend before considering it a failed request. Default is 30 seconds. Valid range is [1, 86400].
         attribute :timeout_sec

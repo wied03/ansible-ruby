@@ -18,11 +18,11 @@ module Ansible
 
         # @return [:present, :absent, :restore, nil] The state to insure that the provided resources are in.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent, :restore], :message=>"%{value} needs to be :present, :absent, :restore"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent, :restore], :message=>"%{value} needs to be :present, :absent, :restore"}, allow_nil: true
 
         # @return [Boolean, nil] Whether to wait for the provisioning tasks to finish before returning.
         attribute :wait
-        validates :wait, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :wait, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
       end
     end
   end

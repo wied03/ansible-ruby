@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:absent, :present, nil] Set to absent to remove an existing host,Set to present to modify or create a new host definition
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
         # @return [Integer, nil] The index that maps to host type you wish to create. It is recommended to use the M(netapp_e_facts) module to gather this information. Alternatively you can use the WSP portal to retrieve the information.,Required when C(state=present)
         attribute :host_type_index

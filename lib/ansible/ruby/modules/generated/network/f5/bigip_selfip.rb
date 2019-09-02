@@ -26,7 +26,7 @@ module Ansible
 
         # @return [:absent, :present, nil] When C(present), guarantees that the Self-IP exists with the provided attributes.,When C(absent), removes the Self-IP from the system.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
         # @return [Object, nil] The traffic group for the Self IP addresses in an active-active, redundant load balancer configuration. When creating a new Self IP, if this value is not specified, the default of C(/Common/traffic-group-local-only) will be used.
         attribute :traffic_group

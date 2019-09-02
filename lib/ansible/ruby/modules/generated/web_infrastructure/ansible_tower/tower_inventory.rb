@@ -25,14 +25,14 @@ module Ansible
 
         # @return [:"", :smart, nil] The kind field. Cannot be modified after created.
         attribute :kind
-        validates :kind, inclusion: {:in=>[:"", :smart], :message=>"%{value} needs to be :\"\", :smart"}, allow_nil: true
+        validates :kind, expression_inclusion: {:in=>[:"", :smart], :message=>"%{value} needs to be :\"\", :smart"}, allow_nil: true
 
         # @return [Object, nil] The host_filter field. Only useful when C(kind=smart).
         attribute :host_filter
 
         # @return [:present, :absent, nil] Desired state of the resource.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

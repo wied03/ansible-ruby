@@ -18,7 +18,7 @@ module Ansible
 
         # @return [:absent, :present, nil] The state of the license on the system.,When C(present), only guarantees that a license is there.,When C(latest), ensures that the license is always valid.,When C(absent), removes the license on the system.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
         # @return [Symbol, nil] Declares whether you accept the BIG-IP EULA or not. By default, this value is C(no). You must specifically declare that you have viewed and accepted the license. This module will not present you with that EULA though, so it is incumbent on you to read it.,The EULA can be found here; https://support.f5.com/csp/article/K12902.,This parameter is not required when C(state) is C(absent) and will be ignored if it is provided.
         attribute :accept_eula

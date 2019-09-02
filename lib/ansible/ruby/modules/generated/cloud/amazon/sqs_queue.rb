@@ -11,7 +11,7 @@ module Ansible
       class Sqs_queue < Base
         # @return [:present, :absent, nil] Create or delete the queue
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String] Name of the queue.
         attribute :name

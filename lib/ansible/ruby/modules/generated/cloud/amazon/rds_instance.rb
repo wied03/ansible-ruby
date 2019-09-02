@@ -10,11 +10,11 @@ module Ansible
       class Rds_instance < Base
         # @return [:present, :absent, :terminated, :running, :started, :stopped, :rebooted, :restarted, nil] Whether the snapshot should exist or not. I(rebooted) is not idempotent and will leave the DB instance in a running state and start it prior to rebooting if it was stopped. I(present) will leave the DB instance in the current running/stopped state, (running if creating the DB instance).,I(state=running) and I(state=started) are synonyms, as are I(state=rebooted) and I(state=restarted). Note - rebooting the instance is not idempotent.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent, :terminated, :running, :started, :stopped, :rebooted, :restarted], :message=>"%{value} needs to be :present, :absent, :terminated, :running, :started, :stopped, :rebooted, :restarted"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent, :terminated, :running, :started, :stopped, :rebooted, :restarted], :message=>"%{value} needs to be :present, :absent, :terminated, :running, :started, :stopped, :rebooted, :restarted"}, allow_nil: true
 
         # @return [:snapshot, :s3, :instance, nil] Which source to use if restoring from a template (an existing instance, S3 bucket, or snapshot).
         attribute :creation_source
-        validates :creation_source, inclusion: {:in=>[:snapshot, :s3, :instance], :message=>"%{value} needs to be :snapshot, :s3, :instance"}, allow_nil: true
+        validates :creation_source, expression_inclusion: {:in=>[:snapshot, :s3, :instance], :message=>"%{value} needs to be :snapshot, :s3, :instance"}, allow_nil: true
 
         # @return [Symbol, nil] Set to True to update your cluster password with I(master_user_password). Since comparing passwords to determine if it needs to be updated is not possible this is set to False by default to allow idempotence.
         attribute :force_update_password
@@ -22,11 +22,11 @@ module Ansible
 
         # @return [Boolean, nil] Set to False to retain any enabled cloudwatch logs that aren't specified in the task and are associated with the instance.
         attribute :purge_cloudwatch_logs_exports
-        validates :purge_cloudwatch_logs_exports, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :purge_cloudwatch_logs_exports, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Boolean, nil] Set to False to retain any tags that aren't specified in task and are associated with the instance.
         attribute :purge_tags
-        validates :purge_tags, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :purge_tags, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Symbol, nil] Set to False to promote a read replica cluster or true to create one. When creating a read replica C(creation_source) should be set to 'instance' or not provided. C(source_db_instance_identifier) must be provided with this option.
         attribute :read_replica
@@ -34,7 +34,7 @@ module Ansible
 
         # @return [Boolean, nil] Whether to wait for the cluster to be available, stopped, or deleted. At a later time a wait_timeout option may be added. Following each API call to create/modify/delete the instance a waiter is used with a 60 second delay 30 times until the instance reaches the expected state (available/stopped/deleted). The total task time may also be influenced by AWSRetry which helps stabilize if the instance is in an invalid state to operate on to begin with (such as if you try to stop it when it is in the process of rebooting). If setting this to False task retries and delays may make your playbook execution better handle timeouts for major modifications.
         attribute :wait
-        validates :wait, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :wait, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [String, nil] The amount of storage (in gibibytes) to allocate for the DB instance.
         attribute :allocated_storage
@@ -135,7 +135,7 @@ module Ansible
 
         # @return [:"license-included", :"bring-your-own-license", :"general-public-license", nil] The license model for the DB instance.
         attribute :license_model
-        validates :license_model, inclusion: {:in=>[:"license-included", :"bring-your-own-license", :"general-public-license"], :message=>"%{value} needs to be :\"license-included\", :\"bring-your-own-license\", :\"general-public-license\""}, allow_nil: true
+        validates :license_model, expression_inclusion: {:in=>[:"license-included", :"bring-your-own-license", :"general-public-license"], :message=>"%{value} needs to be :\"license-included\", :\"bring-your-own-license\", :\"general-public-license\""}, allow_nil: true
 
         # @return [Object, nil] An 8-41 character password for the master database user. The password can contain any printable ASCII character except "/",
         attribute :master_user_password

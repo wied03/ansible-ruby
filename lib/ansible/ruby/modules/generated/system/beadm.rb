@@ -15,23 +15,23 @@ module Ansible
 
         # @return [Boolean, nil] If specified, the new boot environment will be cloned from the given snapshot or inactive boot environment.
         attribute :snapshot
-        validates :snapshot, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :snapshot, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Boolean, nil] Associate a description with a new boot environment. This option is available only on Solarish platforms.
         attribute :description
-        validates :description, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :description, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Boolean, nil] Create the datasets for new BE with specific ZFS properties. Multiple options can be specified. This option is available only on Solarish platforms.
         attribute :options
-        validates :options, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :options, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Boolean, nil] Path where to mount the ZFS boot environment
         attribute :mountpoint
-        validates :mountpoint, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :mountpoint, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [:present, :absent, :activated, :mounted, :unmounted, nil] Create or delete ZFS boot environment.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent, :activated, :mounted, :unmounted], :message=>"%{value} needs to be :present, :absent, :activated, :mounted, :unmounted"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent, :activated, :mounted, :unmounted], :message=>"%{value} needs to be :present, :absent, :activated, :mounted, :unmounted"}, allow_nil: true
 
         # @return [Symbol, nil] Specifies if the unmount should be forced.
         attribute :force

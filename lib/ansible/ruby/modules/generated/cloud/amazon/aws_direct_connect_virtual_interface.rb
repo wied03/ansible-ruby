@@ -10,7 +10,7 @@ module Ansible
       class Aws_direct_connect_virtual_interface < Base
         # @return [:present, :absent, nil] The desired state of the Direct Connect virtual interface.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [Object, nil] The ID of the link aggrecation group or connection to associate with the virtual interface.
         attribute :id_to_associate

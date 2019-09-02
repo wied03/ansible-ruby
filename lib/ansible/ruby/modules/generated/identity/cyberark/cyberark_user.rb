@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:present, :absent, nil] Specifies the state needed for the user present for create user, absent for delete user.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String] Dictionary set by a CyberArk authentication containing the different values to perform actions on a logged-on CyberArk session, please see M(cyberark_authentication) module for an example of cyberark_session.
         attribute :cyberark_session
@@ -39,7 +39,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Whether or not the user must change their password in their next logon. Valid values = true/false.
         attribute :change_password_on_the_next_logon
-        validates :change_password_on_the_next_logon, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :change_password_on_the_next_logon, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] The date and time when the user account will expire and become disabled.
         attribute :expiry_date
@@ -50,7 +50,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Whether or not the user will be disabled. Valid values = true/false.
         attribute :disabled
-        validates :disabled, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :disabled, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] The Vault Location for the user.
         attribute :location

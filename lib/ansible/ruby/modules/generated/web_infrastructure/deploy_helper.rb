@@ -15,7 +15,7 @@ module Ansible
 
         # @return [:present, :finalize, :absent, :clean, :query, nil] the state of the project. C(query) will only gather facts, C(present) will create the project I(root) folder, and in it the I(releases) and I(shared) folders, C(finalize) will remove the unfinished_filename file, create a symlink to the newly deployed release and optionally clean old releases, C(clean) will remove failed & old releases, C(absent) will remove the project folder (synonymous to the M(file) module with C(state=absent))
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :finalize, :absent, :clean, :query], :message=>"%{value} needs to be :present, :finalize, :absent, :clean, :query"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :finalize, :absent, :clean, :query], :message=>"%{value} needs to be :present, :finalize, :absent, :clean, :query"}, allow_nil: true
 
         # @return [String, nil] the release version that is being deployed. Defaults to a timestamp format %Y%m%d%H%M%S (i.e. '20141119223359'). This parameter is optional during C(state=present), but needs to be set explicitly for C(state=finalize). You can use the generated fact C(release={{ deploy_helper.new_release }}).
         attribute :release
@@ -39,7 +39,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Whether to run the clean procedure in case of C(state=finalize).
         attribute :clean
-        validates :clean, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :clean, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] the number of old releases to keep when cleaning. Used in C(finalize) and C(clean). Any unfinished builds will be deleted first, so only correct releases will count. The current version will not count.
         attribute :keep_releases

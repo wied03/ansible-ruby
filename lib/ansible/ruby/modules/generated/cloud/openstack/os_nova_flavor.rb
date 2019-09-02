@@ -10,7 +10,7 @@ module Ansible
       class Os_nova_flavor < Base
         # @return [:present, :absent, nil] Indicate desired state of the resource. When I(state) is 'present', then I(ram), I(vcpus), and I(disk) are all required. There are no default values for those parameters.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String] Flavor name.
         attribute :name
@@ -42,7 +42,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Make flavor accessible to the public.
         attribute :is_public
-        validates :is_public, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :is_public, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] ID for the flavor. This is optional as a unique UUID will be assigned if a value is not specified.
         attribute :flavorid

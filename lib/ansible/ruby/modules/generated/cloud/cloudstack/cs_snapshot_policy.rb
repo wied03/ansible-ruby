@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:DATADISK, :ROOT, nil] Type of the volume.
         attribute :volume_type
-        validates :volume_type, inclusion: {:in=>[:DATADISK, :ROOT], :message=>"%{value} needs to be :DATADISK, :ROOT"}, allow_nil: true
+        validates :volume_type, expression_inclusion: {:in=>[:DATADISK, :ROOT], :message=>"%{value} needs to be :DATADISK, :ROOT"}, allow_nil: true
 
         # @return [String, nil] Name of the instance to select the volume from.,Use C(volume_type) if VM has a DATADISK and ROOT volume.,In case of C(volume_type=DATADISK), additionally use C(device_id) if VM has more than one DATADISK volume.,Either C(volume) or C(vm) is required.
         attribute :vm
@@ -29,7 +29,7 @@ module Ansible
 
         # @return [:hourly, :daily, :weekly, :monthly, nil] Interval of the snapshot.
         attribute :interval_type
-        validates :interval_type, inclusion: {:in=>[:hourly, :daily, :weekly, :monthly], :message=>"%{value} needs to be :hourly, :daily, :weekly, :monthly"}, allow_nil: true
+        validates :interval_type, expression_inclusion: {:in=>[:hourly, :daily, :weekly, :monthly], :message=>"%{value} needs to be :hourly, :daily, :weekly, :monthly"}, allow_nil: true
 
         # @return [Integer, nil] Max number of snapshots.
         attribute :max_snaps
@@ -45,7 +45,7 @@ module Ansible
 
         # @return [:present, :absent, nil] State of the snapshot policy.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [Object, nil] Domain the volume is related to.
         attribute :domain

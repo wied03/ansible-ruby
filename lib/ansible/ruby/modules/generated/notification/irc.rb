@@ -29,7 +29,7 @@ module Ansible
 
         # @return [:none, :white, :black, :blue, :green, :red, :brown, :purple, :orange, :yellow, :light_green, :teal, :light_cyan, :light_blue, :pink, :gray, :light_gray, nil] Text color for the message. ("none" is a valid option in 1.6 or later, in 1.6 and prior, the default color is black, not "none"). Added 11 more colors in version 2.0.
         attribute :color
-        validates :color, inclusion: {:in=>[:none, :white, :black, :blue, :green, :red, :brown, :purple, :orange, :yellow, :light_green, :teal, :light_cyan, :light_blue, :pink, :gray, :light_gray], :message=>"%{value} needs to be :none, :white, :black, :blue, :green, :red, :brown, :purple, :orange, :yellow, :light_green, :teal, :light_cyan, :light_blue, :pink, :gray, :light_gray"}, allow_nil: true
+        validates :color, expression_inclusion: {:in=>[:none, :white, :black, :blue, :green, :red, :brown, :purple, :orange, :yellow, :light_green, :teal, :light_cyan, :light_blue, :pink, :gray, :light_gray], :message=>"%{value} needs to be :none, :white, :black, :blue, :green, :red, :brown, :purple, :orange, :yellow, :light_green, :teal, :light_cyan, :light_blue, :pink, :gray, :light_gray"}, allow_nil: true
 
         # @return [NilClass] Channel name.  One of nick_to or channel needs to be set.  When both are set, the message will be sent to both of them.
         attribute :channel
@@ -51,15 +51,15 @@ module Ansible
 
         # @return [:yes, :no, nil] Designates whether TLS/SSL should be used when connecting to the IRC server
         attribute :use_ssl
-        validates :use_ssl, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :use_ssl, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:yes, :no, nil] Designates whether user should part from channel after sending message or not. Useful for when using a faux bot and not wanting join/parts between messages.
         attribute :part
-        validates :part, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :part, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:bold, :underline, :reverse, :italic, nil] Text style for the message. Note italic does not work on some clients
         attribute :style
-        validates :style, inclusion: {:in=>[:bold, :underline, :reverse, :italic], :message=>"%{value} needs to be :bold, :underline, :reverse, :italic"}, allow_nil: true
+        validates :style, expression_inclusion: {:in=>[:bold, :underline, :reverse, :italic], :message=>"%{value} needs to be :bold, :underline, :reverse, :italic"}, allow_nil: true
       end
     end
   end

@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:present, :absent, nil] Should the host be present/absent.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [Hash, nil] Dictionary describing network bond:,C(name) - Bond name.,C(mode) - Bonding mode.,C(options) - Bonding options.,C(interfaces) - List of interfaces to create a bond.
         attribute :bond

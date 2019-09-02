@@ -18,7 +18,7 @@ module Ansible
 
         # @return [:manual, :git, :hg, :svn, nil] Type of SCM resource.
         attribute :scm_type
-        validates :scm_type, inclusion: {:in=>[:manual, :git, :hg, :svn], :message=>"%{value} needs to be :manual, :git, :hg, :svn"}, allow_nil: true
+        validates :scm_type, expression_inclusion: {:in=>[:manual, :git, :hg, :svn], :message=>"%{value} needs to be :manual, :git, :hg, :svn"}, allow_nil: true
 
         # @return [Object, nil] URL of SCM resource.
         attribute :scm_url
@@ -34,15 +34,15 @@ module Ansible
 
         # @return [:yes, :no, nil] Remove local modifications before updating.
         attribute :scm_clean
-        validates :scm_clean, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :scm_clean, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:yes, :no, nil] Remove the repository completely before updating.
         attribute :scm_delete_on_update
-        validates :scm_delete_on_update, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :scm_delete_on_update, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:yes, :no, nil] Before an update to the local repository before launching a job with this project.
         attribute :scm_update_on_launch
-        validates :scm_update_on_launch, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :scm_update_on_launch, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] Primary key of organization for project.
         attribute :organization
@@ -50,7 +50,7 @@ module Ansible
 
         # @return [:present, :absent, nil] Desired state of the resource.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

@@ -10,7 +10,7 @@ module Ansible
       class Oneandone_firewall_policy < Base
         # @return [:present, :absent, :update, nil] Define a firewall policy state to create, remove, or update.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent, :update], :message=>"%{value} needs to be :present, :absent, :update"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent, :update], :message=>"%{value} needs to be :present, :absent, :update"}, allow_nil: true
 
         # @return [String] Authenticating API token provided by 1&1.
         attribute :auth_token
@@ -53,7 +53,7 @@ module Ansible
 
         # @return [:yes, :no, nil] wait for the instance to be in state 'running' before returning
         attribute :wait
-        validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :wait, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] how long before wait gives up, in seconds
         attribute :wait_timeout

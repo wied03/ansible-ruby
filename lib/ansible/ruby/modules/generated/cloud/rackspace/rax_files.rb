@@ -10,7 +10,7 @@ module Ansible
       class Rax_files < Base
         # @return [:yes, :no, nil] Optionally clear existing metadata when applying metadata to existing containers. Selecting this option is only appropriate when setting type=meta
         attribute :clear_meta
-        validates :clear_meta, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :clear_meta, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object] The container to use for container or metadata operations.
         attribute :container
@@ -31,14 +31,14 @@ module Ansible
 
         # @return [:present, :absent, nil] Indicate desired state of the resource
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [Object, nil] In seconds, set a container-wide TTL for all objects cached on CDN edge nodes. Setting a TTL is only appropriate for containers that are public
         attribute :ttl
 
         # @return [:file, :meta, nil] Type of object to do work on, i.e. metadata object or a container object
         attribute :type
-        validates :type, inclusion: {:in=>[:file, :meta], :message=>"%{value} needs to be :file, :meta"}, allow_nil: true
+        validates :type, expression_inclusion: {:in=>[:file, :meta], :message=>"%{value} needs to be :file, :meta"}, allow_nil: true
 
         # @return [Object, nil] Sets an object to be presented as the HTTP error page when accessed by the CDN URL
         attribute :web_error

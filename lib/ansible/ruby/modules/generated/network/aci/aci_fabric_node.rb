@@ -29,11 +29,11 @@ module Ansible
 
         # @return [:leaf, :spine, :unspecified, nil] Role for the new Fabric Node Member.
         attribute :role
-        validates :role, inclusion: {:in=>[:leaf, :spine, :unspecified], :message=>"%{value} needs to be :leaf, :spine, :unspecified"}, allow_nil: true
+        validates :role, expression_inclusion: {:in=>[:leaf, :spine, :unspecified], :message=>"%{value} needs to be :leaf, :spine, :unspecified"}, allow_nil: true
 
         # @return [:absent, :present, :query, nil] Use C(present) or C(absent) for adding or removing.,Use C(query) for listing an object or multiple objects.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present, :query], :message=>"%{value} needs to be :absent, :present, :query"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present, :query], :message=>"%{value} needs to be :absent, :present, :query"}, allow_nil: true
       end
     end
   end

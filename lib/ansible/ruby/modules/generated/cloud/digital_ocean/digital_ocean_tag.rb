@@ -18,11 +18,11 @@ module Ansible
 
         # @return [:droplet, nil] The type of resource to operate on. Currently, only tagging of droplets is supported.
         attribute :resource_type
-        validates :resource_type, inclusion: {:in=>[:droplet], :message=>"%{value} needs to be :droplet"}, allow_nil: true
+        validates :resource_type, expression_inclusion: {:in=>[:droplet], :message=>"%{value} needs to be :droplet"}, allow_nil: true
 
         # @return [:present, :absent, nil] Whether the tag should be present or absent on the resource.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

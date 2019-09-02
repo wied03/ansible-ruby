@@ -4,6 +4,8 @@ require 'active_model'
 require 'ansible/ruby/models/type_generic'
 require 'ansible/ruby/models/multiple_types'
 require 'ansible/ruby/models/type_validator'
+require 'ansible/ruby/models/expression_inclusion_validator'
+require 'ansible/ruby/models/jinja_expression'
 
 module Ansible
   module Ruby
@@ -54,7 +56,14 @@ module Ansible
             attr_options[name]
           end
 
+          def fix_inclusion(attributes)
+            inclusion_in = attributes[:inclusion][:in]
+            inclusion_in << Ansible::Ruby::Models::JinjaExpression
+          end
+
           def validates(*attributes)
+            hash = attributes.find { |a| a.is_a?(Hash) }
+            fix_inclusion(hash) if hash&.dig(:inclusion, :in)
             super
             # avoid having to dupe this in the :attribute call
             hash = attributes.length > 1 && attributes[1]

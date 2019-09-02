@@ -17,7 +17,7 @@ module Ansible
 
         # @return [:run, :check, :scan, nil] Job_type to use for the job, only used if prompt for job_type is set.
         attribute :job_type
-        validates :job_type, inclusion: {:in=>[:run, :check, :scan], :message=>"%{value} needs to be :run, :check, :scan"}, allow_nil: true
+        validates :job_type, expression_inclusion: {:in=>[:run, :check, :scan], :message=>"%{value} needs to be :run, :check, :scan"}, allow_nil: true
 
         # @return [Object, nil] Inventory to use for the job, only used if prompt for inventory is set.
         attribute :inventory
@@ -36,7 +36,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Disable launching jobs from job template.
         attribute :use_job_endpoint
-        validates :use_job_endpoint, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :use_job_endpoint, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

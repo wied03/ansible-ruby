@@ -30,7 +30,7 @@ module Ansible
 
         # @return [Boolean, nil] wait for the snapshot to be ready
         attribute :wait
-        validates :wait, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :wait, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Integer, nil] how long before wait gives up, in seconds,specify 0 to wait forever
         attribute :wait_timeout
@@ -38,7 +38,7 @@ module Ansible
 
         # @return [:absent, :present, nil] whether to add or create a snapshot
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
         # @return [String, nil] snapshot id to remove
         attribute :snapshot_id

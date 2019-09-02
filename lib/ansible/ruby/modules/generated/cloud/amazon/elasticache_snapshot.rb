@@ -15,7 +15,7 @@ module Ansible
 
         # @return [:present, :absent, :copy, nil] Actions that will create, destroy, or copy a snapshot.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent, :copy], :message=>"%{value} needs to be :present, :absent, :copy"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent, :copy], :message=>"%{value} needs to be :present, :absent, :copy"}, allow_nil: true
 
         # @return [Object, nil] The name of the existing replication group to make the snapshot.
         attribute :replication_id

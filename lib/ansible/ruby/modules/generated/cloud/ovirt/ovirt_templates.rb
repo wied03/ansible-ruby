@@ -18,7 +18,7 @@ module Ansible
 
         # @return [:present, :absent, :exported, :imported, :registered, nil] Should the template be present/absent/exported/imported/registered. When C(state) is I(registered) and the unregistered template's name belongs to an already registered in engine template in the same DC then we fail to register the unregistered template.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent, :exported, :imported, :registered], :message=>"%{value} needs to be :present, :absent, :exported, :imported, :registered"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent, :exported, :imported, :registered], :message=>"%{value} needs to be :present, :absent, :exported, :imported, :registered"}, allow_nil: true
 
         # @return [String, nil] Name of the VM, which will be used to create template.
         attribute :vm

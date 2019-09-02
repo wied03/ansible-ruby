@@ -29,7 +29,7 @@ module Ansible
 
         # @return [:absent, :present, nil] desired state of the resource
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
         # @return [Object] The GCE zone to use for this Managed Instance Group.
         attribute :zone

@@ -10,7 +10,7 @@ module Ansible
       class Na_ontap_net_port < Base
         # @return [:present, nil] Whether the specified net port should exist or not.
         attribute :state
-        validates :state, inclusion: {:in=>[:present], :message=>"%{value} needs to be :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present], :message=>"%{value} needs to be :present"}, allow_nil: true
 
         # @return [String] Specifies the name of node.
         attribute :node

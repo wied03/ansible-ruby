@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:present, :started, :stopped, :restarted, :monitored, :unmonitored, :reloaded] The state of service
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:present, :started, :stopped, :restarted, :monitored, :unmonitored, :reloaded], :message=>"%{value} needs to be :present, :started, :stopped, :restarted, :monitored, :unmonitored, :reloaded"}
+        validates :state, presence: true, expression_inclusion: {:in=>[:present, :started, :stopped, :restarted, :monitored, :unmonitored, :reloaded], :message=>"%{value} needs to be :present, :started, :stopped, :restarted, :monitored, :unmonitored, :reloaded"}
 
         # @return [Integer, nil] If there are pending actions for the service monitored by monit, then Ansible will check for up to this many seconds to verify the requested action has been performed. Ansible will sleep for five seconds between each check.
         attribute :timeout

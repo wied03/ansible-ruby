@@ -20,7 +20,7 @@ module Ansible
 
         # @return [:json, :xml, nil] Sets the config backup to be formatted in JSON or XML.,The APIC defaults to C(json) when unset.
         attribute :format
-        validates :format, inclusion: {:in=>[:json, :xml], :message=>"%{value} needs to be :json, :xml"}, allow_nil: true
+        validates :format, expression_inclusion: {:in=>[:json, :xml], :message=>"%{value} needs to be :json, :xml"}, allow_nil: true
 
         # @return [Symbol, nil] Determines if secure information should be included in the backup.,The APIC defaults to C(yes) when unset.
         attribute :include_secure
@@ -36,7 +36,7 @@ module Ansible
 
         # @return [:absent, :present, :query, nil] Use C(present) or C(absent) for adding or removing.,Use C(query) for listing an object or multiple objects.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present, :query], :message=>"%{value} needs to be :absent, :present, :query"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present, :query], :message=>"%{value} needs to be :absent, :present, :query"}, allow_nil: true
       end
     end
   end

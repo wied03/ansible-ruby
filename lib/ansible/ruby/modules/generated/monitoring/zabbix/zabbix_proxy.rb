@@ -18,15 +18,15 @@ module Ansible
 
         # @return [:active, :passive, nil] Type of proxy. (4 - active, 5 - passive)
         attribute :status
-        validates :status, inclusion: {:in=>[:active, :passive], :message=>"%{value} needs to be :active, :passive"}, allow_nil: true
+        validates :status, expression_inclusion: {:in=>[:active, :passive], :message=>"%{value} needs to be :active, :passive"}, allow_nil: true
 
         # @return [:no_encryption, :PSK, :certificate, nil] Connections to proxy.
         attribute :tls_connect
-        validates :tls_connect, inclusion: {:in=>[:no_encryption, :PSK, :certificate], :message=>"%{value} needs to be :no_encryption, :PSK, :certificate"}, allow_nil: true
+        validates :tls_connect, expression_inclusion: {:in=>[:no_encryption, :PSK, :certificate], :message=>"%{value} needs to be :no_encryption, :PSK, :certificate"}, allow_nil: true
 
         # @return [:no_encryption, :PSK, :certificate, nil] Connections from proxy.
         attribute :tls_accept
-        validates :tls_accept, inclusion: {:in=>[:no_encryption, :PSK, :certificate], :message=>"%{value} needs to be :no_encryption, :PSK, :certificate"}, allow_nil: true
+        validates :tls_accept, expression_inclusion: {:in=>[:no_encryption, :PSK, :certificate], :message=>"%{value} needs to be :no_encryption, :PSK, :certificate"}, allow_nil: true
 
         # @return [Object, nil] Certificate issuer.
         attribute :tls_issuer
@@ -42,7 +42,7 @@ module Ansible
 
         # @return [:present, :absent, nil] State of the proxy.,On C(present), it will create if proxy does not exist or update the proxy if the associated data is different.,On C(absent) will remove a proxy if it exists.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [Object, nil] Dictionary with params for the interface when proxy is in passive mode,Available values are: dns, ip, main, port, type and useip.,Please review the interface documentation for more information on the supported properties,U(https://www.zabbix.com/documentation/3.2/manual/api/reference/proxy/object#proxy_interface)
         attribute :interface

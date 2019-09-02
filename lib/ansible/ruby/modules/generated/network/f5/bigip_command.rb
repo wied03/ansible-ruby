@@ -20,7 +20,7 @@ module Ansible
 
         # @return [:any, :all, nil] The I(match) argument is used in conjunction with the I(wait_for) argument to specify the match policy. Valid values are C(all) or C(any). If the value is set to C(all) then all conditionals in the I(wait_for) must be satisfied. If the value is set to C(any) then only one of the values must be satisfied.
         attribute :match
-        validates :match, inclusion: {:in=>[:any, :all], :message=>"%{value} needs to be :any, :all"}, allow_nil: true
+        validates :match, expression_inclusion: {:in=>[:any, :all], :message=>"%{value} needs to be :any, :all"}, allow_nil: true
 
         # @return [Integer, nil] Specifies the number of retries a command should by tried before it is considered failed. The command is run on the target device every retry and evaluated against the I(wait_for) conditionals.
         attribute :retries
@@ -32,11 +32,11 @@ module Ansible
 
         # @return [:rest, :cli] Configures the transport connection to use when connecting to the remote device. The transport argument supports connectivity to the device over cli (ssh) or rest.
         attribute :transport
-        validates :transport, presence: true, inclusion: {:in=>[:rest, :cli], :message=>"%{value} needs to be :rest, :cli"}
+        validates :transport, presence: true, expression_inclusion: {:in=>[:rest, :cli], :message=>"%{value} needs to be :rest, :cli"}
 
         # @return [Boolean, nil] Whether the module should raise warnings related to command idempotency or not.,Note that the F5 Ansible developers specifically leave this on to make you aware that your usage of this module may be better served by official F5 Ansible modules. This module should always be used as a last resort.
         attribute :warn
-        validates :warn, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :warn, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [String, nil] Change into this directory before running the command.
         attribute :chdir

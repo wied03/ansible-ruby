@@ -18,7 +18,7 @@ module Ansible
 
         # @return [:boolean, :error, :multiselect, :note, :password, :seen, :select, :string, :text, :title, :text, nil] The type of the value supplied.,C(seen) was added in 2.2.
         attribute :vtype
-        validates :vtype, inclusion: {:in=>[:boolean, :error, :multiselect, :note, :password, :seen, :select, :string, :text, :title, :text], :message=>"%{value} needs to be :boolean, :error, :multiselect, :note, :password, :seen, :select, :string, :text, :title, :text"}, allow_nil: true
+        validates :vtype, expression_inclusion: {:in=>[:boolean, :error, :multiselect, :note, :password, :seen, :select, :string, :text, :title, :text], :message=>"%{value} needs to be :boolean, :error, :multiselect, :note, :password, :seen, :select, :string, :text, :title, :text"}, allow_nil: true
 
         # @return [Array<String>, String, nil] Value to set the configuration to.
         attribute :value

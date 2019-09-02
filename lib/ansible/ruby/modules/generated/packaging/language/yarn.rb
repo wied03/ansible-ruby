@@ -41,7 +41,7 @@ module Ansible
 
         # @return [:present, :absent, :latest, nil] Installation state of the named node.js library,If absent is selected, a name option must be provided
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent, :latest], :message=>"%{value} needs to be :present, :absent, :latest"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent, :latest], :message=>"%{value} needs to be :present, :absent, :latest"}, allow_nil: true
       end
     end
   end

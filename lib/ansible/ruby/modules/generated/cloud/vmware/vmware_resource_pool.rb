@@ -22,7 +22,7 @@ module Ansible
 
         # @return [Boolean, nil] In a resource pool with an expandable reservation, the reservation on a resource pool can grow beyond the specified value.
         attribute :cpu_expandable_reservations
-        validates :cpu_expandable_reservations, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :cpu_expandable_reservations, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Integer, nil] Amount of resource that is guaranteed available to the virtual machine or resource pool.
         attribute :cpu_reservation
@@ -34,11 +34,11 @@ module Ansible
 
         # @return [:high, :custom, :low, :normal, nil] Memory shares are used in case of resource contention.
         attribute :cpu_shares
-        validates :cpu_shares, inclusion: {:in=>[:high, :custom, :low, :normal], :message=>"%{value} needs to be :high, :custom, :low, :normal"}, allow_nil: true
+        validates :cpu_shares, expression_inclusion: {:in=>[:high, :custom, :low, :normal], :message=>"%{value} needs to be :high, :custom, :low, :normal"}, allow_nil: true
 
         # @return [Boolean, nil] In a resource pool with an expandable reservation, the reservation on a resource pool can grow beyond the specified value.
         attribute :mem_expandable_reservations
-        validates :mem_expandable_reservations, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :mem_expandable_reservations, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Integer, nil] Amount of resource that is guaranteed available to the virtual machine or resource pool.
         attribute :mem_reservation
@@ -50,11 +50,11 @@ module Ansible
 
         # @return [:high, :custom, :low, :normal, nil] Memory shares are used in case of resource contention.
         attribute :mem_shares
-        validates :mem_shares, inclusion: {:in=>[:high, :custom, :low, :normal], :message=>"%{value} needs to be :high, :custom, :low, :normal"}, allow_nil: true
+        validates :mem_shares, expression_inclusion: {:in=>[:high, :custom, :low, :normal], :message=>"%{value} needs to be :high, :custom, :low, :normal"}, allow_nil: true
 
         # @return [:present, :absent, nil] Add or remove the resource pool
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

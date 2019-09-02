@@ -14,15 +14,15 @@ module Ansible
 
         # @return [:absent, :present, :query, nil] When C(present), creates or updates the user account.  When C(absent), removes the user account if it exists.  When C(query), retrieves the user account details without making any changes.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present, :query], :message=>"%{value} needs to be :absent, :present, :query"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present, :query], :message=>"%{value} needs to be :absent, :present, :query"}, allow_nil: true
 
         # @return [:yes, :no, nil] C(yes) will enable the user account.,C(no) will disable the account.
         attribute :enabled
-        validates :enabled, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :enabled, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:no, nil] C(no) will unlock the user account if locked. Note that there is not a way to lock an account as an administrator. Accounts are locked due to user actions; as an admin, you may only unlock a locked account. If you wish to administratively disable an account, set I(enabled) to C(no).
         attribute :account_locked
-        validates :account_locked, inclusion: {:in=>[:no], :message=>"%{value} needs to be :no"}, allow_nil: true
+        validates :account_locked, expression_inclusion: {:in=>[:no], :message=>"%{value} needs to be :no"}, allow_nil: true
 
         # @return [Object, nil] Description of the user
         attribute :description
@@ -33,7 +33,7 @@ module Ansible
 
         # @return [:add, :remove, :replace, nil] If C(add), the user is added to each group in I(groups) where not already a member.,If C(remove), the user is removed from each group in I(groups).,If C(replace), the user is added as a member of each group in I(groups) and removed from any other groups.
         attribute :groups_action
-        validates :groups_action, inclusion: {:in=>[:add, :remove, :replace], :message=>"%{value} needs to be :add, :remove, :replace"}, allow_nil: true
+        validates :groups_action, expression_inclusion: {:in=>[:add, :remove, :replace], :message=>"%{value} needs to be :add, :remove, :replace"}, allow_nil: true
 
         # @return [String, nil] Optionally set the user's password to this (plain text) value. In order to enable an account - I(enabled) - a password must already be configured on the account, or you must provide a password here.
         attribute :password
@@ -41,7 +41,7 @@ module Ansible
 
         # @return [:always, :on_create, nil] C(always) will update passwords if they differ.,C(on_create) will only set the password for newly created users.,Note that C(always) will always report an Ansible status of 'changed' because we cannot determine whether the new password differs from the old password.
         attribute :update_password
-        validates :update_password, inclusion: {:in=>[:always, :on_create], :message=>"%{value} needs to be :always, :on_create"}, allow_nil: true
+        validates :update_password, expression_inclusion: {:in=>[:always, :on_create], :message=>"%{value} needs to be :always, :on_create"}, allow_nil: true
 
         # @return [Symbol, nil] C(yes) will require the user to change their password at next login.,C(no) will clear the expired password flag.,This is mutually exclusive with I(password_never_expires).
         attribute :password_expired

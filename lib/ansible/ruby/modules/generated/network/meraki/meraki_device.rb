@@ -10,7 +10,7 @@ module Ansible
       class Meraki_device < Base
         # @return [:absent, :present, :query, nil] Query an organization.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present, :query], :message=>"%{value} needs to be :absent, :present, :query"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present, :query], :message=>"%{value} needs to be :absent, :present, :query"}, allow_nil: true
 
         # @return [String, nil] Name of organization.,If C(clone) is specified, C(org_name) is the name of the new organization.
         attribute :org_name

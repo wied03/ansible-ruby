@@ -10,7 +10,7 @@ module Ansible
       class Ce_acl_advance < Base
         # @return [:present, :absent, :delete_acl, nil] Specify desired state of the resource.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent, :delete_acl], :message=>"%{value} needs to be :present, :absent, :delete_acl"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent, :delete_acl], :message=>"%{value} needs to be :present, :absent, :delete_acl"}, allow_nil: true
 
         # @return [Object] ACL number or name. For a numbered rule group, the value ranging from 3000 to 3999 indicates a advance ACL. For a named rule group, the value is a string of 1 to 32 case-sensitive characters starting with a letter, spaces not supported.
         attribute :acl_name
@@ -33,11 +33,11 @@ module Ansible
 
         # @return [:permit, :deny, nil] Matching mode of basic ACL rules.
         attribute :rule_action
-        validates :rule_action, inclusion: {:in=>[:permit, :deny], :message=>"%{value} needs to be :permit, :deny"}, allow_nil: true
+        validates :rule_action, expression_inclusion: {:in=>[:permit, :deny], :message=>"%{value} needs to be :permit, :deny"}, allow_nil: true
 
         # @return [:ip, :icmp, :igmp, :ipinip, :tcp, :udp, :gre, :ospf, nil] Protocol type.
         attribute :protocol
-        validates :protocol, inclusion: {:in=>[:ip, :icmp, :igmp, :ipinip, :tcp, :udp, :gre, :ospf], :message=>"%{value} needs to be :ip, :icmp, :igmp, :ipinip, :tcp, :udp, :gre, :ospf"}, allow_nil: true
+        validates :protocol, expression_inclusion: {:in=>[:ip, :icmp, :igmp, :ipinip, :tcp, :udp, :gre, :ospf], :message=>"%{value} needs to be :ip, :icmp, :igmp, :ipinip, :tcp, :udp, :gre, :ospf"}, allow_nil: true
 
         # @return [Object, nil] Source IP address. The value is a string of 0 to 255 characters.The default value is 0.0.0.0. The value is in dotted decimal notation.
         attribute :source_ip
@@ -59,7 +59,7 @@ module Ansible
 
         # @return [:lt, :eq, :gt, :range, nil] Range type of the source port.
         attribute :src_port_op
-        validates :src_port_op, inclusion: {:in=>[:lt, :eq, :gt, :range], :message=>"%{value} needs to be :lt, :eq, :gt, :range"}, allow_nil: true
+        validates :src_port_op, expression_inclusion: {:in=>[:lt, :eq, :gt, :range], :message=>"%{value} needs to be :lt, :eq, :gt, :range"}, allow_nil: true
 
         # @return [Object, nil] Start port number of the source port. The value is an integer ranging from 0 to 65535.
         attribute :src_port_begin
@@ -72,7 +72,7 @@ module Ansible
 
         # @return [:lt, :eq, :gt, :range, nil] Range type of the destination port.
         attribute :dest_port_op
-        validates :dest_port_op, inclusion: {:in=>[:lt, :eq, :gt, :range], :message=>"%{value} needs to be :lt, :eq, :gt, :range"}, allow_nil: true
+        validates :dest_port_op, expression_inclusion: {:in=>[:lt, :eq, :gt, :range], :message=>"%{value} needs to be :lt, :eq, :gt, :range"}, allow_nil: true
 
         # @return [Object, nil] Start port number of the destination port. The value is an integer ranging from 0 to 65535.
         attribute :dest_port_begin
@@ -85,7 +85,7 @@ module Ansible
 
         # @return [:fragment, :clear_fragment, nil] Type of packet fragmentation.
         attribute :frag_type
-        validates :frag_type, inclusion: {:in=>[:fragment, :clear_fragment], :message=>"%{value} needs to be :fragment, :clear_fragment"}, allow_nil: true
+        validates :frag_type, expression_inclusion: {:in=>[:fragment, :clear_fragment], :message=>"%{value} needs to be :fragment, :clear_fragment"}, allow_nil: true
 
         # @return [Object, nil] Data packets can be filtered based on the priority field. The value is an integer ranging from 0 to 7.
         attribute :precedence
@@ -98,7 +98,7 @@ module Ansible
 
         # @return [:unconfiged, :echo, :"echo-reply", :"fragmentneed-DFset", :"host-redirect", :"host-tos-redirect", :"host-unreachable", :"information-reply", :"information-request", :"net-redirect", :"net-tos-redirect", :"net-unreachable", :"parameter-problem", :"port-unreachable", :"protocol-unreachable", :"reassembly-timeout", :"source-quench", :"source-route-failed", :"timestamp-reply", :"timestamp-request", :"ttl-exceeded", :"address-mask-reply", :"address-mask-request", :custom, nil] ICMP name.
         attribute :icmp_name
-        validates :icmp_name, inclusion: {:in=>[:unconfiged, :echo, :"echo-reply", :"fragmentneed-DFset", :"host-redirect", :"host-tos-redirect", :"host-unreachable", :"information-reply", :"information-request", :"net-redirect", :"net-tos-redirect", :"net-unreachable", :"parameter-problem", :"port-unreachable", :"protocol-unreachable", :"reassembly-timeout", :"source-quench", :"source-route-failed", :"timestamp-reply", :"timestamp-request", :"ttl-exceeded", :"address-mask-reply", :"address-mask-request", :custom], :message=>"%{value} needs to be :unconfiged, :echo, :\"echo-reply\", :\"fragmentneed-DFset\", :\"host-redirect\", :\"host-tos-redirect\", :\"host-unreachable\", :\"information-reply\", :\"information-request\", :\"net-redirect\", :\"net-tos-redirect\", :\"net-unreachable\", :\"parameter-problem\", :\"port-unreachable\", :\"protocol-unreachable\", :\"reassembly-timeout\", :\"source-quench\", :\"source-route-failed\", :\"timestamp-reply\", :\"timestamp-request\", :\"ttl-exceeded\", :\"address-mask-reply\", :\"address-mask-request\", :custom"}, allow_nil: true
+        validates :icmp_name, expression_inclusion: {:in=>[:unconfiged, :echo, :"echo-reply", :"fragmentneed-DFset", :"host-redirect", :"host-tos-redirect", :"host-unreachable", :"information-reply", :"information-request", :"net-redirect", :"net-tos-redirect", :"net-unreachable", :"parameter-problem", :"port-unreachable", :"protocol-unreachable", :"reassembly-timeout", :"source-quench", :"source-route-failed", :"timestamp-reply", :"timestamp-request", :"ttl-exceeded", :"address-mask-reply", :"address-mask-request", :custom], :message=>"%{value} needs to be :unconfiged, :echo, :\"echo-reply\", :\"fragmentneed-DFset\", :\"host-redirect\", :\"host-tos-redirect\", :\"host-unreachable\", :\"information-reply\", :\"information-request\", :\"net-redirect\", :\"net-tos-redirect\", :\"net-unreachable\", :\"parameter-problem\", :\"port-unreachable\", :\"protocol-unreachable\", :\"reassembly-timeout\", :\"source-quench\", :\"source-route-failed\", :\"timestamp-reply\", :\"timestamp-request\", :\"ttl-exceeded\", :\"address-mask-reply\", :\"address-mask-request\", :custom"}, allow_nil: true
 
         # @return [Object, nil] ICMP type. This parameter is available only when the packet protocol is ICMP. The value is an integer ranging from 0 to 255.
         attribute :icmp_type
@@ -108,7 +108,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Whether TTL Expired is matched, with the TTL value of 1.
         attribute :ttl_expired
-        validates :ttl_expired, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :ttl_expired, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] VPN instance name. The value is a string of 1 to 31 characters.The default value is _public_.
         attribute :vrf_name
@@ -121,7 +121,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Match established connections.
         attribute :established
-        validates :established, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :established, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] Name of a time range in which an ACL rule takes effect.
         attribute :time_range
@@ -131,11 +131,11 @@ module Ansible
 
         # @return [:"host-query", :"mrouter-adver", :"mrouter-solic", :"mrouter-termi", :"mtrace-resp", :"mtrace-route", :"v1host-report", :"v2host-report", :"v2leave-group", :"v3host-report", nil] Internet Group Management Protocol.
         attribute :igmp_type
-        validates :igmp_type, inclusion: {:in=>[:"host-query", :"mrouter-adver", :"mrouter-solic", :"mrouter-termi", :"mtrace-resp", :"mtrace-route", :"v1host-report", :"v2host-report", :"v2leave-group", :"v3host-report"], :message=>"%{value} needs to be :\"host-query\", :\"mrouter-adver\", :\"mrouter-solic\", :\"mrouter-termi\", :\"mtrace-resp\", :\"mtrace-route\", :\"v1host-report\", :\"v2host-report\", :\"v2leave-group\", :\"v3host-report\""}, allow_nil: true
+        validates :igmp_type, expression_inclusion: {:in=>[:"host-query", :"mrouter-adver", :"mrouter-solic", :"mrouter-termi", :"mtrace-resp", :"mtrace-route", :"v1host-report", :"v2host-report", :"v2leave-group", :"v3host-report"], :message=>"%{value} needs to be :\"host-query\", :\"mrouter-adver\", :\"mrouter-solic\", :\"mrouter-termi\", :\"mtrace-resp\", :\"mtrace-route\", :\"v1host-report\", :\"v2host-report\", :\"v2leave-group\", :\"v3host-report\""}, allow_nil: true
 
         # @return [:yes, :no, nil] Flag of logging matched data packets.
         attribute :log_flag
-        validates :log_flag, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :log_flag, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

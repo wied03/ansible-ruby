@@ -21,11 +21,11 @@ module Ansible
 
         # @return [:normal, nil] Define in which state the device should be. Currently only I(normal) is supported but the goal is to add I(maint) and I(decomm).
         attribute :state
-        validates :state, inclusion: {:in=>[:normal], :message=>"%{value} needs to be :normal"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:normal], :message=>"%{value} needs to be :normal"}, allow_nil: true
 
         # @return [:yes, :no, nil] The approve argument instruct the module to convert a device in quarantine mode into approved mode.
         attribute :approve
-        validates :approve, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :approve, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Array<String>, String, nil] When approving a device using the I(approve) argument, it's possible define the location of the device.
         attribute :location

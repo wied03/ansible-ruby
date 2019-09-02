@@ -14,15 +14,15 @@ module Ansible
 
         # @return [:absent, :present, :query, nil] defines whether the ACL should be present or not.  The C(query) state gets the current acl without changing it, for use in 'register' operations.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present, :query], :message=>"%{value} needs to be :absent, :present, :query"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present, :query], :message=>"%{value} needs to be :absent, :present, :query"}, allow_nil: true
 
         # @return [:yes, :no, nil] whether to follow symlinks on the path if a symlink is encountered.
         attribute :follow
-        validates :follow, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :follow, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:yes, :no, nil] if the target is a directory, setting this to yes will make it the default acl for entities created inside the directory. It causes an error if path is a file.
         attribute :default
-        validates :default, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :default, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] actual user or group that the ACL applies to when matching entity types user or group are selected.
         attribute :entity
@@ -30,7 +30,7 @@ module Ansible
 
         # @return [:group, :mask, :other, :user, nil] the entity type of the ACL to apply, see setfacl documentation for more info.
         attribute :etype
-        validates :etype, inclusion: {:in=>[:group, :mask, :other, :user], :message=>"%{value} needs to be :group, :mask, :other, :user"}, allow_nil: true
+        validates :etype, expression_inclusion: {:in=>[:group, :mask, :other, :user], :message=>"%{value} needs to be :group, :mask, :other, :user"}, allow_nil: true
 
         # @return [String, nil] Permissions to apply/remove can be any combination of r, w and  x (read, write and execute respectively)
         attribute :permissions
@@ -42,11 +42,11 @@ module Ansible
 
         # @return [:yes, :no, nil] Recursively sets the specified ACL (added in Ansible 2.0). Incompatible with C(state=query).
         attribute :recursive
-        validates :recursive, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :recursive, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:default, :mask, :no_mask, nil] Select if and when to recalculate the effective right masks of the files, see setfacl documentation for more info. Incompatible with C(state=query).
         attribute :recalculate_mask
-        validates :recalculate_mask, inclusion: {:in=>[:default, :mask, :no_mask], :message=>"%{value} needs to be :default, :mask, :no_mask"}, allow_nil: true
+        validates :recalculate_mask, expression_inclusion: {:in=>[:default, :mask, :no_mask], :message=>"%{value} needs to be :default, :mask, :no_mask"}, allow_nil: true
       end
     end
   end

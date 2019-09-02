@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:present, :absent, nil] Should the resource be present or absent.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String] The name or id of the load balancer that this listener belongs to.
         attribute :loadbalancer
@@ -22,7 +22,7 @@ module Ansible
 
         # @return [:HTTP, :HTTPS, :TCP, :TERMINATED_HTTPS, nil] The protocol for the listener.
         attribute :protocol
-        validates :protocol, inclusion: {:in=>[:HTTP, :HTTPS, :TCP, :TERMINATED_HTTPS], :message=>"%{value} needs to be :HTTP, :HTTPS, :TCP, :TERMINATED_HTTPS"}, allow_nil: true
+        validates :protocol, expression_inclusion: {:in=>[:HTTP, :HTTPS, :TCP, :TERMINATED_HTTPS], :message=>"%{value} needs to be :HTTP, :HTTPS, :TCP, :TERMINATED_HTTPS"}, allow_nil: true
 
         # @return [Integer, nil] The protocol port number for the listener.
         attribute :protocol_port
@@ -30,7 +30,7 @@ module Ansible
 
         # @return [:yes, :no, nil] If the module should wait for the load balancer to be ACTIVE.
         attribute :wait
-        validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :wait, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] The amount of time the module should wait for the load balancer to get into ACTIVE state.
         attribute :timeout

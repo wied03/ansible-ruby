@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:present, :absent, :latest, nil] state of the package, you can use "installed" as an alias for C(present) and removed as one for C(absent).
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent, :latest], :message=>"%{value} needs to be :present, :absent, :latest"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent, :latest], :message=>"%{value} needs to be :present, :absent, :latest"}, allow_nil: true
 
         # @return [Symbol, nil] update the package database first
         attribute :update_cache

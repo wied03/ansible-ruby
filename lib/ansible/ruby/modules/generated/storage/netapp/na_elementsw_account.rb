@@ -10,7 +10,7 @@ module Ansible
       class Na_elementsw_account < Base
         # @return [:present, :absent] Whether the specified account should exist or not.
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
+        validates :state, presence: true, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
 
         # @return [String] Unique username for this account. (May be 1 to 64 characters in length).
         attribute :element_username

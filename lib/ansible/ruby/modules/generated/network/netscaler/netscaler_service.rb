@@ -23,7 +23,7 @@ module Ansible
 
         # @return [:HTTP, :FTP, :TCP, :UDP, :SSL, :SSL_BRIDGE, :SSL_TCP, :DTLS, :NNTP, :RPCSVR, :DNS, :ADNS, :SNMP, :RTSP, :DHCPRA, :ANY, :SIP_UDP, :SIP_TCP, :SIP_SSL, :DNS_TCP, :ADNS_TCP, :MYSQL, :MSSQL, :ORACLE, :RADIUS, :RADIUSListener, :RDP, :DIAMETER, :SSL_DIAMETER, :TFTP, :SMPP, :PPTP, :GRE, :SYSLOGTCP, :SYSLOGUDP, :FIX, :SSL_FIX, nil] Protocol in which data is exchanged with the service.
         attribute :servicetype
-        validates :servicetype, inclusion: {:in=>[:HTTP, :FTP, :TCP, :UDP, :SSL, :SSL_BRIDGE, :SSL_TCP, :DTLS, :NNTP, :RPCSVR, :DNS, :ADNS, :SNMP, :RTSP, :DHCPRA, :ANY, :SIP_UDP, :SIP_TCP, :SIP_SSL, :DNS_TCP, :ADNS_TCP, :MYSQL, :MSSQL, :ORACLE, :RADIUS, :RADIUSListener, :RDP, :DIAMETER, :SSL_DIAMETER, :TFTP, :SMPP, :PPTP, :GRE, :SYSLOGTCP, :SYSLOGUDP, :FIX, :SSL_FIX], :message=>"%{value} needs to be :HTTP, :FTP, :TCP, :UDP, :SSL, :SSL_BRIDGE, :SSL_TCP, :DTLS, :NNTP, :RPCSVR, :DNS, :ADNS, :SNMP, :RTSP, :DHCPRA, :ANY, :SIP_UDP, :SIP_TCP, :SIP_SSL, :DNS_TCP, :ADNS_TCP, :MYSQL, :MSSQL, :ORACLE, :RADIUS, :RADIUSListener, :RDP, :DIAMETER, :SSL_DIAMETER, :TFTP, :SMPP, :PPTP, :GRE, :SYSLOGTCP, :SYSLOGUDP, :FIX, :SSL_FIX"}, allow_nil: true
+        validates :servicetype, expression_inclusion: {:in=>[:HTTP, :FTP, :TCP, :UDP, :SSL, :SSL_BRIDGE, :SSL_TCP, :DTLS, :NNTP, :RPCSVR, :DNS, :ADNS, :SNMP, :RTSP, :DHCPRA, :ANY, :SIP_UDP, :SIP_TCP, :SIP_SSL, :DNS_TCP, :ADNS_TCP, :MYSQL, :MSSQL, :ORACLE, :RADIUS, :RADIUSListener, :RDP, :DIAMETER, :SSL_DIAMETER, :TFTP, :SMPP, :PPTP, :GRE, :SYSLOGTCP, :SYSLOGUDP, :FIX, :SSL_FIX], :message=>"%{value} needs to be :HTTP, :FTP, :TCP, :UDP, :SSL, :SSL_BRIDGE, :SSL_TCP, :DTLS, :NNTP, :RPCSVR, :DNS, :ADNS, :SNMP, :RTSP, :DHCPRA, :ANY, :SIP_UDP, :SIP_TCP, :SIP_SSL, :DNS_TCP, :ADNS_TCP, :MYSQL, :MSSQL, :ORACLE, :RADIUS, :RADIUSListener, :RDP, :DIAMETER, :SSL_DIAMETER, :TFTP, :SMPP, :PPTP, :GRE, :SYSLOGTCP, :SYSLOGUDP, :FIX, :SSL_FIX"}, allow_nil: true
 
         # @return [Integer, nil] Port number of the service.,Range 1 - 65535,* in CLI is represented as 65535 in NITRO API
         attribute :port
@@ -34,25 +34,25 @@ module Ansible
 
         # @return [:TRANSPARENT, :REVERSE, :FORWARD, nil] Cache type supported by the cache server.
         attribute :cachetype
-        validates :cachetype, inclusion: {:in=>[:TRANSPARENT, :REVERSE, :FORWARD], :message=>"%{value} needs to be :TRANSPARENT, :REVERSE, :FORWARD"}, allow_nil: true
+        validates :cachetype, expression_inclusion: {:in=>[:TRANSPARENT, :REVERSE, :FORWARD], :message=>"%{value} needs to be :TRANSPARENT, :REVERSE, :FORWARD"}, allow_nil: true
 
         # @return [Object, nil] Maximum number of simultaneous open connections to the service.,Minimum value = 0,Maximum value = 4294967294
         attribute :maxclient
 
         # @return [Boolean, nil] Monitor the health of this service
         attribute :healthmonitor
-        validates :healthmonitor, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :healthmonitor, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Object, nil] Maximum number of requests that can be sent on a persistent connection to the service.,Note: Connection requests beyond this value are rejected.,Minimum value = 0,Maximum value = 65535
         attribute :maxreq
 
         # @return [Boolean, nil] Use the transparent cache redirection virtual server to forward requests to the cache server.,Note: Do not specify this parameter if you set the Cache Type parameter.
         attribute :cacheable
-        validates :cacheable, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :cacheable, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [:enabled, :disabled, nil] Before forwarding a request to the service, insert an HTTP header with the client's IPv4 or IPv6 address as its value. Used if the server needs the client's IP address for security, accounting, or other purposes, and setting the Use Source IP parameter is not a viable option.
         attribute :cip
-        validates :cip, inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
+        validates :cip, expression_inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
 
         # @return [Object, nil] Name for the HTTP header whose value must be set to the IP address of the client. Used with the Client IP parameter. If you set the Client IP parameter, and you do not specify a name for the header, the appliance uses the header name specified for the global Client IP Header parameter (the cipHeader parameter in the set ns param CLI command or the Client IP Header parameter in the Configure HTTP Parameters dialog box at System > Settings > Change HTTP parameters). If the global Client IP Header parameter is not specified, the appliance inserts a header with the name "client-ip.".,Minimum length = 1
         attribute :cipheader
@@ -74,7 +74,7 @@ module Ansible
 
         # @return [Boolean, nil] Enable RTSP session ID mapping for the service.
         attribute :rtspsessionidremap
-        validates :rtspsessionidremap, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :rtspsessionidremap, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Object, nil] Time, in seconds, after which to terminate an idle client connection.,Minimum value = 0,Maximum value = 31536000
         attribute :clttimeout
@@ -102,14 +102,14 @@ module Ansible
 
         # @return [Boolean, nil] Use Layer 2 mode to bridge the packets sent to this service if it is marked as DOWN. If the service is DOWN, and this parameter is disabled, the packets are dropped.
         attribute :accessdown
-        validates :accessdown, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :accessdown, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Object, nil] Minimum sum of weights of the monitors that are bound to this service. Used to determine whether to mark a service as UP or DOWN.,Minimum value = 0,Maximum value = 65535
         attribute :monthreshold
 
         # @return [:enabled, :disabled, nil] Flush all active transactions associated with a service whose state transitions from UP to DOWN. Do not enable this option for applications that must complete their transactions.
         attribute :downstateflush
-        validates :downstateflush, inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
+        validates :downstateflush, expression_inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
 
         # @return [Object, nil] Name of the TCP profile that contains TCP configuration settings for the service.,Minimum length = 1,Maximum length = 127
         attribute :tcpprofilename
@@ -125,7 +125,7 @@ module Ansible
 
         # @return [:enabled, :disabled, nil] Enable logging of AppFlow information.
         attribute :appflowlog
-        validates :appflowlog, inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
+        validates :appflowlog, expression_inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
 
         # @return [Object, nil] Network profile to use for the service.,Minimum length = 1,Maximum length = 127
         attribute :netprofile
@@ -135,7 +135,7 @@ module Ansible
 
         # @return [:enabled, :disabled, nil] By turning on this option packets destined to a service in a cluster will not under go any steering. Turn this option for single packet request response mode or when the upstream device is performing a proper RSS for connection based distribution.
         attribute :processlocal
-        validates :processlocal, inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
+        validates :processlocal, expression_inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
 
         # @return [Object, nil] Name of the DNS profile to be associated with the service. DNS profile properties will applied to the transactions processed by a service. This parameter is valid only for ADNS and ADNS-TCP services.,Minimum length = 1,Maximum length = 127
         attribute :dnsprofilename
@@ -146,7 +146,7 @@ module Ansible
 
         # @return [Boolean, nil] Shut down gracefully, not accepting any new connections, and disabling the service when all of its connections are closed.
         attribute :graceful
-        validates :graceful, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :graceful, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Array<String>, String, nil] A list of load balancing monitors to bind to this service.,Each monitor entry is a dictionary which may contain the following options.,Note that if not using the built in monitors they must first be setup.
         attribute :monitor_bindings

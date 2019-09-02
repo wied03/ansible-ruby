@@ -11,7 +11,7 @@ module Ansible
       class Avi_gslbhealthmonitor < Base
         # @return [:absent, :present, nil] The state that should be applied on the entity.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
         # @return [Object, nil] User defined description for the object.
         attribute :description

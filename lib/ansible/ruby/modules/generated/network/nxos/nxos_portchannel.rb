@@ -14,7 +14,7 @@ module Ansible
 
         # @return [Boolean, nil] Mode for the port-channel, i.e. on, active, passive.
         attribute :mode
-        validates :mode, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :mode, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Object, nil] Min links required to keep portchannel up.
         attribute :min_links
@@ -25,11 +25,11 @@ module Ansible
 
         # @return [:false, :true, nil] When true it forces port-channel members to match what is declared in the members param. This can be used to remove members.
         attribute :force
-        validates :force, inclusion: {:in=>[:false, :true], :message=>"%{value} needs to be :false, :true"}, allow_nil: true
+        validates :force, expression_inclusion: {:in=>[:false, :true], :message=>"%{value} needs to be :false, :true"}, allow_nil: true
 
         # @return [:present, :absent, nil] Manage the state of the resource.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

@@ -18,7 +18,7 @@ module Ansible
 
         # @return [:absent, :present, nil] Assert the state of the ACS. Use 'present' to create or update an ACS and 'absent' to delete it.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
         # @return [String, nil] Valid azure location. Defaults to location of the resource group.
         attribute :location
@@ -26,7 +26,7 @@ module Ansible
 
         # @return [:DCOS, :Kubernetes, :Swarm] Specifies the Container Orchestration Platform to use. Currently can be either DCOS, Kubernetes or Swarm.
         attribute :orchestration_platform
-        validates :orchestration_platform, presence: true, inclusion: {:in=>[:DCOS, :Kubernetes, :Swarm], :message=>"%{value} needs to be :DCOS, :Kubernetes, :Swarm"}
+        validates :orchestration_platform, presence: true, expression_inclusion: {:in=>[:DCOS, :Kubernetes, :Swarm], :message=>"%{value} needs to be :DCOS, :Kubernetes, :Swarm"}
 
         # @return [Array<Hash>, Hash] Master profile suboptions.
         attribute :master_profile

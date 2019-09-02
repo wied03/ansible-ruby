@@ -10,7 +10,7 @@ module Ansible
       class Consul_session < Base
         # @return [:absent, :info, :list, :node, :present, nil] Whether the session should be present i.e. created if it doesn't exist, or absent, removed if present. If created, the ID for the session is returned in the output. If absent, the name or ID is required to remove the session. Info for a single session, all the sessions for a node or all available sessions can be retrieved by specifying info, node or list for the state; for node or info, the node name or session id is required as parameter.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :info, :list, :node, :present], :message=>"%{value} needs to be :absent, :info, :list, :node, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :info, :list, :node, :present], :message=>"%{value} needs to be :absent, :info, :list, :node, :present"}, allow_nil: true
 
         # @return [String, nil] The name that should be associated with the session. This is opaque to Consul and not required.
         attribute :name
@@ -44,11 +44,11 @@ module Ansible
 
         # @return [Boolean, nil] Whether to verify the tls certificate of the consul agent.
         attribute :validate_certs
-        validates :validate_certs, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :validate_certs, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [:delete, :release, nil] The optional behavior that can be attached to the session when it is created. This controls the behavior when a session is invalidated.
         attribute :behavior
-        validates :behavior, inclusion: {:in=>[:delete, :release], :message=>"%{value} needs to be :delete, :release"}, allow_nil: true
+        validates :behavior, expression_inclusion: {:in=>[:delete, :release], :message=>"%{value} needs to be :delete, :release"}, allow_nil: true
       end
     end
   end

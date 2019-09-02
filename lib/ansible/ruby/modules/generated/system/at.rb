@@ -22,15 +22,15 @@ module Ansible
 
         # @return [:minutes, :hours, :days, :weeks] The type of units in the future to execute the command or script file.
         attribute :units
-        validates :units, presence: true, inclusion: {:in=>[:minutes, :hours, :days, :weeks], :message=>"%{value} needs to be :minutes, :hours, :days, :weeks"}
+        validates :units, presence: true, expression_inclusion: {:in=>[:minutes, :hours, :days, :weeks], :message=>"%{value} needs to be :minutes, :hours, :days, :weeks"}
 
         # @return [:absent, :present, nil] The state dictates if the command or script file should be evaluated as present(added) or absent(deleted).
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
         # @return [:yes, :no, nil] If a matching job is present a new job will not be added.
         attribute :unique
-        validates :unique, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :unique, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

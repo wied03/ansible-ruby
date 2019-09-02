@@ -51,15 +51,15 @@ module Ansible
 
         # @return [:thin, :sparse, :fat, nil] Provisioning type used to create volumes.
         attribute :provisioning_type
-        validates :provisioning_type, inclusion: {:in=>[:thin, :sparse, :fat], :message=>"%{value} needs to be :thin, :sparse, :fat"}, allow_nil: true
+        validates :provisioning_type, expression_inclusion: {:in=>[:thin, :sparse, :fat], :message=>"%{value} needs to be :thin, :sparse, :fat"}, allow_nil: true
 
         # @return [:present, :absent, nil] State of the disk offering.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [:local, :shared, nil] The storage type of the disk offering.
         attribute :storage_type
-        validates :storage_type, inclusion: {:in=>[:local, :shared], :message=>"%{value} needs to be :local, :shared"}, allow_nil: true
+        validates :storage_type, expression_inclusion: {:in=>[:local, :shared], :message=>"%{value} needs to be :local, :shared"}, allow_nil: true
 
         # @return [String, nil] The storage tags for this disk offering.
         attribute :storage_tags

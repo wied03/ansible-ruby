@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:present, :absent, nil] Desired state of a plugin.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [Object, nil] Set exact URL to download the plugin from. For local file, prefix its absolute path with file://
         attribute :url
@@ -37,7 +37,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Delete and re-install the plugin. Can be useful for plugins update
         attribute :force
-        validates :force, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :force, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

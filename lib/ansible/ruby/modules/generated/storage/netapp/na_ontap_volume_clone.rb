@@ -11,7 +11,7 @@ module Ansible
       class Na_ontap_volume_clone < Base
         # @return [:present, nil] Whether volume clone should be created.
         attribute :state
-        validates :state, inclusion: {:in=>[:present], :message=>"%{value} needs to be :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present], :message=>"%{value} needs to be :present"}, allow_nil: true
 
         # @return [String] The parent volume of the volume clone being created.
         attribute :parent_volume
@@ -37,11 +37,11 @@ module Ansible
 
         # @return [:volume, :none, nil] The space_reserve setting which should be used for the volume clone.
         attribute :space_reserve
-        validates :space_reserve, inclusion: {:in=>[:volume, :none], :message=>"%{value} needs to be :volume, :none"}, allow_nil: true
+        validates :space_reserve, expression_inclusion: {:in=>[:volume, :none], :message=>"%{value} needs to be :volume, :none"}, allow_nil: true
 
         # @return [:rw, :dp, nil] The volume-type setting which should be used for the volume clone.
         attribute :volume_type
-        validates :volume_type, inclusion: {:in=>[:rw, :dp], :message=>"%{value} needs to be :rw, :dp"}, allow_nil: true
+        validates :volume_type, expression_inclusion: {:in=>[:rw, :dp], :message=>"%{value} needs to be :rw, :dp"}, allow_nil: true
       end
     end
   end

@@ -22,7 +22,7 @@ module Ansible
 
         # @return [:absent, :present, nil] If C(present) will ensure the mapped drive exists.,If C(absent) will ensure the mapped drive does not exist.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
         # @return [String, nil] Credentials to map the drive with.,The username MUST include the domain or servername like SERVER\user, see the example for more information.
         attribute :username

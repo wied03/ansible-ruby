@@ -33,7 +33,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Wait for the AMI to be in state 'available' before returning.
         attribute :wait
-        validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :wait, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] How long before wait gives up, in seconds.
         attribute :wait_timeout
@@ -41,7 +41,7 @@ module Ansible
 
         # @return [:absent, :present, nil] Register or deregister an AMI.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
         # @return [Object, nil] Human-readable string describing the contents and purpose of the AMI.
         attribute :description
@@ -60,7 +60,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Delete snapshots when deregistering the AMI.
         attribute :delete_snapshot
-        validates :delete_snapshot, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :delete_snapshot, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Hash, nil] A dictionary of tags to add to the new image; '{"key":"value"}' and '{"key":"value","key":"value"}'
         attribute :tags

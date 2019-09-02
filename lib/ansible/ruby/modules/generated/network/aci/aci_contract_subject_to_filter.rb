@@ -18,7 +18,7 @@ module Ansible
 
         # @return [:log, :none, nil] Determines if the binding should be set to log.,The APIC defaults to C(none) when unset during creation.
         attribute :log
-        validates :log, inclusion: {:in=>[:log, :none], :message=>"%{value} needs to be :log, :none"}, allow_nil: true
+        validates :log, expression_inclusion: {:in=>[:log, :none], :message=>"%{value} needs to be :log, :none"}, allow_nil: true
 
         # @return [String, nil] The name of the Contract Subject.
         attribute :subject
@@ -26,7 +26,7 @@ module Ansible
 
         # @return [:absent, :present, :query, nil] Use C(present) or C(absent) for adding or removing.,Use C(query) for listing an object or multiple objects.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present, :query], :message=>"%{value} needs to be :absent, :present, :query"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present, :query], :message=>"%{value} needs to be :absent, :present, :query"}, allow_nil: true
 
         # @return [String] The name of the tenant.
         attribute :tenant

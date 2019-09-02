@@ -18,11 +18,11 @@ module Ansible
 
         # @return [:inbound, :outbound] Direction ACL to be applied in on the interface.
         attribute :direction
-        validates :direction, presence: true, inclusion: {:in=>[:inbound, :outbound], :message=>"%{value} needs to be :inbound, :outbound"}
+        validates :direction, presence: true, expression_inclusion: {:in=>[:inbound, :outbound], :message=>"%{value} needs to be :inbound, :outbound"}
 
         # @return [:present, :absent, nil] Determines whether the config should be present or not on the device.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

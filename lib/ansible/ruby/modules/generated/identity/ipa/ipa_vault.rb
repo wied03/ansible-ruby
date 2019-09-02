@@ -19,7 +19,7 @@ module Ansible
 
         # @return [:standard, :symmetric, :asymmetric] Vault types are based on security level.
         attribute :ipavaulttype
-        validates :ipavaulttype, presence: true, inclusion: {:in=>[:standard, :symmetric, :asymmetric], :message=>"%{value} needs to be :standard, :symmetric, :asymmetric"}
+        validates :ipavaulttype, presence: true, expression_inclusion: {:in=>[:standard, :symmetric, :asymmetric], :message=>"%{value} needs to be :standard, :symmetric, :asymmetric"}
 
         # @return [Object, nil] Public key.
         attribute :ipavaultpublickey
@@ -35,15 +35,15 @@ module Ansible
 
         # @return [:present, :absent, nil] State to ensure.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [:True, :False, nil] Force replace the existant vault on IPA server.
         attribute :replace
-        validates :replace, inclusion: {:in=>[:True, :False], :message=>"%{value} needs to be :True, :False"}, allow_nil: true
+        validates :replace, expression_inclusion: {:in=>[:True, :False], :message=>"%{value} needs to be :True, :False"}, allow_nil: true
 
         # @return [Boolean, nil] Validate IPA server certificates.
         attribute :validate_certs
-        validates :validate_certs, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :validate_certs, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
       end
     end
   end

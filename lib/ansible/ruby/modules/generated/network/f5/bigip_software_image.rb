@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:absent, :present, nil] When C(present), ensures that the image is uploaded.,When C(absent), ensures that the image is removed.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
         # @return [String, nil] The image to put on the remote device.,This may be an absolute or relative location on the Ansible controller.,Image names, whether they are base ISOs or hotfix ISOs, B(must) be unique.
         attribute :image

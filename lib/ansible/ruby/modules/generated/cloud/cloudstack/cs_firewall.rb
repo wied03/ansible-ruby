@@ -18,15 +18,15 @@ module Ansible
 
         # @return [:present, :absent, nil] State of the firewall rule.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [:ingress, :egress, nil] Type of the firewall rule.
         attribute :type
-        validates :type, inclusion: {:in=>[:ingress, :egress], :message=>"%{value} needs to be :ingress, :egress"}, allow_nil: true
+        validates :type, expression_inclusion: {:in=>[:ingress, :egress], :message=>"%{value} needs to be :ingress, :egress"}, allow_nil: true
 
         # @return [:tcp, :udp, :icmp, :all, nil] Protocol of the firewall rule.,C(all) is only available if C(type=egress).
         attribute :protocol
-        validates :protocol, inclusion: {:in=>[:tcp, :udp, :icmp, :all], :message=>"%{value} needs to be :tcp, :udp, :icmp, :all"}, allow_nil: true
+        validates :protocol, expression_inclusion: {:in=>[:tcp, :udp, :icmp, :all], :message=>"%{value} needs to be :tcp, :udp, :icmp, :all"}, allow_nil: true
 
         # @return [String, nil] List of CIDRs (full notation) to be used for firewall rule.,Since version 2.5, it is a list of CIDR.
         attribute :cidrs
@@ -60,7 +60,7 @@ module Ansible
 
         # @return [Boolean, nil] Poll async jobs until job has finished.
         attribute :poll_async
-        validates :poll_async, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :poll_async, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Object, nil] List of tags. Tags are a list of dictionaries having keys C(key) and C(value).,To delete all tags, set a empty list e.g. C(tags: []).
         attribute :tags

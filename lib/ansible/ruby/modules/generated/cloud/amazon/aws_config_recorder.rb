@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:present, :absent, nil] Whether the Config rule should be present or absent.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String, nil] Amazon Resource Name (ARN) of the IAM role used to describe the AWS resources associated with the account.,Required when state=present
         attribute :role_arn

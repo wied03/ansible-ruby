@@ -26,7 +26,7 @@ module Ansible
 
         # @return [:urgent, :medium, :relaxed, nil] Timeout selector.
         attribute :timeout
-        validates :timeout, inclusion: {:in=>[:urgent, :medium, :relaxed], :message=>"%{value} needs to be :urgent, :medium, :relaxed"}, allow_nil: true
+        validates :timeout, expression_inclusion: {:in=>[:urgent, :medium, :relaxed], :message=>"%{value} needs to be :urgent, :medium, :relaxed"}, allow_nil: true
 
         # @return [Object, nil] A human readable SnapMirror label to be attached with the consistency group snapshot copies.
         attribute :snapmirror_label

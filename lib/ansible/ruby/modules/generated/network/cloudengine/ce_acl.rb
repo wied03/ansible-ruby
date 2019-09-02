@@ -10,7 +10,7 @@ module Ansible
       class Ce_acl < Base
         # @return [:present, :absent, :delete_acl, nil] Specify desired state of the resource.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent, :delete_acl], :message=>"%{value} needs to be :present, :absent, :delete_acl"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent, :delete_acl], :message=>"%{value} needs to be :present, :absent, :delete_acl"}, allow_nil: true
 
         # @return [Object] ACL number or name. For a numbered rule group, the value ranging from 2000 to 2999 indicates a basic ACL. For a named rule group, the value is a string of 1 to 32 case-sensitive characters starting with a letter, spaces not supported.
         attribute :acl_name
@@ -33,7 +33,7 @@ module Ansible
 
         # @return [:permit, :deny, nil] Matching mode of basic ACL rules.
         attribute :rule_action
-        validates :rule_action, inclusion: {:in=>[:permit, :deny], :message=>"%{value} needs to be :permit, :deny"}, allow_nil: true
+        validates :rule_action, expression_inclusion: {:in=>[:permit, :deny], :message=>"%{value} needs to be :permit, :deny"}, allow_nil: true
 
         # @return [Object, nil] Source IP address. The value is a string of 0 to 255 characters.The default value is 0.0.0.0. The value is in dotted decimal notation.
         attribute :source_ip
@@ -43,7 +43,7 @@ module Ansible
 
         # @return [:fragment, :clear_fragment, nil] Type of packet fragmentation.
         attribute :frag_type
-        validates :frag_type, inclusion: {:in=>[:fragment, :clear_fragment], :message=>"%{value} needs to be :fragment, :clear_fragment"}, allow_nil: true
+        validates :frag_type, expression_inclusion: {:in=>[:fragment, :clear_fragment], :message=>"%{value} needs to be :fragment, :clear_fragment"}, allow_nil: true
 
         # @return [Object, nil] VPN instance name. The value is a string of 1 to 31 characters.The default value is _public_.
         attribute :vrf_name
@@ -56,7 +56,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Flag of logging matched data packets.
         attribute :log_flag
-        validates :log_flag, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :log_flag, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

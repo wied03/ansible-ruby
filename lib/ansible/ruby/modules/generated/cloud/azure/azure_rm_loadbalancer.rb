@@ -18,14 +18,14 @@ module Ansible
 
         # @return [:absent, :present, nil] Assert the state of the load balancer. Use C(present) to create/update a load balancer, or C(absent) to delete one.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
         # @return [Object, nil] Valid azure location. Defaults to location of the resource group.
         attribute :location
 
         # @return [:Basic, :Standard, nil] The load balancer SKU.
         attribute :sku
-        validates :sku, inclusion: {:in=>[:Basic, :Standard], :message=>"%{value} needs to be :Basic, :Standard"}, allow_nil: true
+        validates :sku, expression_inclusion: {:in=>[:Basic, :Standard], :message=>"%{value} needs to be :Basic, :Standard"}, allow_nil: true
 
         # @return [Array<Hash>, Hash, nil] List of frontend IPs to be used
         attribute :frontend_ip_configurations
@@ -55,7 +55,7 @@ module Ansible
 
         # @return [:Tcp, :Http, nil] (deprecated) The protocol to use for the health probe.,This option has been deprecated, and will be removed in 2.9. Use I(probes) instead.
         attribute :probe_protocol
-        validates :probe_protocol, inclusion: {:in=>[:Tcp, :Http], :message=>"%{value} needs to be :Tcp, :Http"}, allow_nil: true
+        validates :probe_protocol, expression_inclusion: {:in=>[:Tcp, :Http], :message=>"%{value} needs to be :Tcp, :Http"}, allow_nil: true
 
         # @return [Integer, nil] (deprecated) Time (in seconds) between endpoint health probes.,This option has been deprecated, and will be removed in 2.9. Use I(probes) instead.
         attribute :probe_interval
@@ -70,11 +70,11 @@ module Ansible
 
         # @return [:Tcp, :Udp, nil] (deprecated) The protocol (TCP or UDP) that the load balancer will use.,This option has been deprecated, and will be removed in 2.9. Use I(load_balancing_rules) instead.
         attribute :protocol
-        validates :protocol, inclusion: {:in=>[:Tcp, :Udp], :message=>"%{value} needs to be :Tcp, :Udp"}, allow_nil: true
+        validates :protocol, expression_inclusion: {:in=>[:Tcp, :Udp], :message=>"%{value} needs to be :Tcp, :Udp"}, allow_nil: true
 
         # @return [:Default, :SourceIP, :SourceIPProtocol, nil] (deprecated) The type of load distribution that the load balancer will employ.,This option has been deprecated, and will be removed in 2.9. Use I(load_balancing_rules) instead.
         attribute :load_distribution
-        validates :load_distribution, inclusion: {:in=>[:Default, :SourceIP, :SourceIPProtocol], :message=>"%{value} needs to be :Default, :SourceIP, :SourceIPProtocol"}, allow_nil: true
+        validates :load_distribution, expression_inclusion: {:in=>[:Default, :SourceIP, :SourceIPProtocol], :message=>"%{value} needs to be :Default, :SourceIP, :SourceIPProtocol"}, allow_nil: true
 
         # @return [Object, nil] (deprecated) Frontend port that will be exposed for the load balancer.,This option has been deprecated, and will be removed in 2.9. Use I(load_balancing_rules) instead.
         attribute :frontend_port

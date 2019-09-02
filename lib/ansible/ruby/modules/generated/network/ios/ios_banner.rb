@@ -10,7 +10,7 @@ module Ansible
       class Ios_banner < Base
         # @return [:login, :motd, :exec, :incoming, :"slip-ppp"] Specifies which banner should be configured on the remote device. In Ansible 2.4 and earlier only I(login) and I(motd) were supported.
         attribute :banner
-        validates :banner, presence: true, inclusion: {:in=>[:login, :motd, :exec, :incoming, :"slip-ppp"], :message=>"%{value} needs to be :login, :motd, :exec, :incoming, :\"slip-ppp\""}
+        validates :banner, presence: true, expression_inclusion: {:in=>[:login, :motd, :exec, :incoming, :"slip-ppp"], :message=>"%{value} needs to be :login, :motd, :exec, :incoming, :\"slip-ppp\""}
 
         # @return [String, nil] The banner text that should be present in the remote device running configuration.  This argument accepts a multiline string, with no empty lines. Requires I(state=present).
         attribute :text
@@ -18,7 +18,7 @@ module Ansible
 
         # @return [:present, :absent, nil] Specifies whether or not the configuration is present in the current devices active running configuration.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

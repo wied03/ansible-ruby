@@ -27,7 +27,7 @@ module Ansible
 
         # @return [Boolean, nil] Add new records if data doesn't match, instead of updating existing record with matching name. If there are already multiple records with matching name and overwrite=true, this module will fail.
         attribute :overwrite
-        validates :overwrite, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :overwrite, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Object, nil] Required for MX and SRV records, but forbidden for other record types. If specified, must be an integer from 0 to 65535.
         attribute :priority
@@ -37,7 +37,7 @@ module Ansible
 
         # @return [:present, :absent, nil] Indicate desired state of the resource
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [Integer, nil] Time to live of record in seconds
         attribute :ttl
@@ -45,7 +45,7 @@ module Ansible
 
         # @return [:A, :AAAA, :CNAME, :MX, :NS, :SRV, :TXT, :PTR] DNS record type
         attribute :type
-        validates :type, presence: true, inclusion: {:in=>[:A, :AAAA, :CNAME, :MX, :NS, :SRV, :TXT, :PTR], :message=>"%{value} needs to be :A, :AAAA, :CNAME, :MX, :NS, :SRV, :TXT, :PTR"}
+        validates :type, presence: true, expression_inclusion: {:in=>[:A, :AAAA, :CNAME, :MX, :NS, :SRV, :TXT, :PTR], :message=>"%{value} needs to be :A, :AAAA, :CNAME, :MX, :NS, :SRV, :TXT, :PTR"}
       end
     end
   end

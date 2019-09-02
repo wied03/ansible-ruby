@@ -18,7 +18,7 @@ module Ansible
 
         # @return [:present, :absent, :active, :suspended, nil] State of the project.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent, :active, :suspended], :message=>"%{value} needs to be :present, :absent, :active, :suspended"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent, :active, :suspended], :message=>"%{value} needs to be :present, :absent, :active, :suspended"}, allow_nil: true
 
         # @return [Object, nil] Domain the project is related to.
         attribute :domain
@@ -32,7 +32,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Poll async jobs until job has finished.
         attribute :poll_async
-        validates :poll_async, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :poll_async, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

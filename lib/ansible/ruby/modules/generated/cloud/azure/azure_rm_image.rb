@@ -29,11 +29,11 @@ module Ansible
 
         # @return [:Windows, :Linux, nil] The OS type of image.
         attribute :os_type
-        validates :os_type, inclusion: {:in=>[:Windows, :Linux], :message=>"%{value} needs to be :Windows, :Linux"}, allow_nil: true
+        validates :os_type, expression_inclusion: {:in=>[:Windows, :Linux], :message=>"%{value} needs to be :Windows, :Linux"}, allow_nil: true
 
         # @return [:absent, :present, nil] Assert the state of the image. Use C(present) to create or update a image and C(absent) to delete an image.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
       end
     end
   end

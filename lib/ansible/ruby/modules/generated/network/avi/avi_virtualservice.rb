@@ -11,15 +11,15 @@ module Ansible
       class Avi_virtualservice < Base
         # @return [:absent, :present, nil] The state that should be applied on the entity.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
         # @return [:put, :patch, nil] Default method for object update is HTTP PUT.,Setting to patch will override that behavior to use HTTP PATCH.
         attribute :avi_api_update_method
-        validates :avi_api_update_method, inclusion: {:in=>[:put, :patch], :message=>"%{value} needs to be :put, :patch"}, allow_nil: true
+        validates :avi_api_update_method, expression_inclusion: {:in=>[:put, :patch], :message=>"%{value} needs to be :put, :patch"}, allow_nil: true
 
         # @return [:add, :replace, :delete, nil] Patch operation to use when using avi_api_update_method as patch.
         attribute :avi_api_patch_op
-        validates :avi_api_patch_op, inclusion: {:in=>[:add, :replace, :delete], :message=>"%{value} needs to be :add, :replace, :delete"}, allow_nil: true
+        validates :avi_api_patch_op, expression_inclusion: {:in=>[:add, :replace, :delete], :message=>"%{value} needs to be :add, :replace, :delete"}, allow_nil: true
 
         # @return [Object, nil] This configuration only applies if the virtualservice is in legacy active standby ha mode and load distribution among active standby is enabled.,This field is used to tag the virtualservice so that virtualservices with the same tag will share the same active serviceengine.,Virtualservices with different tags will have different active serviceengines.,If one of the serviceengine's in the serviceenginegroup fails, all virtualservices will end up using the same active serviceengine.,Redistribution of the virtualservices can be either manual or automated when the failed serviceengine recovers.,Redistribution is based on the auto redistribute property of the serviceenginegroup.,Enum options - ACTIVE_STANDBY_SE_1, ACTIVE_STANDBY_SE_2.,Default value when not specified in API or module is interpreted by Avi Controller as ACTIVE_STANDBY_SE_1.
         attribute :active_standby_se_tag

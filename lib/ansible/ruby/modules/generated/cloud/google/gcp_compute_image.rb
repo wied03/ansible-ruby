@@ -13,7 +13,7 @@ module Ansible
       class Gcp_compute_image < Base
         # @return [:present, :absent, nil] Whether the given object should exist in GCP
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [Object, nil] An optional description of this resource. Provide this property when you create the resource.
         attribute :description
@@ -52,7 +52,7 @@ module Ansible
 
         # @return [:RAW, nil] The type of the image used to create this disk. The default and only value is RAW .
         attribute :source_type
-        validates :source_type, inclusion: {:in=>[:RAW], :message=>"%{value} needs to be :RAW"}, allow_nil: true
+        validates :source_type, expression_inclusion: {:in=>[:RAW], :message=>"%{value} needs to be :RAW"}, allow_nil: true
       end
     end
   end

@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:present, :absent, nil] Should the host be present/absent.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String, nil] Address of the power management interface.
         attribute :address

@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:present, :absent, nil] If set to C(present) and feature is disabled, then feature is enabled.,If set to C(present) and feature is already enabled, then nothing is changed.,If set to C(absent) and feature is enabled, then feature is disabled.,If set to C(absent) and feature is already disabled, then nothing is changed.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

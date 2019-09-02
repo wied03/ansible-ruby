@@ -18,7 +18,7 @@ module Ansible
 
         # @return [:absent, :present, nil] Assert the state of the virtual machine scale set.,State 'present' will check that the machine exists with the requested configuration. If the configuration of the existing machine does not match, the machine will be updated. state.,State 'absent' will remove the virtual machine scale set.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
         # @return [Object, nil] Valid Azure location. Defaults to location of the resource group.
         attribute :location
@@ -36,11 +36,11 @@ module Ansible
 
         # @return [:Basic, :Standard, nil] SKU Tier.
         attribute :tier
-        validates :tier, inclusion: {:in=>[:Basic, :Standard], :message=>"%{value} needs to be :Basic, :Standard"}, allow_nil: true
+        validates :tier, expression_inclusion: {:in=>[:Basic, :Standard], :message=>"%{value} needs to be :Basic, :Standard"}, allow_nil: true
 
         # @return [:Manual, :Automatic, nil] Upgrade policy.
         attribute :upgrade_policy
-        validates :upgrade_policy, inclusion: {:in=>[:Manual, :Automatic], :message=>"%{value} needs to be :Manual, :Automatic"}, allow_nil: true
+        validates :upgrade_policy, expression_inclusion: {:in=>[:Manual, :Automatic], :message=>"%{value} needs to be :Manual, :Automatic"}, allow_nil: true
 
         # @return [String, nil] Admin username used to access the host after it is created. Required when creating a VM.
         attribute :admin_username
@@ -52,7 +52,7 @@ module Ansible
 
         # @return [Boolean, nil] When the os_type is Linux, setting ssh_password_enabled to false will disable SSH password authentication and require use of SSH keys.
         attribute :ssh_password_enabled
-        validates :ssh_password_enabled, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :ssh_password_enabled, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Array<Hash>, Hash, nil] For os_type Linux provide a list of SSH keys. Each item in the list should be a dictionary where the dictionary contains two keys: path and key_data. Set the path to the default location of the authorized_keys files. On an Enterprise Linux host, for example, the path will be /home/<admin username>/.ssh/authorized_keys. Set key_data to the actual value of the public key.
         attribute :ssh_public_keys
@@ -64,15 +64,15 @@ module Ansible
 
         # @return [:ReadOnly, :ReadWrite, nil] Type of OS disk caching.
         attribute :os_disk_caching
-        validates :os_disk_caching, inclusion: {:in=>[:ReadOnly, :ReadWrite], :message=>"%{value} needs to be :ReadOnly, :ReadWrite"}, allow_nil: true
+        validates :os_disk_caching, expression_inclusion: {:in=>[:ReadOnly, :ReadWrite], :message=>"%{value} needs to be :ReadOnly, :ReadWrite"}, allow_nil: true
 
         # @return [:Windows, :Linux, nil] Base type of operating system.
         attribute :os_type
-        validates :os_type, inclusion: {:in=>[:Windows, :Linux], :message=>"%{value} needs to be :Windows, :Linux"}, allow_nil: true
+        validates :os_type, expression_inclusion: {:in=>[:Windows, :Linux], :message=>"%{value} needs to be :Windows, :Linux"}, allow_nil: true
 
         # @return [:Standard_LRS, :Premium_LRS, nil] Managed disk type.
         attribute :managed_disk_type
-        validates :managed_disk_type, inclusion: {:in=>[:Standard_LRS, :Premium_LRS], :message=>"%{value} needs to be :Standard_LRS, :Premium_LRS"}, allow_nil: true
+        validates :managed_disk_type, expression_inclusion: {:in=>[:Standard_LRS, :Premium_LRS], :message=>"%{value} needs to be :Standard_LRS, :Premium_LRS"}, allow_nil: true
 
         # @return [Array<Hash>, Hash, nil] Describes list of data disks.
         attribute :data_disks

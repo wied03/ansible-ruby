@@ -17,7 +17,7 @@ module Ansible
 
         # @return [:absent, :present, nil] Whether the MSI file should be installed or uninstalled.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
         # @return [String, nil] Path to a file created by installing the MSI to prevent from attempting to reinstall the package on every run.
         attribute :creates
@@ -29,7 +29,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Specify whether to wait for install or uninstall to complete before continuing.
         attribute :wait
-        validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :wait, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

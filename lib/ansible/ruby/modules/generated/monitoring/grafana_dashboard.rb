@@ -29,7 +29,7 @@ module Ansible
 
         # @return [:absent, :export, :present] State of the dashboard.
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:absent, :export, :present], :message=>"%{value} needs to be :absent, :export, :present"}
+        validates :state, presence: true, expression_inclusion: {:in=>[:absent, :export, :present], :message=>"%{value} needs to be :absent, :export, :present"}
 
         # @return [Object, nil] Deprecated since Grafana 5. Use grafana dashboard uid instead.,slug of the dashboard. It's the friendly url name of the dashboard.,When C(state) is C(present), this parameter can override the slug in the meta section of the json file.,If you want to import a json dashboard exported directly from the interface (not from the api), you have to specify the slug parameter because there is no meta section in the exported json.
         attribute :slug
@@ -42,14 +42,14 @@ module Ansible
 
         # @return [:yes, :no, nil] Override existing dashboard when state is present.
         attribute :overwrite
-        validates :overwrite, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :overwrite, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] Set a commit message for the version history.,Only used when C(state) is C(present).
         attribute :message
 
         # @return [:yes, :no, nil] If C(no), SSL certificates will not be validated.,This should only be used on personally controlled sites using self-signed certificates.
         attribute :validate_certs
-        validates :validate_certs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :validate_certs, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] PEM formatted certificate chain file to be used for SSL client authentication.,This file can also include the key as well, and if the key is included, client_key is not required
         attribute :client_cert
@@ -59,7 +59,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Boolean of whether or not to use proxy.
         attribute :use_proxy
-        validates :use_proxy, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :use_proxy, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

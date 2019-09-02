@@ -39,7 +39,7 @@ module Ansible
 
         # @return [:absent, :drained, :present, :started, :stopped, nil] Either C(present), C(started), or C(stopped), C(absent), or C(drained).,When checking a port C(started) will ensure the port is open, C(stopped) will check that it is closed, C(drained) will check for active connections.,When checking for a file or a search string C(present) or C(started) will ensure that the file or string is present before continuing, C(absent) will check that file is absent or removed.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :drained, :present, :started, :stopped], :message=>"%{value} needs to be :absent, :drained, :present, :started, :stopped"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :drained, :present, :started, :stopped], :message=>"%{value} needs to be :absent, :drained, :present, :started, :stopped"}, allow_nil: true
 
         # @return [String, nil] Path to a file on the filesystem that must exist before continuing.
         attribute :path

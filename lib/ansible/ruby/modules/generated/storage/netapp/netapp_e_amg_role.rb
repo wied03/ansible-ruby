@@ -22,7 +22,7 @@ module Ansible
 
         # @return [Boolean, nil] Should https certificates be validated?
         attribute :validate_certs
-        validates :validate_certs, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :validate_certs, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [String] The ID of the primary storage array for the async mirror action
         attribute :ssid
@@ -30,7 +30,7 @@ module Ansible
 
         # @return [:primary, :secondary] Whether the array should be the primary or secondary array for the AMG
         attribute :role
-        validates :role, presence: true, inclusion: {:in=>[:primary, :secondary], :message=>"%{value} needs to be :primary, :secondary"}
+        validates :role, presence: true, expression_inclusion: {:in=>[:primary, :secondary], :message=>"%{value} needs to be :primary, :secondary"}
 
         # @return [Symbol, nil] Whether to avoid synchronization prior to role reversal
         attribute :noSync
@@ -38,7 +38,7 @@ module Ansible
 
         # @return [Boolean, nil] Whether to force the role reversal regardless of the online-state of the primary
         attribute :force
-        validates :force, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :force, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
       end
     end
   end

@@ -22,7 +22,7 @@ module Ansible
 
         # @return [:yes, :no, nil] To delete an instance, this argument must exist and be true (along with state being equal to absent).
         attribute :force_instance_delete
-        validates :force_instance_delete, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :force_instance_delete, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] Name of Instance to display.,If not specified, instance_id will be used instead.
         attribute :instance_display_name
@@ -33,7 +33,7 @@ module Ansible
 
         # @return [:absent, :present, nil] State of the instance or database. Applies to the most granular resource.,If a C(database_name) is specified we remove it.,If only C(instance_id) is specified, that is what is removed.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
       end
     end
   end

@@ -28,7 +28,7 @@ module Ansible
 
         # @return [:manual, :file, :ec2, :rax, :vmware, :gce, :azure, :azure_rm, :openstack, :satellite6, :cloudforms, :custom, nil] The source to use for this group.
         attribute :source
-        validates :source, inclusion: {:in=>[:manual, :file, :ec2, :rax, :vmware, :gce, :azure, :azure_rm, :openstack, :satellite6, :cloudforms, :custom], :message=>"%{value} needs to be :manual, :file, :ec2, :rax, :vmware, :gce, :azure, :azure_rm, :openstack, :satellite6, :cloudforms, :custom"}, allow_nil: true
+        validates :source, expression_inclusion: {:in=>[:manual, :file, :ec2, :rax, :vmware, :gce, :azure, :azure_rm, :openstack, :satellite6, :cloudforms, :custom], :message=>"%{value} needs to be :manual, :file, :ec2, :rax, :vmware, :gce, :azure, :azure_rm, :openstack, :satellite6, :cloudforms, :custom"}, allow_nil: true
 
         # @return [Object, nil] Regions for cloud provider.
         attribute :source_regions
@@ -47,18 +47,18 @@ module Ansible
 
         # @return [:yes, :no, nil] Delete child groups and hosts not found in source.
         attribute :overwrite
-        validates :overwrite, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :overwrite, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] Override vars in child groups and hosts with those from external source.
         attribute :overwrite_vars
 
         # @return [:yes, :no, nil] Refresh inventory data from its source each time a job is run.
         attribute :update_on_launch
-        validates :update_on_launch, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :update_on_launch, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:present, :absent, nil] Desired state of the resource.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

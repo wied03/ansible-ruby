@@ -26,11 +26,11 @@ module Ansible
 
         # @return [:peer, :subordinate, nil] Specifies whether the device you are adding is a Peer or a Subordinate. The default is C(peer).,The difference between the two is a matter of mitigating risk of compromise.,A subordinate device cannot sign a certificate for another device.,In the case where the security of an authority device in a trust domain is compromised, the risk of compromise is minimized for any subordinate device.,Designating devices as subordinate devices is recommended for device groups with a large number of member devices, where the risk of compromise is high.
         attribute :type
-        validates :type, inclusion: {:in=>[:peer, :subordinate], :message=>"%{value} needs to be :peer, :subordinate"}, allow_nil: true
+        validates :type, expression_inclusion: {:in=>[:peer, :subordinate], :message=>"%{value} needs to be :peer, :subordinate"}, allow_nil: true
 
         # @return [:absent, :present, nil] When C(present), ensures the specified devices are trusted.,When C(absent), removes the device trusts.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
       end
     end
   end

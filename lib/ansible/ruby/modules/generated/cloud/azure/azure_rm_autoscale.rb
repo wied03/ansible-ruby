@@ -18,7 +18,7 @@ module Ansible
 
         # @return [Boolean, nil] Specifies whether automatic scaling is enabled for the resource.
         attribute :enabled
-        validates :enabled, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :enabled, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Array<Hash>, Hash, nil] The collection of automatic scaling profiles that specify different scaling parameters for different time periods.,A maximum of 20 profiles can be specified.
         attribute :profiles
@@ -30,7 +30,7 @@ module Ansible
 
         # @return [:present, :absent, nil] Assert the state of the virtual network. Use 'present' to create or update and 'absent' to delete.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [Object, nil] location of the resource.
         attribute :location

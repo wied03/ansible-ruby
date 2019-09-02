@@ -24,7 +24,7 @@ module Ansible
 
         # @return [Boolean, nil] Should https certificates be validated?
         attribute :validate_certs
-        validates :validate_certs, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :validate_certs, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [String] The name of the snapshot group in which you want to create a snapshot image.
         attribute :snapshot_group
@@ -32,7 +32,7 @@ module Ansible
 
         # @return [:create, :remove] Whether a new snapshot image should be created or oldest be deleted.
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:create, :remove], :message=>"%{value} needs to be :create, :remove"}
+        validates :state, presence: true, expression_inclusion: {:in=>[:create, :remove], :message=>"%{value} needs to be :create, :remove"}
       end
     end
   end

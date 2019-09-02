@@ -17,7 +17,7 @@ module Ansible
 
         # @return [:absent, :present, :installed, :removed, :latest, nil] Whether to install (C(present), C(latest)), or remove (C(absent)) a package.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present, :installed, :removed, :latest], :message=>"%{value} needs to be :absent, :present, :installed, :removed, :latest"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present, :installed, :removed, :latest], :message=>"%{value} needs to be :absent, :present, :installed, :removed, :latest"}, allow_nil: true
 
         # @return [String, nil] I(Repoid) of repositories to enable for the install/update operation. These repos will not persist beyond the transaction. When specifying multiple repos, separate them with a ",".
         attribute :enablerepo
@@ -31,7 +31,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Whether to disable the GPG checking of signatures of packages being installed. Has an effect only if state is I(present) or I(latest).
         attribute :disable_gpg_check
-        validates :disable_gpg_check, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :disable_gpg_check, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] Specifies an alternative installroot, relative to which all packages will be installed.
         attribute :installroot
@@ -49,23 +49,23 @@ module Ansible
 
         # @return [:yes, :no, nil] Skip packages with broken dependencies(devsolve) and are causing problems.
         attribute :skip_broken
-        validates :skip_broken, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :skip_broken, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:yes, :no, nil] Force yum to check if cache is out of date and redownload if needed. Has an effect only if state is I(present) or I(latest).
         attribute :update_cache
-        validates :update_cache, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :update_cache, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:yes, :no, nil] When using latest, only update installed packages. Do not install packages.,Has an effect only if state is I(latest)
         attribute :update_only
-        validates :update_only, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :update_only, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:yes, :no, nil] If set to C(yes), and C(state=latest) then only installs updates that have been marked security related.
         attribute :security
-        validates :security, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :security, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:yes, :no, nil] If set to C(yes), and C(state=latest) then only installs updates that have been marked bugfix related.
         attribute :bugfix
-        validates :bugfix, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :bugfix, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] I(Plugin) name to enable for the install/update operation. The enabled plugin will not persist beyond the transaction.
         attribute :enable_plugin
@@ -78,7 +78,7 @@ module Ansible
 
         # @return [:yes, :no, nil] This only applies if using a https url as the source of the rpm. e.g. for localinstall. If set to C(no), the SSL certificates will not be validated.,This should only set to C(no) used on personally controlled sites using self-signed certificates as it avoids verifying the source site.
         attribute :validate_certs
-        validates :validate_certs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :validate_certs, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Symbol, nil] Specify if the named package and version is allowed to downgrade a maybe already installed higher version of that package. Note that setting allow_downgrade=True can make this module behave in a non-idempotent way. The task could end up with a set of packages that does not match the complete list of specified packages to install (because dependencies between the downgraded package and others can cause changes to the packages which were in the earlier transaction).
         attribute :allow_downgrade
@@ -86,11 +86,11 @@ module Ansible
 
         # @return [Boolean, nil] This is effectively a no-op in DNF as it is not needed with DNF, but is an accepted parameter for feature parity/compatibility with the I(yum) module.
         attribute :install_repoquery
-        validates :install_repoquery, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :install_repoquery, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [:yes, :no, nil] Only download the packages, do not install them.
         attribute :download_only
-        validates :download_only, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :download_only, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

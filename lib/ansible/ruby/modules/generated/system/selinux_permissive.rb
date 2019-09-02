@@ -18,7 +18,7 @@ module Ansible
 
         # @return [:yes, :no, nil] automatically reload the policy after a change,default is set to 'false' as that's what most people would want after changing one domain,Note that this doesn't work on older version of the library (example EL 6), the module will silently ignore it in this case
         attribute :no_reload
-        validates :no_reload, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :no_reload, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] name of the SELinux policy store to use
         attribute :store

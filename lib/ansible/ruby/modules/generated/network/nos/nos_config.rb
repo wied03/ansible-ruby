@@ -28,11 +28,11 @@ module Ansible
 
         # @return [:line, :strict, :exact, :none, nil] Instructs the module on the way to perform the matching of the set of commands against the current device config. If match is set to I(line), commands are matched line by line. If match is set to I(strict), command lines are matched with respect to position. If match is set to I(exact), command lines must be an equal match. Finally, if match is set to I(none), the module will not attempt to compare the source configuration with the running configuration on the remote device.
         attribute :match
-        validates :match, inclusion: {:in=>[:line, :strict, :exact, :none], :message=>"%{value} needs to be :line, :strict, :exact, :none"}, allow_nil: true
+        validates :match, expression_inclusion: {:in=>[:line, :strict, :exact, :none], :message=>"%{value} needs to be :line, :strict, :exact, :none"}, allow_nil: true
 
         # @return [:line, :block, nil] Instructs the module on the way to perform the configuration on the device. If the replace argument is set to I(line) then the modified lines are pushed to the device in configuration mode. If the replace argument is set to I(block) then the entire command block is pushed to the device in configuration mode if any line is not correct.
         attribute :replace
-        validates :replace, inclusion: {:in=>[:line, :block], :message=>"%{value} needs to be :line, :block"}, allow_nil: true
+        validates :replace, expression_inclusion: {:in=>[:line, :block], :message=>"%{value} needs to be :line, :block"}, allow_nil: true
 
         # @return [String, nil] This argument is used when pushing a multiline configuration element to the NOS device. It specifies the character to use as the delimiting character. This only applies to the configuration action.
         attribute :multiline_delimiter
@@ -47,7 +47,7 @@ module Ansible
 
         # @return [:running, :intended, nil] When using the C(ansible-playbook --diff) command line argument the module can generate diffs against different sources.,When this option is configured as I(intended), the module will return the diff of the running-config against the configuration provided in the C(intended_config) argument.,When this option is configured as I(running), the module will return the before and after diff of the running-config with respect to any changes made to the device configuration.
         attribute :diff_against
-        validates :diff_against, inclusion: {:in=>[:running, :intended], :message=>"%{value} needs to be :running, :intended"}, allow_nil: true
+        validates :diff_against, expression_inclusion: {:in=>[:running, :intended], :message=>"%{value} needs to be :running, :intended"}, allow_nil: true
 
         # @return [Object, nil] Use this argument to specify one or more lines that should be ignored during the diff. This is used for lines in the configuration that are automatically updated by the system. This argument takes a list of regular expressions or exact line matches.
         attribute :diff_ignore_lines

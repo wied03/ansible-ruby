@@ -18,7 +18,7 @@ module Ansible
 
         # @return [:first, :last, nil] If multiple virtual machines matching the name, use the first or last found.
         attribute :name_match
-        validates :name_match, inclusion: {:in=>[:first, :last], :message=>"%{value} needs to be :first, :last"}, allow_nil: true
+        validates :name_match, expression_inclusion: {:in=>[:first, :last], :message=>"%{value} needs to be :first, :last"}, allow_nil: true
 
         # @return [String] Absolute path to move an existing guest,The dest_folder should include the datacenter. ESX's datacenter is ha-datacenter.,This parameter is case sensitive.,Examples:,   dest_folder: /ha-datacenter/vm,   dest_folder: ha-datacenter/vm,   dest_folder: /datacenter1/vm,   dest_folder: datacenter1/vm,   dest_folder: /datacenter1/vm/folder1,   dest_folder: datacenter1/vm/folder1,   dest_folder: /folder1/datacenter1/vm,   dest_folder: folder1/datacenter1/vm,   dest_folder: /folder1/datacenter1/vm/folder2
         attribute :dest_folder

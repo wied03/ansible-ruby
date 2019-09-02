@@ -10,7 +10,7 @@ module Ansible
       class Route53 < Base
         # @return [:present, :absent, :get, :create, :delete] Specifies the state of the resource record. As of Ansible 2.4, the I(command) option has been changed to I(state) as default and the choices 'present' and 'absent' have been added, but I(command) still works as well.
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:present, :absent, :get, :create, :delete], :message=>"%{value} needs to be :present, :absent, :get, :create, :delete"}
+        validates :state, presence: true, expression_inclusion: {:in=>[:present, :absent, :get, :create, :delete], :message=>"%{value} needs to be :present, :absent, :get, :create, :delete"}
 
         # @return [String] The DNS zone to modify
         attribute :zone
@@ -30,11 +30,11 @@ module Ansible
 
         # @return [:A, :CNAME, :MX, :AAAA, :TXT, :PTR, :SRV, :SPF, :CAA, :NS, :SOA] The type of DNS record to create
         attribute :type
-        validates :type, presence: true, inclusion: {:in=>[:A, :CNAME, :MX, :AAAA, :TXT, :PTR, :SRV, :SPF, :CAA, :NS, :SOA], :message=>"%{value} needs to be :A, :CNAME, :MX, :AAAA, :TXT, :PTR, :SRV, :SPF, :CAA, :NS, :SOA"}
+        validates :type, presence: true, expression_inclusion: {:in=>[:A, :CNAME, :MX, :AAAA, :TXT, :PTR, :SRV, :SPF, :CAA, :NS, :SOA], :message=>"%{value} needs to be :A, :CNAME, :MX, :AAAA, :TXT, :PTR, :SRV, :SPF, :CAA, :NS, :SOA"}
 
         # @return [:yes, :no, nil] Indicates if this is an alias record.
         attribute :alias
-        validates :alias, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :alias, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] The hosted zone identifier.
         attribute :alias_hosted_zone_id
@@ -57,7 +57,7 @@ module Ansible
 
         # @return [:yes, :no, nil] If set to C(yes), the private zone matching the requested name within the domain will be used if there are both public and private zones. The default is to use the public zone.
         attribute :private_zone
-        validates :private_zone, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :private_zone, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] Have to be specified for Weighted, latency-based and failover resource record sets only. An identifier that differentiates among multiple resource record sets that have the same combination of DNS name and type.
         attribute :identifier
@@ -82,7 +82,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Wait until the changes have been replicated to all Amazon Route 53 DNS servers.
         attribute :wait
-        validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :wait, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] How long to wait for the changes to be replicated, in seconds.
         attribute :wait_timeout

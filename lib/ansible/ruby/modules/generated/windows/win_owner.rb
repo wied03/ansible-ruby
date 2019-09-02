@@ -18,7 +18,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Indicates if the owner should be changed recursively
         attribute :recurse
-        validates :recurse, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :recurse, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

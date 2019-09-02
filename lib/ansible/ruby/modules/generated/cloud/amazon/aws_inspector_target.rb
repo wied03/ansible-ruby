@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:absent, :present, nil] The state of the assessment target.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
         # @return [Hash, nil] Tags of the EC2 instances to be added to the assessment target.,Required if C(state=present).
         attribute :tags

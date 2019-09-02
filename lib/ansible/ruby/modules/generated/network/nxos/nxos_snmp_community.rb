@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:ro, :rw, nil] Access type for community.
         attribute :access
-        validates :access, inclusion: {:in=>[:ro, :rw], :message=>"%{value} needs to be :ro, :rw"}, allow_nil: true
+        validates :access, expression_inclusion: {:in=>[:ro, :rw], :message=>"%{value} needs to be :ro, :rw"}, allow_nil: true
 
         # @return [String, nil] Group to which the community belongs.
         attribute :group
@@ -25,7 +25,7 @@ module Ansible
 
         # @return [:present, :absent, nil] Manage the state of the resource.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

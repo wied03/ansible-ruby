@@ -21,7 +21,7 @@ module Ansible
 
         # @return [:present, :absent, nil] State of hosts system,If set to C(present), all host systems will be set in lockdown mode.,If host system is already in lockdown mode and set to C(present), no action will be taken.,If set to C(absent), all host systems will be removed from lockdown mode.,If host system is already out of lockdown mode and set to C(absent), no action will be taken.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

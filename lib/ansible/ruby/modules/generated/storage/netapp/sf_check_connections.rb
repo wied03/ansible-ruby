@@ -11,7 +11,7 @@ module Ansible
       class Sf_check_connections < Base
         # @return [:svip, :mvip, nil] Skip checking connection to SVIP or MVIP.
         attribute :skip
-        validates :skip, inclusion: {:in=>[:svip, :mvip], :message=>"%{value} needs to be :svip, :mvip"}, allow_nil: true
+        validates :skip, expression_inclusion: {:in=>[:svip, :mvip], :message=>"%{value} needs to be :svip, :mvip"}, allow_nil: true
 
         # @return [Object, nil] Optionally, use to test connection of a different MVIP.,This is not needed to test the connection to the target cluster.
         attribute :mvip

@@ -18,11 +18,11 @@ module Ansible
 
         # @return [:absent, :present, nil] Whether the path elements specified in C(elements) should be present or absent.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
         # @return [:machine, :user, nil] The level at which the environment variable specified by C(name) should be managed (either for the current user or global machine scope).
         attribute :scope
-        validates :scope, inclusion: {:in=>[:machine, :user], :message=>"%{value} needs to be :machine, :user"}, allow_nil: true
+        validates :scope, expression_inclusion: {:in=>[:machine, :user], :message=>"%{value} needs to be :machine, :user"}, allow_nil: true
       end
     end
   end

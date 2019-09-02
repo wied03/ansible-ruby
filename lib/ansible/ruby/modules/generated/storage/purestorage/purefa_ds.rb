@@ -11,7 +11,7 @@ module Ansible
       class Purefa_ds < Base
         # @return [:absent, :present, nil] Create or delete directory service configuration
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
         # @return [Symbol, nil] Whether to enable or disable directory service support.
         attribute :enable

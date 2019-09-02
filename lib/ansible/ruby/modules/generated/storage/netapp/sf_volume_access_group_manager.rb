@@ -10,7 +10,7 @@ module Ansible
       class Sf_volume_access_group_manager < Base
         # @return [:present, :absent] Whether the specified volume access group should exist or not.
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
+        validates :state, presence: true, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
 
         # @return [String] Name of the volume access group. It is not required to be unique, but recommended.
         attribute :name

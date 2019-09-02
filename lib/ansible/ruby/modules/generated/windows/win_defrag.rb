@@ -19,15 +19,15 @@ module Ansible
 
         # @return [Boolean, nil] Perform free space consolidation on the specified volumes.
         attribute :freespace_consolidation
-        validates :freespace_consolidation, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :freespace_consolidation, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [:low, :normal, nil] Run the operation at low or normal priority.
         attribute :priority
-        validates :priority, inclusion: {:in=>[:low, :normal], :message=>"%{value} needs to be :low, :normal"}, allow_nil: true
+        validates :priority, expression_inclusion: {:in=>[:low, :normal], :message=>"%{value} needs to be :low, :normal"}, allow_nil: true
 
         # @return [:yes, :no, nil] Run the operation on each volume in parallel in the background.
         attribute :parallel
-        validates :parallel, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :parallel, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

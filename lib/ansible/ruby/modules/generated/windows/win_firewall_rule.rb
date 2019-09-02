@@ -10,11 +10,11 @@ module Ansible
       class Win_firewall_rule < Base
         # @return [:yes, :no, nil] Is this firewall rule enabled or disabled.
         attribute :enabled
-        validates :enabled, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :enabled, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:absent, :present, nil] Should this rule be added or removed.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
         # @return [String] The rules name
         attribute :name
@@ -22,11 +22,11 @@ module Ansible
 
         # @return [:in, :out] Is this rule for inbound or outbound traffic.
         attribute :direction
-        validates :direction, presence: true, inclusion: {:in=>[:in, :out], :message=>"%{value} needs to be :in, :out"}
+        validates :direction, presence: true, expression_inclusion: {:in=>[:in, :out], :message=>"%{value} needs to be :in, :out"}
 
         # @return [:allow, :block, :bypass] What to do with the items this rule is for.
         attribute :action
-        validates :action, presence: true, inclusion: {:in=>[:allow, :block, :bypass], :message=>"%{value} needs to be :allow, :block, :bypass"}
+        validates :action, presence: true, expression_inclusion: {:in=>[:allow, :block, :bypass], :message=>"%{value} needs to be :allow, :block, :bypass"}
 
         # @return [Object, nil] Description for the firewall rule.
         attribute :description
@@ -62,7 +62,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Replace any existing rule by removing it first.,This is no longer required in 2.4 as rules no longer need replacing when being modified.,DEPRECATED in 2.4 and will be removed in 2.9.
         attribute :force
-        validates :force, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :force, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

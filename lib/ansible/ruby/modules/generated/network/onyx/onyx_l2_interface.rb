@@ -17,7 +17,7 @@ module Ansible
 
         # @return [:access, :trunk, :hybrid, nil] Mode in which interface needs to be configured.
         attribute :mode
-        validates :mode, inclusion: {:in=>[:access, :trunk, :hybrid], :message=>"%{value} needs to be :access, :trunk, :hybrid"}, allow_nil: true
+        validates :mode, expression_inclusion: {:in=>[:access, :trunk, :hybrid], :message=>"%{value} needs to be :access, :trunk, :hybrid"}, allow_nil: true
 
         # @return [Integer, nil] Configure given VLAN in access port.
         attribute :access_vlan
@@ -28,7 +28,7 @@ module Ansible
 
         # @return [:present, :absent, nil] State of the Layer-2 Interface configuration.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

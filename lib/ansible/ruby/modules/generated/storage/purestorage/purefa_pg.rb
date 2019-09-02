@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:absent, :present, nil] Define whether the protection group should exist or not.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
         # @return [Array<String>, String, nil] List of existing volumes to add to protection group.
         attribute :volume
@@ -30,11 +30,11 @@ module Ansible
 
         # @return [:yes, :no, nil] Define whether to eradicate the protection group on delete and leave in trash.
         attribute :eradicate
-        validates :eradicate, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :eradicate, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:yes, :no, nil] Define whether to enabled snapshots for the protection group.
         attribute :enabled
-        validates :enabled, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :enabled, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

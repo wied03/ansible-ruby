@@ -26,22 +26,22 @@ module Ansible
 
         # @return [:present, :absent, :running, :restarted, :stopped, nil] Indicate desired state of the instance.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent, :running, :restarted, :stopped], :message=>"%{value} needs to be :present, :absent, :running, :restarted, :stopped"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent, :running, :restarted, :stopped], :message=>"%{value} needs to be :present, :absent, :running, :restarted, :stopped"}, allow_nil: true
 
         # @return [Object, nil] List of tags to apply to the instance (5 max)
         attribute :tags
 
         # @return [:ams1, :"EMEA-NL-EVS", :par1, :"EMEA-FR-PAR1"] Scaleway compute zone
         attribute :region
-        validates :region, presence: true, inclusion: {:in=>[:ams1, :"EMEA-NL-EVS", :par1, :"EMEA-FR-PAR1"], :message=>"%{value} needs to be :ams1, :\"EMEA-NL-EVS\", :par1, :\"EMEA-FR-PAR1\""}
+        validates :region, presence: true, expression_inclusion: {:in=>[:ams1, :"EMEA-NL-EVS", :par1, :"EMEA-FR-PAR1"], :message=>"%{value} needs to be :ams1, :\"EMEA-NL-EVS\", :par1, :\"EMEA-FR-PAR1\""}
 
         # @return [:"ARM64-2GB", :"ARM64-4GB", :"ARM64-8GB", :"ARM64-16GB", :"ARM64-32GB", :"ARM64-64GB", :"ARM64-128GB", :C1, :C2S, :C2M, :C2L, :"START1-XS", :"START1-S", :"START1-M", :"START1-L", :"X64-15GB", :"X64-30GB", :"X64-60GB", :"X64-120GB"] Commercial name of the compute node
         attribute :commercial_type
-        validates :commercial_type, presence: true, inclusion: {:in=>[:"ARM64-2GB", :"ARM64-4GB", :"ARM64-8GB", :"ARM64-16GB", :"ARM64-32GB", :"ARM64-64GB", :"ARM64-128GB", :C1, :C2S, :C2M, :C2L, :"START1-XS", :"START1-S", :"START1-M", :"START1-L", :"X64-15GB", :"X64-30GB", :"X64-60GB", :"X64-120GB"], :message=>"%{value} needs to be :\"ARM64-2GB\", :\"ARM64-4GB\", :\"ARM64-8GB\", :\"ARM64-16GB\", :\"ARM64-32GB\", :\"ARM64-64GB\", :\"ARM64-128GB\", :C1, :C2S, :C2M, :C2L, :\"START1-XS\", :\"START1-S\", :\"START1-M\", :\"START1-L\", :\"X64-15GB\", :\"X64-30GB\", :\"X64-60GB\", :\"X64-120GB\""}
+        validates :commercial_type, presence: true, expression_inclusion: {:in=>[:"ARM64-2GB", :"ARM64-4GB", :"ARM64-8GB", :"ARM64-16GB", :"ARM64-32GB", :"ARM64-64GB", :"ARM64-128GB", :C1, :C2S, :C2M, :C2L, :"START1-XS", :"START1-S", :"START1-M", :"START1-L", :"X64-15GB", :"X64-30GB", :"X64-60GB", :"X64-120GB"], :message=>"%{value} needs to be :\"ARM64-2GB\", :\"ARM64-4GB\", :\"ARM64-8GB\", :\"ARM64-16GB\", :\"ARM64-32GB\", :\"ARM64-64GB\", :\"ARM64-128GB\", :C1, :C2S, :C2M, :C2L, :\"START1-XS\", :\"START1-S\", :\"START1-M\", :\"START1-L\", :\"X64-15GB\", :\"X64-30GB\", :\"X64-60GB\", :\"X64-120GB\""}
 
         # @return [:yes, :no, nil] Wait for the instance to reach its desired state before returning.
         attribute :wait
-        validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :wait, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] Time to wait for the server to reach the expected state
         attribute :wait_timeout

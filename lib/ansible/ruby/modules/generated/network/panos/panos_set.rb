@@ -34,7 +34,7 @@ module Ansible
 
         # @return [:set, :edit, :delete, :get, :show, :override, nil] Xapi method name which supports 'xpath' or 'xpath' and 'element'
         attribute :command
-        validates :command, inclusion: {:in=>[:set, :edit, :delete, :get, :show, :override], :message=>"%{value} needs to be :set, :edit, :delete, :get, :show, :override"}, allow_nil: true
+        validates :command, expression_inclusion: {:in=>[:set, :edit, :delete, :get, :show, :override], :message=>"%{value} needs to be :set, :edit, :delete, :get, :show, :override"}, allow_nil: true
 
         # @return [String] The 'xpath' for the commands configurable
         attribute :xpath

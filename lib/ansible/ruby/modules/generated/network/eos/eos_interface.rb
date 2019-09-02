@@ -18,7 +18,7 @@ module Ansible
 
         # @return [Boolean, nil] Interface link status. If the value is I(True) the interface state will be enabled, else if value is I(False) interface will be in disable (shutdown) state.
         attribute :enabled
-        validates :enabled, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :enabled, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [String, nil] This option configures autoneg and speed/duplex/flowcontrol for the interface given in C(name) option.
         attribute :speed
@@ -50,7 +50,7 @@ module Ansible
 
         # @return [:present, :absent, :up, :down, nil] State of the Interface configuration, C(up) means present and operationally up and C(down) means present and operationally C(down)
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent, :up, :down], :message=>"%{value} needs to be :present, :absent, :up, :down"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent, :up, :down], :message=>"%{value} needs to be :present, :absent, :up, :down"}, allow_nil: true
       end
     end
   end

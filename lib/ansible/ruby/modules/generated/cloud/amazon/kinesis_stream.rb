@@ -25,11 +25,11 @@ module Ansible
 
         # @return [:present, :absent, nil] Create or Delete the Kinesis Stream.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [Boolean, nil] Wait for operation to complete before returning.
         attribute :wait
-        validates :wait, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :wait, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Integer, nil] How many seconds to wait for an operation to complete before timing out.
         attribute :wait_timeout
@@ -41,7 +41,7 @@ module Ansible
 
         # @return [:enabled, :disabled, nil] Enable or Disable encryption on the Kinesis Stream.
         attribute :encryption_state
-        validates :encryption_state, inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
+        validates :encryption_state, expression_inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
 
         # @return [String, nil] The type of encryption.
         attribute :encryption_type

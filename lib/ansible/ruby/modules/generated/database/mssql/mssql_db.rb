@@ -27,7 +27,7 @@ module Ansible
 
         # @return [:present, :absent, :import, nil] The database state
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent, :import], :message=>"%{value} needs to be :present, :absent, :import"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent, :import], :message=>"%{value} needs to be :present, :absent, :import"}, allow_nil: true
 
         # @return [String, nil] Location, on the remote host, of the dump file to read from or write to. Uncompressed SQL files (C(.sql)) files are supported.
         attribute :target
@@ -35,7 +35,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Automatically commit the change only if the import succeed. Sometimes it is necessary to use autocommit=true, since some content can't be changed within a transaction.
         attribute :autocommit
-        validates :autocommit, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :autocommit, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

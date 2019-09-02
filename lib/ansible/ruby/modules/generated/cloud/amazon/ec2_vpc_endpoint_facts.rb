@@ -10,7 +10,7 @@ module Ansible
       class Ec2_vpc_endpoint_facts < Base
         # @return [:services, :endpoints] Specifies the query action to take. Services returns the supported AWS services that can be specified when creating an endpoint.
         attribute :query
-        validates :query, presence: true, inclusion: {:in=>[:services, :endpoints], :message=>"%{value} needs to be :services, :endpoints"}
+        validates :query, presence: true, expression_inclusion: {:in=>[:services, :endpoints], :message=>"%{value} needs to be :services, :endpoints"}
 
         # @return [Array<String>, String, nil] Get details of specific endpoint IDs,Provide this value as a list
         attribute :vpc_endpoint_ids

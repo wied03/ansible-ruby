@@ -18,7 +18,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Specifies if an account is enabled. An enabled account requires a password. This parameter sets the Enabled property for an account object. This parameter also sets the ADS_UF_ACCOUNTDISABLE flag of the Active Directory User Account Control (UAC) attribute.
         attribute :enabled
-        validates :enabled, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :enabled, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Array<String>, String, nil] Specifies the X.500 path of the Organizational Unit (OU) or container where the new object is created. Required when I(state=present).
         attribute :ou
@@ -34,7 +34,7 @@ module Ansible
 
         # @return [:present, :absent, nil] Specified whether the computer should be C(present) or C(absent) in Active Directory.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

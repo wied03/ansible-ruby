@@ -10,7 +10,7 @@ module Ansible
       class Meraki_mx_l3_firewall < Base
         # @return [:present, :query, nil] Create or modify an organization.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :query], :message=>"%{value} needs to be :present, :query"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :query], :message=>"%{value} needs to be :present, :query"}, allow_nil: true
 
         # @return [String, nil] Name of organization.,If C(clone) is specified, C(org_name) is the name of the new organization.
         attribute :org_name

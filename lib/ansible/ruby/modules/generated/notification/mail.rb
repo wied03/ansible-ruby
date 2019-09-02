@@ -62,11 +62,11 @@ module Ansible
 
         # @return [:html, :plain, nil] The minor mime type, can be either C(plain) or C(html).,The major type is always C(text).
         attribute :subtype
-        validates :subtype, inclusion: {:in=>[:html, :plain], :message=>"%{value} needs to be :html, :plain"}, allow_nil: true
+        validates :subtype, expression_inclusion: {:in=>[:html, :plain], :message=>"%{value} needs to be :html, :plain"}, allow_nil: true
 
         # @return [:always, :never, :starttls, :try, nil] If C(always), the connection will only send email if the connection is Encrypted. If the server doesn't accept the encrypted connection it will fail.,If C(try), the connection will attempt to setup a secure SSL/TLS session, before trying to send.,If C(never), the connection will not attempt to setup a secure SSL/TLS session, before sending,If C(starttls), the connection will try to upgrade to a secure SSL/TLS connection, before sending. If it is unable to do so it will fail.
         attribute :secure
-        validates :secure, inclusion: {:in=>[:always, :never, :starttls, :try], :message=>"%{value} needs to be :always, :never, :starttls, :try"}, allow_nil: true
+        validates :secure, expression_inclusion: {:in=>[:always, :never, :starttls, :try], :message=>"%{value} needs to be :always, :never, :starttls, :try"}, allow_nil: true
 
         # @return [Integer, nil] Sets the timeout in seconds for connection attempts.
         attribute :timeout

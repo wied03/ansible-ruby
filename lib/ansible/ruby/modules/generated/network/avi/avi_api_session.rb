@@ -11,7 +11,7 @@ module Ansible
       class Avi_api_session < Base
         # @return [:get, :put, :post, :patch, :delete] Allowed HTTP methods for RESTful services and are supported by Avi Controller.
         attribute :http_method
-        validates :http_method, presence: true, inclusion: {:in=>[:get, :put, :post, :patch, :delete], :message=>"%{value} needs to be :get, :put, :post, :patch, :delete"}
+        validates :http_method, presence: true, expression_inclusion: {:in=>[:get, :put, :post, :patch, :delete], :message=>"%{value} needs to be :get, :put, :post, :patch, :delete"}
 
         # @return [Hash, nil] HTTP body in YAML or JSON format.
         attribute :data

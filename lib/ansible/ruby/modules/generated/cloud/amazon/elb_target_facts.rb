@@ -14,7 +14,7 @@ module Ansible
 
         # @return [Boolean, nil] Whether or not to get target groups not used by any load balancers.
         attribute :get_unused_target_groups
-        validates :get_unused_target_groups, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :get_unused_target_groups, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
       end
     end
   end

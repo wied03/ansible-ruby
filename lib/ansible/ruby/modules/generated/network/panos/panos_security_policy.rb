@@ -76,7 +76,7 @@ module Ansible
 
         # @return [Boolean, nil] Whether to log at session end.
         attribute :log_end
-        validates :log_end, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :log_end, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [String, nil] Action to apply once rules maches.
         attribute :action
@@ -117,7 +117,7 @@ module Ansible
 
         # @return [Boolean, nil] Commit configuration if changed.
         attribute :commit
-        validates :commit, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :commit, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
       end
     end
   end

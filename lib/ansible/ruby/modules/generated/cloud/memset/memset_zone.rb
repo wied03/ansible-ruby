@@ -10,7 +10,7 @@ module Ansible
       class Memset_zone < Base
         # @return [:absent, :present] Indicates desired state of resource.
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}
+        validates :state, presence: true, expression_inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}
 
         # @return [String] The API key obtained from the Memset control panel.
         attribute :api_key
@@ -22,7 +22,7 @@ module Ansible
 
         # @return [0, 300, 600, 900, 1800, 3600, 7200, 10800, 21600, 43200, 86400, nil] The default TTL for all records created in the zone. This must be a valid int from U(https://www.memset.com/apidocs/methods_dns.html#dns.zone_create).
         attribute :ttl
-        validates :ttl, inclusion: {:in=>[0, 300, 600, 900, 1800, 3600, 7200, 10800, 21600, 43200, 86400], :message=>"%{value} needs to be 0, 300, 600, 900, 1800, 3600, 7200, 10800, 21600, 43200, 86400"}, allow_nil: true
+        validates :ttl, expression_inclusion: {:in=>[0, 300, 600, 900, 1800, 3600, 7200, 10800, 21600, 43200, 86400], :message=>"%{value} needs to be 0, 300, 600, 900, 1800, 3600, 7200, 10800, 21600, 43200, 86400"}, allow_nil: true
 
         # @return [Symbol, nil] Forces deletion of a zone and all zone domains/zone records it contains.
         attribute :force

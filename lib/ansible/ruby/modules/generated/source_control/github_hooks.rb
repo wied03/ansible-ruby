@@ -26,15 +26,15 @@ module Ansible
 
         # @return [:create, :cleanall, :list, :clean504] This tells the githooks module what you want it to do.
         attribute :action
-        validates :action, presence: true, inclusion: {:in=>[:create, :cleanall, :list, :clean504], :message=>"%{value} needs to be :create, :cleanall, :list, :clean504"}
+        validates :action, presence: true, expression_inclusion: {:in=>[:create, :cleanall, :list, :clean504], :message=>"%{value} needs to be :create, :cleanall, :list, :clean504"}
 
         # @return [:yes, :no, nil] If C(no), SSL certificates for the target repo will not be validated. This should only be used on personally controlled sites using self-signed certificates.
         attribute :validate_certs
-        validates :validate_certs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :validate_certs, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:json, :form, nil] Content type to use for requests made to the webhook
         attribute :content_type
-        validates :content_type, inclusion: {:in=>[:json, :form], :message=>"%{value} needs to be :json, :form"}, allow_nil: true
+        validates :content_type, expression_inclusion: {:in=>[:json, :form], :message=>"%{value} needs to be :json, :form"}, allow_nil: true
       end
     end
   end

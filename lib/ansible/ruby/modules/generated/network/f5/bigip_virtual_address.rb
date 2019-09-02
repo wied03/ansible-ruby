@@ -24,7 +24,7 @@ module Ansible
 
         # @return [:enabled, :disabled, nil] Specifies whether the system accepts ARP requests. When (disabled), specifies that the system does not accept ARP requests. Note that both ARP and ICMP Echo must be disabled in order for forwarding virtual servers using that virtual address to forward ICMP packets. If (enabled), then the packets are dropped.,Deprecated. Use the C(arp) parameter instead.,When creating a new virtual address, if this parameter is not specified, the default value is C(enabled).
         attribute :arp_state
-        validates :arp_state, inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
+        validates :arp_state, expression_inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
 
         # @return [Symbol, nil] Specifies whether the system accepts ARP requests.,When C(no), specifies that the system does not accept ARP requests.,When C(yes), then the packets are dropped.,Note that both ARP and ICMP Echo must be disabled in order for forwarding virtual servers using that virtual address to forward ICMP packets.,When creating a new virtual address, if this parameter is not specified, the default value is C(yes).
         attribute :arp
@@ -35,15 +35,15 @@ module Ansible
 
         # @return [:enabled, :disabled, :selective, nil] Specifies how the systems sends responses to (ICMP) echo requests on a per-virtual address basis for enabling route advertisement. When C(enabled), the BIG-IP system intercepts ICMP echo request packets and responds to them directly. When C(disabled), the BIG-IP system passes ICMP echo requests through to the backend servers. When (selective), causes the BIG-IP system to internally enable or disable responses based on virtual server state; C(when_any_available), C(when_all_available, or C(always), regardless of the state of any virtual servers.
         attribute :icmp_echo
-        validates :icmp_echo, inclusion: {:in=>[:enabled, :disabled, :selective], :message=>"%{value} needs to be :enabled, :disabled, :selective"}, allow_nil: true
+        validates :icmp_echo, expression_inclusion: {:in=>[:enabled, :disabled, :selective], :message=>"%{value} needs to be :enabled, :disabled, :selective"}, allow_nil: true
 
         # @return [:present, :absent, :enabled, :disabled, nil] The virtual address state. If C(absent), an attempt to delete the virtual address will be made. This will only succeed if this virtual address is not in use by a virtual server. C(present) creates the virtual address and enables it. If C(enabled), enable the virtual address if it exists. If C(disabled), create the virtual address if needed, and set state to C(disabled).
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent, :enabled, :disabled], :message=>"%{value} needs to be :present, :absent, :enabled, :disabled"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent, :enabled, :disabled], :message=>"%{value} needs to be :present, :absent, :enabled, :disabled"}, allow_nil: true
 
         # @return [:always, :when_all_available, :when_any_available, nil] Specifies what routes of the virtual address the system advertises. When C(when_any_available), advertises the route when any virtual server is available. When C(when_all_available), advertises the route when all virtual servers are available. When (always), always advertises the route regardless of the virtual servers available.
         attribute :availability_calculation
-        validates :availability_calculation, inclusion: {:in=>[:always, :when_all_available, :when_any_available], :message=>"%{value} needs to be :always, :when_all_available, :when_any_available"}, allow_nil: true
+        validates :availability_calculation, expression_inclusion: {:in=>[:always, :when_all_available, :when_any_available], :message=>"%{value} needs to be :always, :when_all_available, :when_any_available"}, allow_nil: true
 
         # @return [Symbol, nil] Specifies whether the system uses route advertisement for this virtual address.,When disabled, the system does not advertise routes for this virtual address.,Deprecated. Use the C(route_advertisement) parameter instead.
         attribute :use_route_advertisement
@@ -51,7 +51,7 @@ module Ansible
 
         # @return [:disabled, :enabled, :always, :selective, :any, :all, nil] Specifies whether the system uses route advertisement for this virtual address.,When disabled, the system does not advertise routes for this virtual address.,The majority of these options are only supported on versions 13.0.0-HF1 or higher. On versions less than this, all choices expect C(disabled) will translate to C(enabled).,When C(always), the BIG-IP system will always advertise the route for the virtual address, regardless of availability status. This requires an C(enabled) virtual address.,When C(enabled), the BIG-IP system will advertise the route for the available virtual address, based on the calculation method in the availability calculation.,When C(disabled), the BIG-IP system will not advertise the route for the virtual address, regardless of the availability status.,When C(selective), you can also selectively enable ICMP echo responses, which causes the BIG-IP system to internally enable or disable responses based on virtual server state. Either C(any) virtual server, C(all) virtual servers, or C(always), regardless of the state of any virtual server.,When C(any), the BIG-IP system will advertise the route for the virtual address when any virtual server is available.,When C(all), the BIG-IP system will advertise the route for the virtual address when all virtual servers are available.
         attribute :route_advertisement
-        validates :route_advertisement, inclusion: {:in=>[:disabled, :enabled, :always, :selective, :any, :all], :message=>"%{value} needs to be :disabled, :enabled, :always, :selective, :any, :all"}, allow_nil: true
+        validates :route_advertisement, expression_inclusion: {:in=>[:disabled, :enabled, :always, :selective, :any, :all], :message=>"%{value} needs to be :disabled, :enabled, :always, :selective, :any, :all"}, allow_nil: true
 
         # @return [String, nil] Device partition to manage resources on.
         attribute :partition

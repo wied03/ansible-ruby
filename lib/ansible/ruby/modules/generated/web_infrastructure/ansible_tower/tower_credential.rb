@@ -31,7 +31,7 @@ module Ansible
 
         # @return [:ssh, :vault, :net, :scm, :aws, :vmware, :satellite6, :cloudforms, :gce, :azure_rm, :openstack, :rhv, :insights, :tower] Type of credential being added.
         attribute :kind
-        validates :kind, presence: true, inclusion: {:in=>[:ssh, :vault, :net, :scm, :aws, :vmware, :satellite6, :cloudforms, :gce, :azure_rm, :openstack, :rhv, :insights, :tower], :message=>"%{value} needs to be :ssh, :vault, :net, :scm, :aws, :vmware, :satellite6, :cloudforms, :gce, :azure_rm, :openstack, :rhv, :insights, :tower"}
+        validates :kind, presence: true, expression_inclusion: {:in=>[:ssh, :vault, :net, :scm, :aws, :vmware, :satellite6, :cloudforms, :gce, :azure_rm, :openstack, :rhv, :insights, :tower], :message=>"%{value} needs to be :ssh, :vault, :net, :scm, :aws, :vmware, :satellite6, :cloudforms, :gce, :azure_rm, :openstack, :rhv, :insights, :tower"}
 
         # @return [Object, nil] Host for this credential.
         attribute :host
@@ -50,7 +50,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Should use authorize for net type.
         attribute :authorize
-        validates :authorize, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :authorize, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] Password for net credentials that require authorize.
         attribute :authorize_password
@@ -75,7 +75,7 @@ module Ansible
 
         # @return [:None, :sudo, :su, :pbrun, :pfexec, :pmrun, nil] Become method to Use for privledge escalation.
         attribute :become_method
-        validates :become_method, inclusion: {:in=>[:None, :sudo, :su, :pbrun, :pfexec, :pmrun], :message=>"%{value} needs to be :None, :sudo, :su, :pbrun, :pfexec, :pmrun"}, allow_nil: true
+        validates :become_method, expression_inclusion: {:in=>[:None, :sudo, :su, :pbrun, :pfexec, :pmrun], :message=>"%{value} needs to be :None, :sudo, :su, :pbrun, :pfexec, :pmrun"}, allow_nil: true
 
         # @return [Object, nil] Become username. Use ASK for prompting.
         attribute :become_username
@@ -88,7 +88,7 @@ module Ansible
 
         # @return [:present, :absent, nil] Desired state of the resource.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

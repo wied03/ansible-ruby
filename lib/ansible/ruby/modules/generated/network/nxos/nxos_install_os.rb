@@ -17,7 +17,7 @@ module Ansible
 
         # @return [:required, :desired, :yes, :no, nil] Upgrade using In Service Software Upgrade (ISSU). (Supported on N5k, N7k, N9k platforms),Selecting 'required' or 'yes' means that upgrades will only proceed if the switch is capable of ISSU.,Selecting 'desired' means that upgrades will use ISSU if possible but will fall back to disruptive upgrade if needed.,Selecting 'no' means do not use ISSU. Forced disruptive.
         attribute :issu
-        validates :issu, inclusion: {:in=>[:required, :desired, :yes, :no], :message=>"%{value} needs to be :required, :desired, :yes, :no"}, allow_nil: true
+        validates :issu, expression_inclusion: {:in=>[:required, :desired, :yes, :no], :message=>"%{value} needs to be :required, :desired, :yes, :no"}, allow_nil: true
       end
     end
   end

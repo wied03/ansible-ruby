@@ -11,7 +11,7 @@ module Ansible
       class Packet_sshkey < Base
         # @return [:present, :absent, nil] Indicate desired state of the target.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [Object, nil] Packet api token. You can also supply it in env var C(PACKET_API_TOKEN).
         attribute :auth_token

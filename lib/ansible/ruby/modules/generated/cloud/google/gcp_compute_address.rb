@@ -12,14 +12,14 @@ module Ansible
       class Gcp_compute_address < Base
         # @return [:present, :absent, nil] Whether the given object should exist in GCP
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [Object, nil] The static external IP address represented by this resource. Only IPv4 is supported. An address may only be specified for INTERNAL address types. The IP address must be inside the specified subnetwork, if any.
         attribute :address
 
         # @return [:INTERNAL, :EXTERNAL, nil] The type of address to reserve, either INTERNAL or EXTERNAL.,If unspecified, defaults to EXTERNAL.
         attribute :address_type
-        validates :address_type, inclusion: {:in=>[:INTERNAL, :EXTERNAL], :message=>"%{value} needs to be :INTERNAL, :EXTERNAL"}, allow_nil: true
+        validates :address_type, expression_inclusion: {:in=>[:INTERNAL, :EXTERNAL], :message=>"%{value} needs to be :INTERNAL, :EXTERNAL"}, allow_nil: true
 
         # @return [Object, nil] An optional description of this resource.
         attribute :description

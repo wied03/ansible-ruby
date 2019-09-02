@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:present, :absent, :attached, :detached, nil] Should the tag be present/absent/attached/detached.,C(Note): I(attached) and I(detached) states are supported since version 2.4.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent, :attached, :detached], :message=>"%{value} needs to be :present, :absent, :attached, :detached"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent, :attached, :detached], :message=>"%{value} needs to be :present, :absent, :attached, :detached"}, allow_nil: true
 
         # @return [Object, nil] Description of the tag to manage.
         attribute :description

@@ -24,7 +24,7 @@ module Ansible
 
         # @return [:yes, :no, nil] If C(yes), fail when user can't be removed. Otherwise just log and continue.
         attribute :fail_on_user
-        validates :fail_on_user, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :fail_on_user, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] Database port to connect to.
         attribute :port
@@ -50,15 +50,15 @@ module Ansible
 
         # @return [:"[NO]SUPERUSER", :"[NO]CREATEROLE", :"[NO]CREATEDB", :"[NO]INHERIT", :"[NO]LOGIN", :"[NO]REPLICATION", :"[NO]BYPASSRLS", nil] PostgreSQL role attributes string in the format: CREATEDB,CREATEROLE,SUPERUSER.,Note that '[NO]CREATEUSER' is deprecated.
         attribute :role_attr_flags
-        validates :role_attr_flags, inclusion: {:in=>[:"[NO]SUPERUSER", :"[NO]CREATEROLE", :"[NO]CREATEDB", :"[NO]INHERIT", :"[NO]LOGIN", :"[NO]REPLICATION", :"[NO]BYPASSRLS"], :message=>"%{value} needs to be :\"[NO]SUPERUSER\", :\"[NO]CREATEROLE\", :\"[NO]CREATEDB\", :\"[NO]INHERIT\", :\"[NO]LOGIN\", :\"[NO]REPLICATION\", :\"[NO]BYPASSRLS\""}, allow_nil: true
+        validates :role_attr_flags, expression_inclusion: {:in=>[:"[NO]SUPERUSER", :"[NO]CREATEROLE", :"[NO]CREATEDB", :"[NO]INHERIT", :"[NO]LOGIN", :"[NO]REPLICATION", :"[NO]BYPASSRLS"], :message=>"%{value} needs to be :\"[NO]SUPERUSER\", :\"[NO]CREATEROLE\", :\"[NO]CREATEDB\", :\"[NO]INHERIT\", :\"[NO]LOGIN\", :\"[NO]REPLICATION\", :\"[NO]BYPASSRLS\""}, allow_nil: true
 
         # @return [:present, :absent, nil] The user (role) state.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [:yes, :no, nil] Whether the password is stored hashed in the database. Passwords can be passed already hashed or unhashed, and postgresql ensures the stored password is hashed when C(encrypted) is set.,Note: Postgresql 10 and newer doesn't support unhashed passwords.,Previous to Ansible 2.6, this was C(no) by default.
         attribute :encrypted
-        validates :encrypted, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :encrypted, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] The date at which the user's password is to expire.,If set to C('infinity'), user's password never expire.,Note that this value should be a valid SQL date and time type.
         attribute :expires
@@ -66,11 +66,11 @@ module Ansible
 
         # @return [:yes, :no, nil] If C(yes), don't inspect database for password changes. Effective when C(pg_authid) is not accessible (such as AWS RDS). Otherwise, make password changes as necessary.
         attribute :no_password_changes
-        validates :no_password_changes, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :no_password_changes, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:disable, :allow, :prefer, :require, :"verify-ca", :"verify-full", nil] Determines whether or with what priority a secure SSL TCP/IP connection will be negotiated with the server.,See U(https://www.postgresql.org/docs/current/static/libpq-ssl.html) for more information on the modes.,Default of C(prefer) matches libpq default.
         attribute :ssl_mode
-        validates :ssl_mode, inclusion: {:in=>[:disable, :allow, :prefer, :require, :"verify-ca", :"verify-full"], :message=>"%{value} needs to be :disable, :allow, :prefer, :require, :\"verify-ca\", :\"verify-full\""}, allow_nil: true
+        validates :ssl_mode, expression_inclusion: {:in=>[:disable, :allow, :prefer, :require, :"verify-ca", :"verify-full"], :message=>"%{value} needs to be :disable, :allow, :prefer, :require, :\"verify-ca\", :\"verify-full\""}, allow_nil: true
 
         # @return [Object, nil] Specifies the name of a file containing SSL certificate authority (CA) certificate(s). If the file exists, the server's certificate will be verified to be signed by one of these authorities.
         attribute :ssl_rootcert

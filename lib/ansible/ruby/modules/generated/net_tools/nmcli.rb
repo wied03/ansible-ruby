@@ -12,11 +12,11 @@ module Ansible
       class Nmcli < Base
         # @return [:present, :absent] Whether the device should exist or not, taking action if the state is different from what is stated.
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
+        validates :state, presence: true, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
 
         # @return [Boolean, nil] Whether the connection should start on boot.,Whether the connection profile can be automatically activated
         attribute :autoconnect
-        validates :autoconnect, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :autoconnect, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [String] Where conn_name will be the name used to call the connection. when not provided a default name is generated: <type>[-<ifname>][-<num>]
         attribute :conn_name
@@ -28,11 +28,11 @@ module Ansible
 
         # @return [:ethernet, :team, :"team-slave", :bond, :"bond-slave", :bridge, :"bridge-slave", :vlan, :generic, nil] This is the type of device or network connection that you wish to create or modify.,type C(generic) is added in version 2.5.
         attribute :type
-        validates :type, inclusion: {:in=>[:ethernet, :team, :"team-slave", :bond, :"bond-slave", :bridge, :"bridge-slave", :vlan, :generic], :message=>"%{value} needs to be :ethernet, :team, :\"team-slave\", :bond, :\"bond-slave\", :bridge, :\"bridge-slave\", :vlan, :generic"}, allow_nil: true
+        validates :type, expression_inclusion: {:in=>[:ethernet, :team, :"team-slave", :bond, :"bond-slave", :bridge, :"bridge-slave", :vlan, :generic], :message=>"%{value} needs to be :ethernet, :team, :\"team-slave\", :bond, :\"bond-slave\", :bridge, :\"bridge-slave\", :vlan, :generic"}, allow_nil: true
 
         # @return [:"balance-rr", :"active-backup", :"balance-xor", :broadcast, :"802.3ad", :"balance-tlb", :"balance-alb", nil] This is the type of device or network connection that you wish to create for a bond, team or bridge.
         attribute :mode
-        validates :mode, inclusion: {:in=>[:"balance-rr", :"active-backup", :"balance-xor", :broadcast, :"802.3ad", :"balance-tlb", :"balance-alb"], :message=>"%{value} needs to be :\"balance-rr\", :\"active-backup\", :\"balance-xor\", :broadcast, :\"802.3ad\", :\"balance-tlb\", :\"balance-alb\""}, allow_nil: true
+        validates :mode, expression_inclusion: {:in=>[:"balance-rr", :"active-backup", :"balance-xor", :broadcast, :"802.3ad", :"balance-tlb", :"balance-alb"], :message=>"%{value} needs to be :\"balance-rr\", :\"active-backup\", :\"balance-xor\", :broadcast, :\"802.3ad\", :\"balance-tlb\", :\"balance-alb\""}, allow_nil: true
 
         # @return [Object, nil] master <master (ifname, or connection UUID or conn_name) of bridge, team, bond master connection profile.
         attribute :master
@@ -126,7 +126,7 @@ module Ansible
 
         # @return [:yes, :no, nil] This is only used with 'bridge-slave' - 'hairpin mode' for the slave, which allows frames to be sent back out through the slave the frame was received on.
         attribute :hairpin
-        validates :hairpin, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :hairpin, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] This is only used with VLAN - VLAN ID in range <0-4095>
         attribute :vlanid

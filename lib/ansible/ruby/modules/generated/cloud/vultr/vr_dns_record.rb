@@ -18,7 +18,7 @@ module Ansible
 
         # @return [:A, :AAAA, :CNAME, :MX, :SRV, :CAA, :TXT, :NS, :SSHFP, nil] Type of the record.
         attribute :record_type
-        validates :record_type, inclusion: {:in=>[:A, :AAAA, :CNAME, :MX, :SRV, :CAA, :TXT, :NS, :SSHFP], :message=>"%{value} needs to be :A, :AAAA, :CNAME, :MX, :SRV, :CAA, :TXT, :NS, :SSHFP"}, allow_nil: true
+        validates :record_type, expression_inclusion: {:in=>[:A, :AAAA, :CNAME, :MX, :SRV, :CAA, :TXT, :NS, :SSHFP], :message=>"%{value} needs to be :A, :AAAA, :CNAME, :MX, :SRV, :CAA, :TXT, :NS, :SSHFP"}, allow_nil: true
 
         # @return [String, nil] Data of the record.,Required if C(state=present) or C(multiple=yes).
         attribute :data
@@ -38,7 +38,7 @@ module Ansible
 
         # @return [:present, :absent, nil] State of the DNS record.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

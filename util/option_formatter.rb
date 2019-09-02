@@ -102,7 +102,7 @@ module Ansible
         end
 
         def choices_validation(validations, choices)
-          validations[:inclusion] = {
+          validations[:expression_inclusion] = {
             in: choices,
             message: "%{value} needs to be #{choices.map { |sym| sym.inspect.to_s }.join(', ')}"
           }

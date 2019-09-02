@@ -18,11 +18,11 @@ module Ansible
 
         # @return [:ingress, :egress] Direction ACL to be applied in on the interface.
         attribute :direction
-        validates :direction, presence: true, inclusion: {:in=>[:ingress, :egress], :message=>"%{value} needs to be :ingress, :egress"}
+        validates :direction, presence: true, expression_inclusion: {:in=>[:ingress, :egress], :message=>"%{value} needs to be :ingress, :egress"}
 
         # @return [:present, :absent, nil] Specify desired state of the resource.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

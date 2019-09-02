@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:absent, :present, nil] Whether to create or destroy an SNS topic
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
         # @return [String, nil] Display name of the topic
         attribute :display_name

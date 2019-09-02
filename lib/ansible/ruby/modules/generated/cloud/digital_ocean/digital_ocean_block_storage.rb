@@ -10,11 +10,11 @@ module Ansible
       class Digital_ocean_block_storage < Base
         # @return [:create, :attach] Which operation do you want to perform.
         attribute :command
-        validates :command, presence: true, inclusion: {:in=>[:create, :attach], :message=>"%{value} needs to be :create, :attach"}
+        validates :command, presence: true, expression_inclusion: {:in=>[:create, :attach], :message=>"%{value} needs to be :create, :attach"}
 
         # @return [:present, :absent] Indicate desired state of the target.
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
+        validates :state, presence: true, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
 
         # @return [Integer, nil] The size of the Block Storage volume in gigabytes. Required when command=create and state=present. If snapshot_id is included, this will be ignored.
         attribute :block_size

@@ -22,11 +22,11 @@ module Ansible
 
         # @return [Boolean, nil] Should https certificates be validated?
         attribute :validate_certs
-        validates :validate_certs, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :validate_certs, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [:present, :absent] Whether to ensure the group is present or absent.
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
+        validates :state, presence: true, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
 
         # @return [Object] The name to give the snapshot group
         attribute :name
@@ -50,7 +50,7 @@ module Ansible
 
         # @return [:purgepit, :unknown, :failbasewrites, :__UNDEFINED, nil] The behavior on when the data repository becomes full.,This value is overridden by consistency group setting if this snapshot group is associated with a consistency group
         attribute :full_policy
-        validates :full_policy, inclusion: {:in=>[:purgepit, :unknown, :failbasewrites, :__UNDEFINED], :message=>"%{value} needs to be :purgepit, :unknown, :failbasewrites, :__UNDEFINED"}, allow_nil: true
+        validates :full_policy, expression_inclusion: {:in=>[:purgepit, :unknown, :failbasewrites, :__UNDEFINED], :message=>"%{value} needs to be :purgepit, :unknown, :failbasewrites, :__UNDEFINED"}, allow_nil: true
 
         # @return [String] The name of the storage pool on which to allocate the repository volume.
         attribute :storage_pool_name
@@ -58,7 +58,7 @@ module Ansible
 
         # @return [:highest, :high, :medium, :low, :lowest, :__UNDEFINED, nil] The importance of the rollback operation.,This value is overridden by consistency group setting if this snapshot group is associated with a consistency group
         attribute :rollback_priority
-        validates :rollback_priority, inclusion: {:in=>[:highest, :high, :medium, :low, :lowest, :__UNDEFINED], :message=>"%{value} needs to be :highest, :high, :medium, :low, :lowest, :__UNDEFINED"}, allow_nil: true
+        validates :rollback_priority, expression_inclusion: {:in=>[:highest, :high, :medium, :low, :lowest, :__UNDEFINED], :message=>"%{value} needs to be :highest, :high, :medium, :low, :lowest, :__UNDEFINED"}, allow_nil: true
       end
     end
   end

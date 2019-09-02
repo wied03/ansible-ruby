@@ -28,7 +28,7 @@ module Ansible
 
         # @return [:present, :absent, nil] Whether to create C(present), or drop C(absent) a schema.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String, nil] Name of the Vertica database.
         attribute :db

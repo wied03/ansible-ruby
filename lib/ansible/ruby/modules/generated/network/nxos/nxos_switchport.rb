@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:access, :trunk, nil] Mode for the Layer 2 port.
         attribute :mode
-        validates :mode, inclusion: {:in=>[:access, :trunk], :message=>"%{value} needs to be :access, :trunk"}, allow_nil: true
+        validates :mode, expression_inclusion: {:in=>[:access, :trunk], :message=>"%{value} needs to be :access, :trunk"}, allow_nil: true
 
         # @return [Integer, nil] If C(mode=access), used as the access VLAN ID.
         attribute :access_vlan
@@ -30,7 +30,7 @@ module Ansible
 
         # @return [:present, :absent, :unconfigured, nil] Manage the state of the resource.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent, :unconfigured], :message=>"%{value} needs to be :present, :absent, :unconfigured"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent, :unconfigured], :message=>"%{value} needs to be :present, :absent, :unconfigured"}, allow_nil: true
 
         # @return [Object, nil] if C(mode=trunk), these are the only VLANs that will be configured on the trunk, i.e. "2-10,15".
         attribute :trunk_allowed_vlans

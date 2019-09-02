@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:present, :absent] Describes the desired state.
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
+        validates :state, presence: true, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
 
         # @return [Object, nil] Name of the function alias. Mutually exclusive with C(version).
         attribute :alias

@@ -25,7 +25,7 @@ module Ansible
 
         # @return [:http, :https, nil] Which protocol to use when accessing the Nitro API objects.
         attribute :nitro_protocol
-        validates :nitro_protocol, inclusion: {:in=>[:http, :https], :message=>"%{value} needs to be :http, :https"}, allow_nil: true
+        validates :nitro_protocol, expression_inclusion: {:in=>[:http, :https], :message=>"%{value} needs to be :http, :https"}, allow_nil: true
 
         # @return [String, nil] If C(no), SSL certificates will not be validated. This should only be used on personally controlled sites using self-signed certificates.
         attribute :validate_certs
@@ -57,7 +57,7 @@ module Ansible
 
         # @return [:add, :update, :get, :get_by_args, :get_filtered, :get_all, :delete, :delete_by_args, :count, :mas_login, :save_config, :action, nil] Define the Nitro operation that we want to perform.
         attribute :operation
-        validates :operation, inclusion: {:in=>[:add, :update, :get, :get_by_args, :get_filtered, :get_all, :delete, :delete_by_args, :count, :mas_login, :save_config, :action], :message=>"%{value} needs to be :add, :update, :get, :get_by_args, :get_filtered, :get_all, :delete, :delete_by_args, :count, :mas_login, :save_config, :action"}, allow_nil: true
+        validates :operation, expression_inclusion: {:in=>[:add, :update, :get, :get_by_args, :get_filtered, :get_all, :delete, :delete_by_args, :count, :mas_login, :save_config, :action], :message=>"%{value} needs to be :add, :update, :get, :get_by_args, :get_filtered, :get_all, :delete, :delete_by_args, :count, :mas_login, :save_config, :action"}, allow_nil: true
 
         # @return [Integer] A list of numeric values that signify that the operation was successful.
         attribute :expected_nitro_errorcode

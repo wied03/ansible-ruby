@@ -14,11 +14,11 @@ module Ansible
 
         # @return [:block, :allow, :count, nil] The action that you want AWS WAF to take when a request doesn't match the criteria specified in any of the Rule objects that are associated with the WebACL
         attribute :default_action
-        validates :default_action, inclusion: {:in=>[:block, :allow, :count], :message=>"%{value} needs to be :block, :allow, :count"}, allow_nil: true
+        validates :default_action, expression_inclusion: {:in=>[:block, :allow, :count], :message=>"%{value} needs to be :block, :allow, :count"}, allow_nil: true
 
         # @return [:present, :absent, nil] whether the Web ACL should be present or absent
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [Object, nil] A friendly name or description for the metrics for this WebACL,The name can contain only alphanumeric characters (A-Z, a-z, 0-9); the name can't contain whitespace.,You can't change metric_name after you create the WebACL,Metric name will default to I(name) with disallowed characters stripped out
         attribute :metric_name
@@ -29,7 +29,7 @@ module Ansible
 
         # @return [Boolean, nil] Whether to remove rules that aren't passed with C(rules). Defaults to false
         attribute :purge_rules
-        validates :purge_rules, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :purge_rules, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
       end
     end
   end

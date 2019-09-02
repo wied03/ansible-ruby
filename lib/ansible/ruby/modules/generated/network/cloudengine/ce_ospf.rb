@@ -23,7 +23,7 @@ module Ansible
 
         # @return [:none, :"hmac-sha256", :md5, :"hmac-md5", :simple, nil] Specifies the authentication type.
         attribute :auth_mode
-        validates :auth_mode, inclusion: {:in=>[:none, :"hmac-sha256", :md5, :"hmac-md5", :simple], :message=>"%{value} needs to be :none, :\"hmac-sha256\", :md5, :\"hmac-md5\", :simple"}, allow_nil: true
+        validates :auth_mode, expression_inclusion: {:in=>[:none, :"hmac-sha256", :md5, :"hmac-md5", :simple], :message=>"%{value} needs to be :none, :\"hmac-sha256\", :md5, :\"hmac-md5\", :simple"}, allow_nil: true
 
         # @return [Object, nil] Specifies a password for simple authentication. The value is a string of 1 to 8 characters.
         attribute :auth_text_simple
@@ -45,7 +45,7 @@ module Ansible
 
         # @return [:present, :absent, nil] Determines whether the config should be present or not on the device.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

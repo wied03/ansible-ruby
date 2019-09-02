@@ -14,15 +14,15 @@ module Ansible
 
         # @return [:ip, :vxlan, nil] Specifies the packet type of netstream timeout active interval.
         attribute :type
-        validates :type, inclusion: {:in=>[:ip, :vxlan], :message=>"%{value} needs to be :ip, :vxlan"}, allow_nil: true
+        validates :type, expression_inclusion: {:in=>[:ip, :vxlan], :message=>"%{value} needs to be :ip, :vxlan"}, allow_nil: true
 
         # @return [:present, :absent, nil] Specify desired state of the resource.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [:active, :inactive, :"tcp-session", :manual, nil] Netstream timeout type.
         attribute :timeout_type
-        validates :timeout_type, inclusion: {:in=>[:active, :inactive, :"tcp-session", :manual], :message=>"%{value} needs to be :active, :inactive, :\"tcp-session\", :manual"}, allow_nil: true
+        validates :timeout_type, expression_inclusion: {:in=>[:active, :inactive, :"tcp-session", :manual], :message=>"%{value} needs to be :active, :inactive, :\"tcp-session\", :manual"}, allow_nil: true
 
         # @return [Object, nil] Specifies the slot number of netstream manual timeout.
         attribute :manual_slot

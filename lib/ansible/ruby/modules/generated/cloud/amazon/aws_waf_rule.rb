@@ -17,7 +17,7 @@ module Ansible
 
         # @return [:present, :absent, nil] whether the rule should be present or absent
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [Array<Hash>, Hash, nil] list of conditions used in the rule. Each condition should contain I(type): which is one of [C(byte), C(geo), C(ip), C(size), C(sql) or C(xss)] I(negated): whether the condition should be negated, and C(condition), the name of the existing condition. M(aws_waf_condition) can be used to create new conditions\r\n
         attribute :conditions

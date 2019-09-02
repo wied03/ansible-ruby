@@ -33,7 +33,7 @@ module Ansible
 
         # @return [:none, :ssl, :tls, nil] Specifies whether the SMTP server requires an encrypted connection in order to send mail.
         attribute :encryption
-        validates :encryption, inclusion: {:in=>[:none, :ssl, :tls], :message=>"%{value} needs to be :none, :ssl, :tls"}, allow_nil: true
+        validates :encryption, expression_inclusion: {:in=>[:none, :ssl, :tls], :message=>"%{value} needs to be :none, :ssl, :tls"}, allow_nil: true
 
         # @return [Symbol, nil] Credentials can be set on an SMTP server's configuration even if that authentication is not used (think staging configs or emergency changes). This parameter acts as a switch to make the specified C(smtp_server_username) and C(smtp_server_password) parameters active or not.,When C(yes), the authentication parameters will be active.,When C(no), the authentication parameters will be inactive.
         attribute :authentication
@@ -49,11 +49,11 @@ module Ansible
 
         # @return [:present, :absent, nil] When C(present), ensures that the SMTP configuration exists.,When C(absent), ensures that the SMTP configuration does not exist.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [:always, :on_create, nil] Passwords are stored encrypted, so the module cannot know if the supplied C(smtp_server_password) is the same or different than the existing password. This parameter controls the updating of the C(smtp_server_password) credential.,When C(always), will always update the password.,When C(on_create), will only set the password for newly created SMTP server configurations.
         attribute :update_password
-        validates :update_password, inclusion: {:in=>[:always, :on_create], :message=>"%{value} needs to be :always, :on_create"}, allow_nil: true
+        validates :update_password, expression_inclusion: {:in=>[:always, :on_create], :message=>"%{value} needs to be :always, :on_create"}, allow_nil: true
       end
     end
   end

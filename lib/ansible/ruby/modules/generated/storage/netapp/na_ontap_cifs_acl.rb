@@ -10,7 +10,7 @@ module Ansible
       class Na_ontap_cifs_acl < Base
         # @return [:no_access, :read, :change, :full_control, nil] -"The access rights that the user or group has on the defined CIFS share."
         attribute :permission
-        validates :permission, inclusion: {:in=>[:no_access, :read, :change, :full_control], :message=>"%{value} needs to be :no_access, :read, :change, :full_control"}, allow_nil: true
+        validates :permission, expression_inclusion: {:in=>[:no_access, :read, :change, :full_control], :message=>"%{value} needs to be :no_access, :read, :change, :full_control"}, allow_nil: true
 
         # @return [String] The name of the cifs-share-access-control to manage.
         attribute :share_name
@@ -18,7 +18,7 @@ module Ansible
 
         # @return [:present, :absent, nil] Whether the specified CIFS share acl should exist or not.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [Object] Name of the vserver to use.
         attribute :vserver

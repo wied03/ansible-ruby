@@ -25,7 +25,7 @@ module Ansible
 
         # @return [Boolean, nil] Whether the value in I(change) is a percent value
         attribute :is_percent
-        validates :is_percent, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :is_percent, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Object] Name to give the policy
         attribute :name
@@ -33,7 +33,7 @@ module Ansible
 
         # @return [:webhook, :schedule] The type of policy that will be executed for the current release.
         attribute :policy_type
-        validates :policy_type, presence: true, inclusion: {:in=>[:webhook, :schedule], :message=>"%{value} needs to be :webhook, :schedule"}
+        validates :policy_type, presence: true, expression_inclusion: {:in=>[:webhook, :schedule], :message=>"%{value} needs to be :webhook, :schedule"}
 
         # @return [Object] Name of the scaling group that this policy will be added to
         attribute :scaling_group
@@ -41,7 +41,7 @@ module Ansible
 
         # @return [:present, :absent, nil] Indicate desired state of the resource
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

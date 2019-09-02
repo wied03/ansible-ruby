@@ -39,7 +39,7 @@ module Ansible
 
         # @return [:native, :uncompressed, nil] Backup format to use
         attribute :format
-        validates :format, inclusion: {:in=>[:native, :uncompressed], :message=>"%{value} needs to be :native, :uncompressed"}, allow_nil: true
+        validates :format, expression_inclusion: {:in=>[:native, :uncompressed], :message=>"%{value} needs to be :native, :uncompressed"}, allow_nil: true
 
         # @return [Object, nil] the backup script to be executed
         attribute :script

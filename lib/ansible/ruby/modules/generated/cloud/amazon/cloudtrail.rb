@@ -10,7 +10,7 @@ module Ansible
       class Cloudtrail < Base
         # @return [:present, :absent, :enabled, :disabled] Add or remove CloudTrail configuration.,The following states have been preserved for backwards compatibility. C(state=enabled) and C(state=disabled).,enabled=present and disabled=absent.
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:present, :absent, :enabled, :disabled], :message=>"%{value} needs to be :present, :absent, :enabled, :disabled"}
+        validates :state, presence: true, expression_inclusion: {:in=>[:present, :absent, :enabled, :disabled], :message=>"%{value} needs to be :present, :absent, :enabled, :disabled"}
 
         # @return [String] Name for the CloudTrail.,Names are unique per-region unless the CloudTrail is a multi-region trail, in which case it is unique per-account.
         attribute :name
@@ -18,7 +18,7 @@ module Ansible
 
         # @return [Boolean, nil] Start or stop the CloudTrail logging. If stopped the trail will be paused and will not record events or deliver log files.
         attribute :enable_logging
-        validates :enable_logging, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :enable_logging, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [String, nil] An existing S3 bucket where CloudTrail will deliver log files.,This bucket should exist and have the proper policy.,See U(http://docs.aws.amazon.com/awscloudtrail/latest/userguide/aggregating_logs_regions_bucket_policy.html),Required when C(state=present)
         attribute :s3_bucket_name
@@ -30,15 +30,15 @@ module Ansible
 
         # @return [Boolean, nil] Specify whether the trail belongs only to one region or exists in all regions.
         attribute :is_multi_region_trail
-        validates :is_multi_region_trail, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :is_multi_region_trail, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Boolean, nil] Specifies whether log file integrity validation is enabled.,CloudTrail will create a hash for every log file delivered and produce a signed digest file that can be used to ensure log files have not been tampered.
         attribute :enable_log_file_validation
-        validates :enable_log_file_validation, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :enable_log_file_validation, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Boolean, nil] Record API calls from global services such as IAM and STS.
         attribute :include_global_events
-        validates :include_global_events, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :include_global_events, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Object, nil] SNS Topic name to send notifications to when a log file is delivered
         attribute :sns_topic_name

@@ -10,7 +10,7 @@ module Ansible
       class Ce_netconf < Base
         # @return [:get, :"edit-config", :"execute-action", :"execute-cli"] The type of rpc.
         attribute :rpc
-        validates :rpc, presence: true, inclusion: {:in=>[:get, :"edit-config", :"execute-action", :"execute-cli"], :message=>"%{value} needs to be :get, :\"edit-config\", :\"execute-action\", :\"execute-cli\""}
+        validates :rpc, presence: true, expression_inclusion: {:in=>[:get, :"edit-config", :"execute-action", :"execute-cli"], :message=>"%{value} needs to be :get, :\"edit-config\", :\"execute-action\", :\"execute-cli\""}
 
         # @return [Object] The config xml string.
         attribute :cfg_xml

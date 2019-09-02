@@ -18,7 +18,7 @@ module Ansible
 
         # @return [:boot, :bootwait, :hold, :initdefault, false, :once, :ondemand, :powerfail, :powerwait, :respawn, :sysinit, :wait] Action what the init has to do with this entry.
         attribute :action
-        validates :action, presence: true, inclusion: {:in=>[:boot, :bootwait, :hold, :initdefault, false, :once, :ondemand, :powerfail, :powerwait, :respawn, :sysinit, :wait], :message=>"%{value} needs to be :boot, :bootwait, :hold, :initdefault, false, :once, :ondemand, :powerfail, :powerwait, :respawn, :sysinit, :wait"}
+        validates :action, presence: true, expression_inclusion: {:in=>[:boot, :bootwait, :hold, :initdefault, false, :once, :ondemand, :powerfail, :powerwait, :respawn, :sysinit, :wait], :message=>"%{value} needs to be :boot, :bootwait, :hold, :initdefault, false, :once, :ondemand, :powerfail, :powerwait, :respawn, :sysinit, :wait"}
 
         # @return [String] What command has to run.
         attribute :command
@@ -30,7 +30,7 @@ module Ansible
 
         # @return [:absent, :present, nil] Whether the entry should be present or absent in the inittab file.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
       end
     end
   end

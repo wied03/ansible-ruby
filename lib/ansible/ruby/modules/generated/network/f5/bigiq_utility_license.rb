@@ -18,7 +18,7 @@ module Ansible
 
         # @return [:absent, :present, nil] The state of the utility license on the system.,When C(present), guarantees that the license exists.,When C(absent), removes the license from the system.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
       end
     end
   end

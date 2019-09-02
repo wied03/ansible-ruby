@@ -22,19 +22,19 @@ module Ansible
 
         # @return [:ipv4, :ipv6, :vpnv4, :vpnv6, :l2vpn] Address Family Identifier.
         attribute :afi
-        validates :afi, presence: true, inclusion: {:in=>[:ipv4, :ipv6, :vpnv4, :vpnv6, :l2vpn], :message=>"%{value} needs to be :ipv4, :ipv6, :vpnv4, :vpnv6, :l2vpn"}
+        validates :afi, presence: true, expression_inclusion: {:in=>[:ipv4, :ipv6, :vpnv4, :vpnv6, :l2vpn], :message=>"%{value} needs to be :ipv4, :ipv6, :vpnv4, :vpnv6, :l2vpn"}
 
         # @return [:unicast, :multicast, :evpn] Sub Address Family Identifier.
         attribute :safi
-        validates :safi, presence: true, inclusion: {:in=>[:unicast, :multicast, :evpn], :message=>"%{value} needs to be :unicast, :multicast, :evpn"}
+        validates :safi, presence: true, expression_inclusion: {:in=>[:unicast, :multicast, :evpn], :message=>"%{value} needs to be :unicast, :multicast, :evpn"}
 
         # @return [:enable, :disable, :inherit, nil] Valid values are enable for basic command enablement; disable for disabling the command at the neighbor af level (it adds the disable keyword to the basic command); and inherit to remove the command at this level (the command value is inherited from a higher BGP layer).
         attribute :additional_paths_receive
-        validates :additional_paths_receive, inclusion: {:in=>[:enable, :disable, :inherit], :message=>"%{value} needs to be :enable, :disable, :inherit"}, allow_nil: true
+        validates :additional_paths_receive, expression_inclusion: {:in=>[:enable, :disable, :inherit], :message=>"%{value} needs to be :enable, :disable, :inherit"}, allow_nil: true
 
         # @return [:enable, :disable, :inherit, nil] Valid values are enable for basic command enablement; disable for disabling the command at the neighbor af level (it adds the disable keyword to the basic command); and inherit to remove the command at this level (the command value is inherited from a higher BGP layer).
         attribute :additional_paths_send
-        validates :additional_paths_send, inclusion: {:in=>[:enable, :disable, :inherit], :message=>"%{value} needs to be :enable, :disable, :inherit"}, allow_nil: true
+        validates :additional_paths_send, expression_inclusion: {:in=>[:enable, :disable, :inherit], :message=>"%{value} needs to be :enable, :disable, :inherit"}, allow_nil: true
 
         # @return [Object, nil] Conditional route advertisement. This property requires two route maps, an advertise-map and an exist-map. Valid values are an array specifying both the advertise-map name and the exist-map name, or simply 'default' e.g. ['my_advertise_map', 'my_exist_map']. This command is mutually exclusive with the advertise_map_non_exist property.
         attribute :advertise_map_exist
@@ -108,11 +108,11 @@ module Ansible
 
         # @return [:none, :both, :extended, :standard, :default, nil] send-community attribute.
         attribute :send_community
-        validates :send_community, inclusion: {:in=>[:none, :both, :extended, :standard, :default], :message=>"%{value} needs to be :none, :both, :extended, :standard, :default"}, allow_nil: true
+        validates :send_community, expression_inclusion: {:in=>[:none, :both, :extended, :standard, :default], :message=>"%{value} needs to be :none, :both, :extended, :standard, :default"}, allow_nil: true
 
         # @return [:enable, :always, :inherit, nil] Valid values are 'enable' for basic command enablement; 'always' to add the always keyword to the basic command; and 'inherit' to remove the command at this level (the command value is inherited from a higher BGP layer).
         attribute :soft_reconfiguration_in
-        validates :soft_reconfiguration_in, inclusion: {:in=>[:enable, :always, :inherit], :message=>"%{value} needs to be :enable, :always, :inherit"}, allow_nil: true
+        validates :soft_reconfiguration_in, expression_inclusion: {:in=>[:enable, :always, :inherit], :message=>"%{value} needs to be :enable, :always, :inherit"}, allow_nil: true
 
         # @return [Object, nil] Site-of-origin. Valid values are a string defining a VPN extcommunity or 'default'.
         attribute :soo
@@ -129,7 +129,7 @@ module Ansible
 
         # @return [:present, :absent, nil] Determines whether the config should be present or not on the device.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

@@ -10,7 +10,7 @@ module Ansible
       class Netact_cm_command < Base
         # @return [:upload, :provision, :import, :export, :Provision_Mass_Modification] Supported operations allow user to upload actual configuration from the network, to import and provision prepared plans, or export reference or actual configuration for planning purposes. Provision_Mass_Modification enables provisioning the same parameters to multiple network elements. This operation supports modifications only to one object class at a time. With this option NetAct Configurator creates and provisions a plan to the network with the given scope and options.
         attribute :operation
-        validates :operation, presence: true, inclusion: {:in=>[:upload, :provision, :import, :export, :Provision_Mass_Modification], :message=>"%{value} needs to be :upload, :provision, :import, :export, :Provision_Mass_Modification"}
+        validates :operation, presence: true, expression_inclusion: {:in=>[:upload, :provision, :import, :export, :Provision_Mass_Modification], :message=>"%{value} needs to be :upload, :provision, :import, :export, :Provision_Mass_Modification"}
 
         # @return [Object, nil] user specified operation name
         attribute :opsName
@@ -30,11 +30,11 @@ module Ansible
 
         # @return [:plan, :actual, :reference, :template, :siteTemplate, nil] Specifies the type of the export operation.
         attribute :typeOption
-        validates :typeOption, inclusion: {:in=>[:plan, :actual, :reference, :template, :siteTemplate], :message=>"%{value} needs to be :plan, :actual, :reference, :template, :siteTemplate"}, allow_nil: true
+        validates :typeOption, expression_inclusion: {:in=>[:plan, :actual, :reference, :template, :siteTemplate], :message=>"%{value} needs to be :plan, :actual, :reference, :template, :siteTemplate"}, allow_nil: true
 
         # @return [:RAML2, :CSV, :XLSX, nil] Indicates file format.
         attribute :fileFormat
-        validates :fileFormat, inclusion: {:in=>[:RAML2, :CSV, :XLSX], :message=>"%{value} needs to be :RAML2, :CSV, :XLSX"}, allow_nil: true
+        validates :fileFormat, expression_inclusion: {:in=>[:RAML2, :CSV, :XLSX], :message=>"%{value} needs to be :RAML2, :CSV, :XLSX"}, allow_nil: true
 
         # @return [String, nil] Specifies a file name. Valid for Import and Export operations.
         attribute :fileName

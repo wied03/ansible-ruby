@@ -25,7 +25,7 @@ module Ansible
 
         # @return [:triggered, :acknowledged, :resolved] Type of event to be sent.
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:triggered, :acknowledged, :resolved], :message=>"%{value} needs to be :triggered, :acknowledged, :resolved"}
+        validates :state, presence: true, expression_inclusion: {:in=>[:triggered, :acknowledged, :resolved], :message=>"%{value} needs to be :triggered, :acknowledged, :resolved"}
 
         # @return [String] The pagerduty API key (readonly access), generated on the pagerduty site.
         attribute :api_key

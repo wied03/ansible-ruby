@@ -22,7 +22,7 @@ module Ansible
 
         # @return [get_status, nil] Get various details about issue depending upon action specified.
         attribute :action
-        validates :action, inclusion: {:in=>[["get_status"]], :message=>"%{value} needs to be [\"get_status\"]"}, allow_nil: true
+        validates :action, expression_inclusion: {:in=>[["get_status"]], :message=>"%{value} needs to be [\"get_status\"]"}, allow_nil: true
       end
     end
   end

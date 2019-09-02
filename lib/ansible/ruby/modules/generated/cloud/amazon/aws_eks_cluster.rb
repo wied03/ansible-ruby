@@ -30,11 +30,11 @@ module Ansible
 
         # @return [:absent, :present, nil] desired state of the EKS cluster
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
         # @return [:yes, :no, nil] Specifies whether the module waits until the cluster becomes active after creation. It takes "usually less than 10 minutes" per AWS documentation.
         attribute :wait
-        validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :wait, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] The duration in seconds to wait for the cluster to become active. Defaults to 1200 seconds (20 minutes).
         attribute :wait_timeout

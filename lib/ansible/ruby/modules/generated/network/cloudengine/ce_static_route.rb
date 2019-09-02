@@ -18,7 +18,7 @@ module Ansible
 
         # @return [:v4, :v6] Destination ip address family type of static route.
         attribute :aftype
-        validates :aftype, presence: true, inclusion: {:in=>[:v4, :v6], :message=>"%{value} needs to be :v4, :v6"}
+        validates :aftype, presence: true, expression_inclusion: {:in=>[:v4, :v6], :message=>"%{value} needs to be :v4, :v6"}
 
         # @return [Object, nil] Next hop address of static route.
         attribute :next_hop
@@ -43,7 +43,7 @@ module Ansible
 
         # @return [:present, :absent, nil] Specify desired state of the resource.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

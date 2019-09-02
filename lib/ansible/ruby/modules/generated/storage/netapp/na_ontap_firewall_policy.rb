@@ -10,7 +10,7 @@ module Ansible
       class Na_ontap_firewall_policy < Base
         # @return [:present, :absent, nil] Whether to set up a fire policy or not
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [Array<String>, String, nil] A list of IPs and masks to use
         attribute :allow_list
@@ -22,7 +22,7 @@ module Ansible
 
         # @return [:http, :https, :ntp, :rsh, :snmp, :ssh, :telnet] The service to apply the policy to
         attribute :service
-        validates :service, presence: true, inclusion: {:in=>[:http, :https, :ntp, :rsh, :snmp, :ssh, :telnet], :message=>"%{value} needs to be :http, :https, :ntp, :rsh, :snmp, :ssh, :telnet"}
+        validates :service, presence: true, expression_inclusion: {:in=>[:http, :https, :ntp, :rsh, :snmp, :ssh, :telnet], :message=>"%{value} needs to be :http, :https, :ntp, :rsh, :snmp, :ssh, :telnet"}
 
         # @return [String] The Vserver to apply the policy to.
         attribute :vserver
@@ -30,11 +30,11 @@ module Ansible
 
         # @return [:enable, :disable, nil] enabled firewall
         attribute :enable
-        validates :enable, inclusion: {:in=>[:enable, :disable], :message=>"%{value} needs to be :enable, :disable"}, allow_nil: true
+        validates :enable, expression_inclusion: {:in=>[:enable, :disable], :message=>"%{value} needs to be :enable, :disable"}, allow_nil: true
 
         # @return [:enable, :disable, nil] enable logging
         attribute :logging
-        validates :logging, inclusion: {:in=>[:enable, :disable], :message=>"%{value} needs to be :enable, :disable"}, allow_nil: true
+        validates :logging, expression_inclusion: {:in=>[:enable, :disable], :message=>"%{value} needs to be :enable, :disable"}, allow_nil: true
 
         # @return [String] The node to run the firewall configuration on
         attribute :node

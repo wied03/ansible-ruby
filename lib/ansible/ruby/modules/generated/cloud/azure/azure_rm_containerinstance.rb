@@ -18,15 +18,15 @@ module Ansible
 
         # @return [:linux, :windows, nil] The OS type of containers.
         attribute :os_type
-        validates :os_type, inclusion: {:in=>[:linux, :windows], :message=>"%{value} needs to be :linux, :windows"}, allow_nil: true
+        validates :os_type, expression_inclusion: {:in=>[:linux, :windows], :message=>"%{value} needs to be :linux, :windows"}, allow_nil: true
 
         # @return [:absent, :present, nil] Assert the state of the container instance. Use 'present' to create or update an container instance and 'absent' to delete it.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
         # @return [:public, :none, nil] The IP address type of the container group (default is 'none')
         attribute :ip_address
-        validates :ip_address, inclusion: {:in=>[:public, :none], :message=>"%{value} needs to be :public, :none"}, allow_nil: true
+        validates :ip_address, expression_inclusion: {:in=>[:public, :none], :message=>"%{value} needs to be :public, :none"}, allow_nil: true
 
         # @return [Array<Integer>, Integer, nil] List of ports exposed within the container group.
         attribute :ports
@@ -50,7 +50,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Force update of existing container instance. Any update will result in deletion and recreation of existing containers.
         attribute :force_update
-        validates :force_update, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :force_update, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

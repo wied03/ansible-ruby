@@ -19,7 +19,7 @@ module Ansible
 
         # @return [:dot1q, :default, :untag, :qinq, :none, nil] Specifies an encapsulation type of packets allowed to pass through a Layer 2 sub-interface.
         attribute :encapsulation
-        validates :encapsulation, inclusion: {:in=>[:dot1q, :default, :untag, :qinq, :none], :message=>"%{value} needs to be :dot1q, :default, :untag, :qinq, :none"}, allow_nil: true
+        validates :encapsulation, expression_inclusion: {:in=>[:dot1q, :default, :untag, :qinq, :none], :message=>"%{value} needs to be :dot1q, :default, :untag, :qinq, :none"}, allow_nil: true
 
         # @return [Object, nil] When I(encapsulation) is 'dot1q', specifies a VLAN ID in the outer VLAN tag. When I(encapsulation) is 'qinq', specifies an outer VLAN ID for double-tagged packets to be received by a Layer 2 sub-interface. The value is an integer ranging from 1 to 4094.
         attribute :ce_vid
@@ -29,7 +29,7 @@ module Ansible
 
         # @return [:present, :absent, nil] Determines whether the config should be present or not on the device.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

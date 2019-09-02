@@ -16,7 +16,7 @@ module Ansible
 
         # @return [:yes, :no, nil] When using https if SSL certificate needs to be verified.
         attribute :validate_certs
-        validates :validate_certs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :validate_certs, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] Gitlab user name.
         attribute :login_user
@@ -46,23 +46,23 @@ module Ansible
 
         # @return [:yes, :no, nil] Whether you want to create issues or not.,Possible values are true and false.
         attribute :issues_enabled
-        validates :issues_enabled, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :issues_enabled, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:yes, :no, nil] If merge requests can be made or not.,Possible values are true and false.
         attribute :merge_requests_enabled
-        validates :merge_requests_enabled, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :merge_requests_enabled, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:yes, :no, nil] If an wiki for this project should be available or not.,Possible values are true and false.
         attribute :wiki_enabled
-        validates :wiki_enabled, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :wiki_enabled, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:yes, :no, nil] If creating snippets should be available or not.,Possible values are true and false.
         attribute :snippets_enabled
-        validates :snippets_enabled, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :snippets_enabled, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:yes, :no, nil] If the project is public available or not.,Setting this to true is same as setting visibility_level to 20.,Possible values are true and false.
         attribute :public
-        validates :public, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :public, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] Private. visibility_level is 0. Project access must be granted explicitly for each user.,Internal. visibility_level is 10. The project can be cloned by any logged in user.,Public. visibility_level is 20. The project can be cloned without any authentication.,Possible values are 0, 10 and 20.
         attribute :visibility_level
@@ -70,11 +70,11 @@ module Ansible
 
         # @return [:yes, :no, nil] Git repository which will be imported into gitlab.,Gitlab server needs read access to this git repository.
         attribute :import_url
-        validates :import_url, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :import_url, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:present, :absent, nil] create or delete project.,Possible values are present and absent.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

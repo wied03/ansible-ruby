@@ -10,7 +10,7 @@ module Ansible
       class Aci_vlan_pool_encap_block < Base
         # @return [:dynamic, :inherit, :static, nil] The method used for allocating encaps to resources.
         attribute :allocation_mode
-        validates :allocation_mode, inclusion: {:in=>[:dynamic, :inherit, :static], :message=>"%{value} needs to be :dynamic, :inherit, :static"}, allow_nil: true
+        validates :allocation_mode, expression_inclusion: {:in=>[:dynamic, :inherit, :static], :message=>"%{value} needs to be :dynamic, :inherit, :static"}, allow_nil: true
 
         # @return [Object, nil] Description for the pool encap block.
         attribute :description
@@ -21,7 +21,7 @@ module Ansible
 
         # @return [:dynamic, :static, nil] The method used for allocating encaps to resources.
         attribute :pool_allocation_mode
-        validates :pool_allocation_mode, inclusion: {:in=>[:dynamic, :static], :message=>"%{value} needs to be :dynamic, :static"}, allow_nil: true
+        validates :pool_allocation_mode, expression_inclusion: {:in=>[:dynamic, :static], :message=>"%{value} needs to be :dynamic, :static"}, allow_nil: true
 
         # @return [Integer, nil] The end of encap block.
         attribute :block_end
@@ -36,7 +36,7 @@ module Ansible
 
         # @return [:absent, :present, :query, nil] Use C(present) or C(absent) for adding or removing.,Use C(query) for listing an object or multiple objects.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present, :query], :message=>"%{value} needs to be :absent, :present, :query"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present, :query], :message=>"%{value} needs to be :absent, :present, :query"}, allow_nil: true
       end
     end
   end

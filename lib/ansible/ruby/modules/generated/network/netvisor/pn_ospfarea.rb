@@ -22,7 +22,7 @@ module Ansible
 
         # @return [:present, :absent, :update] State the action to perform. Use 'present' to add ospf-area, 'absent' to remove ospf-area and 'update' to modify ospf-area.
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:present, :absent, :update], :message=>"%{value} needs to be :present, :absent, :update"}
+        validates :state, presence: true, expression_inclusion: {:in=>[:present, :absent, :update], :message=>"%{value} needs to be :present, :absent, :update"}
 
         # @return [String] Specify the name of the vRouter.
         attribute :pn_vrouter_name
@@ -34,7 +34,7 @@ module Ansible
 
         # @return [:none, :stub, :"stub-no-summary", :nssa, :"nssa-no-summary", nil] Specify the OSPF stub type.
         attribute :pn_stub_type
-        validates :pn_stub_type, inclusion: {:in=>[:none, :stub, :"stub-no-summary", :nssa, :"nssa-no-summary"], :message=>"%{value} needs to be :none, :stub, :\"stub-no-summary\", :nssa, :\"nssa-no-summary\""}, allow_nil: true
+        validates :pn_stub_type, expression_inclusion: {:in=>[:none, :stub, :"stub-no-summary", :nssa, :"nssa-no-summary"], :message=>"%{value} needs to be :none, :stub, :\"stub-no-summary\", :nssa, :\"nssa-no-summary\""}, allow_nil: true
 
         # @return [Object, nil] OSPF prefix list for filtering incoming packets.
         attribute :pn_prefix_listin
@@ -44,7 +44,7 @@ module Ansible
 
         # @return [Boolean, nil] Enable/disable system information.
         attribute :pn_quiet
-        validates :pn_quiet, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :pn_quiet, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
       end
     end
   end

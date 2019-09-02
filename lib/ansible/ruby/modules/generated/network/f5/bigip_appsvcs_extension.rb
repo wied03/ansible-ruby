@@ -22,7 +22,7 @@ module Ansible
 
         # @return [:present, :absent, nil] When C(state) is C(present), ensures the configuration exists.,When C(state) is C(absent), ensures that the configuration is removed.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

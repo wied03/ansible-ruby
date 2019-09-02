@@ -10,7 +10,7 @@ module Ansible
       class Na_ontap_cluster < Base
         # @return [:present, nil] Whether the specified cluster should exist or not.
         attribute :state
-        validates :state, inclusion: {:in=>[:present], :message=>"%{value} needs to be :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present], :message=>"%{value} needs to be :present"}, allow_nil: true
 
         # @return [String, nil] The name of the cluster to manage.
         attribute :cluster_name

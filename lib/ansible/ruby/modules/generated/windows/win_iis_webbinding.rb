@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:absent, :present, nil] State of the binding.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
         # @return [Integer, nil] The port to bind to / use for the new site.
         attribute :port

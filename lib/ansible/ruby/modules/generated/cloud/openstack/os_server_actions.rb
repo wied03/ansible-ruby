@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:yes, :no, nil] If the module should wait for the instance action to be performed.
         attribute :wait
-        validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :wait, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] The amount of time the module should wait for the instance to perform the requested action.
         attribute :timeout
@@ -22,7 +22,7 @@ module Ansible
 
         # @return [:stop, :start, :pause, :unpause, :lock, :unlock, :suspend, :resume, :rebuild, nil] Perform the given action. The lock and unlock actions always return changed as the servers API does not provide lock status.
         attribute :action
-        validates :action, inclusion: {:in=>[:stop, :start, :pause, :unpause, :lock, :unlock, :suspend, :resume, :rebuild], :message=>"%{value} needs to be :stop, :start, :pause, :unpause, :lock, :unlock, :suspend, :resume, :rebuild"}, allow_nil: true
+        validates :action, expression_inclusion: {:in=>[:stop, :start, :pause, :unpause, :lock, :unlock, :suspend, :resume, :rebuild], :message=>"%{value} needs to be :stop, :start, :pause, :unpause, :lock, :unlock, :suspend, :resume, :rebuild"}, allow_nil: true
 
         # @return [Object, nil] Image the server should be rebuilt with
         attribute :image

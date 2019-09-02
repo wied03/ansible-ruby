@@ -10,7 +10,7 @@ module Ansible
       class Na_elementsw_volume_pair < Base
         # @return [:present, :absent, nil] Whether the specified volume pair should exist or not.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String, Integer] Source volume name or volume ID
         attribute :src_volume
@@ -30,7 +30,7 @@ module Ansible
 
         # @return [:async, :sync, :snapshotsonly, nil] Mode to start the volume pairing
         attribute :mode
-        validates :mode, inclusion: {:in=>[:async, :sync, :snapshotsonly], :message=>"%{value} needs to be :async, :sync, :snapshotsonly"}, allow_nil: true
+        validates :mode, expression_inclusion: {:in=>[:async, :sync, :snapshotsonly], :message=>"%{value} needs to be :async, :sync, :snapshotsonly"}, allow_nil: true
 
         # @return [String] Destination IP address of the paired cluster.
         attribute :dest_mvip

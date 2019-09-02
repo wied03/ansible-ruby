@@ -29,7 +29,7 @@ module Ansible
 
         # @return [:started, :stopped, :restarted, :absent, :frozen, nil] Define the state of a container.
         attribute :state
-        validates :state, inclusion: {:in=>[:started, :stopped, :restarted, :absent, :frozen], :message=>"%{value} needs to be :started, :stopped, :restarted, :absent, :frozen"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:started, :stopped, :restarted, :absent, :frozen], :message=>"%{value} needs to be :started, :stopped, :restarted, :absent, :frozen"}, allow_nil: true
 
         # @return [Integer, nil] A timeout for changing the state of the container.,This is also used as a timeout for waiting until IPv4 addresses are set to the all network interfaces in the container after starting or restarting.
         attribute :timeout
@@ -37,11 +37,11 @@ module Ansible
 
         # @return [Boolean, nil] If this is true, the C(lxd_container) waits until IPv4 addresses are set to the all network interfaces in the container after starting or restarting.
         attribute :wait_for_ipv4_addresses
-        validates :wait_for_ipv4_addresses, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :wait_for_ipv4_addresses, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Boolean, nil] If this is true, the C(lxd_container) forces to stop the container when it stops or restarts the container.
         attribute :force_stop
-        validates :force_stop, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :force_stop, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [String, nil] The unix domain socket path or the https URL for the LXD server.
         attribute :url

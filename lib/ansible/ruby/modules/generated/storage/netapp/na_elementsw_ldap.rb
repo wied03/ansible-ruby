@@ -10,18 +10,18 @@ module Ansible
       class Na_elementsw_ldap < Base
         # @return [:present, :absent] Whether the specified volume should exist or not.
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
+        validates :state, presence: true, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
 
         # @return [:DirectBind, :SearchAndBind, nil] Identifies which user authentication method to use.
         attribute :authType
-        validates :authType, inclusion: {:in=>[:DirectBind, :SearchAndBind], :message=>"%{value} needs to be :DirectBind, :SearchAndBind"}, allow_nil: true
+        validates :authType, expression_inclusion: {:in=>[:DirectBind, :SearchAndBind], :message=>"%{value} needs to be :DirectBind, :SearchAndBind"}, allow_nil: true
 
         # @return [Object, nil] The base DN of the tree to start the group search (will do a subtree search from here)
         attribute :groupSearchBaseDn
 
         # @return [:NoGroup, :ActiveDirectory, :MemberDN, nil] Controls the default group search filter used
         attribute :groupSearchType
-        validates :groupSearchType, inclusion: {:in=>[:NoGroup, :ActiveDirectory, :MemberDN], :message=>"%{value} needs to be :NoGroup, :ActiveDirectory, :MemberDN"}, allow_nil: true
+        validates :groupSearchType, expression_inclusion: {:in=>[:NoGroup, :ActiveDirectory, :MemberDN], :message=>"%{value} needs to be :NoGroup, :ActiveDirectory, :MemberDN"}, allow_nil: true
 
         # @return [String, nil] A comma-separated list of LDAP server URIs
         attribute :serverURIs

@@ -16,7 +16,7 @@ module Ansible
 
         # @return [:availabilityOriented, :costOriented, :balanced] (String) The strategy orientation.
         attribute :availability_vs_cost
-        validates :availability_vs_cost, presence: true, inclusion: {:in=>[:availabilityOriented, :costOriented, :balanced], :message=>"%{value} needs to be :availabilityOriented, :costOriented, :balanced"}
+        validates :availability_vs_cost, presence: true, expression_inclusion: {:in=>[:availabilityOriented, :costOriented, :balanced], :message=>"%{value} needs to be :availabilityOriented, :costOriented, :balanced"}
 
         # @return [Object] (List of Objects) a list of hash/dictionaries of Availability Zones that are configured in the elastigroup; '[{"key":"value", "key":"value"}]'; keys allowed are name (String), subnet_id (String), placement_group_name (String),
         attribute :availability_zones
@@ -55,7 +55,7 @@ module Ansible
 
         # @return [:ELB, :HCS, :TARGET_GROUP, :MLB, :EC2, nil] (String) The service to use for the health check.
         attribute :health_check_type
-        validates :health_check_type, inclusion: {:in=>[:ELB, :HCS, :TARGET_GROUP, :MLB, :EC2], :message=>"%{value} needs to be :ELB, :HCS, :TARGET_GROUP, :MLB, :EC2"}, allow_nil: true
+        validates :health_check_type, expression_inclusion: {:in=>[:ELB, :HCS, :TARGET_GROUP, :MLB, :EC2], :message=>"%{value} needs to be :ELB, :HCS, :TARGET_GROUP, :MLB, :EC2"}, allow_nil: true
 
         # @return [Object, nil] (String) The instance profile iamRole name,Only use iam_role_arn, or iam_role_name
         attribute :iam_role_name
@@ -68,7 +68,7 @@ module Ansible
 
         # @return [:image_id, :target, nil] (List of Strings) list of fields on which changes should be ignored when updating
         attribute :ignore_changes
-        validates :ignore_changes, inclusion: {:in=>[:image_id, :target], :message=>"%{value} needs to be :image_id, :target"}, allow_nil: true
+        validates :ignore_changes, expression_inclusion: {:in=>[:image_id, :target], :message=>"%{value} needs to be :image_id, :target"}, allow_nil: true
 
         # @return [Object] (String) The image Id used to launch the instance.; In case of conflict between Instance type and image type, an error will be returned
         attribute :image_id
@@ -124,7 +124,7 @@ module Ansible
 
         # @return [:"Linux/UNIX", :"SUSE Linux", :Windows, :"Linux/UNIX (Amazon VPC)", :"SUSE Linux (Amazon VPC)", :Windows] (String) Operation system type._
         attribute :product
-        validates :product, presence: true, inclusion: {:in=>[:"Linux/UNIX", :"SUSE Linux", :Windows, :"Linux/UNIX (Amazon VPC)", :"SUSE Linux (Amazon VPC)", :Windows], :message=>"%{value} needs to be :\"Linux/UNIX\", :\"SUSE Linux\", :Windows, :\"Linux/UNIX (Amazon VPC)\", :\"SUSE Linux (Amazon VPC)\", :Windows"}
+        validates :product, presence: true, expression_inclusion: {:in=>[:"Linux/UNIX", :"SUSE Linux", :Windows, :"Linux/UNIX (Amazon VPC)", :"SUSE Linux (Amazon VPC)", :Windows], :message=>"%{value} needs to be :\"Linux/UNIX\", :\"SUSE Linux\", :Windows, :\"Linux/UNIX (Amazon VPC)\", :\"SUSE Linux (Amazon VPC)\", :Windows"}
 
         # @return [Object, nil] (Object) The Rancher integration configuration.; Expects the following keys - access_key (String), secret_key (String), master_host (String)
         attribute :rancher
@@ -160,7 +160,7 @@ module Ansible
 
         # @return [:present, :absent, nil] (String) create or delete the elastigroup
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [Object, nil] (List of tagKey:tagValue paris) a list of tags to configure in the elastigroup. Please specify list of keys and values (key colon value);
         attribute :tags
@@ -174,14 +174,14 @@ module Ansible
 
         # @return [:default, :dedicated, nil] (String) dedicated vs shared tenancy
         attribute :tenancy
-        validates :tenancy, inclusion: {:in=>[:default, :dedicated], :message=>"%{value} needs to be :default, :dedicated"}, allow_nil: true
+        validates :tenancy, expression_inclusion: {:in=>[:default, :dedicated], :message=>"%{value} needs to be :default, :dedicated"}, allow_nil: true
 
         # @return [Object, nil] (Boolean) terminate at the end of billing hour
         attribute :terminate_at_end_of_billing_hour
 
         # @return [:instance, :weight] (String) The capacity unit to launch instances by.
         attribute :unit
-        validates :unit, presence: true, inclusion: {:in=>[:instance, :weight], :message=>"%{value} needs to be :instance, :weight"}
+        validates :unit, presence: true, expression_inclusion: {:in=>[:instance, :weight], :message=>"%{value} needs to be :instance, :weight"}
 
         # @return [Object, nil] (List of Objects) a list of hash/dictionaries of scaling policies to configure in the elastigroup; '[{"key":"value", "key":"value"}]'; keys allowed are - policy_name (String, required), namespace (String, required), metric_name (String, required), dimensions (List of Objects, Keys allowed are name (String, required) and value (String)), statistic (String, required) evaluation_periods (String, required), period (String, required), threshold (String, required), cooldown (String, required), unit (String, required), operator (String, required), action_type (String, required), adjustment (String), min_target_capacity (String), target (String), maximum (String), minimum (String)
         attribute :up_scaling_policies
@@ -194,7 +194,7 @@ module Ansible
 
         # @return [:id, :name, nil] (String) If your group names are not unique, you may use this feature to update or delete a specific group. Whenever this property is set, you must set a group_id in order to update or delete a group, otherwise a group will be created.
         attribute :uniqueness_by
-        validates :uniqueness_by, inclusion: {:in=>[:id, :name], :message=>"%{value} needs to be :id, :name"}, allow_nil: true
+        validates :uniqueness_by, expression_inclusion: {:in=>[:id, :name], :message=>"%{value} needs to be :id, :name"}, allow_nil: true
 
         # @return [Object, nil] (String) Base64-encoded MIME user data. Encode before setting the value.
         attribute :user_data

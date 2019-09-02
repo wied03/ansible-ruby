@@ -21,7 +21,7 @@ module Ansible
 
         # @return [:HTTP, :FTP, :TCP, :UDP, :SSL, :SSL_BRIDGE, :SSL_TCP, :NNTP, :ANY, :SIP_UDP, :SIP_TCP, :SIP_SSL, :RADIUS, :RDP, :RTSP, :MYSQL, :MSSQL, :ORACLE, nil] Type of service to create.
         attribute :servicetype
-        validates :servicetype, inclusion: {:in=>[:HTTP, :FTP, :TCP, :UDP, :SSL, :SSL_BRIDGE, :SSL_TCP, :NNTP, :ANY, :SIP_UDP, :SIP_TCP, :SIP_SSL, :RADIUS, :RDP, :RTSP, :MYSQL, :MSSQL, :ORACLE], :message=>"%{value} needs to be :HTTP, :FTP, :TCP, :UDP, :SSL, :SSL_BRIDGE, :SSL_TCP, :NNTP, :ANY, :SIP_UDP, :SIP_TCP, :SIP_SSL, :RADIUS, :RDP, :RTSP, :MYSQL, :MSSQL, :ORACLE"}, allow_nil: true
+        validates :servicetype, expression_inclusion: {:in=>[:HTTP, :FTP, :TCP, :UDP, :SSL, :SSL_BRIDGE, :SSL_TCP, :NNTP, :ANY, :SIP_UDP, :SIP_TCP, :SIP_SSL, :RADIUS, :RDP, :RTSP, :MYSQL, :MSSQL, :ORACLE], :message=>"%{value} needs to be :HTTP, :FTP, :TCP, :UDP, :SSL, :SSL_BRIDGE, :SSL_TCP, :NNTP, :ANY, :SIP_UDP, :SIP_TCP, :SIP_SSL, :RADIUS, :RDP, :RTSP, :MYSQL, :MSSQL, :ORACLE"}, allow_nil: true
 
         # @return [Object, nil] Port on which the load balancing entity represented by this GSLB service listens.,Minimum value = 1,Range 1 - 65535,* in CLI is represented as 65535 in NITRO API
         attribute :port
@@ -45,14 +45,14 @@ module Ansible
 
         # @return [:enabled, :disabled, nil] In the request that is forwarded to the GSLB service, insert a header that stores the client's IP address. Client IP header insertion is used in connection-proxy based site persistence.
         attribute :cip
-        validates :cip, inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
+        validates :cip, expression_inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
 
         # @return [Object, nil] Name for the HTTP header that stores the client's IP address. Used with the Client IP option. If client IP header insertion is enabled on the service and a name is not specified for the header, the NetScaler appliance uses the name specified by the cipHeader parameter in the set ns param command or, in the GUI, the Client IP Header parameter in the Configure HTTP Parameters dialog box.,Minimum length = 1
         attribute :cipheader
 
         # @return [:ConnectionProxy, :HTTPRedirect, :NONE, nil] Use cookie-based site persistence. Applicable only to C(HTTP) and C(SSL) GSLB services.
         attribute :sitepersistence
-        validates :sitepersistence, inclusion: {:in=>[:ConnectionProxy, :HTTPRedirect, :NONE], :message=>"%{value} needs to be :ConnectionProxy, :HTTPRedirect, :NONE"}, allow_nil: true
+        validates :sitepersistence, expression_inclusion: {:in=>[:ConnectionProxy, :HTTPRedirect, :NONE], :message=>"%{value} needs to be :ConnectionProxy, :HTTPRedirect, :NONE"}, allow_nil: true
 
         # @return [Object, nil] The site's prefix string. When the service is bound to a GSLB virtual server, a GSLB site domain is generated internally for each bound service-domain pair by concatenating the site prefix of the service and the name of the domain. If the special string NONE is specified, the site-prefix string is unset. When implementing HTTP redirect site persistence, the NetScaler appliance redirects GSLB requests to GSLB services by using their site domains.
         attribute :siteprefix
@@ -65,7 +65,7 @@ module Ansible
 
         # @return [:enabled, :disabled, nil] Flush all active transactions associated with the GSLB service when its state transitions from UP to DOWN. Do not enable this option for services that must complete their transactions. Applicable if connection proxy based site persistence is used.
         attribute :downstateflush
-        validates :downstateflush, inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
+        validates :downstateflush, expression_inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
 
         # @return [Object, nil] Maximum number of SSL VPN users that can be logged on concurrently to the VPN virtual server that is represented by this GSLB service. A GSLB service whose user count reaches the maximum is not considered when a GSLB decision is made, until the count drops below the maximum.,Minimum value = C(0),Maximum value = C(65535)
         attribute :maxaaausers
@@ -81,7 +81,7 @@ module Ansible
 
         # @return [:enabled, :disabled, nil] Enable logging appflow flow information.
         attribute :appflowlog
-        validates :appflowlog, inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
+        validates :appflowlog, expression_inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
 
         # @return [Object, nil] IP address for the GSLB service. Should represent a load balancing, content switching, or VPN virtual server on the NetScaler appliance, or the IP address of another load balancing device.
         attribute :ipaddress

@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:tcp, :udp, :icmp, 112, :None, nil] IP protocols TCP UDP ICMP 112 (VRRP)
         attribute :protocol
-        validates :protocol, inclusion: {:in=>[:tcp, :udp, :icmp, 112, :None], :message=>"%{value} needs to be :tcp, :udp, :icmp, 112, :None"}, allow_nil: true
+        validates :protocol, expression_inclusion: {:in=>[:tcp, :udp, :icmp, 112, :None], :message=>"%{value} needs to be :tcp, :udp, :icmp, 112, :None"}, allow_nil: true
 
         # @return [Integer, nil] Starting port
         attribute :port_range_min
@@ -34,15 +34,15 @@ module Ansible
 
         # @return [:IPv4, :IPv6, nil] Must be IPv4 or IPv6, and addresses represented in CIDR must match the ingress or egress rules. Not all providers support IPv6.
         attribute :ethertype
-        validates :ethertype, inclusion: {:in=>[:IPv4, :IPv6], :message=>"%{value} needs to be :IPv4, :IPv6"}, allow_nil: true
+        validates :ethertype, expression_inclusion: {:in=>[:IPv4, :IPv6], :message=>"%{value} needs to be :IPv4, :IPv6"}, allow_nil: true
 
         # @return [:egress, :ingress, nil] The direction in which the security group rule is applied. Not all providers support egress.
         attribute :direction
-        validates :direction, inclusion: {:in=>[:egress, :ingress], :message=>"%{value} needs to be :egress, :ingress"}, allow_nil: true
+        validates :direction, expression_inclusion: {:in=>[:egress, :ingress], :message=>"%{value} needs to be :egress, :ingress"}, allow_nil: true
 
         # @return [:present, :absent, nil] Should the resource be present or absent.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String, nil] Unique name or ID of the project.
         attribute :project

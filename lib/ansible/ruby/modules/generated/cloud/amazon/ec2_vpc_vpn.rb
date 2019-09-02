@@ -10,7 +10,7 @@ module Ansible
       class Ec2_vpc_vpn < Base
         # @return [:present, :absent, nil] The desired state of the VPN connection.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String, nil] The ID of the customer gateway.
         attribute :customer_gateway_id
@@ -18,7 +18,7 @@ module Ansible
 
         # @return [:"ipsec.1", nil] The type of VPN connection.
         attribute :connection_type
-        validates :connection_type, inclusion: {:in=>[:"ipsec.1"], :message=>"%{value} needs to be :\"ipsec.1\""}, allow_nil: true
+        validates :connection_type, expression_inclusion: {:in=>[:"ipsec.1"], :message=>"%{value} needs to be :\"ipsec.1\""}, allow_nil: true
 
         # @return [String, nil] The ID of the virtual private gateway.
         attribute :vpn_gateway_id
@@ -38,7 +38,7 @@ module Ansible
 
         # @return [Boolean, nil] Indicates whether the VPN connection uses static routes only. Static routes must be used for devices that don't support BGP.
         attribute :static_only
-        validates :static_only, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :static_only, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Array<Hash>, Hash, nil] An optional list object containing no more than two dict members, each of which may contain 'TunnelInsideCidr' and/or 'PreSharedKey' keys with appropriate string values.  AWS defaults will apply in absence of either of the aforementioned keys.
         attribute :tunnel_options
@@ -54,7 +54,7 @@ module Ansible
 
         # @return [Boolean, nil] Whether or not to delete VPN connections routes that are not specified in the task.
         attribute :purge_routes
-        validates :purge_routes, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :purge_routes, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
       end
     end
   end

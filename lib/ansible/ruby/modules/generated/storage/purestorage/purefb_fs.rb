@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:present, :absent, nil] Create, delete or modifies a filesystem.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [Symbol, nil] Define whether to eradicate the filesystem on delete or leave in trash.
         attribute :eradicate
@@ -26,7 +26,7 @@ module Ansible
 
         # @return [Boolean, nil] Define whether to NFS protocol is enabled for the filesystem.
         attribute :nfs
-        validates :nfs, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :nfs, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Array<String>, String, nil] Define the NFS rules in operation.
         attribute :nfs_rules

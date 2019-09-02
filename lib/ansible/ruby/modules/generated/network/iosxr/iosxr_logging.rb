@@ -10,7 +10,7 @@ module Ansible
       class Iosxr_logging < Base
         # @return [:host, :console, :monitor, :buffered, :file, nil] Destination for system logging (syslog) messages.
         attribute :dest
-        validates :dest, inclusion: {:in=>[:host, :console, :monitor, :buffered, :file], :message=>"%{value} needs to be :host, :console, :monitor, :buffered, :file"}, allow_nil: true
+        validates :dest, expression_inclusion: {:in=>[:host, :console, :monitor, :buffered, :file], :message=>"%{value} needs to be :host, :console, :monitor, :buffered, :file"}, allow_nil: true
 
         # @return [String, nil] When C(dest) = I(file) name indicates file-name,When C(dest) = I(host) name indicates the host-name or ip-address of syslog server.
         attribute :name
@@ -42,7 +42,7 @@ module Ansible
 
         # @return [:present, :absent, nil] Existential state of the logging configuration on the node.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

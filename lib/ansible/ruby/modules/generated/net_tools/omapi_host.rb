@@ -10,7 +10,7 @@ module Ansible
       class Omapi_host < Base
         # @return [:present, :absent] Create or remove OMAPI host.
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
+        validates :state, presence: true, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
 
         # @return [String, nil] Sets the host lease hostname (mandatory if state=present).
         attribute :name
@@ -45,7 +45,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Enable dynamic DNS updates for this host.
         attribute :ddns
-        validates :ddns, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :ddns, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

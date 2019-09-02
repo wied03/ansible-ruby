@@ -22,7 +22,7 @@ module Ansible
 
         # @return [Boolean, nil] If set to C(True), then the host should be connected as soon as it is added.,This parameter is ignored if state is set to a value other than C(present).
         attribute :add_connected
-        validates :add_connected, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :add_connected, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [String] ESXi hostname to manage.
         attribute :esxi_hostname
@@ -38,7 +38,7 @@ module Ansible
 
         # @return [:present, :absent, :add_or_reconnect, :reconnect, nil] If set to C(present), then add the host if host is absent.,If set to C(present), then do nothing if host already exists.,If set to C(absent), then remove the host if host is present.,If set to C(absent), then do nothing if host already does not exists.,If set to C(add_or_reconnect), then add the host if it's absent else reconnect it.,If set to C(reconnect), then reconnect the host if it's present else fail.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent, :add_or_reconnect, :reconnect], :message=>"%{value} needs to be :present, :absent, :add_or_reconnect, :reconnect"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent, :add_or_reconnect, :reconnect], :message=>"%{value} needs to be :present, :absent, :add_or_reconnect, :reconnect"}, allow_nil: true
 
         # @return [String, nil] Specifying the hostsystem certificate's thumbprint.,Use following command to get hostsystem certificate's thumbprint - ,# openssl x509 -in /etc/vmware/ssl/rui.crt -fingerprint -sha1 -noout
         attribute :esxi_ssl_thumbprint

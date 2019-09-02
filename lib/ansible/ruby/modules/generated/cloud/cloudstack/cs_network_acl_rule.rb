@@ -22,7 +22,7 @@ module Ansible
 
         # @return [:tcp, :udp, :icmp, :all, :by_number, nil] Protocol of the rule
         attribute :protocol
-        validates :protocol, inclusion: {:in=>[:tcp, :udp, :icmp, :all, :by_number], :message=>"%{value} needs to be :tcp, :udp, :icmp, :all, :by_number"}, allow_nil: true
+        validates :protocol, expression_inclusion: {:in=>[:tcp, :udp, :icmp, :all, :by_number], :message=>"%{value} needs to be :tcp, :udp, :icmp, :all, :by_number"}, allow_nil: true
 
         # @return [Object, nil] Protocol number from 1 to 256 required if C(protocol=by_number).
         attribute :protocol_number
@@ -47,11 +47,11 @@ module Ansible
 
         # @return [:ingress, :egress, nil] Traffic type of the rule.
         attribute :traffic_type
-        validates :traffic_type, inclusion: {:in=>[:ingress, :egress], :message=>"%{value} needs to be :ingress, :egress"}, allow_nil: true
+        validates :traffic_type, expression_inclusion: {:in=>[:ingress, :egress], :message=>"%{value} needs to be :ingress, :egress"}, allow_nil: true
 
         # @return [:allow, :deny, nil] Action policy of the rule.
         attribute :action_policy
-        validates :action_policy, inclusion: {:in=>[:allow, :deny], :message=>"%{value} needs to be :allow, :deny"}, allow_nil: true
+        validates :action_policy, expression_inclusion: {:in=>[:allow, :deny], :message=>"%{value} needs to be :allow, :deny"}, allow_nil: true
 
         # @return [Object, nil] List of tags. Tags are a list of dictionaries having keys C(key) and C(value).,If you want to delete all tags, set a empty list e.g. C(tags: []).
         attribute :tags
@@ -70,11 +70,11 @@ module Ansible
 
         # @return [:present, :absent, nil] State of the network ACL rule.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [:yes, :no, nil] Poll async jobs until job has finished.
         attribute :poll_async
-        validates :poll_async, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :poll_async, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

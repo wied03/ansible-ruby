@@ -22,7 +22,7 @@ module Ansible
 
         # @return [Boolean, nil] Commit if changed
         attribute :commit
-        validates :commit, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :commit, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
       end
     end
   end

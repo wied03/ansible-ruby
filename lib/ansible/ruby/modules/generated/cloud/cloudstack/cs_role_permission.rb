@@ -19,11 +19,11 @@ module Ansible
 
         # @return [:allow, :deny, nil] The rule permission, allow or deny. Defaulted to deny.
         attribute :permission
-        validates :permission, inclusion: {:in=>[:allow, :deny], :message=>"%{value} needs to be :allow, :deny"}, allow_nil: true
+        validates :permission, expression_inclusion: {:in=>[:allow, :deny], :message=>"%{value} needs to be :allow, :deny"}, allow_nil: true
 
         # @return [:present, :absent, nil] State of the role permission.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String, nil] The description of the role permission.
         attribute :description

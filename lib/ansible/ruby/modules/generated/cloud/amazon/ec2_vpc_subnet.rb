@@ -24,7 +24,7 @@ module Ansible
 
         # @return [:present, :absent, nil] Create or remove the subnet
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String] VPC ID of the VPC in which to create or delete the subnet.
         attribute :vpc_id
@@ -32,15 +32,15 @@ module Ansible
 
         # @return [:yes, :no, nil] Specify C(yes) to indicate that instances launched into the subnet should be assigned public IP address by default.
         attribute :map_public
-        validates :map_public, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :map_public, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:yes, :no, nil] Specify C(yes) to indicate that instances launched into the subnet should be automatically assigned an IPv6 address.
         attribute :assign_instances_ipv6
-        validates :assign_instances_ipv6, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :assign_instances_ipv6, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:yes, :no, nil] When specified,I(state=present) module will wait for subnet to be in available state before continuing.
         attribute :wait
-        validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :wait, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] Number of seconds to wait for subnet to become available I(wait=True).
         attribute :wait_timeout
@@ -48,7 +48,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Whether or not to remove tags that do not appear in the I(tags) list.
         attribute :purge_tags
-        validates :purge_tags, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :purge_tags, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

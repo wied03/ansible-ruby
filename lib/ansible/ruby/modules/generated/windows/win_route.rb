@@ -22,7 +22,7 @@ module Ansible
 
         # @return [:absent, :present, nil] If C(absent), it removes a network static route.,If C(present), it adds a network static route.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
       end
     end
   end

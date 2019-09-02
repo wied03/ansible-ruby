@@ -10,7 +10,7 @@ module Ansible
       class Netapp_e_auth < Base
         # @return [Boolean, nil] Should https certificates be validated?
         attribute :validate_certs
-        validates :validate_certs, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :validate_certs, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [String, nil] The name of the storage array. Note that if more than one storage array with this name is detected, the task will fail and you'll have to use the ID instead.
         attribute :name
@@ -21,7 +21,7 @@ module Ansible
 
         # @return [Boolean, nil] Boolean value on whether to update the admin password. If set to false then the RO account is updated.
         attribute :set_admin
-        validates :set_admin, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :set_admin, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [String, nil] The current admin password. This is not required if the password hasn't been set before.
         attribute :current_password

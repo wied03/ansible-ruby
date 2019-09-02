@@ -10,7 +10,7 @@ module Ansible
       class Openssl_publickey < Base
         # @return [:present, :absent, nil] Whether the public key should exist or not, taking action if the state is different from what is stated.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [Symbol, nil] Should the key be regenerated even it it already exists
         attribute :force
@@ -18,7 +18,7 @@ module Ansible
 
         # @return [:PEM, :OpenSSH, nil] The format of the public key.
         attribute :format
-        validates :format, inclusion: {:in=>[:PEM, :OpenSSH], :message=>"%{value} needs to be :PEM, :OpenSSH"}, allow_nil: true
+        validates :format, expression_inclusion: {:in=>[:PEM, :OpenSSH], :message=>"%{value} needs to be :PEM, :OpenSSH"}, allow_nil: true
 
         # @return [String] Name of the file in which the generated TLS/SSL public key will be written.
         attribute :path

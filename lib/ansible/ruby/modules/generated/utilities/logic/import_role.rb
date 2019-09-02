@@ -27,11 +27,11 @@ module Ansible
 
         # @return [:yes, :no, nil] Overrides the role's metadata setting to allow using a role more than once with the same parameters.
         attribute :allow_duplicates
-        validates :allow_duplicates, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :allow_duplicates, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:yes, :no, nil] This option is a no op, and the functionality described in previous versions was not implemented. This option will be removed in Ansible v2.8.
         attribute :private
-        validates :private, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :private, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

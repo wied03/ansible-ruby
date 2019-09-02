@@ -38,11 +38,11 @@ module Ansible
 
         # @return [:maximized, :minimized, :normal, nil] Influences how the application is displayed when it is launched.
         attribute :windowstyle
-        validates :windowstyle, inclusion: {:in=>[:maximized, :minimized, :normal], :message=>"%{value} needs to be :maximized, :minimized, :normal"}, allow_nil: true
+        validates :windowstyle, expression_inclusion: {:in=>[:maximized, :minimized, :normal], :message=>"%{value} needs to be :maximized, :minimized, :normal"}, allow_nil: true
 
         # @return [:absent, :present, nil] When C(absent), removes the shortcut if it exists.,When C(present), creates or updates the shortcut.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
       end
     end
   end

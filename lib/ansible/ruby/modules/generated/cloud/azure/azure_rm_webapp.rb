@@ -42,7 +42,7 @@ module Ansible
 
         # @return [Boolean, nil] True to enable client affinity; False to stop sending session affinity cookies, which route client requests in the same session to the same instance.
         attribute :client_affinity_enabled
-        validates :client_affinity_enabled, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :client_affinity_enabled, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Symbol, nil] Configures web site to accept only https requests.
         attribute :https_only
@@ -73,7 +73,7 @@ module Ansible
 
         # @return [:absent, :present, nil] Assert the state of the Web App.,Use 'present' to create or update a Web App and 'absent' to delete it.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
       end
     end
   end

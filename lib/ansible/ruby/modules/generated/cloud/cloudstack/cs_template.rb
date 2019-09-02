@@ -55,7 +55,7 @@ module Ansible
 
         # @return [:http_download, :ftp_upload, nil] Mode for the template extraction.,Only used if I(state=extracted).
         attribute :mode
-        validates :mode, inclusion: {:in=>[:http_download, :ftp_upload], :message=>"%{value} needs to be :http_download, :ftp_upload"}, allow_nil: true
+        validates :mode, expression_inclusion: {:in=>[:http_download, :ftp_upload], :message=>"%{value} needs to be :http_download, :ftp_upload"}, allow_nil: true
 
         # @return [Object, nil] Domain the template, snapshot or VM is related to.
         attribute :domain
@@ -72,15 +72,15 @@ module Ansible
 
         # @return [:all, :featured, :self, :selfexecutable, :sharedexecutable, :executable, :community, nil] Name of the filter used to search for the template.,The filter C(all) was added in 2.7.
         attribute :template_filter
-        validates :template_filter, inclusion: {:in=>[:all, :featured, :self, :selfexecutable, :sharedexecutable, :executable, :community], :message=>"%{value} needs to be :all, :featured, :self, :selfexecutable, :sharedexecutable, :executable, :community"}, allow_nil: true
+        validates :template_filter, expression_inclusion: {:in=>[:all, :featured, :self, :selfexecutable, :sharedexecutable, :executable, :community], :message=>"%{value} needs to be :all, :featured, :self, :selfexecutable, :sharedexecutable, :executable, :community"}, allow_nil: true
 
         # @return [:display_text, :checksum, :cross_zones, nil] Options to find a template uniquely.,More than one allowed.
         attribute :template_find_options
-        validates :template_find_options, inclusion: {:in=>[:display_text, :checksum, :cross_zones], :message=>"%{value} needs to be :display_text, :checksum, :cross_zones"}, allow_nil: true
+        validates :template_find_options, expression_inclusion: {:in=>[:display_text, :checksum, :cross_zones], :message=>"%{value} needs to be :display_text, :checksum, :cross_zones"}, allow_nil: true
 
         # @return [:KVM, :kvm, :VMware, :vmware, :BareMetal, :baremetal, :XenServer, :xenserver, :LXC, :lxc, :HyperV, :hyperv, :UCS, :ucs, :OVM, :ovm, :Simulator, :simulator, nil] Name the hypervisor to be used for creating the new template.,Relevant when using I(state=present).
         attribute :hypervisor
-        validates :hypervisor, inclusion: {:in=>[:KVM, :kvm, :VMware, :vmware, :BareMetal, :baremetal, :XenServer, :xenserver, :LXC, :lxc, :HyperV, :hyperv, :UCS, :ucs, :OVM, :ovm, :Simulator, :simulator], :message=>"%{value} needs to be :KVM, :kvm, :VMware, :vmware, :BareMetal, :baremetal, :XenServer, :xenserver, :LXC, :lxc, :HyperV, :hyperv, :UCS, :ucs, :OVM, :ovm, :Simulator, :simulator"}, allow_nil: true
+        validates :hypervisor, expression_inclusion: {:in=>[:KVM, :kvm, :VMware, :vmware, :BareMetal, :baremetal, :XenServer, :xenserver, :LXC, :lxc, :HyperV, :hyperv, :UCS, :ucs, :OVM, :ovm, :Simulator, :simulator], :message=>"%{value} needs to be :KVM, :kvm, :VMware, :vmware, :BareMetal, :baremetal, :XenServer, :xenserver, :LXC, :lxc, :HyperV, :hyperv, :UCS, :ucs, :OVM, :ovm, :Simulator, :simulator"}, allow_nil: true
 
         # @return [Symbol, nil] Whether the template requires HVM or not.,Only considered while creating the template.
         attribute :requires_hvm
@@ -103,7 +103,7 @@ module Ansible
 
         # @return [:QCOW2, :RAW, :VHD, :OVA, nil] The format for the template.,Only considered if I(state=present).
         attribute :format
-        validates :format, inclusion: {:in=>[:QCOW2, :RAW, :VHD, :OVA], :message=>"%{value} needs to be :QCOW2, :RAW, :VHD, :OVA"}, allow_nil: true
+        validates :format, expression_inclusion: {:in=>[:QCOW2, :RAW, :VHD, :OVA], :message=>"%{value} needs to be :QCOW2, :RAW, :VHD, :OVA"}, allow_nil: true
 
         # @return [Symbol, nil] Allows the template or its derivatives to be extractable.
         attribute :is_extractable
@@ -114,7 +114,7 @@ module Ansible
 
         # @return [32, 64, nil] 32 or 64 bits support.
         attribute :bits
-        validates :bits, inclusion: {:in=>[32, 64], :message=>"%{value} needs to be 32, 64"}, allow_nil: true
+        validates :bits, expression_inclusion: {:in=>[32, 64], :message=>"%{value} needs to be 32, 64"}, allow_nil: true
 
         # @return [String, nil] Display text of the template.
         attribute :display_text
@@ -122,11 +122,11 @@ module Ansible
 
         # @return [:present, :absent, :extracted, nil] State of the template.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent, :extracted], :message=>"%{value} needs to be :present, :absent, :extracted"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent, :extracted], :message=>"%{value} needs to be :present, :absent, :extracted"}, allow_nil: true
 
         # @return [Boolean, nil] Poll async jobs until job has finished.
         attribute :poll_async
-        validates :poll_async, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :poll_async, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Object, nil] List of tags. Tags are a list of dictionaries having keys C(key) and C(value).,To delete all tags, set a empty list e.g. C(tags: []).
         attribute :tags

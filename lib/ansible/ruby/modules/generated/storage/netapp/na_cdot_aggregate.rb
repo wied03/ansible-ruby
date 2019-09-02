@@ -10,7 +10,7 @@ module Ansible
       class Na_cdot_aggregate < Base
         # @return [:present, :absent] Whether the specified aggregate should exist or not.
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
+        validates :state, presence: true, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
 
         # @return [String] The name of the aggregate to manage.
         attribute :name

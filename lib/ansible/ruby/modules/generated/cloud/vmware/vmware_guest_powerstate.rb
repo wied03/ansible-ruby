@@ -10,7 +10,7 @@ module Ansible
       class Vmware_guest_powerstate < Base
         # @return [:"powered-off", :"powered-on", :"reboot-guest", :restarted, :"shutdown-guest", :suspended, :present, nil] Set the state of the virtual machine.
         attribute :state
-        validates :state, inclusion: {:in=>[:"powered-off", :"powered-on", :"reboot-guest", :restarted, :"shutdown-guest", :suspended, :present], :message=>"%{value} needs to be :\"powered-off\", :\"powered-on\", :\"reboot-guest\", :restarted, :\"shutdown-guest\", :suspended, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:"powered-off", :"powered-on", :"reboot-guest", :restarted, :"shutdown-guest", :suspended, :present], :message=>"%{value} needs to be :\"powered-off\", :\"powered-on\", :\"reboot-guest\", :restarted, :\"shutdown-guest\", :suspended, :present"}, allow_nil: true
 
         # @return [String, nil] Name of the virtual machine to work with.,Virtual machine names in vCenter are not necessarily unique, which may be problematic, see C(name_match).
         attribute :name
@@ -18,7 +18,7 @@ module Ansible
 
         # @return [:first, :last, nil] If multiple virtual machines matching the name, use the first or last found.
         attribute :name_match
-        validates :name_match, inclusion: {:in=>[:first, :last], :message=>"%{value} needs to be :first, :last"}, allow_nil: true
+        validates :name_match, expression_inclusion: {:in=>[:first, :last], :message=>"%{value} needs to be :first, :last"}, allow_nil: true
 
         # @return [Object, nil] UUID of the instance to manage if known, this is VMware's unique identifier.,This is required if name is not supplied.
         attribute :uuid

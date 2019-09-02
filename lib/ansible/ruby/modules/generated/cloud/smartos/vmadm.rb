@@ -16,7 +16,7 @@ module Ansible
 
         # @return [:joyent, :"joyent-minimal", :kvm, :lx] Type of virtual machine.
         attribute :brand
-        validates :brand, presence: true, inclusion: {:in=>[:joyent, :"joyent-minimal", :kvm, :lx], :message=>"%{value} needs to be :joyent, :\"joyent-minimal\", :kvm, :lx"}
+        validates :brand, presence: true, expression_inclusion: {:in=>[:joyent, :"joyent-minimal", :kvm, :lx], :message=>"%{value} needs to be :joyent, :\"joyent-minimal\", :kvm, :lx"}
 
         # @return [Object, nil] Set the boot order for KVM VMs.
         attribute :boot
@@ -29,7 +29,7 @@ module Ansible
 
         # @return [:qemu64, :host, nil] Control the type of virtual CPU exposed to KVM VMs.
         attribute :cpu_type
-        validates :cpu_type, inclusion: {:in=>[:qemu64, :host], :message=>"%{value} needs to be :qemu64, :host"}, allow_nil: true
+        validates :cpu_type, expression_inclusion: {:in=>[:qemu64, :host], :message=>"%{value} needs to be :qemu64, :host"}, allow_nil: true
 
         # @return [Object, nil] Metadata to be set and associated with this VM, this contain customer modifiable keys.
         attribute :customer_metadata
@@ -54,7 +54,7 @@ module Ansible
 
         # @return [Boolean, nil] Enables the firewall, allowing fwadm(1M) rules to be applied.
         attribute :firewall_enabled
-        validates :firewall_enabled, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :firewall_enabled, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Object, nil] Force a particular action (i.e. stop or delete a VM).
         attribute :force
@@ -74,7 +74,7 @@ module Ansible
 
         # @return [Boolean, nil] Adds an C(@indestructible) snapshot to zoneroot.
         attribute :indestructible_zoneroot
-        validates :indestructible_zoneroot, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :indestructible_zoneroot, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Hash, nil] Metadata to be set and associated with this VM, this contains operator generated keys.
         attribute :internal_metadata
@@ -147,7 +147,7 @@ module Ansible
 
         # @return [:present, :absent, :stopped, :restarted] States for the VM to be in. Please note that C(present), C(stopped) and C(restarted) operate on a VM that is currently provisioned. C(present) means that the VM will be created if it was absent, and that it will be in a running state. C(absent) will shutdown the zone before removing it. C(stopped) means the zone will be created if it doesn't exist already, before shutting it down.
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:present, :absent, :stopped, :restarted], :message=>"%{value} needs to be :present, :absent, :stopped, :restarted"}
+        validates :state, presence: true, expression_inclusion: {:in=>[:present, :absent, :stopped, :restarted], :message=>"%{value} needs to be :present, :absent, :stopped, :restarted"}
 
         # @return [Object, nil] Amount of memory (in MiBs) that will be available in the VM for the C(/tmp) filesystem.
         attribute :tmpfs

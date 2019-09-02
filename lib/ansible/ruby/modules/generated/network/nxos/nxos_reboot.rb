@@ -10,7 +10,7 @@ module Ansible
       class Nxos_reboot < Base
         # @return [Boolean, nil] Safeguard boolean. Set to true if you're sure you want to reboot.
         attribute :confirm
-        validates :confirm, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :confirm, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
       end
     end
   end

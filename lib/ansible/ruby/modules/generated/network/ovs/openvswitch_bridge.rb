@@ -22,7 +22,7 @@ module Ansible
 
         # @return [:present, :absent, nil] Whether the bridge should exist
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [Integer, nil] How long to wait for ovs-vswitchd to respond
         attribute :timeout
@@ -34,7 +34,7 @@ module Ansible
 
         # @return [:secure, :standalone, nil] Set bridge fail-mode. The default value (None) is a No-op.
         attribute :fail_mode
-        validates :fail_mode, inclusion: {:in=>[:secure, :standalone], :message=>"%{value} needs to be :secure, :standalone"}, allow_nil: true
+        validates :fail_mode, expression_inclusion: {:in=>[:secure, :standalone], :message=>"%{value} needs to be :secure, :standalone"}, allow_nil: true
 
         # @return [Object, nil] Run set command after bridge configuration. This parameter is non-idempotent, play will always return I(changed) state if present
         attribute :set

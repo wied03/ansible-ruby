@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:present, :absent, nil] Whether the domain should exist
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [Object, nil] Any subdomains to create.
         attribute :subdomains

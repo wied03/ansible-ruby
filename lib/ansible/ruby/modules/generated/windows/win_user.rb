@@ -25,7 +25,7 @@ module Ansible
 
         # @return [:always, :on_create, nil] C(always) will update passwords if they differ.  C(on_create) will only set the password for newly created users.
         attribute :update_password
-        validates :update_password, inclusion: {:in=>[:always, :on_create], :message=>"%{value} needs to be :always, :on_create"}, allow_nil: true
+        validates :update_password, expression_inclusion: {:in=>[:always, :on_create], :message=>"%{value} needs to be :always, :on_create"}, allow_nil: true
 
         # @return [Symbol, nil] C(yes) will require the user to change their password at next login.,C(no) will clear the expired password flag.
         attribute :password_expired
@@ -45,7 +45,7 @@ module Ansible
 
         # @return [:no, nil] C(no) will unlock the user account if locked.
         attribute :account_locked
-        validates :account_locked, inclusion: {:in=>[:no], :message=>"%{value} needs to be :no"}, allow_nil: true
+        validates :account_locked, expression_inclusion: {:in=>[:no], :message=>"%{value} needs to be :no"}, allow_nil: true
 
         # @return [Array<String>, String, nil] Adds or removes the user from this comma-separated lis of groups, depending on the value of I(groups_action). When I(groups_action) is C(replace) and I(groups) is set to the empty string ('groups='), the user is removed from all groups.
         attribute :groups
@@ -53,11 +53,11 @@ module Ansible
 
         # @return [:add, :replace, :remove, nil] If C(add), the user is added to each group in I(groups) where not already a member.,If C(replace), the user is added as a member of each group in I(groups) and removed from any other groups.,If C(remove), the user is removed from each group in I(groups).
         attribute :groups_action
-        validates :groups_action, inclusion: {:in=>[:add, :replace, :remove], :message=>"%{value} needs to be :add, :replace, :remove"}, allow_nil: true
+        validates :groups_action, expression_inclusion: {:in=>[:add, :replace, :remove], :message=>"%{value} needs to be :add, :replace, :remove"}, allow_nil: true
 
         # @return [:absent, :present, :query, nil] When C(absent), removes the user account if it exists.,When C(present), creates or updates the user account.,When C(query) (new in 1.9), retrieves the user account details without making any changes.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present, :query], :message=>"%{value} needs to be :absent, :present, :query"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present, :query], :message=>"%{value} needs to be :absent, :present, :query"}, allow_nil: true
       end
     end
   end

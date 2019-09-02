@@ -18,11 +18,11 @@ module Ansible
 
         # @return [:present, :absent, nil] Determines whether the backend is to be created/modified or deleted
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [:none, :http, :icmp, :oco, nil] Determines the type of probe to use for this backend
         attribute :probe
-        validates :probe, inclusion: {:in=>[:none, :http, :icmp, :oco], :message=>"%{value} needs to be :none, :http, :icmp, :oco"}, allow_nil: true
+        validates :probe, expression_inclusion: {:in=>[:none, :http, :icmp, :oco], :message=>"%{value} needs to be :none, :http, :icmp, :oco"}, allow_nil: true
 
         # @return [Integer, nil] Determines the weight for this backend
         attribute :weight

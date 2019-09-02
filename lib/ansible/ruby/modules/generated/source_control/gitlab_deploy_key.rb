@@ -33,11 +33,11 @@ module Ansible
 
         # @return [:yes, :no, nil] Whether this key can push to the project
         attribute :can_push
-        validates :can_push, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :can_push, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:present, :absent] When C(present) the deploy key added to the project if it doesn't exist.,When C(absent) it will be removed from the project if it exists
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
+        validates :state, presence: true, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
       end
     end
   end

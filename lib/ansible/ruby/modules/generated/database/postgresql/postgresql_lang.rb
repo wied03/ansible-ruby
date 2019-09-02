@@ -17,7 +17,7 @@ module Ansible
 
         # @return [:yes, :no, nil] make this language trusted for the selected db
         attribute :trust
-        validates :trust, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :trust, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] name of database where the language will be added, removed or changed
         attribute :db
@@ -25,15 +25,15 @@ module Ansible
 
         # @return [:yes, :no, nil] marks the language as trusted, even if it's marked as untrusted in pg_pltemplate.,use with care!
         attribute :force_trust
-        validates :force_trust, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :force_trust, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:yes, :no, nil] if C(yes), fail when removing a language. Otherwise just log and continue,in some cases, it is not possible to remove a language (used by the db-system). When         dependencies block the removal, consider using C(cascade).
         attribute :fail_on_drop
-        validates :fail_on_drop, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :fail_on_drop, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:yes, :no, nil] when dropping a language, also delete object that depend on this language.,only used when C(state=absent).
         attribute :cascade
-        validates :cascade, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :cascade, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] Database port to connect to.
         attribute :port
@@ -52,7 +52,7 @@ module Ansible
 
         # @return [:present, :absent, nil] The state of the language for the selected database
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

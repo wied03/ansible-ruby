@@ -15,7 +15,7 @@ module Ansible
 
         # @return [:started, :stopped, :reset, :restarted, :reloaded, nil] C(started)/C(stopped) are idempotent actions that will not run commands unless necessary. C(restarted) will always bounce the service. C(reloaded) will send a SIGHUP or start the service. C(reset) will start or stop the service according to whether it is enabled or not.
         attribute :state
-        validates :state, inclusion: {:in=>[:started, :stopped, :reset, :restarted, :reloaded], :message=>"%{value} needs to be :started, :stopped, :reset, :restarted, :reloaded"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:started, :stopped, :reset, :restarted, :reloaded], :message=>"%{value} needs to be :started, :stopped, :reset, :restarted, :reloaded"}, allow_nil: true
 
         # @return [Symbol, nil] Enable or disable the service, independently of C(*.preset) file preference or running state. Mutually exclusive with I(preset). Will take effect prior to I(state=reset).
         attribute :enabled
@@ -27,7 +27,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Run system-control talking to the calling user's service manager, rather than the system-wide service manager.
         attribute :user
-        validates :user, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :user, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

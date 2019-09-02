@@ -10,7 +10,7 @@ module Ansible
       class Nxos_logging < Base
         # @return [:console, :logfile, :module, :monitor, :server, nil] Destination of the logs.
         attribute :dest
-        validates :dest, inclusion: {:in=>[:console, :logfile, :module, :monitor, :server], :message=>"%{value} needs to be :console, :logfile, :module, :monitor, :server"}, allow_nil: true
+        validates :dest, expression_inclusion: {:in=>[:console, :logfile, :module, :monitor, :server], :message=>"%{value} needs to be :console, :logfile, :module, :monitor, :server"}, allow_nil: true
 
         # @return [String, nil] Hostname or IP Address for remote logging (when dest is 'server').
         attribute :remote_server
@@ -46,7 +46,7 @@ module Ansible
 
         # @return [:present, :absent, nil] State of the logging configuration.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:present, :absent, nil] following state of the log
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String, nil] name of the log
         attribute :name

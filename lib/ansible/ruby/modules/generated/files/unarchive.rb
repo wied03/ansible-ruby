@@ -22,21 +22,21 @@ module Ansible
 
         # @return [:yes, :no, nil] If true, the file is copied from local 'master' to the target machine, otherwise, the plugin will look for src archive at the target machine.,This option has been deprecated in favor of C(remote_src).,This option is mutually exclusive with C(remote_src).
         attribute :copy
-        validates :copy, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :copy, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] If the specified absolute path (file or directory) already exists, this step will B(not) be run.
         attribute :creates
 
         # @return [:yes, :no, nil] If set to True, return the list of files that are contained in the tarball.
         attribute :list_files
-        validates :list_files, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :list_files, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] List the directory and file entries that you would like to exclude from the unarchive action.
         attribute :exclude
 
         # @return [:yes, :no, nil] Do not replace existing files that are newer than files from the archive.
         attribute :keep_newer
-        validates :keep_newer, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :keep_newer, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] Specify additional options by passing in an array.
         attribute :extra_opts
@@ -44,11 +44,11 @@ module Ansible
 
         # @return [:yes, :no, nil] Set to C(yes) to indicate the archived file is already on the remote system and not local to the Ansible controller.,This option is mutually exclusive with C(copy).
         attribute :remote_src
-        validates :remote_src, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :remote_src, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:yes, :no, nil] This only applies if using a https URL as the source of the file.,This should only set to C(no) used on personally controlled sites using self-signed certificate.,Prior to 2.2 the code worked as if this was set to C(yes).
         attribute :validate_certs
-        validates :validate_certs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :validate_certs, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

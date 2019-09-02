@@ -18,11 +18,11 @@ module Ansible
 
         # @return [:present, :absent, :updated, nil] Whether to install (C(present)), sync (C(updated)), or uninstall (C(absent)) the overlay.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent, :updated], :message=>"%{value} needs to be :present, :absent, :updated"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent, :updated], :message=>"%{value} needs to be :present, :absent, :updated"}, allow_nil: true
 
         # @return [:yes, :no, nil] If C(no), SSL certificates will not be validated. This should only be set to C(no) when no other option exists.  Prior to 1.9.3 the code defaulted to C(no).
         attribute :validate_certs
-        validates :validate_certs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :validate_certs, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

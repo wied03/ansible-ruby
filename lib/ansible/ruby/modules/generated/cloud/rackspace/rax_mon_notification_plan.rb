@@ -10,7 +10,7 @@ module Ansible
       class Rax_mon_notification_plan < Base
         # @return [:present, :absent, nil] Ensure that the notification plan with this C(label) exists or does not exist.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [Object] Defines a friendly name for this notification plan. String between 1 and 255 characters long.
         attribute :label

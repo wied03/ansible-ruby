@@ -24,7 +24,7 @@ module Ansible
 
         # @return [:absent, :present, nil] Determines if the expected result is success or fail.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
         # @return [String, nil] The VRF to use for forwarding.
         attribute :vrf

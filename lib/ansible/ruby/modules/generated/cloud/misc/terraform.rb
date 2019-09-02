@@ -10,7 +10,7 @@ module Ansible
       class Terraform < Base
         # @return [:planned, :present, :absent, nil] Goal state of given stage/project
         attribute :state
-        validates :state, inclusion: {:in=>[:planned, :present, :absent], :message=>"%{value} needs to be :planned, :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:planned, :present, :absent], :message=>"%{value} needs to be :planned, :present, :absent"}, allow_nil: true
 
         # @return [Object, nil] The path of a terraform binary to use, relative to the 'service_path' unless you supply an absolute path.
         attribute :binary_path

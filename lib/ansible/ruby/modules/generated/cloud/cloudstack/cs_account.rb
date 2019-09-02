@@ -40,7 +40,7 @@ module Ansible
 
         # @return [:user, :root_admin, :domain_admin, nil] Type of the account.
         attribute :account_type
-        validates :account_type, inclusion: {:in=>[:user, :root_admin, :domain_admin], :message=>"%{value} needs to be :user, :root_admin, :domain_admin"}, allow_nil: true
+        validates :account_type, expression_inclusion: {:in=>[:user, :root_admin, :domain_admin], :message=>"%{value} needs to be :user, :root_admin, :domain_admin"}, allow_nil: true
 
         # @return [String, nil] Domain the account is related to.
         attribute :domain
@@ -48,11 +48,11 @@ module Ansible
 
         # @return [:present, :absent, :enabled, :disabled, :locked, :unlocked, nil] State of the account.,C(unlocked) is an alias for C(enabled).
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent, :enabled, :disabled, :locked, :unlocked], :message=>"%{value} needs to be :present, :absent, :enabled, :disabled, :locked, :unlocked"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent, :enabled, :disabled, :locked, :unlocked], :message=>"%{value} needs to be :present, :absent, :enabled, :disabled, :locked, :unlocked"}, allow_nil: true
 
         # @return [:yes, :no, nil] Poll async jobs until job has finished.
         attribute :poll_async
-        validates :poll_async, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :poll_async, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

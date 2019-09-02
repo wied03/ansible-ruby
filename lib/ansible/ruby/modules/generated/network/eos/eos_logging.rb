@@ -10,7 +10,7 @@ module Ansible
       class Eos_logging < Base
         # @return [:on, :host, :"console'", :monitor, :buffered, nil] Destination of the logs.
         attribute :dest
-        validates :dest, inclusion: {:in=>[:on, :host, :"console'", :monitor, :buffered], :message=>"%{value} needs to be :on, :host, :\"console'\", :monitor, :buffered"}, allow_nil: true
+        validates :dest, expression_inclusion: {:in=>[:on, :host, :"console'", :monitor, :buffered], :message=>"%{value} needs to be :on, :host, :\"console'\", :monitor, :buffered"}, allow_nil: true
 
         # @return [String, nil] If value of C(dest) is I(host) C(name) should be specified, which indicates hostname or IP address.
         attribute :name
@@ -26,7 +26,7 @@ module Ansible
 
         # @return [:emergencies, :alerts, :critical, :errors, :warnings, :notifications, :informational, :debugging, nil] Set logging severity levels.
         attribute :level
-        validates :level, inclusion: {:in=>[:emergencies, :alerts, :critical, :errors, :warnings, :notifications, :informational, :debugging], :message=>"%{value} needs to be :emergencies, :alerts, :critical, :errors, :warnings, :notifications, :informational, :debugging"}, allow_nil: true
+        validates :level, expression_inclusion: {:in=>[:emergencies, :alerts, :critical, :errors, :warnings, :notifications, :informational, :debugging], :message=>"%{value} needs to be :emergencies, :alerts, :critical, :errors, :warnings, :notifications, :informational, :debugging"}, allow_nil: true
 
         # @return [Array<Hash>, Hash, nil] List of logging definitions.
         attribute :aggregate
@@ -34,7 +34,7 @@ module Ansible
 
         # @return [:present, :absent, nil] State of the logging configuration.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

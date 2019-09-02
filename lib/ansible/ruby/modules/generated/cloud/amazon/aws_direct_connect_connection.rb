@@ -10,7 +10,7 @@ module Ansible
       class Aws_direct_connect_connection < Base
         # @return [:present, :absent, nil] The state of the Direct Connect connection.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String, nil] The name of the Direct Connect connection. This is required to create a new connection. To recreate or delete a connection I(name) or I(connection_id) is required.
         attribute :name
@@ -26,7 +26,7 @@ module Ansible
 
         # @return [:"1Gbps", :"10Gbps", nil] The bandwidth of the Direct Connect connection. Required when I(state=present).
         attribute :bandwidth
-        validates :bandwidth, inclusion: {:in=>[:"1Gbps", :"10Gbps"], :message=>"%{value} needs to be :\"1Gbps\", :\"10Gbps\""}, allow_nil: true
+        validates :bandwidth, expression_inclusion: {:in=>[:"1Gbps", :"10Gbps"], :message=>"%{value} needs to be :\"1Gbps\", :\"10Gbps\""}, allow_nil: true
 
         # @return [String, nil] The ID of the link aggregation group you want to associate with the connection. This is optional in case a stand-alone connection is desired.
         attribute :link_aggregation_group

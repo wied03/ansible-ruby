@@ -10,7 +10,7 @@ module Ansible
       class Na_ontap_lun_map < Base
         # @return [:present, :absent, nil] Whether the specified LUN should exist or not.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String] Initiator group to map to the given LUN.
         attribute :initiator_group_name

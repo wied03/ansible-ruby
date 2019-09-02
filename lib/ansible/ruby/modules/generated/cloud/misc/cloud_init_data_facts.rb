@@ -10,7 +10,7 @@ module Ansible
       class Cloud_init_data_facts < Base
         # @return [:status, :result, nil] Filter facts
         attribute :filter
-        validates :filter, inclusion: {:in=>[:status, :result], :message=>"%{value} needs to be :status, :result"}, allow_nil: true
+        validates :filter, expression_inclusion: {:in=>[:status, :result], :message=>"%{value} needs to be :status, :result"}, allow_nil: true
       end
     end
   end

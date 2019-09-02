@@ -10,7 +10,7 @@ module Ansible
       class Fortios_address < Base
         # @return [:present, :absent] Specifies if address need to be added or deleted.
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
+        validates :state, presence: true, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
 
         # @return [String] Name of the address to add or delete.
         attribute :name
@@ -18,7 +18,7 @@ module Ansible
 
         # @return [:iprange, :fqdn, :ipmask, :geography, nil] Type of the address.
         attribute :type
-        validates :type, inclusion: {:in=>[:iprange, :fqdn, :ipmask, :geography], :message=>"%{value} needs to be :iprange, :fqdn, :ipmask, :geography"}, allow_nil: true
+        validates :type, expression_inclusion: {:in=>[:iprange, :fqdn, :ipmask, :geography], :message=>"%{value} needs to be :iprange, :fqdn, :ipmask, :geography"}, allow_nil: true
 
         # @return [String, nil] Address value, based on type. If type=fqdn, somthing like www.google.com. If type=ipmask, you can use simple ip (192.168.0.1), ip+mask (192.168.0.1 255.255.255.0) or CIDR (192.168.0.1/32).
         attribute :value

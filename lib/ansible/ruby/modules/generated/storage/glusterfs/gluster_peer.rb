@@ -10,7 +10,7 @@ module Ansible
       class Gluster_peer < Base
         # @return [:present, :absent] Determines whether the nodes should be attached to the pool or removed from the pool. If the state is present, nodes will be attached to the pool. If state is absent, nodes will be detached from the pool.
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
+        validates :state, presence: true, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
 
         # @return [Array<String>, String] List of nodes that have to be probed into the pool.
         attribute :nodes

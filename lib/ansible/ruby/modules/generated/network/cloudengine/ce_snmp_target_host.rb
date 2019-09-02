@@ -10,7 +10,7 @@ module Ansible
       class Ce_snmp_target_host < Base
         # @return [:none, :v1, :v2c, :v3, :v1v2c, :v1v3, :v2cv3, :all, nil] Version(s) Supported by SNMP Engine.
         attribute :version
-        validates :version, inclusion: {:in=>[:none, :v1, :v2c, :v3, :v1v2c, :v1v3, :v2cv3, :all], :message=>"%{value} needs to be :none, :v1, :v2c, :v3, :v1v2c, :v1v3, :v2cv3, :all"}, allow_nil: true
+        validates :version, expression_inclusion: {:in=>[:none, :v1, :v2c, :v3, :v1v2c, :v1v3, :v2cv3, :all], :message=>"%{value} needs to be :none, :v1, :v2c, :v3, :v1v2c, :v1v3, :v2cv3, :all"}, allow_nil: true
 
         # @return [Object, nil] Udp port used by SNMP agent to connect the Network management.
         attribute :connect_port
@@ -23,7 +23,7 @@ module Ansible
 
         # @return [:trap, :inform, nil] To configure notify type as trap or inform.
         attribute :notify_type
-        validates :notify_type, inclusion: {:in=>[:trap, :inform], :message=>"%{value} needs to be :trap, :inform"}, allow_nil: true
+        validates :notify_type, expression_inclusion: {:in=>[:trap, :inform], :message=>"%{value} needs to be :trap, :inform"}, allow_nil: true
 
         # @return [Object, nil] VPN instance Name.
         attribute :vpn_name
@@ -33,7 +33,7 @@ module Ansible
 
         # @return [:v1, :v2c, :v3, nil] Security Model.
         attribute :security_model
-        validates :security_model, inclusion: {:in=>[:v1, :v2c, :v3], :message=>"%{value} needs to be :v1, :v2c, :v3"}, allow_nil: true
+        validates :security_model, expression_inclusion: {:in=>[:v1, :v2c, :v3], :message=>"%{value} needs to be :v1, :v2c, :v3"}, allow_nil: true
 
         # @return [Object, nil] Security Name.
         attribute :security_name
@@ -43,11 +43,11 @@ module Ansible
 
         # @return [:noAuthNoPriv, :authentication, :privacy, nil] Security level indicating whether to use authentication and encryption.
         attribute :security_level
-        validates :security_level, inclusion: {:in=>[:noAuthNoPriv, :authentication, :privacy], :message=>"%{value} needs to be :noAuthNoPriv, :authentication, :privacy"}, allow_nil: true
+        validates :security_level, expression_inclusion: {:in=>[:noAuthNoPriv, :authentication, :privacy], :message=>"%{value} needs to be :noAuthNoPriv, :authentication, :privacy"}, allow_nil: true
 
         # @return [:no_use, :true, :false, nil] To enable or disable Public Net-manager for target Host.
         attribute :is_public_net
-        validates :is_public_net, inclusion: {:in=>[:no_use, :true, :false], :message=>"%{value} needs to be :no_use, :true, :false"}, allow_nil: true
+        validates :is_public_net, expression_inclusion: {:in=>[:no_use, :true, :false], :message=>"%{value} needs to be :no_use, :true, :false"}, allow_nil: true
 
         # @return [Object, nil] Name of the interface to send the trap message.
         attribute :interface_name

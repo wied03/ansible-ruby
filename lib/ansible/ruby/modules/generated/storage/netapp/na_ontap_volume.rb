@@ -10,7 +10,7 @@ module Ansible
       class Na_ontap_volume < Base
         # @return [:present, :absent, nil] Whether the specified volume should exist or not.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String] The name of the volume to manage.
         attribute :name
@@ -29,7 +29,7 @@ module Ansible
 
         # @return [Boolean, nil] Whether the specified volume is online, or not.
         attribute :is_online
-        validates :is_online, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :is_online, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [String, nil] The name of the aggregate the flexvol should exist on.,Required when C(state=present).
         attribute :aggregate_name
@@ -41,7 +41,7 @@ module Ansible
 
         # @return [:bytes, :b, :kb, :mb, :gb, :tb, :pb, :eb, :zb, :yb, nil] The unit used to interpret the size parameter.
         attribute :size_unit
-        validates :size_unit, inclusion: {:in=>[:bytes, :b, :kb, :mb, :gb, :tb, :pb, :eb, :zb, :yb], :message=>"%{value} needs to be :bytes, :b, :kb, :mb, :gb, :tb, :pb, :eb, :zb, :yb"}, allow_nil: true
+        validates :size_unit, expression_inclusion: {:in=>[:bytes, :b, :kb, :mb, :gb, :tb, :pb, :eb, :zb, :yb], :message=>"%{value} needs to be :bytes, :b, :kb, :mb, :gb, :tb, :pb, :eb, :zb, :yb"}, allow_nil: true
 
         # @return [Object, nil] The volume type, either read-write (RW) or data-protection (DP).
         attribute :type
@@ -55,14 +55,14 @@ module Ansible
 
         # @return [:none, :volume, nil] Space guarantee style for the volume.
         attribute :space_guarantee
-        validates :space_guarantee, inclusion: {:in=>[:none, :volume], :message=>"%{value} needs to be :none, :volume"}, allow_nil: true
+        validates :space_guarantee, expression_inclusion: {:in=>[:none, :volume], :message=>"%{value} needs to be :none, :volume"}, allow_nil: true
 
         # @return [Object, nil] Amount of space reserved for snapshot copies of the volume.
         attribute :percent_snapshot_space
 
         # @return [:mixed, :ntfs, :unified, :unix, nil] The security style associated with this volume.
         attribute :volume_security_style
-        validates :volume_security_style, inclusion: {:in=>[:mixed, :ntfs, :unified, :unix], :message=>"%{value} needs to be :mixed, :ntfs, :unified, :unix"}, allow_nil: true
+        validates :volume_security_style, expression_inclusion: {:in=>[:mixed, :ntfs, :unified, :unix], :message=>"%{value} needs to be :mixed, :ntfs, :unified, :unix"}, allow_nil: true
 
         # @return [Symbol, nil] Whether or not to enable Volume Encryption.
         attribute :encrypt

@@ -22,7 +22,7 @@ module Ansible
 
         # @return [:coop, :flood, nil] Determines if the bounce entries are installed by RARP Flood or COOP Protocol.,The APIC defaults to C(coop) when unset during creation.
         attribute :bounce_trigger
-        validates :bounce_trigger, inclusion: {:in=>[:coop, :flood], :message=>"%{value} needs to be :coop, :flood"}, allow_nil: true
+        validates :bounce_trigger, expression_inclusion: {:in=>[:coop, :flood], :message=>"%{value} needs to be :coop, :flood"}, allow_nil: true
 
         # @return [Integer, nil] Hold interval in seconds.,Accepted values range between C(5) and C(65535).,The APIC defaults to C(300) when unset during creation.
         attribute :hold_interval
@@ -46,7 +46,7 @@ module Ansible
 
         # @return [:absent, :present, :query, nil] Use C(present) or C(absent) for adding or removing.,Use C(query) for listing an object or multiple objects.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present, :query], :message=>"%{value} needs to be :absent, :present, :query"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present, :query], :message=>"%{value} needs to be :absent, :present, :query"}, allow_nil: true
       end
     end
   end

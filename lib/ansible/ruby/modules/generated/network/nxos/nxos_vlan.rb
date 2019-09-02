@@ -30,22 +30,22 @@ module Ansible
 
         # @return [:active, :suspend, nil] Manage the vlan operational state of the VLAN
         attribute :vlan_state
-        validates :vlan_state, inclusion: {:in=>[:active, :suspend], :message=>"%{value} needs to be :active, :suspend"}, allow_nil: true
+        validates :vlan_state, expression_inclusion: {:in=>[:active, :suspend], :message=>"%{value} needs to be :active, :suspend"}, allow_nil: true
 
         # @return [:up, :down, nil] Manage the VLAN administrative state of the VLAN equivalent to shut/no shut in VLAN config mode.
         attribute :admin_state
-        validates :admin_state, inclusion: {:in=>[:up, :down], :message=>"%{value} needs to be :up, :down"}, allow_nil: true
+        validates :admin_state, expression_inclusion: {:in=>[:up, :down], :message=>"%{value} needs to be :up, :down"}, allow_nil: true
 
         # @return [Object, nil] The Virtual Network Identifier (VNI) ID that is mapped to the VLAN. Valid values are integer and keyword 'default'. Range 4096-16773119.
         attribute :mapped_vni
 
         # @return [:present, :absent, nil] Manage the state of the resource.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [:ce, :fabricpath, nil] Set VLAN mode to classical ethernet or fabricpath. This is a valid option for Nexus 5000 and 7000 series.
         attribute :mode
-        validates :mode, inclusion: {:in=>[:ce, :fabricpath], :message=>"%{value} needs to be :ce, :fabricpath"}, allow_nil: true
+        validates :mode, expression_inclusion: {:in=>[:ce, :fabricpath], :message=>"%{value} needs to be :ce, :fabricpath"}, allow_nil: true
 
         # @return [Array<Hash>, Hash, nil] List of VLANs definitions.
         attribute :aggregate
@@ -53,7 +53,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Purge VLANs not defined in the I(aggregate) parameter. This parameter can be used without aggregate as well.
         attribute :purge
-        validates :purge, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :purge, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] Time in seconds to wait before checking for the operational state on remote device. This wait is applicable for operational state arguments.
         attribute :delay

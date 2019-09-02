@@ -21,7 +21,7 @@ module Ansible
 
         # @return [:HTTP, :HTTPS] Type of Healthcheck.
         attribute :healthcheck_type
-        validates :healthcheck_type, presence: true, inclusion: {:in=>[:HTTP, :HTTPS], :message=>"%{value} needs to be :HTTP, :HTTPS"}
+        validates :healthcheck_type, presence: true, expression_inclusion: {:in=>[:HTTP, :HTTPS], :message=>"%{value} needs to be :HTTP, :HTTPS"}
 
         # @return [String] The value of the host header in the health check request. If left empty, the public IP on behalf of which this health check is performed will be used.
         attribute :host_header
@@ -36,7 +36,7 @@ module Ansible
 
         # @return [:present, :absent] State of the Healthcheck.
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
+        validates :state, presence: true, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
 
         # @return [Integer, nil] How long (in seconds) to wait for a response before claiming failure. It is invalid for timeout to have a greater value than check_interval.
         attribute :timeout
@@ -56,7 +56,7 @@ module Ansible
 
         # @return [:bigquery, :"cloud-platform", :"compute-ro", :"compute-rw", :"useraccounts-ro", :"useraccounts-rw", :datastore, :"logging-write", :monitoring, :"sql-admin", :"storage-full", :"storage-ro", :"storage-rw", :taskqueue, :"userinfo-email", nil] service account permissions (see U(https://cloud.google.com/sdk/gcloud/reference/compute/instances/create), --scopes section for detailed information)
         attribute :service_account_permissions
-        validates :service_account_permissions, inclusion: {:in=>[:bigquery, :"cloud-platform", :"compute-ro", :"compute-rw", :"useraccounts-ro", :"useraccounts-rw", :datastore, :"logging-write", :monitoring, :"sql-admin", :"storage-full", :"storage-ro", :"storage-rw", :taskqueue, :"userinfo-email"], :message=>"%{value} needs to be :bigquery, :\"cloud-platform\", :\"compute-ro\", :\"compute-rw\", :\"useraccounts-ro\", :\"useraccounts-rw\", :datastore, :\"logging-write\", :monitoring, :\"sql-admin\", :\"storage-full\", :\"storage-ro\", :\"storage-rw\", :taskqueue, :\"userinfo-email\""}, allow_nil: true
+        validates :service_account_permissions, expression_inclusion: {:in=>[:bigquery, :"cloud-platform", :"compute-ro", :"compute-rw", :"useraccounts-ro", :"useraccounts-rw", :datastore, :"logging-write", :monitoring, :"sql-admin", :"storage-full", :"storage-ro", :"storage-rw", :taskqueue, :"userinfo-email"], :message=>"%{value} needs to be :bigquery, :\"cloud-platform\", :\"compute-ro\", :\"compute-rw\", :\"useraccounts-ro\", :\"useraccounts-rw\", :datastore, :\"logging-write\", :monitoring, :\"sql-admin\", :\"storage-full\", :\"storage-ro\", :\"storage-rw\", :taskqueue, :\"userinfo-email\""}, allow_nil: true
 
         # @return [String, nil] Path to the JSON file associated with the service account email
         attribute :credentials_file

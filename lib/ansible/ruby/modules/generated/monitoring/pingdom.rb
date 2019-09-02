@@ -10,7 +10,7 @@ module Ansible
       class Pingdom < Base
         # @return [:running, :paused] Define whether or not the check should be running or paused.
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:running, :paused], :message=>"%{value} needs to be :running, :paused"}
+        validates :state, presence: true, expression_inclusion: {:in=>[:running, :paused], :message=>"%{value} needs to be :running, :paused"}
 
         # @return [Integer] Pingdom ID of the check.
         attribute :checkid

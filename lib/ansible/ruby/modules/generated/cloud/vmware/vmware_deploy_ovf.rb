@@ -10,7 +10,7 @@ module Ansible
       class Vmware_deploy_ovf < Base
         # @return [:yes, :no, nil] Whether or not to allow duplicate VM names. ESXi allows duplicates, vCenter may not.
         attribute :allow_duplicates
-        validates :allow_duplicates, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :allow_duplicates, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] Datacenter to deploy to.
         attribute :datacenter
@@ -28,11 +28,11 @@ module Ansible
 
         # @return [:flat, :eagerZeroedThick, :monolithicSparse, :twoGbMaxExtentSparse, :twoGbMaxExtentFlat, :thin, :sparse, :thick, :seSparse, :monolithicFlat, nil] Disk provisioning type.
         attribute :disk_provisioning
-        validates :disk_provisioning, inclusion: {:in=>[:flat, :eagerZeroedThick, :monolithicSparse, :twoGbMaxExtentSparse, :twoGbMaxExtentFlat, :thin, :sparse, :thick, :seSparse, :monolithicFlat], :message=>"%{value} needs to be :flat, :eagerZeroedThick, :monolithicSparse, :twoGbMaxExtentSparse, :twoGbMaxExtentFlat, :thin, :sparse, :thick, :seSparse, :monolithicFlat"}, allow_nil: true
+        validates :disk_provisioning, expression_inclusion: {:in=>[:flat, :eagerZeroedThick, :monolithicSparse, :twoGbMaxExtentSparse, :twoGbMaxExtentFlat, :thin, :sparse, :thick, :seSparse, :monolithicFlat], :message=>"%{value} needs to be :flat, :eagerZeroedThick, :monolithicSparse, :twoGbMaxExtentSparse, :twoGbMaxExtentFlat, :thin, :sparse, :thick, :seSparse, :monolithicFlat"}, allow_nil: true
 
         # @return [:yes, :no, nil] Cause the module to treat OVF Import Spec warnings as errors.
         attribute :fail_on_spec_warnings
-        validates :fail_on_spec_warnings, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :fail_on_spec_warnings, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] Absolute path of folder to place the virtual machine.,If not specified, defaults to the value of C(datacenter.vmFolder).
         attribute :folder
@@ -50,7 +50,7 @@ module Ansible
 
         # @return [Boolean, nil] Whether or not to power on the virtual machine after creation.
         attribute :power_on
-        validates :power_on, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :power_on, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Object, nil] The assignment of values to the properties found in the OVF as key value pairs.
         attribute :properties
@@ -61,7 +61,7 @@ module Ansible
 
         # @return [Boolean, nil] Wait for the host to power on.
         attribute :wait
-        validates :wait, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :wait, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Symbol, nil] Wait until vCenter detects an IP address for the VM.,This requires vmware-tools (vmtoolsd) to properly work after creation.
         attribute :wait_for_ip_address

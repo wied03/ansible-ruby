@@ -38,7 +38,7 @@ module Ansible
 
         # @return [:"between-clusters", :"within-cluster", nil] Specifies whether mirroring occurs within the same cluster or between different clusters on a multi-bladed system.,This parameter is only supported on platforms that have multiple blades, such as Viprion hardware. It is not supported on VE.
         attribute :cluster_mirroring
-        validates :cluster_mirroring, inclusion: {:in=>[:"between-clusters", :"within-cluster"], :message=>"%{value} needs to be :\"between-clusters\", :\"within-cluster\""}, allow_nil: true
+        validates :cluster_mirroring, expression_inclusion: {:in=>[:"between-clusters", :"within-cluster"], :message=>"%{value} needs to be :\"between-clusters\", :\"within-cluster\""}, allow_nil: true
       end
     end
   end

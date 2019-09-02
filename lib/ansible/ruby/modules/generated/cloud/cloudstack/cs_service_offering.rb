@@ -46,7 +46,7 @@ module Ansible
 
         # @return [Boolean, nil] Whether compute offering iops is custom or not.
         attribute :disk_iops_customized
-        validates :disk_iops_customized, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :disk_iops_customized, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Object, nil] IO requests read rate of the disk offering.
         attribute :disk_iops_read_rate
@@ -85,22 +85,22 @@ module Ansible
 
         # @return [:thin, :sparse, :fat, nil] Provisioning type used to create volumes.
         attribute :provisioning_type
-        validates :provisioning_type, inclusion: {:in=>[:thin, :sparse, :fat], :message=>"%{value} needs to be :thin, :sparse, :fat"}, allow_nil: true
+        validates :provisioning_type, expression_inclusion: {:in=>[:thin, :sparse, :fat], :message=>"%{value} needs to be :thin, :sparse, :fat"}, allow_nil: true
 
         # @return [Object, nil] Details for planner, used to store specific parameters.
         attribute :service_offering_details
 
         # @return [:present, :absent, nil] State of the service offering.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [:local, :shared, nil] The storage type of the service offering.
         attribute :storage_type
-        validates :storage_type, inclusion: {:in=>[:local, :shared], :message=>"%{value} needs to be :local, :shared"}, allow_nil: true
+        validates :storage_type, expression_inclusion: {:in=>[:local, :shared], :message=>"%{value} needs to be :local, :shared"}, allow_nil: true
 
         # @return [:domainrouter, :consoleproxy, :secondarystoragevm, nil] The system VM type.,Required if C(is_system=true).
         attribute :system_vm_type
-        validates :system_vm_type, inclusion: {:in=>[:domainrouter, :consoleproxy, :secondarystoragevm], :message=>"%{value} needs to be :domainrouter, :consoleproxy, :secondarystoragevm"}, allow_nil: true
+        validates :system_vm_type, expression_inclusion: {:in=>[:domainrouter, :consoleproxy, :secondarystoragevm], :message=>"%{value} needs to be :domainrouter, :consoleproxy, :secondarystoragevm"}, allow_nil: true
 
         # @return [String, nil] The storage tags for this service offering.
         attribute :storage_tags

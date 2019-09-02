@@ -10,7 +10,7 @@ module Ansible
       class Cs_network_offering < Base
         # @return [:enabled, :present, :disabled, :absent, nil] State of the network offering.
         attribute :state
-        validates :state, inclusion: {:in=>[:enabled, :present, :disabled, :absent], :message=>"%{value} needs to be :enabled, :present, :disabled, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:enabled, :present, :disabled, :absent], :message=>"%{value} needs to be :enabled, :present, :disabled, :absent"}, allow_nil: true
 
         # @return [String, nil] Display text of the network offerings.
         attribute :display_text
@@ -18,7 +18,7 @@ module Ansible
 
         # @return [:Shared, :Isolated, nil] Guest type of the network offering.
         attribute :guest_ip_type
-        validates :guest_ip_type, inclusion: {:in=>[:Shared, :Isolated], :message=>"%{value} needs to be :Shared, :Isolated"}, allow_nil: true
+        validates :guest_ip_type, expression_inclusion: {:in=>[:Shared, :Isolated], :message=>"%{value} needs to be :Shared, :Isolated"}, allow_nil: true
 
         # @return [String] The name of the network offering.
         attribute :name
@@ -26,7 +26,7 @@ module Ansible
 
         # @return [:Dns, :PortForwarding, :Dhcp, :SourceNat, :UserData, :Firewall, :StaticNat, :Vpn, :Lb, nil] Services supported by the network offering.,One or more of the choices.
         attribute :supported_services
-        validates :supported_services, inclusion: {:in=>[:Dns, :PortForwarding, :Dhcp, :SourceNat, :UserData, :Firewall, :StaticNat, :Vpn, :Lb], :message=>"%{value} needs to be :Dns, :PortForwarding, :Dhcp, :SourceNat, :UserData, :Firewall, :StaticNat, :Vpn, :Lb"}, allow_nil: true
+        validates :supported_services, expression_inclusion: {:in=>[:Dns, :PortForwarding, :Dhcp, :SourceNat, :UserData, :Firewall, :StaticNat, :Vpn, :Lb], :message=>"%{value} needs to be :Dns, :PortForwarding, :Dhcp, :SourceNat, :UserData, :Firewall, :StaticNat, :Vpn, :Lb"}, allow_nil: true
 
         # @return [String, nil] The traffic type for the network offering.
         attribute :traffic_type
@@ -41,11 +41,11 @@ module Ansible
 
         # @return [:internallbprovider, :publiclbprovider, nil] Network offering details in key/value pairs.,with service provider as a value
         attribute :details
-        validates :details, inclusion: {:in=>[:internallbprovider, :publiclbprovider], :message=>"%{value} needs to be :internallbprovider, :publiclbprovider"}, allow_nil: true
+        validates :details, expression_inclusion: {:in=>[:internallbprovider, :publiclbprovider], :message=>"%{value} needs to be :internallbprovider, :publiclbprovider"}, allow_nil: true
 
         # @return [:allow, :deny, nil] Whether the default egress policy is allow or to deny.
         attribute :egress_default_policy
-        validates :egress_default_policy, inclusion: {:in=>[:allow, :deny], :message=>"%{value} needs to be :allow, :deny"}, allow_nil: true
+        validates :egress_default_policy, expression_inclusion: {:in=>[:allow, :deny], :message=>"%{value} needs to be :allow, :deny"}, allow_nil: true
 
         # @return [Object, nil] True if network offering supports persistent networks,defaulted to false if not specified
         attribute :persistent

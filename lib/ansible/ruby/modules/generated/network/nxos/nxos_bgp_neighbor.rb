@@ -45,7 +45,7 @@ module Ansible
 
         # @return [:enable, :disable, :inherit, nil] Specify whether or not to enable log messages for neighbor up/down event.
         attribute :log_neighbor_changes
-        validates :log_neighbor_changes, inclusion: {:in=>[:enable, :disable, :inherit], :message=>"%{value} needs to be :enable, :disable, :inherit"}, allow_nil: true
+        validates :log_neighbor_changes, expression_inclusion: {:in=>[:enable, :disable, :inherit], :message=>"%{value} needs to be :enable, :disable, :inherit"}, allow_nil: true
 
         # @return [Symbol, nil] Specify whether or not to shut down this neighbor under memory pressure.
         attribute :low_memory_exempt
@@ -59,7 +59,7 @@ module Ansible
 
         # @return [:"3des", :cisco_type_7, :default, nil] Specify the encryption type the password will use. Valid values are '3des' or 'cisco_type_7' encryption or keyword 'default'.
         attribute :pwd_type
-        validates :pwd_type, inclusion: {:in=>[:"3des", :cisco_type_7, :default], :message=>"%{value} needs to be :\"3des\", :cisco_type_7, :default"}, allow_nil: true
+        validates :pwd_type, expression_inclusion: {:in=>[:"3des", :cisco_type_7, :default], :message=>"%{value} needs to be :\"3des\", :cisco_type_7, :default"}, allow_nil: true
 
         # @return [Integer, nil] Specify Autonomous System Number of the neighbor. Valid values are String or Integer in ASPLAIN or ASDOT notation, or 'default', which means not to configure it.
         attribute :remote_as
@@ -67,7 +67,7 @@ module Ansible
 
         # @return [:enable, :disable, :all, :"replace-as", nil] Specify the config to remove private AS number from outbound updates. Valid values are 'enable' to enable this config, 'disable' to disable this config, 'all' to remove all private AS number, or 'replace-as', to replace the private AS number.
         attribute :remove_private_as
-        validates :remove_private_as, inclusion: {:in=>[:enable, :disable, :all, :"replace-as"], :message=>"%{value} needs to be :enable, :disable, :all, :\"replace-as\""}, allow_nil: true
+        validates :remove_private_as, expression_inclusion: {:in=>[:enable, :disable, :all, :"replace-as"], :message=>"%{value} needs to be :enable, :disable, :all, :\"replace-as\""}, allow_nil: true
 
         # @return [Symbol, nil] Configure to administratively shutdown this neighbor.
         attribute :shutdown
@@ -93,7 +93,7 @@ module Ansible
 
         # @return [:present, :absent, nil] Determines whether the config should be present or not on the device.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

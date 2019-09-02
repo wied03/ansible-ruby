@@ -27,7 +27,7 @@ module Ansible
 
         # @return [:yes, :no, nil] enable / disable https certificate verification
         attribute :validate_certs
-        validates :validate_certs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :validate_certs, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] Proxmox VE node, when new VM will be created,required only for C(state=present),for another states will be autodiscovered
         attribute :node
@@ -81,7 +81,7 @@ module Ansible
 
         # @return [:yes, :no, nil] specifies whether a VM will be started during system bootup
         attribute :onboot
-        validates :onboot, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :onboot, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] target storage
         attribute :storage
@@ -103,18 +103,18 @@ module Ansible
 
         # @return [:yes, :no, nil] forcing operations,can be used only with states C(present), C(stopped), C(restarted),with C(state=present) force option allow to overwrite existing container,with states C(stopped) , C(restarted) allow to force stop instance
         attribute :force
-        validates :force, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :force, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:present, :started, :absent, :stopped, :restarted, nil] Indicate desired state of the instance
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :started, :absent, :stopped, :restarted], :message=>"%{value} needs to be :present, :started, :absent, :stopped, :restarted"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :started, :absent, :stopped, :restarted], :message=>"%{value} needs to be :present, :started, :absent, :stopped, :restarted"}, allow_nil: true
 
         # @return [Object, nil] Public key to add to /root/.ssh/authorized_keys. This was added on Proxmox 4.2, it is ignored for earlier versions
         attribute :pubkey
 
         # @return [:yes, :no, nil] Indicate if the container should be unprivileged
         attribute :unprivileged
-        validates :unprivileged, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :unprivileged, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

@@ -33,7 +33,7 @@ module Ansible
 
         # @return [:present, :absent, nil] Create or delete ENI
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [Integer, nil] The index of the device for the network interface attachment on the instance.
         attribute :device_index
@@ -45,7 +45,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Force detachment of the interface. This applies either when explicitly detaching the interface by setting instance_id to None or when deleting an interface with state=absent.
         attribute :force_detach
-        validates :force_detach, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :force_detach, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Symbol, nil] Delete the interface when the instance it is attached to is terminated. You can only specify this flag when the interface is being modified, not on creation.
         attribute :delete_on_termination
@@ -69,7 +69,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Indicates whether to allow an IP address that is already assigned to another network interface or instance to be reassigned to the specified network interface.
         attribute :allow_reassignment
-        validates :allow_reassignment, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :allow_reassignment, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

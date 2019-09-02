@@ -10,7 +10,7 @@ module Ansible
       class Route53_facts < Base
         # @return [:change, :checker_ip_range, :health_check, :hosted_zone, :record_sets, :reusable_delegation_set] specifies the query action to take
         attribute :query
-        validates :query, presence: true, inclusion: {:in=>[:change, :checker_ip_range, :health_check, :hosted_zone, :record_sets, :reusable_delegation_set], :message=>"%{value} needs to be :change, :checker_ip_range, :health_check, :hosted_zone, :record_sets, :reusable_delegation_set"}
+        validates :query, presence: true, expression_inclusion: {:in=>[:change, :checker_ip_range, :health_check, :hosted_zone, :record_sets, :reusable_delegation_set], :message=>"%{value} needs to be :change, :checker_ip_range, :health_check, :hosted_zone, :record_sets, :reusable_delegation_set"}
 
         # @return [Object, nil] The ID of the change batch request. The value that you specify here is the value that ChangeResourceRecordSets returned in the Id element when you submitted the request.
         attribute :change_id
@@ -36,7 +36,7 @@ module Ansible
 
         # @return [:A, :CNAME, :MX, :AAAA, :TXT, :PTR, :SRV, :SPF, :CAA, :NS, nil] The type of DNS record
         attribute :type
-        validates :type, inclusion: {:in=>[:A, :CNAME, :MX, :AAAA, :TXT, :PTR, :SRV, :SPF, :CAA, :NS], :message=>"%{value} needs to be :A, :CNAME, :MX, :AAAA, :TXT, :PTR, :SRV, :SPF, :CAA, :NS"}, allow_nil: true
+        validates :type, expression_inclusion: {:in=>[:A, :CNAME, :MX, :AAAA, :TXT, :PTR, :SRV, :SPF, :CAA, :NS], :message=>"%{value} needs to be :A, :CNAME, :MX, :AAAA, :TXT, :PTR, :SRV, :SPF, :CAA, :NS"}, allow_nil: true
 
         # @return [Object, nil] The first name in the lexicographic ordering of domain names that you want the list_command to start listing from
         attribute :dns_name
@@ -50,11 +50,11 @@ module Ansible
 
         # @return [:details, :list, :list_by_name, :count, :tags, nil] This is used in conjunction with query: hosted_zone. It allows for listing details, counts or tags of various hosted zone details.
         attribute :hosted_zone_method
-        validates :hosted_zone_method, inclusion: {:in=>[:details, :list, :list_by_name, :count, :tags], :message=>"%{value} needs to be :details, :list, :list_by_name, :count, :tags"}, allow_nil: true
+        validates :hosted_zone_method, expression_inclusion: {:in=>[:details, :list, :list_by_name, :count, :tags], :message=>"%{value} needs to be :details, :list, :list_by_name, :count, :tags"}, allow_nil: true
 
         # @return [:list, :details, :status, :failure_reason, :count, :tags, nil] This is used in conjunction with query: health_check. It allows for listing details, counts or tags of various health check details.
         attribute :health_check_method
-        validates :health_check_method, inclusion: {:in=>[:list, :details, :status, :failure_reason, :count, :tags], :message=>"%{value} needs to be :list, :details, :status, :failure_reason, :count, :tags"}, allow_nil: true
+        validates :health_check_method, expression_inclusion: {:in=>[:list, :details, :status, :failure_reason, :count, :tags], :message=>"%{value} needs to be :list, :details, :status, :failure_reason, :count, :tags"}, allow_nil: true
       end
     end
   end

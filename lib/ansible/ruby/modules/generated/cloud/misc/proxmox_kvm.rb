@@ -10,7 +10,7 @@ module Ansible
       class Proxmox_kvm < Base
         # @return [:yes, :no, nil] Specify if ACPI should be enabled/disabled.
         attribute :acpi
-        validates :acpi, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :acpi, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Symbol, nil] Specify if the QEMU Guest Agent should be enabled/disabled.
         attribute :agent
@@ -34,7 +34,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Specify if the VM should be automatically restarted after crash (currently ignored in PVE API).
         attribute :autostart
-        validates :autostart, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :autostart, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] Specify the amount of RAM for the VM in MB.,Using zero disables the balloon driver.
         attribute :balloon
@@ -42,7 +42,7 @@ module Ansible
 
         # @return [:seabios, :ovmf, nil] Specify the BIOS implementation.
         attribute :bios
-        validates :bios, inclusion: {:in=>[:seabios, :ovmf], :message=>"%{value} needs to be :seabios, :ovmf"}, allow_nil: true
+        validates :bios, expression_inclusion: {:in=>[:seabios, :ovmf], :message=>"%{value} needs to be :seabios, :ovmf"}, allow_nil: true
 
         # @return [String, nil] Specify the boot order -> boot on floppy C(a), hard disk C(c), CD-ROM C(d), or network C(n).,You can combine to set order.
         attribute :boot
@@ -86,7 +86,7 @@ module Ansible
 
         # @return [:cloop, :cow, :qcow, :qcow2, :qed, :raw, :vmdk, nil] Target drive's backing file's data format.,Used only with clone
         attribute :format
-        validates :format, inclusion: {:in=>[:cloop, :cow, :qcow, :qcow2, :qed, :raw, :vmdk], :message=>"%{value} needs to be :cloop, :cow, :qcow, :qcow2, :qed, :raw, :vmdk"}, allow_nil: true
+        validates :format, expression_inclusion: {:in=>[:cloop, :cow, :qcow, :qcow2, :qed, :raw, :vmdk], :message=>"%{value} needs to be :cloop, :cow, :qcow, :qcow2, :qed, :raw, :vmdk"}, allow_nil: true
 
         # @return [Symbol, nil] Specify if PVE should freeze CPU at startup (use 'c' monitor command to start execution).
         attribute :freeze
@@ -94,7 +94,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Create a full copy of all disk. This is always done when you clone a normal VM.,For VM templates, we try to create a linked clone by default.,Used only with clone
         attribute :full
-        validates :full, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :full, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] Specify a hash/dictionary of map host pci devices into guest. C(hostpci='{"key":"value", "key":"value"}').,Keys allowed are - C(hostpci[n]) where 0 ≤ n ≤ N.,Values allowed are -  C("host="HOSTPCIID[;HOSTPCIID2...]",pcie="1|0",rombar="1|0",x-vga="1|0"").,The C(host) parameter is Host PCI device pass through. HOSTPCIID syntax is C(bus:dev.func) (hexadecimal numbers).,C(pcie=boolean) I(default=0) Choose the PCI-express bus (needs the q35 machine model).,C(rombar=boolean) I(default=1) Specify whether or not the device's ROM will be visible in the guest's memory map.,C(x-vga=boolean) I(default=0) Enable vfio-vga device support.,/!\ This option allows direct access to host hardware. So it is no longer possible to migrate such machines - use with special care.
         attribute :hostpci
@@ -104,7 +104,7 @@ module Ansible
 
         # @return [:any, 2, 1024, nil] Enable/disable hugepages memory.
         attribute :hugepages
-        validates :hugepages, inclusion: {:in=>[:any, 2, 1024], :message=>"%{value} needs to be :any, 2, 1024"}, allow_nil: true
+        validates :hugepages, expression_inclusion: {:in=>[:any, 2, 1024], :message=>"%{value} needs to be :any, 2, 1024"}, allow_nil: true
 
         # @return [Object, nil] A hash/dictionary of volume used as IDE hard disk or CD-ROM. C(ide='{"key":"value", "key":"value"}').,Keys allowed are - C(ide[n]) where 0 ≤ n ≤ 3.,Values allowed are - C("storage:size,format=value").,C(storage) is the storage identifier where to create the disk.,C(size) is the size of the disk in GB.,C(format) is the drive's backing file's data format. C(qcow2|raw|subvol).
         attribute :ide
@@ -114,7 +114,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Enable/disable KVM hardware virtualization.
         attribute :kvm
-        validates :kvm, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :kvm, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Symbol, nil] Sets the real time clock to local time.,This is enabled by default if ostype indicates a Microsoft OS.
         attribute :localtime
@@ -122,7 +122,7 @@ module Ansible
 
         # @return [:migrate, :backup, :snapshot, :rollback, nil] Lock/unlock the VM.
         attribute :lock
-        validates :lock, inclusion: {:in=>[:migrate, :backup, :snapshot, :rollback], :message=>"%{value} needs to be :migrate, :backup, :snapshot, :rollback"}, allow_nil: true
+        validates :lock, expression_inclusion: {:in=>[:migrate, :backup, :snapshot, :rollback], :message=>"%{value} needs to be :migrate, :backup, :snapshot, :rollback"}, allow_nil: true
 
         # @return [Object, nil] Specifies the Qemu machine type.,type => C((pc|pc(-i440fx)?-\d+\.\d+(\.pxe)?|q35|pc-q35-\d+\.\d+(\.pxe)?))
         attribute :machine
@@ -158,11 +158,11 @@ module Ansible
 
         # @return [:yes, :no, nil] Specifies whether a VM will be started during system bootup.
         attribute :onboot
-        validates :onboot, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :onboot, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:other, :wxp, :w2k, :w2k3, :w2k8, :wvista, :win7, :win8, :l24, :l26, :solaris, nil] Specifies guest operating system. This is used to enable special optimization/features for specific operating systems.,The l26 is Linux 2.6/3.X Kernel.
         attribute :ostype
-        validates :ostype, inclusion: {:in=>[:other, :wxp, :w2k, :w2k3, :w2k8, :wvista, :win7, :win8, :l24, :l26, :solaris], :message=>"%{value} needs to be :other, :wxp, :w2k, :w2k3, :w2k8, :wvista, :win7, :win8, :l24, :l26, :solaris"}, allow_nil: true
+        validates :ostype, expression_inclusion: {:in=>[:other, :wxp, :w2k, :w2k3, :w2k8, :wvista, :win7, :win8, :l24, :l26, :solaris], :message=>"%{value} needs to be :other, :wxp, :w2k, :w2k3, :w2k8, :wvista, :win7, :win8, :l24, :l26, :solaris"}, allow_nil: true
 
         # @return [Object, nil] A hash/dictionary of map host parallel devices. C(parallel='{"key":"value", "key":"value"}').,Keys allowed are - (parallel[n]) where 0 ≤ n ≤ 2.,Values allowed are - C("/dev/parport\d+|/dev/usb/lp\d+").
         attribute :parallel
@@ -190,7 +190,7 @@ module Ansible
 
         # @return [:lsi, :lsi53c810, :"virtio-scsi-pci", :"virtio-scsi-single", :megasas, :pvscsi, nil] Specifies the SCSI controller model.
         attribute :scsihw
-        validates :scsihw, inclusion: {:in=>[:lsi, :lsi53c810, :"virtio-scsi-pci", :"virtio-scsi-single", :megasas, :pvscsi], :message=>"%{value} needs to be :lsi, :lsi53c810, :\"virtio-scsi-pci\", :\"virtio-scsi-single\", :megasas, :pvscsi"}, allow_nil: true
+        validates :scsihw, expression_inclusion: {:in=>[:lsi, :lsi53c810, :"virtio-scsi-pci", :"virtio-scsi-single", :megasas, :pvscsi], :message=>"%{value} needs to be :lsi, :lsi53c810, :\"virtio-scsi-pci\", :\"virtio-scsi-single\", :megasas, :pvscsi"}, allow_nil: true
 
         # @return [Object, nil] A hash/dictionary of serial device to create inside the VM. C('{"key":"value", "key":"value"}').,Keys allowed are - serial[n](str; required) where 0 ≤ n ≤ 3.,Values allowed are - C((/dev/.+|socket)).,/!\ If you pass through a host serial device, it is no longer possible to migrate such machines - use with special care.
         attribute :serial
@@ -219,7 +219,7 @@ module Ansible
 
         # @return [:present, :started, :absent, :stopped, :restarted, :current, nil] Indicates desired state of the instance.,If C(current), the current state of the VM will be fecthed. You can access it with C(results.status)
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :started, :absent, :stopped, :restarted, :current], :message=>"%{value} needs to be :present, :started, :absent, :stopped, :restarted, :current"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :started, :absent, :stopped, :restarted, :current], :message=>"%{value} needs to be :present, :started, :absent, :stopped, :restarted, :current"}, allow_nil: true
 
         # @return [String, nil] Target storage for full clone.
         attribute :storage
@@ -227,7 +227,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Enables/disables the USB tablet device.
         attribute :tablet
-        validates :tablet, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :tablet, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] Target node. Only allowed if the original VM is on shared storage.,Used only with clone
         attribute :target
@@ -238,7 +238,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Enables/disables the template.
         attribute :template
-        validates :template, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :template, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] Timeout for operations.
         attribute :timeout
@@ -246,11 +246,11 @@ module Ansible
 
         # @return [:yes, :no, nil] If C(yes), the VM will be update with new value.,Cause of the operations of the API and security reasons, I have disabled the update of the following parameters,C(net, virtio, ide, sata, scsi). Per example updating C(net) update the MAC address and C(virtio) create always new disk...
         attribute :update
-        validates :update, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :update, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:yes, :no, nil] If C(no), SSL certificates will not be validated. This should only be used on personally controlled sites using self-signed certificates.
         attribute :validate_certs
-        validates :validate_certs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :validate_certs, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] Sets number of hotplugged vcpus.
         attribute :vcpus
@@ -258,7 +258,7 @@ module Ansible
 
         # @return [:std, :cirrus, :vmware, :qxl, :serial0, :serial1, :serial2, :serial3, :qxl2, :qxl3, :qxl4, nil] Select VGA type. If you want to use high resolution modes (>= 1280x1024x16) then you should use option 'std' or 'vmware'.
         attribute :vga
-        validates :vga, inclusion: {:in=>[:std, :cirrus, :vmware, :qxl, :serial0, :serial1, :serial2, :serial3, :qxl2, :qxl3, :qxl4], :message=>"%{value} needs to be :std, :cirrus, :vmware, :qxl, :serial0, :serial1, :serial2, :serial3, :qxl2, :qxl3, :qxl4"}, allow_nil: true
+        validates :vga, expression_inclusion: {:in=>[:std, :cirrus, :vmware, :qxl, :serial0, :serial1, :serial2, :serial3, :qxl2, :qxl3, :qxl4], :message=>"%{value} needs to be :std, :cirrus, :vmware, :qxl, :serial0, :serial1, :serial2, :serial3, :qxl2, :qxl3, :qxl4"}, allow_nil: true
 
         # @return [Hash, nil] A hash/dictionary of volume used as VIRTIO hard disk. C(virtio='{"key":"value", "key":"value"}').,Keys allowed are - C(virto[n]) where 0 ≤ n ≤ 15.,Values allowed are -  C("storage:size,format=value").,C(storage) is the storage identifier where to create the disk.,C(size) is the size of the disk in GB.,C(format) is the drive's backing file's data format. C(qcow2|raw|subvol).
         attribute :virtio

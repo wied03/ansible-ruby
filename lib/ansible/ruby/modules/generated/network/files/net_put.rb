@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:scp, :sftp, nil] Protocol used to transfer file.
         attribute :protocol
-        validates :protocol, inclusion: {:in=>[:scp, :sftp], :message=>"%{value} needs to be :scp, :sftp"}, allow_nil: true
+        validates :protocol, expression_inclusion: {:in=>[:scp, :sftp], :message=>"%{value} needs to be :scp, :sftp"}, allow_nil: true
 
         # @return [String, nil] Specifies the destination file. The path to destination file can either be the full path or relative path as supported by network_os.
         attribute :dest
@@ -22,7 +22,7 @@ module Ansible
 
         # @return [:binary, :text, nil] Set the file transfer mode. If mode is set to I(template) then I(src) file will go through Jinja2 template engine to replace any vars if present in the src file. If mode is set to I(binary) then file will be copied as it is to destination device.
         attribute :mode
-        validates :mode, inclusion: {:in=>[:binary, :text], :message=>"%{value} needs to be :binary, :text"}, allow_nil: true
+        validates :mode, expression_inclusion: {:in=>[:binary, :text], :message=>"%{value} needs to be :binary, :text"}, allow_nil: true
       end
     end
   end

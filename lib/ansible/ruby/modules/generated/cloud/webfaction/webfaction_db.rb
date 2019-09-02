@@ -14,11 +14,11 @@ module Ansible
 
         # @return [:present, :absent, nil] Whether the database should exist
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [:mysql, :postgresql] The type of database to create.
         attribute :type
-        validates :type, presence: true, inclusion: {:in=>[:mysql, :postgresql], :message=>"%{value} needs to be :mysql, :postgresql"}
+        validates :type, presence: true, expression_inclusion: {:in=>[:mysql, :postgresql], :message=>"%{value} needs to be :mysql, :postgresql"}
 
         # @return [String, nil] The password for the new database user.
         attribute :password

@@ -12,7 +12,7 @@ module Ansible
       class Keycloak_clienttemplate < Base
         # @return [:present, :absent, nil] State of the client template,On C(present), the client template will be created (or updated if it exists already).,On C(absent), the client template will be removed if it exists
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String, nil] Id of client template to be worked on. This is usually a UUID.
         attribute :id
@@ -31,11 +31,11 @@ module Ansible
 
         # @return [:"openid-connect", :saml, nil] Type of client template (either C(openid-connect) or C(saml).
         attribute :protocol
-        validates :protocol, inclusion: {:in=>[:"openid-connect", :saml], :message=>"%{value} needs to be :\"openid-connect\", :saml"}, allow_nil: true
+        validates :protocol, expression_inclusion: {:in=>[:"openid-connect", :saml], :message=>"%{value} needs to be :\"openid-connect\", :saml"}, allow_nil: true
 
         # @return [Boolean, nil] Is the "Full Scope Allowed" feature set for this client template or not. This is 'fullScopeAllowed' in the Keycloak REST API.
         attribute :full_scope_allowed
-        validates :full_scope_allowed, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :full_scope_allowed, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Array<Hash>, Hash, nil] a list of dicts defining protocol mappers for this client template. This is 'protocolMappers' in the Keycloak REST API.
         attribute :protocol_mappers

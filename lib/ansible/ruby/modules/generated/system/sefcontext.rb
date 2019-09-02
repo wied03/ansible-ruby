@@ -35,7 +35,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Reload SELinux policy after commit.,Note that this does not apply SELinux file contexts to existing files.
         attribute :reload
-        validates :reload, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :reload, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

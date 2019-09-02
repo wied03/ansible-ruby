@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:"sync-failover", :"sync-only", nil] Specifies that the type of group.,A C(sync-failover) device group contains devices that synchronize their configuration data and fail over to one another when a device becomes unavailable.,A C(sync-only) device group has no such failover. When creating a new device group, this option will default to C(sync-only).,This setting cannot be changed once it has been set.
         attribute :type
-        validates :type, inclusion: {:in=>[:"sync-failover", :"sync-only"], :message=>"%{value} needs to be :\"sync-failover\", :\"sync-only\""}, allow_nil: true
+        validates :type, expression_inclusion: {:in=>[:"sync-failover", :"sync-only"], :message=>"%{value} needs to be :\"sync-failover\", :\"sync-only\""}, allow_nil: true
 
         # @return [Object, nil] Description of the device group.
         attribute :description
@@ -36,7 +36,7 @@ module Ansible
 
         # @return [:present, :absent, nil] When C(state) is C(present), ensures the device group exists.,When C(state) is C(absent), ensures that the device group is removed.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [Symbol, nil] Indicates whether failover occurs over the network or is hard-wired.,This parameter is only valid for C(type)'s that are C(sync-failover).
         attribute :network_failover

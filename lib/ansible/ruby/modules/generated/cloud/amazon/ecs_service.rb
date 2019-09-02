@@ -10,7 +10,7 @@ module Ansible
       class Ecs_service < Base
         # @return [:present, :absent, :deleting] The desired state of the service
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:present, :absent, :deleting], :message=>"%{value} needs to be :present, :absent, :deleting"}
+        validates :state, presence: true, expression_inclusion: {:in=>[:present, :absent, :deleting], :message=>"%{value} needs to be :present, :absent, :deleting"}
 
         # @return [String] The name of the service
         attribute :name
@@ -63,7 +63,7 @@ module Ansible
 
         # @return [:EC2, :FARGATE, nil] The launch type on which to run your service
         attribute :launch_type
-        validates :launch_type, inclusion: {:in=>[:EC2, :FARGATE], :message=>"%{value} needs to be :EC2, :FARGATE"}, allow_nil: true
+        validates :launch_type, expression_inclusion: {:in=>[:EC2, :FARGATE], :message=>"%{value} needs to be :EC2, :FARGATE"}, allow_nil: true
       end
     end
   end

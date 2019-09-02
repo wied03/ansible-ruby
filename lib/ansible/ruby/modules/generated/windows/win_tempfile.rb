@@ -11,7 +11,7 @@ module Ansible
       class Win_tempfile < Base
         # @return [:directory, :file, nil] Whether to create file or directory.
         attribute :state
-        validates :state, inclusion: {:in=>[:directory, :file], :message=>"%{value} needs to be :directory, :file"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:directory, :file], :message=>"%{value} needs to be :directory, :file"}, allow_nil: true
 
         # @return [String, nil] Location where temporary file or directory should be created.,If path is not specified default system temporary directory (%TEMP%) will be used.
         attribute :path

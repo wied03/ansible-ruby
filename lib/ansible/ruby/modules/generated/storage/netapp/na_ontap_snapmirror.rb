@@ -10,7 +10,7 @@ module Ansible
       class Na_ontap_snapmirror < Base
         # @return [:present, :absent, nil] Whether the specified relationship should exist or not.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String, nil] Specifies the name of the source volume for the SnapMirror.
         attribute :source_volume
@@ -37,7 +37,7 @@ module Ansible
 
         # @return [:data_protection, :load_sharing, :vault, :restore, :transition_data_protection, :extended_data_protection, nil] Specify the type of SnapMirror relationship.
         attribute :relationship_type
-        validates :relationship_type, inclusion: {:in=>[:data_protection, :load_sharing, :vault, :restore, :transition_data_protection, :extended_data_protection], :message=>"%{value} needs to be :data_protection, :load_sharing, :vault, :restore, :transition_data_protection, :extended_data_protection"}, allow_nil: true
+        validates :relationship_type, expression_inclusion: {:in=>[:data_protection, :load_sharing, :vault, :restore, :transition_data_protection, :extended_data_protection], :message=>"%{value} needs to be :data_protection, :load_sharing, :vault, :restore, :transition_data_protection, :extended_data_protection"}, allow_nil: true
 
         # @return [String, nil] Specify the name of the current schedule, which is used to update the SnapMirror relationship.,Optional for create, modifiable.
         attribute :schedule

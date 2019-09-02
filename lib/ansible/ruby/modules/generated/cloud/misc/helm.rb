@@ -26,7 +26,7 @@ module Ansible
 
         # @return [:absent, :purged, :present, nil] Whether to install C(present), remove C(absent), or purge C(purged) a package.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :purged, :present], :message=>"%{value} needs to be :absent, :purged, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :purged, :present], :message=>"%{value} needs to be :absent, :purged, :present"}, allow_nil: true
 
         # @return [Object, nil] A map describing the chart to install. See examples for available options.\r\n
         attribute :chart
@@ -36,7 +36,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Whether to disable hooks during the uninstall process.
         attribute :disable_hooks
-        validates :disable_hooks, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :disable_hooks, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

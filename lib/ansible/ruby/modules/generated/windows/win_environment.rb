@@ -11,7 +11,7 @@ module Ansible
       class Win_environment < Base
         # @return [:absent, :present, nil] Set to C(present) to ensure environment variable is set.,Set to C(absent) to ensure it is removed.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
         # @return [String] The name of the environment variable.
         attribute :name
@@ -23,7 +23,7 @@ module Ansible
 
         # @return [:machine, :user, :process] The level at which to set the environment variable.,Use C(machine) to set for all users.,Use C(user) to set for the current user that ansible is connected as.,Use C(process) to set for the current process.  Probably not that useful.
         attribute :level
-        validates :level, presence: true, inclusion: {:in=>[:machine, :user, :process], :message=>"%{value} needs to be :machine, :user, :process"}
+        validates :level, presence: true, expression_inclusion: {:in=>[:machine, :user, :process], :message=>"%{value} needs to be :machine, :user, :process"}
       end
     end
   end

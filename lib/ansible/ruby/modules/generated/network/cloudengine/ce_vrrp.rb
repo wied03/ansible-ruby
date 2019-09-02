@@ -20,11 +20,11 @@ module Ansible
 
         # @return [:normal, :member, :admin, nil] Type of a VRRP backup group.
         attribute :vrrp_type
-        validates :vrrp_type, inclusion: {:in=>[:normal, :member, :admin], :message=>"%{value} needs to be :normal, :member, :admin"}, allow_nil: true
+        validates :vrrp_type, expression_inclusion: {:in=>[:normal, :member, :admin], :message=>"%{value} needs to be :normal, :member, :admin"}, allow_nil: true
 
         # @return [:yes, :no, nil] mVRRP ignores an interface Down event.
         attribute :admin_ignore_if_down
-        validates :admin_ignore_if_down, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :admin_ignore_if_down, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] Tracked mVRRP ID. The value is an integer ranging from 1 to 255.
         attribute :admin_vrid
@@ -34,14 +34,14 @@ module Ansible
 
         # @return [:yes, :no, nil] Disable the flowdown function for service VRRP.
         attribute :admin_flowdown
-        validates :admin_flowdown, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :admin_flowdown, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] Configured VRRP priority. The value ranges from 1 to 254. The default value is 100. A larger value indicates a higher priority.
         attribute :priority
 
         # @return [:v2, :v3, nil] VRRP version. The default version is v2.
         attribute :version
-        validates :version, inclusion: {:in=>[:v2, :v3], :message=>"%{value} needs to be :v2, :v3"}, allow_nil: true
+        validates :version, expression_inclusion: {:in=>[:v2, :v3], :message=>"%{value} needs to be :v2, :v3"}, allow_nil: true
 
         # @return [Object, nil] Configured interval between sending advertisements, in milliseconds. Only the master router sends VRRP advertisements. The default value is 1000 milliseconds.
         attribute :advertise_interval
@@ -60,22 +60,22 @@ module Ansible
 
         # @return [:simple, :md5, :none, nil] Authentication type used for VRRP packet exchanges between virtual routers. The values are noAuthentication, simpleTextPassword, md5Authentication. The default value is noAuthentication.
         attribute :auth_mode
-        validates :auth_mode, inclusion: {:in=>[:simple, :md5, :none], :message=>"%{value} needs to be :simple, :md5, :none"}, allow_nil: true
+        validates :auth_mode, expression_inclusion: {:in=>[:simple, :md5, :none], :message=>"%{value} needs to be :simple, :md5, :none"}, allow_nil: true
 
         # @return [:yes, :no, nil] Select the display mode of an authentication key. By default, an authentication key is displayed in ciphertext.
         attribute :is_plain
-        validates :is_plain, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :is_plain, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] This object is set based on the authentication type. When noAuthentication is specified, the value is empty. When simpleTextPassword or md5Authentication is specified, the value is a string of 1 to 8 characters in plaintext and displayed as a blank text for security.
         attribute :auth_key
 
         # @return [:enable, :disable, nil] mVRRP's fast resume mode.
         attribute :fast_resume
-        validates :fast_resume, inclusion: {:in=>[:enable, :disable], :message=>"%{value} needs to be :enable, :disable"}, allow_nil: true
+        validates :fast_resume, expression_inclusion: {:in=>[:enable, :disable], :message=>"%{value} needs to be :enable, :disable"}, allow_nil: true
 
         # @return [:present, :absent, nil] Specify desired state of the resource.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

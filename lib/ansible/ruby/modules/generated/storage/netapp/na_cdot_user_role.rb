@@ -10,7 +10,7 @@ module Ansible
       class Na_cdot_user_role < Base
         # @return [:present, :absent] Whether the specified user should exist or not.
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
+        validates :state, presence: true, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
 
         # @return [String] The name of the role to manage.
         attribute :name
@@ -22,7 +22,7 @@ module Ansible
 
         # @return [:none, :readonly, :all, nil] The name of the role to manage.
         attribute :access_level
-        validates :access_level, inclusion: {:in=>[:none, :readonly, :all], :message=>"%{value} needs to be :none, :readonly, :all"}, allow_nil: true
+        validates :access_level, expression_inclusion: {:in=>[:none, :readonly, :all], :message=>"%{value} needs to be :none, :readonly, :all"}, allow_nil: true
 
         # @return [String] The name of the vserver to use.
         attribute :vserver

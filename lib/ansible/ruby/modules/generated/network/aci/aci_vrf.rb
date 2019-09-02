@@ -19,18 +19,18 @@ module Ansible
 
         # @return [:egress, :ingress, nil] Determines if the policy should be enforced by the fabric on ingress or egress.
         attribute :policy_control_direction
-        validates :policy_control_direction, inclusion: {:in=>[:egress, :ingress], :message=>"%{value} needs to be :egress, :ingress"}, allow_nil: true
+        validates :policy_control_direction, expression_inclusion: {:in=>[:egress, :ingress], :message=>"%{value} needs to be :egress, :ingress"}, allow_nil: true
 
         # @return [:enforced, :unenforced, nil] Determines if the fabric should enforce contract policies to allow routing and packet forwarding.
         attribute :policy_control_preference
-        validates :policy_control_preference, inclusion: {:in=>[:enforced, :unenforced], :message=>"%{value} needs to be :enforced, :unenforced"}, allow_nil: true
+        validates :policy_control_preference, expression_inclusion: {:in=>[:enforced, :unenforced], :message=>"%{value} needs to be :enforced, :unenforced"}, allow_nil: true
 
         # @return [Object, nil] The description for the VRF.
         attribute :description
 
         # @return [:absent, :present, :query, nil] Use C(present) or C(absent) for adding or removing.,Use C(query) for listing an object or multiple objects.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present, :query], :message=>"%{value} needs to be :absent, :present, :query"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present, :query], :message=>"%{value} needs to be :absent, :present, :query"}, allow_nil: true
       end
     end
   end

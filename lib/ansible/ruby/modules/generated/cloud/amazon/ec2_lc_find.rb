@@ -21,7 +21,7 @@ module Ansible
 
         # @return [:ascending, :descending, nil] Order in which to sort results.
         attribute :sort_order
-        validates :sort_order, inclusion: {:in=>[:ascending, :descending], :message=>"%{value} needs to be :ascending, :descending"}, allow_nil: true
+        validates :sort_order, expression_inclusion: {:in=>[:ascending, :descending], :message=>"%{value} needs to be :ascending, :descending"}, allow_nil: true
 
         # @return [Integer, nil] How many results to show.,Corresponds to Python slice notation like list[:limit].
         attribute :limit

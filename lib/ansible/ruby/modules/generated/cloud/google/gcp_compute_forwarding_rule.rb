@@ -10,7 +10,7 @@ module Ansible
       class Gcp_compute_forwarding_rule < Base
         # @return [:present, :absent, nil] Whether the given object should exist in GCP
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [Object, nil] An optional description of this resource. Provide this property when you create the resource.
         attribute :description
@@ -21,18 +21,18 @@ module Ansible
 
         # @return [:TCP, :UDP, :ESP, :AH, :SCTP, :ICMP, nil] The IP protocol to which this rule applies. Valid options are TCP, UDP, ESP, AH, SCTP or ICMP.,When the load balancing scheme is INTERNAL, only TCP and UDP are valid.
         attribute :ip_protocol
-        validates :ip_protocol, inclusion: {:in=>[:TCP, :UDP, :ESP, :AH, :SCTP, :ICMP], :message=>"%{value} needs to be :TCP, :UDP, :ESP, :AH, :SCTP, :ICMP"}, allow_nil: true
+        validates :ip_protocol, expression_inclusion: {:in=>[:TCP, :UDP, :ESP, :AH, :SCTP, :ICMP], :message=>"%{value} needs to be :TCP, :UDP, :ESP, :AH, :SCTP, :ICMP"}, allow_nil: true
 
         # @return [Object, nil] A reference to a BackendService to receive the matched traffic.,This is used for internal load balancing.,(not used for external load balancing) .
         attribute :backend_service
 
         # @return [:IPV4, :IPV6, nil] The IP Version that will be used by this forwarding rule. Valid options are IPV4 or IPV6. This can only be specified for a global forwarding rule.
         attribute :ip_version
-        validates :ip_version, inclusion: {:in=>[:IPV4, :IPV6], :message=>"%{value} needs to be :IPV4, :IPV6"}, allow_nil: true
+        validates :ip_version, expression_inclusion: {:in=>[:IPV4, :IPV6], :message=>"%{value} needs to be :IPV4, :IPV6"}, allow_nil: true
 
         # @return [:INTERNAL, :EXTERNAL, nil] This signifies what the ForwardingRule will be used for and can only take the following values: INTERNAL, EXTERNAL The value of INTERNAL means that this will be used for Internal Network Load Balancing (TCP, UDP). The value of EXTERNAL means that this will be used for External Load Balancing (HTTP(S) LB, External TCP/UDP LB, SSL Proxy) .
         attribute :load_balancing_scheme
-        validates :load_balancing_scheme, inclusion: {:in=>[:INTERNAL, :EXTERNAL], :message=>"%{value} needs to be :INTERNAL, :EXTERNAL"}, allow_nil: true
+        validates :load_balancing_scheme, expression_inclusion: {:in=>[:INTERNAL, :EXTERNAL], :message=>"%{value} needs to be :INTERNAL, :EXTERNAL"}, allow_nil: true
 
         # @return [String] Name of the resource; provided by the client when the resource is created. The name must be 1-63 characters long, and comply with RFC1035. Specifically, the name must be 1-63 characters long and match the regular expression `[a-z]([-a-z0-9]*[a-z0-9])?` which means the first character must be a lowercase letter, and all following characters must be a dash, lowercase letter, or digit, except the last character, which cannot be a dash.
         attribute :name

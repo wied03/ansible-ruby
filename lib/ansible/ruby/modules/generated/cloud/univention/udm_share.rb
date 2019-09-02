@@ -10,7 +10,7 @@ module Ansible
       class Udm_share < Base
         # @return [:present, :absent, nil] Whether the share is present or not.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String] Name
         attribute :name
@@ -45,11 +45,11 @@ module Ansible
 
         # @return [0, 1, nil] Modify user ID for root user (root squashing).
         attribute :root_squash
-        validates :root_squash, inclusion: {:in=>[0, 1], :message=>"%{value} needs to be 0, 1"}, allow_nil: true
+        validates :root_squash, expression_inclusion: {:in=>[0, 1], :message=>"%{value} needs to be 0, 1"}, allow_nil: true
 
         # @return [0, 1, nil] Subtree checking.
         attribute :subtree_checking
-        validates :subtree_checking, inclusion: {:in=>[0, 1], :message=>"%{value} needs to be 0, 1"}, allow_nil: true
+        validates :subtree_checking, expression_inclusion: {:in=>[0, 1], :message=>"%{value} needs to be 0, 1"}, allow_nil: true
 
         # @return [String, nil] NFS synchronisation.
         attribute :sync
@@ -57,18 +57,18 @@ module Ansible
 
         # @return [0, 1, nil] NFS write access.
         attribute :writeable
-        validates :writeable, inclusion: {:in=>[0, 1], :message=>"%{value} needs to be 0, 1"}, allow_nil: true
+        validates :writeable, expression_inclusion: {:in=>[0, 1], :message=>"%{value} needs to be 0, 1"}, allow_nil: true
 
         # @return [Object, nil] Blocking size.
         attribute :samba_block_size
 
         # @return [0, 1, nil] Blocking locks.
         attribute :samba_blocking_locks
-        validates :samba_blocking_locks, inclusion: {:in=>[0, 1], :message=>"%{value} needs to be 0, 1"}, allow_nil: true
+        validates :samba_blocking_locks, expression_inclusion: {:in=>[0, 1], :message=>"%{value} needs to be 0, 1"}, allow_nil: true
 
         # @return [0, 1, nil] Show in Windows network environment.
         attribute :samba_browseable
-        validates :samba_browseable, inclusion: {:in=>[0, 1], :message=>"%{value} needs to be 0, 1"}, allow_nil: true
+        validates :samba_browseable, expression_inclusion: {:in=>[0, 1], :message=>"%{value} needs to be 0, 1"}, allow_nil: true
 
         # @return [String, nil] File mode.
         attribute :samba_create_mode
@@ -91,30 +91,30 @@ module Ansible
 
         # @return [0, 1, nil] Users with write access may modify permissions.
         attribute :samba_dos_filemode
-        validates :samba_dos_filemode, inclusion: {:in=>[0, 1], :message=>"%{value} needs to be 0, 1"}, allow_nil: true
+        validates :samba_dos_filemode, expression_inclusion: {:in=>[0, 1], :message=>"%{value} needs to be 0, 1"}, allow_nil: true
 
         # @return [0, 1, nil] Fake oplocks.
         attribute :samba_fake_oplocks
-        validates :samba_fake_oplocks, inclusion: {:in=>[0, 1], :message=>"%{value} needs to be 0, 1"}, allow_nil: true
+        validates :samba_fake_oplocks, expression_inclusion: {:in=>[0, 1], :message=>"%{value} needs to be 0, 1"}, allow_nil: true
 
         # @return [0, 1, nil] Force file mode.
         attribute :samba_force_create_mode
-        validates :samba_force_create_mode, inclusion: {:in=>[0, 1], :message=>"%{value} needs to be 0, 1"}, allow_nil: true
+        validates :samba_force_create_mode, expression_inclusion: {:in=>[0, 1], :message=>"%{value} needs to be 0, 1"}, allow_nil: true
 
         # @return [0, 1, nil] Force directory mode.
         attribute :samba_force_directory_mode
-        validates :samba_force_directory_mode, inclusion: {:in=>[0, 1], :message=>"%{value} needs to be 0, 1"}, allow_nil: true
+        validates :samba_force_directory_mode, expression_inclusion: {:in=>[0, 1], :message=>"%{value} needs to be 0, 1"}, allow_nil: true
 
         # @return [0, 1, nil] Force directory security mode.
         attribute :samba_force_directory_security_mode
-        validates :samba_force_directory_security_mode, inclusion: {:in=>[0, 1], :message=>"%{value} needs to be 0, 1"}, allow_nil: true
+        validates :samba_force_directory_security_mode, expression_inclusion: {:in=>[0, 1], :message=>"%{value} needs to be 0, 1"}, allow_nil: true
 
         # @return [Object, nil] Force group.
         attribute :samba_force_group
 
         # @return [0, 1, nil] Force security mode.
         attribute :samba_force_security_mode
-        validates :samba_force_security_mode, inclusion: {:in=>[0, 1], :message=>"%{value} needs to be 0, 1"}, allow_nil: true
+        validates :samba_force_security_mode, expression_inclusion: {:in=>[0, 1], :message=>"%{value} needs to be 0, 1"}, allow_nil: true
 
         # @return [Object, nil] Force user.
         attribute :samba_force_user
@@ -124,7 +124,7 @@ module Ansible
 
         # @return [0, 1, nil] Hide unreadable files/directories.
         attribute :samba_hide_unreadable
-        validates :samba_hide_unreadable, inclusion: {:in=>[0, 1], :message=>"%{value} needs to be 0, 1"}, allow_nil: true
+        validates :samba_hide_unreadable, expression_inclusion: {:in=>[0, 1], :message=>"%{value} needs to be 0, 1"}, allow_nil: true
 
         # @return [Object, nil] Allowed host/network.
         attribute :samba_hosts_allow
@@ -134,38 +134,38 @@ module Ansible
 
         # @return [0, 1, nil] Inherit ACLs.
         attribute :samba_inherit_acls
-        validates :samba_inherit_acls, inclusion: {:in=>[0, 1], :message=>"%{value} needs to be 0, 1"}, allow_nil: true
+        validates :samba_inherit_acls, expression_inclusion: {:in=>[0, 1], :message=>"%{value} needs to be 0, 1"}, allow_nil: true
 
         # @return [0, 1, nil] Create files/directories with the owner of the parent directory.
         attribute :samba_inherit_owner
-        validates :samba_inherit_owner, inclusion: {:in=>[0, 1], :message=>"%{value} needs to be 0, 1"}, allow_nil: true
+        validates :samba_inherit_owner, expression_inclusion: {:in=>[0, 1], :message=>"%{value} needs to be 0, 1"}, allow_nil: true
 
         # @return [0, 1, nil] Create files/directories with permissions of the parent directory.
         attribute :samba_inherit_permissions
-        validates :samba_inherit_permissions, inclusion: {:in=>[0, 1], :message=>"%{value} needs to be 0, 1"}, allow_nil: true
+        validates :samba_inherit_permissions, expression_inclusion: {:in=>[0, 1], :message=>"%{value} needs to be 0, 1"}, allow_nil: true
 
         # @return [Object, nil] Invalid users or groups.
         attribute :samba_invalid_users
 
         # @return [0, 1, nil] Level 2 oplocks.
         attribute :samba_level_2_oplocks
-        validates :samba_level_2_oplocks, inclusion: {:in=>[0, 1], :message=>"%{value} needs to be 0, 1"}, allow_nil: true
+        validates :samba_level_2_oplocks, expression_inclusion: {:in=>[0, 1], :message=>"%{value} needs to be 0, 1"}, allow_nil: true
 
         # @return [0, 1, nil] Locking.
         attribute :samba_locking
-        validates :samba_locking, inclusion: {:in=>[0, 1], :message=>"%{value} needs to be 0, 1"}, allow_nil: true
+        validates :samba_locking, expression_inclusion: {:in=>[0, 1], :message=>"%{value} needs to be 0, 1"}, allow_nil: true
 
         # @return [0, 1, nil] MSDFS root.
         attribute :samba_msdfs_root
-        validates :samba_msdfs_root, inclusion: {:in=>[0, 1], :message=>"%{value} needs to be 0, 1"}, allow_nil: true
+        validates :samba_msdfs_root, expression_inclusion: {:in=>[0, 1], :message=>"%{value} needs to be 0, 1"}, allow_nil: true
 
         # @return [0, 1, nil] NT ACL support.
         attribute :samba_nt_acl_support
-        validates :samba_nt_acl_support, inclusion: {:in=>[0, 1], :message=>"%{value} needs to be 0, 1"}, allow_nil: true
+        validates :samba_nt_acl_support, expression_inclusion: {:in=>[0, 1], :message=>"%{value} needs to be 0, 1"}, allow_nil: true
 
         # @return [0, 1, nil] Oplocks.
         attribute :samba_oplocks
-        validates :samba_oplocks, inclusion: {:in=>[0, 1], :message=>"%{value} needs to be 0, 1"}, allow_nil: true
+        validates :samba_oplocks, expression_inclusion: {:in=>[0, 1], :message=>"%{value} needs to be 0, 1"}, allow_nil: true
 
         # @return [Object, nil] Postexec script.
         attribute :samba_postexec
@@ -175,7 +175,7 @@ module Ansible
 
         # @return [0, 1, nil] Allow anonymous read-only access with a guest user.
         attribute :samba_public
-        validates :samba_public, inclusion: {:in=>[0, 1], :message=>"%{value} needs to be 0, 1"}, allow_nil: true
+        validates :samba_public, expression_inclusion: {:in=>[0, 1], :message=>"%{value} needs to be 0, 1"}, allow_nil: true
 
         # @return [String, nil] Security mode.
         attribute :samba_security_mode
@@ -196,7 +196,7 @@ module Ansible
 
         # @return [0, 1, nil] Samba write access.
         attribute :samba_writeable
-        validates :samba_writeable, inclusion: {:in=>[0, 1], :message=>"%{value} needs to be 0, 1"}, allow_nil: true
+        validates :samba_writeable, expression_inclusion: {:in=>[0, 1], :message=>"%{value} needs to be 0, 1"}, allow_nil: true
 
         # @return [Object, nil] Only allow access for this host, IP address or network.
         attribute :nfs_hosts

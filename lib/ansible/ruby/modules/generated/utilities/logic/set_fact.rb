@@ -17,7 +17,7 @@ module Ansible
 
         # @return [:yes, :no, nil] This boolean indicates if the facts set will also be added to the fact cache, if fact caching is enabled.
         attribute :cacheable
-        validates :cacheable, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :cacheable, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

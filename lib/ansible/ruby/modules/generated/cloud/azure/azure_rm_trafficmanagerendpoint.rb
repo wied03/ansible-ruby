@@ -22,7 +22,7 @@ module Ansible
 
         # @return [:azure_endpoints, :external_endpoints, :nested_endpoints] The type of the endpoint.
         attribute :type
-        validates :type, presence: true, inclusion: {:in=>[:azure_endpoints, :external_endpoints, :nested_endpoints], :message=>"%{value} needs to be :azure_endpoints, :external_endpoints, :nested_endpoints"}
+        validates :type, presence: true, expression_inclusion: {:in=>[:azure_endpoints, :external_endpoints, :nested_endpoints], :message=>"%{value} needs to be :azure_endpoints, :external_endpoints, :nested_endpoints"}
 
         # @return [String, nil] The Azure Resource URI of the of the endpoint.,Not applicable to endpoints of I(type) C(external_endpoints).
         attribute :target_resource_id
@@ -34,7 +34,7 @@ module Ansible
 
         # @return [Boolean, nil] The status of the endpoint.
         attribute :enabled
-        validates :enabled, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :enabled, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Integer, nil] The weight of this endpoint when traffic manager profile has routing_method of C(weighted).,Possible values are from 1 to 1000.
         attribute :weight
@@ -58,7 +58,7 @@ module Ansible
 
         # @return [:absent, :present, nil] Assert the state of the Traffic Manager endpoint. Use C(present) to create or update a Traffic Manager endpoint and C(absent) to delete it.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
       end
     end
   end

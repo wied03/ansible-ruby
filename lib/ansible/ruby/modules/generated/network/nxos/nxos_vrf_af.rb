@@ -14,11 +14,11 @@ module Ansible
 
         # @return [:ipv4, :ipv6] Address-Family Identifier (AFI).
         attribute :afi
-        validates :afi, presence: true, inclusion: {:in=>[:ipv4, :ipv6], :message=>"%{value} needs to be :ipv4, :ipv6"}
+        validates :afi, presence: true, expression_inclusion: {:in=>[:ipv4, :ipv6], :message=>"%{value} needs to be :ipv4, :ipv6"}
 
         # @return [:unicast, :multicast] Sub Address-Family Identifier (SAFI).,Deprecated in 2.4
         attribute :safi
-        validates :safi, presence: true, inclusion: {:in=>[:unicast, :multicast], :message=>"%{value} needs to be :unicast, :multicast"}
+        validates :safi, presence: true, expression_inclusion: {:in=>[:unicast, :multicast], :message=>"%{value} needs to be :unicast, :multicast"}
 
         # @return [Symbol, nil] Enable/Disable the EVPN route-target 'auto' setting for both import and export target communities.
         attribute :route_target_both_auto_evpn
@@ -26,7 +26,7 @@ module Ansible
 
         # @return [:present, :absent, nil] Determines whether the config should be present or not on the device.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

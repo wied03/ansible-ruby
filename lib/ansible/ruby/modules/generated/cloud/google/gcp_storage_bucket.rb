@@ -12,7 +12,7 @@ module Ansible
       class Gcp_storage_bucket < Base
         # @return [:present, :absent, nil] Whether the given object should exist in GCP
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [Object, nil] Access controls on the bucket.
         attribute :acl
@@ -44,7 +44,7 @@ module Ansible
 
         # @return [:MULTI_REGIONAL, :REGIONAL, :STANDARD, :NEARLINE, :COLDLINE, :DURABLE_REDUCED_AVAILABILITY, nil] The bucket's default storage class, used whenever no storageClass is specified for a newly-created object. This defines how objects in the bucket are stored and determines the SLA and the cost of storage.,Values include MULTI_REGIONAL, REGIONAL, STANDARD, NEARLINE, COLDLINE, and DURABLE_REDUCED_AVAILABILITY. If this value is not specified when the bucket is created, it will default to STANDARD. For more information, see storage classes.
         attribute :storage_class
-        validates :storage_class, inclusion: {:in=>[:MULTI_REGIONAL, :REGIONAL, :STANDARD, :NEARLINE, :COLDLINE, :DURABLE_REDUCED_AVAILABILITY], :message=>"%{value} needs to be :MULTI_REGIONAL, :REGIONAL, :STANDARD, :NEARLINE, :COLDLINE, :DURABLE_REDUCED_AVAILABILITY"}, allow_nil: true
+        validates :storage_class, expression_inclusion: {:in=>[:MULTI_REGIONAL, :REGIONAL, :STANDARD, :NEARLINE, :COLDLINE, :DURABLE_REDUCED_AVAILABILITY], :message=>"%{value} needs to be :MULTI_REGIONAL, :REGIONAL, :STANDARD, :NEARLINE, :COLDLINE, :DURABLE_REDUCED_AVAILABILITY"}, allow_nil: true
 
         # @return [Object, nil] The bucket's versioning configuration.
         attribute :versioning
@@ -58,7 +58,7 @@ module Ansible
 
         # @return [:authenticatedRead, :bucketOwnerFullControl, :bucketOwnerRead, :private, :projectPrivate, :publicRead, nil] Apply a predefined set of default object access controls to this bucket.,Acceptable values are:   - "authenticatedRead": Object owner gets OWNER access, and     allAuthenticatedUsers get READER access.,- "bucketOwnerFullControl": Object owner gets OWNER access, and     project team owners get OWNER access.,- "bucketOwnerRead": Object owner gets OWNER access, and project     team owners get READER access.,- "private": Object owner gets OWNER access.,- "projectPrivate": Object owner gets OWNER access, and project team     members get access according to their roles.,- "publicRead": Object owner gets OWNER access, and allUsers get     READER access.
         attribute :predefined_default_object_acl
-        validates :predefined_default_object_acl, inclusion: {:in=>[:authenticatedRead, :bucketOwnerFullControl, :bucketOwnerRead, :private, :projectPrivate, :publicRead], :message=>"%{value} needs to be :authenticatedRead, :bucketOwnerFullControl, :bucketOwnerRead, :private, :projectPrivate, :publicRead"}, allow_nil: true
+        validates :predefined_default_object_acl, expression_inclusion: {:in=>[:authenticatedRead, :bucketOwnerFullControl, :bucketOwnerRead, :private, :projectPrivate, :publicRead], :message=>"%{value} needs to be :authenticatedRead, :bucketOwnerFullControl, :bucketOwnerRead, :private, :projectPrivate, :publicRead"}, allow_nil: true
       end
     end
   end

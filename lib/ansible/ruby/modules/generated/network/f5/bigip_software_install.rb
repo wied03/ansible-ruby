@@ -18,7 +18,7 @@ module Ansible
 
         # @return [:activated, :installed, nil] When C(installed), ensures that the software is installed on the volume and the volume is set to be booted from. The device is B(not) rebooted into the new software.,When C(activated), performs the same operation as C(installed), but the system is rebooted to the new software.
         attribute :state
-        validates :state, inclusion: {:in=>[:activated, :installed], :message=>"%{value} needs to be :activated, :installed"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:activated, :installed], :message=>"%{value} needs to be :activated, :installed"}, allow_nil: true
       end
     end
   end

@@ -15,7 +15,7 @@ module Ansible
 
         # @return [:system, :user, nil] The installation method to use.,Defines if the I(flatpak) is supposed to be installed globally for the whole C(system) or only for the current C(user).
         attribute :method
-        validates :method, inclusion: {:in=>[:system, :user], :message=>"%{value} needs to be :system, :user"}, allow_nil: true
+        validates :method, expression_inclusion: {:in=>[:system, :user], :message=>"%{value} needs to be :system, :user"}, allow_nil: true
 
         # @return [String] The name of the flatpak to manage.,When used with I(state=present), I(name) can be specified as an C(http(s)) URL to a C(flatpakref) file or the unique reverse DNS name that identifies a flatpak.,When suppying a reverse DNS name, you can use the I(remote) option to specify on what remote to look for the flatpak. An example for a reverse DNS name is C(org.gnome.gedit).,When used with I(state=absent), it is recommended to specify the name in the reverse DNS format.,When supplying an C(http(s)) URL with I(state=absent), the module will try to match the installed flatpak based on the name of the flatpakref to remove it. However, there is no guarantee that the names of the flatpakref file and the reverse DNS name of the installed flatpak do match.
         attribute :name
@@ -27,7 +27,7 @@ module Ansible
 
         # @return [:absent, :present, nil] Indicates the desired package state.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
       end
     end
   end

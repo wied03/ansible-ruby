@@ -10,7 +10,7 @@ module Ansible
       class Cisco_spark < Base
         # @return [:roomId, :toPersonEmail, :toPersonId] The request parameter you would like to send the message to.,Messages can be sent to either a room or individual (by ID or E-Mail).
         attribute :recipient_type
-        validates :recipient_type, presence: true, inclusion: {:in=>[:roomId, :toPersonEmail, :toPersonId], :message=>"%{value} needs to be :roomId, :toPersonEmail, :toPersonId"}
+        validates :recipient_type, presence: true, expression_inclusion: {:in=>[:roomId, :toPersonEmail, :toPersonId], :message=>"%{value} needs to be :roomId, :toPersonEmail, :toPersonId"}
 
         # @return [String] The unique identifier associated with the supplied C(recipient_type).
         attribute :recipient_id
@@ -18,7 +18,7 @@ module Ansible
 
         # @return [:text, :markdown, nil] Specifies how you would like the message formatted.
         attribute :message_type
-        validates :message_type, inclusion: {:in=>[:text, :markdown], :message=>"%{value} needs to be :text, :markdown"}, allow_nil: true
+        validates :message_type, expression_inclusion: {:in=>[:text, :markdown], :message=>"%{value} needs to be :text, :markdown"}, allow_nil: true
 
         # @return [String] Your personal access token required to validate the Spark API.
         attribute :personal_token

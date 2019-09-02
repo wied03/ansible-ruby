@@ -33,15 +33,15 @@ module Ansible
 
         # @return [Boolean, nil] Detaches any managed policies not listed in the "managed_policy" option. Set to false if you want to attach policies elsewhere.
         attribute :purge_policies
-        validates :purge_policies, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :purge_policies, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [:present, :absent, nil] Create or remove the IAM role
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [Boolean, nil] Creates an IAM instance profile along with the role
         attribute :create_instance_profile
-        validates :create_instance_profile, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :create_instance_profile, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
       end
     end
   end

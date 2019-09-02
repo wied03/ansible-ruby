@@ -18,7 +18,7 @@ module Ansible
 
         # @return [:absent, :present, nil] State of the web application.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
         # @return [String, nil] The physical path on the remote host to use for the new application.,The specified folder must already exist.
         attribute :physical_path

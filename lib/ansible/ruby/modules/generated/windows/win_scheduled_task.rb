@@ -18,7 +18,7 @@ module Ansible
 
         # @return [:absent, :present, nil] When C(state=present) will ensure the task exists.,When C(state=absent) will ensure the task does not exist.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
         # @return [Array<String>, String, nil] A list of action to configure for the task.,See suboptions for details on how to construct each list entry.,When creating a task there MUST be at least one action but when deleting a task this can be a null or an empty list.,The ordering of this list is important, the module will ensure the order is kept when modifying the task.,This module only supports the C(ExecAction) type but can still delete the older legacy types.
         attribute :actions
@@ -36,11 +36,11 @@ module Ansible
 
         # @return [:none, :password, :s4u, :interactive_token, :group, :service_account, :token_or_password, nil] The logon method that the task will run with.,C(password) means the password will be stored and the task has access to network resources.,C(s4u) means the existing token will be used to run the task and no password will be stored with the task. Means no network or encrypted files access.,C(interactive_token) means the user must already be logged on interactively and will run in an existing interactive session.,C(group) means that the task will run as a group.,C(service_account) means that a service account like System, Local Service or Network Service will run the task.
         attribute :logon_type
-        validates :logon_type, inclusion: {:in=>[:none, :password, :s4u, :interactive_token, :group, :service_account, :token_or_password], :message=>"%{value} needs to be :none, :password, :s4u, :interactive_token, :group, :service_account, :token_or_password"}, allow_nil: true
+        validates :logon_type, expression_inclusion: {:in=>[:none, :password, :s4u, :interactive_token, :group, :service_account, :token_or_password], :message=>"%{value} needs to be :none, :password, :s4u, :interactive_token, :group, :service_account, :token_or_password"}, allow_nil: true
 
         # @return [:limited, :highest, nil] The level of user rights used to run the task.,If not specified the task will be created with limited rights.
         attribute :run_level
-        validates :run_level, inclusion: {:in=>[:limited, :highest], :message=>"%{value} needs to be :limited, :highest"}, allow_nil: true
+        validates :run_level, expression_inclusion: {:in=>[:limited, :highest], :message=>"%{value} needs to be :limited, :highest"}, allow_nil: true
 
         # @return [String, nil] The user to run the scheduled task as.,Will default to the current user under an interactive token if not specified during creation.
         attribute :username
@@ -52,7 +52,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Whether to update the password even when not other changes have occured.,When C(yes) will always result in a change when executing the module.
         attribute :update_password
-        validates :update_password, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :update_password, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] The author of the task.
         attribute :author
@@ -80,7 +80,7 @@ module Ansible
 
         # @return [0, 1, 2, nil] The integer value with indicates which version of Task Scheduler a task is compatible with.,C(0) means the task is compatible with the AT command.,C(1) means the task is compatible with Task Scheduler 1.0.,C(2) means the task is compatible with Task Scheduler 2.0.
         attribute :compatibility
-        validates :compatibility, inclusion: {:in=>[0, 1, 2], :message=>"%{value} needs to be 0, 1, 2"}, allow_nil: true
+        validates :compatibility, expression_inclusion: {:in=>[0, 1, 2], :message=>"%{value} needs to be 0, 1, 2"}, allow_nil: true
 
         # @return [Object, nil] The amount of time that the Task Scheduler will wait before deleting the task after it expires.,A task expires after the end_boundary has been exceeded for all triggers associated with the task.,This is in the ISO 8601 Duration format C(P[n]Y[n]M[n]DT[n]H[n]M[n]S).
         attribute :delete_expired_task_after
@@ -102,7 +102,7 @@ module Ansible
 
         # @return [0, 1, 2, 3, nil] An integer that indicates the behaviour when starting a task that is already running.,C(0) will start a new instance in parallel with existing instances of that task.,C(1) will wait until other instances of that task to finish running before starting itself.,C(2) will not start a new instance if another is running.,C(3) will stop other instances of the task and start the new one.
         attribute :multiple_instances
-        validates :multiple_instances, inclusion: {:in=>[0, 1, 2, 3], :message=>"%{value} needs to be 0, 1, 2, 3"}, allow_nil: true
+        validates :multiple_instances, expression_inclusion: {:in=>[0, 1, 2, 3], :message=>"%{value} needs to be 0, 1, 2, 3"}, allow_nil: true
 
         # @return [Integer, nil] The priority level (0-10) of the task.,When creating a new task the default if C(7).,See U(https://msdn.microsoft.com/en-us/library/windows/desktop/aa383512.aspx) for details on the priority levels.
         attribute :priority

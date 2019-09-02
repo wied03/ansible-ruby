@@ -10,7 +10,7 @@ module Ansible
       class Gcp_compute_target_pool < Base
         # @return [:present, :absent, nil] Whether the given object should exist in GCP
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [Object, nil] This field is applicable only when the containing target pool is serving a forwarding rule as the primary pool, and its failoverRatio field is properly set to a value between [0, 1].,backupPool and failoverRatio together define the fallback behavior of the primary target pool: if the ratio of the healthy instances in the primary pool is at or below failoverRatio, traffic arriving at the load-balanced IP will be directed to the backup pool.,In case where failoverRatio and backupPool are not set, or all the instances in the backup pool are unhealthy, the traffic will be directed back to the primary pool in the "force" mode, where traffic will be spread to the healthy instances with the best effort, or to all instances when no instance is healthy.
         attribute :backup_pool
@@ -33,7 +33,7 @@ module Ansible
 
         # @return [:NONE, :CLIENT_IP, :CLIENT_IP_PROTO, nil] Session affinity option. Must be one of these values:  - NONE: Connections from the same client IP may go to any instance in   the pool.,- CLIENT_IP: Connections from the same client IP will go to the same   instance in the pool while that instance remains healthy.,- CLIENT_IP_PROTO: Connections from the same client IP with the same   IP protocol will go to the same instance in the pool while that   instance remains healthy.
         attribute :session_affinity
-        validates :session_affinity, inclusion: {:in=>[:NONE, :CLIENT_IP, :CLIENT_IP_PROTO], :message=>"%{value} needs to be :NONE, :CLIENT_IP, :CLIENT_IP_PROTO"}, allow_nil: true
+        validates :session_affinity, expression_inclusion: {:in=>[:NONE, :CLIENT_IP, :CLIENT_IP_PROTO], :message=>"%{value} needs to be :NONE, :CLIENT_IP, :CLIENT_IP_PROTO"}, allow_nil: true
 
         # @return [String] The region where the target pool resides.
         attribute :region

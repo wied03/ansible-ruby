@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:first, :last, nil] If multiple VMs match the name, use the first or last found.
         attribute :name_match
-        validates :name_match, inclusion: {:in=>[:first, :last], :message=>"%{value} needs to be :first, :last"}, allow_nil: true
+        validates :name_match, expression_inclusion: {:in=>[:first, :last], :message=>"%{value} needs to be :first, :last"}, allow_nil: true
 
         # @return [String, nil] Destination folder, absolute or relative path to find an existing guest.,This is required only, if multiple VMs with same C(name) is found.,The folder should include the datacenter. ESX's datacenter is C(ha-datacenter).,Examples:,   folder: /ha-datacenter/vm,   folder: ha-datacenter/vm,   folder: /datacenter1/vm,   folder: datacenter1/vm,   folder: /datacenter1/vm/folder1,   folder: datacenter1/vm/folder1,   folder: /folder1/datacenter1/vm,   folder: folder1/datacenter1/vm,   folder: /folder1/datacenter1/vm/folder2
         attribute :folder

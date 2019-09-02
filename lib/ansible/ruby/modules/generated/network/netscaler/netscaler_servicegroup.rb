@@ -15,11 +15,11 @@ module Ansible
 
         # @return [:HTTP, :FTP, :TCP, :UDP, :SSL, :SSL_BRIDGE, :SSL_TCP, :DTLS, :NNTP, :RPCSVR, :DNS, :ADNS, :SNMP, :RTSP, :DHCPRA, :ANY, :SIP_UDP, :SIP_TCP, :SIP_SSL, :DNS_TCP, :ADNS_TCP, :MYSQL, :MSSQL, :ORACLE, :RADIUS, :RADIUSListener, :RDP, :DIAMETER, :SSL_DIAMETER, :TFTP, :SMPP, :PPTP, :GRE, :SYSLOGTCP, :SYSLOGUDP, :FIX, :SSL_FIX, nil] Protocol used to exchange data with the service.
         attribute :servicetype
-        validates :servicetype, inclusion: {:in=>[:HTTP, :FTP, :TCP, :UDP, :SSL, :SSL_BRIDGE, :SSL_TCP, :DTLS, :NNTP, :RPCSVR, :DNS, :ADNS, :SNMP, :RTSP, :DHCPRA, :ANY, :SIP_UDP, :SIP_TCP, :SIP_SSL, :DNS_TCP, :ADNS_TCP, :MYSQL, :MSSQL, :ORACLE, :RADIUS, :RADIUSListener, :RDP, :DIAMETER, :SSL_DIAMETER, :TFTP, :SMPP, :PPTP, :GRE, :SYSLOGTCP, :SYSLOGUDP, :FIX, :SSL_FIX], :message=>"%{value} needs to be :HTTP, :FTP, :TCP, :UDP, :SSL, :SSL_BRIDGE, :SSL_TCP, :DTLS, :NNTP, :RPCSVR, :DNS, :ADNS, :SNMP, :RTSP, :DHCPRA, :ANY, :SIP_UDP, :SIP_TCP, :SIP_SSL, :DNS_TCP, :ADNS_TCP, :MYSQL, :MSSQL, :ORACLE, :RADIUS, :RADIUSListener, :RDP, :DIAMETER, :SSL_DIAMETER, :TFTP, :SMPP, :PPTP, :GRE, :SYSLOGTCP, :SYSLOGUDP, :FIX, :SSL_FIX"}, allow_nil: true
+        validates :servicetype, expression_inclusion: {:in=>[:HTTP, :FTP, :TCP, :UDP, :SSL, :SSL_BRIDGE, :SSL_TCP, :DTLS, :NNTP, :RPCSVR, :DNS, :ADNS, :SNMP, :RTSP, :DHCPRA, :ANY, :SIP_UDP, :SIP_TCP, :SIP_SSL, :DNS_TCP, :ADNS_TCP, :MYSQL, :MSSQL, :ORACLE, :RADIUS, :RADIUSListener, :RDP, :DIAMETER, :SSL_DIAMETER, :TFTP, :SMPP, :PPTP, :GRE, :SYSLOGTCP, :SYSLOGUDP, :FIX, :SSL_FIX], :message=>"%{value} needs to be :HTTP, :FTP, :TCP, :UDP, :SSL, :SSL_BRIDGE, :SSL_TCP, :DTLS, :NNTP, :RPCSVR, :DNS, :ADNS, :SNMP, :RTSP, :DHCPRA, :ANY, :SIP_UDP, :SIP_TCP, :SIP_SSL, :DNS_TCP, :ADNS_TCP, :MYSQL, :MSSQL, :ORACLE, :RADIUS, :RADIUSListener, :RDP, :DIAMETER, :SSL_DIAMETER, :TFTP, :SMPP, :PPTP, :GRE, :SYSLOGTCP, :SYSLOGUDP, :FIX, :SSL_FIX"}, allow_nil: true
 
         # @return [:TRANSPARENT, :REVERSE, :FORWARD, nil] Cache type supported by the cache server.
         attribute :cachetype
-        validates :cachetype, inclusion: {:in=>[:TRANSPARENT, :REVERSE, :FORWARD], :message=>"%{value} needs to be :TRANSPARENT, :REVERSE, :FORWARD"}, allow_nil: true
+        validates :cachetype, expression_inclusion: {:in=>[:TRANSPARENT, :REVERSE, :FORWARD], :message=>"%{value} needs to be :TRANSPARENT, :REVERSE, :FORWARD"}, allow_nil: true
 
         # @return [Object, nil] Maximum number of simultaneous open connections for the service group.,Minimum value = C(0),Maximum value = C(4294967294)
         attribute :maxclient
@@ -33,7 +33,7 @@ module Ansible
 
         # @return [:enabled, :disabled, nil] Insert the Client IP header in requests forwarded to the service.
         attribute :cip
-        validates :cip, inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
+        validates :cip, expression_inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
 
         # @return [Object, nil] Name of the HTTP header whose value must be set to the IP address of the client. Used with the Client IP parameter. If client IP insertion is enabled, and the client IP header is not specified, the value of Client IP Header parameter or the value set by the set ns config command is used as client's IP header name.,Minimum length = 1
         attribute :cipheader
@@ -89,7 +89,7 @@ module Ansible
 
         # @return [:enabled, :disabled, nil] Flush all active transactions associated with all the services in the service group whose state transitions from UP to DOWN. Do not enable this option for applications that must complete their transactions.
         attribute :downstateflush
-        validates :downstateflush, inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
+        validates :downstateflush, expression_inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
 
         # @return [Object, nil] Name of the TCP profile that contains TCP configuration settings for the service group.,Minimum length = 1,Maximum length = 127
         attribute :tcpprofilename
@@ -102,14 +102,14 @@ module Ansible
 
         # @return [:enabled, :disabled, nil] Enable logging of AppFlow information for the specified service group.
         attribute :appflowlog
-        validates :appflowlog, inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
+        validates :appflowlog, expression_inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
 
         # @return [Object, nil] Network profile for the service group.,Minimum length = 1,Maximum length = 127
         attribute :netprofile
 
         # @return [:DISABLED, :DNS, :POLICY, nil] Auto scale option for a servicegroup.
         attribute :autoscale
-        validates :autoscale, inclusion: {:in=>[:DISABLED, :DNS, :POLICY], :message=>"%{value} needs to be :DISABLED, :DNS, :POLICY"}, allow_nil: true
+        validates :autoscale, expression_inclusion: {:in=>[:DISABLED, :DNS, :POLICY], :message=>"%{value} needs to be :DISABLED, :DNS, :POLICY"}, allow_nil: true
 
         # @return [Object, nil] member port.
         attribute :memberport

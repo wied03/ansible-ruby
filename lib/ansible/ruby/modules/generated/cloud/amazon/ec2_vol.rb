@@ -45,7 +45,7 @@ module Ansible
 
         # @return [:yes, :no, nil] When set to "yes", the volume will be deleted upon instance termination.
         attribute :delete_on_termination
-        validates :delete_on_termination, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :delete_on_termination, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] zone in which to create the volume, if unset uses the zone the instance is in (if set)
         attribute :zone
@@ -57,11 +57,11 @@ module Ansible
 
         # @return [:yes, :no, nil] When set to "no", SSL certificates will not be validated for boto versions >= 2.6.0.
         attribute :validate_certs
-        validates :validate_certs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :validate_certs, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:absent, :present, :list, nil] whether to ensure the volume is present or absent, or to list existing volumes (The C(list) option was added in version 1.8).
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present, :list], :message=>"%{value} needs to be :absent, :present, :list"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present, :list], :message=>"%{value} needs to be :absent, :present, :list"}, allow_nil: true
 
         # @return [Object, nil] tag:value pairs to add to the volume after creation
         attribute :tags

@@ -42,7 +42,7 @@ module Ansible
 
         # @return [:present, :absent, :latest, nil] The state of the node.js library
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent, :latest], :message=>"%{value} needs to be :present, :absent, :latest"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent, :latest], :message=>"%{value} needs to be :present, :absent, :latest"}, allow_nil: true
       end
     end
   end

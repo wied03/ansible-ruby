@@ -18,7 +18,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Ansible will automatically reboot the remote host if it is required and continue to install updates after the reboot.,This can be used instead of using a M(win_reboot) task after this one and ensures all updates for that category is installed in one go.,Async does not work when C(reboot=True).
         attribute :reboot
-        validates :reboot, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :reboot, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] The time in seconds to wait until the host is back online from a reboot.,This is only used if C(reboot=True) and a reboot is required.
         attribute :reboot_timeout
@@ -26,7 +26,7 @@ module Ansible
 
         # @return [:installed, :searched, nil] Controls whether found updates are returned as a list or actually installed.,This module also supports Ansible check mode, which has the same effect as setting state=searched
         attribute :state
-        validates :state, inclusion: {:in=>[:installed, :searched], :message=>"%{value} needs to be :installed, :searched"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:installed, :searched], :message=>"%{value} needs to be :installed, :searched"}, allow_nil: true
 
         # @return [String, nil] If set, C(win_updates) will append update progress to the specified file. The directory must already exist.
         attribute :log_path
@@ -38,7 +38,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Will not auto elevate the remote process with I(become) and use a scheduled task instead.,Set this to C(yes) when using this module with async on Server 2008, 2008 R2, or Windows 7, or on Server 2008 that is not authenticated with basic or credssp.,Can also be set to C(yes) on newer hosts where become does not work due to further privilege restrictions from the OS defaults.
         attribute :use_scheduled_task
-        validates :use_scheduled_task, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :use_scheduled_task, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

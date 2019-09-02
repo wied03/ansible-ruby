@@ -24,11 +24,11 @@ module Ansible
 
         # @return [:yes, :no, nil] Override the current pagefile on the drive.
         attribute :override
-        validates :override, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :override, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:yes, :no, nil] Configures current pagefile to be managed by the system.
         attribute :system_managed
-        validates :system_managed, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :system_managed, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Symbol, nil] Configures AutomaticManagedPagefile for the entire system.
         attribute :automatic
@@ -36,15 +36,15 @@ module Ansible
 
         # @return [:yes, :no, nil] Remove all pagefiles in the system, not including automatic managed.
         attribute :remove_all
-        validates :remove_all, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :remove_all, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:yes, :no, nil] Use Test-Path on the drive to make sure the drive is accessible before creating the pagefile.
         attribute :test_path
-        validates :test_path, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :test_path, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:absent, :present, :query, nil] State of the pagefile.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present, :query], :message=>"%{value} needs to be :absent, :present, :query"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present, :query], :message=>"%{value} needs to be :absent, :present, :query"}, allow_nil: true
       end
     end
   end

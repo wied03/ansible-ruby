@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:present, :absent, :enabled, :disabled, nil] The server state. If C(absent), an attempt to delete the server will be made. This will only succeed if this server is not in use by a virtual server. C(present) creates the server and enables it. If C(enabled), enable the server if it exists. If C(disabled), create the server if needed, and set state to C(disabled).
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent, :enabled, :disabled], :message=>"%{value} needs to be :present, :absent, :enabled, :disabled"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent, :enabled, :disabled], :message=>"%{value} needs to be :present, :absent, :enabled, :disabled"}, allow_nil: true
 
         # @return [String, nil] Data center the server belongs to. When creating a new GTM server, this value is required.
         attribute :datacenter
@@ -26,15 +26,15 @@ module Ansible
 
         # @return [:"alteon-ace-director", :"cisco-css", :"cisco-server-load-balancer", :"generic-host", :"radware-wsd", :"windows-nt-4.0", :bigip, :"cisco-local-director-v2", :extreme, :"generic-load-balancer", :"sun-solaris", :cacheflow, :"cisco-local-director-v3", :"foundry-server-iron", :netapp, :"windows-2000-server", nil] Specifies the server type. The server type determines the metrics that the system can collect from the server. When creating a new GTM server, the default value C(bigip) is used.
         attribute :server_type
-        validates :server_type, inclusion: {:in=>[:"alteon-ace-director", :"cisco-css", :"cisco-server-load-balancer", :"generic-host", :"radware-wsd", :"windows-nt-4.0", :bigip, :"cisco-local-director-v2", :extreme, :"generic-load-balancer", :"sun-solaris", :cacheflow, :"cisco-local-director-v3", :"foundry-server-iron", :netapp, :"windows-2000-server"], :message=>"%{value} needs to be :\"alteon-ace-director\", :\"cisco-css\", :\"cisco-server-load-balancer\", :\"generic-host\", :\"radware-wsd\", :\"windows-nt-4.0\", :bigip, :\"cisco-local-director-v2\", :extreme, :\"generic-load-balancer\", :\"sun-solaris\", :cacheflow, :\"cisco-local-director-v3\", :\"foundry-server-iron\", :netapp, :\"windows-2000-server\""}, allow_nil: true
+        validates :server_type, expression_inclusion: {:in=>[:"alteon-ace-director", :"cisco-css", :"cisco-server-load-balancer", :"generic-host", :"radware-wsd", :"windows-nt-4.0", :bigip, :"cisco-local-director-v2", :extreme, :"generic-load-balancer", :"sun-solaris", :cacheflow, :"cisco-local-director-v3", :"foundry-server-iron", :netapp, :"windows-2000-server"], :message=>"%{value} needs to be :\"alteon-ace-director\", :\"cisco-css\", :\"cisco-server-load-balancer\", :\"generic-host\", :\"radware-wsd\", :\"windows-nt-4.0\", :bigip, :\"cisco-local-director-v2\", :extreme, :\"generic-load-balancer\", :\"sun-solaris\", :cacheflow, :\"cisco-local-director-v3\", :\"foundry-server-iron\", :netapp, :\"windows-2000-server\""}, allow_nil: true
 
         # @return [:enabled, :disabled, :"enabled-no-delete", nil] Specifies whether the system auto-discovers the links for this server. When creating a new GTM server, if this parameter is not specified, the default value C(disabled) is used.,If you set this parameter to C(enabled) or C(enabled-no-delete), you must also ensure that the C(virtual_server_discovery) parameter is also set to C(enabled) or C(enabled-no-delete).
         attribute :link_discovery
-        validates :link_discovery, inclusion: {:in=>[:enabled, :disabled, :"enabled-no-delete"], :message=>"%{value} needs to be :enabled, :disabled, :\"enabled-no-delete\""}, allow_nil: true
+        validates :link_discovery, expression_inclusion: {:in=>[:enabled, :disabled, :"enabled-no-delete"], :message=>"%{value} needs to be :enabled, :disabled, :\"enabled-no-delete\""}, allow_nil: true
 
         # @return [:enabled, :disabled, :"enabled-no-delete", nil] Specifies whether the system auto-discovers the virtual servers for this server. When creating a new GTM server, if this parameter is not specified, the default value C(disabled) is used.
         attribute :virtual_server_discovery
-        validates :virtual_server_discovery, inclusion: {:in=>[:enabled, :disabled, :"enabled-no-delete"], :message=>"%{value} needs to be :enabled, :disabled, :\"enabled-no-delete\""}, allow_nil: true
+        validates :virtual_server_discovery, expression_inclusion: {:in=>[:enabled, :disabled, :"enabled-no-delete"], :message=>"%{value} needs to be :enabled, :disabled, :\"enabled-no-delete\""}, allow_nil: true
 
         # @return [String, nil] Device partition to manage resources on.
         attribute :partition

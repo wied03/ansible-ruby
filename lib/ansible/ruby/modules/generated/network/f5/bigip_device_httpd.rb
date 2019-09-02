@@ -36,7 +36,7 @@ module Ansible
 
         # @return [:alert, :crit, :debug, :emerg, :error, :info, :notice, :warn, nil] Sets the minimum httpd log level.
         attribute :log_level
-        validates :log_level, inclusion: {:in=>[:alert, :crit, :debug, :emerg, :error, :info, :notice, :warn], :message=>"%{value} needs to be :alert, :crit, :debug, :emerg, :error, :info, :notice, :warn"}, allow_nil: true
+        validates :log_level, expression_inclusion: {:in=>[:alert, :crit, :debug, :emerg, :error, :info, :notice, :warn], :message=>"%{value} needs to be :alert, :crit, :debug, :emerg, :error, :info, :notice, :warn"}, allow_nil: true
 
         # @return [Object, nil] Sets the maximum number of clients that can connect to the GUI at once.
         attribute :max_clients

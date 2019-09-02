@@ -67,7 +67,7 @@ module Ansible
 
         # @return [:present, :absent, :restarted, :reinstalled, :started, :stopped, nil] State of the server.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent, :restarted, :reinstalled, :started, :stopped], :message=>"%{value} needs to be :present, :absent, :restarted, :reinstalled, :started, :stopped"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent, :restarted, :reinstalled, :started, :stopped], :message=>"%{value} needs to be :present, :absent, :restarted, :reinstalled, :started, :stopped"}, allow_nil: true
       end
     end
   end

@@ -11,15 +11,15 @@ module Ansible
       class Iptables < Base
         # @return [:filter, :nat, :mangle, :raw, :security, nil] This option specifies the packet matching table which the command should operate on. If the kernel is configured with automatic module loading, an attempt will be made to load the appropriate module for that table if it is not already there.
         attribute :table
-        validates :table, inclusion: {:in=>[:filter, :nat, :mangle, :raw, :security], :message=>"%{value} needs to be :filter, :nat, :mangle, :raw, :security"}, allow_nil: true
+        validates :table, expression_inclusion: {:in=>[:filter, :nat, :mangle, :raw, :security], :message=>"%{value} needs to be :filter, :nat, :mangle, :raw, :security"}, allow_nil: true
 
         # @return [:absent, :present, nil] Whether the rule should be absent or present.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
         # @return [:append, :insert, nil] Whether the rule should be appended at the bottom or inserted at the top.,If the rule already exists the chain won't be modified.
         attribute :action
-        validates :action, inclusion: {:in=>[:append, :insert], :message=>"%{value} needs to be :append, :insert"}, allow_nil: true
+        validates :action, expression_inclusion: {:in=>[:append, :insert], :message=>"%{value} needs to be :append, :insert"}, allow_nil: true
 
         # @return [Integer, nil] Insert the rule as the given rule number. This works only with action = 'insert'.
         attribute :rule_num
@@ -27,7 +27,7 @@ module Ansible
 
         # @return [:ipv4, :ipv6, nil] Which version of the IP protocol this rule should apply to.
         attribute :ip_version
-        validates :ip_version, inclusion: {:in=>[:ipv4, :ipv6], :message=>"%{value} needs to be :ipv4, :ipv6"}, allow_nil: true
+        validates :ip_version, expression_inclusion: {:in=>[:ipv4, :ipv6], :message=>"%{value} needs to be :ipv4, :ipv6"}, allow_nil: true
 
         # @return [String, nil] Chain to operate on.,This option can either be the name of a user defined chain or any of the builtin chains: 'INPUT', 'FORWARD', 'OUTPUT', 'PREROUTING', 'POSTROUTING', 'SECMARK', 'CONNSECMARK'.
         attribute :chain
@@ -92,7 +92,7 @@ module Ansible
 
         # @return [:ignore, :match, :negate, nil] This allows matching packets that have the SYN bit set and the ACK and RST bits unset.,When negated, this matches all packets with the RST or the ACK bits set.
         attribute :syn
-        validates :syn, inclusion: {:in=>[:ignore, :match, :negate], :message=>"%{value} needs to be :ignore, :match, :negate"}, allow_nil: true
+        validates :syn, expression_inclusion: {:in=>[:ignore, :match, :negate], :message=>"%{value} needs to be :ignore, :match, :negate"}, allow_nil: true
 
         # @return [Integer, nil] This allows specifying a DSCP mark to be added to packets. It takes either an integer or hex value.,Mutually exclusive with C(set_dscp_mark_class).
         attribute :set_dscp_mark
@@ -108,7 +108,7 @@ module Ansible
 
         # @return [:DNAT, :ESTABLISHED, :INVALID, :NEW, :RELATED, :SNAT, :UNTRACKED, nil] C(ctstate) is a list of the connection states to match in the conntrack module. Possible states are: 'INVALID', 'NEW', 'ESTABLISHED', 'RELATED', 'UNTRACKED', 'SNAT', 'DNAT'
         attribute :ctstate
-        validates :ctstate, inclusion: {:in=>[:DNAT, :ESTABLISHED, :INVALID, :NEW, :RELATED, :SNAT, :UNTRACKED], :message=>"%{value} needs to be :DNAT, :ESTABLISHED, :INVALID, :NEW, :RELATED, :SNAT, :UNTRACKED"}, allow_nil: true
+        validates :ctstate, expression_inclusion: {:in=>[:DNAT, :ESTABLISHED, :INVALID, :NEW, :RELATED, :SNAT, :UNTRACKED], :message=>"%{value} needs to be :DNAT, :ESTABLISHED, :INVALID, :NEW, :RELATED, :SNAT, :UNTRACKED"}, allow_nil: true
 
         # @return [Object, nil] Specifies the maximum average number of matches to allow per second.,The number can specify units explicitly, using `/second', `/minute', `/hour' or `/day', or parts of them (so `5/second' is the same as `5/s').
         attribute :limit
@@ -131,7 +131,7 @@ module Ansible
 
         # @return [:ACCEPT, :DROP, :QUEUE, :RETURN, nil] Set the policy for the chain to the given target.,Only built-in chains can have policies.,This parameter requires the C(chain) parameter.,Ignores all other parameters.
         attribute :policy
-        validates :policy, inclusion: {:in=>[:ACCEPT, :DROP, :QUEUE, :RETURN], :message=>"%{value} needs to be :ACCEPT, :DROP, :QUEUE, :RETURN"}, allow_nil: true
+        validates :policy, expression_inclusion: {:in=>[:ACCEPT, :DROP, :QUEUE, :RETURN], :message=>"%{value} needs to be :ACCEPT, :DROP, :QUEUE, :RETURN"}, allow_nil: true
       end
     end
   end

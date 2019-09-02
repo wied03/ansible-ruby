@@ -22,7 +22,7 @@ module Ansible
 
         # @return [Boolean, nil] Remove duplicate host from host result
         attribute :remove_duplicate
-        validates :remove_duplicate, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :remove_duplicate, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
       end
     end
   end

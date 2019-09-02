@@ -10,7 +10,7 @@ module Ansible
       class Netapp_e_lun_mapping < Base
         # @return [:present, :absent] Present will ensure the mapping exists, absent will remove the mapping.
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
+        validates :state, presence: true, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
 
         # @return [String, nil] The name of host or hostgroup you wish to assign to the mapping,If omitted, the default hostgroup is used.,If the supplied I(volume_name) is associated with a different target, it will be updated to what is supplied here.
         attribute :target
@@ -25,7 +25,7 @@ module Ansible
 
         # @return [:host, :group, nil] This option specifies the whether the target should be a host or a group of hosts,Only necessary when the target name is used for both a host and a group of hosts
         attribute :target_type
-        validates :target_type, inclusion: {:in=>[:host, :group], :message=>"%{value} needs to be :host, :group"}, allow_nil: true
+        validates :target_type, expression_inclusion: {:in=>[:host, :group], :message=>"%{value} needs to be :host, :group"}, allow_nil: true
       end
     end
   end

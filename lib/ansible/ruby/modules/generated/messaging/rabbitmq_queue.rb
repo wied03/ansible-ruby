@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:present, :absent, nil] Whether the queue should be present or absent,Only present implemented atm
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String, nil] rabbitMQ user for connection
         attribute :login_user
@@ -22,7 +22,7 @@ module Ansible
 
         # @return [:yes, :no, nil] rabbitMQ password for connection
         attribute :login_password
-        validates :login_password, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :login_password, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] rabbitMQ host for connection
         attribute :login_host
@@ -38,11 +38,11 @@ module Ansible
 
         # @return [:yes, :no, nil] whether queue is durable or not
         attribute :durable
-        validates :durable, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :durable, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:yes, :no, nil] if the queue should delete itself after all queues/queues unbound from it
         attribute :auto_delete
-        validates :auto_delete, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :auto_delete, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] How long a message can live in queue before it is discarded (milliseconds)
         attribute :message_ttl

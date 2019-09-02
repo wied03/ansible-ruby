@@ -10,7 +10,7 @@ module Ansible
       class Openssl_pkcs12 < Base
         # @return [:parse, :export, nil] C(export) or C(parse) a PKCS#12.
         attribute :action
-        validates :action, inclusion: {:in=>[:parse, :export], :message=>"%{value} needs to be :parse, :export"}, allow_nil: true
+        validates :action, expression_inclusion: {:in=>[:parse, :export], :message=>"%{value} needs to be :parse, :export"}, allow_nil: true
 
         # @return [String, nil] List of CA certificate to include.
         attribute :ca_certificates
@@ -52,7 +52,7 @@ module Ansible
 
         # @return [:present, :absent, nil] Whether the file should exist or not. All parameters except C(path) are ignored when state is C(absent).
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String, nil] PKCS#12 file path to parse.
         attribute :src

@@ -36,7 +36,7 @@ module Ansible
 
         # @return [:present, :absent, :active, :inactive, nil] The requested state of the pipeline.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent, :active, :inactive], :message=>"%{value} needs to be :present, :absent, :active, :inactive"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent, :active, :inactive], :message=>"%{value} needs to be :present, :absent, :active, :inactive"}, allow_nil: true
 
         # @return [Hash, nil] A dict of key:value pair(s) to add to the pipeline.
         attribute :tags

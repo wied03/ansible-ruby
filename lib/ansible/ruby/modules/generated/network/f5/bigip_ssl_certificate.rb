@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:present, :absent, nil] Certificate state. This determines if the provided certificate and key is to be made C(present) on the device or C(absent).
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String] SSL Certificate Name. This is the cert name used when importing a certificate into the F5. It also determines the filenames of the objects on the LTM.
         attribute :name

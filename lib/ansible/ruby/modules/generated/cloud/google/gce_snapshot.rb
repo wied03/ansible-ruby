@@ -22,7 +22,7 @@ module Ansible
 
         # @return [:present, :absent, nil] Whether a snapshot should be C(present) or C(absent)
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String] GCP service account email for the project where the instance resides
         attribute :service_account_email

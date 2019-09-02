@@ -22,7 +22,7 @@ module Ansible
 
         # @return [Boolean, nil] Should https certificates be validated?
         attribute :validate_certs
-        validates :validate_certs, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :validate_certs, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Object, nil] The id of the volume copy source.,If used, must be paired with destination_volume_id,Mutually exclusive with volume_copy_pair_id, and search_volume_id
         attribute :source_volume_id
@@ -35,11 +35,11 @@ module Ansible
 
         # @return [:present, :absent] Whether the specified volume copy pair should exist or not.
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
+        validates :state, presence: true, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
 
         # @return [Boolean, nil] Defines if a copy pair will be created if it does not exist.,If set to True destination_volume_id and source_volume_id are required.
         attribute :create_copy_pair_if_does_not_exist
-        validates :create_copy_pair_if_does_not_exist, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :create_copy_pair_if_does_not_exist, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Object, nil] starts a re-copy or stops a copy in progress,Note: If you stop the initial file copy before it it done the copy pair will be destroyed,Requires volume_copy_pair_id
         attribute :start_stop_copy

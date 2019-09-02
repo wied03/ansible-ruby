@@ -21,7 +21,7 @@ module Ansible
 
         # @return [:nfs, :vmfs] Type of the datastore to configure (nfs/vmfs).
         attribute :datastore_type
-        validates :datastore_type, presence: true, inclusion: {:in=>[:nfs, :vmfs], :message=>"%{value} needs to be :nfs, :vmfs"}
+        validates :datastore_type, presence: true, expression_inclusion: {:in=>[:nfs, :vmfs], :message=>"%{value} needs to be :nfs, :vmfs"}
 
         # @return [String, nil] NFS host serving nfs datastore.,Required if datastore type is set to C(nfs) and state is set to C(present), else unused.
         attribute :nfs_server
@@ -49,7 +49,7 @@ module Ansible
 
         # @return [:present, :absent, nil] present: Mount datastore on host if datastore is absent else do nothing.,absent: Umount datastore if datastore is present else do nothing.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

@@ -10,7 +10,7 @@ module Ansible
       class Aci_filter_entry < Base
         # @return [:arp_reply, :arp_request, :unspecified, nil] The arp flag to use when the ether_type is arp.,The APIC defaults to C(unspecified) when unset during creation.
         attribute :arp_flag
-        validates :arp_flag, inclusion: {:in=>[:arp_reply, :arp_request, :unspecified], :message=>"%{value} needs to be :arp_reply, :arp_request, :unspecified"}, allow_nil: true
+        validates :arp_flag, expression_inclusion: {:in=>[:arp_reply, :arp_request, :unspecified], :message=>"%{value} needs to be :arp_reply, :arp_request, :unspecified"}, allow_nil: true
 
         # @return [Object, nil] Description for the Filter Entry.
         attribute :description
@@ -30,7 +30,7 @@ module Ansible
 
         # @return [:arp, :fcoe, :ip, :mac_security, :mpls_ucast, :trill, :unspecified, nil] The Ethernet type.,The APIC defaults to C(unspecified) when unset during creation.
         attribute :ether_type
-        validates :ether_type, inclusion: {:in=>[:arp, :fcoe, :ip, :mac_security, :mpls_ucast, :trill, :unspecified], :message=>"%{value} needs to be :arp, :fcoe, :ip, :mac_security, :mpls_ucast, :trill, :unspecified"}, allow_nil: true
+        validates :ether_type, expression_inclusion: {:in=>[:arp, :fcoe, :ip, :mac_security, :mpls_ucast, :trill, :unspecified], :message=>"%{value} needs to be :arp, :fcoe, :ip, :mac_security, :mpls_ucast, :trill, :unspecified"}, allow_nil: true
 
         # @return [String, nil] The name of Filter that the entry should belong to.
         attribute :filter
@@ -38,19 +38,19 @@ module Ansible
 
         # @return [:dst_unreachable, :echo, :echo_reply, :src_quench, :time_exceeded, :unspecified, nil] ICMPv4 message type; used when ip_protocol is icmp.,The APIC defaults to C(unspecified) when unset during creation.
         attribute :icmp_msg_type
-        validates :icmp_msg_type, inclusion: {:in=>[:dst_unreachable, :echo, :echo_reply, :src_quench, :time_exceeded, :unspecified], :message=>"%{value} needs to be :dst_unreachable, :echo, :echo_reply, :src_quench, :time_exceeded, :unspecified"}, allow_nil: true
+        validates :icmp_msg_type, expression_inclusion: {:in=>[:dst_unreachable, :echo, :echo_reply, :src_quench, :time_exceeded, :unspecified], :message=>"%{value} needs to be :dst_unreachable, :echo, :echo_reply, :src_quench, :time_exceeded, :unspecified"}, allow_nil: true
 
         # @return [:dst_unreachable, :echo_request, :echo_reply, :neighbor_advertisement, :neighbor_solicitation, :redirect, :time_exceeded, :unspecified, nil] ICMPv6 message type; used when ip_protocol is icmpv6.,The APIC defaults to C(unspecified) when unset during creation.
         attribute :icmp6_msg_type
-        validates :icmp6_msg_type, inclusion: {:in=>[:dst_unreachable, :echo_request, :echo_reply, :neighbor_advertisement, :neighbor_solicitation, :redirect, :time_exceeded, :unspecified], :message=>"%{value} needs to be :dst_unreachable, :echo_request, :echo_reply, :neighbor_advertisement, :neighbor_solicitation, :redirect, :time_exceeded, :unspecified"}, allow_nil: true
+        validates :icmp6_msg_type, expression_inclusion: {:in=>[:dst_unreachable, :echo_request, :echo_reply, :neighbor_advertisement, :neighbor_solicitation, :redirect, :time_exceeded, :unspecified], :message=>"%{value} needs to be :dst_unreachable, :echo_request, :echo_reply, :neighbor_advertisement, :neighbor_solicitation, :redirect, :time_exceeded, :unspecified"}, allow_nil: true
 
         # @return [:eigrp, :egp, :icmp, :icmpv6, :igmp, :igp, :l2tp, :ospfigp, :pim, :tcp, :udp, :unspecified, nil] The IP Protocol type when ether_type is ip.,The APIC defaults to C(unspecified) when unset during creation.
         attribute :ip_protocol
-        validates :ip_protocol, inclusion: {:in=>[:eigrp, :egp, :icmp, :icmpv6, :igmp, :igp, :l2tp, :ospfigp, :pim, :tcp, :udp, :unspecified], :message=>"%{value} needs to be :eigrp, :egp, :icmp, :icmpv6, :igmp, :igp, :l2tp, :ospfigp, :pim, :tcp, :udp, :unspecified"}, allow_nil: true
+        validates :ip_protocol, expression_inclusion: {:in=>[:eigrp, :egp, :icmp, :icmpv6, :igmp, :igp, :l2tp, :ospfigp, :pim, :tcp, :udp, :unspecified], :message=>"%{value} needs to be :eigrp, :egp, :icmp, :icmpv6, :igmp, :igp, :l2tp, :ospfigp, :pim, :tcp, :udp, :unspecified"}, allow_nil: true
 
         # @return [:absent, :present, :query, nil] present, absent, query
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present, :query], :message=>"%{value} needs to be :absent, :present, :query"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present, :query], :message=>"%{value} needs to be :absent, :present, :query"}, allow_nil: true
 
         # @return [Symbol, nil] Determines the statefulness of the filter entry.
         attribute :stateful

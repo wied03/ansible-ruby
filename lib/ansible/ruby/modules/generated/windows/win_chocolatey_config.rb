@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:absent, :present, nil] When C(absent), it will ensure the setting is unset or blank.,When C(present), it will ensure the setting is set to the value of I(value).
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
         # @return [String, nil] Used when C(state=present) that contains the value to set for the config setting.,Cannot be null or an empty string, use C(state=absent) to unset a config value instead.
         attribute :value

@@ -22,7 +22,7 @@ module Ansible
 
         # @return [:present, :absent, nil] Whether the port should exist
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [Integer, nil] How long to wait for ovs-vswitchd to respond
         attribute :timeout

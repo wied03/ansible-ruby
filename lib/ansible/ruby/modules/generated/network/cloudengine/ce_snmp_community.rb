@@ -16,7 +16,7 @@ module Ansible
 
         # @return [:read, :write, nil] Access right read or write.
         attribute :access_right
-        validates :access_right, inclusion: {:in=>[:read, :write], :message=>"%{value} needs to be :read, :write"}, allow_nil: true
+        validates :access_right, expression_inclusion: {:in=>[:read, :write], :message=>"%{value} needs to be :read, :write"}, allow_nil: true
 
         # @return [Object, nil] Mib view name.
         attribute :community_mib_view
@@ -26,7 +26,7 @@ module Ansible
 
         # @return [:noAuthNoPriv, :authentication, :privacy, nil] Security level indicating whether to use authentication and encryption.
         attribute :security_level
-        validates :security_level, inclusion: {:in=>[:noAuthNoPriv, :authentication, :privacy], :message=>"%{value} needs to be :noAuthNoPriv, :authentication, :privacy"}, allow_nil: true
+        validates :security_level, expression_inclusion: {:in=>[:noAuthNoPriv, :authentication, :privacy], :message=>"%{value} needs to be :noAuthNoPriv, :authentication, :privacy"}, allow_nil: true
 
         # @return [Object, nil] Mib view name for read.
         attribute :read_view
@@ -39,7 +39,7 @@ module Ansible
 
         # @return [:present, :absent, nil] Manage the state of the resource.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

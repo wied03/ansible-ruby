@@ -12,7 +12,7 @@ module Ansible
       class Acme_challenge_cert_helper < Base
         # @return [:"tls-alpn-01"] The challenge type.
         attribute :challenge
-        validates :challenge, presence: true, inclusion: {:in=>[:"tls-alpn-01"], :message=>"%{value} needs to be :\"tls-alpn-01\""}
+        validates :challenge, presence: true, expression_inclusion: {:in=>[:"tls-alpn-01"], :message=>"%{value} needs to be :\"tls-alpn-01\""}
 
         # @return [String] The C(challenge_data) entry provided by M(acme_certificate) for the challenge.
         attribute :challenge_data

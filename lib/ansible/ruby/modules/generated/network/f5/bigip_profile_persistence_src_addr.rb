@@ -29,7 +29,7 @@ module Ansible
 
         # @return [:default, :carp, nil] Specifies the algorithm the system uses for hash persistence load balancing. The hash result is the input for the algorithm.,When C(default), specifies that the system uses the index of pool members to obtain the hash result for the input to the algorithm.,When C(carp), specifies that the system uses the Cache Array Routing Protocol (CARP) to obtain the hash result for the input to the algorithm.,When creating a new profile, if this parameter is not specified, the default is provided by the parent profile.
         attribute :hash_algorithm
-        validates :hash_algorithm, inclusion: {:in=>[:default, :carp], :message=>"%{value} needs to be :default, :carp"}, allow_nil: true
+        validates :hash_algorithm, expression_inclusion: {:in=>[:default, :carp], :message=>"%{value} needs to be :default, :carp"}, allow_nil: true
 
         # @return [Object, nil] Specifies the duration of the persistence entries.,When creating a new profile, if this parameter is not specified, the default is provided by the parent profile.,To specify an indefinite timeout, use the value C(indefinite).,If specifying a numeric timeout, the value must be between C(1) and C(4294967295).
         attribute :entry_timeout
@@ -44,7 +44,7 @@ module Ansible
 
         # @return [:present, :absent, nil] When C(present), ensures that the profile exists.,When C(absent), ensures the profile is removed.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

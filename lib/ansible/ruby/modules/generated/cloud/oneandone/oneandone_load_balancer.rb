@@ -10,7 +10,7 @@ module Ansible
       class Oneandone_load_balancer < Base
         # @return [:present, :absent, :update, nil] Define a load balancer state to create, remove, or update.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent, :update], :message=>"%{value} needs to be :present, :absent, :update"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent, :update], :message=>"%{value} needs to be :present, :absent, :update"}, allow_nil: true
 
         # @return [String] Authenticating API token provided by 1&1.
         attribute :auth_token
@@ -29,7 +29,7 @@ module Ansible
 
         # @return [:NONE, :TCP, :HTTP, :ICMP] Type of the health check. At the moment, HTTP is not allowed.
         attribute :health_check_test
-        validates :health_check_test, presence: true, inclusion: {:in=>[:NONE, :TCP, :HTTP, :ICMP], :message=>"%{value} needs to be :NONE, :TCP, :HTTP, :ICMP"}
+        validates :health_check_test, presence: true, expression_inclusion: {:in=>[:NONE, :TCP, :HTTP, :ICMP], :message=>"%{value} needs to be :NONE, :TCP, :HTTP, :ICMP"}
 
         # @return [Integer] Health check period in seconds. minimum=5, maximum=300, multipleOf=1
         attribute :health_check_interval
@@ -43,7 +43,7 @@ module Ansible
 
         # @return [Boolean] Persistence.
         attribute :persistence
-        validates :persistence, presence: true, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}
+        validates :persistence, presence: true, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}
 
         # @return [Integer] Persistence time in seconds. Required if persistence is enabled. minimum=30, maximum=1200, multipleOf=1
         attribute :persistence_time
@@ -51,11 +51,11 @@ module Ansible
 
         # @return [:ROUND_ROBIN, :LEAST_CONNECTIONS] Balancing procedure.
         attribute :method
-        validates :method, presence: true, inclusion: {:in=>[:ROUND_ROBIN, :LEAST_CONNECTIONS], :message=>"%{value} needs to be :ROUND_ROBIN, :LEAST_CONNECTIONS"}
+        validates :method, presence: true, expression_inclusion: {:in=>[:ROUND_ROBIN, :LEAST_CONNECTIONS], :message=>"%{value} needs to be :ROUND_ROBIN, :LEAST_CONNECTIONS"}
 
         # @return [:US, :ES, :DE, :GB, nil] ID or country code of the datacenter where the load balancer will be created.
         attribute :datacenter
-        validates :datacenter, inclusion: {:in=>[:US, :ES, :DE, :GB], :message=>"%{value} needs to be :US, :ES, :DE, :GB"}, allow_nil: true
+        validates :datacenter, expression_inclusion: {:in=>[:US, :ES, :DE, :GB], :message=>"%{value} needs to be :US, :ES, :DE, :GB"}, allow_nil: true
 
         # @return [Array<Hash>, Hash] A list of rule objects that will be set for the load balancer. Each rule must contain protocol, port_balancer, and port_server parameters, in addition to source parameter, which is optional.
         attribute :rules
@@ -83,7 +83,7 @@ module Ansible
 
         # @return [:yes, :no, nil] wait for the instance to be in state 'running' before returning
         attribute :wait
-        validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :wait, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] how long before wait gives up, in seconds
         attribute :wait_timeout

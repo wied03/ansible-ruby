@@ -10,7 +10,7 @@ module Ansible
       class Os_ironic < Base
         # @return [:present, :absent, nil] Indicates desired state of the resource
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String, nil] globally unique identifier (UUID) to be given to the resource. Will be auto-generated if not specified, and name is specified.,Definition of a UUID will always take precedence to a name value.
         attribute :uuid
@@ -44,7 +44,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Allows the code that would assert changes to nodes to skip the update if the change is a single line consisting of the password field.  As of Kilo, by default, passwords are always masked to API requests, which means the logic as a result always attempts to re-assert the password field.
         attribute :skip_update_of_driver_password
-        validates :skip_update_of_driver_password, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :skip_update_of_driver_password, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] Ignored. Present for backwards compatibility
         attribute :availability_zone

@@ -15,7 +15,7 @@ module Ansible
 
         # @return [:distribution, :security, nil] The category of the group, this is the value to assign to the LDAP C(groupType) attribute.,If a new group is created then C(security) will be used by default.
         attribute :category
-        validates :category, inclusion: {:in=>[:distribution, :security], :message=>"%{value} needs to be :distribution, :security"}, allow_nil: true
+        validates :category, expression_inclusion: {:in=>[:distribution, :security], :message=>"%{value} needs to be :distribution, :security"}, allow_nil: true
 
         # @return [Object, nil] The value to be assigned to the LDAP C(description) attribute.
         attribute :description
@@ -37,7 +37,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Will ignore the C(ProtectedFromAccidentalDeletion) flag when deleting or moving a group.,The module will fail if one of these actions need to occur and this value is set to C(no).
         attribute :ignore_protection
-        validates :ignore_protection, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :ignore_protection, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] The value to be assigned to the LDAP C(managedBy) attribute.,This value can be in the forms C(Distinguished Name), C(objectGUID), C(objectSid) or C(sAMAccountName), see examples for more details.
         attribute :managed_by
@@ -57,11 +57,11 @@ module Ansible
 
         # @return [:domainlocal, :global, :universal, nil] The scope of the group.,If C(state=present) and the group doesn't exist then this must be set.
         attribute :scope
-        validates :scope, inclusion: {:in=>[:domainlocal, :global, :universal], :message=>"%{value} needs to be :domainlocal, :global, :universal"}, allow_nil: true
+        validates :scope, expression_inclusion: {:in=>[:domainlocal, :global, :universal], :message=>"%{value} needs to be :domainlocal, :global, :universal"}, allow_nil: true
 
         # @return [:absent, :present, nil] If C(state=present) this module will ensure the group is created and is configured accordingly.,If C(state=absent) this module will delete the group if it exists
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
       end
     end
   end

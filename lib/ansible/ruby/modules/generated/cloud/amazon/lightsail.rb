@@ -10,7 +10,7 @@ module Ansible
       class Lightsail < Base
         # @return [:present, :absent, :running, :restarted, :stopped, nil] Indicate desired state of the target.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent, :running, :restarted, :stopped], :message=>"%{value} needs to be :present, :absent, :running, :restarted, :stopped"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent, :running, :restarted, :stopped], :message=>"%{value} needs to be :present, :absent, :running, :restarted, :stopped"}, allow_nil: true
 
         # @return [String] Name of the instance
         attribute :name
@@ -38,7 +38,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Wait for the instance to be in state 'running' before returning.  If wait is "no" an ip_address may not be returned
         attribute :wait
-        validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :wait, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] How long before wait gives up, in seconds.
         attribute :wait_timeout

@@ -21,7 +21,7 @@ module Ansible
 
         # @return [:enabled, :disabled, nil] Makes given NTP server or peer the preferred NTP server or peer for the device.
         attribute :prefer
-        validates :prefer, inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
+        validates :prefer, expression_inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
 
         # @return [Object, nil] Makes the device communicate with the given NTP server or peer over a specific VRF or keyword 'default'.
         attribute :vrf_name
@@ -34,7 +34,7 @@ module Ansible
 
         # @return [:present, :absent, nil] Manage the state of the resource.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

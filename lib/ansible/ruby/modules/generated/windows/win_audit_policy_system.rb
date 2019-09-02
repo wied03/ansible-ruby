@@ -20,7 +20,7 @@ module Ansible
 
         # @return [:failure, :none, :success] The type of event you would like to audit for.,Accepts a list. See examples.
         attribute :audit_type
-        validates :audit_type, presence: true, inclusion: {:in=>[:failure, :none, :success], :message=>"%{value} needs to be :failure, :none, :success"}
+        validates :audit_type, presence: true, expression_inclusion: {:in=>[:failure, :none, :success], :message=>"%{value} needs to be :failure, :none, :success"}
       end
     end
   end

@@ -14,7 +14,7 @@ module Ansible
 
         # @return [Boolean] A list of rules to be added to the gateway, Please see examples on valid entries
         attribute :nat_rules
-        validates :nat_rules, presence: true, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}
+        validates :nat_rules, presence: true, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}
       end
     end
   end

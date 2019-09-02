@@ -11,7 +11,7 @@ module Ansible
       class Sensu_handler < Base
         # @return [:present, :absent, nil] Whether the handler should be present or not
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String] A unique name for the handler. The name cannot contain special characters or spaces.
         attribute :name
@@ -19,7 +19,7 @@ module Ansible
 
         # @return [:pipe, :tcp, :udp, :transport, :set] The handler type
         attribute :type
-        validates :type, presence: true, inclusion: {:in=>[:pipe, :tcp, :udp, :transport, :set], :message=>"%{value} needs to be :pipe, :tcp, :udp, :transport, :set"}
+        validates :type, presence: true, expression_inclusion: {:in=>[:pipe, :tcp, :udp, :transport, :set], :message=>"%{value} needs to be :pipe, :tcp, :udp, :transport, :set"}
 
         # @return [Object, nil] The Sensu event filter (name) to use when filtering events for the handler.
         attribute :filter
@@ -29,7 +29,7 @@ module Ansible
 
         # @return [:warning, :critical, :unknown, nil] An array of check result severities the handler will handle.,NOTE: event resolution bypasses this filtering.
         attribute :severities
-        validates :severities, inclusion: {:in=>[:warning, :critical, :unknown], :message=>"%{value} needs to be :warning, :critical, :unknown"}, allow_nil: true
+        validates :severities, expression_inclusion: {:in=>[:warning, :critical, :unknown], :message=>"%{value} needs to be :warning, :critical, :unknown"}, allow_nil: true
 
         # @return [Object, nil] The Sensu event mutator (name) to use to mutate event data for the handler.
         attribute :mutator
@@ -40,11 +40,11 @@ module Ansible
 
         # @return [:yes, :no, nil] If events matching one or more silence entries should be handled.
         attribute :handle_silenced
-        validates :handle_silenced, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :handle_silenced, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:yes, :no, nil] If events in the flapping state should be handled.
         attribute :handle_flapping
-        validates :handle_flapping, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :handle_flapping, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] The handler command to be executed.,The event data is passed to the process via STDIN.,NOTE: the command attribute is only required for Pipe handlers (i.e. handlers configured with "type": "pipe").
         attribute :command

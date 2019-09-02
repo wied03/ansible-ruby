@@ -60,15 +60,15 @@ module Ansible
 
         # @return [:a, :aaaa, nil] Specifies the type of DNS query that the monitor sends.,When creating a new monitor, if this parameter is not specified, the default value is C(a).,When C(a), specifies that the monitor will send a DNS query of type A.,When C(aaaa), specifies that the monitor will send a DNS query of type AAAA.
         attribute :query_type
-        validates :query_type, inclusion: {:in=>[:a, :aaaa], :message=>"%{value} needs to be :a, :aaaa"}, allow_nil: true
+        validates :query_type, expression_inclusion: {:in=>[:a, :aaaa], :message=>"%{value} needs to be :a, :aaaa"}, allow_nil: true
 
         # @return [:"any-type", :anything, :"query-type", nil] Specifies the type of DNS query that the monitor sends.,When creating a new monitor, if this value is not specified, the default value is C(query-type).,When C(query-type), specifies that the response should contain at least one answer of which the resource record type matches the query type.,When C(any-type), specifies that the DNS message should contain at least one answer.,When C(anything), specifies that an empty answer is enough to mark the status of the node up.
         attribute :answer_section_contains
-        validates :answer_section_contains, inclusion: {:in=>[:"any-type", :anything, :"query-type"], :message=>"%{value} needs to be :\"any-type\", :anything, :\"query-type\""}, allow_nil: true
+        validates :answer_section_contains, expression_inclusion: {:in=>[:"any-type", :anything, :"query-type"], :message=>"%{value} needs to be :\"any-type\", :anything, :\"query-type\""}, allow_nil: true
 
         # @return [:"no-error", :anything, nil] Specifies the RCODE required in the response for an up status.,When creating a new monitor, if this parameter is not specified, the default value is C(no-error).,When C(no-error), specifies that the status of the node will be marked up if the received DNS message has no error.,When C(anything), specifies that the status of the node will be marked up irrespective of the RCODE in the DNS message received.,If this parameter is set to C(anything), it will disregard the C(receive) string, and nullify it if the monitor is being updated.
         attribute :accept_rcode
-        validates :accept_rcode, inclusion: {:in=>[:"no-error", :anything], :message=>"%{value} needs to be :\"no-error\", :anything"}, allow_nil: true
+        validates :accept_rcode, expression_inclusion: {:in=>[:"no-error", :anything], :message=>"%{value} needs to be :\"no-error\", :anything"}, allow_nil: true
 
         # @return [Symbol, nil] Specifies whether adaptive response time monitoring is enabled for this monitor.,When C(yes), the monitor determines the state of a service based on how divergent from the mean latency a monitor probe for that service is allowed to be. Also, values for the C(allowed_divergence), C(adaptive_limit), and and C(sampling_timespan) will be enforced.,When C(disabled), the monitor determines the state of a service based on the C(interval), C(up_interval), C(time_until_up), and C(timeout) monitor settings.
         attribute :adaptive
@@ -76,7 +76,7 @@ module Ansible
 
         # @return [:relative, :absolute, nil] When specifying a new monitor, if C(adaptive) is C(yes), the default is C(relative),When C(absolute), the number of milliseconds the latency of a monitor probe can exceed the mean latency of a monitor probe for the service being probed. In typical cases, if the monitor detects three probes in a row that miss the latency value you set, the pool member or node is marked down.,When C(relative), the percentage of deviation the latency of a monitor probe can exceed the mean latency of a monitor probe for the service being probed.
         attribute :allowed_divergence_type
-        validates :allowed_divergence_type, inclusion: {:in=>[:relative, :absolute], :message=>"%{value} needs to be :relative, :absolute"}, allow_nil: true
+        validates :allowed_divergence_type, expression_inclusion: {:in=>[:relative, :absolute], :message=>"%{value} needs to be :relative, :absolute"}, allow_nil: true
 
         # @return [Object, nil] When specifying a new monitor, if C(adaptive) is C(yes), and C(type) is C(relative), the default is C(25) percent.
         attribute :allowed_divergence_value
@@ -93,7 +93,7 @@ module Ansible
 
         # @return [:present, :absent, nil] When C(present), ensures that the monitor exists.,When C(absent), ensures the monitor is removed.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

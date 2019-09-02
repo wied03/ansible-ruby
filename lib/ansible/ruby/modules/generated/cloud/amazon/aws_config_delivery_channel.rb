@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:present, :absent, nil] Whether the Config rule should be present or absent.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String, nil] The name of the Amazon S3 bucket to which AWS Config delivers configuration snapshots and configuration history files.
         attribute :s3_bucket
@@ -29,7 +29,7 @@ module Ansible
 
         # @return [:One_Hour, :Three_Hours, :Six_Hours, :Twelve_Hours, :TwentyFour_Hours, nil] The frequency with which AWS Config delivers configuration snapshots.
         attribute :delivery_frequency
-        validates :delivery_frequency, inclusion: {:in=>[:One_Hour, :Three_Hours, :Six_Hours, :Twelve_Hours, :TwentyFour_Hours], :message=>"%{value} needs to be :One_Hour, :Three_Hours, :Six_Hours, :Twelve_Hours, :TwentyFour_Hours"}, allow_nil: true
+        validates :delivery_frequency, expression_inclusion: {:in=>[:One_Hour, :Three_Hours, :Six_Hours, :Twelve_Hours, :TwentyFour_Hours], :message=>"%{value} needs to be :One_Hour, :Three_Hours, :Six_Hours, :Twelve_Hours, :TwentyFour_Hours"}, allow_nil: true
       end
     end
   end

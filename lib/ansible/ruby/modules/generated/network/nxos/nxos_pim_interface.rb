@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Enable/disable sparse-mode on the interface.
         attribute :sparse
-        validates :sparse, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :sparse, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] Configures priority for PIM DR election on interface.
         attribute :dr_prio
@@ -37,26 +37,26 @@ module Ansible
 
         # @return [:prefix, :routemap, nil] Type of policy mapped to C(jp_policy_out).
         attribute :jp_type_out
-        validates :jp_type_out, inclusion: {:in=>[:prefix, :routemap], :message=>"%{value} needs to be :prefix, :routemap"}, allow_nil: true
+        validates :jp_type_out, expression_inclusion: {:in=>[:prefix, :routemap], :message=>"%{value} needs to be :prefix, :routemap"}, allow_nil: true
 
         # @return [:prefix, :routemap, nil] Type of policy mapped to C(jp_policy_in).
         attribute :jp_type_in
-        validates :jp_type_in, inclusion: {:in=>[:prefix, :routemap], :message=>"%{value} needs to be :prefix, :routemap"}, allow_nil: true
+        validates :jp_type_in, expression_inclusion: {:in=>[:prefix, :routemap], :message=>"%{value} needs to be :prefix, :routemap"}, allow_nil: true
 
         # @return [:yes, :no, nil] Configures interface to be a boundary of a PIM domain.
         attribute :border
-        validates :border, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :border, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] Configures a neighbor policy for filtering adjacencies.
         attribute :neighbor_policy
 
         # @return [:prefix, :routemap, nil] Type of policy mapped to neighbor_policy.
         attribute :neighbor_type
-        validates :neighbor_type, inclusion: {:in=>[:prefix, :routemap], :message=>"%{value} needs to be :prefix, :routemap"}, allow_nil: true
+        validates :neighbor_type, expression_inclusion: {:in=>[:prefix, :routemap], :message=>"%{value} needs to be :prefix, :routemap"}, allow_nil: true
 
         # @return [:present, :default, nil] Manages desired state of the resource.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :default], :message=>"%{value} needs to be :present, :default"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :default], :message=>"%{value} needs to be :present, :default"}, allow_nil: true
       end
     end
   end

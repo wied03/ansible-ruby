@@ -20,11 +20,11 @@ module Ansible
 
         # @return [:yes, :no, nil] Remove any existing rules not matching those defined in the default_rules parameter.
         attribute :purge_default_rules
-        validates :purge_default_rules, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :purge_default_rules, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:yes, :no, nil] Remove any existing rules not matching those defined in the rules parameters.
         attribute :purge_rules
-        validates :purge_rules, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :purge_rules, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String] Name of the resource group the security group belongs to.
         attribute :resource_group
@@ -36,7 +36,7 @@ module Ansible
 
         # @return [:absent, :present, nil] Assert the state of the security group. Set to 'present' to create or update a security group. Set to 'absent' to remove a security group.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
       end
     end
   end

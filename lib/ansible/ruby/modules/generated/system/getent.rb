@@ -22,7 +22,7 @@ module Ansible
 
         # @return [:yes, :no, nil] If a supplied key is missing this will make the task fail if C(yes).
         attribute :fail_key
-        validates :fail_key, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :fail_key, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

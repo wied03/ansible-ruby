@@ -10,7 +10,7 @@ module Ansible
       class Netapp_e_syslog < Base
         # @return [:present, :absent, nil] Add or remove the syslog server configuration for E-Series storage array.,Existing syslog server configuration will be removed or updated when its address matches I(address).,Fully qualified hostname that resolve to an IPv4 address that matches I(address) will not be treated as a match.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String, nil] The syslog server's IPv4 address or a fully qualified hostname.,All existing syslog configurations will be removed when I(state=absent) and I(address=None).
         attribute :address
@@ -22,7 +22,7 @@ module Ansible
 
         # @return [:udp, :tcp, :tls, nil] This is the transmission protocol the syslog server's using to receive syslog messages.
         attribute :protocol
-        validates :protocol, inclusion: {:in=>[:udp, :tcp, :tls], :message=>"%{value} needs to be :udp, :tcp, :tls"}, allow_nil: true
+        validates :protocol, expression_inclusion: {:in=>[:udp, :tcp, :tls], :message=>"%{value} needs to be :udp, :tcp, :tls"}, allow_nil: true
 
         # @return [String, nil] The e-series logging components define the specific logs to transfer to the syslog server.,At the time of writing, 'auditLog' is the only logging component but more may become available.
         attribute :components

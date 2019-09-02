@@ -22,7 +22,7 @@ module Ansible
 
         # @return [:system, :user, nil] The installation method to use.,Defines if the I(flatpak) is supposed to be installed globally for the whole C(system) or only for the current C(user).
         attribute :method
-        validates :method, inclusion: {:in=>[:system, :user], :message=>"%{value} needs to be :system, :user"}, allow_nil: true
+        validates :method, expression_inclusion: {:in=>[:system, :user], :message=>"%{value} needs to be :system, :user"}, allow_nil: true
 
         # @return [String] The desired name for the flatpak remote to be registered under on the managed host.,When used with I(state=present), the remote will be added to the managed host under the specified I(name).,When used with I(state=absent) the remote with that name will be removed.
         attribute :name
@@ -30,7 +30,7 @@ module Ansible
 
         # @return [:absent, :present, nil] Indicates the desired package state.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
       end
     end
   end

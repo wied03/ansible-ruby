@@ -44,11 +44,11 @@ module Ansible
 
         # @return [:absent, :present, nil] The state of the resource on the system.,When C(present), guarantees that the resource exists with the provided attributes.,When C(absent), removes the resource from the system.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
         # @return [Boolean, nil] If the module should wait for the application to be created, deleted or updated.
         attribute :wait
-        validates :wait, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :wait, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
       end
     end
   end

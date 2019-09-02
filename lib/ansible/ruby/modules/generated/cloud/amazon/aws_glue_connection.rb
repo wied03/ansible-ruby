@@ -17,7 +17,7 @@ module Ansible
 
         # @return [:JDBC, :SFTP, nil] The type of the connection. Currently, only JDBC is supported; SFTP is not supported.
         attribute :connection_type
-        validates :connection_type, inclusion: {:in=>[:JDBC, :SFTP], :message=>"%{value} needs to be :JDBC, :SFTP"}, allow_nil: true
+        validates :connection_type, expression_inclusion: {:in=>[:JDBC, :SFTP], :message=>"%{value} needs to be :JDBC, :SFTP"}, allow_nil: true
 
         # @return [Object, nil] The description of the connection.
         attribute :description
@@ -34,7 +34,7 @@ module Ansible
 
         # @return [:present, :absent] Create or delete the AWS Glue connection.
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
+        validates :state, presence: true, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
 
         # @return [Object, nil] The subnet ID used by the connection.
         attribute :subnet_id

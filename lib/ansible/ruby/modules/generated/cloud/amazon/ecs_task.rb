@@ -10,7 +10,7 @@ module Ansible
       class Ecs_task < Base
         # @return [:run, :start, :stop] Which task operation to execute
         attribute :operation
-        validates :operation, presence: true, inclusion: {:in=>[:run, :start, :stop], :message=>"%{value} needs to be :run, :start, :stop"}
+        validates :operation, presence: true, expression_inclusion: {:in=>[:run, :start, :stop], :message=>"%{value} needs to be :run, :start, :stop"}
 
         # @return [String, nil] The name of the cluster to run the task on
         attribute :cluster

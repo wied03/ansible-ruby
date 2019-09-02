@@ -10,7 +10,7 @@ module Ansible
       class Gcp_compute_global_address < Base
         # @return [:present, :absent, nil] Whether the given object should exist in GCP
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [Object, nil] An optional description of this resource.,Provide this property when you create the resource.
         attribute :description
@@ -21,7 +21,7 @@ module Ansible
 
         # @return [:IPV4, :IPV6, nil] The IP Version that will be used by this address. Valid options are IPV4 or IPV6. The default value is IPV4.
         attribute :ip_version
-        validates :ip_version, inclusion: {:in=>[:IPV4, :IPV6], :message=>"%{value} needs to be :IPV4, :IPV6"}, allow_nil: true
+        validates :ip_version, expression_inclusion: {:in=>[:IPV4, :IPV6], :message=>"%{value} needs to be :IPV4, :IPV6"}, allow_nil: true
       end
     end
   end

@@ -13,7 +13,7 @@ module Ansible
       class Aws_direct_connect_gateway < Base
         # @return [:present, :absent, nil] present to ensure resource is created.,absent to remove resource
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String, nil] name of the dxgw to be created or deleted
         attribute :name

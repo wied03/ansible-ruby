@@ -45,7 +45,7 @@ module Ansible
 
         # @return [:tcp, :udp, nil] the protocol used for the load-balancer packet forwarding, tcp or udp
         attribute :protocol
-        validates :protocol, inclusion: {:in=>[:tcp, :udp], :message=>"%{value} needs to be :tcp, :udp"}, allow_nil: true
+        validates :protocol, expression_inclusion: {:in=>[:tcp, :udp], :message=>"%{value} needs to be :tcp, :udp"}, allow_nil: true
 
         # @return [String, nil] the GCE region where the load-balancer is defined
         attribute :region
@@ -63,7 +63,7 @@ module Ansible
 
         # @return [:active, :present, :absent, :deleted, nil] desired state of the LB
         attribute :state
-        validates :state, inclusion: {:in=>[:active, :present, :absent, :deleted], :message=>"%{value} needs to be :active, :present, :absent, :deleted"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:active, :present, :absent, :deleted], :message=>"%{value} needs to be :active, :present, :absent, :deleted"}, allow_nil: true
 
         # @return [Object, nil] service account email
         attribute :service_account_email

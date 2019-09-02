@@ -14,11 +14,11 @@ module Ansible
 
         # @return [:absent, :present, nil] Define whether the host should exist or not.,When removing host all connected volumes will be disconnected.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
         # @return [:fc, :iscsi, :mixed, nil] Defines the host connection protocol for volumes.
         attribute :protocol
-        validates :protocol, inclusion: {:in=>[:fc, :iscsi, :mixed], :message=>"%{value} needs to be :fc, :iscsi, :mixed"}, allow_nil: true
+        validates :protocol, expression_inclusion: {:in=>[:fc, :iscsi, :mixed], :message=>"%{value} needs to be :fc, :iscsi, :mixed"}, allow_nil: true
 
         # @return [Array<String>, String, nil] List of wwns of the host if protocol is fc or mixed.
         attribute :wwns
@@ -34,7 +34,7 @@ module Ansible
 
         # @return [:hpux, :vms, :aix, :esxi, :solaris, :"hitachi-vsp", :"oracle-vm-server", :"", nil] Define which operating systen the host is. Recommend for ActiveCluster integration
         attribute :personality
-        validates :personality, inclusion: {:in=>[:hpux, :vms, :aix, :esxi, :solaris, :"hitachi-vsp", :"oracle-vm-server", :""], :message=>"%{value} needs to be :hpux, :vms, :aix, :esxi, :solaris, :\"hitachi-vsp\", :\"oracle-vm-server\", :\"\""}, allow_nil: true
+        validates :personality, expression_inclusion: {:in=>[:hpux, :vms, :aix, :esxi, :solaris, :"hitachi-vsp", :"oracle-vm-server", :""], :message=>"%{value} needs to be :hpux, :vms, :aix, :esxi, :solaris, :\"hitachi-vsp\", :\"oracle-vm-server\", :\"\""}, allow_nil: true
       end
     end
   end

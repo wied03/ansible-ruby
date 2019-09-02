@@ -10,7 +10,7 @@ module Ansible
       class Rax_mon_notification < Base
         # @return [:present, :absent, nil] Ensure that the notification with this C(label) exists or does not exist.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [Object] Defines a friendly name for this notification. String between 1 and 255 characters long.
         attribute :label
@@ -18,7 +18,7 @@ module Ansible
 
         # @return [:webhook, :email, :pagerduty] A supported notification type.
         attribute :notification_type
-        validates :notification_type, presence: true, inclusion: {:in=>[:webhook, :email, :pagerduty], :message=>"%{value} needs to be :webhook, :email, :pagerduty"}
+        validates :notification_type, presence: true, expression_inclusion: {:in=>[:webhook, :email, :pagerduty], :message=>"%{value} needs to be :webhook, :email, :pagerduty"}
 
         # @return [Object] Dictionary of key-value pairs used to initialize the notification. Required keys and meanings vary with notification type. See http://docs.rackspace.com/cm/api/v1.0/cm-devguide/content/ service-notification-types-crud.html for details.
         attribute :details

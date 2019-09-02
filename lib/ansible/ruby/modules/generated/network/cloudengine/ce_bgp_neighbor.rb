@@ -10,7 +10,7 @@ module Ansible
       class Ce_bgp_neighbor < Base
         # @return [:present, :absent, nil] Specify desired state of the resource.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [Object] Name of a BGP instance. The name is a case-sensitive string of characters. The BGP instance can be used only after the corresponding VPN instance is created.
         attribute :vrf_name
@@ -32,19 +32,19 @@ module Ansible
 
         # @return [:no_use, :true, :false, nil] If the value is true, the EBGP peer can use either a fake AS number or the actual AS number. If the value is false, the EBGP peer can only use a fake AS number.
         attribute :dual_as
-        validates :dual_as, inclusion: {:in=>[:no_use, :true, :false], :message=>"%{value} needs to be :no_use, :true, :false"}, allow_nil: true
+        validates :dual_as, expression_inclusion: {:in=>[:no_use, :true, :false], :message=>"%{value} needs to be :no_use, :true, :false"}, allow_nil: true
 
         # @return [:no_use, :true, :false, nil] If the value is true, the router has all extended capabilities. If the value is false, the router does not have all extended capabilities.
         attribute :conventional
-        validates :conventional, inclusion: {:in=>[:no_use, :true, :false], :message=>"%{value} needs to be :no_use, :true, :false"}, allow_nil: true
+        validates :conventional, expression_inclusion: {:in=>[:no_use, :true, :false], :message=>"%{value} needs to be :no_use, :true, :false"}, allow_nil: true
 
         # @return [:no_use, :true, :false, nil] If the value is true, BGP is enabled to advertise REFRESH packets. If the value is false, the route refresh function is enabled.
         attribute :route_refresh
-        validates :route_refresh, inclusion: {:in=>[:no_use, :true, :false], :message=>"%{value} needs to be :no_use, :true, :false"}, allow_nil: true
+        validates :route_refresh, expression_inclusion: {:in=>[:no_use, :true, :false], :message=>"%{value} needs to be :no_use, :true, :false"}, allow_nil: true
 
         # @return [:no_use, :true, :false, nil] If the value is true, the session with a specified peer is torn down and all related routing entries are cleared. If the value is false, the session with a specified peer is retained.
         attribute :is_ignore
-        validates :is_ignore, inclusion: {:in=>[:no_use, :true, :false], :message=>"%{value} needs to be :no_use, :true, :false"}, allow_nil: true
+        validates :is_ignore, expression_inclusion: {:in=>[:no_use, :true, :false], :message=>"%{value} needs to be :no_use, :true, :false"}, allow_nil: true
 
         # @return [Object, nil] Name of a source interface that sends BGP packets. The value is a string of 1 to 63 characters.
         attribute :local_if_name
@@ -60,11 +60,11 @@ module Ansible
 
         # @return [:no_use, :true, :false, nil] If the value is true, BGP is enabled to record peer session status and event information. If the value is false, BGP is disabled from recording peer session status and event information.
         attribute :is_log_change
-        validates :is_log_change, inclusion: {:in=>[:no_use, :true, :false], :message=>"%{value} needs to be :no_use, :true, :false"}, allow_nil: true
+        validates :is_log_change, expression_inclusion: {:in=>[:no_use, :true, :false], :message=>"%{value} needs to be :no_use, :true, :false"}, allow_nil: true
 
         # @return [:null, :cipher, :simple, nil] Enable BGP peers to establish a TCP connection and perform the Message Digest 5 (MD5) authentication for BGP messages.
         attribute :pswd_type
-        validates :pswd_type, inclusion: {:in=>[:null, :cipher, :simple], :message=>"%{value} needs to be :null, :cipher, :simple"}, allow_nil: true
+        validates :pswd_type, expression_inclusion: {:in=>[:null, :cipher, :simple], :message=>"%{value} needs to be :null, :cipher, :simple"}, allow_nil: true
 
         # @return [Object, nil] The character string in a password identifies the contents of the password, spaces not supported. The value is a string of 1 to 255 characters.
         attribute :pswd_cipher_text
@@ -89,26 +89,26 @@ module Ansible
 
         # @return [:no_use, :true, :false, nil] If the value is true, peer create MPLS Local IFNET disable. If the value is false, peer create MPLS Local IFNET enable.
         attribute :mpls_local_ifnet_disable
-        validates :mpls_local_ifnet_disable, inclusion: {:in=>[:no_use, :true, :false], :message=>"%{value} needs to be :no_use, :true, :false"}, allow_nil: true
+        validates :mpls_local_ifnet_disable, expression_inclusion: {:in=>[:no_use, :true, :false], :message=>"%{value} needs to be :no_use, :true, :false"}, allow_nil: true
 
         # @return [:no_use, :true, :false, nil] Add the global AS number to the Update packets to be advertised.
         attribute :prepend_global_as
-        validates :prepend_global_as, inclusion: {:in=>[:no_use, :true, :false], :message=>"%{value} needs to be :no_use, :true, :false"}, allow_nil: true
+        validates :prepend_global_as, expression_inclusion: {:in=>[:no_use, :true, :false], :message=>"%{value} needs to be :no_use, :true, :false"}, allow_nil: true
 
         # @return [:no_use, :true, :false, nil] Add the Fake AS number to received Update packets.
         attribute :prepend_fake_as
-        validates :prepend_fake_as, inclusion: {:in=>[:no_use, :true, :false], :message=>"%{value} needs to be :no_use, :true, :false"}, allow_nil: true
+        validates :prepend_fake_as, expression_inclusion: {:in=>[:no_use, :true, :false], :message=>"%{value} needs to be :no_use, :true, :false"}, allow_nil: true
 
         # @return [:no_use, :true, :false, nil] If the value is true, peers are enabled to inherit the BFD function from the peer group. If the value is false, peers are disabled to inherit the BFD function from the peer group.
         attribute :is_bfd_block
-        validates :is_bfd_block, inclusion: {:in=>[:no_use, :true, :false], :message=>"%{value} needs to be :no_use, :true, :false"}, allow_nil: true
+        validates :is_bfd_block, expression_inclusion: {:in=>[:no_use, :true, :false], :message=>"%{value} needs to be :no_use, :true, :false"}, allow_nil: true
 
         # @return [Object, nil] Specify the detection multiplier. The default value is 3. The value is an integer ranging from 3 to 50.
         attribute :multiplier
 
         # @return [:no_use, :true, :false, nil] If the value is true, BFD is enabled. If the value is false, BFD is disabled.
         attribute :is_bfd_enable
-        validates :is_bfd_enable, inclusion: {:in=>[:no_use, :true, :false], :message=>"%{value} needs to be :no_use, :true, :false"}, allow_nil: true
+        validates :is_bfd_enable, expression_inclusion: {:in=>[:no_use, :true, :false], :message=>"%{value} needs to be :no_use, :true, :false"}, allow_nil: true
 
         # @return [Object, nil] Specify the minimum interval at which BFD packets are received. The value is an integer ranging from 50 to 1000, in milliseconds.
         attribute :rx_interval
@@ -118,7 +118,7 @@ module Ansible
 
         # @return [:no_use, :true, :false, nil] If the value is true, the system is enabled to preferentially use the single-hop mode for BFD session setup between IBGP peers. If the value is false, the system is disabled from preferentially using the single-hop mode for BFD session setup between IBGP peers.
         attribute :is_single_hop
-        validates :is_single_hop, inclusion: {:in=>[:no_use, :true, :false], :message=>"%{value} needs to be :no_use, :true, :false"}, allow_nil: true
+        validates :is_single_hop, expression_inclusion: {:in=>[:no_use, :true, :false], :message=>"%{value} needs to be :no_use, :true, :false"}, allow_nil: true
       end
     end
   end

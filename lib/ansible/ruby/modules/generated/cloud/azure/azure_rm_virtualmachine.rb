@@ -22,15 +22,15 @@ module Ansible
 
         # @return [:absent, :present, nil] Assert the state of the virtual machine.,State 'present' will check that the machine exists with the requested configuration. If the configuration of the existing machine does not match, the machine will be updated. Use options started, allocated and restarted to change the machine's power state.,State 'absent' will remove the virtual machine.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
         # @return [Boolean, nil] Use with state 'present' to start the machine. Set to false to have the machine be 'stopped'.
         attribute :started
-        validates :started, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :started, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Boolean, nil] Toggle that controls if the machine is allocated/deallocated, only useful with state='present'.
         attribute :allocated
-        validates :allocated, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :allocated, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Symbol, nil] Use with state 'present' to restart a running VM.
         attribute :restarted
@@ -56,7 +56,7 @@ module Ansible
 
         # @return [Boolean, nil] When the os_type is Linux, setting ssh_password_enabled to false will disable SSH password authentication and require use of SSH keys.
         attribute :ssh_password_enabled
-        validates :ssh_password_enabled, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :ssh_password_enabled, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Array<Hash>, Hash, nil] For os_type Linux provide a list of SSH keys. Each item in the list should be a dictionary where the dictionary contains two keys: path and key_data. Set the path to the default location of the authorized_keys files. On an Enterprise Linux host, for example, the path will be /home/<admin username>/.ssh/authorized_keys. Set key_data to the actual value of the public key.
         attribute :ssh_public_keys
@@ -82,11 +82,11 @@ module Ansible
 
         # @return [:Standard_LRS, :Premium_LRS, nil] Managed OS disk type
         attribute :managed_disk_type
-        validates :managed_disk_type, inclusion: {:in=>[:Standard_LRS, :Premium_LRS], :message=>"%{value} needs to be :Standard_LRS, :Premium_LRS"}, allow_nil: true
+        validates :managed_disk_type, expression_inclusion: {:in=>[:Standard_LRS, :Premium_LRS], :message=>"%{value} needs to be :Standard_LRS, :Premium_LRS"}, allow_nil: true
 
         # @return [:ReadOnly, :ReadWrite, nil] Type of OS disk caching.
         attribute :os_disk_caching
-        validates :os_disk_caching, inclusion: {:in=>[:ReadOnly, :ReadWrite], :message=>"%{value} needs to be :ReadOnly, :ReadWrite"}, allow_nil: true
+        validates :os_disk_caching, expression_inclusion: {:in=>[:ReadOnly, :ReadWrite], :message=>"%{value} needs to be :ReadOnly, :ReadWrite"}, allow_nil: true
 
         # @return [Integer, nil] Type of OS disk size in GB.
         attribute :os_disk_size_gb
@@ -94,7 +94,7 @@ module Ansible
 
         # @return [:Windows, :Linux, nil] Base type of operating system.
         attribute :os_type
-        validates :os_type, inclusion: {:in=>[:Windows, :Linux], :message=>"%{value} needs to be :Windows, :Linux"}, allow_nil: true
+        validates :os_type, expression_inclusion: {:in=>[:Windows, :Linux], :message=>"%{value} needs to be :Windows, :Linux"}, allow_nil: true
 
         # @return [Array<Hash>, Hash, nil] Describes list of data disks.
         attribute :data_disks
@@ -102,7 +102,7 @@ module Ansible
 
         # @return [:Dynamic, :Static, :Disabled, nil] If a public IP address is created when creating the VM (because a Network Interface was not provided), determines if the public IP address remains permanently associated with the Network Interface. If set to 'Dynamic' the public IP address may change any time the VM is rebooted or power cycled.,The C(Disabled) choice was added in Ansible 2.6.
         attribute :public_ip_allocation_method
-        validates :public_ip_allocation_method, inclusion: {:in=>[:Dynamic, :Static, :Disabled], :message=>"%{value} needs to be :Dynamic, :Static, :Disabled"}, allow_nil: true
+        validates :public_ip_allocation_method, expression_inclusion: {:in=>[:Dynamic, :Static, :Disabled], :message=>"%{value} needs to be :Dynamic, :Static, :Disabled"}, allow_nil: true
 
         # @return [Object, nil] If a network interface is created when creating the VM, a security group will be created as well. For Linux hosts a rule will be added to the security group allowing inbound TCP connections to the default SSH port 22, and for Windows hosts ports 3389 and 5986 will be opened. Override the default open ports by providing a list of ports.
         attribute :open_ports

@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:yes, :no, nil] If a stacks fails to form, rollback will remove the stack
         attribute :disable_rollback
-        validates :disable_rollback, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :disable_rollback, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] The amount of time (in minutes) that can pass before the stack status becomes CREATE_FAILED
         attribute :create_timeout
@@ -25,7 +25,7 @@ module Ansible
 
         # @return [:present, :absent, nil] If state is "present", stack will be created.  If state is "present" and if stack exists and template has changed, it will be updated. If state is "absent", stack will be removed.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String, nil] The local path of the cloudformation template.,This must be the full path to the file, relative to the working directory. If using roles this may look like "roles/cloudformation/files/cloudformation-example.json".,If 'state' is 'present' and the stack does not exist yet, either 'template', 'template_body' or 'template_url' must be specified (but only one of them). If 'state' is 'present', the stack does exist, and neither 'template', 'template_body' nor 'template_url' are specified, the previous template will be reused.
         attribute :template
@@ -54,7 +54,7 @@ module Ansible
 
         # @return [:json, :yaml, nil] (deprecated) For local templates, allows specification of json or yaml format. Templates are now passed raw to CloudFormation regardless of format. This parameter is ignored since Ansible 2.3.
         attribute :template_format
-        validates :template_format, inclusion: {:in=>[:json, :yaml], :message=>"%{value} needs to be :json, :yaml"}, allow_nil: true
+        validates :template_format, expression_inclusion: {:in=>[:json, :yaml], :message=>"%{value} needs to be :json, :yaml"}, allow_nil: true
 
         # @return [String, nil] The role that AWS CloudFormation assumes to create the stack. See the AWS CloudFormation Service Role docs U(http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-iam-servicerole.html)
         attribute :role_arn
@@ -62,7 +62,7 @@ module Ansible
 
         # @return [Boolean, nil] enable or disable termination protection on the stack. Only works with botocore >= 1.7.18.
         attribute :termination_protection
-        validates :termination_protection, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :termination_protection, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [String, nil] Template body. Use this to pass in the actual body of the Cloudformation template.,If 'state' is 'present' and the stack does not exist yet, either 'template', 'template_body' or 'template_url' must be specified (but only one of them). If 'state' ispresent, the stack does exist, and neither 'template', 'template_body' nor 'template_url' are specified, the previous template will be reused.
         attribute :template_body

@@ -15,7 +15,7 @@ module Ansible
 
         # @return [:present, :absent, nil] If C(present), the specified privileges are granted, if C(absent) they are revoked.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [Array<String>, String, nil] Comma separated list of privileges to grant/revoke.,Alias: I(priv)
         attribute :privs
@@ -23,7 +23,7 @@ module Ansible
 
         # @return [:table, :sequence, :function, :database, :schema, :language, :tablespace, :group, :default_privs, nil] Type of database object to set privileges on.,The `default_prives` choice is available starting at version 2.7.
         attribute :type
-        validates :type, inclusion: {:in=>[:table, :sequence, :function, :database, :schema, :language, :tablespace, :group, :default_privs], :message=>"%{value} needs to be :table, :sequence, :function, :database, :schema, :language, :tablespace, :group, :default_privs"}, allow_nil: true
+        validates :type, expression_inclusion: {:in=>[:table, :sequence, :function, :database, :schema, :language, :tablespace, :group, :default_privs], :message=>"%{value} needs to be :table, :sequence, :function, :database, :schema, :language, :tablespace, :group, :default_privs"}, allow_nil: true
 
         # @return [Array<String>, String, nil] Comma separated list of database objects to set privileges on.,If I(type) is C(table) or C(sequence), the special value C(ALL_IN_SCHEMA) can be provided instead to specify all database objects of type I(type) in the schema specified via I(schema). (This also works with PostgreSQL < 9.0.),If I(type) is C(database), this parameter can be omitted, in which case privileges are set for the database specified via I(database).,If I(type) is I(function), colons (":") in object names will be replaced with commas (needed to specify function signatures, see examples),Alias: I(obj)
         attribute :objs
@@ -60,7 +60,7 @@ module Ansible
 
         # @return [:disable, :allow, :prefer, :require, :"verify-ca", :"verify-full", nil] Determines whether or with what priority a secure SSL TCP/IP connection will be negotiated with the server.,See https://www.postgresql.org/docs/current/static/libpq-ssl.html for more information on the modes.,Default of C(prefer) matches libpq default.
         attribute :ssl_mode
-        validates :ssl_mode, inclusion: {:in=>[:disable, :allow, :prefer, :require, :"verify-ca", :"verify-full"], :message=>"%{value} needs to be :disable, :allow, :prefer, :require, :\"verify-ca\", :\"verify-full\""}, allow_nil: true
+        validates :ssl_mode, expression_inclusion: {:in=>[:disable, :allow, :prefer, :require, :"verify-ca", :"verify-full"], :message=>"%{value} needs to be :disable, :allow, :prefer, :require, :\"verify-ca\", :\"verify-full\""}, allow_nil: true
 
         # @return [Object, nil] Specifies the name of a file containing SSL certificate authority (CA) certificate(s). If the file exists, the server's certificate will be verified to be signed by one of these authorities.
         attribute :ssl_rootcert

@@ -17,11 +17,11 @@ module Ansible
 
         # @return [:present, :absent, :draft, nil] When C(state) is C(present), ensures that the policy exists and is published. When C(state) is C(absent), ensures that the policy is removed, even if it is currently drafted.,When C(state) is C(draft), ensures that the policy exists and is drafted. When modifying rules, it is required that policies first be in a draft.,Drafting is only supported on versions of BIG-IP >= 12.1.0. On versions prior to that, specifying a C(state) of C(draft) will raise an error.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent, :draft], :message=>"%{value} needs to be :present, :absent, :draft"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent, :draft], :message=>"%{value} needs to be :present, :absent, :draft"}, allow_nil: true
 
         # @return [:first, :all, :best, nil] Specifies the method to determine which actions get executed in the case where there are multiple rules that match. When creating new policies, the default is C(first).,This module does not allow you to specify the C(best) strategy to use. It will choose the system default (C(/Common/best-match)) for you instead.
         attribute :strategy
-        validates :strategy, inclusion: {:in=>[:first, :all, :best], :message=>"%{value} needs to be :first, :all, :best"}, allow_nil: true
+        validates :strategy, expression_inclusion: {:in=>[:first, :all, :best], :message=>"%{value} needs to be :first, :all, :best"}, allow_nil: true
 
         # @return [Array<String>, String, nil] Specifies a list of rules that you want associated with this policy. The order of this list is the order they will be evaluated by BIG-IP. If the specified rules do not exist (for example when creating a new policy) then they will be created.,The C(conditions) for a default rule are C(all).,The C(actions) for a default rule are C(ignore).,The C(bigip_policy_rule) module can be used to create and edit existing and new rules.
         attribute :rules

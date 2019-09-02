@@ -18,7 +18,7 @@ module Ansible
 
         # @return [:restore, :present, :absent, nil] Should the Virtual Machine snapshot be restore/present/absent.
         attribute :state
-        validates :state, inclusion: {:in=>[:restore, :present, :absent], :message=>"%{value} needs to be :restore, :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:restore, :present, :absent], :message=>"%{value} needs to be :restore, :present, :absent"}, allow_nil: true
 
         # @return [String, nil] Description of the snapshot.
         attribute :description

@@ -34,7 +34,7 @@ module Ansible
 
         # @return [:absent, :mounted, :present, :unmounted] If C(mounted), the device will be actively mounted and appropriately configured in I(fstab). If the mount point is not present, the mount point will be created.,If C(unmounted), the device will be unmounted without changing I(fstab).,C(present) only specifies that the device is to be configured in I(fstab) and does not trigger or require a mount.,C(absent) specifies that the device mount's entry will be removed from I(fstab) and will also unmount the device and remove the mount point.
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:absent, :mounted, :present, :unmounted], :message=>"%{value} needs to be :absent, :mounted, :present, :unmounted"}
+        validates :state, presence: true, expression_inclusion: {:in=>[:absent, :mounted, :present, :unmounted], :message=>"%{value} needs to be :absent, :mounted, :present, :unmounted"}
 
         # @return [String, nil] File to use instead of C(/etc/fstab). You shouldn't use this option unless you really know what you are doing. This might be useful if you need to configure mountpoints in a chroot environment.  OpenBSD does not allow specifying alternate fstab files with mount so do not use this on OpenBSD with any state that operates on the live filesystem.
         attribute :fstab
@@ -42,11 +42,11 @@ module Ansible
 
         # @return [:yes, :no, nil] Determines if the filesystem should be mounted on boot.,Only applies to Solaris systems.
         attribute :boot
-        validates :boot, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :boot, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:yes, :no, nil] Create a backup file including the timestamp information so you can get the original file back if you somehow clobbered it incorrectly.
         attribute :backup
-        validates :backup, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :backup, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

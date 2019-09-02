@@ -14,11 +14,11 @@ module Ansible
 
         # @return [:static, :auto, nil] BFD session creation mode, the currently created BFD session only supports static or static auto-negotiation mode.
         attribute :create_type
-        validates :create_type, inclusion: {:in=>[:static, :auto], :message=>"%{value} needs to be :static, :auto"}, allow_nil: true
+        validates :create_type, expression_inclusion: {:in=>[:static, :auto], :message=>"%{value} needs to be :static, :auto"}, allow_nil: true
 
         # @return [:ipv4, nil] Specifies the peer IP address type.
         attribute :addr_type
-        validates :addr_type, inclusion: {:in=>[:ipv4], :message=>"%{value} needs to be :ipv4"}, allow_nil: true
+        validates :addr_type, expression_inclusion: {:in=>[:ipv4], :message=>"%{value} needs to be :ipv4"}, allow_nil: true
 
         # @return [Object, nil] Specifies the type and number of the interface bound to the BFD session.
         attribute :out_if_name
@@ -34,11 +34,11 @@ module Ansible
 
         # @return [:yes, :no, nil] Indicates the default multicast IP address that is bound to a BFD session. By default, BFD uses the multicast IP address 224.0.0.184. You can set the multicast IP address by running the default-ip-address command. The value is a bool type.
         attribute :use_default_ip
-        validates :use_default_ip, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :use_default_ip, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:present, :absent, nil] Determines whether the config should be present or not on the device.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

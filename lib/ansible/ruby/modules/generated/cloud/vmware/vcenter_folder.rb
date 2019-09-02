@@ -22,11 +22,11 @@ module Ansible
 
         # @return [:datastore, :host, :network, :vm, nil] This is type of folder.,If set to C(vm), then 'VM and Template Folder' is created under datacenter.,If set to C(host), then 'Host and Cluster Folder' is created under datacenter.,If set to C(datastore), then 'Storage Folder' is created under datacenter.,If set to C(network), then 'Network Folder' is created under datacenter.,This parameter is required, if C(state) is set to C(present) and parent_folder is absent.,This option is ignored, if C(parent_folder) is set.
         attribute :folder_type
-        validates :folder_type, inclusion: {:in=>[:datastore, :host, :network, :vm], :message=>"%{value} needs to be :datastore, :host, :network, :vm"}, allow_nil: true
+        validates :folder_type, expression_inclusion: {:in=>[:datastore, :host, :network, :vm], :message=>"%{value} needs to be :datastore, :host, :network, :vm"}, allow_nil: true
 
         # @return [:present, :absent, nil] State of folder.,If set to C(present) without parent folder parameter, then folder with C(folder_type) is created.,If set to C(present) with parent folder parameter,  then folder in created under parent folder. C(folder_type) is ignored.,If set to C(absent), then folder is unregistered and destroyed.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

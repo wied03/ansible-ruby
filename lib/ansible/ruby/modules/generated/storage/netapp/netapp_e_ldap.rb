@@ -10,7 +10,7 @@ module Ansible
       class Netapp_e_ldap < Base
         # @return [:present, :absent, nil] Enable/disable LDAP support on the system. Disabling will clear out any existing defined domains.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String, nil] This is a unique identifier for the configuration (for cases where there are multiple domains configured).,If this is not specified, but I(state=present), we will utilize a default value of 'default'.
         attribute :identifier

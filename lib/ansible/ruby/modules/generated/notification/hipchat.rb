@@ -26,19 +26,19 @@ module Ansible
 
         # @return [:yellow, :red, :green, :purple, :gray, :random, nil] Background color for the message.
         attribute :color
-        validates :color, inclusion: {:in=>[:yellow, :red, :green, :purple, :gray, :random], :message=>"%{value} needs to be :yellow, :red, :green, :purple, :gray, :random"}, allow_nil: true
+        validates :color, expression_inclusion: {:in=>[:yellow, :red, :green, :purple, :gray, :random], :message=>"%{value} needs to be :yellow, :red, :green, :purple, :gray, :random"}, allow_nil: true
 
         # @return [:text, :html, nil] Message format.
         attribute :msg_format
-        validates :msg_format, inclusion: {:in=>[:text, :html], :message=>"%{value} needs to be :text, :html"}, allow_nil: true
+        validates :msg_format, expression_inclusion: {:in=>[:text, :html], :message=>"%{value} needs to be :text, :html"}, allow_nil: true
 
         # @return [:yes, :no, nil] If true, a notification will be triggered for users in the room.
         attribute :notify
-        validates :notify, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :notify, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:yes, :no, nil] If C(no), SSL certificates will not be validated. This should only be used on personally controlled sites using self-signed certificates.
         attribute :validate_certs
-        validates :validate_certs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :validate_certs, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] API url if using a self-hosted hipchat server. For Hipchat API version 2 use the default URI with C(/v2) instead of C(/v1).
         attribute :api

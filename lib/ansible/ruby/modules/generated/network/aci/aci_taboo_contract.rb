@@ -21,11 +21,11 @@ module Ansible
 
         # @return [:"application-profile", :context, :global, :tenant, nil] The scope of a service contract.,The APIC defaults to C(context) when unset during creation.
         attribute :scope
-        validates :scope, inclusion: {:in=>[:"application-profile", :context, :global, :tenant], :message=>"%{value} needs to be :\"application-profile\", :context, :global, :tenant"}, allow_nil: true
+        validates :scope, expression_inclusion: {:in=>[:"application-profile", :context, :global, :tenant], :message=>"%{value} needs to be :\"application-profile\", :context, :global, :tenant"}, allow_nil: true
 
         # @return [:absent, :present, :query, nil] Use C(present) or C(absent) for adding or removing.,Use C(query) for listing an object or multiple objects.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present, :query], :message=>"%{value} needs to be :absent, :present, :query"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present, :query], :message=>"%{value} needs to be :absent, :present, :query"}, allow_nil: true
       end
     end
   end

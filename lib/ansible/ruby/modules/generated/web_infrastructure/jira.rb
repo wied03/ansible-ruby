@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:create, :comment, :edit, :fetch, :transition, :link] The operation to perform.
         attribute :operation
-        validates :operation, presence: true, inclusion: {:in=>[:create, :comment, :edit, :fetch, :transition, :link], :message=>"%{value} needs to be :create, :comment, :edit, :fetch, :transition, :link"}
+        validates :operation, presence: true, expression_inclusion: {:in=>[:create, :comment, :edit, :fetch, :transition, :link], :message=>"%{value} needs to be :create, :comment, :edit, :fetch, :transition, :link"}
 
         # @return [String] The username to log-in with.
         attribute :username
@@ -78,7 +78,7 @@ module Ansible
 
         # @return [Boolean, nil] Require valid SSL certificates (set to `false` if you'd like to use self-signed certificates)
         attribute :validate_certs
-        validates :validate_certs, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :validate_certs, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
       end
     end
   end

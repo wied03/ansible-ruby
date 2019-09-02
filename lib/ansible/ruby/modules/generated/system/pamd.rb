@@ -42,7 +42,7 @@ module Ansible
 
         # @return [:updated, :before, :after, :args_present, :args_absent, :absent, nil] The default of 'updated' will modify an existing rule if type, control and module_path all match an existing rule.  With 'before', the new rule will be inserted before a rule matching type, control and module_path.  Similarly, with 'after', the new rule will be inserted after an existing rule matching type, control and module_path.  With either 'before' or 'after' new_type, new_control, and new_module_path must all be specified.  If state is 'args_absent' or 'args_present', new_type, new_control, and new_module_path will be ignored.  State 'absent' will remove the rule.  The 'absent' state was added in version 2.4 and is only available in Ansible versions >= 2.4.
         attribute :state
-        validates :state, inclusion: {:in=>[:updated, :before, :after, :args_present, :args_absent, :absent], :message=>"%{value} needs to be :updated, :before, :after, :args_present, :args_absent, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:updated, :before, :after, :args_present, :args_absent, :absent], :message=>"%{value} needs to be :updated, :before, :after, :args_present, :args_absent, :absent"}, allow_nil: true
 
         # @return [String, nil] This is the path to the PAM service files
         attribute :path
@@ -50,7 +50,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Create a backup file including the timestamp information so you can get the original file back if you somehow clobbered it incorrectly.
         attribute :backup
-        validates :backup, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :backup, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

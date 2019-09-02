@@ -22,7 +22,7 @@ module Ansible
 
         # @return [:ONLINE, :OFFLINE_SOFT, :OFFLINE_HARD, nil] ONLINE - Backend server is fully operational. OFFLINE_SOFT - When a server is put into C(OFFLINE_SOFT) mode, connections are kept in use until the current transaction is completed. This allows to gracefully detach a backend. OFFLINE_HARD - When a server is put into C(OFFLINE_HARD) mode, the existing connections are dropped, while new incoming connections aren't accepted either.\r\nIf omitted the proxysql database default for I(status) is C(ONLINE).
         attribute :status
-        validates :status, inclusion: {:in=>[:ONLINE, :OFFLINE_SOFT, :OFFLINE_HARD], :message=>"%{value} needs to be :ONLINE, :OFFLINE_SOFT, :OFFLINE_HARD"}, allow_nil: true
+        validates :status, expression_inclusion: {:in=>[:ONLINE, :OFFLINE_SOFT, :OFFLINE_HARD], :message=>"%{value} needs to be :ONLINE, :OFFLINE_SOFT, :OFFLINE_HARD"}, allow_nil: true
 
         # @return [Object, nil] The bigger the weight of a server relative to other weights, the higher the probability of the server being chosen from the hostgroup. If omitted the proxysql database default for I(weight) is 1.
         attribute :weight
@@ -48,7 +48,7 @@ module Ansible
 
         # @return [:present, :absent, nil] When C(present) - adds the host, when C(absent) - removes the host.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

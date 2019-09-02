@@ -10,7 +10,7 @@ module Ansible
       class Ec2_vpc_nat_gateway < Base
         # @return [:present, :absent, nil] Ensure NAT Gateway is present or absent.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String, nil] The id AWS dynamically allocates to the NAT Gateway on creation. This is required when the absent option is present.
         attribute :nat_gateway_id
@@ -30,7 +30,7 @@ module Ansible
 
         # @return [Boolean, nil] if a NAT Gateway exists already in the subnet_id, then do not create a new one.
         attribute :if_exist_do_not_create
-        validates :if_exist_do_not_create, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :if_exist_do_not_create, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [String, nil] Deallocate the EIP from the VPC.,Option is only valid with the absent state.,You should use this with the wait option. Since you can not release an address while a delete operation is happening.
         attribute :release_eip

@@ -18,7 +18,7 @@ module Ansible
 
         # @return [:http, :local, :scp, :usbkey, nil] The Firmware download protocol.
         attribute :url_protocol
-        validates :url_protocol, inclusion: {:in=>[:http, :local, :scp, :usbkey], :message=>"%{value} needs to be :http, :local, :scp, :usbkey"}, allow_nil: true
+        validates :url_protocol, expression_inclusion: {:in=>[:http, :local, :scp, :usbkey], :message=>"%{value} needs to be :http, :local, :scp, :usbkey"}, allow_nil: true
 
         # @return [String, nil] The firmware URL for the image(s) on the source.
         attribute :url
@@ -32,7 +32,7 @@ module Ansible
 
         # @return [:absent, :present, :query, nil] Use C(present) or C(absent) for adding or removing.,Use C(query) for listing an object or multiple objects.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present, :query], :message=>"%{value} needs to be :absent, :present, :query"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present, :query], :message=>"%{value} needs to be :absent, :present, :query"}, allow_nil: true
       end
     end
   end

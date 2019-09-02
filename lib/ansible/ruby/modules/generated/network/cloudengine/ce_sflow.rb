@@ -16,7 +16,7 @@ module Ansible
 
         # @return [1, 2, nil] Specifies the ID of an sFlow collector. This ID is used when you specify the collector in subsequent sFlow configuration.
         attribute :collector_id
-        validates :collector_id, inclusion: {:in=>[1, 2], :message=>"%{value} needs to be 1, 2"}, allow_nil: true
+        validates :collector_id, expression_inclusion: {:in=>[1, 2], :message=>"%{value} needs to be 1, 2"}, allow_nil: true
 
         # @return [Object, nil] Specifies the IPv4/IPv6 address of the sFlow collector.
         attribute :collector_ip
@@ -32,7 +32,7 @@ module Ansible
 
         # @return [:meth, :enhanced, nil] Configures the device to send sFlow packets through service interfaces, enhancing the sFlow packet forwarding capability. The enhanced parameter is optional. No matter whether you configure the enhanced mode, the switch determines to send sFlow packets through service cards or management port based on the routing information on the collector. When the value is meth, the device forwards sFlow packets at the control plane. When the value is enhanced, the device forwards sFlow packets at the forwarding plane to enhance the sFlow packet forwarding capacity.
         attribute :collector_meth
-        validates :collector_meth, inclusion: {:in=>[:meth, :enhanced], :message=>"%{value} needs to be :meth, :enhanced"}, allow_nil: true
+        validates :collector_meth, expression_inclusion: {:in=>[:meth, :enhanced], :message=>"%{value} needs to be :meth, :enhanced"}, allow_nil: true
 
         # @return [Object, nil] Specifies the description of an sFlow collector. The value is a string of 1 to 255 case-sensitive characters without spaces.
         attribute :collector_description
@@ -51,7 +51,7 @@ module Ansible
 
         # @return [:inbound, :outbound, :both, nil] Enables flow sampling in the inbound or outbound direction.
         attribute :sample_direction
-        validates :sample_direction, inclusion: {:in=>[:inbound, :outbound, :both], :message=>"%{value} needs to be :inbound, :outbound, :both"}, allow_nil: true
+        validates :sample_direction, expression_inclusion: {:in=>[:inbound, :outbound, :both], :message=>"%{value} needs to be :inbound, :outbound, :both"}, allow_nil: true
 
         # @return [Object, nil] Indicates the ID list of the counter collector.
         attribute :counter_collector
@@ -61,7 +61,7 @@ module Ansible
 
         # @return [:enable, :disable, nil] Configures the sFlow packets sent by the switch not to carry routing information.
         attribute :export_route
-        validates :export_route, inclusion: {:in=>[:enable, :disable], :message=>"%{value} needs to be :enable, :disable"}, allow_nil: true
+        validates :export_route, expression_inclusion: {:in=>[:enable, :disable], :message=>"%{value} needs to be :enable, :disable"}, allow_nil: true
 
         # @return [Object, nil] Specifies the rate of sFlow packets sent from a card to the control plane. The value is an integer that ranges from 100 to 1500, in pps.
         attribute :rate_limit
@@ -74,7 +74,7 @@ module Ansible
 
         # @return [:present, :absent, nil] Determines whether the config should be present or not on the device.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

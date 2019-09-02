@@ -17,7 +17,7 @@ module Ansible
 
         # @return [:present, :absent, nil] Whether the check should be present or not
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String, nil] Path to the json file of the check to be added/removed.,Will be created if it does not exist (unless I(state=absent)).,The parent folders need to exist when I(state=present), otherwise an error will be thrown
         attribute :path
@@ -25,7 +25,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Create a backup file (if yes), including the timestamp information so,you can get the original file back if you somehow clobbered it incorrectly.
         attribute :backup
-        validates :backup, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :backup, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String] Path to the sensu check to run (not required when I(state=absent))
         attribute :command
@@ -50,7 +50,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Whether the check should be handled or not
         attribute :handle
-        validates :handle, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :handle, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] When to disable handling of check failures
         attribute :subdue_begin
@@ -63,15 +63,15 @@ module Ansible
 
         # @return [:yes, :no, nil] Whether the check is a metric
         attribute :metric
-        validates :metric, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :metric, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:yes, :no, nil] Whether the check should be scheduled by the sensu client or server,This option obviates the need for specifying the I(subscribers) option
         attribute :standalone
-        validates :standalone, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :standalone, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:yes, :no, nil] Whether the check should be scheduled at all.,You can still issue it via the sensu api
         attribute :publish
-        validates :publish, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :publish, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] Number of event occurrences before the handler should take action
         attribute :occurrences
@@ -82,7 +82,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Classifies the check as an aggregate check,,making it available via the aggregate API
         attribute :aggregate
-        validates :aggregate, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :aggregate, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] The low threshold for flap detection
         attribute :low_flap_threshold

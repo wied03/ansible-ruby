@@ -26,7 +26,7 @@ module Ansible
 
         # @return [:present, :absent, nil] Indicate what is the expected state of the Logical Device (present or not).
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

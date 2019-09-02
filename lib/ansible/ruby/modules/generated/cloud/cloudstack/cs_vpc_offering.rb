@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:enabled, :present, :disabled, :absent, nil] State of the vpc offering.
         attribute :state
-        validates :state, inclusion: {:in=>[:enabled, :present, :disabled, :absent], :message=>"%{value} needs to be :enabled, :present, :disabled, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:enabled, :present, :disabled, :absent], :message=>"%{value} needs to be :enabled, :present, :disabled, :absent"}, allow_nil: true
 
         # @return [String, nil] Display text of the vpc offerings
         attribute :display_text
@@ -36,7 +36,7 @@ module Ansible
 
         # @return [Boolean, nil] Poll async jobs until job has finished.
         attribute :poll_async
-        validates :poll_async, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :poll_async, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
       end
     end
   end

@@ -36,7 +36,7 @@ module Ansible
 
         # @return [:none, :"average-nodes", :"sum-nodes", :"average-members", :"sum-members", nil] Specifies how the system combines the module values to create the proportion (score) for the load balancing operation.,The score represents the module's estimated capacity for handing traffic.,Averaged values are appropriate for downstream Web Accelerator or Application Security Manager virtual servers.,When creating a new monitor, if this parameter is not specified, the default of C(none) is used, meaning that the system does not use the scores in the load balancing operation.,When C(none), specifies that the monitor ignores the nodes and pool member scores.,When C(average-nodes), specifies that the system averages the dynamic ratios on the nodes associated with the monitor's target virtual servers and returns that average as the virtual servers' score.,When C(sum-nodes), specifies that the system adds together the scores of the nodes associated with the monitor's target virtual servers and uses that value in the load balancing operation.,When C(average-members), specifies that the system averages the dynamic ratios on the pool members associated with the monitor's target virtual servers and returns that average as the virtual servers' score.,When C(sum-members), specifies that the system adds together the scores of the pool members associated with the monitor's target virtual servers and uses that value in the load balancing operation.
         attribute :aggregate_dynamic_ratios
-        validates :aggregate_dynamic_ratios, inclusion: {:in=>[:none, :"average-nodes", :"sum-nodes", :"average-members", :"sum-members"], :message=>"%{value} needs to be :none, :\"average-nodes\", :\"sum-nodes\", :\"average-members\", :\"sum-members\""}, allow_nil: true
+        validates :aggregate_dynamic_ratios, expression_inclusion: {:in=>[:none, :"average-nodes", :"sum-nodes", :"average-members", :"sum-members"], :message=>"%{value} needs to be :none, :\"average-nodes\", :\"sum-nodes\", :\"average-members\", :\"sum-members\""}, allow_nil: true
 
         # @return [String, nil] Device partition to manage resources on.
         attribute :partition
@@ -44,7 +44,7 @@ module Ansible
 
         # @return [:present, :absent, nil] When C(present), ensures that the monitor exists.,When C(absent), ensures the monitor is removed.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

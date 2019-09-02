@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:enabled, :disabled, :draining, nil] Condition for the node, which determines its role within the load balancer
         attribute :condition
-        validates :condition, inclusion: {:in=>[:enabled, :disabled, :draining], :message=>"%{value} needs to be :enabled, :disabled, :draining"}, allow_nil: true
+        validates :condition, expression_inclusion: {:in=>[:enabled, :disabled, :draining], :message=>"%{value} needs to be :enabled, :disabled, :draining"}, allow_nil: true
 
         # @return [Integer] Load balancer id
         attribute :load_balancer_id
@@ -30,15 +30,15 @@ module Ansible
 
         # @return [:present, :absent, nil] Indicate desired state of the node
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [:primary, :secondary, nil] Type of node
         attribute :type
-        validates :type, inclusion: {:in=>[:primary, :secondary], :message=>"%{value} needs to be :primary, :secondary"}, allow_nil: true
+        validates :type, expression_inclusion: {:in=>[:primary, :secondary], :message=>"%{value} needs to be :primary, :secondary"}, allow_nil: true
 
         # @return [:yes, :no, nil] Wait for the load balancer to become active before returning
         attribute :wait
-        validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :wait, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] How long to wait before giving up and returning an error
         attribute :wait_timeout

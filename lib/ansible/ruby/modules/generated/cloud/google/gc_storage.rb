@@ -26,7 +26,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Forces an overwrite either locally on the filesystem or remotely with the object/key. Used with PUT and GET operations.
         attribute :force
-        validates :force, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :force, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] This option let's the user set the canned permissions on the object/bucket that are created. The permissions that can be set are 'private', 'public-read', 'authenticated-read'.
         attribute :permission
@@ -40,7 +40,7 @@ module Ansible
 
         # @return [:get, :put, :get_url, :get_str, :delete, :create] Switches the module behaviour between upload, download, get_url (return download url) , get_str (download object as string), create (bucket) and delete (bucket).
         attribute :mode
-        validates :mode, presence: true, inclusion: {:in=>[:get, :put, :get_url, :get_str, :delete, :create], :message=>"%{value} needs to be :get, :put, :get_url, :get_str, :delete, :create"}
+        validates :mode, presence: true, expression_inclusion: {:in=>[:get, :put, :get_url, :get_str, :delete, :create], :message=>"%{value} needs to be :get, :put, :get_url, :get_str, :delete, :create"}
 
         # @return [Object] GS secret key. If not set then the value of the GS_SECRET_ACCESS_KEY environment variable is used.
         attribute :gs_secret_key

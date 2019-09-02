@@ -26,7 +26,7 @@ module Ansible
 
         # @return [:Error, :FailureAudit, :Information, :SuccessAudit, :Warning, nil] Indicates the entry being written to the log is of a specific type.
         attribute :entry_type
-        validates :entry_type, inclusion: {:in=>[:Error, :FailureAudit, :Information, :SuccessAudit, :Warning], :message=>"%{value} needs to be :Error, :FailureAudit, :Information, :SuccessAudit, :Warning"}, allow_nil: true
+        validates :entry_type, expression_inclusion: {:in=>[:Error, :FailureAudit, :Information, :SuccessAudit, :Warning], :message=>"%{value} needs to be :Error, :FailureAudit, :Information, :SuccessAudit, :Warning"}, allow_nil: true
 
         # @return [Integer, nil] A numeric task category associated with the category message file for the log source.
         attribute :category

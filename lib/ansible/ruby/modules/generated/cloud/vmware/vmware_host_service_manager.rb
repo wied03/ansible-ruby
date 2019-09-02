@@ -20,11 +20,11 @@ module Ansible
 
         # @return [:absent, :present, :restart, :start, :stop, nil] Desired state of service.,State value 'start' and 'present' has same effect.,State value 'stop' and 'absent' has same effect.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present, :restart, :start, :stop], :message=>"%{value} needs to be :absent, :present, :restart, :start, :stop"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present, :restart, :start, :stop], :message=>"%{value} needs to be :absent, :present, :restart, :start, :stop"}, allow_nil: true
 
         # @return [:automatic, :off, :on, nil] Set of valid service policy strings.,If set C(on), then service should be started when the host starts up.,If set C(automatic), then service should run if and only if it has open firewall ports.,If set C(off), then Service should not be started when the host starts up.
         attribute :service_policy
-        validates :service_policy, inclusion: {:in=>[:automatic, :off, :on], :message=>"%{value} needs to be :automatic, :off, :on"}, allow_nil: true
+        validates :service_policy, expression_inclusion: {:in=>[:automatic, :off, :on], :message=>"%{value} needs to be :automatic, :off, :on"}, allow_nil: true
 
         # @return [String] Name of Service to be managed. This is brief identifier for the service, for example, ntpd, vxsyslogd etc.,This value should be a valid ESXi service name.
         attribute :service_name

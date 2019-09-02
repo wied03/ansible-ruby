@@ -10,7 +10,7 @@ module Ansible
       class Manageiq_provider < Base
         # @return [:absent, :present, :refresh, nil] absent - provider should not exist, present - provider should be present, refresh - provider will be refreshed
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present, :refresh], :message=>"%{value} needs to be :absent, :present, :refresh"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present, :refresh], :message=>"%{value} needs to be :absent, :present, :refresh"}, allow_nil: true
 
         # @return [String] The provider's name.
         attribute :name
@@ -18,7 +18,7 @@ module Ansible
 
         # @return [:Openshift, :Amazon, :oVirt, :VMware, :Azure, :Director, :OpenStack, :GCE] The provider's type.
         attribute :type
-        validates :type, presence: true, inclusion: {:in=>[:Openshift, :Amazon, :oVirt, :VMware, :Azure, :Director, :OpenStack, :GCE], :message=>"%{value} needs to be :Openshift, :Amazon, :oVirt, :VMware, :Azure, :Director, :OpenStack, :GCE"}
+        validates :type, presence: true, expression_inclusion: {:in=>[:Openshift, :Amazon, :oVirt, :VMware, :Azure, :Director, :OpenStack, :GCE], :message=>"%{value} needs to be :Openshift, :Amazon, :oVirt, :VMware, :Azure, :Director, :OpenStack, :GCE"}
 
         # @return [String, nil] The ManageIQ zone name that will manage the provider.
         attribute :zone
@@ -48,11 +48,11 @@ module Ansible
 
         # @return [:yes, :no, nil] Whether to enable mapping of existing tenants. defaults to False.
         attribute :tenant_mapping_enabled
-        validates :tenant_mapping_enabled, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :tenant_mapping_enabled, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:v2, :v3, nil] The OpenStack Keystone API version. defaults to None.
         attribute :api_version
-        validates :api_version, inclusion: {:in=>[:v2, :v3], :message=>"%{value} needs to be :v2, :v3"}, allow_nil: true
+        validates :api_version, expression_inclusion: {:in=>[:v2, :v3], :message=>"%{value} needs to be :v2, :v3"}, allow_nil: true
 
         # @return [Hash, nil] Default endpoint connection information, required if state is true.
         attribute :provider

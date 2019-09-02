@@ -19,7 +19,7 @@ module Ansible
 
         # @return [:absent, :next_run, :present, :registered, :running, :stopped, :suspended, nil] Should the Virtual Machine be running/stopped/present/absent/suspended/next_run/registered. When C(state) is I(registered) and the unregistered VM's name belongs to an already registered in engine VM in the same DC then we fail to register the unregistered template.,I(present) state will create/update VM and don't change its state if it already exists.,I(running) state will create/update VM and start it.,I(next_run) state updates the VM and if the VM has next run configuration it will be rebooted.,Please check I(notes) to more detailed description of states.,I(registered) is supported since 2.4.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :next_run, :present, :registered, :running, :stopped, :suspended], :message=>"%{value} needs to be :absent, :next_run, :present, :registered, :running, :stopped, :suspended"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :next_run, :present, :registered, :running, :stopped, :suspended], :message=>"%{value} needs to be :absent, :next_run, :present, :registered, :running, :stopped, :suspended"}, allow_nil: true
 
         # @return [String, nil] Name of the cluster, where Virtual Machine should be created.,Required if creating VM.
         attribute :cluster
@@ -78,7 +78,7 @@ module Ansible
 
         # @return [:cow, :raw, nil] Specify format of the disk.,If C(cow) format is used, disk will by created as sparse, so space will be allocated for the volume as needed, also known as I(thin provision).,If C(raw) format is used, disk storage will be allocated right away, also known as I(preallocated).,Note that this option isn't idempotent as it's not currently possible to change format of the disk via API.,This parameter is considered only when C(template) and C(storage domain) is provided.
         attribute :disk_format
-        validates :disk_format, inclusion: {:in=>[:cow, :raw], :message=>"%{value} needs to be :cow, :raw"}, allow_nil: true
+        validates :disk_format, expression_inclusion: {:in=>[:cow, :raw], :message=>"%{value} needs to be :cow, :raw"}, allow_nil: true
 
         # @return [String, nil] Amount of memory of the Virtual Machine. Prefix uses IEC 60027-2 standard (for example 1GiB, 1024MiB).,Default value is set by engine.
         attribute :memory
@@ -107,7 +107,7 @@ module Ansible
 
         # @return [:desktop, :server, :high_performance, nil] Type of the Virtual Machine.,Default value is set by oVirt/RHV engine.,I(high_performance) is supported since Ansible 2.5 and oVirt/RHV 4.2.
         attribute :type
-        validates :type, inclusion: {:in=>[:desktop, :server, :high_performance], :message=>"%{value} needs to be :desktop, :server, :high_performance"}, allow_nil: true
+        validates :type, expression_inclusion: {:in=>[:desktop, :server, :high_performance], :message=>"%{value} needs to be :desktop, :server, :high_performance"}, allow_nil: true
 
         # @return [String, nil] Virtual Machine quota ID to be used for disk. By default quota is chosen by oVirt/RHV engine.
         attribute :quota_id
@@ -119,7 +119,7 @@ module Ansible
 
         # @return [:cdrom, :hd, :network, nil] List of boot devices which should be used to boot. For example C([ cdrom, hd ]).,Default value is set by oVirt/RHV engine.
         attribute :boot_devices
-        validates :boot_devices, inclusion: {:in=>[:cdrom, :hd, :network], :message=>"%{value} needs to be :cdrom, :hd, :network"}, allow_nil: true
+        validates :boot_devices, expression_inclusion: {:in=>[:cdrom, :hd, :network], :message=>"%{value} needs to be :cdrom, :hd, :network"}, allow_nil: true
 
         # @return [Symbol, nil] I(True) enable menu to select boot device, I(False) to disable it. By default is chosen by oVirt/RHV engine.
         attribute :boot_menu
@@ -169,11 +169,11 @@ module Ansible
 
         # @return [:yes, :no, nil] If I(yes) then the disks of the created virtual machine will be cloned and independent of the template.,This parameter is used only when C(state) is I(running) or I(present) and VM didn't exist before.
         attribute :clone
-        validates :clone, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :clone, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:yes, :no, nil] If I(yes) then the permissions of the template (only the direct ones, not the inherited ones) will be copied to the created virtual machine.,This parameter is used only when C(state) is I(running) or I(present) and VM didn't exist before.
         attribute :clone_permissions
-        validates :clone_permissions, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :clone_permissions, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] ISO file from ISO storage domain which should be attached to Virtual Machine.,If you pass empty string the CD will be ejected from VM.,If used with C(state) I(running) or I(present) and VM is running the CD will be attached to VM.,If used with C(state) I(running) or I(present) and VM is down the CD will be attached to VM persistently.
         attribute :cd_iso
@@ -181,7 +181,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Please check to I(Synopsis) to more detailed description of force parameter, it can behave differently in different situations.
         attribute :force
-        validates :force, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :force, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Array<Hash>, Hash, nil] List of NICs, which should be attached to Virtual Machine. NIC is described by following dictionary.,C(name) - Name of the NIC.,C(profile_name) - Profile name where NIC should be attached.,C(interface) -  Type of the network interface. One of following I(virtio), I(e1000), I(rtl8139), default is I(virtio).,C(mac_address) - Custom MAC address of the network interface, by default it's obtained from MAC pool.,NOTE - This parameter is used only when C(state) is I(running) or I(present) and is able to only create NICs. To manage NICs of the VM in more depth please use M(ovirt_nics) module instead.
         attribute :nics
@@ -230,7 +230,7 @@ module Ansible
 
         # @return [:vm, :host, :custom, nil] Specify a serial number policy for the Virtual Machine.,Following options are supported.,C(vm) - Sets the Virtual Machine's UUID as its serial number.,C(host) - Sets the host's UUID as the Virtual Machine's serial number.,C(custom) - Allows you to specify a custom serial number in C(serial_policy_value).
         attribute :serial_policy
-        validates :serial_policy, inclusion: {:in=>[:vm, :host, :custom], :message=>"%{value} needs to be :vm, :host, :custom"}, allow_nil: true
+        validates :serial_policy, expression_inclusion: {:in=>[:vm, :host, :custom], :message=>"%{value} needs to be :vm, :host, :custom"}, allow_nil: true
 
         # @return [Object, nil] Allows you to specify a custom serial number.,This parameter is used only when C(serial_policy) is I(custom).
         attribute :serial_policy_value
@@ -276,7 +276,7 @@ module Ansible
 
         # @return [:interleave, :preferred, :strict, nil] Set how the memory allocation for NUMA nodes of this VM is applied (relevant if NUMA nodes are set for this VM).,It can be one of the following: I(interleave), I(preferred) or I(strict).,If no value is passed, default value is set by oVirt/RHV engine.
         attribute :numa_tune_mode
-        validates :numa_tune_mode, inclusion: {:in=>[:interleave, :preferred, :strict], :message=>"%{value} needs to be :interleave, :preferred, :strict"}, allow_nil: true
+        validates :numa_tune_mode, expression_inclusion: {:in=>[:interleave, :preferred, :strict], :message=>"%{value} needs to be :interleave, :preferred, :strict"}, allow_nil: true
 
         # @return [Array<Hash>, Hash, nil] List of vNUMA Nodes to set for this VM and pin them to assigned host's physical NUMA node.,Each vNUMA node is described by following dictionary:,C(index) -  The index of this NUMA node (mandatory).,C(memory) - Memory size of the NUMA node in MiB (mandatory).,C(cores) -  list of VM CPU cores indexes to be included in this NUMA node (mandatory).,C(numa_node_pins) - list of physical NUMA node indexes to pin this virtual NUMA node to.
         attribute :numa_nodes

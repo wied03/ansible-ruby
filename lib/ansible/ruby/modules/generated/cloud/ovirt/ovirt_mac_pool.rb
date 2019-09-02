@@ -17,7 +17,7 @@ module Ansible
 
         # @return [:present, :absent, nil] Should the mac pool be present or absent.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [Symbol, nil] If I(true) allow a MAC address to be used multiple times in a pool.,Default value is set by oVirt/RHV engine to I(false).
         attribute :allow_duplicates

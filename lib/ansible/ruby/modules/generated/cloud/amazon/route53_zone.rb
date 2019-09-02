@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:present, :absent, nil] whether or not the zone should exist or not
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String, nil] The VPC ID the zone should be a part of (if this is going to be a private zone)
         attribute :vpc_id

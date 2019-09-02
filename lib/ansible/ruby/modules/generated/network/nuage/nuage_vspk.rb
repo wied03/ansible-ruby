@@ -30,11 +30,11 @@ module Ansible
 
         # @return [:present, :absent, nil] Specifies the desired state of the entity.,If I(state=present), in case the entity already exists, will update the entity if it is needed.,If I(state=present), in case the relationship with the parent is a member relationship, will assign the entity as a member of the parent.,If I(state=absent), in case the relationship with the parent is a member relationship, will unassign the entity as a member of the parent.,Either I(state) or I(command) needs to be defined, both can not be defined at the same time.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [:find, :change_password, :wait_for_job, :get_csp_enterprise, nil] Specifies a command to be executed.,With I(command=find), if I(parent_id) and I(parent_type) are defined, it will only search within the parent. Otherwise, if allowed, will search in the root object.,With I(command=find), if I(id) is specified, it will only return the single entity matching the id.,With I(command=find), otherwise, if I(match_filter) is define, it will use that filter to search.,With I(command=find), otherwise, if I(properties) are defined, it will do an AND search using all properties.,With I(command=change_password), a password of a user can be changed. Warning - In case the password is the same as the existing, it will throw an error.,With I(command=wait_for_job), the module will wait for a job to either have a status of SUCCESS or ERROR. In case an ERROR status is found, the module will exit with an error.,With I(command=wait_for_job), the job will always be returned, even if the state is ERROR situation.,Either I(state) or I(command) needs to be defined, both can not be defined at the same time.
         attribute :command
-        validates :command, inclusion: {:in=>[:find, :change_password, :wait_for_job, :get_csp_enterprise], :message=>"%{value} needs to be :find, :change_password, :wait_for_job, :get_csp_enterprise"}, allow_nil: true
+        validates :command, expression_inclusion: {:in=>[:find, :change_password, :wait_for_job, :get_csp_enterprise], :message=>"%{value} needs to be :find, :change_password, :wait_for_job, :get_csp_enterprise"}, allow_nil: true
 
         # @return [String, nil] A filter used when looking (both in I(command) and I(state) for entities, in the format the Nuage VSP API expects.,If I(match_filter) is defined, it will take precedence over the I(properties), but not on the I(id)
         attribute :match_filter

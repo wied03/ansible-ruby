@@ -10,14 +10,14 @@ module Ansible
       class Rax_scaling_group < Base
         # @return [:yes, :no, nil] Attach read-only configuration drive to server as label config-2
         attribute :config_drive
-        validates :config_drive, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :config_drive, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] The period of time, in seconds, that must pass before any scaling can occur after the previous scaling. Must be an integer between 0 and 86400 (24 hrs).
         attribute :cooldown
 
         # @return [:auto, :manual, nil] Disk partitioning strategy
         attribute :disk_config
-        validates :disk_config, inclusion: {:in=>[:auto, :manual], :message=>"%{value} needs to be :auto, :manual"}, allow_nil: true
+        validates :disk_config, expression_inclusion: {:in=>[:auto, :manual], :message=>"%{value} needs to be :auto, :manual"}, allow_nil: true
 
         # @return [Object, nil] Files to insert into the instance. Hash of C(remotepath: localpath)
         attribute :files
@@ -61,14 +61,14 @@ module Ansible
 
         # @return [:present, :absent, nil] Indicate desired state of the resource
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [Object, nil] Data to be uploaded to the servers config drive. This option implies I(config_drive). Can be a file path or a string
         attribute :user_data
 
         # @return [:yes, :no, nil] wait for the scaling group to finish provisioning the minimum amount of servers
         attribute :wait
-        validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :wait, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] how long before wait gives up, in seconds
         attribute :wait_timeout

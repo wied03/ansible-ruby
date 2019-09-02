@@ -31,7 +31,7 @@ module Ansible
 
         # @return [:new, :template, nil] Whether you want to deploy an image or create an instance from scratch.
         attribute :resource_type
-        validates :resource_type, inclusion: {:in=>[:new, :template], :message=>"%{value} needs to be :new, :template"}, allow_nil: true
+        validates :resource_type, expression_inclusion: {:in=>[:new, :template], :message=>"%{value} needs to be :new, :template"}, allow_nil: true
 
         # @return [String, nil] Deploy the image to this oVirt cluster.
         attribute :zone
@@ -59,15 +59,15 @@ module Ansible
 
         # @return [:desktop, :server, :high_performance, nil] Define whether the instance is a server, desktop or high_performance.,I(high_performance) is supported since Ansible 2.5 and oVirt/RHV 4.2.
         attribute :instance_type
-        validates :instance_type, inclusion: {:in=>[:desktop, :server, :high_performance], :message=>"%{value} needs to be :desktop, :server, :high_performance"}, allow_nil: true
+        validates :instance_type, expression_inclusion: {:in=>[:desktop, :server, :high_performance], :message=>"%{value} needs to be :desktop, :server, :high_performance"}, allow_nil: true
 
         # @return [:preallocated, :thin, nil] Define whether disk is thin or preallocated.
         attribute :disk_alloc
-        validates :disk_alloc, inclusion: {:in=>[:preallocated, :thin], :message=>"%{value} needs to be :preallocated, :thin"}, allow_nil: true
+        validates :disk_alloc, expression_inclusion: {:in=>[:preallocated, :thin], :message=>"%{value} needs to be :preallocated, :thin"}, allow_nil: true
 
         # @return [:ide, :virtio, nil] Interface type of the disk.
         attribute :disk_int
-        validates :disk_int, inclusion: {:in=>[:ide, :virtio], :message=>"%{value} needs to be :ide, :virtio"}, allow_nil: true
+        validates :disk_int, expression_inclusion: {:in=>[:ide, :virtio], :message=>"%{value} needs to be :ide, :virtio"}, allow_nil: true
 
         # @return [String, nil] Type of Operating System.
         attribute :instance_os
@@ -108,7 +108,7 @@ module Ansible
 
         # @return [:absent, :present, :restarted, :shutdown, :started, nil] Create, terminate or remove instances.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present, :restarted, :shutdown, :started], :message=>"%{value} needs to be :absent, :present, :restarted, :shutdown, :started"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present, :restarted, :shutdown, :started], :message=>"%{value} needs to be :absent, :present, :restarted, :shutdown, :started"}, allow_nil: true
       end
     end
   end

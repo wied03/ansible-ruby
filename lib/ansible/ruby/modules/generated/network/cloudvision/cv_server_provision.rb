@@ -17,7 +17,7 @@ module Ansible
 
         # @return [:https, :http, nil] The protocol to use when making API calls to CVP. CVP defaults to https and newer versions of CVP no longer support http.
         attribute :protocol
-        validates :protocol, inclusion: {:in=>[:https, :http], :message=>"%{value} needs to be :https, :http"}, allow_nil: true
+        validates :protocol, expression_inclusion: {:in=>[:https, :http], :message=>"%{value} needs to be :https, :http"}, allow_nil: true
 
         # @return [String] The user that will be used to connect to CVP for making API calls.
         attribute :username
@@ -49,11 +49,11 @@ module Ansible
 
         # @return [:show, :add, :remove, nil] The action for the module to take. The actions are add, which applies the specified template config to port, remove, which defaults the specified interface configuration, and show, which will return the current port configuration with no changes.
         attribute :action
-        validates :action, inclusion: {:in=>[:show, :add, :remove], :message=>"%{value} needs to be :show, :add, :remove"}, allow_nil: true
+        validates :action, expression_inclusion: {:in=>[:show, :add, :remove], :message=>"%{value} needs to be :show, :add, :remove"}, allow_nil: true
 
         # @return [:yes, :no, nil] Flag that determines whether or not the module will execute the CVP task spawned as a result of changes to a switch configlet. When an add or remove action is taken which results in a change to a switch configlet, CVP will spawn a task that needs to be executed for the configuration to be applied to the switch. If this option is True then the module will determined the task number created by the configuration change, execute it and wait for the task to complete. If the option is False then the task will remain in the Pending state in CVP for a network administrator to review and execute.
         attribute :auto_run
-        validates :auto_run, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :auto_run, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

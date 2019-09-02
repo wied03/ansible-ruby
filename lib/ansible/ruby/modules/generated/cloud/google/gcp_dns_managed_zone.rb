@@ -10,7 +10,7 @@ module Ansible
       class Gcp_dns_managed_zone < Base
         # @return [:present, :absent, nil] Whether the given object should exist in GCP
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String, nil] A mutable string of at most 1024 characters associated with this resource for the user's convenience. Has no effect on the managed zone's function.
         attribute :description

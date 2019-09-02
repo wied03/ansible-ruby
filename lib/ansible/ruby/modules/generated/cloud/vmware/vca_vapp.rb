@@ -21,7 +21,7 @@ module Ansible
 
         # @return [:pool, :dhcp, :static, nil] Configures the mode of the network connection.
         attribute :network_mode
-        validates :network_mode, inclusion: {:in=>[:pool, :dhcp, :static], :message=>"%{value} needs to be :pool, :dhcp, :static"}, allow_nil: true
+        validates :network_mode, expression_inclusion: {:in=>[:pool, :dhcp, :static], :message=>"%{value} needs to be :pool, :dhcp, :static"}, allow_nil: true
 
         # @return [Object, nil] The name of the virtual machine instance in the vApp to manage.
         attribute :vm_name
@@ -34,11 +34,11 @@ module Ansible
 
         # @return [:noop, :poweron, :poweroff, :suspend, :shutdown, :reboot, :reset, nil] Specifies an operation to be performed on the vApp.
         attribute :operation
-        validates :operation, inclusion: {:in=>[:noop, :poweron, :poweroff, :suspend, :shutdown, :reboot, :reset], :message=>"%{value} needs to be :noop, :poweron, :poweroff, :suspend, :shutdown, :reboot, :reset"}, allow_nil: true
+        validates :operation, expression_inclusion: {:in=>[:noop, :poweron, :poweroff, :suspend, :shutdown, :reboot, :reset], :message=>"%{value} needs to be :noop, :poweron, :poweroff, :suspend, :shutdown, :reboot, :reset"}, allow_nil: true
 
         # @return [:present, :absent, :deployed, :undeployed, nil] Configures the state of the vApp.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent, :deployed, :undeployed], :message=>"%{value} needs to be :present, :absent, :deployed, :undeployed"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent, :deployed, :undeployed], :message=>"%{value} needs to be :present, :absent, :deployed, :undeployed"}, allow_nil: true
 
         # @return [String, nil] The vCloud Air username to use during authentication
         attribute :username
@@ -64,7 +64,7 @@ module Ansible
 
         # @return [:vca, :vchs, :vcd, nil] The type of service we are authenticating against
         attribute :service_type
-        validates :service_type, inclusion: {:in=>[:vca, :vchs, :vcd], :message=>"%{value} needs to be :vca, :vchs, :vcd"}, allow_nil: true
+        validates :service_type, expression_inclusion: {:in=>[:vca, :vchs, :vcd], :message=>"%{value} needs to be :vca, :vchs, :vcd"}, allow_nil: true
 
         # @return [String, nil] The name of the virtual data center (VDC) where the vm should be created or contains the vAPP.
         attribute :vdc_name

@@ -14,15 +14,15 @@ module Ansible
 
         # @return [:absent, :present, nil] State of the features or roles on the system.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
         # @return [:yes, :no, nil] Adds all subfeatures of the specified feature.
         attribute :include_sub_features
-        validates :include_sub_features, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :include_sub_features, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:yes, :no, nil] Adds the corresponding management tools to the specified feature.,Not supported in Windows 2008 R2 and will be ignored.
         attribute :include_management_tools
-        validates :include_management_tools, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :include_management_tools, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] Specify a source to install the feature from.,Not supported in Windows 2008 R2 and will be ignored.,Can either be C({driveletter}:\sources\sxs) or C(\\{IP}\share\sources\sxs).
         attribute :source

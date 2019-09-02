@@ -14,11 +14,11 @@ module Ansible
 
         # @return [:present, :absent, nil] whether the ACL pair should be present or absent
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [:client, :management, nil] the type of token that should be created, either management or client
         attribute :token_type
-        validates :token_type, inclusion: {:in=>[:client, :management], :message=>"%{value} needs to be :client, :management"}, allow_nil: true
+        validates :token_type, expression_inclusion: {:in=>[:client, :management], :message=>"%{value} needs to be :client, :management"}, allow_nil: true
 
         # @return [String, nil] the name that should be associated with the acl key, this is opaque to Consul
         attribute :name
@@ -46,7 +46,7 @@ module Ansible
 
         # @return [Boolean, nil] whether to verify the tls certificate of the consul agent
         attribute :validate_certs
-        validates :validate_certs, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :validate_certs, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
       end
     end
   end

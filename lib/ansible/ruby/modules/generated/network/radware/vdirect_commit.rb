@@ -28,7 +28,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Wait for async operation to complete, may be set as C(VDIRECT_WAIT) environment variable.
         attribute :vdirect_wait
-        validates :vdirect_wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :vdirect_wait, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] vDirect server HTTPS port number, may be set as C(VDIRECT_HTTPS_PORT) environment variable.
         attribute :vdirect_https_port
@@ -44,11 +44,11 @@ module Ansible
 
         # @return [:yes, :no, nil] If C(no), an HTTP connection will be used instead of the default HTTPS connection,,may be set as C(VDIRECT_HTTPS) or C(VDIRECT_USE_SSL) environment variable.
         attribute :vdirect_use_ssl
-        validates :vdirect_use_ssl, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :vdirect_use_ssl, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:yes, :no, nil] If C(no), SSL certificates will not be validated,,may be set as C(VDIRECT_VALIDATE_CERTS) or C(VDIRECT_VERIFY) environment variable.,This should only set to C(no) used on personally controlled sites using self-signed certificates.
         attribute :vdirect_validate_certs
-        validates :vdirect_validate_certs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :vdirect_validate_certs, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Array<String>, String] List of Radware Alteon device names for commit operations.
         attribute :devices
@@ -56,15 +56,15 @@ module Ansible
 
         # @return [:yes, :no, nil] If C(no), apply action will not be performed. Relevant for ADC devices only.
         attribute :apply
-        validates :apply, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :apply, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:yes, :no, nil] If C(no), save action will not be performed. Relevant for ADC devices only.
         attribute :save
-        validates :save, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :save, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:yes, :no, nil] If C(no), sync action will not be performed. Relevant for ADC devices only.
         attribute :sync
-        validates :sync, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :sync, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

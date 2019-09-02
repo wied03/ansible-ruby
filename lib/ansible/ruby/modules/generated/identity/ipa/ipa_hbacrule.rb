@@ -21,7 +21,7 @@ module Ansible
 
         # @return [:all, nil] Host category
         attribute :hostcategory
-        validates :hostcategory, inclusion: {:in=>[:all], :message=>"%{value} needs to be :all"}, allow_nil: true
+        validates :hostcategory, expression_inclusion: {:in=>[:all], :message=>"%{value} needs to be :all"}, allow_nil: true
 
         # @return [Array<String>, String, nil] List of hostgroup names to assign.,If an empty list is passed all hostgroups will be removed. from the rule,If option is omitted hostgroups will not be checked or changed.
         attribute :hostgroup
@@ -32,7 +32,7 @@ module Ansible
 
         # @return [:all, nil] Service category
         attribute :servicecategory
-        validates :servicecategory, inclusion: {:in=>[:all], :message=>"%{value} needs to be :all"}, allow_nil: true
+        validates :servicecategory, expression_inclusion: {:in=>[:all], :message=>"%{value} needs to be :all"}, allow_nil: true
 
         # @return [Object, nil] List of service group names to assign.,If an empty list is passed all assigned service groups will be removed from the rule.,If option is omitted service groups will not be checked or changed.
         attribute :servicegroup
@@ -42,21 +42,21 @@ module Ansible
 
         # @return [:all, nil] Source host category
         attribute :sourcehostcategory
-        validates :sourcehostcategory, inclusion: {:in=>[:all], :message=>"%{value} needs to be :all"}, allow_nil: true
+        validates :sourcehostcategory, expression_inclusion: {:in=>[:all], :message=>"%{value} needs to be :all"}, allow_nil: true
 
         # @return [Object, nil] List of source host group names to assign.,If an empty list if passed all assigned source host groups will be removed from the rule.,If option is omitted source host groups will not be checked or changed.
         attribute :sourcehostgroup
 
         # @return [:present, :absent, :enabled, :disabled, nil] State to ensure
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent, :enabled, :disabled], :message=>"%{value} needs to be :present, :absent, :enabled, :disabled"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent, :enabled, :disabled], :message=>"%{value} needs to be :present, :absent, :enabled, :disabled"}, allow_nil: true
 
         # @return [Object, nil] List of user names to assign.,If an empty list if passed all assigned users will be removed from the rule.,If option is omitted users will not be checked or changed.
         attribute :user
 
         # @return [:all, nil] User category
         attribute :usercategory
-        validates :usercategory, inclusion: {:in=>[:all], :message=>"%{value} needs to be :all"}, allow_nil: true
+        validates :usercategory, expression_inclusion: {:in=>[:all], :message=>"%{value} needs to be :all"}, allow_nil: true
 
         # @return [Array<String>, String, nil] List of user group names to assign.,If an empty list if passed all assigned user groups will be removed from the rule.,If option is omitted user groups will not be checked or changed.
         attribute :usergroup

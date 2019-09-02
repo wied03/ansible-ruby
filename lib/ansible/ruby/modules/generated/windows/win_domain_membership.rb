@@ -27,7 +27,7 @@ module Ansible
 
         # @return [:domain, :workgroup, nil] Whether the target host should be a member of a domain or workgroup.
         attribute :state
-        validates :state, inclusion: {:in=>[:domain, :workgroup], :message=>"%{value} needs to be :domain, :workgroup"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:domain, :workgroup], :message=>"%{value} needs to be :domain, :workgroup"}, allow_nil: true
 
         # @return [Object, nil] When C(state) is C(workgroup), the name of the workgroup that the Windows host should be in.
         attribute :workgroup_name

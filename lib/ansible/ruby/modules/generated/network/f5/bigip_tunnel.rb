@@ -49,7 +49,7 @@ module Ansible
 
         # @return [:default, :enabled, :disabled, nil] Allows you to configure auto last hop on a per-tunnel basis.,When creating a new tunnel, if this parameter is supported by the tunnel profile but not specified, the default is C(default).,When C(default), means that the system uses the global auto-lasthop setting to send back the request.,When C(enabled), allows the system to send return traffic to the MAC address that transmitted the request, even if the routing table points to a different network or interface. As a result, the system can send return traffic to clients even when there is no matching route.
         attribute :auto_last_hop
-        validates :auto_last_hop, inclusion: {:in=>[:default, :enabled, :disabled], :message=>"%{value} needs to be :default, :enabled, :disabled"}, allow_nil: true
+        validates :auto_last_hop, expression_inclusion: {:in=>[:default, :enabled, :disabled], :message=>"%{value} needs to be :default, :enabled, :disabled"}, allow_nil: true
 
         # @return [String, nil] Specifies the traffic group to associate with the tunnel.,This value cannot be changed after it is set. This is a limitation of BIG-IP.
         attribute :traffic_group
@@ -57,7 +57,7 @@ module Ansible
 
         # @return [:bidirectional, :inbound, :outbound, nil] Specifies how the tunnel carries traffic.,When creating a new tunnel, if this parameter is supported by the tunnel profile but not specified, the default is C(bidirectional).,When C(bidirectional), specifies that the tunnel carries both inbound and outbound traffic.,When C(inbound), specifies that the tunnel carries only incoming traffic.,When C(outbound), specifies that the tunnel carries only outgoing traffic.
         attribute :mode
-        validates :mode, inclusion: {:in=>[:bidirectional, :inbound, :outbound], :message=>"%{value} needs to be :bidirectional, :inbound, :outbound"}, allow_nil: true
+        validates :mode, expression_inclusion: {:in=>[:bidirectional, :inbound, :outbound], :message=>"%{value} needs to be :bidirectional, :inbound, :outbound"}, allow_nil: true
 
         # @return [Symbol, nil] Specifies that the tunnel operates in transparent mode.,When C(yes), you can inspect and manipulate the encapsulated traffic flowing through the BIG-IP system.,A transparent tunnel terminates a tunnel while presenting the illusion that the tunnel transits the device unmodified (that is, the BIG-IP system appears as if it were an intermediate router that simply routes IP traffic through the device).
         attribute :transparent
@@ -69,7 +69,7 @@ module Ansible
 
         # @return [:present, :absent, nil] When C(present), ensures that the tunnel exists.,When C(absent), ensures the tunnel is removed.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

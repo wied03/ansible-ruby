@@ -27,7 +27,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Refresh existing authentication found in the configuration file.
         attribute :reauthorize
-        validates :reauthorize, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :reauthorize, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] Custom path to the Docker CLI configuration file.
         attribute :config_path
@@ -35,7 +35,7 @@ module Ansible
 
         # @return [:present, :absent, nil] This controls the current state of the user. C(present) will login in a user, C(absent) will log them out.,To logout you only need the registry server, which defaults to DockerHub.,Before 2.1 you could ONLY log in.,docker does not support 'logout' with a custom config file.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

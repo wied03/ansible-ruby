@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:absent, :present, :enabled, :disabled, :offline, nil] Takes the host to the desired lifecycle state.,If C(absent) the host will be deleted from the cluster.,If C(present) the host will be created in the cluster (includes C(enabled), C(disabled) and C(offline) states).,If C(enabled) the host is fully operational.,C(disabled), e.g. to perform maintenance operations.,C(offline), host is totally offline.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present, :enabled, :disabled, :offline], :message=>"%{value} needs to be :absent, :present, :enabled, :disabled, :offline"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present, :enabled, :disabled, :offline], :message=>"%{value} needs to be :absent, :present, :enabled, :disabled, :offline"}, allow_nil: true
 
         # @return [String, nil] The name of the information manager, this values are taken from the oned.conf with the tag name IM_MAD (name)
         attribute :im_mad_name

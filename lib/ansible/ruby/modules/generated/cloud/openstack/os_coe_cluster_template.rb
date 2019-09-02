@@ -13,7 +13,7 @@ module Ansible
 
         # @return [:kubernetes, :swarm, :mesos, nil] The Container Orchestration Engine for this clustertemplate
         attribute :coe
-        validates :coe, inclusion: {:in=>[:kubernetes, :swarm, :mesos], :message=>"%{value} needs to be :kubernetes, :swarm, :mesos"}, allow_nil: true
+        validates :coe, expression_inclusion: {:in=>[:kubernetes, :swarm, :mesos], :message=>"%{value} needs to be :kubernetes, :swarm, :mesos"}, allow_nil: true
 
         # @return [String, nil] The DNS nameserver address
         attribute :dns_nameserver
@@ -21,7 +21,7 @@ module Ansible
 
         # @return [:devicemapper, :overlay, nil] Docker storage driver
         attribute :docker_storage_driver
-        validates :docker_storage_driver, inclusion: {:in=>[:devicemapper, :overlay], :message=>"%{value} needs to be :devicemapper, :overlay"}, allow_nil: true
+        validates :docker_storage_driver, expression_inclusion: {:in=>[:devicemapper, :overlay], :message=>"%{value} needs to be :devicemapper, :overlay"}, allow_nil: true
 
         # @return [Object, nil] The size in GB of the docker volume
         attribute :docker_volume_size
@@ -40,7 +40,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Indicates whether created clusters should have a floating ip or not
         attribute :floating_ip_enabled
-        validates :floating_ip_enabled, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :floating_ip_enabled, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] Name or ID of the keypair to use.
         attribute :keypair_id
@@ -64,7 +64,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Indicates whether created clusters should have a load balancer for master nodes or not
         attribute :master_lb_enabled
-        validates :master_lb_enabled, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :master_lb_enabled, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String] Name that has to be given to the cluster template
         attribute :name
@@ -72,34 +72,34 @@ module Ansible
 
         # @return [:flannel, :calico, :docker, nil] The name of the driver used for instantiating container networks
         attribute :network_driver
-        validates :network_driver, inclusion: {:in=>[:flannel, :calico, :docker], :message=>"%{value} needs to be :flannel, :calico, :docker"}, allow_nil: true
+        validates :network_driver, expression_inclusion: {:in=>[:flannel, :calico, :docker], :message=>"%{value} needs to be :flannel, :calico, :docker"}, allow_nil: true
 
         # @return [Object, nil] A comma separated list of IPs for which proxies should not be used in the cluster
         attribute :no_proxy
 
         # @return [:yes, :no, nil] Indicates whether the ClusterTemplate is public or not
         attribute :public
-        validates :public, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :public, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:yes, :no, nil] Indicates whether the docker registry is enabled
         attribute :registry_enabled
-        validates :registry_enabled, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :registry_enabled, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:vm, :bm, nil] Server type for this ClusterTemplate
         attribute :server_type
-        validates :server_type, inclusion: {:in=>[:vm, :bm], :message=>"%{value} needs to be :vm, :bm"}, allow_nil: true
+        validates :server_type, expression_inclusion: {:in=>[:vm, :bm], :message=>"%{value} needs to be :vm, :bm"}, allow_nil: true
 
         # @return [:present, :absent, nil] Indicate desired state of the resource.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [:yes, :no, nil] Indicates whether the TLS should be disabled
         attribute :tls_disabled
-        validates :tls_disabled, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :tls_disabled, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:cinder, :rexray, nil] The name of the driver used for instantiating container volumes
         attribute :volume_driver
-        validates :volume_driver, inclusion: {:in=>[:cinder, :rexray], :message=>"%{value} needs to be :cinder, :rexray"}, allow_nil: true
+        validates :volume_driver, expression_inclusion: {:in=>[:cinder, :rexray], :message=>"%{value} needs to be :cinder, :rexray"}, allow_nil: true
       end
     end
   end

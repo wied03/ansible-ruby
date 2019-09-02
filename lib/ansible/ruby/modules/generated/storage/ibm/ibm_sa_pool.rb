@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:present, :absent] Pool state.
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
+        validates :state, presence: true, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
 
         # @return [Integer, nil] Pool size in GB
         attribute :size

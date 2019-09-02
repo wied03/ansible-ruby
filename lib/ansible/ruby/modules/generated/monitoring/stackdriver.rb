@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:annotation, :deploy, nil] The type of event to send, either annotation or deploy
         attribute :event
-        validates :event, inclusion: {:in=>[:annotation, :deploy], :message=>"%{value} needs to be :annotation, :deploy"}, allow_nil: true
+        validates :event, expression_inclusion: {:in=>[:annotation, :deploy], :message=>"%{value} needs to be :annotation, :deploy"}, allow_nil: true
 
         # @return [String, nil] The revision of the code that was deployed. Required for deploy events
         attribute :revision_id
@@ -42,7 +42,7 @@ module Ansible
 
         # @return [:INFO, :WARN, :ERROR, nil] one of INFO/WARN/ERROR, defaults to INFO if not supplied.  May affect display.
         attribute :level
-        validates :level, inclusion: {:in=>[:INFO, :WARN, :ERROR], :message=>"%{value} needs to be :INFO, :WARN, :ERROR"}, allow_nil: true
+        validates :level, expression_inclusion: {:in=>[:INFO, :WARN, :ERROR], :message=>"%{value} needs to be :INFO, :WARN, :ERROR"}, allow_nil: true
 
         # @return [String, nil] id of an EC2 instance that this event should be attached to, which will limit the contexts where this event is shown
         attribute :instance_id

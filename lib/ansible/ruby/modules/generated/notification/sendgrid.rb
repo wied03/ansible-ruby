@@ -45,7 +45,7 @@ module Ansible
 
         # @return [:yes, :no, nil] whether the body is html content that should be rendered
         attribute :html_body
-        validates :html_body, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :html_body, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] a dict to pass on as headers
         attribute :headers

@@ -30,7 +30,7 @@ module Ansible
 
         # @return [:automatic, :manual, :disabled, nil] Configure the inventory mode.
         attribute :inventory_mode
-        validates :inventory_mode, inclusion: {:in=>[:automatic, :manual, :disabled], :message=>"%{value} needs to be :automatic, :manual, :disabled"}, allow_nil: true
+        validates :inventory_mode, expression_inclusion: {:in=>[:automatic, :manual, :disabled], :message=>"%{value} needs to be :automatic, :manual, :disabled"}, allow_nil: true
 
         # @return [Hash, nil] Add Facts for a zabbix inventory (e.g. Tag) (see example below).,Please review the interface documentation for more information on the supported properties,https://www.zabbix.com/documentation/3.2/manual/api/reference/host/object#host_inventory
         attribute :inventory_zabbix
@@ -38,11 +38,11 @@ module Ansible
 
         # @return [:enabled, :disabled, nil] Monitoring status of the host.
         attribute :status
-        validates :status, inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
+        validates :status, expression_inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
 
         # @return [:present, :absent, nil] State of the host.,On C(present), it will create if host does not exist or update the host if the associated data is different.,On C(absent) will remove a host if it exists.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String, nil] The name of the Zabbix proxy to be used.
         attribute :proxy
@@ -91,7 +91,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Overwrite the host configuration, even if already present.
         attribute :force
-        validates :force, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :force, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

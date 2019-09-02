@@ -22,7 +22,7 @@ module Ansible
 
         # @return [:yes, :no, nil] If C(yes), any modified files in the working tree will be discarded.  Before 1.9 the default value was C(yes).
         attribute :force
-        validates :force, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :force, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] Path to bzr executable to use. If not supplied, the normal mechanism for resolving binary paths will be used.
         attribute :executable

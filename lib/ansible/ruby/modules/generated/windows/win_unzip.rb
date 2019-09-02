@@ -21,11 +21,11 @@ module Ansible
 
         # @return [:yes, :no, nil] Remove the zip file, after unzipping.
         attribute :delete_archive
-        validates :delete_archive, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :delete_archive, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:yes, :no, nil] Recursively expand zipped files within the src file.,Setting to a value of C(yes) requires the PSCX module to be installed.
         attribute :recurse
-        validates :recurse, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :recurse, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] If this file or directory exists the specified src will not be extracted.
         attribute :creates

@@ -22,7 +22,7 @@ module Ansible
 
         # @return [Boolean, nil] Should https certificates be validated?
         attribute :validate_certs
-        validates :validate_certs, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :validate_certs, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [String] The ID of the array to manage (as configured on the web services proxy).
         attribute :ssid
@@ -30,7 +30,7 @@ module Ansible
 
         # @return [:present, :absent] Whether the specified SSD cache should exist or not.
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
+        validates :state, presence: true, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
 
         # @return [String] The name of the SSD cache to manage
         attribute :name
@@ -38,14 +38,14 @@ module Ansible
 
         # @return [:filesystem, :database, :media, nil] The type of workload to optimize the cache for.
         attribute :io_type
-        validates :io_type, inclusion: {:in=>[:filesystem, :database, :media], :message=>"%{value} needs to be :filesystem, :database, :media"}, allow_nil: true
+        validates :io_type, expression_inclusion: {:in=>[:filesystem, :database, :media], :message=>"%{value} needs to be :filesystem, :database, :media"}, allow_nil: true
 
         # @return [Object, nil] The minimum number of disks to use for building the cache. The cache will be expanded if this number exceeds the number of disks already in place
         attribute :disk_count
 
         # @return [:bytes, :b, :kb, :mb, :gb, :tb, :pb, :eb, :zb, :yb, nil] The unit to be applied to size arguments
         attribute :size_unit
-        validates :size_unit, inclusion: {:in=>[:bytes, :b, :kb, :mb, :gb, :tb, :pb, :eb, :zb, :yb], :message=>"%{value} needs to be :bytes, :b, :kb, :mb, :gb, :tb, :pb, :eb, :zb, :yb"}, allow_nil: true
+        validates :size_unit, expression_inclusion: {:in=>[:bytes, :b, :kb, :mb, :gb, :tb, :pb, :eb, :zb, :yb], :message=>"%{value} needs to be :bytes, :b, :kb, :mb, :gb, :tb, :pb, :eb, :zb, :yb"}, allow_nil: true
 
         # @return [Object, nil] The minimum size (in size_units) of the ssd cache. The cache will be expanded if this exceeds the current size of the cache.
         attribute :cache_size_min

@@ -11,7 +11,7 @@ module Ansible
       class Ucs_wwn_pool < Base
         # @return [:present, :absent, nil] If C(present), will verify WWNNs/WWPNs are present and will create if needed.,If C(absent), will verify WWNNs/WWPNs are absent and will delete if needed.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String] The name of the World Wide Node Name (WWNN) or World Wide Port Name (WWPN) pool.,This name can be between 1 and 32 alphanumeric characters.,You cannot use spaces or any special characters other than - (hyphen), "_" (underscore), : (colon), and . (period).,You cannot change this name after the WWNN or WWPN pool is created.
         attribute :name
@@ -19,14 +19,14 @@ module Ansible
 
         # @return [:node, :port] Specify whether this is a node (WWNN) or port (WWPN) pool.,Optional if state is absent.
         attribute :purpose
-        validates :purpose, presence: true, inclusion: {:in=>[:node, :port], :message=>"%{value} needs to be :node, :port"}
+        validates :purpose, presence: true, expression_inclusion: {:in=>[:node, :port], :message=>"%{value} needs to be :node, :port"}
 
         # @return [Object, nil] A description of the WWNN or WWPN pool.,Enter up to 256 characters.,You can use any characters or spaces except the following:,` (accent mark),  (backslash), ^ (carat), " (double quote), = (equal sign), > (greater than), < (less than), or ' (single quote).
         attribute :description
 
         # @return [:default, :sequential, nil] The Assignment Order field.,This can be one of the following:,default - Cisco UCS Manager selects a random identity from the pool.,sequential - Cisco UCS Manager selects the lowest available identity from the pool.
         attribute :order
-        validates :order, inclusion: {:in=>[:default, :sequential], :message=>"%{value} needs to be :default, :sequential"}, allow_nil: true
+        validates :order, expression_inclusion: {:in=>[:default, :sequential], :message=>"%{value} needs to be :default, :sequential"}, allow_nil: true
 
         # @return [String, nil] The first initiator in the World Wide Name (WWN) block.,This is the From field in the UCS Manager Add WWN Blocks menu.
         attribute :first_addr

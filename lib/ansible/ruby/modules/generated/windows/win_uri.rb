@@ -16,7 +16,7 @@ module Ansible
 
         # @return [:CONNECT, :DELETE, :GET, :HEAD, :MERGE, :OPTIONS, :PATCH, :POST, :PUT, :REFRESH, :TRACE, nil] The HTTP Method of the request or response.
         attribute :method
-        validates :method, inclusion: {:in=>[:CONNECT, :DELETE, :GET, :HEAD, :MERGE, :OPTIONS, :PATCH, :POST, :PUT, :REFRESH, :TRACE], :message=>"%{value} needs to be :CONNECT, :DELETE, :GET, :HEAD, :MERGE, :OPTIONS, :PATCH, :POST, :PUT, :REFRESH, :TRACE"}, allow_nil: true
+        validates :method, expression_inclusion: {:in=>[:CONNECT, :DELETE, :GET, :HEAD, :MERGE, :OPTIONS, :PATCH, :POST, :PUT, :REFRESH, :TRACE], :message=>"%{value} needs to be :CONNECT, :DELETE, :GET, :HEAD, :MERGE, :OPTIONS, :PATCH, :POST, :PUT, :REFRESH, :TRACE"}, allow_nil: true
 
         # @return [Object, nil] Sets the "Content-Type" header.
         attribute :content_type
@@ -33,7 +33,7 @@ module Ansible
 
         # @return [:yes, :no, nil] By default the authentication information is only sent when a webservice responds to an initial request with a 401 status. Since some basic auth services do not properly send a 401, logins will fail.,This option forces the sending of the Basic authentication header upon the initial request.
         attribute :force_basic_auth
-        validates :force_basic_auth, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :force_basic_auth, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] Output the response body to a file.
         attribute :dest
@@ -53,7 +53,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Whether or not to return the body of the response as a "content" key in the dictionary result. If the reported Content-type is "application/json", then the JSON is additionally loaded into a key called C(json) in the dictionary results.
         attribute :return_content
-        validates :return_content, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :return_content, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Array<String>, String, nil] A valid, numeric, HTTP status code that signifies success of the request.,Can also be comma separated list of status codes.
         attribute :status_code
@@ -65,7 +65,7 @@ module Ansible
 
         # @return [:all, :none, :safe, nil] Whether or not the C(win_uri) module should follow redirects.,C(all) will follow all redirects.,C(none) will not follow any redirects.,C(safe) will follow only "safe" redirects, where "safe" means that the client is only doing a C(GET) or C(HEAD) on the URI to which it is being redirected.
         attribute :follow_redirects
-        validates :follow_redirects, inclusion: {:in=>[:all, :none, :safe], :message=>"%{value} needs to be :all, :none, :safe"}, allow_nil: true
+        validates :follow_redirects, expression_inclusion: {:in=>[:all, :none, :safe], :message=>"%{value} needs to be :all, :none, :safe"}, allow_nil: true
 
         # @return [Integer, nil] Specifies how many times C(win_uri) redirects a connection to an alternate Uniform Resource Identifier (URI) before the connection fails.,If C(maximum_redirection) is set to 0 (zero) or C(follow_redirects) is set to C(none), or set to C(safe) when not doing C(GET) or C(HEAD) it prevents all redirection.
         attribute :maximum_redirection
@@ -73,7 +73,7 @@ module Ansible
 
         # @return [:yes, :no, nil] If C(no), SSL certificates will not be validated.  This should only set to C(no) used on personally controlled sites using self-signed certificates.
         attribute :validate_certs
-        validates :validate_certs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :validate_certs, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] Specifies the client certificate (.pfx) that is used for a secure web request.,The WinRM connection must be authenticated with C(CredSSP) if the certificate file is not password protected.,Other authentication types can set I(client_cert_password) when the cert is password protected.
         attribute :client_cert

@@ -60,7 +60,7 @@ module Ansible
 
         # @return [:yes, :no, nil] bidirectional flag
         attribute :snat_bidirectional
-        validates :snat_bidirectional, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :snat_bidirectional, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] dnat translated address
         attribute :dnat_address
@@ -72,11 +72,11 @@ module Ansible
 
         # @return [:yes, :no, nil] attempt to override rule if one with the same name already exists
         attribute :override
-        validates :override, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :override, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:yes, :no, nil] commit if changed
         attribute :commit
-        validates :commit, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :commit, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

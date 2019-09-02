@@ -14,11 +14,11 @@ module Ansible
 
         # @return [:yes, :no, nil] Specifies if properties for any children should be recursively displayed.
         attribute :recurse
-        validates :recurse, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :recurse, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:yes, :no, nil] Specifies if property values should be displayed in machine friendly format.
         attribute :parsable
-        validates :parsable, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :parsable, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] Specifies which dataset properties should be queried in comma-separated format. For more information about dataset properties, check zfs(1M) man page.
         attribute :properties
@@ -26,7 +26,7 @@ module Ansible
 
         # @return [:all, :filesystem, :volume, :snapshot, :bookmark, nil] Specifies which datasets types to display. Multiple values have to be provided in comma-separated form.
         attribute :type
-        validates :type, inclusion: {:in=>[:all, :filesystem, :volume, :snapshot, :bookmark], :message=>"%{value} needs to be :all, :filesystem, :volume, :snapshot, :bookmark"}, allow_nil: true
+        validates :type, expression_inclusion: {:in=>[:all, :filesystem, :volume, :snapshot, :bookmark], :message=>"%{value} needs to be :all, :filesystem, :volume, :snapshot, :bookmark"}, allow_nil: true
 
         # @return [Object, nil] Specifiies recurion depth.
         attribute :depth

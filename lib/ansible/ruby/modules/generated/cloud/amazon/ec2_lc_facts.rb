@@ -13,11 +13,11 @@ module Ansible
 
         # @return [:launch_configuration_name, :image_id, :created_time, :instance_type, :kernel_id, :ramdisk_id, :key_name, nil] Optional attribute which with to sort the results.
         attribute :sort
-        validates :sort, inclusion: {:in=>[:launch_configuration_name, :image_id, :created_time, :instance_type, :kernel_id, :ramdisk_id, :key_name], :message=>"%{value} needs to be :launch_configuration_name, :image_id, :created_time, :instance_type, :kernel_id, :ramdisk_id, :key_name"}, allow_nil: true
+        validates :sort, expression_inclusion: {:in=>[:launch_configuration_name, :image_id, :created_time, :instance_type, :kernel_id, :ramdisk_id, :key_name], :message=>"%{value} needs to be :launch_configuration_name, :image_id, :created_time, :instance_type, :kernel_id, :ramdisk_id, :key_name"}, allow_nil: true
 
         # @return [:ascending, :descending, nil] Order in which to sort results.,Only used when the 'sort' parameter is specified.
         attribute :sort_order
-        validates :sort_order, inclusion: {:in=>[:ascending, :descending], :message=>"%{value} needs to be :ascending, :descending"}, allow_nil: true
+        validates :sort_order, expression_inclusion: {:in=>[:ascending, :descending], :message=>"%{value} needs to be :ascending, :descending"}, allow_nil: true
 
         # @return [Object, nil] Which result to start with (when sorting).,Corresponds to Python slice notation.
         attribute :sort_start

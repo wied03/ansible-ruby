@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:absent, :latest, :present, nil] Desired state of the package.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :latest, :present], :message=>"%{value} needs to be :absent, :latest, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :latest, :present], :message=>"%{value} needs to be :absent, :latest, :present"}, allow_nil: true
 
         # @return [Symbol, nil] When removing a package, also remove its dependencies, provided that they are not required by other packages and were not explicitly installed by a user.
         attribute :recurse

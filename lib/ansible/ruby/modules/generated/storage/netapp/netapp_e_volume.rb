@@ -10,7 +10,7 @@ module Ansible
       class Netapp_e_volume < Base
         # @return [:present, :absent] Whether the specified volume should exist or not.
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
+        validates :state, presence: true, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
 
         # @return [String] The name of the volume to manage
         attribute :name
@@ -22,7 +22,7 @@ module Ansible
 
         # @return [:bytes, :b, :kb, :mb, :gb, :tb, :pb, :eb, :zb, :yb, nil] The unit used to interpret the size parameter
         attribute :size_unit
-        validates :size_unit, inclusion: {:in=>[:bytes, :b, :kb, :mb, :gb, :tb, :pb, :eb, :zb, :yb], :message=>"%{value} needs to be :bytes, :b, :kb, :mb, :gb, :tb, :pb, :eb, :zb, :yb"}, allow_nil: true
+        validates :size_unit, expression_inclusion: {:in=>[:bytes, :b, :kb, :mb, :gb, :tb, :pb, :eb, :zb, :yb], :message=>"%{value} needs to be :bytes, :b, :kb, :mb, :gb, :tb, :pb, :eb, :zb, :yb"}, allow_nil: true
 
         # @return [Object] Required only when state = 'present'.  The size of the volume in (size_unit).
         attribute :size
@@ -34,7 +34,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Whether the volume should be thin provisioned.  Thin volumes can only be created on disk pools (raidDiskPool).
         attribute :thin_provision
-        validates :thin_provision, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :thin_provision, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object] Initial size of the thin volume repository volume (in size_unit)
         attribute :thin_volume_repo_size
@@ -50,7 +50,7 @@ module Ansible
 
         # @return [:yes, :no, nil] If data assurance should be enabled for the volume
         attribute :data_assurance_enabled
-        validates :data_assurance_enabled, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :data_assurance_enabled, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

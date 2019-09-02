@@ -22,7 +22,7 @@ module Ansible
 
         # @return [:azure_endpoints, :external_endpoints, :nested_endpoints, nil] Type of endpoint.
         attribute :type
-        validates :type, inclusion: {:in=>[:azure_endpoints, :external_endpoints, :nested_endpoints], :message=>"%{value} needs to be :azure_endpoints, :external_endpoints, :nested_endpoints"}, allow_nil: true
+        validates :type, expression_inclusion: {:in=>[:azure_endpoints, :external_endpoints, :nested_endpoints], :message=>"%{value} needs to be :azure_endpoints, :external_endpoints, :nested_endpoints"}, allow_nil: true
       end
     end
   end

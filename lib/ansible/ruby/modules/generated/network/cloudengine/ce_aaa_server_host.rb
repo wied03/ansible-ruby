@@ -10,7 +10,7 @@ module Ansible
       class Ce_aaa_server_host < Base
         # @return [:present, :absent, nil] Specify desired state of the resource.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [Object, nil] Name of a local user. The value is a string of 1 to 253 characters.
         attribute :local_user_name
@@ -35,7 +35,7 @@ module Ansible
 
         # @return [:Authentication, :Accounting, nil] Type of Radius Server.
         attribute :radius_server_type
-        validates :radius_server_type, inclusion: {:in=>[:Authentication, :Accounting], :message=>"%{value} needs to be :Authentication, :Accounting"}, allow_nil: true
+        validates :radius_server_type, expression_inclusion: {:in=>[:Authentication, :Accounting], :message=>"%{value} needs to be :Authentication, :Accounting"}, allow_nil: true
 
         # @return [Object, nil] IPv4 address of configured server. The value is a string of 0 to 255 characters, in dotted decimal notation.
         attribute :radius_server_ip
@@ -48,7 +48,7 @@ module Ansible
 
         # @return [:"Secondary-server", :"Primary-server", nil] Configured primary or secondary server for a particular server.
         attribute :radius_server_mode
-        validates :radius_server_mode, inclusion: {:in=>[:"Secondary-server", :"Primary-server"], :message=>"%{value} needs to be :\"Secondary-server\", :\"Primary-server\""}, allow_nil: true
+        validates :radius_server_mode, expression_inclusion: {:in=>[:"Secondary-server", :"Primary-server"], :message=>"%{value} needs to be :\"Secondary-server\", :\"Primary-server\""}, allow_nil: true
 
         # @return [Object, nil] Set VPN instance. The value is a string of 1 to 31 case-sensitive characters.
         attribute :radius_vpn_name
@@ -67,18 +67,18 @@ module Ansible
 
         # @return [:Authentication, :Authorization, :Accounting, :Common, nil] Hwtacacs server type.
         attribute :hwtacacs_server_type
-        validates :hwtacacs_server_type, inclusion: {:in=>[:Authentication, :Authorization, :Accounting, :Common], :message=>"%{value} needs to be :Authentication, :Authorization, :Accounting, :Common"}, allow_nil: true
+        validates :hwtacacs_server_type, expression_inclusion: {:in=>[:Authentication, :Authorization, :Accounting, :Common], :message=>"%{value} needs to be :Authentication, :Authorization, :Accounting, :Common"}, allow_nil: true
 
         # @return [:yes, :no, nil] Whether the server is secondary.
         attribute :hwtacacs_is_secondary_server
-        validates :hwtacacs_is_secondary_server, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :hwtacacs_is_secondary_server, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] VPN instance name.
         attribute :hwtacacs_vpn_name
 
         # @return [:yes, :no, nil] Set the public-net.
         attribute :hwtacacs_is_public_net
-        validates :hwtacacs_is_public_net, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :hwtacacs_is_public_net, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] Hwtacacs server host name.
         attribute :hwtacacs_server_host_name

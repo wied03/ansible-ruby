@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:PENDING_VALIDATION, :ISSUED, :INACTIVE, :EXPIRED, :VALIDATION_TIMED_OUT, nil] Status to filter the certificate results
         attribute :status
-        validates :status, inclusion: {:in=>[:PENDING_VALIDATION, :ISSUED, :INACTIVE, :EXPIRED, :VALIDATION_TIMED_OUT], :message=>"%{value} needs to be :PENDING_VALIDATION, :ISSUED, :INACTIVE, :EXPIRED, :VALIDATION_TIMED_OUT"}, allow_nil: true
+        validates :status, expression_inclusion: {:in=>[:PENDING_VALIDATION, :ISSUED, :INACTIVE, :EXPIRED, :VALIDATION_TIMED_OUT], :message=>"%{value} needs to be :PENDING_VALIDATION, :ISSUED, :INACTIVE, :EXPIRED, :VALIDATION_TIMED_OUT"}, allow_nil: true
       end
     end
   end

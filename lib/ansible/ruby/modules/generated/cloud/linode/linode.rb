@@ -10,7 +10,7 @@ module Ansible
       class Linode < Base
         # @return [:absent, :active, :deleted, :present, :restarted, :started, :stopped, nil] Indicate desired state of the resource
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :active, :deleted, :present, :restarted, :started, :stopped], :message=>"%{value} needs to be :absent, :active, :deleted, :present, :restarted, :started, :stopped"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :active, :deleted, :present, :restarted, :started, :stopped], :message=>"%{value} needs to be :absent, :active, :deleted, :present, :restarted, :started, :stopped"}, allow_nil: true
 
         # @return [String, nil] Linode API key
         attribute :api_key
@@ -82,7 +82,7 @@ module Ansible
 
         # @return [1, 12, 24, nil] payment term to use for the instance (payment term in months)
         attribute :payment_term
-        validates :payment_term, inclusion: {:in=>[1, 12, 24], :message=>"%{value} needs to be 1, 12, 24"}, allow_nil: true
+        validates :payment_term, expression_inclusion: {:in=>[1, 12, 24], :message=>"%{value} needs to be 1, 12, 24"}, allow_nil: true
 
         # @return [String, nil] root password to apply to a new server (auto generated if missing)
         attribute :password
@@ -90,7 +90,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Add private IPv4 address when Linode is created.
         attribute :private_ip
-        validates :private_ip, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :private_ip, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] SSH public key applied to root user
         attribute :ssh_pub_key
@@ -114,7 +114,7 @@ module Ansible
 
         # @return [:yes, :no, nil] wait for the instance to be in state C(running) before returning
         attribute :wait
-        validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :wait, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] how long before wait gives up, in seconds
         attribute :wait_timeout
@@ -122,7 +122,7 @@ module Ansible
 
         # @return [Boolean, nil] Set status of Lassie watchdog.
         attribute :watchdog
-        validates :watchdog, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :watchdog, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
       end
     end
   end

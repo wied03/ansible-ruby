@@ -11,7 +11,7 @@ module Ansible
       class Elasticache < Base
         # @return [:present, :absent, :rebooted] C(absent) or C(present) are idempotent actions that will create or destroy a cache cluster as needed. C(rebooted) will reboot the cluster, resulting in a momentary outage.
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:present, :absent, :rebooted], :message=>"%{value} needs to be :present, :absent, :rebooted"}
+        validates :state, presence: true, expression_inclusion: {:in=>[:present, :absent, :rebooted], :message=>"%{value} needs to be :present, :absent, :rebooted"}
 
         # @return [String] The cache cluster identifier
         attribute :name
@@ -19,7 +19,7 @@ module Ansible
 
         # @return [:redis, :memcached, nil] Name of the cache engine to be used.
         attribute :engine
-        validates :engine, inclusion: {:in=>[:redis, :memcached], :message=>"%{value} needs to be :redis, :memcached"}, allow_nil: true
+        validates :engine, expression_inclusion: {:in=>[:redis, :memcached], :message=>"%{value} needs to be :redis, :memcached"}, allow_nil: true
 
         # @return [String, nil] The version number of the cache engine
         attribute :cache_engine_version
@@ -56,11 +56,11 @@ module Ansible
 
         # @return [:yes, :no, nil] Wait for cache cluster result before returning
         attribute :wait
-        validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :wait, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:yes, :no, nil] Whether to destroy and recreate an existing cache cluster if necessary in order to modify its state
         attribute :hard_modify
-        validates :hard_modify, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :hard_modify, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

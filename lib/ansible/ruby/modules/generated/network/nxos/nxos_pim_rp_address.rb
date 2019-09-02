@@ -27,7 +27,7 @@ module Ansible
 
         # @return [:present, :absent, :default] Specify desired state of the resource.
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:present, :absent, :default], :message=>"%{value} needs to be :present, :absent, :default"}
+        validates :state, presence: true, expression_inclusion: {:in=>[:present, :absent, :default], :message=>"%{value} needs to be :present, :absent, :default"}
       end
     end
   end

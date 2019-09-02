@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:present, :absent, nil] Creates/Modifies file system when present or removes when absent.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String, nil] File system size in MB, GB or TB units. See examples.
         attribute :size

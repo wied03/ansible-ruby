@@ -23,22 +23,22 @@ module Ansible
 
         # @return [:true, :false, nil] Enable or disable a BGP device to exchange routes with a specified peer or peer group in the address family view.
         attribute :peer_enable
-        validates :peer_enable, inclusion: {:in=>[:true, :false], :message=>"%{value} needs to be :true, :false"}, allow_nil: true
+        validates :peer_enable, expression_inclusion: {:in=>[:true, :false], :message=>"%{value} needs to be :true, :false"}, allow_nil: true
 
         # @return [:arp, :irb, nil] Configures a device to advertise routes to its BGP EVPN peers.
         attribute :advertise_router_type
-        validates :advertise_router_type, inclusion: {:in=>[:arp, :irb], :message=>"%{value} needs to be :arp, :irb"}, allow_nil: true
+        validates :advertise_router_type, expression_inclusion: {:in=>[:arp, :irb], :message=>"%{value} needs to be :arp, :irb"}, allow_nil: true
 
         # @return [Object, nil] Associates a specified VPN instance with the IPv4 address family. The value is a string of 1 to 31 case-sensitive characters, spaces not supported.
         attribute :vpn_name
 
         # @return [:enable, :disable, nil] Enable or disable a device to advertise IP routes imported to a VPN instance to its EVPN instance.
         attribute :advertise_l2vpn_evpn
-        validates :advertise_l2vpn_evpn, inclusion: {:in=>[:enable, :disable], :message=>"%{value} needs to be :enable, :disable"}, allow_nil: true
+        validates :advertise_l2vpn_evpn, expression_inclusion: {:in=>[:enable, :disable], :message=>"%{value} needs to be :enable, :disable"}, allow_nil: true
 
         # @return [:present, :absent, nil] Manage the state of the resource.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

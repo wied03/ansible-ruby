@@ -53,7 +53,7 @@ module Ansible
 
         # @return [:present, :absent, nil] If set to C(present), VMKernel is created with the given specifications.,If set to C(absent), VMKernel is removed from the given configurations.,If set to C(present) and VMKernel exists then VMKernel configurations are updated.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [Object] Name of ESXi host to which VMKernel is to be managed.,From version 2.5 onwards, this parameter is required.
         attribute :esxi_hostname

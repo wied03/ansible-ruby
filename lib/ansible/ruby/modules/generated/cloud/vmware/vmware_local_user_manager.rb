@@ -20,7 +20,7 @@ module Ansible
 
         # @return [:present, :absent, nil] Indicate desired state of the user. If the user already exists when C(state=present), the user info is updated
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

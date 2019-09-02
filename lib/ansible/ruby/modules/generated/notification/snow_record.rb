@@ -26,7 +26,7 @@ module Ansible
 
         # @return [:present, :absent] If C(present) is supplied with a C(number) argument, the module will attempt to update the record with the supplied data.  If no such record exists, a new one will be created.  C(absent) will delete a record.
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
+        validates :state, presence: true, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
 
         # @return [Hash, nil] key, value pairs of data to load into the record. See Examples. Required for C(state:present)
         attribute :data

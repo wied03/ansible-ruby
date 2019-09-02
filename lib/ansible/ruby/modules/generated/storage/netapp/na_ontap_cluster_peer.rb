@@ -10,7 +10,7 @@ module Ansible
       class Na_ontap_cluster_peer < Base
         # @return [:present, :absent, nil] Whether the specified cluster peer should exist or not.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String, nil] Intercluster address of the source cluster.,Used as peer-address in destination cluster.
         attribute :source_intercluster_lif

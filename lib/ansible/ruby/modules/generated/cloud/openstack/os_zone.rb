@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:primary, :secondary, nil] Zone type
         attribute :zone_type
-        validates :zone_type, inclusion: {:in=>[:primary, :secondary], :message=>"%{value} needs to be :primary, :secondary"}, allow_nil: true
+        validates :zone_type, expression_inclusion: {:in=>[:primary, :secondary], :message=>"%{value} needs to be :primary, :secondary"}, allow_nil: true
 
         # @return [String, nil] Email of the zone owner (only applies if zone_type is primary)
         attribute :email
@@ -33,7 +33,7 @@ module Ansible
 
         # @return [:present, :absent, nil] Should the resource be present or absent.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [Object, nil] Ignored. Present for backwards compatibility
         attribute :availability_zone

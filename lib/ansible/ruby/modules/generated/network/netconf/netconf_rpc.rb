@@ -23,7 +23,7 @@ module Ansible
 
         # @return [:json, :pretty, :xml, nil] Encoding scheme to use when serializing output from the device. The option I(json) will serialize the output as JSON data. If the option value is I(json) it requires jxmlease to be installed on control node. The option I(pretty) is similar to received XML response but is using human readable format (spaces, new lines). The option value I(xml) is similar to received XML response but removes all XML namespaces.
         attribute :display
-        validates :display, inclusion: {:in=>[:json, :pretty, :xml], :message=>"%{value} needs to be :json, :pretty, :xml"}, allow_nil: true
+        validates :display, expression_inclusion: {:in=>[:json, :pretty, :xml], :message=>"%{value} needs to be :json, :pretty, :xml"}, allow_nil: true
       end
     end
   end

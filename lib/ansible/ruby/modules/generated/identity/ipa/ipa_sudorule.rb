@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:all, nil] Command category the rule applies to.
         attribute :cmdcategory
-        validates :cmdcategory, inclusion: {:in=>[:all], :message=>"%{value} needs to be :all"}, allow_nil: true
+        validates :cmdcategory, expression_inclusion: {:in=>[:all], :message=>"%{value} needs to be :all"}, allow_nil: true
 
         # @return [Object, nil] List of commands assigned to the rule.,If an empty list is passed all commands will be removed from the rule.,If option is omitted commands will not be checked or changed.
         attribute :cmd
@@ -29,7 +29,7 @@ module Ansible
 
         # @return [:all, nil] Host category the rule applies to.,If 'all' is passed one must omit C(host) and C(hostgroup).,Option C(host) and C(hostgroup) must be omitted to assign 'all'.
         attribute :hostcategory
-        validates :hostcategory, inclusion: {:in=>[:all], :message=>"%{value} needs to be :all"}, allow_nil: true
+        validates :hostcategory, expression_inclusion: {:in=>[:all], :message=>"%{value} needs to be :all"}, allow_nil: true
 
         # @return [Array<String>, String, nil] List of host groups assigned to the rule.,If an empty list is passed all host groups will be removed from the rule.,If option is omitted host groups will not be checked or changed.,Option C(hostcategory) must be omitted to assign host groups.
         attribute :hostgroup
@@ -37,11 +37,11 @@ module Ansible
 
         # @return [:all, nil] RunAs User category the rule applies to.
         attribute :runasusercategory
-        validates :runasusercategory, inclusion: {:in=>[:all], :message=>"%{value} needs to be :all"}, allow_nil: true
+        validates :runasusercategory, expression_inclusion: {:in=>[:all], :message=>"%{value} needs to be :all"}, allow_nil: true
 
         # @return [:all, nil] RunAs Group category the rule applies to.
         attribute :runasgroupcategory
-        validates :runasgroupcategory, inclusion: {:in=>[:all], :message=>"%{value} needs to be :all"}, allow_nil: true
+        validates :runasgroupcategory, expression_inclusion: {:in=>[:all], :message=>"%{value} needs to be :all"}, allow_nil: true
 
         # @return [Array<String>, String, nil] List of options to add to the sudo rule.
         attribute :sudoopt
@@ -52,7 +52,7 @@ module Ansible
 
         # @return [:all, nil] User category the rule applies to.
         attribute :usercategory
-        validates :usercategory, inclusion: {:in=>[:all], :message=>"%{value} needs to be :all"}, allow_nil: true
+        validates :usercategory, expression_inclusion: {:in=>[:all], :message=>"%{value} needs to be :all"}, allow_nil: true
 
         # @return [Array<String>, String, nil] List of user groups assigned to the rule.,If an empty list is passed all user groups will be removed from the rule.,If option is omitted user groups will not be checked or changed.
         attribute :usergroup
@@ -60,7 +60,7 @@ module Ansible
 
         # @return [:present, :absent, :enabled, :disabled, nil] State to ensure
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent, :enabled, :disabled], :message=>"%{value} needs to be :present, :absent, :enabled, :disabled"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent, :enabled, :disabled], :message=>"%{value} needs to be :present, :absent, :enabled, :disabled"}, allow_nil: true
       end
     end
   end

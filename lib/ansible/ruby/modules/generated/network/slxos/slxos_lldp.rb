@@ -10,7 +10,7 @@ module Ansible
       class Slxos_lldp < Base
         # @return [:present, :absent, nil] State of the LLDP configuration. If value is I(present) lldp will be enabled else if it is I(absent) it will be disabled.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

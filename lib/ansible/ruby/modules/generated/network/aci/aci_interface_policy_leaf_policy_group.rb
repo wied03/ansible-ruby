@@ -18,7 +18,7 @@ module Ansible
 
         # @return [:leaf, :link, :node] Selector for the type of leaf policy group we want to create.,C(leaf) for Leaf Access Port Policy Group,C(link) for Port Channel (PC),C(node) for Virtual Port Channel (VPC)
         attribute :lag_type
-        validates :lag_type, presence: true, inclusion: {:in=>[:leaf, :link, :node], :message=>"%{value} needs to be :leaf, :link, :node"}
+        validates :lag_type, presence: true, expression_inclusion: {:in=>[:leaf, :link, :node], :message=>"%{value} needs to be :leaf, :link, :node"}
 
         # @return [String, nil] Choice of link_level_policy to be used as part of the leaf policy group to be created.
         attribute :link_level_policy
@@ -72,7 +72,7 @@ module Ansible
 
         # @return [:absent, :present, :query, nil] Use C(present) or C(absent) for adding or removing.,Use C(query) for listing an object or multiple objects.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present, :query], :message=>"%{value} needs to be :absent, :present, :query"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present, :query], :message=>"%{value} needs to be :absent, :present, :query"}, allow_nil: true
       end
     end
   end

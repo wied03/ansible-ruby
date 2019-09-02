@@ -23,7 +23,7 @@ module Ansible
 
         # @return [:cdrom, :floppy, :hdd, :network, :normal, :usb, nil] The boot media to boot the system from
         attribute :media
-        validates :media, inclusion: {:in=>[:cdrom, :floppy, :hdd, :network, :normal, :usb], :message=>"%{value} needs to be :cdrom, :floppy, :hdd, :network, :normal, :usb"}, allow_nil: true
+        validates :media, expression_inclusion: {:in=>[:cdrom, :floppy, :hdd, :network, :normal, :usb], :message=>"%{value} needs to be :cdrom, :floppy, :hdd, :network, :normal, :usb"}, allow_nil: true
 
         # @return [String, nil] The URL of a cdrom, floppy or usb boot media image. protocol://username:password@hostname:port/filename,protocol is either 'http' or 'https',username:password is optional,port is optional
         attribute :image
@@ -31,7 +31,7 @@ module Ansible
 
         # @return [:boot_always, :boot_once, :connect, :disconnect, :no_boot, :poweroff, nil] The state of the boot media.,no_boot: Do not boot from the device,boot_once: Boot from the device once and then notthereafter,boot_always: Boot from the device each time the serveris rebooted,connect: Connect the virtual media device and set to boot_always,disconnect: Disconnects the virtual media device and set to no_boot,poweroff: Power off the server
         attribute :state
-        validates :state, inclusion: {:in=>[:boot_always, :boot_once, :connect, :disconnect, :no_boot, :poweroff], :message=>"%{value} needs to be :boot_always, :boot_once, :connect, :disconnect, :no_boot, :poweroff"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:boot_always, :boot_once, :connect, :disconnect, :no_boot, :poweroff], :message=>"%{value} needs to be :boot_always, :boot_once, :connect, :disconnect, :no_boot, :poweroff"}, allow_nil: true
 
         # @return [Symbol, nil] Whether to force a reboot (even when the system is already booted).,As a safeguard, without force, hpilo_boot will refuse to reboot a server that is already running.
         attribute :force
@@ -39,7 +39,7 @@ module Ansible
 
         # @return [:SSLv3, :SSLv23, :TLSv1, :TLSv1_1, :TLSv1_2, nil] Change the ssl_version used.
         attribute :ssl_version
-        validates :ssl_version, inclusion: {:in=>[:SSLv3, :SSLv23, :TLSv1, :TLSv1_1, :TLSv1_2], :message=>"%{value} needs to be :SSLv3, :SSLv23, :TLSv1, :TLSv1_1, :TLSv1_2"}, allow_nil: true
+        validates :ssl_version, expression_inclusion: {:in=>[:SSLv3, :SSLv23, :TLSv1, :TLSv1_1, :TLSv1_2], :message=>"%{value} needs to be :SSLv3, :SSLv23, :TLSv1, :TLSv1_1, :TLSv1_2"}, allow_nil: true
       end
     end
   end

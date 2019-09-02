@@ -27,7 +27,7 @@ module Ansible
 
         # @return [:absent, :present, nil] Status of the Grafana plugin.,If latest is set, the version parameter will be ignored.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
       end
     end
   end

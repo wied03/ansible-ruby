@@ -10,7 +10,7 @@ module Ansible
       class Cloudwatchlogs_log_group < Base
         # @return [:present, :absent, nil] Whether the rule is present, absent or get
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String] The name of the log group.
         attribute :log_group_name
@@ -29,7 +29,7 @@ module Ansible
 
         # @return [Boolean, nil] Whether an existing log group should be overwritten on create.
         attribute :overwrite
-        validates :overwrite, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :overwrite, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
       end
     end
   end

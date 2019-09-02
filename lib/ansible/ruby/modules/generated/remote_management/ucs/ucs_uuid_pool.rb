@@ -11,7 +11,7 @@ module Ansible
       class Ucs_uuid_pool < Base
         # @return [:present, :absent, nil] If C(present), will verify UUID pool is present and will create if needed.,If C(absent), will verify UUID pool is absent and will delete if needed.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String] The name of the UUID pool.,This name can be between 1 and 32 alphanumeric characters.,You cannot use spaces or any special characters other than - (hyphen), "_" (underscore), : (colon), and . (period).,You cannot change this name after the UUID pool is created.
         attribute :name
@@ -25,7 +25,7 @@ module Ansible
 
         # @return [:default, :sequential, nil] The Assignment Order field.,This can be one of the following:,default - Cisco UCS Manager selects a random identity from the pool.,sequential - Cisco UCS Manager selects the lowest available identity from the pool.
         attribute :order
-        validates :order, inclusion: {:in=>[:default, :sequential], :message=>"%{value} needs to be :default, :sequential"}, allow_nil: true
+        validates :order, expression_inclusion: {:in=>[:default, :sequential], :message=>"%{value} needs to be :default, :sequential"}, allow_nil: true
 
         # @return [String, nil] The first UUID in the block of UUIDs.,This is the From field in the UCS Manager UUID Blocks menu.
         attribute :first_uuid

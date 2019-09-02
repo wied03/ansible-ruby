@@ -10,7 +10,7 @@ module Ansible
       class Udm_dns_record < Base
         # @return [:present, :absent, nil] Whether the dns record is present or not.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String] Name of the record, this is also the DNS record. E.g. www for www.example.com.
         attribute :name
@@ -22,7 +22,7 @@ module Ansible
 
         # @return [:host_record, :alias, :ptr_record, :srv_record, :txt_record] Define the record type. C(host_record) is a A or AAAA record, C(alias) is a CNAME, C(ptr_record) is a PTR record, C(srv_record) is a SRV record and C(txt_record) is a TXT record.
         attribute :type
-        validates :type, presence: true, inclusion: {:in=>[:host_record, :alias, :ptr_record, :srv_record, :txt_record], :message=>"%{value} needs to be :host_record, :alias, :ptr_record, :srv_record, :txt_record"}
+        validates :type, presence: true, expression_inclusion: {:in=>[:host_record, :alias, :ptr_record, :srv_record, :txt_record], :message=>"%{value} needs to be :host_record, :alias, :ptr_record, :srv_record, :txt_record"}
 
         # @return [Object, nil] Additional data for this record, e.g. ['a': '192.0.2.1']. Required if C(state=present).
         attribute :data

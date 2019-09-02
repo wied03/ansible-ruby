@@ -11,7 +11,7 @@ module Ansible
       class Atomic_container < Base
         # @return [:docker, :ostree] Define the backend to use for the container
         attribute :backend
-        validates :backend, presence: true, inclusion: {:in=>[:docker, :ostree], :message=>"%{value} needs to be :docker, :ostree"}
+        validates :backend, presence: true, expression_inclusion: {:in=>[:docker, :ostree], :message=>"%{value} needs to be :docker, :ostree"}
 
         # @return [String] Name of the container
         attribute :name
@@ -26,11 +26,11 @@ module Ansible
 
         # @return [:latest, :present, :absent, :rollback] State of the container
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:latest, :present, :absent, :rollback], :message=>"%{value} needs to be :latest, :present, :absent, :rollback"}
+        validates :state, presence: true, expression_inclusion: {:in=>[:latest, :present, :absent, :rollback], :message=>"%{value} needs to be :latest, :present, :absent, :rollback"}
 
         # @return [:user, :system] Define if it is an user or a system container
         attribute :mode
-        validates :mode, presence: true, inclusion: {:in=>[:user, :system], :message=>"%{value} needs to be :user, :system"}
+        validates :mode, presence: true, expression_inclusion: {:in=>[:user, :system], :message=>"%{value} needs to be :user, :system"}
 
         # @return [Array<String>, String, nil] Values for the installation of the container.  This option is permitted only with mode 'user' or 'system'. The values specified here will be used at installation time as --set arguments for atomic install.
         attribute :values

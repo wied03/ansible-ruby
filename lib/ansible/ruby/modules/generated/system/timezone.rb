@@ -19,7 +19,7 @@ module Ansible
 
         # @return [:UTC, :local, nil] Whether the hardware clock is in UTC or in local timezone. Default is to keep current setting. Note that this option is recommended not to change and may fail to configure, especially on virtual environments such as AWS. B(At least one of name and hwclock are required.) I(Only used on Linux.)
         attribute :hwclock
-        validates :hwclock, inclusion: {:in=>[:UTC, :local], :message=>"%{value} needs to be :UTC, :local"}, allow_nil: true
+        validates :hwclock, expression_inclusion: {:in=>[:UTC, :local], :message=>"%{value} needs to be :UTC, :local"}, allow_nil: true
       end
     end
   end

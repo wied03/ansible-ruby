@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:present, :absent, :maintenance, :upgraded, :started, :restarted, :stopped, :reinstalled, :iscsidiscover, :iscsilogin, nil] State which should a host to be in after successful completion.,I(iscsilogin) and I(iscsidiscover) are supported since version 2.4.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent, :maintenance, :upgraded, :started, :restarted, :stopped, :reinstalled, :iscsidiscover, :iscsilogin], :message=>"%{value} needs to be :present, :absent, :maintenance, :upgraded, :started, :restarted, :stopped, :reinstalled, :iscsidiscover, :iscsilogin"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent, :maintenance, :upgraded, :started, :restarted, :stopped, :reinstalled, :iscsidiscover, :iscsilogin], :message=>"%{value} needs to be :present, :absent, :maintenance, :upgraded, :started, :restarted, :stopped, :reinstalled, :iscsidiscover, :iscsilogin"}, allow_nil: true
 
         # @return [Object, nil] Description of the host.
         attribute :comment
@@ -41,7 +41,7 @@ module Ansible
 
         # @return [:enabled, :disabled, nil] Specify if host will have enabled Kdump integration.
         attribute :kdump_integration
-        validates :kdump_integration, inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
+        validates :kdump_integration, expression_inclusion: {:in=>[:enabled, :disabled], :message=>"%{value} needs to be :enabled, :disabled"}, allow_nil: true
 
         # @return [Object, nil] SPM priority of the host. Integer value from 1 to 10, where higher number means higher priority.
         attribute :spm_priority
@@ -64,7 +64,7 @@ module Ansible
 
         # @return [:deploy, :undeploy, nil] If I(deploy) it means this host should deploy also hosted engine components.,If I(undeploy) it means this host should un-deploy hosted engine components and this host will not function as part of the High Availability cluster.
         attribute :hosted_engine
-        validates :hosted_engine, inclusion: {:in=>[:deploy, :undeploy], :message=>"%{value} needs to be :deploy, :undeploy"}, allow_nil: true
+        validates :hosted_engine, expression_inclusion: {:in=>[:deploy, :undeploy], :message=>"%{value} needs to be :deploy, :undeploy"}, allow_nil: true
 
         # @return [Symbol, nil] Enable or disable power management of the host.,For more comprehensive setup of PM use C(ovirt_host_pm) module.
         attribute :power_management_enabled
@@ -72,7 +72,7 @@ module Ansible
 
         # @return [Boolean, nil] If C(state) is I(present) activate the host.,This parameter is good to disable, when you don't want to change the state of host when using I(present) C(state).
         attribute :activate
-        validates :activate, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :activate, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Hash, nil] If C(state) is I(iscsidiscover) it means that the iscsi attribute is being used to discover targets,If C(state) is I(iscsilogin) it means that the iscsi attribute is being used to login to the specified targets passed as part of the iscsi attribute
         attribute :iscsi
@@ -80,11 +80,11 @@ module Ansible
 
         # @return [Boolean, nil] If I(true) and C(state) is I(upgraded) run check for upgrade action before executing upgrade action.
         attribute :check_upgrade
-        validates :check_upgrade, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :check_upgrade, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Boolean, nil] If I(true) and C(state) is I(upgraded) reboot host after successful upgrade.
         attribute :reboot_after_upgrade
-        validates :reboot_after_upgrade, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :reboot_after_upgrade, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
       end
     end
   end

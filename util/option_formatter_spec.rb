@@ -56,7 +56,7 @@ describe Ansible::Ruby::OptionFormatter do
           is_expected.to eq <<~RUBY
             # @return [:present, :absent] abc
             attribute :the_attribute
-            validates :the_attribute, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
+            validates :the_attribute, presence: true, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
           RUBY
         end
       end
@@ -70,7 +70,7 @@ describe Ansible::Ruby::OptionFormatter do
           is_expected.to eq <<~RUBY
             # @return [:present, :absent, nil] abc
             attribute :the_attribute
-            validates :the_attribute, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+            validates :the_attribute, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
           RUBY
         end
       end
@@ -83,7 +83,7 @@ describe Ansible::Ruby::OptionFormatter do
           is_expected.to eq <<~RUBY
             # @return [Boolean, nil] abc
             attribute :the_attribute
-            validates :the_attribute, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+            validates :the_attribute, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
           RUBY
         end
       end
@@ -96,7 +96,7 @@ describe Ansible::Ruby::OptionFormatter do
           is_expected.to eq <<~RUBY
             # @return [1, :abc, nil] abc
             attribute :the_attribute
-            validates :the_attribute, inclusion: {:in=>[1, :abc], :message=>"%{value} needs to be 1, :abc"}, allow_nil: true
+            validates :the_attribute, expression_inclusion: {:in=>[1, :abc], :message=>"%{value} needs to be 1, :abc"}, allow_nil: true
           RUBY
         end
       end

@@ -10,7 +10,7 @@ module Ansible
       class Digital_ocean_floating_ip < Base
         # @return [:present, :absent, nil] Indicate desired state of the target.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String, nil] Public IP address of the Floating IP. Used to remove an IP
         attribute :ip

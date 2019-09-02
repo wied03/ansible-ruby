@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:admin, :public, :internal] Interface of the service.
         attribute :interface
-        validates :interface, presence: true, inclusion: {:in=>[:admin, :public, :internal], :message=>"%{value} needs to be :admin, :public, :internal"}
+        validates :interface, presence: true, expression_inclusion: {:in=>[:admin, :public, :internal], :message=>"%{value} needs to be :admin, :public, :internal"}
 
         # @return [String] URL of the service.
         attribute :url
@@ -26,11 +26,11 @@ module Ansible
 
         # @return [Boolean, nil] Is the service enabled.
         attribute :enabled
-        validates :enabled, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :enabled, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [:present, :absent, nil] Should the resource be C(present) or C(absent).
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

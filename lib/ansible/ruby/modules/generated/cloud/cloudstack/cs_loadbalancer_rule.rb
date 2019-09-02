@@ -17,7 +17,7 @@ module Ansible
 
         # @return [:source, :roundrobin, :leastconn, nil] Load balancer algorithm,Required when using C(state=present).
         attribute :algorithm
-        validates :algorithm, inclusion: {:in=>[:source, :roundrobin, :leastconn], :message=>"%{value} needs to be :source, :roundrobin, :leastconn"}, allow_nil: true
+        validates :algorithm, expression_inclusion: {:in=>[:source, :roundrobin, :leastconn], :message=>"%{value} needs to be :source, :roundrobin, :leastconn"}, allow_nil: true
 
         # @return [Integer, nil] The private port of the private ip address/virtual machine where the network traffic will be load balanced to.,Required when using C(state=present).,Can not be changed once the rule exists due API limitation.
         attribute :private_port
@@ -33,7 +33,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Whether the firewall rule for public port should be created, while creating the new rule.,Use M(cs_firewall) for managing firewall rules.
         attribute :open_firewall
-        validates :open_firewall, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :open_firewall, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] CIDR (full notation) to be used for firewall rule if required.
         attribute :cidr
@@ -46,7 +46,7 @@ module Ansible
 
         # @return [:present, :absent, nil] State of the rule.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [Object, nil] Domain the rule is related to.
         attribute :domain

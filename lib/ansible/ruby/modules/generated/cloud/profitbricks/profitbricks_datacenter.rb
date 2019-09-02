@@ -17,7 +17,7 @@ module Ansible
 
         # @return [:"us/las", :"de/fra", :"de/fkb", nil] The datacenter location.
         attribute :location
-        validates :location, inclusion: {:in=>[:"us/las", :"de/fra", :"de/fkb"], :message=>"%{value} needs to be :\"us/las\", :\"de/fra\", :\"de/fkb\""}, allow_nil: true
+        validates :location, expression_inclusion: {:in=>[:"us/las", :"de/fra", :"de/fkb"], :message=>"%{value} needs to be :\"us/las\", :\"de/fra\", :\"de/fkb\""}, allow_nil: true
 
         # @return [Object, nil] The ProfitBricks username. Overrides the PB_SUBSCRIPTION_ID environment variable.
         attribute :subscription_user
@@ -27,7 +27,7 @@ module Ansible
 
         # @return [:yes, :no, nil] wait for the datacenter to be created before returning
         attribute :wait
-        validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :wait, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] how long before wait gives up, in seconds
         attribute :wait_timeout
@@ -35,7 +35,7 @@ module Ansible
 
         # @return [:present, :absent, nil] create or terminate datacenters
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

@@ -10,7 +10,7 @@ module Ansible
       class Redhat_subscription < Base
         # @return [:present, :absent, nil] whether to register and subscribe (C(present)), or unregister (C(absent)) a system
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String, nil] access.redhat.com or Sat6  username
         attribute :username
@@ -46,7 +46,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Upon successful registration, auto-consume available subscriptions,Added in favor of deprecated autosubscribe in 2.5.
         attribute :auto_attach
-        validates :auto_attach, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :auto_attach, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] supply an activation key for use with registration
         attribute :activationkey
@@ -79,7 +79,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Register the system even if it is already registered
         attribute :force_register
-        validates :force_register, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :force_register, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

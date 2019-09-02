@@ -10,7 +10,7 @@ module Ansible
       class Manageiq_user < Base
         # @return [:absent, :present, nil] absent - user should not exist, present - user should be.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
         # @return [String] The unique userid in manageiq, often mentioned as username.
         attribute :userid
@@ -34,7 +34,7 @@ module Ansible
 
         # @return [:always, :on_create, nil] C(always) will update passwords unconditionally.  C(on_create) will only set the password for a newly created user.
         attribute :update_password
-        validates :update_password, inclusion: {:in=>[:always, :on_create], :message=>"%{value} needs to be :always, :on_create"}, allow_nil: true
+        validates :update_password, expression_inclusion: {:in=>[:always, :on_create], :message=>"%{value} needs to be :always, :on_create"}, allow_nil: true
       end
     end
   end

@@ -18,7 +18,7 @@ module Ansible
 
         # @return [:present, :absent, nil] When C(present), ensures that the traffic group exists.,When C(absent), ensures the traffic group is removed.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [Object, nil] Specifies the floating Media Access Control (MAC) address associated with the floating IP addresses defined for a traffic group.,Primarily, a MAC masquerade address minimizes ARP communications or dropped packets as a result of failover.,A MAC masquerade address ensures that any traffic destined for a specific traffic group reaches an available device after failover, which happens because along with the traffic group, the MAC masquerade address floats to the available device.,Without a MAC masquerade address, the sending host must learn the MAC address for a newly-active device, either by sending an ARP request or by relying on the gratuitous ARP from the newly-active device.,To unset the MAC address, specify an empty value (C("")) to this parameter.
         attribute :mac_address

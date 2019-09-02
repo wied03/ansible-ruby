@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:plain, :markdown, :html, nil] Message format. Formatting options `markdown` and `html` described in Telegram API docs (https://core.telegram.org/bots/api#formatting-options). If option `plain` set, message will not be formatted.
         attribute :msg_format
-        validates :msg_format, inclusion: {:in=>[:plain, :markdown, :html], :message=>"%{value} needs to be :plain, :markdown, :html"}, allow_nil: true
+        validates :msg_format, expression_inclusion: {:in=>[:plain, :markdown, :html], :message=>"%{value} needs to be :plain, :markdown, :html"}, allow_nil: true
 
         # @return [String] Token identifying your telegram bot.
         attribute :token

@@ -12,19 +12,19 @@ module Ansible
       class Win_chocolatey < Base
         # @return [:yes, :no, nil] Allow empty checksums to be used for downloaded resource from non-secure locations.,Use M(win_chocolatey_feature) with the name C(allowEmptyChecksums) to control this option globally.
         attribute :allow_empty_checksums
-        validates :allow_empty_checksums, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :allow_empty_checksums, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:yes, :no, nil] Allow the installation of pre-release packages.,If I(state) is C(latest), the latest pre-release package will be installed.
         attribute :allow_prerelease
-        validates :allow_prerelease, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :allow_prerelease, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:default, :x86, nil] Force Chocolatey to install the package of a specific process architecture.,When setting C(x86), will ensure Chocolatey installs the x86 package even when on an x64 bit OS.
         attribute :architecture
-        validates :architecture, inclusion: {:in=>[:default, :x86], :message=>"%{value} needs to be :default, :x86"}, allow_nil: true
+        validates :architecture, expression_inclusion: {:in=>[:default, :x86], :message=>"%{value} needs to be :default, :x86"}, allow_nil: true
 
         # @return [:yes, :no, nil] Forces the install of a package, even if it already is installed.,Using I(force) will cause Ansible to always report that a change was made.
         attribute :force
-        validates :force, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :force, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] Arguments to pass to the native installer.,These are arguments that are passed directly to the installer the Chocolatey package runs, this is generally an advanced option.
         attribute :install_args
@@ -32,11 +32,11 @@ module Ansible
 
         # @return [:yes, :no, nil] Ignore the checksums provided by the package.,Use M(win_chocolatey_feature) with the name C(checksumFiles) to control this option globally.
         attribute :ignore_checksums
-        validates :ignore_checksums, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :ignore_checksums, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:yes, :no, nil] Ignore dependencies, only install/upgrade the package itself.
         attribute :ignore_dependencies
-        validates :ignore_dependencies, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :ignore_dependencies, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Array<String>, String] Name of the package(s) to be installed.,Set to C(all) to run the action on all the installed packages.
         attribute :name
@@ -60,7 +60,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Do not run I(chocolateyInstall.ps1) or I(chocolateyUninstall.ps1) scripts when installing a package.
         attribute :skip_scripts
-        validates :skip_scripts, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :skip_scripts, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] Specify the source to retrieve the package from.,Use M(win_chocolatey_source) to manage global sources.,This value can either be the URL to a Chocolatey feed, a path to a folder containing C(.nupkg) packages or the name of a source defined by M(win_chocolatey_source).,This value is also used when Chocolatey is not installed as the location of the install.ps1 script and only supports URLs for this case.
         attribute :source
@@ -84,7 +84,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Used when downloading the Chocolatey install script if Chocolatey is not already installed, this does not affect the Chocolatey package install process.,When C(no), no SSL certificates will be validated.,This should only be used on personally controlled sites using self-signed certificate.
         attribute :validate_certs
-        validates :validate_certs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :validate_certs, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] Specific version of the package to be installed.,Ignored when I(state) is set to C(absent).
         attribute :version

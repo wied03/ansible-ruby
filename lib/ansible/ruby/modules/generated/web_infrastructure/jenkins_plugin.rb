@@ -29,7 +29,7 @@ module Ansible
 
         # @return [:absent, :present, :pinned, :unpinned, :enabled, :disabled, :latest, nil] Desired plugin state.,If the C(latest) is set, the check for new version will be performed every time. This is suitable to keep the plugin up-to-date.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present, :pinned, :unpinned, :enabled, :disabled, :latest], :message=>"%{value} needs to be :absent, :present, :pinned, :unpinned, :enabled, :disabled, :latest"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present, :pinned, :unpinned, :enabled, :disabled, :latest], :message=>"%{value} needs to be :absent, :present, :pinned, :unpinned, :enabled, :disabled, :latest"}, allow_nil: true
 
         # @return [Integer, nil] Server connection timeout in secs.
         attribute :timeout
@@ -53,7 +53,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Defines whether to install plugin dependencies.,This option takes effect only if the I(version) is not defined.
         attribute :with_dependencies
-        validates :with_dependencies, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :with_dependencies, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

@@ -14,7 +14,7 @@ module Ansible
 
         # @return [Boolean, nil] Creates the UCS based on the value of C(src) if the file does not already exist on the remote system.
         attribute :create_on_missing
-        validates :create_on_missing, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :create_on_missing, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [String] A directory to save the UCS file into.
         attribute :dest
@@ -29,7 +29,7 @@ module Ansible
 
         # @return [Boolean, nil] If C(no), the file will only be transferred if the destination does not exist.
         attribute :force
-        validates :force, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :force, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [String, nil] The name of the UCS file to create on the remote server for downloading
         attribute :src

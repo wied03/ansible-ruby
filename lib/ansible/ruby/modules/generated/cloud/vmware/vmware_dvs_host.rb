@@ -22,7 +22,7 @@ module Ansible
 
         # @return [:present, :absent] If the host should be present or absent attached to the vSwitch.
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
+        validates :state, presence: true, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
       end
     end
   end

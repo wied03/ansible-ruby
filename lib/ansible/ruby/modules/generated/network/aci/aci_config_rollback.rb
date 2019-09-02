@@ -31,7 +31,7 @@ module Ansible
 
         # @return [:atomic, :"best-effort", nil] Determines how the import should be handled by the APIC.,The APIC defaults to C(atomic) when unset.
         attribute :import_mode
-        validates :import_mode, inclusion: {:in=>[:atomic, :"best-effort"], :message=>"%{value} needs to be :atomic, :\"best-effort\""}, allow_nil: true
+        validates :import_mode, expression_inclusion: {:in=>[:atomic, :"best-effort"], :message=>"%{value} needs to be :atomic, :\"best-effort\""}, allow_nil: true
 
         # @return [String, nil] The name of the Import Policy to use for config rollback.
         attribute :import_policy
@@ -39,7 +39,7 @@ module Ansible
 
         # @return [:merge, :replace, nil] Determines how the current and snapshot configuration should be compared for replacement.,The APIC defaults to C(replace) when unset.
         attribute :import_type
-        validates :import_type, inclusion: {:in=>[:merge, :replace], :message=>"%{value} needs to be :merge, :replace"}, allow_nil: true
+        validates :import_type, expression_inclusion: {:in=>[:merge, :replace], :message=>"%{value} needs to be :merge, :replace"}, allow_nil: true
 
         # @return [String] The name of the snapshot to rollback to, or the base snapshot to use for comparison.,The C(aci_snapshot) module can be used to query the list of available snapshots.
         attribute :snapshot
@@ -47,7 +47,7 @@ module Ansible
 
         # @return [:preview, :rollback, nil] Use C(preview) for previewing the diff between two snapshots.,Use C(rollback) for reverting the configuration to a previous snapshot.
         attribute :state
-        validates :state, inclusion: {:in=>[:preview, :rollback], :message=>"%{value} needs to be :preview, :rollback"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:preview, :rollback], :message=>"%{value} needs to be :preview, :rollback"}, allow_nil: true
       end
     end
   end

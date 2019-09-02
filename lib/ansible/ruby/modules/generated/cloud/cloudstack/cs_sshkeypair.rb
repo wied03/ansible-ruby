@@ -24,7 +24,7 @@ module Ansible
 
         # @return [:present, :absent, nil] State of the public key.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String, nil] String of the public key.
         attribute :public_key

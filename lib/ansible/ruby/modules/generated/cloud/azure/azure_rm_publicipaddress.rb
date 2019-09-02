@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:Dynamic, :Static, nil] Control whether the assigned Public IP remains permanently assigned to the object. If not set to 'Static', the IP address my changed anytime an associated virtual machine is power cycled.
         attribute :allocation_method
-        validates :allocation_method, inclusion: {:in=>[:Dynamic, :Static], :message=>"%{value} needs to be :Dynamic, :Static"}, allow_nil: true
+        validates :allocation_method, expression_inclusion: {:in=>[:Dynamic, :Static], :message=>"%{value} needs to be :Dynamic, :Static"}, allow_nil: true
 
         # @return [String, nil] The customizable portion of the FQDN assigned to public IP address. This is an explicit setting. If no value is provided, any existing value will be removed on an existing public IP.
         attribute :domain_name
@@ -26,14 +26,14 @@ module Ansible
 
         # @return [:absent, :present, nil] Assert the state of the Public IP. Use 'present' to create or update a and 'absent' to delete.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
         # @return [Object, nil] Valid azure location. Defaults to location of the resource group.
         attribute :location
 
         # @return [:Basic, :Standard, nil] The public IP address SKU.
         attribute :sku
-        validates :sku, inclusion: {:in=>[:Basic, :Standard], :message=>"%{value} needs to be :Basic, :Standard"}, allow_nil: true
+        validates :sku, expression_inclusion: {:in=>[:Basic, :Standard], :message=>"%{value} needs to be :Basic, :Standard"}, allow_nil: true
       end
     end
   end

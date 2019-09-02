@@ -53,7 +53,7 @@ module Ansible
 
         # @return [:absent, :present, nil] Assert the state of the KeyVault. Use 'present' to create or update an KeyVault and 'absent' to delete it.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
       end
     end
   end

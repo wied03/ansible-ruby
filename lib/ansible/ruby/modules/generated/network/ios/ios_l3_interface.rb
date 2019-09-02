@@ -26,7 +26,7 @@ module Ansible
 
         # @return [:present, :absent, nil] State of the Layer-3 interface configuration. It indicates if the configuration should be present or absent on remote device.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

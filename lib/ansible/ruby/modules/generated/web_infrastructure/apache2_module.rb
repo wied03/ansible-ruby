@@ -22,7 +22,7 @@ module Ansible
 
         # @return [:present, :absent, nil] Desired state of the module.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [Symbol, nil] Ignore configuration checks about inconsistent module configuration. Especially for mpm_* modules.
         attribute :ignore_configcheck

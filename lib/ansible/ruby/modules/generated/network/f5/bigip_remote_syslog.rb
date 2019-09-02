@@ -21,7 +21,7 @@ module Ansible
 
         # @return [:absent, :present, nil] When C(present), guarantees that the remote syslog exists with the provided attributes.,When C(absent), removes the remote syslog from the system.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
       end
     end
   end

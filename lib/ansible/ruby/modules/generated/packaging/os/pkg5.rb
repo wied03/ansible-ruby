@@ -14,11 +14,11 @@ module Ansible
 
         # @return [:absent, :latest, :present, nil] Whether to install (I(present), I(latest)), or remove (I(absent)) a package.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :latest, :present], :message=>"%{value} needs to be :absent, :latest, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :latest, :present], :message=>"%{value} needs to be :absent, :latest, :present"}, allow_nil: true
 
         # @return [:yes, :no, nil] Accept any licences.
         attribute :accept_licenses
-        validates :accept_licenses, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :accept_licenses, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

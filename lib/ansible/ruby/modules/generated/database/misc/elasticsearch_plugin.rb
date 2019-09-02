@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:present, :absent, nil] Desired state of a plugin.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [Object, nil] Optionally set the source location to retrieve the plugin from. This can be a file:// URL to install from a local file, or a remote URL. If this is not set, the plugin location is just based on the name.,The name parameter must match the descriptor in the plugin ZIP specified.,Is only used if the state would change, which is solely checked based on the name parameter. If, for example, the plugin is already installed, changing this has no effect.,For ES 1.x use url.
         attribute :src
@@ -28,7 +28,7 @@ module Ansible
 
         # @return [Boolean, nil] Force batch mode when installing plugins. This is only necessary if a plugin requires additional permissions and console detection fails.
         attribute :force
-        validates :force, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :force, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Object, nil] Location of the plugin binary. If this file is not found, the default plugin binaries will be used.,The default changed in Ansible 2.4 to None.
         attribute :plugin_bin

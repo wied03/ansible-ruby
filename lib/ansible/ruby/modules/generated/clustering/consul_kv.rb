@@ -12,7 +12,7 @@ module Ansible
       class Consul_kv < Base
         # @return [:absent, :acquire, :present, :release, nil] The action to take with the supplied key and value. If the state is 'present' and `value` is set, the key contents will be set to the value supplied and `changed` will be set to `true` only if the value was different to the current contents. If the state is 'present' and `value` is not set, the existing value associated to the key will be returned. The state 'absent' will remove the key/value pair, again 'changed' will be set to true only if the key actually existed prior to the removal. An attempt can be made to obtain or free the lock associated with a key/value pair with the states 'acquire' or 'release' respectively. a valid session must be supplied to make the attempt changed will be true if the attempt is successful, false otherwise.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :acquire, :present, :release], :message=>"%{value} needs to be :absent, :acquire, :present, :release"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :acquire, :present, :release], :message=>"%{value} needs to be :absent, :acquire, :present, :release"}, allow_nil: true
 
         # @return [String] The key at which the value should be stored.
         attribute :key
@@ -24,7 +24,7 @@ module Ansible
 
         # @return [:yes, :no, nil] If the key represents a prefix, each entry with the prefix can be retrieved by setting this to C(yes).
         attribute :recurse
-        validates :recurse, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :recurse, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] The session that should be used to acquire or release a lock associated with a key/value pair.
         attribute :session
@@ -53,7 +53,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Whether to verify the tls certificate of the consul agent.
         attribute :validate_certs
-        validates :validate_certs, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :validate_certs, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

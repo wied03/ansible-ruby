@@ -11,11 +11,11 @@ module Ansible
       class Acme_account < Base
         # @return [:present, :absent, :changed_key] The state of the account, to be identified by its account key.,If the state is C(absent), the account will either not exist or be deactivated.,If the state is C(changed_key), the account must exist. The account key will be changed; no other information will be touched.
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:present, :absent, :changed_key], :message=>"%{value} needs to be :present, :absent, :changed_key"}
+        validates :state, presence: true, expression_inclusion: {:in=>[:present, :absent, :changed_key], :message=>"%{value} needs to be :present, :absent, :changed_key"}
 
         # @return [Boolean, nil] Whether account creation is allowed (when state is C(present)).
         attribute :allow_creation
-        validates :allow_creation, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :allow_creation, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Object, nil] A list of contact URLs.,Email addresses must be prefixed with C(mailto:).,See https://tools.ietf.org/html/draft-ietf-acme-acme-14#section-7.1.2 for what is allowed.,Must be specified when state is C(present). Will be ignored if state is C(absent) or C(changed_key).
         attribute :contact

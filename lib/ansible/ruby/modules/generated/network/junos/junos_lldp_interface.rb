@@ -14,11 +14,11 @@ module Ansible
 
         # @return [:present, :absent, :enabled, :disabled, nil] Value of C(present) ensures given LLDP configured on given I(interfaces) and is enabled, for value of C(absent) LLDP configuration on given I(interfaces) deleted. Value C(enabled) ensures LLDP protocol is enabled on given I(interfaces) and for value of C(disabled) it ensures LLDP is disabled on given I(interfaces).
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent, :enabled, :disabled], :message=>"%{value} needs to be :present, :absent, :enabled, :disabled"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent, :enabled, :disabled], :message=>"%{value} needs to be :present, :absent, :enabled, :disabled"}, allow_nil: true
 
         # @return [Boolean, nil] Specifies whether or not the configuration is active or deactivated
         attribute :active
-        validates :active, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :active, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
       end
     end
   end

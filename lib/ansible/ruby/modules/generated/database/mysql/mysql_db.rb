@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:present, :absent, :dump, :import, nil] The database state
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent, :dump, :import], :message=>"%{value} needs to be :present, :absent, :dump, :import"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent, :dump, :import], :message=>"%{value} needs to be :present, :absent, :dump, :import"}, allow_nil: true
 
         # @return [Object, nil] Collation mode (sorting). This only applies to new table/databases and does not update existing ones, this is a limitation of MySQL.
         attribute :collation
@@ -28,11 +28,11 @@ module Ansible
 
         # @return [:yes, :no, nil] Execute the dump in a single transaction
         attribute :single_transaction
-        validates :single_transaction, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :single_transaction, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:yes, :no, nil] Option used for dumping large tables
         attribute :quick
-        validates :quick, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :quick, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] A list of table names that will be ignored in the dump of the form database_name.table_name
         attribute :ignore_tables

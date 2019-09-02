@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:present, :absent, :latest, nil] The desired state of the gem. C(latest) ensures that the latest version is installed.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent, :latest], :message=>"%{value} needs to be :present, :absent, :latest"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent, :latest], :message=>"%{value} needs to be :present, :absent, :latest"}, allow_nil: true
 
         # @return [String, nil] The path to a local gem used as installation source.
         attribute :gem_source
@@ -22,14 +22,14 @@ module Ansible
 
         # @return [:yes, :no, nil] Whether to include dependencies or not.
         attribute :include_dependencies
-        validates :include_dependencies, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :include_dependencies, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] The repository from which the gem will be installed
         attribute :repository
 
         # @return [:yes, :no, nil] Install gem in user's local gems cache or for all users
         attribute :user_install
-        validates :user_install, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :user_install, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] Override the path to the gem executable
         attribute :executable

@@ -12,7 +12,7 @@ module Ansible
       class Gcp_dns_resource_record_set < Base
         # @return [:present, :absent, nil] Whether the given object should exist in GCP
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String] For example, U(www.example.com.)
         attribute :name
@@ -20,7 +20,7 @@ module Ansible
 
         # @return [:A, :AAAA, :CAA, :CNAME, :MX, :NAPTR, :NS, :PTR, :SOA, :SPF, :SRV, :TXT] One of valid DNS resource types.
         attribute :type
-        validates :type, presence: true, inclusion: {:in=>[:A, :AAAA, :CAA, :CNAME, :MX, :NAPTR, :NS, :PTR, :SOA, :SPF, :SRV, :TXT], :message=>"%{value} needs to be :A, :AAAA, :CAA, :CNAME, :MX, :NAPTR, :NS, :PTR, :SOA, :SPF, :SRV, :TXT"}
+        validates :type, presence: true, expression_inclusion: {:in=>[:A, :AAAA, :CAA, :CNAME, :MX, :NAPTR, :NS, :PTR, :SOA, :SPF, :SRV, :TXT], :message=>"%{value} needs to be :A, :AAAA, :CAA, :CNAME, :MX, :NAPTR, :NS, :PTR, :SOA, :SPF, :SRV, :TXT"}
 
         # @return [Integer, nil] Number of seconds that this ResourceRecordSet can be cached by resolvers.
         attribute :ttl

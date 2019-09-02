@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:private, :shared, nil] The scope of the alias; whether it is shared on the system, or usable only for the user who created it.
         attribute :scope
-        validates :scope, inclusion: {:in=>[:private, :shared], :message=>"%{value} needs to be :private, :shared"}, allow_nil: true
+        validates :scope, expression_inclusion: {:in=>[:private, :shared], :message=>"%{value} needs to be :private, :shared"}, allow_nil: true
 
         # @return [String, nil] The command to alias.
         attribute :command
@@ -29,7 +29,7 @@ module Ansible
 
         # @return [:present, :absent, nil] When C(present), ensures that the resource exists.,When C(absent), ensures the resource is removed.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

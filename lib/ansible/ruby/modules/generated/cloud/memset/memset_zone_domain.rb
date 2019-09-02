@@ -10,7 +10,7 @@ module Ansible
       class Memset_zone_domain < Base
         # @return [:absent, :present, nil] Indicates desired state of resource.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
         # @return [String] The API key obtained from the Memset control panel.
         attribute :api_key

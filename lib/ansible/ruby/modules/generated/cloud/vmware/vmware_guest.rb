@@ -11,7 +11,7 @@ module Ansible
       class Vmware_guest < Base
         # @return [:present, :absent, :poweredon, :poweredoff, :restarted, :suspended, :shutdownguest, :rebootguest, nil] Specify state of the virtual machine be in.,If C(state) is set to C(present) and virtual machine exists, ensure the virtual machine configurations conforms to task arguments.,If C(state) is set to C(absent) and virtual machine exists, then the specified virtual machine is removed with its associated components.,If C(state) is set to one of the following C(poweredon), C(poweredoff), C(present), C(restarted), C(suspended) and virtual machine does not exists, then virtual machine is deployed with given parameters.,If C(state) is set to C(poweredon) and virtual machine exists with powerstate other than powered on, then the specified virtual machine is powered on.,If C(state) is set to C(poweredoff) and virtual machine exists with powerstate other than powered off, then the specified virtual machine is powered off.,If C(state) is set to C(restarted) and virtual machine exists, then the virtual machine is restarted.,If C(state) is set to C(suspended) and virtual machine exists, then the virtual machine is set to suspended mode.,If C(state) is set to C(shutdownguest) and virtual machine exists, then the virtual machine is shutdown.,If C(state) is set to C(rebootguest) and virtual machine exists, then the virtual machine is rebooted.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent, :poweredon, :poweredoff, :restarted, :suspended, :shutdownguest, :rebootguest], :message=>"%{value} needs to be :present, :absent, :poweredon, :poweredoff, :restarted, :suspended, :shutdownguest, :rebootguest"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent, :poweredon, :poweredoff, :restarted, :suspended, :shutdownguest, :rebootguest], :message=>"%{value} needs to be :present, :absent, :poweredon, :poweredoff, :restarted, :suspended, :shutdownguest, :rebootguest"}, allow_nil: true
 
         # @return [String] Name of the virtual machine to work with.,Virtual machine names in vCenter are not necessarily unique, which may be problematic, see C(name_match).,If multiple virtual machines with same name exists, then C(folder) is required parameter to identify uniqueness of the virtual machine.,This parameter is required, if C(state) is set to C(poweredon), C(poweredoff), C(present), C(restarted), C(suspended) and virtual machine does not exists.,This parameter is case sensitive.
         attribute :name
@@ -19,7 +19,7 @@ module Ansible
 
         # @return [:first, :last, nil] If multiple virtual machines matching the name, use the first or last found.
         attribute :name_match
-        validates :name_match, inclusion: {:in=>[:first, :last], :message=>"%{value} needs to be :first, :last"}, allow_nil: true
+        validates :name_match, expression_inclusion: {:in=>[:first, :last], :message=>"%{value} needs to be :first, :last"}, allow_nil: true
 
         # @return [String, nil] UUID of the virtual machine to manage if known, this is VMware's unique identifier.,This is required if C(name) is not supplied.,If virtual machine does not exists, then this parameter is ignored.,Please note that a supplied UUID will be ignored on virtual machine creation, as VMware creates the UUID internally.
         attribute :uuid
@@ -31,7 +31,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Flag the instance as a template.,This will mark the given virtual machine as template.
         attribute :is_template
-        validates :is_template, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :is_template, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] Destination folder, absolute path to find an existing guest or create the new guest.,The folder should include the datacenter. ESX's datacenter is ha-datacenter.,This parameter is case sensitive.,This parameter is required, while deploying new virtual machine. version_added 2.5.,If multiple machines are found with same name, this parameter is used to identify uniqueness of the virtual machine. version_added 2.5,Examples:,   folder: /ha-datacenter/vm,   folder: ha-datacenter/vm,   folder: /datacenter1/vm,   folder: datacenter1/vm,   folder: /datacenter1/vm/folder1,   folder: datacenter1/vm/folder1,   folder: /folder1/datacenter1/vm,   folder: folder1/datacenter1/vm,   folder: /folder1/datacenter1/vm/folder2
         attribute :folder
@@ -58,7 +58,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Wait until vCenter detects an IP address for the virtual machine.,This requires vmware-tools (vmtoolsd) to properly work after creation.,vmware-tools needs to be installed on the given virtual machine in order to work with this parameter.
         attribute :wait_for_ip_address
-        validates :wait_for_ip_address, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :wait_for_ip_address, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] If the C(state) is set to C(shutdownguest), by default the module will return immediately after sending the shutdown signal.,If this argument is set to a positive integer, the module will instead wait for the virtual machine to reach the poweredoff state.,The value sets a timeout in seconds for the module to wait for the state change.
         attribute :state_change_timeout
@@ -69,11 +69,11 @@ module Ansible
 
         # @return [:yes, :no, nil] Whether to create a linked clone from the snapshot specified.,If specified, then C(snapshot_src) is required parameter.
         attribute :linked_clone
-        validates :linked_clone, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :linked_clone, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:yes, :no, nil] Ignore warnings and complete the actions.,This parameter is useful while removing virtual machine which is powered on state.,This module reflects the VMware vCenter API and UI workflow, as such, in some cases the `force` flag will be mandatory to perform the action to ensure you are certain the action has to be taken, no matter what the consequence. This is specifically the case for removing a powered on the virtual machine when C(state) is set to C(absent).
         attribute :force
-        validates :force, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :force, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] Destination datacenter for the deploy operation.,This parameter is case sensitive.
         attribute :datacenter

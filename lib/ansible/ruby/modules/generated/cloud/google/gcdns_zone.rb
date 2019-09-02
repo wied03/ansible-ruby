@@ -10,7 +10,7 @@ module Ansible
       class Gcdns_zone < Base
         # @return [:present, :absent, nil] Whether the given zone should or should not be present.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String] The DNS domain name of the zone.,This is NOT the Google Cloud DNS zone ID (e.g., example-com). If you attempt to specify a zone ID, this module will attempt to create a TLD and will fail.
         attribute :zone

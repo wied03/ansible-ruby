@@ -14,11 +14,11 @@ module Ansible
 
         # @return [:active, :inactive, :present, :absent, :undefined, :deleted, nil] specify which state you want a storage pool to be in. If 'active', pool will be started. If 'present', ensure that pool is present but do not change its state; if it's missing, you need to specify xml argument. If 'inactive', pool will be stopped. If 'undefined' or 'absent', pool will be removed from I(libvirt) configuration. If 'deleted', pool contents will be deleted and then pool undefined.
         attribute :state
-        validates :state, inclusion: {:in=>[:active, :inactive, :present, :absent, :undefined, :deleted], :message=>"%{value} needs to be :active, :inactive, :present, :absent, :undefined, :deleted"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:active, :inactive, :present, :absent, :undefined, :deleted], :message=>"%{value} needs to be :active, :inactive, :present, :absent, :undefined, :deleted"}, allow_nil: true
 
         # @return [:define, :build, :create, :start, :stop, :destroy, :delete, :undefine, :get_xml, :list_pools, :facts, :info, :status, nil] in addition to state management, various non-idempotent commands are available. See examples.
         attribute :command
-        validates :command, inclusion: {:in=>[:define, :build, :create, :start, :stop, :destroy, :delete, :undefine, :get_xml, :list_pools, :facts, :info, :status], :message=>"%{value} needs to be :define, :build, :create, :start, :stop, :destroy, :delete, :undefine, :get_xml, :list_pools, :facts, :info, :status"}, allow_nil: true
+        validates :command, expression_inclusion: {:in=>[:define, :build, :create, :start, :stop, :destroy, :delete, :undefine, :get_xml, :list_pools, :facts, :info, :status], :message=>"%{value} needs to be :define, :build, :create, :start, :stop, :destroy, :delete, :undefine, :get_xml, :list_pools, :facts, :info, :status"}, allow_nil: true
 
         # @return [Symbol, nil] Specify if a given storage pool should be started automatically on system boot.
         attribute :autostart
@@ -34,7 +34,7 @@ module Ansible
 
         # @return [:new, :repair, :resize, :no_overwrite, :overwrite, :normal, :zeroed, nil] Pass additional parameters to 'build' or 'delete' commands.
         attribute :mode
-        validates :mode, inclusion: {:in=>[:new, :repair, :resize, :no_overwrite, :overwrite, :normal, :zeroed], :message=>"%{value} needs to be :new, :repair, :resize, :no_overwrite, :overwrite, :normal, :zeroed"}, allow_nil: true
+        validates :mode, expression_inclusion: {:in=>[:new, :repair, :resize, :no_overwrite, :overwrite, :normal, :zeroed], :message=>"%{value} needs to be :new, :repair, :resize, :no_overwrite, :overwrite, :normal, :zeroed"}, allow_nil: true
       end
     end
   end

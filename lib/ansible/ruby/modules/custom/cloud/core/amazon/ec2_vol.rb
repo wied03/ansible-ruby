@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# VALIDATED_CHECKSUM: X1dyr/1KpZc3bazgpN13bCVjYWtaJarLpuQDQNp+Js8=
+# VALIDATED_CHECKSUM: KVh8IItefjYXX6osruo7cw7may7ApRNOu6WNZxlIRvw=
 
 # See LICENSE.txt for license
 

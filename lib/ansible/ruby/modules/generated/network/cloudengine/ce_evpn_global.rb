@@ -10,7 +10,7 @@ module Ansible
       class Ce_evpn_global < Base
         # @return [:enable, :disable] Configure EVPN as the VXLAN control plane.
         attribute :evpn_overlay_enable
-        validates :evpn_overlay_enable, presence: true, inclusion: {:in=>[:enable, :disable], :message=>"%{value} needs to be :enable, :disable"}
+        validates :evpn_overlay_enable, presence: true, expression_inclusion: {:in=>[:enable, :disable], :message=>"%{value} needs to be :enable, :disable"}
       end
     end
   end

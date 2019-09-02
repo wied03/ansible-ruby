@@ -37,14 +37,14 @@ module Ansible
 
         # @return [:none, :BFD, :BGP, :"IS-IS", :OSPFv2, :OSPFv3, :PIM, :RIP, :RIPng, nil] Dynamic routing protocols for the system to use in the route domain.
         attribute :routing_protocol
-        validates :routing_protocol, inclusion: {:in=>[:none, :BFD, :BGP, :"IS-IS", :OSPFv2, :OSPFv3, :PIM, :RIP, :RIPng], :message=>"%{value} needs to be :none, :BFD, :BGP, :\"IS-IS\", :OSPFv2, :OSPFv3, :PIM, :RIP, :RIPng"}, allow_nil: true
+        validates :routing_protocol, expression_inclusion: {:in=>[:none, :BFD, :BGP, :"IS-IS", :OSPFv2, :OSPFv3, :PIM, :RIP, :RIPng], :message=>"%{value} needs to be :none, :BFD, :BGP, :\"IS-IS\", :OSPFv2, :OSPFv3, :PIM, :RIP, :RIPng"}, allow_nil: true
 
         # @return [Object, nil] Service policy to associate with the route domain.
         attribute :service_policy
 
         # @return [:present, :absent, nil] Whether the route domain should exist or not.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [Symbol, nil] Specifies whether the system enforces cross-routing restrictions or not.
         attribute :strict

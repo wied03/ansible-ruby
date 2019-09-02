@@ -26,15 +26,15 @@ module Ansible
 
         # @return [Boolean, nil] Whether the API is enabled or not.
         attribute :api_enabled
-        validates :api_enabled, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :api_enabled, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [:manage_users, :subscriptions, :provisioning, :billing, :support, :abuse, :dns, :upgrade, nil] List of ACLs this users should have, see U(https://www.vultr.com/api/#user_user_list).,Required if C(state=present).,One or more of the choices list, some depend on each other.
         attribute :acls
-        validates :acls, inclusion: {:in=>[:manage_users, :subscriptions, :provisioning, :billing, :support, :abuse, :dns, :upgrade], :message=>"%{value} needs to be :manage_users, :subscriptions, :provisioning, :billing, :support, :abuse, :dns, :upgrade"}, allow_nil: true
+        validates :acls, expression_inclusion: {:in=>[:manage_users, :subscriptions, :provisioning, :billing, :support, :abuse, :dns, :upgrade], :message=>"%{value} needs to be :manage_users, :subscriptions, :provisioning, :billing, :support, :abuse, :dns, :upgrade"}, allow_nil: true
 
         # @return [:present, :absent, nil] State of the user.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

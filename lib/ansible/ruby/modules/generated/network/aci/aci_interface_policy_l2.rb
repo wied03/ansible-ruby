@@ -18,7 +18,7 @@ module Ansible
 
         # @return [:core, :disabled, :edge, nil] Determines if QinQ is disabled or if the port should be considered a core or edge port.,The APIC defaults to C(disabled) when unset during creation.
         attribute :qinq
-        validates :qinq, inclusion: {:in=>[:core, :disabled, :edge], :message=>"%{value} needs to be :core, :disabled, :edge"}, allow_nil: true
+        validates :qinq, expression_inclusion: {:in=>[:core, :disabled, :edge], :message=>"%{value} needs to be :core, :disabled, :edge"}, allow_nil: true
 
         # @return [Symbol, nil] Determines if Virtual Ethernet Port Aggregator is disabled or enabled.,The APIC defaults to C(no) when unset during creation.
         attribute :vepa
@@ -26,11 +26,11 @@ module Ansible
 
         # @return [:global, :portlocal, nil] The scope of the VLAN.,The APIC defaults to C(global) when unset during creation.
         attribute :vlan_scope
-        validates :vlan_scope, inclusion: {:in=>[:global, :portlocal], :message=>"%{value} needs to be :global, :portlocal"}, allow_nil: true
+        validates :vlan_scope, expression_inclusion: {:in=>[:global, :portlocal], :message=>"%{value} needs to be :global, :portlocal"}, allow_nil: true
 
         # @return [:absent, :present, :query, nil] Use C(present) or C(absent) for adding or removing.,Use C(query) for listing an object or multiple objects.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present, :query], :message=>"%{value} needs to be :absent, :present, :query"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present, :query], :message=>"%{value} needs to be :absent, :present, :query"}, allow_nil: true
       end
     end
   end

@@ -10,7 +10,7 @@ module Ansible
       class Oneandone_server < Base
         # @return [:present, :absent, :running, :stopped, nil] Define a server's state to create, remove, start or stop it.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent, :running, :stopped], :message=>"%{value} needs to be :present, :absent, :running, :stopped"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent, :running, :stopped], :message=>"%{value} needs to be :present, :absent, :running, :stopped"}, allow_nil: true
 
         # @return [String] Authenticating API token provided by 1&1. Overrides the ONEANDONE_AUTH_TOKEN environement variable.
         attribute :auth_token
@@ -21,7 +21,7 @@ module Ansible
 
         # @return [:US, :ES, :DE, :GB, nil] The datacenter location.
         attribute :datacenter
-        validates :datacenter, inclusion: {:in=>[:US, :ES, :DE, :GB], :message=>"%{value} needs to be :US, :ES, :DE, :GB"}, allow_nil: true
+        validates :datacenter, expression_inclusion: {:in=>[:US, :ES, :DE, :GB], :message=>"%{value} needs to be :US, :ES, :DE, :GB"}, allow_nil: true
 
         # @return [String, nil] The hostname or ID of the server. Only used when state is 'present'.
         attribute :hostname
@@ -36,7 +36,7 @@ module Ansible
 
         # @return [:S, :M, :L, :XL, :XXL, :"3XL", :"4XL", :"5XL"] The instance size name or ID of the server. It is required only for 'present' state, and it is mutually exclusive with vcore, cores_per_processor, ram, and hdds parameters.
         attribute :fixed_instance_size
-        validates :fixed_instance_size, presence: true, inclusion: {:in=>[:S, :M, :L, :XL, :XXL, :"3XL", :"4XL", :"5XL"], :message=>"%{value} needs to be :S, :M, :L, :XL, :XXL, :\"3XL\", :\"4XL\", :\"5XL\""}
+        validates :fixed_instance_size, presence: true, expression_inclusion: {:in=>[:S, :M, :L, :XL, :XXL, :"3XL", :"4XL", :"5XL"], :message=>"%{value} needs to be :S, :M, :L, :XL, :XXL, :\"3XL\", :\"4XL\", :\"5XL\""}
 
         # @return [Integer, nil] The total number of processors. It must be provided with cores_per_processor, ram, and hdds parameters.
         attribute :vcore
@@ -80,11 +80,11 @@ module Ansible
 
         # @return [:cloud, :baremetal, :k8s_node, nil] The type of server to be built.
         attribute :server_type
-        validates :server_type, inclusion: {:in=>[:cloud, :baremetal, :k8s_node], :message=>"%{value} needs to be :cloud, :baremetal, :k8s_node"}, allow_nil: true
+        validates :server_type, expression_inclusion: {:in=>[:cloud, :baremetal, :k8s_node], :message=>"%{value} needs to be :cloud, :baremetal, :k8s_node"}, allow_nil: true
 
         # @return [:yes, :no, nil] Wait for the server to be in state 'running' before returning. Also used for delete operation (set to 'false' if you don't want to wait for each individual server to be deleted before moving on with other tasks.)
         attribute :wait
-        validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :wait, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] how long before wait gives up, in seconds
         attribute :wait_timeout
@@ -96,7 +96,7 @@ module Ansible
 
         # @return [:yes, :no, nil] When creating multiple servers at once, whether to differentiate hostnames by appending a count after them or substituting the count where there is a %02d or %03d in the hostname string.
         attribute :auto_increment
-        validates :auto_increment, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :auto_increment, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

@@ -10,7 +10,7 @@ module Ansible
       class Nxos_snapshot < Base
         # @return [:add, :compare, :create, :delete, :delete_all] Define what snapshot action the module would perform.
         attribute :action
-        validates :action, presence: true, inclusion: {:in=>[:add, :compare, :create, :delete, :delete_all], :message=>"%{value} needs to be :add, :compare, :create, :delete, :delete_all"}
+        validates :action, presence: true, expression_inclusion: {:in=>[:add, :compare, :create, :delete, :delete_all], :message=>"%{value} needs to be :add, :compare, :create, :delete, :delete_all"}
 
         # @return [String, nil] Snapshot name, to be used when C(action=create) or C(action=delete).
         attribute :snapshot_name
@@ -34,7 +34,7 @@ module Ansible
 
         # @return [:summary, :ipv4routes, :ipv6routes, nil] Snapshot options to be used when C(action=compare).
         attribute :compare_option
-        validates :compare_option, inclusion: {:in=>[:summary, :ipv4routes, :ipv6routes], :message=>"%{value} needs to be :summary, :ipv4routes, :ipv6routes"}, allow_nil: true
+        validates :compare_option, expression_inclusion: {:in=>[:summary, :ipv4routes, :ipv6routes], :message=>"%{value} needs to be :summary, :ipv4routes, :ipv6routes"}, allow_nil: true
 
         # @return [String, nil] Used to name the show command output, to be used when C(action=add).
         attribute :section
@@ -57,7 +57,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Specify to locally store a new created snapshot, to be used when C(action=create).
         attribute :save_snapshot_locally
-        validates :save_snapshot_locally, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :save_snapshot_locally, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] Specify the path of the file where new created snapshot or snapshots comparison will be stored, to be used when C(action=create) and C(save_snapshot_locally=true) or C(action=compare).
         attribute :path

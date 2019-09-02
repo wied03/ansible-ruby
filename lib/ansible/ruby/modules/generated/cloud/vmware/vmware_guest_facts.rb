@@ -13,7 +13,7 @@ module Ansible
 
         # @return [:first, :last, nil] If multiple VMs matching the name, use the first or last found
         attribute :name_match
-        validates :name_match, inclusion: {:in=>[:first, :last], :message=>"%{value} needs to be :first, :last"}, allow_nil: true
+        validates :name_match, expression_inclusion: {:in=>[:first, :last], :message=>"%{value} needs to be :first, :last"}, allow_nil: true
 
         # @return [String, nil] UUID of the instance to manage if known, this is VMware's unique identifier.,This is required if name is not supplied.
         attribute :uuid

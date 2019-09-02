@@ -34,7 +34,7 @@ module Ansible
 
         # @return [:present, :absent, :dump, nil] state present create/update template, absent delete template
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent, :dump], :message=>"%{value} needs to be :present, :absent, :dump"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent, :dump], :message=>"%{value} needs to be :present, :absent, :dump"}, allow_nil: true
       end
     end
   end

@@ -20,15 +20,15 @@ module Ansible
 
         # @return [:v4, :v6, nil] IP address version.
         attribute :version
-        validates :version, inclusion: {:in=>[:v4, :v6], :message=>"%{value} needs to be :v4, :v6"}, allow_nil: true
+        validates :version, expression_inclusion: {:in=>[:v4, :v6], :message=>"%{value} needs to be :v4, :v6"}, allow_nil: true
 
         # @return [:main, :sub, nil] Specifies an address type. The value is an enumerated type. main, primary IP address. sub, secondary IP address.
         attribute :ipv4_type
-        validates :ipv4_type, inclusion: {:in=>[:main, :sub], :message=>"%{value} needs to be :main, :sub"}, allow_nil: true
+        validates :ipv4_type, expression_inclusion: {:in=>[:main, :sub], :message=>"%{value} needs to be :main, :sub"}, allow_nil: true
 
         # @return [:present, :absent, nil] Specify desired state of the resource.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

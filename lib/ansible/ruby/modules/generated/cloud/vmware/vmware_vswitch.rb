@@ -25,7 +25,7 @@ module Ansible
 
         # @return [:absent, :present, nil] Add or remove the switch.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
 
         # @return [String, nil] Manage the vSwitch using this ESXi host system.
         attribute :esxi_hostname

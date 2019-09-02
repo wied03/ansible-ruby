@@ -22,15 +22,15 @@ module Ansible
 
         # @return [:present, :absent, nil] Creates or modifies an existing parameter,Deletes a parameter
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [:String, :StringList, :SecureString, nil] Parameter String type
         attribute :string_type
-        validates :string_type, inclusion: {:in=>[:String, :StringList, :SecureString], :message=>"%{value} needs to be :String, :StringList, :SecureString"}, allow_nil: true
+        validates :string_type, expression_inclusion: {:in=>[:String, :StringList, :SecureString], :message=>"%{value} needs to be :String, :StringList, :SecureString"}, allow_nil: true
 
         # @return [Boolean, nil] Work with SecureString type to get plain text secrets,Boolean
         attribute :decryption
-        validates :decryption, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :decryption, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [String, nil] aws KMS key to decrypt the secrets.
         attribute :key_id
@@ -38,7 +38,7 @@ module Ansible
 
         # @return [:never, :changed, :always, nil] Option to overwrite an existing value if it already exists.,String
         attribute :overwrite_value
-        validates :overwrite_value, inclusion: {:in=>[:never, :changed, :always], :message=>"%{value} needs to be :never, :changed, :always"}, allow_nil: true
+        validates :overwrite_value, expression_inclusion: {:in=>[:never, :changed, :always], :message=>"%{value} needs to be :never, :changed, :always"}, allow_nil: true
 
         # @return [Object, nil] region.
         attribute :region

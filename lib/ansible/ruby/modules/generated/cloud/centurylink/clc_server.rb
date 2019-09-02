@@ -13,7 +13,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Whether to add a public ip to the server
         attribute :add_public_ip
-        validates :add_public_ip, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :add_public_ip, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] The account alias to provision the servers under.
         attribute :alias
@@ -67,7 +67,7 @@ module Ansible
 
         # @return [:yes, :no, nil] Whether to create the server as 'Managed' or not.
         attribute :managed_os
-        validates :managed_os, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :managed_os, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] Memory in GB.
         attribute :memory
@@ -91,7 +91,7 @@ module Ansible
 
         # @return [:TCP, :UDP, :ICMP, nil] The protocol to use for the public ip if add_public_ip is set to True.
         attribute :public_ip_protocol
-        validates :public_ip_protocol, inclusion: {:in=>[:TCP, :UDP, :ICMP], :message=>"%{value} needs to be :TCP, :UDP, :ICMP"}, allow_nil: true
+        validates :public_ip_protocol, expression_inclusion: {:in=>[:TCP, :UDP, :ICMP], :message=>"%{value} needs to be :TCP, :UDP, :ICMP"}, allow_nil: true
 
         # @return [Object, nil] A list of ports to allow on the firewall to the servers public ip, if add_public_ip is set to True.
         attribute :public_ip_ports
@@ -107,11 +107,11 @@ module Ansible
 
         # @return [:present, :absent, :started, :stopped, nil] The state to insure that the provided resources are in.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent, :started, :stopped], :message=>"%{value} needs to be :present, :absent, :started, :stopped"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent, :started, :stopped], :message=>"%{value} needs to be :present, :absent, :started, :stopped"}, allow_nil: true
 
         # @return [:standard, :hyperscale, nil] The type of storage to attach to the server.
         attribute :storage_type
-        validates :storage_type, inclusion: {:in=>[:standard, :hyperscale], :message=>"%{value} needs to be :standard, :hyperscale"}, allow_nil: true
+        validates :storage_type, expression_inclusion: {:in=>[:standard, :hyperscale], :message=>"%{value} needs to be :standard, :hyperscale"}, allow_nil: true
 
         # @return [String, nil] The template to use for server creation.  Will search for a template if a partial string is provided. This is required when state is 'present'
         attribute :template
@@ -122,18 +122,18 @@ module Ansible
 
         # @return [:standard, :hyperscale, :bareMetal, nil] The type of server to create.
         attribute :type
-        validates :type, inclusion: {:in=>[:standard, :hyperscale, :bareMetal], :message=>"%{value} needs to be :standard, :hyperscale, :bareMetal"}, allow_nil: true
+        validates :type, expression_inclusion: {:in=>[:standard, :hyperscale, :bareMetal], :message=>"%{value} needs to be :standard, :hyperscale, :bareMetal"}, allow_nil: true
 
         # @return [Object, nil] Only required for bare metal servers. Specifies the identifier for the specific configuration type of bare metal server to deploy.
         attribute :configuration_id
 
         # @return [:redHat6_64Bit, :centOS6_64Bit, :windows2012R2Standard_64Bit, :ubuntu14_64Bit, nil] Only required for bare metal servers. Specifies the OS to provision with the bare metal server.
         attribute :os_type
-        validates :os_type, inclusion: {:in=>[:redHat6_64Bit, :centOS6_64Bit, :windows2012R2Standard_64Bit, :ubuntu14_64Bit], :message=>"%{value} needs to be :redHat6_64Bit, :centOS6_64Bit, :windows2012R2Standard_64Bit, :ubuntu14_64Bit"}, allow_nil: true
+        validates :os_type, expression_inclusion: {:in=>[:redHat6_64Bit, :centOS6_64Bit, :windows2012R2Standard_64Bit, :ubuntu14_64Bit], :message=>"%{value} needs to be :redHat6_64Bit, :centOS6_64Bit, :windows2012R2Standard_64Bit, :ubuntu14_64Bit"}, allow_nil: true
 
         # @return [:yes, :no, nil] Whether to wait for the provisioning tasks to finish before returning.
         attribute :wait
-        validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :wait, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
       end
     end
   end

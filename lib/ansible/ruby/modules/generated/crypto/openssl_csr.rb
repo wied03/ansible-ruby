@@ -10,7 +10,7 @@ module Ansible
       class Openssl_csr < Base
         # @return [:present, :absent, nil] Whether the certificate signing request should exist or not, taking action if the state is different from what is stated.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String, nil] Digest used when signing the certificate signing request with the private key
         attribute :digest
@@ -93,7 +93,7 @@ module Ansible
 
         # @return [Boolean, nil] Indicates that the certificate should contain the OCSP Must Staple extension (U(https://tools.ietf.org/html/rfc7633)).
         attribute :ocsp_must_staple
-        validates :ocsp_must_staple, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :ocsp_must_staple, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Object, nil] Should the OCSP Must Staple extension be considered as critical,Warning: according to the RFC, this extension should not be marked as critical, as old clients not knowing about OCSP Must Staple are required to reject such certificates (see U(https://tools.ietf.org/html/rfc7633#section-4)).
         attribute :ocsp_must_staple_critical

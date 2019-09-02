@@ -18,7 +18,7 @@ module Ansible
 
         # @return [:present, :absent, :enabled, :disabled, nil] Create or delete Solaris/illumos IP interfaces.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent, :enabled, :disabled], :message=>"%{value} needs to be :present, :absent, :enabled, :disabled"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent, :enabled, :disabled], :message=>"%{value} needs to be :present, :absent, :enabled, :disabled"}, allow_nil: true
       end
     end
   end

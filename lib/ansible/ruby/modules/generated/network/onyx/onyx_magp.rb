@@ -18,7 +18,7 @@ module Ansible
 
         # @return [:present, :absent, :enabled, :disabled, nil] MAGP state.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent, :enabled, :disabled], :message=>"%{value} needs to be :present, :absent, :enabled, :disabled"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent, :enabled, :disabled], :message=>"%{value} needs to be :present, :absent, :enabled, :disabled"}, allow_nil: true
 
         # @return [String, nil] MAGP router IP address.
         attribute :router_ip

@@ -33,15 +33,15 @@ module Ansible
 
         # @return [:immediate, :lazy, nil] The Deployement Immediacy of Static EPG on PC, VPC or Interface.,The APIC defaults to C(lazy) when unset during creation.
         attribute :deploy_immediacy
-        validates :deploy_immediacy, inclusion: {:in=>[:immediate, :lazy], :message=>"%{value} needs to be :immediate, :lazy"}, allow_nil: true
+        validates :deploy_immediacy, expression_inclusion: {:in=>[:immediate, :lazy], :message=>"%{value} needs to be :immediate, :lazy"}, allow_nil: true
 
         # @return [:"802.1p", :access, :native, :regular, :tagged, :trunk, :untagged, nil] Determines how layer 2 tags will be read from and added to frames.,Values C(802.1p) and C(native) are identical.,Values C(access) and C(untagged) are identical.,Values C(regular), C(tagged) and C(trunk) are identical.,The APIC defaults to C(trunk) when unset during creation.
         attribute :interface_mode
-        validates :interface_mode, inclusion: {:in=>[:"802.1p", :access, :native, :regular, :tagged, :trunk, :untagged], :message=>"%{value} needs to be :\"802.1p\", :access, :native, :regular, :tagged, :trunk, :untagged"}, allow_nil: true
+        validates :interface_mode, expression_inclusion: {:in=>[:"802.1p", :access, :native, :regular, :tagged, :trunk, :untagged], :message=>"%{value} needs to be :\"802.1p\", :access, :native, :regular, :tagged, :trunk, :untagged"}, allow_nil: true
 
         # @return [:fex, :port_channel, :switch_port, :vpc, nil] The type of interface for the static EPG deployement.
         attribute :interface_type
-        validates :interface_type, inclusion: {:in=>[:fex, :port_channel, :switch_port, :vpc], :message=>"%{value} needs to be :fex, :port_channel, :switch_port, :vpc"}, allow_nil: true
+        validates :interface_type, expression_inclusion: {:in=>[:fex, :port_channel, :switch_port, :vpc], :message=>"%{value} needs to be :fex, :port_channel, :switch_port, :vpc"}, allow_nil: true
 
         # @return [Integer, nil] The pod number part of the tDn.,C(pod_id) is usually an integer below C(10).
         attribute :pod_id
@@ -61,7 +61,7 @@ module Ansible
 
         # @return [:absent, :present, :query, nil] Use C(present) or C(absent) for adding or removing.,Use C(query) for listing an object or multiple objects.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present, :query], :message=>"%{value} needs to be :absent, :present, :query"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present, :query], :message=>"%{value} needs to be :absent, :present, :query"}, allow_nil: true
       end
     end
   end

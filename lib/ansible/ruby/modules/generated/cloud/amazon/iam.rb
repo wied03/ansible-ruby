@@ -10,7 +10,7 @@ module Ansible
       class Iam < Base
         # @return [:user, :group, :role, nil] Type of IAM resource
         attribute :iam_type
-        validates :iam_type, inclusion: {:in=>[:user, :group, :role], :message=>"%{value} needs to be :user, :group, :role"}, allow_nil: true
+        validates :iam_type, expression_inclusion: {:in=>[:user, :group, :role], :message=>"%{value} needs to be :user, :group, :role"}, allow_nil: true
 
         # @return [String] Name of IAM resource to create or identify
         attribute :name
@@ -24,7 +24,7 @@ module Ansible
 
         # @return [:present, :absent, :update] Whether to create, delete or update the IAM resource. Note, roles cannot be updated.
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:present, :absent, :update], :message=>"%{value} needs to be :present, :absent, :update"}
+        validates :state, presence: true, expression_inclusion: {:in=>[:present, :absent, :update], :message=>"%{value} needs to be :present, :absent, :update"}
 
         # @return [String, nil] When creating or updating, specify the desired path of the resource. If state is present, it will replace the current path to match what is passed in when they do not match.
         attribute :path
@@ -38,7 +38,7 @@ module Ansible
 
         # @return [:create, :remove, :active, :inactive, nil] When type is user, it creates, removes, deactivates or activates a user's access key(s). Note that actions apply only to keys specified.
         attribute :access_key_state
-        validates :access_key_state, inclusion: {:in=>[:create, :remove, :active, :inactive], :message=>"%{value} needs to be :create, :remove, :active, :inactive"}, allow_nil: true
+        validates :access_key_state, expression_inclusion: {:in=>[:create, :remove, :active, :inactive], :message=>"%{value} needs to be :create, :remove, :active, :inactive"}, allow_nil: true
 
         # @return [String, nil] When access_key_state is create it will ensure this quantity of keys are present. Defaults to 1.
         attribute :key_count
@@ -56,7 +56,7 @@ module Ansible
 
         # @return [:always, :on_create, nil] C(always) will update passwords if they differ.  C(on_create) will only set the password for newly created users.
         attribute :update_password
-        validates :update_password, inclusion: {:in=>[:always, :on_create], :message=>"%{value} needs to be :always, :on_create"}, allow_nil: true
+        validates :update_password, expression_inclusion: {:in=>[:always, :on_create], :message=>"%{value} needs to be :always, :on_create"}, allow_nil: true
       end
     end
   end

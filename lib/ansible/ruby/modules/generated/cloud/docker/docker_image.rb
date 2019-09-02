@@ -36,7 +36,7 @@ module Ansible
 
         # @return [Boolean, nil] When building an image downloads any updates to the FROM image in Dockerfile.
         attribute :pull
-        validates :pull, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :pull, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Symbol, nil] Push the image to the registry. Specify the registry as part of the I(name) or I(repository) parameter.
         attribute :push
@@ -44,7 +44,7 @@ module Ansible
 
         # @return [Boolean, nil] Remove intermediate containers after build.
         attribute :rm
-        validates :rm, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :rm, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Symbol, nil] Do not use cache when building an image.
         attribute :nocache
@@ -56,7 +56,7 @@ module Ansible
 
         # @return [:absent, :present, :build, nil] Make assertions about the state of an image.,When C(absent) an image will be removed. Use the force option to un-tag and remove all images matching the provided name.,When C(present) check if an image exists using the provided name and tag. If the image is not found or the force option is used, the image will either be pulled, built or loaded. By default the image will be pulled from Docker Hub. To build the image, provide a path value set to a directory containing a context and Dockerfile. To load an image, specify load_path to provide a path to an archive file. To tag an image to a repository, provide a repository path. If the name contains a repository path, it will be pushed.,NOTE: C(build) is DEPRECATED and will be removed in release 2.3. Specifying C(build) will behave the same as C(present).
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present, :build], :message=>"%{value} needs to be :absent, :present, :build"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present, :build], :message=>"%{value} needs to be :absent, :present, :build"}, allow_nil: true
 
         # @return [String, nil] Used to select an image when pulling. Will be added to the image when pushing, tagging or building. Defaults to I(latest).,If C(name) parameter format is I(name:tag), then tag value from C(name) will take precedence.
         attribute :tag
@@ -71,7 +71,7 @@ module Ansible
 
         # @return [:no, :encrypt, :verify, nil] DEPRECATED. Whether to use tls to connect to the docker server. Set to C(no) when TLS will not be used. Set to C(encrypt) to use TLS. And set to C(verify) to use TLS and verify that the server's certificate is valid for the server. NOTE: If you specify this option, it will set the value of the tls or tls_verify parameters.
         attribute :use_tls
-        validates :use_tls, inclusion: {:in=>[:no, :encrypt, :verify], :message=>"%{value} needs to be :no, :encrypt, :verify"}, allow_nil: true
+        validates :use_tls, expression_inclusion: {:in=>[:no, :encrypt, :verify], :message=>"%{value} needs to be :no, :encrypt, :verify"}, allow_nil: true
       end
     end
   end

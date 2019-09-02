@@ -18,11 +18,11 @@ module Ansible
 
         # @return [:ipv4, :ipv6, :vpnv4, :vpnv6, :l2vpn] Address Family Identifier.
         attribute :afi
-        validates :afi, presence: true, inclusion: {:in=>[:ipv4, :ipv6, :vpnv4, :vpnv6, :l2vpn], :message=>"%{value} needs to be :ipv4, :ipv6, :vpnv4, :vpnv6, :l2vpn"}
+        validates :afi, presence: true, expression_inclusion: {:in=>[:ipv4, :ipv6, :vpnv4, :vpnv6, :l2vpn], :message=>"%{value} needs to be :ipv4, :ipv6, :vpnv4, :vpnv6, :l2vpn"}
 
         # @return [:unicast, :multicast, :evpn] Sub Address Family Identifier.
         attribute :safi
-        validates :safi, presence: true, inclusion: {:in=>[:unicast, :multicast, :evpn], :message=>"%{value} needs to be :unicast, :multicast, :evpn"}
+        validates :safi, presence: true, expression_inclusion: {:in=>[:unicast, :multicast, :evpn], :message=>"%{value} needs to be :unicast, :multicast, :evpn"}
 
         # @return [Symbol, nil] Install a backup path into the forwarding table and provide prefix independent convergence (PIC) in case of a PE-CE link failure.
         attribute :additional_paths_install
@@ -116,7 +116,7 @@ module Ansible
 
         # @return [:present, :absent, nil] Determines whether the config should be present or not on the device.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

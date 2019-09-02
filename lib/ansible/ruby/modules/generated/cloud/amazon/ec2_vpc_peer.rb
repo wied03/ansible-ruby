@@ -34,7 +34,7 @@ module Ansible
 
         # @return [:present, :absent, :accept, :reject, nil] Create, delete, accept, reject a peering connection.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent, :accept, :reject], :message=>"%{value} needs to be :present, :absent, :accept, :reject"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent, :accept, :reject], :message=>"%{value} needs to be :present, :absent, :accept, :reject"}, allow_nil: true
       end
     end
   end

@@ -10,7 +10,7 @@ module Ansible
       class Profitbricks < Base
         # @return [:yes, :no, nil] Whether or not to increment a single number in the name for created virtual machines.
         attribute :auto_increment
-        validates :auto_increment, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :auto_increment, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String] The name of the virtual machine.
         attribute :name
@@ -40,7 +40,7 @@ module Ansible
 
         # @return [:AMD_OPTERON, :INTEL_XEON, nil] The CPU family type to allocate to the virtual machine.
         attribute :cpu_family
-        validates :cpu_family, inclusion: {:in=>[:AMD_OPTERON, :INTEL_XEON], :message=>"%{value} needs to be :AMD_OPTERON, :INTEL_XEON"}, allow_nil: true
+        validates :cpu_family, expression_inclusion: {:in=>[:AMD_OPTERON, :INTEL_XEON], :message=>"%{value} needs to be :AMD_OPTERON, :INTEL_XEON"}, allow_nil: true
 
         # @return [Integer, nil] The size in GB of the boot volume.
         attribute :volume_size
@@ -48,7 +48,7 @@ module Ansible
 
         # @return [:IDE, :VIRTIO, nil] The bus type for the volume.
         attribute :bus
-        validates :bus, inclusion: {:in=>[:IDE, :VIRTIO], :message=>"%{value} needs to be :IDE, :VIRTIO"}, allow_nil: true
+        validates :bus, expression_inclusion: {:in=>[:IDE, :VIRTIO], :message=>"%{value} needs to be :IDE, :VIRTIO"}, allow_nil: true
 
         # @return [Array<String>, String, nil] list of instance ids, currently only used when state='absent' to remove instances.
         attribute :instance_ids
@@ -60,11 +60,11 @@ module Ansible
 
         # @return [:"us/las", :"de/fra", :"de/fkb", nil] The datacenter location. Use only if you want to create the Datacenter or else this value is ignored.
         attribute :location
-        validates :location, inclusion: {:in=>[:"us/las", :"de/fra", :"de/fkb"], :message=>"%{value} needs to be :\"us/las\", :\"de/fra\", :\"de/fkb\""}, allow_nil: true
+        validates :location, expression_inclusion: {:in=>[:"us/las", :"de/fra", :"de/fkb"], :message=>"%{value} needs to be :\"us/las\", :\"de/fra\", :\"de/fkb\""}, allow_nil: true
 
         # @return [:yes, :no, nil] This will assign the machine to the public LAN. If no LAN exists with public Internet access it is created.
         attribute :assign_public_ip
-        validates :assign_public_ip, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :assign_public_ip, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] The ID of the LAN you wish to add the servers to.
         attribute :lan
@@ -78,7 +78,7 @@ module Ansible
 
         # @return [:yes, :no, nil] wait for the instance to be in state 'running' before returning
         attribute :wait
-        validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :wait, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] how long before wait gives up, in seconds
         attribute :wait_timeout
@@ -86,11 +86,11 @@ module Ansible
 
         # @return [:yes, :no, nil] remove the bootVolume of the virtual machine you're destroying.
         attribute :remove_boot_volume
-        validates :remove_boot_volume, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :remove_boot_volume, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:running, :stopped, :absent, :present, nil] create or terminate instances
         attribute :state
-        validates :state, inclusion: {:in=>[:running, :stopped, :absent, :present], :message=>"%{value} needs to be :running, :stopped, :absent, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:running, :stopped, :absent, :present], :message=>"%{value} needs to be :running, :stopped, :absent, :present"}, allow_nil: true
       end
     end
   end

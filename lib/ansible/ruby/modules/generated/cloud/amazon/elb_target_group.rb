@@ -13,7 +13,7 @@ module Ansible
 
         # @return [:http, :https, :tcp, nil] The protocol the load balancer uses when performing health checks on targets.
         attribute :health_check_protocol
-        validates :health_check_protocol, inclusion: {:in=>[:http, :https, :tcp], :message=>"%{value} needs to be :http, :https, :tcp"}, allow_nil: true
+        validates :health_check_protocol, expression_inclusion: {:in=>[:http, :https, :tcp], :message=>"%{value} needs to be :http, :https, :tcp"}, allow_nil: true
 
         # @return [String, nil] The port the load balancer uses when performing health checks on targets. Can be set to 'traffic-port' to match target port.
         attribute :health_check_port
@@ -34,7 +34,7 @@ module Ansible
 
         # @return [Boolean, nil] Whether or not to alter existing targets in the group to match what is passed with the module
         attribute :modify_targets
-        validates :modify_targets, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :modify_targets, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [String] The name of the target group.
         attribute :name
@@ -46,15 +46,15 @@ module Ansible
 
         # @return [:http, :https, :tcp, nil] The protocol to use for routing traffic to the targets. Required when I(state) is C(present).
         attribute :protocol
-        validates :protocol, inclusion: {:in=>[:http, :https, :tcp], :message=>"%{value} needs to be :http, :https, :tcp"}, allow_nil: true
+        validates :protocol, expression_inclusion: {:in=>[:http, :https, :tcp], :message=>"%{value} needs to be :http, :https, :tcp"}, allow_nil: true
 
         # @return [Boolean, nil] If yes, existing tags will be purged from the resource to match exactly what is defined by I(tags) parameter. If the tag parameter is not set then tags will not be modified.
         attribute :purge_tags
-        validates :purge_tags, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :purge_tags, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [:present, :absent] Create or destroy the target group.
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
+        validates :state, presence: true, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}
 
         # @return [Symbol, nil] Indicates whether sticky sessions are enabled.
         attribute :stickiness_enabled
@@ -76,7 +76,7 @@ module Ansible
 
         # @return [:instance, :ip, nil] The type of target that you must specify when registering targets with this target group. The possible values are C(instance) (targets are specified by instance ID) or C(ip) (targets are specified by IP address). Note that you can't specify targets for a target group using both instance IDs and IP addresses. If the target type is ip, specify IP addresses from the subnets of the virtual private cloud (VPC) for the target group, the RFC 1918 range (10.0.0.0/8, 172.16.0.0/12, and 192.168.0.0/16), and the RFC 6598 range (100.64.0.0/10). You can't specify publicly routable IP addresses.
         attribute :target_type
-        validates :target_type, inclusion: {:in=>[:instance, :ip], :message=>"%{value} needs to be :instance, :ip"}, allow_nil: true
+        validates :target_type, expression_inclusion: {:in=>[:instance, :ip], :message=>"%{value} needs to be :instance, :ip"}, allow_nil: true
 
         # @return [Array<Hash>, Hash, nil] A list of targets to assign to the target group. This parameter defaults to an empty list. Unless you set the 'modify_targets' parameter then all existing targets will be removed from the group. The list should be an Id and a Port parameter. See the Examples for detail.
         attribute :targets

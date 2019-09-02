@@ -36,7 +36,7 @@ module Ansible
 
         # @return [:absent, :present, nil] Assert the state of the SQL server. Use 'present' to create or update a server and 'absent' to delete a server.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
       end
     end
   end

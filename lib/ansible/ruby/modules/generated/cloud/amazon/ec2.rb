@@ -36,7 +36,7 @@ module Ansible
 
         # @return [:default, :dedicated, nil] An instance with a tenancy of "dedicated" runs on single-tenant hardware and can only be launched into a VPC. Note that to use dedicated tenancy you MUST specify a vpc_subnet_id as well. Dedicated tenancy is not available for EC2 "micro" instances.
         attribute :tenancy
-        validates :tenancy, inclusion: {:in=>[:default, :dedicated], :message=>"%{value} needs to be :default, :dedicated"}, allow_nil: true
+        validates :tenancy, expression_inclusion: {:in=>[:default, :dedicated], :message=>"%{value} needs to be :default, :dedicated"}, allow_nil: true
 
         # @return [Float, nil] Maximum spot price to bid, If not set a regular on-demand instance is requested. A spot request is made with this maximum bid. When it is filled, the instance is started.
         attribute :spot_price
@@ -44,7 +44,7 @@ module Ansible
 
         # @return [:"one-time", :persistent, nil] Type of spot request; one of "one-time" or "persistent". Defaults to "one-time" if not supplied.
         attribute :spot_type
-        validates :spot_type, inclusion: {:in=>[:"one-time", :persistent], :message=>"%{value} needs to be :\"one-time\", :persistent"}, allow_nil: true
+        validates :spot_type, expression_inclusion: {:in=>[:"one-time", :persistent], :message=>"%{value} needs to be :\"one-time\", :persistent"}, allow_nil: true
 
         # @return [String] I(ami) ID to use for the instance
         attribute :image
@@ -58,7 +58,7 @@ module Ansible
 
         # @return [:yes, :no, nil] wait for the instance to reach its desired state before returning.  Does not wait for SSH, see 'wait_for_connection' example for details.
         attribute :wait
-        validates :wait, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :wait, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Integer, nil] how long before wait gives up, in seconds
         attribute :wait_timeout
@@ -74,7 +74,7 @@ module Ansible
 
         # @return [:yes, :no, nil] enable detailed monitoring (CloudWatch) for instance
         attribute :monitoring
-        validates :monitoring, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :monitoring, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [Object, nil] opaque blob of data which is made available to the ec2 instance
         attribute :user_data
@@ -110,15 +110,15 @@ module Ansible
 
         # @return [:yes, :no, nil] Enable or Disable the Termination Protection
         attribute :termination_protection
-        validates :termination_protection, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :termination_protection, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [:stop, :terminate, nil] Set whether AWS will Stop or Terminate an instance on shutdown. This parameter is ignored when using instance-store images (which require termination on shutdown).
         attribute :instance_initiated_shutdown_behavior
-        validates :instance_initiated_shutdown_behavior, inclusion: {:in=>[:stop, :terminate], :message=>"%{value} needs to be :stop, :terminate"}, allow_nil: true
+        validates :instance_initiated_shutdown_behavior, expression_inclusion: {:in=>[:stop, :terminate], :message=>"%{value} needs to be :stop, :terminate"}, allow_nil: true
 
         # @return [:present, :absent, :running, :restarted, :stopped, nil] create, terminate, start, stop or restart instances. The state 'restarted' was added in 2.2
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent, :running, :restarted, :stopped], :message=>"%{value} needs to be :present, :absent, :running, :restarted, :stopped"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent, :running, :restarted, :stopped], :message=>"%{value} needs to be :present, :absent, :running, :restarted, :stopped"}, allow_nil: true
 
         # @return [Array<Hash>, Hash, nil] a list of hash/dictionaries of volumes to add to the new instance; '[{"key":"value", "key":"value"}]'; keys allowed are - device_name (str; required), delete_on_termination (bool; False), device_type (deprecated), ephemeral (str), encrypted (bool; False), snapshot (str), volume_type (str), volume_size (int, GB), iops (int) - device_type is deprecated use volume_type, iops must be set when volume_type='io1', ephemeral and snapshot are mutually exclusive.
         attribute :volumes

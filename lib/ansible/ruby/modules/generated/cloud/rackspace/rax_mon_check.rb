@@ -10,7 +10,7 @@ module Ansible
       class Rax_mon_check < Base
         # @return [:present, :absent, nil] Ensure that a check with this C(label) exists or does not exist.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [Object] ID of the rax_mon_entity to target with this check.
         attribute :entity_id
@@ -22,7 +22,7 @@ module Ansible
 
         # @return [:"remote.dns", :"remote.ftp-banner", :"remote.http", :"remote.imap-banner", :"remote.mssql-banner", :"remote.mysql-banner", :"remote.ping", :"remote.pop3-banner", :"remote.postgresql-banner", :"remote.smtp-banner", :"remote.smtp", :"remote.ssh", :"remote.tcp", :"remote.telnet-banner", :"agent.filesystem", :"agent.memory", :"agent.load_average", :"agent.cpu", :"agent.disk", :"agent.network", :"agent.plugin"] The type of check to create. C(remote.) checks may be created on any rax_mon_entity. C(agent.) checks may only be created on rax_mon_entities that have a non-null C(agent_id).
         attribute :check_type
-        validates :check_type, presence: true, inclusion: {:in=>[:"remote.dns", :"remote.ftp-banner", :"remote.http", :"remote.imap-banner", :"remote.mssql-banner", :"remote.mysql-banner", :"remote.ping", :"remote.pop3-banner", :"remote.postgresql-banner", :"remote.smtp-banner", :"remote.smtp", :"remote.ssh", :"remote.tcp", :"remote.telnet-banner", :"agent.filesystem", :"agent.memory", :"agent.load_average", :"agent.cpu", :"agent.disk", :"agent.network", :"agent.plugin"], :message=>"%{value} needs to be :\"remote.dns\", :\"remote.ftp-banner\", :\"remote.http\", :\"remote.imap-banner\", :\"remote.mssql-banner\", :\"remote.mysql-banner\", :\"remote.ping\", :\"remote.pop3-banner\", :\"remote.postgresql-banner\", :\"remote.smtp-banner\", :\"remote.smtp\", :\"remote.ssh\", :\"remote.tcp\", :\"remote.telnet-banner\", :\"agent.filesystem\", :\"agent.memory\", :\"agent.load_average\", :\"agent.cpu\", :\"agent.disk\", :\"agent.network\", :\"agent.plugin\""}
+        validates :check_type, presence: true, expression_inclusion: {:in=>[:"remote.dns", :"remote.ftp-banner", :"remote.http", :"remote.imap-banner", :"remote.mssql-banner", :"remote.mysql-banner", :"remote.ping", :"remote.pop3-banner", :"remote.postgresql-banner", :"remote.smtp-banner", :"remote.smtp", :"remote.ssh", :"remote.tcp", :"remote.telnet-banner", :"agent.filesystem", :"agent.memory", :"agent.load_average", :"agent.cpu", :"agent.disk", :"agent.network", :"agent.plugin"], :message=>"%{value} needs to be :\"remote.dns\", :\"remote.ftp-banner\", :\"remote.http\", :\"remote.imap-banner\", :\"remote.mssql-banner\", :\"remote.mysql-banner\", :\"remote.ping\", :\"remote.pop3-banner\", :\"remote.postgresql-banner\", :\"remote.smtp-banner\", :\"remote.smtp\", :\"remote.ssh\", :\"remote.tcp\", :\"remote.telnet-banner\", :\"agent.filesystem\", :\"agent.memory\", :\"agent.load_average\", :\"agent.cpu\", :\"agent.disk\", :\"agent.network\", :\"agent.plugin\""}
 
         # @return [Object, nil] Comma-separated list of the names of the monitoring zones the check should run from. Available monitoring zones include mzdfw, mzhkg, mziad, mzlon, mzord and mzsyd. Required for remote.* checks; prohibited for agent.* checks.
         attribute :monitoring_zones_poll

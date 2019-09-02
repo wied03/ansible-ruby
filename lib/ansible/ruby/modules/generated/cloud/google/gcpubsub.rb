@@ -34,7 +34,7 @@ module Ansible
 
         # @return [:absent, :present, nil] State of the topic or queue.,Applies to the most granular resource.,If subscription isspecified we remove it.,If only topic is specified, that is what is removed.,NOTE - A topic can be removed without first removing the subscription.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
       end
     end
   end

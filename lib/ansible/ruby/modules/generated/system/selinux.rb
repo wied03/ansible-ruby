@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:enforcing, :permissive, :disabled] The SELinux mode
         attribute :state
-        validates :state, presence: true, inclusion: {:in=>[:enforcing, :permissive, :disabled], :message=>"%{value} needs to be :enforcing, :permissive, :disabled"}
+        validates :state, presence: true, expression_inclusion: {:in=>[:enforcing, :permissive, :disabled], :message=>"%{value} needs to be :enforcing, :permissive, :disabled"}
 
         # @return [String, nil] path to the SELinux configuration file, if non-standard
         attribute :conf

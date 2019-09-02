@@ -14,11 +14,11 @@ module Ansible
 
         # @return [:maintenance, :normal] Configure the profile as Maintenance or Normal mode.
         attribute :mode
-        validates :mode, presence: true, inclusion: {:in=>[:maintenance, :normal], :message=>"%{value} needs to be :maintenance, :normal"}
+        validates :mode, presence: true, expression_inclusion: {:in=>[:maintenance, :normal], :message=>"%{value} needs to be :maintenance, :normal"}
 
         # @return [:present, :absent, nil] Specify desired state of the resource.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

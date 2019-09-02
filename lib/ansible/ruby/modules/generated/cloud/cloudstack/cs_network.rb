@@ -62,7 +62,7 @@ module Ansible
 
         # @return [:account, :domain, nil] Access control type for the VPC network tier.,Only considered on create.
         attribute :acl_type
-        validates :acl_type, inclusion: {:in=>[:account, :domain], :message=>"%{value} needs to be :account, :domain"}, allow_nil: true
+        validates :acl_type, expression_inclusion: {:in=>[:account, :domain], :message=>"%{value} needs to be :account, :domain"}, allow_nil: true
 
         # @return [String, nil] The name of the access control list for the VPC network tier.
         attribute :acl
@@ -78,7 +78,7 @@ module Ansible
 
         # @return [:present, :absent, :restarted, nil] State of the network.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent, :restarted], :message=>"%{value} needs to be :present, :absent, :restarted"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent, :restarted], :message=>"%{value} needs to be :present, :absent, :restarted"}, allow_nil: true
 
         # @return [String, nil] Name of the zone in which the network should be deployed.,If not set, default zone is used.
         attribute :zone
@@ -95,7 +95,7 @@ module Ansible
 
         # @return [Boolean, nil] Poll async jobs until job has finished.
         attribute :poll_async
-        validates :poll_async, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :poll_async, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
       end
     end
   end

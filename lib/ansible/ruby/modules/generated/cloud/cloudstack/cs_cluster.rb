@@ -21,11 +21,11 @@ module Ansible
 
         # @return [:CloudManaged, :ExternalManaged, nil] Type of the cluster.,Required if C(state=present)
         attribute :cluster_type
-        validates :cluster_type, inclusion: {:in=>[:CloudManaged, :ExternalManaged], :message=>"%{value} needs to be :CloudManaged, :ExternalManaged"}, allow_nil: true
+        validates :cluster_type, expression_inclusion: {:in=>[:CloudManaged, :ExternalManaged], :message=>"%{value} needs to be :CloudManaged, :ExternalManaged"}, allow_nil: true
 
         # @return [:KVM, :VMware, :BareMetal, :XenServer, :LXC, :HyperV, :UCS, :OVM, nil] Name the hypervisor to be used.,Required if C(state=present).
         attribute :hypervisor
-        validates :hypervisor, inclusion: {:in=>[:KVM, :VMware, :BareMetal, :XenServer, :LXC, :HyperV, :UCS, :OVM], :message=>"%{value} needs to be :KVM, :VMware, :BareMetal, :XenServer, :LXC, :HyperV, :UCS, :OVM"}, allow_nil: true
+        validates :hypervisor, expression_inclusion: {:in=>[:KVM, :VMware, :BareMetal, :XenServer, :LXC, :HyperV, :UCS, :OVM], :message=>"%{value} needs to be :KVM, :VMware, :BareMetal, :XenServer, :LXC, :HyperV, :UCS, :OVM"}, allow_nil: true
 
         # @return [Object, nil] URL for the cluster
         attribute :url
@@ -41,14 +41,14 @@ module Ansible
 
         # @return [:vmwaresvs, :vmwaredvs, nil] Type of virtual switch used for guest traffic in the cluster.,Allowed values are, vmwaresvs (for VMware standard vSwitch) and vmwaredvs (for VMware distributed vSwitch)
         attribute :guest_vswitch_type
-        validates :guest_vswitch_type, inclusion: {:in=>[:vmwaresvs, :vmwaredvs], :message=>"%{value} needs to be :vmwaresvs, :vmwaredvs"}, allow_nil: true
+        validates :guest_vswitch_type, expression_inclusion: {:in=>[:vmwaresvs, :vmwaredvs], :message=>"%{value} needs to be :vmwaresvs, :vmwaredvs"}, allow_nil: true
 
         # @return [Object, nil] Name of virtual switch used for public traffic in the cluster.,This would override zone wide traffic label setting.
         attribute :public_vswitch_name
 
         # @return [:vmwaresvs, :vmwaredvs, nil] Type of virtual switch used for public traffic in the cluster.,Allowed values are, vmwaresvs (for VMware standard vSwitch) and vmwaredvs (for VMware distributed vSwitch)
         attribute :public_vswitch_type
-        validates :public_vswitch_type, inclusion: {:in=>[:vmwaresvs, :vmwaredvs], :message=>"%{value} needs to be :vmwaresvs, :vmwaredvs"}, allow_nil: true
+        validates :public_vswitch_type, expression_inclusion: {:in=>[:vmwaresvs, :vmwaredvs], :message=>"%{value} needs to be :vmwaresvs, :vmwaredvs"}, allow_nil: true
 
         # @return [Object, nil] IP address of the VSM associated with this cluster.
         attribute :vms_ip_address
@@ -70,7 +70,7 @@ module Ansible
 
         # @return [:present, :absent, :disabled, :enabled, nil] State of the cluster.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent, :disabled, :enabled], :message=>"%{value} needs to be :present, :absent, :disabled, :enabled"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent, :disabled, :enabled], :message=>"%{value} needs to be :present, :absent, :disabled, :enabled"}, allow_nil: true
       end
     end
   end

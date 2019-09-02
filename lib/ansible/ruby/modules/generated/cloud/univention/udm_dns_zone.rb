@@ -10,11 +10,11 @@ module Ansible
       class Udm_dns_zone < Base
         # @return [:present, :absent, nil] Whether the dns zone is present or not.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [:forward_zone, :reverse_zone] Define if the zone is a forward or reverse DNS zone.
         attribute :type
-        validates :type, presence: true, inclusion: {:in=>[:forward_zone, :reverse_zone], :message=>"%{value} needs to be :forward_zone, :reverse_zone"}
+        validates :type, presence: true, expression_inclusion: {:in=>[:forward_zone, :reverse_zone], :message=>"%{value} needs to be :forward_zone, :reverse_zone"}
 
         # @return [String] DNS zone name, e.g. C(example.com).
         attribute :zone

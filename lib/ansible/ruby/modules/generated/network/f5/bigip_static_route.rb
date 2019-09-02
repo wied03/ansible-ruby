@@ -49,7 +49,7 @@ module Ansible
 
         # @return [:present, :absent, nil] When C(present), ensures that the static route exists.,When C(absent), ensures that the static does not exist.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
       end
     end
   end

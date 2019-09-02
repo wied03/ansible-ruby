@@ -27,7 +27,7 @@ module Ansible
 
         # @return [:present, :absent, nil] When C(present), ensures that the iApp service is created and running. When C(absent), ensures that the iApp service has been removed.
         attribute :state
-        validates :state, inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:present, :absent], :message=>"%{value} needs to be :present, :absent"}, allow_nil: true
 
         # @return [String, nil] Device partition to manage resources on.
         attribute :partition
@@ -35,7 +35,7 @@ module Ansible
 
         # @return [Boolean, nil] Indicates whether the application service is tied to the template, so when the template is updated, the application service changes to reflect the updates.,When C(yes), disallows any updates to the resources that the iApp service has created, if they are not updated directly through the iApp.,When C(no), allows updates outside of the iApp.,If this option is specified in the Ansible task, it will take precedence over any similar setting in the iApp Service payload that you provide in the C(parameters) field.
         attribute :strict_updates
-        validates :strict_updates, inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
+        validates :strict_updates, expression_inclusion: {:in=>[true, false], :message=>"%{value} needs to be true, false"}, allow_nil: true
 
         # @return [Object, nil] The traffic group for the iApp service. When creating a new service, if this value is not specified, the default of C(/Common/traffic-group-1) will be used.,If this option is specified in the Ansible task, it will take precedence over any similar setting in the iApp Service payload that you provide in the C(parameters) field.
         attribute :traffic_group

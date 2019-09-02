@@ -14,7 +14,7 @@ module Ansible
 
         # @return [:yes, :no, nil] If C(yes) imports all commands, even if they have the same names as commands that already exists. Available only in Powershell 5.1 or higher.
         attribute :allow_clobber
-        validates :allow_clobber, inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
+        validates :allow_clobber, expression_inclusion: {:in=>[:yes, :no], :message=>"%{value} needs to be :yes, :no"}, allow_nil: true
 
         # @return [String, nil] Name of the custom repository to register or use.
         attribute :repository
@@ -26,7 +26,7 @@ module Ansible
 
         # @return [:absent, :present, nil] If C(present) a new module is installed.,If C(absent) a module is removed.
         attribute :state
-        validates :state, inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
+        validates :state, expression_inclusion: {:in=>[:absent, :present], :message=>"%{value} needs to be :absent, :present"}, allow_nil: true
       end
     end
   end
