@@ -1,3 +1,6 @@
+# 1.0.21
+* Don't enforce validation with jinja expressions
+
 # 1.0.20
 * Add `tags` capability to playbooks
 * Add `when` support to roles
