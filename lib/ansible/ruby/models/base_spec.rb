@@ -57,6 +57,13 @@ describe Ansible::Ruby::Models::Base do
       end
     end
 
+    context 'Jinja expression' do
+      let(:instance) { klass.new foo: Ansible::Ruby::Models::JinjaExpression.new('howdy') }
+
+      it { is_expected.to be_valid }
+      it { is_expected.to have_hash foo: '{{ howdy }}' }
+    end
+
     context 'single value' do
       context 'on its own' do
         let(:instance) { klass.new foo: 123 }

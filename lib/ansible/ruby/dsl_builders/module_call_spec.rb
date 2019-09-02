@@ -72,7 +72,7 @@ describe Ansible::Ruby::DslBuilders::ModuleCall do
 
     it { is_expected.to be_a Ansible::Ruby::Modules::Copy }
     it do
-      is_expected.to have_attributes src: '{{ a_file }}',
+      is_expected.to have_attributes src: Ansible::Ruby::Models::JinjaExpression.new('a_file'),
                                      dest: '/file2.conf'
     end
   end

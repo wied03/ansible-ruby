@@ -27,6 +27,12 @@ describe TypeValidator do
     it { is_expected.to have_errors foo: 'Attribute foo expected to be a Integer but was a String' }
   end
 
+  context 'Jinja expression' do
+    let(:instance) { klass.new foo: Ansible::Ruby::Models::JinjaExpression.new('howdy'), toodles: 40.4 }
+
+    it { is_expected.to be_valid }
+  end
+
   context 'multiple' do
     let(:klass) do
       Class.new(Ansible::Ruby::Models::Base) do

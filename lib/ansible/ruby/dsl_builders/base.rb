@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'ansible/ruby/models/jinja_expression'
+
 module Ansible
   module Ruby
     module DslBuilders
@@ -17,7 +19,7 @@ module Ansible
         end
 
         def jinja(text)
-          "{{ #{text} }}"
+          Ansible::Ruby::Models::JinjaExpression.new(text)
         end
 
         # For the DSL, don't want to defer to regular method_missing

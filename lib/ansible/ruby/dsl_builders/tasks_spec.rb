@@ -5,15 +5,15 @@ require 'spec_helper'
 require 'ansible-ruby'
 
 describe Ansible::Ruby::DslBuilders::Tasks do
-  let(:context) { :tasks }
-  let(:builder) { Ansible::Ruby::DslBuilders::Tasks.new context }
+  let(:context) {:tasks}
+  let(:builder) {Ansible::Ruby::DslBuilders::Tasks.new context}
 
   def evaluate
     builder.instance_eval ruby
     builder._result
   end
 
-  subject(:tasks) { evaluate }
+  subject(:tasks) {evaluate}
 
   before do
     klass = Class.new(Ansible::Ruby::Modules::Base) do
@@ -37,15 +37,15 @@ describe Ansible::Ruby::DslBuilders::Tasks do
       RUBY
     end
 
-    it { is_expected.to be_a Ansible::Ruby::Models::Tasks }
+    it {is_expected.to be_a Ansible::Ruby::Models::Tasks}
     it do
       is_expected.to have_attributes items: include(be_a(Ansible::Ruby::Models::Task))
     end
 
     describe 'hash keys' do
-      subject { tasks.items.map { |task| task.to_h.stringify_keys.keys } }
+      subject {tasks.items.map {|task| task.to_h.stringify_keys.keys}}
 
-      it { is_expected.to eq [%w[name copy]] }
+      it {is_expected.to eq [%w[name copy]]}
     end
   end
 
@@ -79,7 +79,7 @@ describe Ansible::Ruby::DslBuilders::Tasks do
       end
 
       describe 'task 1' do
-        subject { tasks.items[0] }
+        subject {tasks.items[0]}
 
         it do
           is_expected.to have_attributes register: 'result_1',
@@ -88,7 +88,7 @@ describe Ansible::Ruby::DslBuilders::Tasks do
       end
 
       describe 'task 3' do
-        subject { tasks.items[2] }
+        subject {tasks.items[2]}
 
         it do
           is_expected.to have_attributes register: 'result_2',
@@ -196,10 +196,10 @@ describe Ansible::Ruby::DslBuilders::Tasks do
   end
 
   context 'include' do
-    subject(:inclusion) { tasks.inclusions.first }
+    subject(:inclusion) {tasks.inclusions.first}
 
     context 'with tasks' do
-      subject { evaluate }
+      subject {evaluate}
 
       let(:ruby) do
         <<-RUBY
@@ -214,16 +214,16 @@ describe Ansible::Ruby::DslBuilders::Tasks do
         RUBY
       end
 
-      it { is_expected.to be_a Ansible::Ruby::Models::Tasks }
+      it {is_expected.to be_a Ansible::Ruby::Models::Tasks}
       it do
         is_expected.to have_attributes items: include(be_a(Ansible::Ruby::Models::Task)),
                                        inclusions: include(be_a(Ansible::Ruby::Models::Inclusion))
       end
 
       describe 'inclusion' do
-        subject { inclusion }
+        subject {inclusion}
 
-        it { is_expected.to have_attributes file: '/some_file.yml' }
+        it {is_expected.to have_attributes file: '/some_file.yml'}
       end
     end
 
@@ -237,7 +237,7 @@ describe Ansible::Ruby::DslBuilders::Tasks do
         RUBY
       end
 
-      it { is_expected.to be_a Ansible::Ruby::Models::Inclusion }
+      it {is_expected.to be_a Ansible::Ruby::Models::Inclusion}
       it do
         is_expected.to have_attributes file: '/some_file.yml',
                                        static: true,
@@ -255,10 +255,10 @@ describe Ansible::Ruby::DslBuilders::Tasks do
         RUBY
       end
 
-      it { is_expected.to be_a Ansible::Ruby::Models::Inclusion }
+      it {is_expected.to be_a Ansible::Ruby::Models::Inclusion}
       it do
         is_expected.to have_attributes file: '/some_file.yml',
-                                       variables: { stuff: '{{ toodles }}' }
+                                       variables: { stuff: Ansible::Ruby::Models::JinjaExpression.new('toodles') }
       end
     end
 
@@ -271,7 +271,7 @@ describe Ansible::Ruby::DslBuilders::Tasks do
         RUBY
       end
 
-      it { is_expected.to be_a Ansible::Ruby::Models::Inclusion }
+      it {is_expected.to be_a Ansible::Ruby::Models::Inclusion}
       it do
         is_expected.to have_attributes file: '/some_file.yml',
                                        static: true
@@ -280,38 +280,38 @@ describe Ansible::Ruby::DslBuilders::Tasks do
   end
 
   context 'invalid method' do
-    let(:ruby) { 'foobar()' }
-    subject { -> { evaluate } }
+    let(:ruby) {'foobar()'}
+    subject {-> {evaluate}}
 
     context 'tasks context' do
-      let(:context) { :tasks }
+      let(:context) {:tasks}
 
-      it { is_expected.to raise_error "Invalid method/local variable `foobar'. Only [:task] is valid" }
+      it {is_expected.to raise_error "Invalid method/local variable `foobar'. Only [:task] is valid"}
     end
 
     context 'handler context' do
-      let(:context) { :handlers }
+      let(:context) {:handlers}
 
-      it { is_expected.to raise_error "Invalid method/local variable `foobar'. Only [:handler] is valid" }
+      it {is_expected.to raise_error "Invalid method/local variable `foobar'. Only [:handler] is valid"}
     end
   end
 
   context 'no name supplied' do
     %i[handlers tasks].each do |type|
       context type do
-        let(:context) { type }
-        let(:singular) { type[0..-2] }
-        let(:ruby) { "#{singular} { copy { src 'file1'\n dest 'file2'} }" }
+        let(:context) {type}
+        let(:singular) {type[0..-2]}
+        let(:ruby) {"#{singular} { copy { src 'file1'\n dest 'file2'} }"}
 
-        subject { -> { evaluate } }
+        subject {-> {evaluate}}
 
-        it { is_expected.to raise_error "Validation failed: Name can't be blank" }
+        it {is_expected.to raise_error "Validation failed: Name can't be blank"}
       end
     end
   end
 
   context 'handler' do
-    let(:context) { :handlers }
+    let(:context) {:handlers}
 
     let(:ruby) do
       <<-RUBY
@@ -324,15 +324,15 @@ describe Ansible::Ruby::DslBuilders::Tasks do
       RUBY
     end
 
-    it { is_expected.to be_a Ansible::Ruby::Models::Tasks }
+    it {is_expected.to be_a Ansible::Ruby::Models::Tasks}
     it do
       is_expected.to have_attributes items: include(be_a(Ansible::Ruby::Models::Handler))
     end
 
     describe 'hash keys' do
-      subject { tasks.items.map { |task| task.to_h.stringify_keys.keys } }
+      subject {tasks.items.map {|task| task.to_h.stringify_keys.keys}}
 
-      it { is_expected.to eq [%w[name copy]] }
+      it {is_expected.to eq [%w[name copy]]}
     end
   end
 end

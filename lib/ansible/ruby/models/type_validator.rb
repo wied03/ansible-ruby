@@ -7,6 +7,9 @@ class TypeValidator < ActiveModel::EachValidator
     # Don't worry about this case, different validator
     return if value.is_a? NilClass
 
+    # We won't know until runtime what the type is
+    return if value.is_a? Ansible::Ruby::Models::JinjaExpression
+
     failed = perform_validation(attribute, value)
     return unless failed
 

@@ -217,7 +217,7 @@ describe Ansible::Ruby::DslBuilders::Task do
 
     it do
       is_expected.to have_attributes name: 'Copy something',
-                                     with_dict: '{{ servers }}'
+                                     with_dict: Ansible::Ruby::Models::JinjaExpression.new('servers')
     end
   end
 
@@ -308,7 +308,7 @@ describe Ansible::Ruby::DslBuilders::Task do
 
       it do
         is_expected.to have_attributes name: 'Copy something',
-                                       with_items: '{{ servers }}',
+                                       with_items: Ansible::Ruby::Models::JinjaExpression.new('servers'),
                                        module: have_attributes(src: '{{ item }}')
       end
     end
@@ -327,7 +327,8 @@ describe Ansible::Ruby::DslBuilders::Task do
 
       it do
         is_expected.to have_attributes name: 'Copy something',
-                                       with_items: ['{{ servers1 }}', '{{ servers2 }}'],
+                                       with_items: [Ansible::Ruby::Models::JinjaExpression.new('servers1'),
+                                                    Ansible::Ruby::Models::JinjaExpression.new('servers2')],
                                        module: have_attributes(src: '{{ item }}')
       end
     end
@@ -357,7 +358,7 @@ describe Ansible::Ruby::DslBuilders::Task do
 
       it do
         is_expected.to have_attributes name: 'Copy something',
-                                       with_items: '{{ servers }}',
+                                       with_items: Ansible::Ruby::Models::JinjaExpression.new('servers'),
                                        module: have_attributes(free_form: 'howdy {{ item }}', src: '/file1.conf')
       end
     end
@@ -377,7 +378,7 @@ describe Ansible::Ruby::DslBuilders::Task do
 
     it do
       is_expected.to have_attributes name: 'Copy something',
-                                     with_dict: '{{ servers }}',
+                                     with_dict: Ansible::Ruby::Models::JinjaExpression.new('servers'),
                                      module: have_attributes(src: '{{ item.value.toodles }}',
                                                              dest: '{{ item.key }}')
     end
