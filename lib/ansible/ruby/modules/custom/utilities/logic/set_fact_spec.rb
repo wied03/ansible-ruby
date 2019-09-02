@@ -10,7 +10,7 @@ describe Ansible::Ruby::Modules::Set_fact do
   end
 
   describe '#to_h' do
-    subject {mod.to_h}
+    subject { mod.to_h }
 
     it do
       is_expected.to eq set_fact: {
