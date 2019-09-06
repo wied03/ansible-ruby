@@ -4,9 +4,9 @@ require 'spec_helper'
 require 'ansible-ruby'
 
 describe Ansible::Ruby::DslBuilders::Task do
-  let(:context) { Ansible::Ruby::Models::Task }
-  let(:temp_counter_fetcher) { -> { 1 } }
-  let(:builder) { Ansible::Ruby::DslBuilders::Task.new 'Copy something', context, temp_counter_fetcher }
+  let(:context) {Ansible::Ruby::Models::Task}
+  let(:temp_counter_fetcher) {-> {1}}
+  let(:builder) {Ansible::Ruby::DslBuilders::Task.new 'Copy something', context, temp_counter_fetcher}
 
   def evaluate
     builder.instance_eval ruby
@@ -14,7 +14,7 @@ describe Ansible::Ruby::DslBuilders::Task do
     builder._result
   end
 
-  subject(:task) { evaluate }
+  subject(:task) {evaluate}
 
   before do
     klass = Class.new(Ansible::Ruby::Modules::Base) do
@@ -38,17 +38,34 @@ describe Ansible::Ruby::DslBuilders::Task do
       RUBY
     end
 
-    it { is_expected.to be_a Ansible::Ruby::Models::Task }
+    it {is_expected.to be_a Ansible::Ruby::Models::Task}
 
     describe 'task object' do
-      it { is_expected.to be_a Ansible::Ruby::Models::Task }
-      it { is_expected.to have_attributes name: 'Copy something', module: be_a(Ansible::Ruby::Modules::Copy) }
+      it {is_expected.to be_a Ansible::Ruby::Models::Task}
+      it {is_expected.to have_attributes name: 'Copy something', module: be_a(Ansible::Ruby::Modules::Copy)}
     end
 
     describe 'hash keys' do
-      subject { task.to_h.stringify_keys.keys }
+      subject {task.to_h.stringify_keys.keys}
 
-      it { is_expected.to eq %w[name copy] }
+      it {is_expected.to eq %w[name copy]}
+    end
+  end
+
+  context 'fail module' do
+    let(:ruby) do
+      <<-RUBY
+      fail do
+        msg 'foo'
+      end
+      RUBY
+    end
+
+    it {is_expected.to be_a Ansible::Ruby::Models::Task}
+
+    describe 'task object' do
+      it {is_expected.to be_a Ansible::Ruby::Models::Task}
+      it {is_expected.to have_attributes name: 'Copy something', module: be_a(Ansible::Ruby::Modules::Fail)}
     end
   end
 
@@ -63,12 +80,12 @@ describe Ansible::Ruby::DslBuilders::Task do
       RUBY
     end
 
-    it { is_expected.to be_a Ansible::Ruby::Models::Task }
+    it {is_expected.to be_a Ansible::Ruby::Models::Task}
 
     describe 'hash keys' do
-      subject { task.to_h.stringify_keys.keys }
+      subject {task.to_h.stringify_keys.keys}
 
-      it { is_expected.to eq %w[name copy vars] }
+      it {is_expected.to eq %w[name copy vars]}
     end
   end
 
@@ -83,7 +100,7 @@ describe Ansible::Ruby::DslBuilders::Task do
       RUBY
     end
     describe 'task object' do
-      it { is_expected.to be_a Ansible::Ruby::Models::Task }
+      it {is_expected.to be_a Ansible::Ruby::Models::Task}
       it do
         is_expected.to have_attributes name: 'Copy something',
                                        module: be_a(Ansible::Ruby::Modules::Copy),
@@ -105,7 +122,7 @@ describe Ansible::Ruby::DslBuilders::Task do
     end
 
     describe 'task object' do
-      it { is_expected.to be_a Ansible::Ruby::Models::Task }
+      it {is_expected.to be_a Ansible::Ruby::Models::Task}
       it do
         is_expected.to have_attributes name: 'Copy something',
                                        module: be_a(Ansible::Ruby::Modules::Copy),
@@ -126,7 +143,7 @@ describe Ansible::Ruby::DslBuilders::Task do
       RUBY
     end
     describe 'task object' do
-      it { is_expected.to be_a Ansible::Ruby::Models::Task }
+      it {is_expected.to be_a Ansible::Ruby::Models::Task}
       it do
         is_expected.to have_attributes name: 'Copy something',
                                        module: be_a(Ansible::Ruby::Modules::Copy),
@@ -138,7 +155,7 @@ describe Ansible::Ruby::DslBuilders::Task do
 
   context 'handler' do
     context 'no include' do
-      let(:context) { Ansible::Ruby::Models::Handler }
+      let(:context) {Ansible::Ruby::Models::Handler}
       let(:ruby) do
         <<-RUBY
             copy do
@@ -148,12 +165,12 @@ describe Ansible::Ruby::DslBuilders::Task do
         RUBY
       end
 
-      it { is_expected.to be_a Ansible::Ruby::Models::Handler }
-      it { is_expected.to have_attributes name: 'Copy something', module: be_a(Ansible::Ruby::Modules::Copy) }
+      it {is_expected.to be_a Ansible::Ruby::Models::Handler}
+      it {is_expected.to have_attributes name: 'Copy something', module: be_a(Ansible::Ruby::Modules::Copy)}
     end
 
     context 'include' do
-      let(:context) { Ansible::Ruby::Models::Handler }
+      let(:context) {Ansible::Ruby::Models::Handler}
 
       let(:ruby) do
         <<-RUBY
@@ -161,7 +178,7 @@ describe Ansible::Ruby::DslBuilders::Task do
         RUBY
       end
 
-      it { is_expected.to be_a Ansible::Ruby::Models::Handler }
+      it {is_expected.to be_a Ansible::Ruby::Models::Handler}
       it do
         is_expected.to have_attributes name: 'Copy something',
                                        inclusion: be_a(Ansible::Ruby::Models::Inclusion)
@@ -198,9 +215,9 @@ describe Ansible::Ruby::DslBuilders::Task do
         RUBY
       end
 
-      subject { -> { evaluate } }
+      subject {-> {evaluate}}
 
-      it { is_expected.to raise_error 'Validation failed: Module You must either use an include or a module but not both!' }
+      it {is_expected.to raise_error 'Validation failed: Module You must either use an include or a module but not both!'}
     end
   end
 
@@ -229,14 +246,14 @@ describe Ansible::Ruby::DslBuilders::Task do
 
     # We don't build name or tasks the same way as others
     (Ansible::Ruby::Models::Task.instance_methods - Object.instance_methods - %i[name= module= register= when= inclusion= vars= local_action= attributes=])
-      .select { |method| method.to_s.end_with?('=') }
-      .map { |method| method.to_s[0..-2] }
+      .select {|method| method.to_s.end_with?('=')}
+      .map {|method| method.to_s[0..-2]}
       .each do |method|
 
       context method do
-        let(:ruby) { "#{method} 'some_value'\ncopy do\nsrc 'file1'\ndest 'file2'\nend\n" }
+        let(:ruby) {"#{method} 'some_value'\ncopy do\nsrc 'file1'\ndest 'file2'\nend\n"}
 
-        it { is_expected.to be_a Ansible::Ruby::Models::Task }
+        it {is_expected.to be_a Ansible::Ruby::Models::Task}
 
         it 'has the builder value' do
           expect(task.send(method)).to eq 'some_value'
@@ -246,7 +263,7 @@ describe Ansible::Ruby::DslBuilders::Task do
   end
 
   context 'no such attribute' do
-    subject { -> { evaluate } }
+    subject {-> {evaluate}}
 
     context 'before module' do
       let(:ruby) do
@@ -259,7 +276,7 @@ describe Ansible::Ruby::DslBuilders::Task do
         RUBY
       end
 
-      it { is_expected.to raise_error 'Unknown module foobar' }
+      it {is_expected.to raise_error 'Unknown module foobar'}
     end
 
     context 'after module' do
@@ -273,7 +290,7 @@ describe Ansible::Ruby::DslBuilders::Task do
         RUBY
       end
 
-      it { is_expected.to raise_error %r{Invalid method/local variable `foobar'. Only valid options are.*} }
+      it {is_expected.to raise_error %r{Invalid method/local variable `foobar'. Only valid options are.*}}
     end
   end
 
@@ -288,9 +305,9 @@ describe Ansible::Ruby::DslBuilders::Task do
       RUBY
     end
 
-    subject { -> { evaluate } }
+    subject {-> {evaluate}}
 
-    it { is_expected.to raise_error(/Invalid module call `debug' since `copy' module has already been used in this task. Only valid options are.*/) }
+    it {is_expected.to raise_error(/Invalid module call `debug' since `copy' module has already been used in this task. Only valid options are.*/)}
   end
 
   context 'loops' do
@@ -391,9 +408,9 @@ describe Ansible::Ruby::DslBuilders::Task do
       RUBY
     end
 
-    subject { -> { evaluate } }
+    subject {-> {evaluate}}
 
-    it { is_expected.to raise_error 'Validation failed: Module You must either use an include or a module but not both!' }
+    it {is_expected.to raise_error 'Validation failed: Module You must either use an include or a module but not both!'}
   end
 
   context 'implicit bool true' do
@@ -408,7 +425,7 @@ describe Ansible::Ruby::DslBuilders::Task do
       RUBY
     end
 
-    it { is_expected.to be_a Ansible::Ruby::Models::Task }
+    it {is_expected.to be_a Ansible::Ruby::Models::Task}
     it do
       is_expected.to have_attributes name: 'Copy something',
                                      become: true,
@@ -429,7 +446,7 @@ describe Ansible::Ruby::DslBuilders::Task do
         RUBY
       end
 
-      it { is_expected.to be_a Ansible::Ruby::Models::Task }
+      it {is_expected.to be_a Ansible::Ruby::Models::Task}
       it do
         is_expected.to have_attributes name: 'Copy something',
                                        register: 'result_1',
@@ -461,9 +478,9 @@ describe Ansible::Ruby::DslBuilders::Task do
         RUBY
       end
 
-      subject { -> { evaluate } }
+      subject {-> {evaluate}}
 
-      it { is_expected.to raise_error(%r{Invalid method/local variable `atomicc_result.*}) }
+      it {is_expected.to raise_error(%r{Invalid method/local variable `atomicc_result.*})}
     end
   end
 end

@@ -106,6 +106,10 @@ module Ansible
           true
         end
 
+        def fail(*module_args, &block)
+          _process_method 'fail', *module_args, &block
+        end
+
         private
 
         def _process_method(id, *args, &block)
