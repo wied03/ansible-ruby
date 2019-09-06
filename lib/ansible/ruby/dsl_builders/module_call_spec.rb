@@ -46,6 +46,19 @@ describe Ansible::Ruby::DslBuilders::ModuleCall do
     it { is_expected.to have_attributes src: '/file1.conf' }
   end
 
+  context 'fail module' do
+    let(:ruby) do
+      <<-RUBY
+      fail do
+        msg 'This is why we failed'
+      end
+      RUBY
+    end
+
+    it { is_expected.to be_a Ansible::Ruby::Modules::Fail }
+    it { is_expected.to have_attributes msg: 'This is why we failed' }
+  end
+
   context 'non free-form module' do
     let(:ruby) do
       <<-RUBY

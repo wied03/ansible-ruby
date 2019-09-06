@@ -22,6 +22,10 @@ module Ansible
           _process_method 'gem', *module_args, &block
         end
 
+        def fail(*module_args, &block)
+          _process_method 'fail', *module_args, &block
+        end
+
         private
 
         def _klass_name(id)
