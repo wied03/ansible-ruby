@@ -69,6 +69,60 @@ describe Ansible::Ruby::DslBuilders::Task do
     end
   end
 
+  context 'block/rescue inside task' do
+    let(:ruby) do
+      <<-RUBY
+      ansible_block do
+        copy do
+          src '/file1.conf'
+          dest '/file2.conf'
+        end
+      end
+      ansible_rescue do
+        debug {msg 'foo'}
+        fail {msg 'bar'}
+      end
+      RUBY
+    end
+
+    it {is_expected.to be_a Ansible::Ruby::Models::Task}
+    describe 'task object' do
+      it {is_expected.to be_a Ansible::Ruby::Models::Task}
+      it {is_expected.to have_attributes name: 'Copy something',
+                                         block: be_a(Ansible::Ruby::Models::Block),
+                                         rescue: be_a(Ansible::Ruby::Models::Block)}
+    end
+
+    describe 'block' do
+      subject(:block) {task.block}
+
+      it 'has 1 copy task' do
+        tasks = block.tasks
+        expect(tasks.size).to eq 1
+        task = tasks[0]
+        expect(task.module).to be_a Ansible::Ruby::Modules::Copy
+      end
+    end
+
+    describe 'rescue' do
+      subject(:ansible_rescue) {task.rescue}
+
+      it 'has 1 debug task' do
+        tasks = ansible_rescue.tasks
+        expect(tasks.size).to eq 2
+        task = tasks[0]
+        expect(task.module).to be_a Ansible::Ruby::Modules::Debug
+      end
+
+      it 'has 1 fail task' do
+        tasks = ansible_rescue.tasks
+        expect(tasks.size).to eq 2
+        task = tasks[1]
+        expect(task.module).to be_a Ansible::Ruby::Modules::Fail
+      end
+    end
+  end
+
   context 'vars' do
     let(:ruby) do
       <<-RUBY
