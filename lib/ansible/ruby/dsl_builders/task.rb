@@ -96,6 +96,8 @@ module Ansible
           }.merge @task_args
           args[:module] = @module if @module
           args[:inclusion] = @inclusion if @inclusion
+          args[:block] = @block if @block
+          args[:rescue] = @rescue if @rescue
           task = @context.new args
           # Quick feedback if the type is wrong, etc.
           task.validate! if validate?
@@ -108,6 +110,20 @@ module Ansible
 
         def fail(*module_args, &block)
           _process_method 'fail', *module_args, &block
+        end
+
+        def ansible_block(&block)
+          block_builder = Block.new
+          block_builder.instance_eval(&block)
+          @block = block_builder._result
+          nil
+        end
+
+        def ansible_rescue(&block)
+          block_builder = Block.new
+          block_builder.instance_eval(&block)
+          @rescue = block_builder._result
+          nil
         end
 
         private

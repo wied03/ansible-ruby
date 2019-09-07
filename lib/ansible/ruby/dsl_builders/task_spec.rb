@@ -24,7 +24,9 @@ describe Ansible::Ruby::DslBuilders::Task do
       validates :dest, presence: true
     end
     stub_const 'Ansible::Ruby::Modules::Copy', klass
-    debug_module = Class.new(Ansible::Ruby::Modules::Base)
+    debug_module = Class.new(Ansible::Ruby::Modules::Base) do
+      attribute :msg
+    end
     stub_const 'Ansible::Ruby::Modules::Debug', debug_module
   end
 
@@ -73,14 +75,20 @@ describe Ansible::Ruby::DslBuilders::Task do
     let(:ruby) do
       <<-RUBY
       ansible_block do
-        copy do
-          src '/file1.conf'
-          dest '/file2.conf'
+        task 'do copy' do
+          copy do
+            src '/file1.conf'
+            dest '/file2.conf'
+          end
         end
       end
       ansible_rescue do
-        debug {msg 'foo'}
-        fail {msg 'bar'}
+        task 'do debug' do
+          debug {msg 'foo'}
+        end
+        task 'do fail' do
+          fail {msg 'bar'}
+        end        
       end
       RUBY
     end
@@ -271,7 +279,7 @@ describe Ansible::Ruby::DslBuilders::Task do
 
       subject {-> {evaluate}}
 
-      it {is_expected.to raise_error 'Validation failed: Module You must either use an include or a module but not both!'}
+      it {is_expected.to raise_error /You must either use an include or a module\/block but not both.*/}
     end
   end
 
@@ -299,7 +307,7 @@ describe Ansible::Ruby::DslBuilders::Task do
     end
 
     # We don't build name or tasks the same way as others
-    (Ansible::Ruby::Models::Task.instance_methods - Object.instance_methods - %i[name= module= register= when= inclusion= vars= local_action= attributes=])
+    (Ansible::Ruby::Models::Task.instance_methods - Object.instance_methods - %i[name= module= register= when= inclusion= vars= local_action= attributes= block= rescue=])
       .select {|method| method.to_s.end_with?('=')}
       .map {|method| method.to_s[0..-2]}
       .each do |method|
@@ -464,7 +472,7 @@ describe Ansible::Ruby::DslBuilders::Task do
 
     subject {-> {evaluate}}
 
-    it {is_expected.to raise_error 'Validation failed: Module You must either use an include or a module but not both!'}
+    it {is_expected.to raise_error /You must either use an include or a module\/block but not both.*/}
   end
 
   context 'implicit bool true' do

@@ -12,9 +12,11 @@ module Ansible
         validates :name, presence: true, type: String
         attribute :module
         validates :module, type: Ansible::Ruby::Modules::Base
+        attribute :block
+        attribute :rescue
         attribute :inclusion
         validates :inclusion, type: Inclusion
-        validate :inclusion_module
+        validate :inclusion_module_block
         attribute :changed_when
         validates :changed_when, type: String
         attribute :failed_when
@@ -70,11 +72,12 @@ module Ansible
         private
 
         # :reek:NilCheck - ^ doesn't work with falsey, you would have to overload the operator
-        def inclusion_module
-          return if @inclusion.nil? ^ @module.nil?
+        def inclusion_module_block
+          options = [@inclusion, @module, @block].compact
+          return if options.size == 1
 
           errors.add :module,
-                     'You must either use an include or a module but not both!'
+                     "You must either use an include or a module/block but not both! module: #{@module}, inclusion: #{@inclusion}, block: #{@block}"
         end
 
         def loop_and_dict
