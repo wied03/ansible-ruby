@@ -16,7 +16,7 @@ describe Ansible::Ruby::Models::Task do
     end
   end
 
-  subject(:hash) {instance.to_h}
+  subject(:hash) { instance.to_h }
 
   context 'basic' do
     let(:instance) do
@@ -52,9 +52,9 @@ describe Ansible::Ruby::Models::Task do
     end
 
     describe 'key order' do
-      subject {hash.stringify_keys.keys}
+      subject { hash.stringify_keys.keys }
 
-      it {is_expected.to eq %w[name ec2 become become_user notify]}
+      it { is_expected.to eq %w[name ec2 become become_user notify] }
     end
   end
 
@@ -130,8 +130,8 @@ describe Ansible::Ruby::Models::Task do
                                       with_dict: 'foo'
     end
 
-    it {is_expected.to_not be_valid}
-    it {is_expected.to have_errors with_items: 'Cannot use both with_items and with_dict!'}
+    it { is_expected.to_not be_valid }
+    it { is_expected.to have_errors with_items: 'Cannot use both with_items and with_dict!' }
   end
 
   context 'inclusion only' do
@@ -153,9 +153,9 @@ describe Ansible::Ruby::Models::Task do
                                       module: module_klass.new(foo: 123)
     end
 
-    subject {-> {instance.to_h}}
+    subject { -> { instance.to_h } }
 
-    it {is_expected.to raise_error /You must either use an include or a module\/block but not both.*/}
+    it { is_expected.to raise_error %r{You must either use an include or a module/block but not both.*} }
   end
 
   context 'vars' do

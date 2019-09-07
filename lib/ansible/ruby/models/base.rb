@@ -102,8 +102,8 @@ module Ansible
             value.to_s
           when Hash
             Hash[
-              value.map do |key, value|
-                [key, hashify(value)]
+              value.map do |key, inner_value|
+                [key, hashify(inner_value)]
               end
             ]
           else
