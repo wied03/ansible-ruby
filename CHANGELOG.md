@@ -1,6 +1,7 @@
 # 1.0.23
 * Fixed issue with inclusions and jinja expressions. You have to use `expression_inclusion` on any custom Ansible modules you define now
 * Work with `fail` module
+* Support `block` and `rescue` within a task
 
 # 1.0.22
 * Fix issue with jinja expressions/explicit string conversions
