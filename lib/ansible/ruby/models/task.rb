@@ -66,6 +66,9 @@ module Ansible
           result.each do |key, value|
             new_result[key] = value
           end
+          # If we have a block at this level, get rid of the duplicate {block: block{}}, we'e reusing playbook blocks here
+          new_result[:block] = new_result[:block][:block] if new_result[:block]
+          new_result[:rescue] = new_result[:rescue][:block] if new_result[:rescue]
           new_result
         end
 
