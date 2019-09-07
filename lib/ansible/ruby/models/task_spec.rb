@@ -16,7 +16,7 @@ describe Ansible::Ruby::Models::Task do
     end
   end
 
-  subject(:hash) { instance.to_h }
+  subject(:hash) {instance.to_h}
 
   context 'basic' do
     let(:instance) do
@@ -52,9 +52,41 @@ describe Ansible::Ruby::Models::Task do
     end
 
     describe 'key order' do
-      subject { hash.stringify_keys.keys }
+      subject {hash.stringify_keys.keys}
 
-      it { is_expected.to eq %w[name ec2 become become_user notify] }
+      it {is_expected.to eq %w[name ec2 become become_user notify]}
+    end
+  end
+
+  context 'block w/ rescue' do
+    let(:instance) do
+      block_tasks = [
+        Ansible::Ruby::Models::Task.new(name: 'do stuff inside block',
+                                        module: module_klass.new(foo: 123))
+      ]
+      rescue_tasks = [
+        Ansible::Ruby::Models::Task.new(name: 'do stuff inside rescue',
+                                        module: module_klass.new(foo: 456))
+      ]
+      Ansible::Ruby::Models::Task.new name: 'do stuff on EC2',
+                                      block: Ansible::Ruby::Models::Block.new(tasks: block_tasks),
+                                      rescue: Ansible::Ruby::Models::Block.new(tasks: rescue_tasks)
+    end
+
+    it do
+      is_expected.to eq(name: 'do stuff on EC2',
+                        block: [
+                          name: 'do stuff inside block',
+                          ec2: {
+                            foo: 123
+                          }
+                        ],
+                        rescue: [
+                          name: 'do stuff inside rescue',
+                          ec2: {
+                            foo: 456
+                          }
+                        ])
     end
   end
 
@@ -98,8 +130,8 @@ describe Ansible::Ruby::Models::Task do
                                       with_dict: 'foo'
     end
 
-    it { is_expected.to_not be_valid }
-    it { is_expected.to have_errors with_items: 'Cannot use both with_items and with_dict!' }
+    it {is_expected.to_not be_valid}
+    it {is_expected.to have_errors with_items: 'Cannot use both with_items and with_dict!'}
   end
 
   context 'inclusion only' do
@@ -121,9 +153,9 @@ describe Ansible::Ruby::Models::Task do
                                       module: module_klass.new(foo: 123)
     end
 
-    subject { -> { instance.to_h } }
+    subject {-> {instance.to_h}}
 
-    it { is_expected.to raise_error 'Validation failed: Module You must either use an include or a module but not both!' }
+    it {is_expected.to raise_error /You must either use an include or a module\/block but not both.*/}
   end
 
   context 'vars' do
