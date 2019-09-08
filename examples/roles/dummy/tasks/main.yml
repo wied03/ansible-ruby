@@ -26,3 +26,6 @@
       foobar: '456'
   register: result_2
   changed_when: "'No such filesss' in result_2.stderr"
+- name: do some failure
+  fail:
+    msg: write this

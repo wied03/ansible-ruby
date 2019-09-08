@@ -49,7 +49,7 @@ describe Ansible::Ruby::DslBuilders::ModuleCall do
   context 'fail module' do
     let(:ruby) do
       <<-RUBY
-      fail do
+      ansible_fail do
         msg 'This is why we failed'
       end
       RUBY

@@ -108,10 +108,6 @@ module Ansible
           true
         end
 
-        def fail(*module_args, &block)
-          _process_method 'fail', *module_args, &block
-        end
-
         def ansible_block(&block)
           block_builder = Block.new
           block_builder.instance_eval(&block)

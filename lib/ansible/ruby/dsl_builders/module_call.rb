@@ -22,7 +22,8 @@ module Ansible
           _process_method 'gem', *module_args, &block
         end
 
-        def fail(*module_args, &block)
+        def ansible_fail(*module_args, &block)
+          # The ansible module is actually called fail
           _process_method 'fail', *module_args, &block
         end
 

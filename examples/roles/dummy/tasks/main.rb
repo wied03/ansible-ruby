@@ -35,3 +35,7 @@ task 'and goodbye' do
     changed_when "'No such filesss' in #{result.stderr}"
   end
 end
+
+task 'do some failure' do
+  ansible_fail { msg 'write this' }
+end

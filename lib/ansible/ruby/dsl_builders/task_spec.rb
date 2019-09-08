@@ -57,7 +57,7 @@ describe Ansible::Ruby::DslBuilders::Task do
   context 'fail module' do
     let(:ruby) do
       <<-RUBY
-      fail do
+      ansible_fail do
         msg 'foo'
       end
       RUBY
@@ -87,7 +87,7 @@ describe Ansible::Ruby::DslBuilders::Task do
           debug {msg 'foo'}
         end
         task 'do fail' do
-          fail {msg 'bar'}
+          ansible_fail {msg 'bar'}
         end
       end
       RUBY
