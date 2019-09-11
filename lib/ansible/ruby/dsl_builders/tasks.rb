@@ -13,10 +13,6 @@ module Ansible
           @context = context
           @task_builders = []
           @includes = []
-          temp_counter = 0
-          @temp_counter_incrementer = lambda do
-            temp_counter += 1
-          end
         end
 
         def ansible_include(filename, &block)
@@ -78,7 +74,7 @@ module Ansible
           model = _context[:model]
           raise "Model not configured for #{@context}" unless model
 
-          task_builder = Task.new name, model, @temp_counter_incrementer
+          task_builder = Task.new name, model
           task_builder.instance_eval(&block)
           @last_variable = task_builder._register
           @task_builders << task_builder

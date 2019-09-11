@@ -91,8 +91,8 @@ describe Ansible::Ruby::DslBuilders::Tasks do
         subject { tasks.items[2] }
 
         it do
-          is_expected.to have_attributes register: 'result_2',
-                                         changed_when: "'yes' not in result_2.stdout"
+          is_expected.to have_attributes register: 'result_4',
+                                         changed_when: "'yes' not in result_4.stdout"
         end
       end
     end
@@ -122,10 +122,10 @@ describe Ansible::Ruby::DslBuilders::Tasks do
 
       it 'uses result from first task' do
         items = tasks.items
-        expect(items[0]).to have_attributes register: 'result_1',
-                                            changed_when: "'No upgrade available' not in result_1.stdout"
+        expect(items[0]).to have_attributes register: 'result_5',
+                                            changed_when: "'No upgrade available' not in result_5.stdout"
         second = items[1]
-        expect(second).to have_attributes when: "'yes' not in result_1.stdout",
+        expect(second).to have_attributes when: "'yes' not in result_5.stdout",
                                           register: nil
       end
     end
@@ -153,9 +153,9 @@ describe Ansible::Ruby::DslBuilders::Tasks do
 
       it 'uses result from first task' do
         items = tasks.items
-        expect(items[0]).to have_attributes register: 'result_1'
+        expect(items[0]).to have_attributes register: 'result_6'
         second = items[1]
-        expect(second).to have_attributes when: "'yes' not in result_1.stdout",
+        expect(second).to have_attributes when: "'yes' not in result_6.stdout",
                                           register: nil
       end
     end
@@ -185,12 +185,12 @@ describe Ansible::Ruby::DslBuilders::Tasks do
 
       it 'uses result from first task' do
         items = tasks.items
-        expect(items[0]).to have_attributes register: 'result_1',
-                                            changed_when: "'No upgrade available' not in result_1.stdout"
+        expect(items[0]).to have_attributes register: 'result_7',
+                                            changed_when: "'No upgrade available' not in result_7.stdout"
         second = items[1]
-        expect(second).to have_attributes when: "'yes' not in result_1.stdout",
-                                          register: 'result_2',
-                                          changed_when: "'yes' not in result_2.stdout"
+        expect(second).to have_attributes when: "'yes' not in result_7.stdout",
+                                          register: 'result_8',
+                                          changed_when: "'yes' not in result_8.stdout"
       end
     end
   end

@@ -10,7 +10,14 @@ module Ansible
   module Ruby
     module DslBuilders
       class Task < Unit
-        def initialize(name, context, temp_counter_inc)
+        @counter_variable = 0
+
+        class << self
+          attr_reader :counter_variable
+          attr_writer :counter_variable
+        end
+
+        def initialize(name, context)
           super()
           @name = name
           @context = context
@@ -18,7 +25,8 @@ module Ansible
           @inclusion = nil
           # Until the variable is utilized, we don't know if 'register' should be set, the supplied lambda
           name_fetcher = lambda do
-            name = "result_#{temp_counter_inc.call}"
+            self.class.counter_variable += 1
+            name = "result_#{self.class.counter_variable}"
             @task_args[:register] = name
             name
           end

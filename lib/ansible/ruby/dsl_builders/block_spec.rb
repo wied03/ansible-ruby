@@ -15,6 +15,7 @@ describe Ansible::Ruby::DslBuilders::Block do
   subject(:block) { evaluate }
 
   before do
+    Ansible::Ruby::DslBuilders::Task.counter_variable = 0
     klass = Class.new(Ansible::Ruby::Modules::Base) do
       attribute :src
       validates :src, presence: true

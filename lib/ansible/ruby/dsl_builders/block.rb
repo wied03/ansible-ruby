@@ -10,14 +10,10 @@ module Ansible
         def initialize
           super
           @task_builders = []
-          temp_counter = 0
-          @temp_counter_incrementer = lambda do
-            temp_counter += 1
-          end
         end
 
         def task(name, &block)
-          task_builder = Task.new name, Models::Task, @temp_counter_incrementer
+          task_builder = Task.new name, Models::Task
           task_builder.instance_eval(&block)
           @task_builders << task_builder
           task_builder._register

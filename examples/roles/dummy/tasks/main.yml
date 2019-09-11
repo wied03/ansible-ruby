@@ -8,8 +8,8 @@
   - a
   - b
   - c
-  register: result_1
-  changed_when: "'No such file' in result_1.stderr"
+  register: result_2
+  changed_when: "'No such file' in result_2.stderr"
   notify:
   - reboot
 - name: middle
@@ -24,8 +24,8 @@
       foobar: '123'
     cmd2:
       foobar: '456'
-  register: result_2
-  changed_when: "'No such filesss' in result_2.stderr"
+  register: result_3
+  changed_when: "'No such filesss' in result_3.stderr"
 - name: do some failure
   fail:
     msg: write this

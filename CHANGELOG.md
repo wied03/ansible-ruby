@@ -1,3 +1,6 @@
+# 1.0.24
+* Make variable counter static to avoid conflicts with importing roles
+
 # 1.0.23
 * Fixed issue with inclusions and jinja expressions. You have to use `expression_inclusion` on any custom Ansible modules you define now
 * Work with `fail` module by using `ansible_fail` in the DSL

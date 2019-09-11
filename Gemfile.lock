@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    ansible-ruby (1.0.23)
+    ansible-ruby (1.0.24)
       activemodel (~> 5.0)
       rake
 

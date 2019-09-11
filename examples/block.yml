@@ -10,10 +10,10 @@
   - block:
     - name: say hello
       command: uname
-      register: result_1
-      failed_when: "'Linux' not in result_1.stdout"
+      register: result_4
+      failed_when: "'Linux' not in result_4.stdout"
     - name: and goodbye
       command: uname -a {{ foo }}
-      register: result_2
-      failed_when: "'Darwin' not in result_2.stdout"
+      register: result_5
+      failed_when: "'Darwin' not in result_5.stdout"
     when: "{{ stuff }}"

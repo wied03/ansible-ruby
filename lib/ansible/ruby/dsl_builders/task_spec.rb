@@ -5,8 +5,7 @@ require 'ansible-ruby'
 
 describe Ansible::Ruby::DslBuilders::Task do
   let(:context) { Ansible::Ruby::Models::Task }
-  let(:temp_counter_fetcher) { -> { 1 } }
-  let(:builder) { Ansible::Ruby::DslBuilders::Task.new 'Copy something', context, temp_counter_fetcher }
+  let(:builder) { Ansible::Ruby::DslBuilders::Task.new 'Copy something', context }
 
   def evaluate
     builder.instance_eval ruby
@@ -17,6 +16,7 @@ describe Ansible::Ruby::DslBuilders::Task do
   subject(:task) { evaluate }
 
   before do
+    Ansible::Ruby::DslBuilders::Task.counter_variable = 0
     klass = Class.new(Ansible::Ruby::Modules::Base) do
       attribute :src
       validates :src, presence: true
