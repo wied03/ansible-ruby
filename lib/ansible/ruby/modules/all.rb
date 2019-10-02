@@ -1721,11 +1721,13 @@ ansible_mod.autoload(:Easy_install, 'ansible/ruby/modules/generated/packaging/la
 ansible_mod.autoload(:Gem, 'ansible/ruby/modules/generated/packaging/language/gem')
 ansible_mod.autoload(:Maven_artifact, 'ansible/ruby/modules/generated/packaging/language/maven_artifact')
 ansible_mod.autoload(:Npm, 'ansible/ruby/modules/generated/packaging/language/npm')
-ansible_mod.autoload(:Pear, 'ansible/ruby/modules/generated/packaging/language/pear')
+# Using custom module
+ansible_mod.autoload(:Pear, 'ansible/ruby/modules/custom/packaging/language/pear')
 ansible_mod.autoload(:Pip, 'ansible/ruby/modules/generated/packaging/language/pip')
 ansible_mod.autoload(:Yarn, 'ansible/ruby/modules/generated/packaging/language/yarn')
 ansible_mod.autoload(:Apk, 'ansible/ruby/modules/generated/packaging/os/apk')
-ansible_mod.autoload(:Apt, 'ansible/ruby/modules/generated/packaging/os/apt')
+# Using custom module
+ansible_mod.autoload(:Apt, 'ansible/ruby/modules/custom/packaging/os/apt')
 ansible_mod.autoload(:Apt_key, 'ansible/ruby/modules/generated/packaging/os/apt_key')
 ansible_mod.autoload(:Apt_repository, 'ansible/ruby/modules/generated/packaging/os/apt_repository')
 ansible_mod.autoload(:Apt_rpm, 'ansible/ruby/modules/generated/packaging/os/apt_rpm')
