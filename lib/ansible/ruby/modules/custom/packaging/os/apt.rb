@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # VALIDATED_CHECKSUM: 4t8xwzQpe7ap54uEob4z4MEmLw0vgiYFg0M1S10DyGo=
 require 'ansible/ruby/modules/generated/packaging/os/apt'
 

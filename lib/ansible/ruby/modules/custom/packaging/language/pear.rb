@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # VALIDATED_CHECKSUM: aIM1dczpLFU2xMaIijCkTmi54/yEPZKaE3hO5Lja5bo=
 require 'ansible/ruby/modules/generated/packaging/language/pear'
 
