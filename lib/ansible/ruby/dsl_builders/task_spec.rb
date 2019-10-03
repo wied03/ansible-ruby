@@ -390,7 +390,7 @@ describe Ansible::Ruby::DslBuilders::Task do
       it do
         is_expected.to have_attributes name: 'Copy something',
                                        with_items: Ansible::Ruby::Models::JinjaExpression.new('servers'),
-                                       module: have_attributes(src: '{{ item }}')
+                                       module: have_attributes(src: Ansible::Ruby::Models::JinjaExpression.new('item'))
       end
     end
 
@@ -410,7 +410,7 @@ describe Ansible::Ruby::DslBuilders::Task do
         is_expected.to have_attributes name: 'Copy something',
                                        with_items: [Ansible::Ruby::Models::JinjaExpression.new('servers1'),
                                                     Ansible::Ruby::Models::JinjaExpression.new('servers2')],
-                                       module: have_attributes(src: '{{ item }}')
+                                       module: have_attributes(src: Ansible::Ruby::Models::JinjaExpression.new('item'))
       end
     end
 
@@ -460,8 +460,8 @@ describe Ansible::Ruby::DslBuilders::Task do
     it do
       is_expected.to have_attributes name: 'Copy something',
                                      with_dict: Ansible::Ruby::Models::JinjaExpression.new('servers'),
-                                     module: have_attributes(src: '{{ item.value.toodles }}',
-                                                             dest: '{{ item.key }}')
+                                     module: have_attributes(src: Ansible::Ruby::Models::JinjaExpression.new('item.value.toodles'),
+                                                             dest: Ansible::Ruby::Models::JinjaExpression.new('item.key'))
     end
   end
 

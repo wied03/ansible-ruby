@@ -156,7 +156,7 @@ describe Ansible::Ruby::DslBuilders::ModuleCall do
         end
 
         it { is_expected.to be_a Ansible::Ruby::Modules::Command }
-        it { is_expected.to have_attributes free_form: '{{ item }}' }
+        it { is_expected.to have_attributes free_form: Ansible::Ruby::Models::JinjaExpression.new('item') }
       end
 
       context 'no block' do

@@ -12,6 +12,15 @@
   changed_when: "'No such file' in result_2.stderr"
   notify:
   - reboot
+- name: array input
+  apt:
+    name:
+    - "{{ item }}"
+    - "{{ item }}"
+  with_items:
+  - a
+  - b
+  - c
 - name: middle
   debug:
     msg: foo

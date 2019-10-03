@@ -34,7 +34,7 @@ module Ansible
         def _convert_ast_node(value)
           case value
           when DslBuilders::JinjaItemNode
-            value.to_s
+            Ansible::Ruby::Models::JinjaExpression.new(value.flat_context)
           when Hash
             Hash[
               value.map { |key, hash_val| [key, _convert_ast_node(hash_val)] }

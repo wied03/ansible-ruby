@@ -12,6 +12,14 @@ task 'say hello' do
   end
 end
 
+task 'array input' do
+  with_items(%w[a b c]) do |item|
+    apt do
+      name [item, item]
+    end
+  end
+end
+
 task 'middle' do
   debug { msg 'foo' }
 end

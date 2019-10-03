@@ -95,7 +95,7 @@ module Ansible
         def hashify(value)
           case value
           when Array
-            value.map { |val| val.respond_to?(:to_h) ? val.to_h : val }
+            value.map { |val| hashify(val) }
           when Base
             value.to_h
           when Ansible::Ruby::Models::JinjaExpression
@@ -107,7 +107,7 @@ module Ansible
               end
             ]
           else
-            value
+            !value.nil? && value.respond_to?(:to_h) ? value.to_h : value
           end
         end
 

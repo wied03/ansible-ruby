@@ -23,6 +23,8 @@ describe Ansible::Ruby::DslBuilders::Args do
 
   before { builder.instance_eval ruby }
 
+  let(:end_product_hash) { recipient.to_h[:copy] }
+
   context 'jinja' do
     context 'variable' do
       let(:ruby) do
@@ -53,7 +55,7 @@ describe Ansible::Ruby::DslBuilders::Args do
         it { is_expected.to be_a Ansible::Ruby::Modules::Copy }
 
         it do
-          is_expected.to have_attributes src: '{{ item }}',
+          expect(end_product_hash).to eq src: '{{ item }}',
                                          dest: '/file2.conf'
         end
       end
@@ -71,7 +73,7 @@ describe Ansible::Ruby::DslBuilders::Args do
         it { is_expected.to be_a Ansible::Ruby::Modules::Copy }
 
         it do
-          is_expected.to have_attributes src: ['{{ item }}', '{{ item }}'],
+          expect(end_product_hash).to eq src: ['{{ item }}', '{{ item }}'],
                                          dest: '/file2.conf'
         end
       end
@@ -89,7 +91,7 @@ describe Ansible::Ruby::DslBuilders::Args do
         it { is_expected.to be_a Ansible::Ruby::Modules::Copy }
 
         it do
-          is_expected.to have_attributes src: ['{{ item }}', '{{ item.key }}'],
+          expect(end_product_hash).to eq src: ['{{ item }}', '{{ item.key }}'],
                                          dest: '/file2.conf'
         end
       end
@@ -107,7 +109,7 @@ describe Ansible::Ruby::DslBuilders::Args do
         it { is_expected.to be_a Ansible::Ruby::Modules::Copy }
 
         it do
-          is_expected.to have_attributes src: {
+          expect(end_product_hash).to eq src: {
             stuff: '{{ item }}',
             bar: '{{ item }}'
           },

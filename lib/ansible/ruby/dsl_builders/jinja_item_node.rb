@@ -14,8 +14,11 @@ module Ansible
         end
 
         def to_s
-          flat = @contexts.join '.'
-          "{{ #{flat} }}"
+          "{{ #{flat_context} }}"
+        end
+
+        def flat_context
+          @contexts.join '.'
         end
 
         def to_str

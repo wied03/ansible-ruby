@@ -1,3 +1,6 @@
+# 1.0.26
+* Fix more issues with jinja expressions and model/module output
+
 # 1.0.25
 * Allow either array or string for `apt` module packages via the `name` attribute
 * Work around list weirdness in the PHP `pear` module
