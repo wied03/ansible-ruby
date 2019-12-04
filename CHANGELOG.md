@@ -1,3 +1,6 @@
+# 1.0.27
+* Support `always` when using `block` within a task
+
 # 1.0.26
 * Fix more issues with jinja expressions and model/module output
 
