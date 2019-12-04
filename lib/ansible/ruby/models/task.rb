@@ -14,6 +14,7 @@ module Ansible
         validates :module, type: Ansible::Ruby::Modules::Base
         attribute :block
         attribute :rescue
+        attribute :always
         attribute :inclusion
         validates :inclusion, type: Inclusion
         validate :inclusion_module_block
@@ -66,9 +67,13 @@ module Ansible
           result.each do |key, value|
             new_result[key] = value
           end
+          collapse_block = lambda do |which|
+            new_result[which] = new_result[which][:block] if new_result[which]
+          end
           # If we have a block at this level, get rid of the duplicate {block: block{}}, we'e reusing playbook blocks here
-          new_result[:block] = new_result[:block][:block] if new_result[:block]
-          new_result[:rescue] = new_result[:rescue][:block] if new_result[:rescue]
+          collapse_block[:block]
+          collapse_block[:rescue]
+          collapse_block[:always]
           new_result
         end
 
