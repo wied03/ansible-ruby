@@ -58,7 +58,7 @@ describe Ansible::Ruby::Models::Task do
     end
   end
 
-  context 'block w/ rescue' do
+  context 'block w/ rescue and always' do
     let(:instance) do
       block_tasks = [
         Ansible::Ruby::Models::Task.new(name: 'do stuff inside block',
@@ -68,9 +68,14 @@ describe Ansible::Ruby::Models::Task do
         Ansible::Ruby::Models::Task.new(name: 'do stuff inside rescue',
                                         module: module_klass.new(foo: 456))
       ]
+      always_tasks = [
+        Ansible::Ruby::Models::Task.new(name: 'do stuff inside always',
+                                        module: module_klass.new(foo: 456))
+      ]
       Ansible::Ruby::Models::Task.new name: 'do stuff on EC2',
                                       block: Ansible::Ruby::Models::Block.new(tasks: block_tasks),
-                                      rescue: Ansible::Ruby::Models::Block.new(tasks: rescue_tasks)
+                                      rescue: Ansible::Ruby::Models::Block.new(tasks: rescue_tasks),
+                                      always: Ansible::Ruby::Models::Block.new(tasks: always_tasks)
     end
 
     it do
@@ -83,6 +88,12 @@ describe Ansible::Ruby::Models::Task do
                         ],
                         rescue: [
                           name: 'do stuff inside rescue',
+                          ec2: {
+                            foo: 456
+                          }
+                        ],
+                        always: [
+                          name: 'do stuff inside always',
                           ec2: {
                             foo: 456
                           }

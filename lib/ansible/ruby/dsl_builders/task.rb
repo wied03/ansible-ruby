@@ -106,6 +106,7 @@ module Ansible
           args[:inclusion] = @inclusion if @inclusion
           args[:block] = @block if @block
           args[:rescue] = @rescue if @rescue
+          args[:always] = @always if @always
           task = @context.new args
           # Quick feedback if the type is wrong, etc.
           task.validate! if validate?
@@ -127,6 +128,13 @@ module Ansible
           block_builder = Block.new
           block_builder.instance_eval(&block)
           @rescue = block_builder._result
+          nil
+        end
+
+        def ansible_always(&block)
+          block_builder = Block.new
+          block_builder.instance_eval(&block)
+          @always = block_builder._result
           nil
         end
 

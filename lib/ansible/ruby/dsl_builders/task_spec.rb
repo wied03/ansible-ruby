@@ -71,7 +71,7 @@ describe Ansible::Ruby::DslBuilders::Task do
     end
   end
 
-  context 'block/rescue inside task' do
+  context 'block/rescue/always inside task' do
     let(:ruby) do
       <<-RUBY
       ansible_block do
@@ -88,6 +88,11 @@ describe Ansible::Ruby::DslBuilders::Task do
         end
         task 'do fail' do
           ansible_fail {msg 'bar'}
+        end
+      end
+      ansible_always do
+        task 'do always' do
+          debug {msg 'stuff'}
         end
       end
       RUBY
@@ -129,6 +134,17 @@ describe Ansible::Ruby::DslBuilders::Task do
         expect(tasks.size).to eq 2
         task = tasks[1]
         expect(task.module).to be_a Ansible::Ruby::Modules::Fail
+      end
+    end
+
+    describe 'always' do
+      subject(:ansible_always) { task.always }
+
+      it 'has 1 debug task' do
+        tasks = ansible_always.tasks
+        expect(tasks.size).to eq 1
+        task = tasks[0]
+        expect(task.module).to be_a Ansible::Ruby::Modules::Debug
       end
     end
   end
@@ -309,7 +325,7 @@ describe Ansible::Ruby::DslBuilders::Task do
     end
 
     # We don't build name or tasks the same way as others
-    (Ansible::Ruby::Models::Task.instance_methods - Object.instance_methods - %i[name= module= register= when= inclusion= vars= local_action= attributes= block= rescue=])
+    (Ansible::Ruby::Models::Task.instance_methods - Object.instance_methods - %i[name= module= register= when= inclusion= vars= local_action= attributes= block= rescue= always=])
       .select { |method| method.to_s.end_with?('=') }
       .map { |method| method.to_s[0..-2] }
       .each do |method|
