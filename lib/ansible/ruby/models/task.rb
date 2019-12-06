@@ -43,6 +43,8 @@ module Ansible
         attr_accessor :local_action
         attribute :delegate_to
         validates :delegate_to, type: String
+        attribute :delegate_facts
+        validates :delegate_facts, type: MultipleTypes.new(TrueClass, FalseClass)
         attribute :remote_user
         validates :remote_user, type: String
 

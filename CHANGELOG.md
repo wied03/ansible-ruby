@@ -1,3 +1,6 @@
+# 1.0.28
+* Add `delegate_facts` support to task DSL
+
 # 1.0.27
 * Support `always` when using `block` within a task
 

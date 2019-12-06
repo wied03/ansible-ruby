@@ -85,6 +85,10 @@ module Ansible
           @task_args[:delegate_to] = value
         end
 
+        def delegate_facts(value)
+          @task_args[:delegate_facts] = value
+        end
+
         def remote_user(value)
           @task_args[:remote_user] = value
         end
