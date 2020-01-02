@@ -1,3 +1,6 @@
+# 1.0.29
+* `yum_repository` validation improvements
+
 # 1.0.28
 * Add `delegate_facts` support to task DSL
 
