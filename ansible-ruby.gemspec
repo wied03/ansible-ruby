@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
-require File.expand_path('lib/ansible/ruby/version', __dir__)
+$LOAD_PATH.unshift File.expand_path("../lib", __FILE__)
+require 'ansible/ruby/version'
 
 Gem::Specification.new do |s|
   s.name = 'ansible-ruby'

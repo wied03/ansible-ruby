@@ -1,6 +1,5 @@
 /.bundle
 /.idea
-.rake_t_cache
 /yaml_test.rb
 /pkg
 /.eggs
