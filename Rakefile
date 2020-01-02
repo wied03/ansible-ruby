@@ -40,7 +40,7 @@ Reek::Rake::Task.new do |task|
 end
 
 task :python_dependencies do
-  sh './setup.py build'
+  sh 'python3 ./setup.py build'
 end
 
 desc 'Compiles examples'
