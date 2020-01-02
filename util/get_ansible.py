@@ -3,4 +3,4 @@
 import ansible
 import os
 
-print os.path.dirname(ansible.__file__)
+print(os.path.dirname(ansible.__file__))

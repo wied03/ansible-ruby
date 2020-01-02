@@ -105,7 +105,7 @@ task generate_modules: :python_dependencies do
   cp 'lib/ansible/ruby/modules/rubocop_generated.yml',
      "#{generated_dir}/.rubocop.yml"
   python_path = FileList['.eggs/*.egg'].join ':'
-  ansible_dir = `PYTHONPATH=#{python_path} python util/get_ansible.py`.strip
+  ansible_dir = `PYTHONPATH=#{python_path} python3 util/get_ansible.py`.strip
   puts "Ansible directory #{ansible_dir}"
   modules_dir = Pathname.new(File.join(ansible_dir, 'modules'))
   files = if ENV['FILE']
