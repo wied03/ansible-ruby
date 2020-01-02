@@ -1766,7 +1766,8 @@ ansible_mod.autoload(:Swupd, 'ansible/ruby/modules/generated/packaging/os/swupd'
 ansible_mod.autoload(:Urpmi, 'ansible/ruby/modules/generated/packaging/os/urpmi')
 ansible_mod.autoload(:Xbps, 'ansible/ruby/modules/generated/packaging/os/xbps')
 ansible_mod.autoload(:Yum, 'ansible/ruby/modules/generated/packaging/os/yum')
-ansible_mod.autoload(:Yum_repository, 'ansible/ruby/modules/generated/packaging/os/yum_repository')
+# Using custom module
+ansible_mod.autoload(:Yum_repository, 'ansible/ruby/modules/custom/packaging/os/yum_repository')
 ansible_mod.autoload(:Zypper, 'ansible/ruby/modules/generated/packaging/os/zypper')
 ansible_mod.autoload(:Zypper_repository, 'ansible/ruby/modules/generated/packaging/os/zypper_repository')
 ansible_mod.autoload(:Cobbler_sync, 'ansible/ruby/modules/generated/remote_management/cobbler/cobbler_sync')
