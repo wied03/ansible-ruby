@@ -1,5 +1,6 @@
 # 1.0.29
 * `yum_repository` validation improvements
+* Ensure existing validations are removed first for customized modules
 
 # 1.0.28
 * Add `delegate_facts` support to task DSL
