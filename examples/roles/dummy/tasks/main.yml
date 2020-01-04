@@ -1,0 +1,40 @@
+---
+# This is a generated YAML file by ansible-ruby, DO NOT EDIT
+- name: say hello
+  shell: ls {{ item }} || true
+  args:
+    chdir: "/tmp"
+  with_items:
+  - a
+  - b
+  - c
+  register: result_2
+  changed_when: "'No such file' in result_2.stderr"
+  notify:
+  - reboot
+- name: array input
+  apt:
+    name:
+    - "{{ item }}"
+    - "{{ item }}"
+  with_items:
+  - a
+  - b
+  - c
+- name: middle
+  debug:
+    msg: foo
+- name: and goodbye
+  command: ls {{ item.key }} {{ item.value.foobar }}
+  args:
+    chdir: "/tmp"
+  with_dict:
+    cmd1:
+      foobar: '123'
+    cmd2:
+      foobar: '456'
+  register: result_3
+  changed_when: "'No such filesss' in result_3.stderr"
+- name: do some failure
+  fail:
+    msg: write this
