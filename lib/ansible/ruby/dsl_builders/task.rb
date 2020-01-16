@@ -4,6 +4,7 @@ require 'ansible/ruby/dsl_builders/base'
 require 'ansible/ruby/dsl_builders/module_call'
 require 'ansible/ruby/dsl_builders/result'
 require 'ansible/ruby/models/task'
+require 'ansible/ruby/models/handler'
 require 'ansible/ruby/dsl_builders/unit'
 
 module Ansible
@@ -17,10 +18,10 @@ module Ansible
           attr_writer :counter_variable
         end
 
-        def initialize(name, context)
+        def initialize(name, model)
           super()
           @name = name
-          @context = context
+          @model = model
           @module = nil
           @inclusion = nil
           # Until the variable is utilized, we don't know if 'register' should be set, the supplied lambda
@@ -111,7 +112,7 @@ module Ansible
           args[:block] = @block if @block
           args[:rescue] = @rescue if @rescue
           args[:always] = @always if @always
-          task = @context.new args
+          task = @model.new args
           # Quick feedback if the type is wrong, etc.
           task.validate! if validate?
           task
@@ -147,6 +148,10 @@ module Ansible
         def _process_method(id, *args, &block)
           if id == :ansible_include
             @inclusion = _ansible_include(*args, &block)
+            return
+          end
+          if id == :listen && @model == Models::Handler
+            @task_args[:listen] = args[0]
             return
           end
           mcb = ModuleCall.new

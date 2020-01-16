@@ -264,11 +264,14 @@ describe Ansible::Ruby::DslBuilders::Task do
               src '/file1.conf'
               dest '/file2.conf'
             end
+            listen 'foobar'
         RUBY
       end
 
       it { is_expected.to be_a Ansible::Ruby::Models::Handler }
-      it { is_expected.to have_attributes name: 'Copy something', module: be_a(Ansible::Ruby::Modules::Copy) }
+      it { is_expected.to have_attributes name: 'Copy something',
+                                          module: be_a(Ansible::Ruby::Modules::Copy),
+                                          listen: 'foobar' }
     end
 
     context 'include' do
@@ -348,9 +351,9 @@ describe Ansible::Ruby::DslBuilders::Task do
 
     # We don't build name or tasks the same way as others
     (Ansible::Ruby::Models::Task.instance_methods - Object.instance_methods - %i[name= module= register= when= inclusion= vars= local_action= attributes= block= rescue= always=])
-      .select { |method| method.to_s.end_with?('=') }
-      .map { |method| method.to_s[0..-2] }
-      .each do |method|
+        .select { |method| method.to_s.end_with?('=') }
+        .map { |method| method.to_s[0..-2] }
+        .each do |method|
 
       context method do
         let(:ruby) { "#{method} 'some_value'\ncopy do\nsrc 'file1'\ndest 'file2'\nend\n" }
@@ -584,5 +587,21 @@ describe Ansible::Ruby::DslBuilders::Task do
 
       it { is_expected.to raise_error(%r{Invalid method/local variable `atomicc_result.*}) }
     end
+  end
+
+  context 'attempt to use listen with task' do
+    let(:ruby) do
+      <<-RUBY
+      copy do
+        src '/file1.conf'
+        dest '/file2.conf'
+      end
+      listen 'foobar'
+      RUBY
+    end
+
+    subject { -> { evaluate } }
+
+    it { is_expected.to raise_error(%r{Invalid method/local variable `listen.*}) }
   end
 end

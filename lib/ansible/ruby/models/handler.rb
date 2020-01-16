@@ -8,6 +8,8 @@ module Ansible
   module Ruby
     module Models
       class Handler < Task
+        attribute :listen
+        validates :listen, type: String
       end
     end
   end

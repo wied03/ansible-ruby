@@ -1,3 +1,6 @@
+# 1.0.30
+* Add `listen` support to handlers
+
 # 1.0.29
 * `yum_repository` validation improvements
 * Ensure existing validations are removed first for customized modules
