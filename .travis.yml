@@ -1,7 +1,8 @@
 language: ruby
 
+# -s means skip if already installed
 before_install:
-  - pyenv install
+  - pyenv install -s
 
 branches:
   except:
