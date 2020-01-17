@@ -1,6 +1,7 @@
 language: ruby
 
 before_install:
+  - pyenv install --list
   - pyenv install 3.7.5
 
 branches:
