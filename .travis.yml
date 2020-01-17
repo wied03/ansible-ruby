@@ -1,8 +1,7 @@
 language: ruby
 
 before_install:
-  - pyenv install --list
-  - pyenv install 3.6.3
+  - pyenv install
 
 branches:
   except:
@@ -10,3 +9,5 @@ branches:
 
 cache:
   bundler: true
+  directories:
+    - /opt/pyenv/versions/3.6.3
