@@ -40,7 +40,7 @@ Reek::Rake::Task.new do |task|
 end
 
 task :python_dependencies do
-  sh 'pip install ansible==2.8.6 ansible-lint'
+  sh 'pip3 install ansible==2.8.6 ansible-lint'
 end
 
 desc 'Compiles examples'

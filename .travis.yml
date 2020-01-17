@@ -1,6 +1,6 @@
 language: ruby
 sudo: false
-
+python: "3.7"
 branches:
   except:
   - /^features.*$/
