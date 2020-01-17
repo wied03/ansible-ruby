@@ -7,5 +7,3 @@ branches:
 
 cache:
   bundler: true
-  directories:
-    - .eggs
