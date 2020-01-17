@@ -40,7 +40,7 @@ Reek::Rake::Task.new do |task|
 end
 
 task :python_dependencies do
-  sh 'python3 ./setup.py build'
+  sh 'pip3 install ansible==2.8.6 ansible-lint'
 end
 
 desc 'Compiles examples'
@@ -54,11 +54,10 @@ end
 
 desc 'Runs a check against generated playbooks'
 task ansible_lint: %i[compile_examples python_dependencies] do
-  # Grab the first installed egg
-  ansible_lint = FileList['.eggs/ansible_lint*.egg'][0]
-  all_eggs = FileList['.eggs/*.egg']
+  ansible_lint_dir = `python3 util/get_ansible_lint.py`.strip
+  puts "Ansible lint directory #{ansible_lint_dir}"
   playbooks = FileList['examples/**/*.yml'].join ' '
-  sh "PYTHONPATH=#{all_eggs.join(':')} python #{ansible_lint}/ansiblelint/main/__init__.py -v #{playbooks}"
+  sh "python3 #{ansible_lint_dir}/__init__.py -v #{playbooks}"
 end
 
 no_examples_ok = [
@@ -104,8 +103,7 @@ task generate_modules: :python_dependencies do
   mkdir generated_dir
   cp 'lib/ansible/ruby/modules/rubocop_generated.yml',
      "#{generated_dir}/.rubocop.yml"
-  python_path = FileList['.eggs/*.egg'].join ':'
-  ansible_dir = `PYTHONPATH=#{python_path} python3 util/get_ansible.py`.strip
+  ansible_dir = `python3 util/get_ansible.py`.strip
   puts "Ansible directory #{ansible_dir}"
   modules_dir = Pathname.new(File.join(ansible_dir, 'modules'))
   files = if ENV['FILE']

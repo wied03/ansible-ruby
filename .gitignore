@@ -2,7 +2,6 @@
 /.idea
 /yaml_test.rb
 /pkg
-/.eggs
 *_test.yml
 /debug_*.yml
 # Only used temporarily for verification
