@@ -164,9 +164,9 @@ describe Ansible::Ruby::Models::Task do
                                       module: module_klass.new(foo: 123)
     end
 
-    subject { -> { instance.to_h } }
-
-    it { is_expected.to raise_error %r{You must either use an include or a module/block but not both.*} }
+    it 'should raise an error' do
+      expect {instance.to_h}.to raise_error %r{You must either use an include or a module/block but not both.*}
+    end
   end
 
   context 'vars' do

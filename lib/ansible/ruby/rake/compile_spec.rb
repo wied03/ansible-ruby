@@ -37,9 +37,9 @@ describe Ansible::Ruby::Rake::Compile do
       # overriding parent so we can test error
     end
 
-    subject { -> { Ansible::Ruby::Rake::Compile.new } }
-
-    it { is_expected.to raise_error 'You did not supply any files!' }
+    it 'should raise an error' do
+      expect {Ansible::Ruby::Rake::Compile.new}.to raise_error 'You did not supply any files!'
+    end
   end
 
   context 'YML and Ruby files' do
@@ -64,16 +64,13 @@ describe Ansible::Ruby::Rake::Compile do
       # overriding parent so we can test error
     end
 
-    subject do
+    it 'should raise an error' do
       Ansible::Ruby::Rake::Compile.new do |task|
         task.files = 'playbook_error.rb'
       end
-      -> { Rake::Task[:default].invoke }
-    end
-
-    it do
       error = "Invalid method/local variable `ansible_iinclude'\\. Only valid options are \\[:ansible_include.*.*Error Location:.*playbook_error.rb:6.*playbook_error.rb:3"
-      is_expected.to raise_error Regexp.new(error.strip, Regexp::MULTILINE)
+
+      expect {Rake::Task[:default].invoke}.to raise_error Regexp.new(error.strip, Regexp::MULTILINE)
     end
   end
 end

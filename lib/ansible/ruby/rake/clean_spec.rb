@@ -75,8 +75,8 @@ describe Ansible::Ruby::Rake::Clean do
       # overriding parent so we can test error
     end
 
-    subject { -> { Ansible::Ruby::Rake::Clean.new } }
-
-    it { is_expected.to raise_error 'You did not supply any files!' }
+    it 'should raise an error' do
+      expect {Ansible::Ruby::Rake::Clean.new}.to raise_error 'You did not supply any files!'
+    end
   end
 end

@@ -322,9 +322,9 @@ describe Ansible::Ruby::DslBuilders::Task do
         RUBY
       end
 
-      subject { -> { evaluate } }
-
-      it { is_expected.to raise_error %r{You must either use an include or a module/block but not both.*} }
+      it 'should raise an error' do
+        expect {evaluate}.to raise_error %r{You must either use an include or a module/block but not both.*}
+      end
     end
   end
 
@@ -370,8 +370,6 @@ describe Ansible::Ruby::DslBuilders::Task do
   end
 
   context 'no such attribute' do
-    subject { -> { evaluate } }
-
     context 'before module' do
       let(:ruby) do
         <<-RUBY
@@ -383,7 +381,9 @@ describe Ansible::Ruby::DslBuilders::Task do
         RUBY
       end
 
-      it { is_expected.to raise_error 'Unknown module foobar' }
+      it 'should raise an error' do
+        expect {evaluate}.to raise_error 'Unknown module foobar'
+      end
     end
 
     context 'after module' do
@@ -397,7 +397,9 @@ describe Ansible::Ruby::DslBuilders::Task do
         RUBY
       end
 
-      it { is_expected.to raise_error %r{Invalid method/local variable `foobar'. Only valid options are.*} }
+      it 'should raise an error' do
+        expect {evaluate}.to raise_error %r{Invalid method/local variable `foobar'. Only valid options are.*}
+      end
     end
   end
 
@@ -412,9 +414,9 @@ describe Ansible::Ruby::DslBuilders::Task do
       RUBY
     end
 
-    subject { -> { evaluate } }
-
-    it { is_expected.to raise_error(/Invalid module call `debug' since `copy' module has already been used in this task. Only valid options are.*/) }
+    it 'should raise an error' do
+      expect {evaluate}.to raise_error(/Invalid module call `debug' since `copy' module has already been used in this task. Only valid options are.*/)
+    end
   end
 
   context 'loops' do
@@ -515,9 +517,9 @@ describe Ansible::Ruby::DslBuilders::Task do
       RUBY
     end
 
-    subject { -> { evaluate } }
-
-    it { is_expected.to raise_error %r{You must either use an include or a module/block but not both.*} }
+    it 'should raise an error' do
+      expect {evaluate}.to raise_error %r{You must either use an include or a module/block but not both.*}
+    end
   end
 
   context 'implicit bool true' do
@@ -585,9 +587,9 @@ describe Ansible::Ruby::DslBuilders::Task do
         RUBY
       end
 
-      subject { -> { evaluate } }
-
-      it { is_expected.to raise_error(%r{Invalid method/local variable `atomicc_result.*}) }
+      it 'should raise an error' do
+        expect {evaluate}.to raise_error(%r{Invalid method/local variable `atomicc_result.*})
+      end
     end
   end
 
@@ -602,8 +604,8 @@ describe Ansible::Ruby::DslBuilders::Task do
       RUBY
     end
 
-    subject { -> { evaluate } }
-
-    it { is_expected.to raise_error(%r{Invalid method/local variable `listen.*}) }
+    it 'should raise an error' do
+      expect {evaluate}.to raise_error(%r{Invalid method/local variable `listen.*})
+    end
   end
 end

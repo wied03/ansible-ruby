@@ -104,9 +104,9 @@ describe Ansible::Ruby::Models::Playbook do
       Ansible::Ruby::Models::Playbook.new
     end
 
-    subject { -> { instance.to_h } }
-
-    it { is_expected.to raise_error "Validation failed: Plays can't be blank" }
+    it 'should raise an error' do
+      expect {instance.to_h}.to raise_error  "Validation failed: Plays can't be blank"
+    end
   end
 
   context 'empty plays' do
@@ -114,8 +114,8 @@ describe Ansible::Ruby::Models::Playbook do
       Ansible::Ruby::Models::Playbook.new plays: []
     end
 
-    subject { -> { instance.to_h } }
-
-    it { is_expected.to raise_error "Validation failed: Plays can't be blank" }
+    it 'should raise an error' do
+      expect {instance.to_h}.to raise_error "Validation failed: Plays can't be blank"
+    end
   end
 end

@@ -122,9 +122,9 @@ describe Ansible::Ruby::DslBuilders::Play do
         RUBY
       end
 
-      subject { -> { evaluate } }
-
-      it { is_expected.to raise_error 'Includes cannot be used in a play using a role. They can only be used in task files or in plays with a task list.' }
+      it 'should raise an error' do
+        expect {evaluate}.to raise_error 'Includes cannot be used in a play using a role. They can only be used in task files or in plays with a task list.'
+      end
     end
 
     context 'with tasks' do
@@ -239,9 +239,9 @@ describe Ansible::Ruby::DslBuilders::Play do
         RUBY
       end
 
-      subject { -> { evaluate } }
-
-      it { is_expected.to raise_error 'Validation failed: Tasks Must have at least 1 task in your block!' }
+      it 'should raise an error' do
+        expect {evaluate}.to raise_error 'Validation failed: Tasks Must have at least 1 task in your block!'
+      end
     end
 
     context 'no block' do
@@ -253,9 +253,9 @@ describe Ansible::Ruby::DslBuilders::Play do
         RUBY
       end
 
-      subject { -> { evaluate } }
-
-      it { is_expected.to raise_error 'wrong number of arguments (given 0, expected 1..3)' }
+      it 'should raise an error' do
+        expect {evaluate}.to raise_error 'wrong number of arguments (given 0, expected 1..3)'
+      end
     end
   end
 
@@ -445,9 +445,9 @@ describe Ansible::Ruby::DslBuilders::Play do
   context 'invalid keyword' do
     let(:ruby) { 'foobar' }
 
-    subject { -> { evaluate } }
-
-    it { is_expected.to raise_error(%r{Invalid method/local variable `foobar'. Only valid options are \[:ansible_include.*}) }
+    it 'should raise an error' do
+      expect {evaluate}.to raise_error(%r{Invalid method/local variable `foobar'. Only valid options are \[:ansible_include.*})
+    end
   end
 
   context 'other attributes' do

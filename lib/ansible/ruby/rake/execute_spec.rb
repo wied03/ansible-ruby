@@ -166,9 +166,9 @@ describe Ansible::Ruby::Rake::Execute do
         # overriding parent so we can test error
       end
 
-      subject { -> { Ansible::Ruby::Rake::Execute.new } }
-
-      it { is_expected.to raise_error 'You did not supply any playbooks!' }
+      it 'should raise an error' do
+        expect {Ansible::Ruby::Rake::Execute.new}.to raise_error 'You did not supply any playbooks!'
+      end
     end
 
     context 'clean' do

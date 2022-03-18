@@ -101,9 +101,9 @@ describe Ansible::Ruby::DslBuilders::ModuleCall do
         RUBY
       end
 
-      subject { -> { evaluate } }
-
-      it { is_expected.to raise_error "Can't use arguments [\"howdy\"] on this type of module" }
+      it 'should raise an error' do
+        expect {evaluate}.to raise_error "Can't use arguments [\"howdy\"] on this type of module"
+      end
     end
 
     context 'no block' do
@@ -113,9 +113,9 @@ describe Ansible::Ruby::DslBuilders::ModuleCall do
         RUBY
       end
 
-      subject { -> { evaluate } }
-
-      it { is_expected.to raise_error 'You must supply a block when using this type of module' }
+      it 'should raise an error' do
+        expect {evaluate}.to raise_error 'You must supply a block when using this type of module'
+      end
     end
 
     context 'valid module' do
@@ -179,9 +179,9 @@ describe Ansible::Ruby::DslBuilders::ModuleCall do
           RUBY
         end
 
-        subject { -> { evaluate } }
-
-        it { is_expected.to raise_error 'Expected only 1 argument for this type of module' }
+        it 'should raise an error' do
+          expect {evaluate}.to raise_error 'Expected only 1 argument for this type of module'
+        end
       end
 
       context 'free form not supplied' do
@@ -193,9 +193,9 @@ describe Ansible::Ruby::DslBuilders::ModuleCall do
           RUBY
         end
 
-        subject { -> { evaluate } }
-
-        it { is_expected.to raise_error 'Expected 1 argument for this type of module' }
+        it 'should raise an error' do
+          expect {evaluate}.to raise_error  'Expected 1 argument for this type of module'
+        end
       end
 
       context 'argument not found' do
@@ -207,10 +207,8 @@ describe Ansible::Ruby::DslBuilders::ModuleCall do
           RUBY
         end
 
-        subject { -> { evaluate } }
-
-        it do
-          is_expected.to raise_error <<~ERROR
+        it 'should raise an error' do
+          expect {evaluate}.to raise_error <<~ERROR
             Unknown attribute 'bar' for Ansible::Ruby::Modules::Command.
 
             Valid attributes are: [:foo]
@@ -234,9 +232,9 @@ describe Ansible::Ruby::DslBuilders::ModuleCall do
       RUBY
     end
 
-    subject { -> { evaluate } }
-
-    it { is_expected.to raise_error "Validation failed: Dest can't be blank" }
+    it 'should raise an error' do
+      expect {evaluate}.to raise_error "Validation failed: Dest can't be blank"
+    end
   end
 
   context 'not found' do
@@ -250,8 +248,8 @@ describe Ansible::Ruby::DslBuilders::ModuleCall do
       RUBY
     end
 
-    subject { -> { evaluate } }
-
-    it { is_expected.to raise_error 'Unknown module foo_copy' }
+    it 'should raise an error' do
+      expect {evaluate}.to raise_error 'Unknown module foo_copy'
+    end
   end
 end

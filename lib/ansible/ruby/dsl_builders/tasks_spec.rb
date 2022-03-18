@@ -281,18 +281,21 @@ describe Ansible::Ruby::DslBuilders::Tasks do
 
   context 'invalid method' do
     let(:ruby) { 'foobar()' }
-    subject { -> { evaluate } }
 
     context 'tasks context' do
       let(:context) { :tasks }
 
-      it { is_expected.to raise_error "Invalid method/local variable `foobar'. Only [:task] is valid" }
+      it 'should raise an error' do
+        expect {evaluate}.to raise_error "Invalid method/local variable `foobar'. Only [:task] is valid"
+      end
     end
 
     context 'handler context' do
       let(:context) { :handlers }
 
-      it { is_expected.to raise_error "Invalid method/local variable `foobar'. Only [:handler] is valid" }
+      it 'should raise an error' do
+        expect {evaluate}.to raise_error  "Invalid method/local variable `foobar'. Only [:handler] is valid"
+      end
     end
   end
 
@@ -303,9 +306,9 @@ describe Ansible::Ruby::DslBuilders::Tasks do
         let(:singular) { type[0..-2] }
         let(:ruby) { "#{singular} { copy { src 'file1'\n dest 'file2'} }" }
 
-        subject { -> { evaluate } }
-
-        it { is_expected.to raise_error "Validation failed: Name can't be blank" }
+        it 'should raise an error' do
+          expect {evaluate}.to raise_error "Validation failed: Name can't be blank"
+        end
       end
     end
   end

@@ -27,9 +27,9 @@ describe Ansible::Ruby::DslBuilders::FileLevel do
     context 'empty' do
       let(:ruby) { '' }
 
-      subject { -> { evaluate } }
-
-      it { is_expected.to raise_error 'Must supply at least 1 handler/task/play!' }
+      it 'should raise an error' do
+        expect {evaluate}.to raise_error 'Must supply at least 1 handler/task/play!'
+      end
     end
 
     context 'with' do
@@ -147,9 +147,9 @@ describe Ansible::Ruby::DslBuilders::FileLevel do
   context 'invalid keyword' do
     let(:ruby) { 'foobar()' }
 
-    subject { -> { evaluate } }
-
-    it { is_expected.to raise_error "Invalid method/local variable `foobar'. Only valid options are [:task, :handler, :play]" }
+    it 'should raise an error' do
+      expect {evaluate}.to raise_error "Invalid method/local variable `foobar'. Only valid options are [:task, :handler, :play]"
+    end
   end
 
   context 'playbook' do
@@ -227,8 +227,6 @@ describe Ansible::Ruby::DslBuilders::FileLevel do
   end
 
   context 'change from play to task' do
-    subject { -> { evaluate } }
-
     let(:ruby) do
       <<-RUBY
       play 'the play name' do
@@ -245,12 +243,12 @@ describe Ansible::Ruby::DslBuilders::FileLevel do
       RUBY
     end
 
-    it { is_expected.to raise_error 'This is a playbook file, cannot use tasks here!' }
+    it 'should raise an error' do
+      expect {evaluate}.to raise_error 'This is a playbook file, cannot use tasks here!'
+    end
   end
 
   context 'change from task to play' do
-    subject { -> { evaluate } }
-
     let(:ruby) do
       <<-RUBY
       task 'Copy something else' do
@@ -267,7 +265,9 @@ describe Ansible::Ruby::DslBuilders::FileLevel do
       RUBY
     end
 
-    it { is_expected.to raise_error 'This is a tasks file, cannot use playbook here!' }
+    it 'should raise an error' do
+      expect {evaluate}.to raise_error 'This is a tasks file, cannot use playbook here!'
+    end
   end
 
   describe '#_handled_eval' do
